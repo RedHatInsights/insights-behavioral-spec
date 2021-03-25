@@ -7,9 +7,9 @@ Feature: Disabling rule in OCM user interface
       And user U1 exists for test organization
       And user U2 exists for test organization
      When user U1 tries to login to OCM UI
-     Then he should be logged in
+     Then user U1 should be logged in
      When user U2 tries to login to OCM UI
-     Then he should be logged in
+     Then user U2 should be logged in
 
 
   Scenario: Check if tutorial rule is visible for two test accounts
@@ -18,14 +18,14 @@ Feature: Disabling rule in OCM user interface
       And user U1 exists for test organization
       And user U2 exists for test organization
      When user U1 tries to login to OCM UI
-     Then he should be logged in
+     Then user U1 should be logged in
      When user selects cluster C1 from his organization
      Then the info about this cluster should be displayed on OCM UI
      When user selects Insights tab
      Then list of rule hits should be displayed on OCM UI
       And the Tutorial rule should be visible in list of rule hits
      When user U2 tries to login to OCM UI
-     Then he should be logged in
+     Then user U2 should be logged in
      When user selects cluster C1 from his organization
      Then the info about this cluster should be displayed on OCM UI
      When user selects Insights tab
@@ -38,7 +38,7 @@ Feature: Disabling rule in OCM user interface
       And CCX external data pipeline is in working state
       And user U1 exists for test organization
      When user U1 tries to login to OCM UI
-     Then he should be logged in
+     Then user U1 should be logged in
      When user selects cluster C1 from his organization
      Then the info about this cluster should be displayed on OCM UI
      When user selects Insights tab
@@ -53,7 +53,7 @@ Feature: Disabling rule in OCM user interface
       And CCX external data pipeline is in working state
       And user U2 exists for test organization
      When user U2 tries to login to OCM UI
-     Then he should be logged in
+     Then user U2 should be logged in
      When user selects cluster C1 from his organization
      Then the info about this cluster should be displayed on OCM UI
      When user selects Insights tab
@@ -66,7 +66,7 @@ Feature: Disabling rule in OCM user interface
       And CCX external data pipeline is in working state
       And user U1 exists for test organization
      When user U1 tries to login to OCM UI
-     Then he should be logged in
+     Then user U1 should be logged in
      When user selects cluster C1 from his organization
      Then the info about this cluster should be displayed on OCM UI
      When user selects Insights tab
@@ -81,7 +81,7 @@ Feature: Disabling rule in OCM user interface
       And CCX external data pipeline is in working state
       And user U2 exists for test organization
      When user U2 tries to login to OCM UI
-     Then he should be logged in
+     Then user U2 should be logged in
      When user selects cluster C1 from his organization
      Then the info about this cluster should be displayed on OCM UI
      When user selects Insights tab
@@ -94,7 +94,7 @@ Feature: Disabling rule in OCM user interface
       And CCX external data pipeline is in working state
       And user U1 exists for test organization
      When user U1 tries to login to OCM UI
-     Then he should be logged in
+     Then user U1 should be logged in
      When user selects cluster C1 from his organization
      Then the info about this cluster should be displayed on OCM UI
      When user selects Insights tab
