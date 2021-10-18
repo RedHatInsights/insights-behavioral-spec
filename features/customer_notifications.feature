@@ -39,30 +39,30 @@ Feature: Customer Notifications
 
 
   Scenario: Check that notification service produces instant notifications with the expected content
-     Given notification service is started
-       And notification service is configured to produce instant notifications on test_topic
-       And notification rules are available
-       And content has been retrieved from insights-content service
-      When notification database has new reports
-           | account number | cluster name                         | likelihood | impact | age
-           | 1              | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 4          | 3      | 1 
-           | 2              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 4          | 4      | 1 
-           | 1              | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 2          | 3      | 1
-           | 2              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 2          | 1      | 1
-           | 1              | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1          | 3      | 1
-           | 2              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 1          | 4      | 8
-       And notification database's reported table has no rows  
-      Then the notification service should read 5 reports younger than 7 days with current day included
-       And it should filter out 3 reports 
-       And it should create 1 new notification message for cluster 5d5892d4-1f74-4ccf-91af-548dfc9767aa of account 1 with total_risk=important
-       And it should create 1 new notification message for cluster 5d5892d4-2g85-4ccf-02bg-548dfc9767aa of account 2 with total_risk=critical
-       And all the notification messages have the instant notification event type
-       And each notification's events list has 1 event
-       And each event's payload is an escaped JSON string
-       And each notification's event's metadata is empty
-       And each notification's event's payload contains the fields expected by the instant email template
-       And each notification's context contains the fields expected by the instant email template
-       And it should produce 2 notification messages into the configured notification service's Kafka topic
+    Given notification service is started
+      And notification service is configured to produce instant notifications on test_topic
+      And notification rules are available
+      And content has been retrieved from insights-content service
+     When notification database has new reports
+          | account number | cluster name                         | likelihood | impact | age
+          | 1              | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 4          | 3      | 1 
+          | 2              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 4          | 4      | 1 
+          | 1              | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 2          | 3      | 1
+          | 2              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 2          | 1      | 1
+          | 1              | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1          | 3      | 1
+          | 2              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 1          | 4      | 8
+      And notification database's reported table has no rows  
+     Then the notification service should read 5 reports younger than 7 days with current day included
+      And it should filter out 3 reports 
+      And it should create 1 new notification message for cluster 5d5892d4-1f74-4ccf-91af-548dfc9767aa of account 1 with total_risk=important
+      And it should create 1 new notification message for cluster 5d5892d4-2g85-4ccf-02bg-548dfc9767aa of account 2 with total_risk=critical
+      And all the notification messages have the instant notification event type
+      And each notification's events list has 1 event
+      And each event's payload is an escaped JSON string
+      And each notification's event's metadata is empty
+      And each notification's event's payload contains the fields expected by the instant email template
+      And each notification's context contains the fields expected by the instant email template
+      And it should produce 2 notification messages into the configured notification service's Kafka topic
 
 
 
