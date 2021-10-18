@@ -2,7 +2,7 @@ Feature: List of clusters on OCM UI
 
   Scenario: Displaying info about no clusters on OCM UI ("empty list")
     Given console.redhat.com is accessible
-      And user U1 is already loged in into console.redhat.com
+      And user U1 is already logged in into console.redhat.com
       And user U1 is part of account (organization) owning no cluster
      When user U1 selects the item "OpenShift" from the left menu on console.redhat.com
      Then the OpenShift section page should be displayed
@@ -33,7 +33,7 @@ Feature: List of clusters on OCM UI
 
   Scenario: Displaying list of clusters on OCM UI
     Given console.redhat.com is accessible
-      And user U1 is already loged in into console.redhat.com
+      And user U1 is already logged in into console.redhat.com
       And user U1 is part of account (organization) owning at least one cluster registered on OCM UI
       And the cluster for an account is made active
      When user U1 selects the item "OpenShift" from the left menu on console.redhat.com
