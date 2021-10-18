@@ -1,4 +1,4 @@
-Feature: Login into console.redhat.com and to OCM UI
+Feature: Login into console.redhat.com
 
   Scenario: Login into console.redhat.com
     Given console.redhat.com is accessible
