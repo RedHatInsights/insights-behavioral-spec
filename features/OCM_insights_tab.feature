@@ -2,7 +2,7 @@ Feature: Insights tab on OCM UI
 
   Scenario: Insights tab for cluster without any issue
     Given console.redhat.com is accessible
-      And user U1 is already loged in into console.redhat.com
+      And user U1 is already logged in into console.redhat.com
       And user U1 switch to "OpenShift" page in console.redhat.com (OCM UI)
       And user U1 is part of account (organization) at least one cluster C1
       And the cluster C1 sent data to the external data pipeline
@@ -29,7 +29,7 @@ Feature: Insights tab on OCM UI
 
   Scenario: Insights tab for cluster that does not send any data
     Given console.redhat.com is accessible
-      And user U1 is already loged in into console.redhat.com
+      And user U1 is already logged in into console.redhat.com
       And user U1 switch to "OpenShift" page in console.redhat.com (OCM UI)
       And user U1 is part of account (organization) at least one cluster C1
       And the cluster C1 has not sent any data to the external data pipeline
@@ -55,7 +55,7 @@ Feature: Insights tab on OCM UI
 
   Scenario: Insights tab for cluster with 1 potential security issue identified
     Given console.redhat.com is accessible
-      And user U1 is already loged in into console.redhat.com
+      And user U1 is already logged in into console.redhat.com
       And user U1 switch to "OpenShift" page in console.redhat.com (OCM UI)
       And user U1 is part of account (organization) at least one cluster C1
       And the cluster C1 sent data to the external data pipeline
