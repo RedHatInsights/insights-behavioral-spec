@@ -23,7 +23,7 @@ Feature: Single rule page in OCM UI
      When user U1 clicks on tab named "Insights Advisor"
      Then new page should be displayed saying "1 potential issue identified"
       And the page should contains several sections
-      And "Recommendations by category section" should display the following data
+      And "Recommendations by category" section should display the following data
           | Attribute            | Value |
           | Fault Tolerance      | 0     |
           | Performance          | 0     |
