@@ -4,7 +4,7 @@ Feature: Cluster overview page on OCM UI
     Given console.redhat.com is accessible
       And user U1 is already logged in into console.redhat.com
       And user U1 switch to "OpenShift" page in console.redhat.com (OCM UI)
-      And user U1 is part of account (organization) at least one cluster C1
+      And user U1 is part of account (organization) with at least one cluster C1
       And the cluster C1 sent the data to CCX data pipeline
       And no issues have been detected for cluster C1
      When user U1 selects "Clusters" item from the menu
@@ -42,7 +42,7 @@ Feature: Cluster overview page on OCM UI
     Given console.redhat.com is accessible
       And user U1 is already logged in into console.redhat.com
       And user U1 switch to "OpenShift" page in console.redhat.com (OCM UI)
-      And user U1 is part of account (organization) at least one cluster C1
+      And user U1 is part of account (organization) with at least one cluster C1
       And the cluster C1 sent the data to CCX data pipeline
       And 1 critical issue has been detected for cluster C1
      When user U1 selects "Clusters" item from the menu
@@ -80,7 +80,7 @@ Feature: Cluster overview page on OCM UI
     Given console.redhat.com is accessible
       And user U1 is already logged in into console.redhat.com
       And user U1 switch to "OpenShift" page in console.redhat.com (OCM UI)
-      And user U1 is part of account (organization) at least one cluster C1
+      And user U1 is part of account (organization) with at least one cluster C1
       And the cluster C1 sent the data to CCX data pipeline
       And 1 critical issue has been detected for cluster C1
       And 1 low issue has been detected for cluster C1
@@ -119,7 +119,7 @@ Feature: Cluster overview page on OCM UI
     Given console.redhat.com is accessible
       And user U1 is already logged in into console.redhat.com
       And user U1 switch to "OpenShift" page in console.redhat.com (OCM UI)
-      And user U1 is part of account (organization) at least one cluster C1
+      And user U1 is part of account (organization) with at least one cluster C1
       And the cluster C1 sent the data to CCX data pipeline
       And 2 moderate issues have been detected for cluster C1
      When user U1 selects "Clusters" item from the menu
