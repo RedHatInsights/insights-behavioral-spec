@@ -123,3 +123,33 @@ Feature: Insights displayed on OCP WebConsole
           | 0 | Low        |
       And a section named "Fixable issues" should be shown below graph and a table
       And that section should contain a link named "View all in OpenShift Cluster Manager"
+
+
+  Scenario: Insights on OCP WebConsole for a cluster with 1 low issue and 2 critical issues
+    Given console.redhat.com is accessible
+      And user U1 is already logged in into console.redhat.com
+      And user U1 switch to "OpenShift" page in console.redhat.com (OCM UI)
+      And user U1 is part of account (organization) with at least one cluster C1
+      And the cluster C1 sent insights-operator archive to the external data pipeline
+      And exactly 2 critical issues has been detected for this cluster
+      And exactly 1 low risk issue has been detected for this cluster
+     When user U1 selects "Clusters" item from the menu
+     Then new page with list of clusters should be displayed
+     When user U1 click on cluster name
+     Then a page with detailed information about the selected cluster should be displayed
+      And button named "Open Console" should be displayed
+     When user U1 click on "Open Console" button
+     Then new page named "Overview" with OCP WebConsole content should be displayed
+      And clickable "Insights" label should be displayed on that page
+      And information about 1 issue found should be displayed below "Insights" label
+     When user U1 click on "Insights" label
+     Then pop-up window named "Insights status" should appear
+      And graph saying "3 total issues" should be displayed in this window
+      And following table should be displayed left-of the graph
+          | # | Total risk |
+          | 2 | Critical   |
+          | 0 | Important  |
+          | 0 | Moderate   |
+          | 1 | Low        |
+      And a section named "Fixable issues" should be shown below graph and a table
+      And that section should contain a link named "View all in OpenShift Cluster Manager"
