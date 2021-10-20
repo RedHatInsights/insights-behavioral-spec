@@ -43,3 +43,25 @@ Feature: Insights displayed on OCP WebConsole
       And an information "No insights data to display" is shown in this window
       And a sentence "The results will be displayed shortly" is shown in this window
       And a clickable link named "More about Insights" is shown as well
+
+
+  Scenario: Insights on OCP WebConsole for a situation when REST API is not accessbile
+    Given console.redhat.com is accessible
+      And user U1 is already logged in into console.redhat.com
+      And user U1 switch to "OpenShift" page in console.redhat.com (OCM UI)
+      And user U1 is part of account (organization) with at least one cluster C1
+      And the REST API of external data pipeline is not accessible
+     When user U1 selects "Clusters" item from the menu
+     Then new page with list of clusters should be displayed
+     When user U1 click on cluster name
+     Then a page with detailed information about the selected cluster should be displayed
+      And button named "Open Console" should be displayed
+     When user U1 click on "Open Console" button
+     Then new page named "Overview" with OCP WebConsole content should be displayed
+      And clickable "Insights" label should be displayed on that page
+      And information about no issues found should be displayed below "Insights" label
+     When user U1 click on "Insights" label
+     Then pop-up window should appear
+      And an information "Something went wrong" is shown in this window
+      And a clickable link "Red Hat support" is shown as well in this window
+      And a clickable link "status page" is shown as well in this window
