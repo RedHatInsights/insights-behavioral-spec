@@ -20,7 +20,7 @@ Feature: Cluster overview page on OCM UI
           | Monitoring       |
           | Insights Advisor |
           | Support          |
-      And following sectios should be displayed below four tab headers
+      And following sections should be displayed below four tab headers
           | Section name            |
           | Details                 |
           | Resource usage          |
@@ -58,7 +58,7 @@ Feature: Cluster overview page on OCM UI
           | Monitoring       |
           | Insights Advisor |
           | Support          |
-      And following sectios should be displayed below four tab headers
+      And following sections should be displayed below four tab headers
           | Section name            |
           | Details                 |
           | Resource usage          |
@@ -97,7 +97,7 @@ Feature: Cluster overview page on OCM UI
           | Monitoring       |
           | Insights Advisor |
           | Support          |
-      And following sectios should be displayed below four tab headers
+      And following sections should be displayed below four tab headers
           | Section name            |
           | Details                 |
           | Resource usage          |
@@ -135,7 +135,7 @@ Feature: Cluster overview page on OCM UI
           | Monitoring       |
           | Insights Advisor |
           | Support          |
-      And following sectios should be displayed below four tab headers
+      And following sections should be displayed below four tab headers
           | Section name            |
           | Details                 |
           | Resource usage          |
