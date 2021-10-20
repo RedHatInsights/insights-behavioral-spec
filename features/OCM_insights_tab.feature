@@ -32,7 +32,7 @@ Feature: Insights tab on OCM UI
       And user U1 is already logged in into console.redhat.com
       And user U1 switch to "OpenShift" page in console.redhat.com (OCM UI)
       And user U1 is part of account (organization) with at least one cluster C1
-      And the cluster C1 has not sent any data to the external data pipeline
+      And the cluster C1 has not sent insights-operator archive to the external data pipeline
      When user U1 selects "Clusters" item from the menu
      Then new page with list of clusters should be displayed
       And the page should contain at least one cluster
