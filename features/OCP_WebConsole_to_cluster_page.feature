@@ -36,7 +36,8 @@ Feature: Link from OCP WebConsole "Insights Advisor status" window to cluster pa
           | Monitoring       |
           | Insights Advisor |
           | Support          |
-      And following sections should be displayed below four tab headers
+      And "Overview" section should be selected
+      And following sections should be displayed in "Overview" section
           | Section name            |
           | Details                 |
           | Resource usage          |
