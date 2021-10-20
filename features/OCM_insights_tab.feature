@@ -27,7 +27,7 @@ Feature: Insights tab on OCM UI
      Then the page with title "Log in to your Red Hat account" is displayed
 
 
-  Scenario: Insights tab for cluster that does not send any data
+  Scenario: Insights tab for cluster that does not send any insights-operator archive
     Given console.redhat.com is accessible
       And user U1 is already logged in into console.redhat.com
       And user U1 switch to "OpenShift" page in console.redhat.com (OCM UI)
