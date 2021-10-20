@@ -30,13 +30,13 @@ Feature: Rule feedback ability
           | Performance          | 0     |
           | Security             | 1     |
           | Service Availability | 0     |
-      And exactly one rule name should be displayed in the third section
+      And exactly one recommendation name should be displayed in the third section
      When user expands the rule by clicking on ">" icon
      Then the description of such rule should be displayed
       And a link named "View details and remediation steps" should be provided as well
      When user click on the link named "View details and remediation steps"
      Then the new page should be loaded into web browser
-      And the page title should be the same as rule name
+      And the page title should be the same as recommendation name
       And the following tab headers should be displayed
           | Tab header       | Optional |
           | How to remediate | no       |
@@ -81,13 +81,13 @@ Feature: Rule feedback ability
           | Performance          | 0     |
           | Security             | 1     |
           | Service Availability | 0     |
-      And exactly one rule name should be displayed in the third section
+      And exactly one recommendation name should be displayed in the third section
      When user expands the rule by clicking on ">" icon
      Then the description of such rule should be displayed
       And a link named "View details and remediation steps" should be provided as well
      When user click on the link named "View details and remediation steps"
      Then the new page should be loaded into web browser
-      And the page title should be the same as rule name
+      And the page title should be the same as recommendation name
       And the following tab headers should be displayed
           | Tab header       | Optional |
           | How to remediate | no       |
@@ -144,13 +144,13 @@ Feature: Rule feedback ability
           | Performance          | 0     |
           | Security             | 1     |
           | Service Availability | 0     |
-      And exactly one rule name should be displayed in the third section
+      And exactly one recommendation name should be displayed in the third section
      When user expands the rule by clicking on ">" icon
      Then the description of such rule should be displayed
       And a link named "View details and remediation steps" should be provided as well
      When user click on the link named "View details and remediation steps"
      Then the new page should be loaded into web browser
-      And the page title should be the same as rule name
+      And the page title should be the same as recommendation name
       And the following tab headers should be displayed
           | Tab header       | Optional |
           | How to remediate | no       |
@@ -207,13 +207,13 @@ Feature: Rule feedback ability
           | Performance          | 0     |
           | Security             | 1     |
           | Service Availability | 0     |
-      And exactly one rule name should be displayed in the third section
+      And exactly one recommendation name should be displayed in the third section
      When user expands the rule by clicking on ">" icon
      Then the description of such rule should be displayed
       And a link named "View details and remediation steps" should be provided as well
      When user click on the link named "View details and remediation steps"
      Then the new page should be loaded into web browser
-      And the page title should be the same as rule name
+      And the page title should be the same as recommendation name
       And the following tab headers should be displayed
           | Tab header       | Optional |
           | How to remediate | no       |

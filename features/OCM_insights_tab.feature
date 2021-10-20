@@ -82,7 +82,7 @@ Feature: Insights tab on OCM UI
           | Performance          | 0     |
           | Security             | 1     |
           | Service Availability | 0     |
-      And exactly one rule name should be displayed in the third section
+      And exactly one recommendation name should be displayed in the third section
      When user expands the rule by clicking on ">" icon
      Then the description of such rule should be displayed
       And a link named "View details and remediation steps" should be provided as well
