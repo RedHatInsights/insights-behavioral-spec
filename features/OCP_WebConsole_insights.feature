@@ -18,7 +18,7 @@ Feature: Insights displayed on OCP WebConsole
       And clickable "Insights" label should be displayed on that page
       And information about no issues found should be displayed below "Insights" label
      When user U1 click on "Insights" label
-     Then pop-up window named "Insights status" should appear
+     Then pop-up window named "Insights Advisor status" should appear
       And an information "No insights data to display" is shown in this window
       And a clickable link named "More about Insights" is shown as well
 
@@ -39,7 +39,7 @@ Feature: Insights displayed on OCP WebConsole
       And clickable "Insights" label should be displayed on that page
       And information about no issues found should be displayed below "Insights" label
      When user U1 click on "Insights" label
-     Then pop-up window named "Insights status" should appear
+     Then pop-up window named "Insights Advisor status" should appear
       And an information "No insights data to display" is shown in this window
       And a sentence "The results will be displayed shortly" is shown in this window
       And a clickable link named "More about Insights" is shown as well
@@ -61,7 +61,7 @@ Feature: Insights displayed on OCP WebConsole
       And clickable "Insights" label should be displayed on that page
       And information about no issues found should be displayed below "Insights" label
      When user U1 click on "Insights" label
-     Then pop-up window named "Insights status" should appear
+     Then pop-up window named "Insights Advisor status" should appear
       And an information "Something went wrong" is shown in this window
       And a clickable link "Red Hat support" is shown as well in this window
       And a clickable link "status page" is shown as well in this window
@@ -84,7 +84,7 @@ Feature: Insights displayed on OCP WebConsole
       And clickable "Insights" label should be displayed on that page
       And information about 1 issue found should be displayed below "Insights" label
      When user U1 click on "Insights" label
-     Then pop-up window named "Insights status" should appear
+     Then pop-up window named "Insights Advisor status" should appear
       And graph saying "1 total issue" should be displayed in this window
       And following table should be displayed left-of the graph
           | # | Total risk |
@@ -113,7 +113,7 @@ Feature: Insights displayed on OCP WebConsole
       And clickable "Insights" label should be displayed on that page
       And information about 1 issue found should be displayed below "Insights" label
      When user U1 click on "Insights" label
-     Then pop-up window named "Insights status" should appear
+     Then pop-up window named "Insights Advisor status" should appear
       And graph saying "2 total issues" should be displayed in this window
       And following table should be displayed left-of the graph
           | # | Total risk |
@@ -143,7 +143,7 @@ Feature: Insights displayed on OCP WebConsole
       And clickable "Insights" label should be displayed on that page
       And information about 1 issue found should be displayed below "Insights" label
      When user U1 click on "Insights" label
-     Then pop-up window named "Insights status" should appear
+     Then pop-up window named "Insights Advisor status" should appear
       And graph saying "3 total issues" should be displayed in this window
       And following table should be displayed left-of the graph
           | # | Total risk |
@@ -174,7 +174,7 @@ Feature: Insights displayed on OCP WebConsole
       And clickable "Insights" label should be displayed on that page
       And information about 1 issue found should be displayed below "Insights" label
      When user U1 click on "Insights" label
-     Then pop-up window named "Insights status" should appear
+     Then pop-up window named "Insights Advisor status" should appear
       And graph saying "3 total issues" should be displayed in this window
       And following table should be displayed left-of the graph
           | # | Total risk |
@@ -203,7 +203,7 @@ Feature: Insights displayed on OCP WebConsole
       And clickable "Insights" label should be displayed on that page
       And information about 1 issue found should be displayed below "Insights" label
      When user U1 click on "Insights" label
-     Then pop-up window named "Insights status" should appear
+     Then pop-up window named "Insights Advisor status" should appear
       And graph saying "10 total issues" should be displayed in this window
       And following table should be displayed left-of the graph
           | #  | Total risk |
