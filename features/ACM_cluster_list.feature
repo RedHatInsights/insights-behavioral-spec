@@ -3,7 +3,7 @@ Feature: List of clusters on ACM
 
   Scenario: Displaying "Clusters" page on ACM for one managed clusters in Ready state managed by AWS infrastruture
     Given user U1 is part of account (organization) owning one managed cluster
-      And the infrastrucure for that managed cluster is provided by Amazon Web Services
+      And the infrastructure for that managed cluster is provided by Amazon Web Services
       And that managed cluster should be in Ready state
       And the user is already logged in into Advanced Cluster Management
      When user looks at Advanced Cluster Management main page
@@ -50,7 +50,7 @@ Feature: List of clusters on ACM
 
   Scenario: Displaying "Clusters" page on ACM for one managed clusters in Hibernating state managed by AWS infrastruture
     Given user U1 is part of account (organization) owning one managed cluster
-      And the infrastrucure for that managed cluster is provided by Amazon Web Services
+      And the infrastructure for that managed cluster is provided by Amazon Web Services
       And that managed cluster should be in Hibernating state
       And the user is already logged in into Advanced Cluster Management
      When user looks at Advanced Cluster Management main page
@@ -97,7 +97,7 @@ Feature: List of clusters on ACM
 
   Scenario: Displaying "Clusters" page on ACM for one managed clusters in Ready state managed by Google Cloud Platform
     Given user U1 is part of account (organization) owning one managed cluster
-      And the infrastrucure for that managed cluster is provided by Google Cloud Platform
+      And the infrastructure for that managed cluster is provided by Google Cloud Platform
       And that managed cluster should be in Ready state
       And the user is already logged in into Advanced Cluster Management
      When user looks at Advanced Cluster Management main page
@@ -144,7 +144,7 @@ Feature: List of clusters on ACM
 
   Scenario: Displaying "Clusters" page on ACM for one managed clusters in Ready state managed by Microsoft Azure
     Given user U1 is part of account (organization) owning one managed cluster
-      And the infrastrucure for that managed cluster is provided by Microsoft Azure
+      And the infrastructure for that managed cluster is provided by Microsoft Azure
       And that managed cluster should be in Ready state
       And the user is already logged in into Advanced Cluster Management
      When user looks at Advanced Cluster Management main page
