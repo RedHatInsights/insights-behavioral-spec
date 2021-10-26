@@ -37,7 +37,7 @@ Feature: Cluster issues section on Overview page on ACM UI
      When I look into "Cluster issues" section
      Then I should see a label saying "Cluster issues 0"
       And I should see a table with issue counters
-      And I should see a graph representing issue counts splitted by risk
+      And I should see a donut chart representing issue counts splitted by risk
      When I look at a table with issue counters
      Then issue counters should display
           | Severity  | Number | Color  |
@@ -45,8 +45,8 @@ Feature: Cluster issues section on Overview page on ACM UI
           | Important | 0      | orange |
           | Moderate  | 0      | yellow |
           | Low       | 0      | blue   |
-     When I look at a graph representing issue counts
-     Then the graph should display "0" in the centre
+     When I look at a donut chart representing issue counts
+     Then the donut chart should display "0" in the centre
 
 
   Scenario: Displaying "Cluster issues" section on "Overview" page - 1 cluster with 1 critical issue
@@ -85,7 +85,7 @@ Feature: Cluster issues section on Overview page on ACM UI
      When I look into "Cluster issues" section
      Then I should see a label saying "Cluster issues 1"
       And I should see a table with issue counters
-      And I should see a graph representing issue counts splitted by risk
+      And I should see a donut chart representing issue counts splitted by risk
      When I look at a table with issue counters
      Then issue counters should display
           | Severity  | Number | Color  |
@@ -93,8 +93,8 @@ Feature: Cluster issues section on Overview page on ACM UI
           | Important | 0      | orange |
           | Moderate  | 0      | yellow |
           | Low       | 0      | blue   |
-     When I look at a graph representing issue counts
-     Then the graph should display "1" in the centre
+     When I look at a donut chart representing issue counts
+     Then the donut chart should display "1" in the centre
       And should contain just red arc
 
 
@@ -134,7 +134,7 @@ Feature: Cluster issues section on Overview page on ACM UI
      When I look into "Cluster issues" section
      Then I should see a label saying "Cluster issues 1"
       And I should see a table with issue counters
-      And I should see a graph representing issue counts splitted by risk
+      And I should see a donut chart representing issue counts splitted by risk
      When I look at a table with issue counters
      Then issue counters should display
           | Severity  | Number | Color  |
@@ -142,8 +142,8 @@ Feature: Cluster issues section on Overview page on ACM UI
           | Important | 1      | orange |
           | Moderate  | 0      | yellow |
           | Low       | 0      | blue   |
-     When I look at a graph representing issue counts
-     Then the graph should display "1" in the centre
+     When I look at a donut chart representing issue counts
+     Then the donut chart should display "1" in the centre
       And should contain just orange arc
 
 
@@ -183,7 +183,7 @@ Feature: Cluster issues section on Overview page on ACM UI
      When I look into "Cluster issues" section
      Then I should see a label saying "Cluster issues 1"
       And I should see a table with issue counters
-      And I should see a graph representing issue counts splitted by risk
+      And I should see a donut chart representing issue counts splitted by risk
      When I look at a table with issue counters
      Then issue counters should display
           | Severity  | Number | Color  |
@@ -191,8 +191,8 @@ Feature: Cluster issues section on Overview page on ACM UI
           | Important | 0      | orange |
           | Moderate  | 1      | yellow |
           | Low       | 0      | blue   |
-     When I look at a graph representing issue counts
-     Then the graph should display "1" in the centre
+     When I look at a donut chart representing issue counts
+     Then the donut chart should display "1" in the centre
       And should contain just yellow arc
 
 
@@ -232,7 +232,7 @@ Feature: Cluster issues section on Overview page on ACM UI
      When I look into "Cluster issues" section
      Then I should see a label saying "Cluster issues 1"
       And I should see a table with issue counters
-      And I should see a graph representing issue counts splitted by risk
+      And I should see a donut chart representing issue counts splitted by risk
      When I look at a table with issue counters
      Then issue counters should display
           | Severity  | Number | Color  |
@@ -240,6 +240,6 @@ Feature: Cluster issues section on Overview page on ACM UI
           | Important | 0      | orange |
           | Moderate  | 0      | yellow |
           | Low       | 1      | blue   |
-     When I look at a graph representing issue counts
-     Then the graph should display "1" in the centre
+     When I look at a donut chart representing issue counts
+     Then the donut chart should display "1" in the centre
       And should contain just blue arc
