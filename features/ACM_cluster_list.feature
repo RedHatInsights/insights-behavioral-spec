@@ -2,13 +2,15 @@ Feature: List of clusters on ACM
 
 
   Scenario: Displaying "Clusters" page on ACM for one managed clusters in Ready state managed by AWS infrastruture
-    Given user U1 is part of account (organization) owning one managed cluster
+    Given user USER1 is part of account (organization) ACCOUNT1
+      And account (organization) ACCOUNT1 owns one managed cluster
       And the infrastructure for that managed cluster is provided by Amazon Web Services
       And that managed cluster should be in Ready state
-      And the user is already logged in into Advanced Cluster Management
+      And 0 issues are detected for this cluster
+      And the user USER1 is already logged in into Advanced Cluster Management
      When user looks at Advanced Cluster Management main page
      Then menu on the left side should be displayed
-      And the left menu might contian these top level items
+      And the left menu might contain these top level items
           | Left menu item      | Required for this test |
           | Home                | no                     |
           | Infrastructure      | yes                    |
@@ -32,8 +34,8 @@ Feature: List of clusters on ACM
           | Cluster pods        | no                     |
           | Discovered clusters | no                     |
       And the tab named "Managed clusters" needs to be displayed (selected)
-      And button "Create cluster" should be diplayed
-      And button "Import cluster" should be diplayed
+      And button "Create cluster" should be displayed
+      And button "Import cluster" should be displayed
       And the tab should contain a table with exactly 1 managed cluster
       And that table should contain following columns
           | Table column header                       |
@@ -49,13 +51,15 @@ Feature: List of clusters on ACM
 
 
   Scenario: Displaying "Clusters" page on ACM for one managed clusters in Hibernating state managed by AWS infrastruture
-    Given user U1 is part of account (organization) owning one managed cluster
+    Given user USER1 is part of account (organization) ACCOUNT1
+      And account (organization) ACCOUNT1 owns one managed cluster
       And the infrastructure for that managed cluster is provided by Amazon Web Services
       And that managed cluster should be in Hibernating state
-      And the user is already logged in into Advanced Cluster Management
+      And 0 issues are detected for this cluster
+      And the user USER1 is already logged in into Advanced Cluster Management
      When user looks at Advanced Cluster Management main page
      Then menu on the left side should be displayed
-      And the left menu might contian these top level items
+      And the left menu might contain these top level items
           | Left menu item      | Required for this test |
           | Home                | no                     |
           | Infrastructure      | yes                    |
@@ -79,8 +83,8 @@ Feature: List of clusters on ACM
           | Cluster pods        | no                     |
           | Discovered clusters | no                     |
       And the tab named "Managed clusters" needs to be displayed (selected)
-      And button "Create cluster" should be diplayed
-      And button "Import cluster" should be diplayed
+      And button "Create cluster" should be displayed
+      And button "Import cluster" should be displayed
       And the tab should contain a table with exactly 1 managed cluster
       And that table should contain following columns
           | Table column header                       |
@@ -96,13 +100,15 @@ Feature: List of clusters on ACM
 
 
   Scenario: Displaying "Clusters" page on ACM for one managed clusters in Ready state managed by Google Cloud Platform
-    Given user U1 is part of account (organization) owning one managed cluster
+    Given user USER1 is part of account (organization) ACCOUNT1
+      And account (organization) ACCOUNT1 owns one managed cluster
       And the infrastructure for that managed cluster is provided by Google Cloud Platform
       And that managed cluster should be in Ready state
-      And the user is already logged in into Advanced Cluster Management
+      And 0 issues are detected for this cluster
+      And the user USER1 is already logged in into Advanced Cluster Management
      When user looks at Advanced Cluster Management main page
      Then menu on the left side should be displayed
-      And the left menu might contian these top level items
+      And the left menu might contain these top level items
           | Left menu item      | Required for this test |
           | Home                | no                     |
           | Infrastructure      | yes                    |
@@ -126,8 +132,8 @@ Feature: List of clusters on ACM
           | Cluster pods        | no                     |
           | Discovered clusters | no                     |
       And the tab named "Managed clusters" needs to be displayed (selected)
-      And button "Create cluster" should be diplayed
-      And button "Import cluster" should be diplayed
+      And button "Create cluster" should be displayed
+      And button "Import cluster" should be displayed
       And the tab should contain a table with exactly 1 managed cluster
       And that table should contain following columns
           | Table column header                       |
@@ -143,13 +149,15 @@ Feature: List of clusters on ACM
 
 
   Scenario: Displaying "Clusters" page on ACM for one managed clusters in Ready state managed by Microsoft Azure
-    Given user U1 is part of account (organization) owning one managed cluster
+    Given user USER1 is part of account (organization) ACCOUNT1
+      And account (organization) ACCOUNT1 owns one managed cluster
       And the infrastructure for that managed cluster is provided by Microsoft Azure
       And that managed cluster should be in Ready state
-      And the user is already logged in into Advanced Cluster Management
+      And 0 issues are detected for this cluster
+      And the user USER1 is already logged in into Advanced Cluster Management
      When user looks at Advanced Cluster Management main page
      Then menu on the left side should be displayed
-      And the left menu might contian these top level items
+      And the left menu might contain these top level items
           | Left menu item      | Required for this test |
           | Home                | no                     |
           | Infrastructure      | yes                    |
@@ -173,8 +181,8 @@ Feature: List of clusters on ACM
           | Cluster pods        | no                     |
           | Discovered clusters | no                     |
       And the tab named "Managed clusters" needs to be displayed (selected)
-      And button "Create cluster" should be diplayed
-      And button "Import cluster" should be diplayed
+      And button "Create cluster" should be displayed
+      And button "Import cluster" should be displayed
       And the tab should contain a table with exactly 1 managed cluster
       And that table should contain following columns
           | Table column header                       |
