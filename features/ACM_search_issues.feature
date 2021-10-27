@@ -1,7 +1,7 @@
 Feature: Search for issues
 
 
-  Scenario: Ability to search for issues on Advanced Cluster Management
+  Scenario: Ability to search for issues on Advanced Cluster Management for one local cluster
     Given user USER1 is part of account (organization) ACCOUNT1
       And account (organization) ACCOUNT1 owns one local cluster
       And that local cluster should be in Ready state
@@ -71,7 +71,7 @@ Feature: Search for issues
           | Categories     | service_availability          |
 
 
-  Scenario: Ability to search for issues on Advanced Cluster Management
+  Scenario: Ability to search for issues on Advanced Cluster Management for one managed cluster
     Given user USER1 is part of account (organization) ACCOUNT1
       And account (organization) ACCOUNT1 owns one managed cluster
       And the infrastructure for that managed cluster is provided by Amazon Web Services
