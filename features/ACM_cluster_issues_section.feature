@@ -2,14 +2,15 @@ Feature: Cluster issues section on Overview page on ACM UI
 
 
   Scenario: Displaying "Cluster issues" section on "Overview" page - 1 cluster with no issues
-    Given user U1 is part of account (organization) owning one managed cluster
+    Given user USER1 is part of account (organization) ACCOUNT1
+      And account (organization) ACCOUNT1 owns one managed cluster
       And the infrastructure for that managed cluster is provided by Amazon Web Services
       And that managed cluster should be in Ready state
       And 0 issues is detected for this cluster
-      And the user is already logged in into Advanced Cluster Management
+      And the user USER1 is already logged in into Advanced Cluster Management
      When user looks at Advanced Cluster Management main page
      Then menu on the left side should be displayed
-      And the left menu might contian these top level items
+      And the left menu might contain these top level items
           | Left menu item      | Required for this test |
           | Home                | yes                    |
           | Infrastructure      | no                     |
@@ -50,14 +51,15 @@ Feature: Cluster issues section on Overview page on ACM UI
 
 
   Scenario: Displaying "Cluster issues" section on "Overview" page - 1 cluster with 1 critical issue
-    Given user U1 is part of account (organization) owning one managed cluster
+    Given user USER1 is part of account (organization) ACCOUNT1
+      And account (organization) ACCOUNT1 owns one managed cluster
       And the infrastructure for that managed cluster is provided by Amazon Web Services
       And that managed cluster should be in Ready state
       And 1 critical issue is detected for this cluster
-      And the user is already logged in into Advanced Cluster Management
+      And the user USER1 is already logged in into Advanced Cluster Management
      When user looks at Advanced Cluster Management main page
      Then menu on the left side should be displayed
-      And the left menu might contian these top level items
+      And the left menu might contain these top level items
           | Left menu item      | Required for this test |
           | Home                | yes                    |
           | Infrastructure      | no                     |
@@ -99,14 +101,15 @@ Feature: Cluster issues section on Overview page on ACM UI
 
 
   Scenario: Displaying "Cluster issues" section on "Overview" page - 1 cluster with 1 important issue
-    Given user U1 is part of account (organization) owning one managed cluster
+    Given user USER1 is part of account (organization) ACCOUNT1
+      And account (organization) ACCOUNT1 owns one managed cluster
       And the infrastructure for that managed cluster is provided by Amazon Web Services
       And that managed cluster should be in Ready state
       And 1 important issue is detected for this cluster
-      And the user is already logged in into Advanced Cluster Management
+      And the user USER1 is already logged in into Advanced Cluster Management
      When user looks at Advanced Cluster Management main page
      Then menu on the left side should be displayed
-      And the left menu might contian these top level items
+      And the left menu might contain these top level items
           | Left menu item      | Required for this test |
           | Home                | yes                    |
           | Infrastructure      | no                     |
@@ -148,14 +151,15 @@ Feature: Cluster issues section on Overview page on ACM UI
 
 
   Scenario: Displaying "Cluster issues" section on "Overview" page - 1 cluster with 1 moderate issue
-    Given user U1 is part of account (organization) owning one managed cluster
+    Given user USER1 is part of account (organization) ACCOUNT1
+      And account (organization) ACCOUNT1 owns one managed cluster
       And the infrastructure for that managed cluster is provided by Amazon Web Services
       And that managed cluster should be in Ready state
       And 1 moderate issue is detected for this cluster
-      And the user is already logged in into Advanced Cluster Management
+      And the user USER1 is already logged in into Advanced Cluster Management
      When user looks at Advanced Cluster Management main page
      Then menu on the left side should be displayed
-      And the left menu might contian these top level items
+      And the left menu might contain these top level items
           | Left menu item      | Required for this test |
           | Home                | yes                    |
           | Infrastructure      | no                     |
@@ -197,14 +201,15 @@ Feature: Cluster issues section on Overview page on ACM UI
 
 
   Scenario: Displaying "Cluster issues" section on "Overview" page - 1 cluster with 1 low issue
-    Given user U1 is part of account (organization) owning one managed cluster
+    Given user USER1 is part of account (organization) ACCOUNT1
+      And account (organization) ACCOUNT1 owns one managed cluster
       And the infrastructure for that managed cluster is provided by Amazon Web Services
       And that managed cluster should be in Ready state
       And 1 low issue is detected for this cluster
-      And the user is already logged in into Advanced Cluster Management
+      And the user USER1 is already logged in into Advanced Cluster Management
      When user looks at Advanced Cluster Management main page
      Then menu on the left side should be displayed
-      And the left menu might contian these top level items
+      And the left menu might contain these top level items
           | Left menu item      | Required for this test |
           | Home                | yes                    |
           | Infrastructure      | no                     |
