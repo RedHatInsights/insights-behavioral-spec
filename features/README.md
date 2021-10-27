@@ -123,6 +123,10 @@ Directory where feature files with scenarios and scenario outlines are stored.
 
 * Displaying "Cluster issues" section on "Overview" page - 1 cluster with 1 critical issue
 
+## `ACM_recommentation_description.feature`
+
+* Displaying description of recommendation found for 1 cluster with 1 critical issue
+
 ## `customer_notifications.feature`
 
 * Check that notification service has all the information it needs to work properly
