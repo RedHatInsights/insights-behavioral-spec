@@ -23,6 +23,14 @@ Behavioral specifications for Insights pipelines and its integration into OCM, O
 * [Link from OCP WebConsole "Insights Advisor status" window to cluster page on OCM UI](features/OCP_WebConsole_to_cluster_page.feature)
 
 
+### Advanced Cluster Management
+
+* [Overview page behaviour on Advanced Cluster Management](ACM_overview.page.feature)
+* [List of clusters on ACM](ACM_cluster_list.feature)
+* [Cluster issues section on Overview page on ACM UI](ACM_cluster_issues_section.feature)
+* [Search for issues](ACM_search_issues.feature)
+
+
 ### Customer Notifications
 
 * [Customer Notifications](features/customer_notifications.feature)
