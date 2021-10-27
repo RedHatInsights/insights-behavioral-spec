@@ -29,6 +29,7 @@ Behavioral specifications for Insights pipelines and its integration into OCM, O
 * [List of clusters on ACM](features/ACM_cluster_list.feature)
 * [Cluster issues section on Overview page on ACM UI](features/ACM_cluster_issues_section.feature)
 * [Search for issues](features/ACM_search_issues.feature)
+* [Cluster view with issues on ACM UI](features/ACM_cluster_view_with_issues.feature)
 
 
 ### Customer Notifications
