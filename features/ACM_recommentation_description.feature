@@ -1,4 +1,4 @@
-Feature: Cluster view with issues on ACM UI
+Feature: Recommendation description view
 
 
   Scenario: Displaying description of recommendation found for 1 cluster with 1 critical issue
