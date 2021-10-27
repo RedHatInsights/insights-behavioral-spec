@@ -93,6 +93,31 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Check if rule disabled on OCM UI is disabled on OCP WebConsole as well
 * Check if rule disabled on OCM UI by user U1 is disabled on OCP WebConsole for other users as well
 
+## `ACM_overview.page.feature`
+
+* Displaying "Overview" page on ACM for one managed cluster in Ready state managed by AWS infrastruture
+
+## `ACM_cluster_list.feature`
+
+* Displaying "Clusters" page on ACM for one managed clusters in Ready state managed by AWS infrastruture
+* Displaying "Clusters" page on ACM for one managed clusters in Hibernating state managed by AWS infrastruture
+* Displaying "Clusters" page on ACM for one managed clusters in Ready state managed by Google Cloud Platform
+* Displaying "Clusters" page on ACM for one managed clusters in Ready state managed by Microsoft Azure
+* Displaying "Clusters" page on ACM for two managed clusters
+
+## `ACM_cluster_issues_section`
+
+* Displaying "Cluster issues" section on "Overview" page - 1 cluster with no issues
+* Displaying "Cluster issues" section on "Overview" page - 1 cluster with 1 critical issue
+* Displaying "Cluster issues" section on "Overview" page - 1 cluster with 1 important issue
+* Displaying "Cluster issues" section on "Overview" page - 1 cluster with 1 moderate issue
+* Displaying "Cluster issues" section on "Overview" page - 1 cluster with 1 low issue
+* Displaying "Cluster issues" section on "Overview" page - 2 clusters each having 1 low issue
+
+## `ACM_search_issues.feature`
+
+* Ability to search for issues on Advanced Cluster Management
+
 ## `customer_notifications.feature`
 
 * Check that notification service has all the information it needs to work properly
