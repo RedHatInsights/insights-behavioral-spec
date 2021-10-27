@@ -116,7 +116,12 @@ Directory where feature files with scenarios and scenario outlines are stored.
 
 ## `ACM_search_issues.feature`
 
-* Ability to search for issues on Advanced Cluster Management
+* Ability to search for issues on Advanced Cluster Management for one local cluster
+* Ability to search for issues on Advanced Cluster Management for one managed cluster
+
+## `ACM_cluster_view_with_issues.feature`
+
+* Displaying "Cluster issues" section on "Overview" page - 1 cluster with 1 critical issue
 
 ## `customer_notifications.feature`
 
