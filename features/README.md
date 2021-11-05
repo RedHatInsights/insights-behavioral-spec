@@ -127,6 +127,11 @@ Directory where feature files with scenarios and scenario outlines are stored.
 
 * Displaying description of recommendation found for 1 cluster with 1 critical issue
 
+## `Insights_Advisor_recommendations_page.feature`
+
+* Displaying Advisor's "Recommendations" page on Hybrid Cloud Console without any recommendations
+* Displaying Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation
+
 ## `customer_notifications.feature`
 
 * Check that notification service has all the information it needs to work properly
