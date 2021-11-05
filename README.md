@@ -33,6 +33,10 @@ Behavioral specifications for Insights pipelines and its integration into OCM, O
 * [Recommendation description view](features/ACM_recommentation_description.feature)
 
 
+### Insights Advisor
+
+* [Advisor recommendations page behaviour on Hybrid Cloud Console](features/Insights_Advisor_recommendations_page.feature)
+
 ### Customer Notifications
 
 * [Customer Notifications](features/customer_notifications.feature)
