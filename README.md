@@ -37,6 +37,7 @@ Behavioral specifications for Insights pipelines and its integration into OCM, O
 
 * [Advisor recommendations page behaviour on Hybrid Cloud Console](features/Insights_Advisor_recommendations_page.feature)
 * [Expanding information about selected recommendation](features/Insights_Advisor_recommendations_expanded_info.feature)
+* [Pagination feature in Advisor recommendations page on Hybrid Cloud Console](features/Insights_Advisor_recommendations_page_pagination.feature)
 
 ### Customer Notifications
 
