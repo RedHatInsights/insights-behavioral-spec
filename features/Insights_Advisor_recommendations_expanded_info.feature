@@ -55,6 +55,9 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
           | Total risk  | Important           | Widget (icon+label)       |
           | Likelihood  | High                | Widget (thermometer-like) |
           | Impact      | High                | Widget (thermometer-like) |
+     When user clicks on an "expand" arrow
+     Then additional information about selected recommendation should be hidden
+      And the "expand" arrow should point to east
 
 
   Scenario: Displaying expanded information about selected recommendation with medium likelihood and low impact
@@ -111,6 +114,9 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
           | Total risk  | Low                 | Widget (icon+label)       |
           | Likelihood  | Medium              | Widget (thermometer-like) |
           | Impact      | Low                 | Widget (thermometer-like) |
+     When user clicks on an "expand" arrow
+     Then additional information about selected recommendation should be hidden
+      And the "expand" arrow should point to east
 
 
   Scenario: Displaying expanded information about selected recommendation with critical likelihood and low impact
@@ -167,3 +173,6 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
           | Total risk  | Moderate            | Widget (icon+label)       |
           | Likelihood  | Critical            | Widget (thermometer-like) |
           | Impact      | Low                 | Widget (thermometer-like) |
+     When user clicks on an "expand" arrow
+     Then additional information about selected recommendation should be hidden
+      And the "expand" arrow should point to east
