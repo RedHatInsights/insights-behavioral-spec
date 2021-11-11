@@ -147,6 +147,12 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Goto to previous page in Advisor recommendations page on Hybrid Cloud Console using top right pagination widget
 * Goto to first page in Advisor recommendations page on Hybrid Cloud Console using top right pagination widget
 
+## `Insights_Advisor_affected_clusters_page.feature`
+
+* Displaying Advisor's "Affected clusters" page on Hybrid Cloud Console with at least one recommendation and one cluster
+* Displaying Advisor's "Affected clusters" page on Hybrid Cloud Console with at least one recommendation and two clusters
+* Pagination on "Affected clusters" page on Hybrid Cloud Console with more than 10 clusters
+
 ## `customer_notifications.feature`
 
 * Check that notification service has all the information it needs to work properly
