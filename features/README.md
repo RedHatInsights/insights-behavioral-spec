@@ -139,6 +139,14 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Displaying expanded information about selected recommendation with medium likelihood and low impact
 * Displaying expanded information about selected recommendation with critical likelihood and low impact
 
+## `Insights_Advisor_recommendations_page_pagination.feature`
+
+* Pagination widgets displayed in Advisor recommendations page on Hybrid Cloud Console
+* Goto to next page in Advisor recommendations page on Hybrid Cloud Console using top right pagination widget
+* Goto to last page in Advisor recommendations page on Hybrid Cloud Console using top right pagination widget
+* Goto to previous page in Advisor recommendations page on Hybrid Cloud Console using top right pagination widget
+* Goto to first page in Advisor recommendations page on Hybrid Cloud Console using top right pagination widget
+
 ## `customer_notifications.feature`
 
 * Check that notification service has all the information it needs to work properly
