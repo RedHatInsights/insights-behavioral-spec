@@ -130,7 +130,14 @@ Directory where feature files with scenarios and scenario outlines are stored.
 ## `Insights_Advisor_recommendations_page.feature`
 
 * Displaying Advisor's "Recommendations" page on Hybrid Cloud Console without any recommendations
-* Displaying Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation
+* Displaying Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and one cluster
+* Displaying Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
+
+## `Insights_Advisor_recommendations_expanded_info.feature`
+
+* Displaying expanded information about selected recommendation with high likelihood and high impact
+* Displaying expanded information about selected recommendation with medium likelihood and low impact
+* Displaying expanded information about selected recommendation with critical likelihood and low impact
 
 ## `customer_notifications.feature`
 
