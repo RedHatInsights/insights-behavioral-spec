@@ -43,8 +43,10 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
           | Total risk  | Important   |
           | Clusters    | 1           |
       And an "expand" arrow should be displayed before recommendation name
+      And the "expand" arrow should point to east
      When user clicks on an "expand" arrow
      Then additional information about selected recommendation should be displayed below a row with recommendation info
+      And the "expand" arrow should point to south
      When user looks at expanded information
      Then the following values needs to be displayed
           | Value type  | Content             | Displayed as              |
@@ -97,8 +99,10 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
           | Total risk  | Low         |
           | Clusters    | 1           |
       And an "expand" arrow should be displayed before recommendation name
+      And the "expand" arrow should point to east
      When user clicks on an "expand" arrow
      Then additional information about selected recommendation should be displayed below a row with recommendation info
+      And the "expand" arrow should point to south
      When user looks at expanded information
      Then the following values needs to be displayed
           | Value type  | Content             | Displayed as              |
@@ -151,9 +155,11 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
           | Total risk  | Low         |
           | Clusters    | 1           |
       And an "expand" arrow should be displayed before recommendation name
+      And the "expand" arrow should point to east
      When user clicks on an "expand" arrow
      Then additional information about selected recommendation should be displayed below a row with recommendation info
      When user looks at expanded information
+      And the "expand" arrow should point to south
      Then the following values needs to be displayed
           | Value type  | Content             | Displayed as              |
           | Description | Textual description | Text                      |
