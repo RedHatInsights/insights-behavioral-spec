@@ -147,6 +147,18 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Goto to previous page in Advisor recommendations page on Hybrid Cloud Console using top right pagination widget
 * Goto to first page in Advisor recommendations page on Hybrid Cloud Console using top right pagination widget
 
+## `Insights_Advisor_recommendations_filtering.feature`
+
+* Default filter on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
+* Reset filter on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
+* Set filter "Name" on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
+* Set filter "Total risk" on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
+* Set filter "Clusters impacted" on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
+* Reset filter to default value on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
+* Set filter "Category" on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
+* Set filter "Likelihood" on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
+* No-op action in filter menu on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
+
 ## `Insights_Advisor_affected_clusters_page.feature`
 
 * Displaying Advisor's "Affected clusters" page on Hybrid Cloud Console with at least one recommendation and one cluster
