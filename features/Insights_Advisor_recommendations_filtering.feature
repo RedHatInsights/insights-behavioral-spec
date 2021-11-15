@@ -691,3 +691,62 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
           | High   | 10 days ago | Important  | 1        |
           | Medium | 10 days ago | Important  | 1        |
           | Low    | 10 days ago | Important  | 1        |
+
+
+  Scenario: No-op action in filter menu on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
+    Given user USER1 is part of account (organization) ACCOUNT1
+      And account (organization) ACCOUNT1 owns 2 clusters
+          | Cluster name                         |
+          | 00000000-0000-0000-0000-000000000000 |
+          | 11111111-0000-0000-0000-000000000000 |
+      And 3 issues are detected for cluster 00000000-0000-0000-0000-000000000000
+          | Title  | Added       | Total risk | Likelihood |
+          | High   | 10 days ago | Important  | High       |
+          | Medium | 10 days ago | Important  | Medium     |
+          | Low    | 10 days ago | Important  | Low        |
+      And the user USER1 is already logged in into Hybrid Cloud Console
+     When user looks at Hybrid Cloud Console main page
+     Then menu on the left side should be displayed
+      And the left menu might contain these top level items
+          | Left menu item           | Required for this test |
+          | Overview                 | no                     |
+          | Releases                 | no                     |
+          | Downloads                | no                     |
+          | Advisor                  | yes                    |
+          | Subscriptions            | no                     |
+          | Cost Management          | no                     |
+          | Cluster Manager Feedback | no                     |
+          | Red Hat Marketplace      | no                     |
+          | Documentation            | no                     |
+     When user expand "Advisor" top level item
+     Then the menu should be expanded under "Advisor" top level item
+      And following new items should be displayed in the sub-menu on the left side
+          | Expanded menu item  | Required for this test |
+          | Clusters            | no                     |
+          | Recommendations     | yes                    |
+     When user select "Recommendations" menu item from this sub-menu
+     Then an "Advisor recommendations" page should be displayed right of the left menu bar
+      And widget with filter settings should be displayed
+      And table with several columns should be displayed
+          | Column name |
+          | Name        |
+          | Added       |
+          | Total risk  |
+          | Clusters    |
+      And that table should contain exactly 3 roww
+          | Name   | Added       | Total risk | Clusters |
+          | High   | 10 days ago | Important  | 1        |
+          | Medium | 10 days ago | Important  | 1        |
+          | Low    | 10 days ago | Important  | 1        |
+      And one filter needs to be preselected
+          | Filter name       | Tag         |
+          | Clusters impacted | 1 or more   |
+     When user selects "Likelihood" in filter names pull-down menu
+     Then search input field becomes a pull-down menu with several options
+          | Option name |
+          | Critical    |
+          | High        |
+          | Medium      |
+          | Low         |
+     When user select "None" from the rigth pull-down menu
+     Then content of the table will remain unchanged
