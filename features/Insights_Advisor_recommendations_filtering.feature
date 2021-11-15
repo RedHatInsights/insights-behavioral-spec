@@ -42,7 +42,7 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
       And that table should contain exactly 1 row
           | Name        | Added       | Total risk | Clusters |
           | Bug12345    | 10 days ago | Important  | 1        |
-      And one filter needs to be preselenced
+      And one filter needs to be preselected
           | Filter name       | Tag         |
           | Clusters impacted | 1 or more   |
 
@@ -92,7 +92,7 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
       And that table should contain exactly 1 row
           | Name        | Added       | Total risk | Clusters |
           | Bug12345    | 10 days ago | Important  | 1        |
-      And one filter needs to be preselenced
+      And one filter needs to be preselected
           | Filter name       | Tag         |
           | Clusters impacted | 1 or more   |
      When user clicks on "x" icon displayed on "1 or more" filter tag
@@ -149,7 +149,7 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
       And that table should contain exactly 1 row
           | Name        | Added       | Total risk | Clusters |
           | Bug12345    | 10 days ago | Important  | 1        |
-      And one filter needs to be preselenced
+      And one filter needs to be preselected
           | Filter name       | Tag         |
           | Clusters impacted | 1 or more   |
      When user clicks on "x" icon displayed on "1 or more" filter tag
@@ -170,7 +170,7 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
       And that table should contain exactly 1 row
           | Name        | Added       | Total risk | Clusters |
           | Abc12345    | 10 days ago | Important  | 0        |
-      And one filter needs to be preselenced
+      And one filter needs to be preselected
           | Filter name | Tag     |
           | Name        | "Abc"   |
      When user clicks on "x" icon displayed on "Abc" filter tag
@@ -232,7 +232,7 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
       And that table should contain exactly 1 row
           | Name        | Added       | Total risk | Clusters |
           | Bug12345    | 10 days ago | Important  | 1        |
-      And one filter needs to be preselenced
+      And one filter needs to be preselected
           | Filter name       | Tag         |
           | Clusters impacted | 1 or more   |
      When user clicks on "x" icon displayed on "1 or more" filter tag
@@ -253,7 +253,7 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
       And that table should contain exactly 1 row
           | Name        | Added       | Total risk | Clusters |
           | Xyz12345    | 10 days ago | Moderate   | 0        |
-      And one filter needs to be preselenced
+      And one filter needs to be preselected
           | Filter name | Tag        |
           | Total risk  | "Moderate" |
      When user clicks on "x" icon displayed on "Moderate" filter tag
@@ -315,7 +315,7 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
       And that table should contain exactly 1 row
           | Name        | Added       | Total risk | Clusters |
           | Bug12345    | 10 days ago | Important  | 1        |
-      And one filter needs to be preselenced
+      And one filter needs to be preselected
           | Filter name       | Tag         |
           | Clusters impacted | 1 or more   |
      When user clicks on "x" icon displayed on "1 or more" filter tag
@@ -336,7 +336,7 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
       And that table should contain exactly 1 row
           | Name        | Added       | Total risk | Clusters |
           | Bug12345    | 10 days ago | Important  | 1        |
-      And one filter needs to be preselenced
+      And one filter needs to be preselected
           | Filter name       | Tag       |
           | Clusters impacted | 1 or more |
      When user clicks on "x" icon displayed on "1 or more" filter tag
@@ -398,7 +398,7 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
       And that table should contain exactly 1 row
           | Name        | Added       | Total risk | Clusters |
           | Bug12345    | 10 days ago | Important  | 1        |
-      And one filter needs to be preselenced
+      And one filter needs to be preselected
           | Filter name       | Tag         |
           | Clusters impacted | 1 or more   |
      When user clicks on "x" icon displayed on "1 or more" filter tag
@@ -419,7 +419,7 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
       And that table should contain exactly 1 row
           | Name        | Added       | Total risk | Clusters |
           | Xyz12345    | 10 days ago | Moderate   | 0        |
-      And one filter needs to be preselenced
+      And one filter needs to be preselected
           | Filter name | Tag        |
           | Total risk  | "Moderate" |
      When user clicks on "Reset filters" link
@@ -434,7 +434,7 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
           | Abc12345    | 10 days ago | Important  | 0        |
           | Bug12345    | 10 days ago | Important  | 1        |
           | Xyz12345    | 10 days ago | Moderate   | 0        |
-      And one filter needs to be preselenced
+      And one filter needs to be preselected
           | Filter name       | Tag         |
           | Clusters impacted | 1 or more   |
 
@@ -484,7 +484,7 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
           | PerfBug  | 10 days ago | Important  | 1        |
           | FaultBug | 10 days ago | Important  | 1        |
           | Security | 10 days ago | Important  | 1        |
-      And one filter needs to be preselenced
+      And one filter needs to be preselected
           | Filter name       | Tag         |
           | Clusters impacted | 1 or more   |
      When user clicks on "x" icon displayed on "1 or more" filter tag
@@ -505,7 +505,7 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
       And that table should contain exactly 1 row
           | Name     | Added       | Total risk | Clusters |
           | PerfBug  | 10 days ago | Important  | 1        |
-      And one filter needs to be preselenced
+      And one filter needs to be preselected
           | Filter name       | Tag         |
           | Category          | Performance |
      When user selects "Category" in filter names pull-down menu
@@ -520,7 +520,7 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
           | Name     | Added       | Total risk | Clusters |
           | PerfBug  | 10 days ago | Important  | 1        |
           | FaultBug | 10 days ago | Important  | 1        |
-      And two filters needs to be preselenced
+      And two filters needs to be preselected
           | Filter name       | Tag             |
           | Category          | Performance     |
           | Category          | Fault Tolerance |
@@ -593,7 +593,7 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
           | High   | 10 days ago | Important  | 1        |
           | Medium | 10 days ago | Important  | 1        |
           | Low    | 10 days ago | Important  | 1        |
-      And one filter needs to be preselenced
+      And one filter needs to be preselected
           | Filter name       | Tag         |
           | Clusters impacted | 1 or more   |
      When user clicks on "x" icon displayed on "1 or more" filter tag
@@ -614,7 +614,7 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
       And that table should contain exactly 1 row
           | Name   | Added       | Total risk | Clusters |
           | High   | 10 days ago | Important  | 1        |
-      And one filter needs to be preselenced
+      And one filter needs to be preselected
           | Filter name | Tag  |
           | Likelihood  | High |
      When user selects "Likelihood" in filter names pull-down menu
@@ -629,7 +629,7 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
           | Name   | Added       | Total risk | Clusters |
           | High   | 10 days ago | Important  | 1        |
           | Low    | 10 days ago | Important  | 1        |
-      And two filters needs to be preselenced
+      And two filters needs to be preselected
           | Filter name | Tag  |
           | Likelihood  | High |
           | Likelihood  | Low  |
