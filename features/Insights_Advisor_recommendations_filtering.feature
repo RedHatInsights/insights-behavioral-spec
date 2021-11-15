@@ -243,7 +243,13 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
           | Xyz12345    | 10 days ago | Moderate   | 0        |
       And filter widget should consists of filter names pull-down menu and filter search input field
      When user selects "Total risk" in filter names pull-down menu
-      And user select "Moderate" from the rigth pull-down menu
+     Then search input field becomes a pull-down menu with several options
+          | Option name |
+          | Critical    |
+          | Important   |
+          | Moderate    |
+          | Low         |
+     When user select "Moderate" from the rigth pull-down menu
      Then table with several columns should be displayed
           | Column name |
           | Name        |
@@ -409,7 +415,13 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
           | Xyz12345    | 10 days ago | Moderate   | 0        |
       And filter widget should consists of filter names pull-down menu and filter search input field
      When user selects "Total risk" in filter names pull-down menu
-      And user select "Moderate" from the rigth pull-down menu
+     Then search input field becomes a pull-down menu with several options
+          | Option name |
+          | Critical    |
+          | Important   |
+          | Moderate    |
+          | Low         |
+     When user select "Moderate" from the rigth pull-down menu
      Then table with several columns should be displayed
           | Column name |
           | Name        |
@@ -495,7 +507,13 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
           | Security | 10 days ago | Important  | 1        |
       And filter widget should consists of filter names pull-down menu and filter search input field
      When user selects "Category" in filter names pull-down menu
-      And user select "Performance" from the rigth pull-down menu
+     Then search input field becomes a pull-down menu with several options
+          | Option |
+          | Service Availability |
+          | Performance          |
+          | Fault Tolerance      |
+          | Security             |
+     When user select "Performance" from the rigth pull-down menu
      Then table with several columns should be displayed
           | Column name |
           | Name        |
@@ -509,7 +527,13 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
           | Filter name       | Tag         |
           | Category          | Performance |
      When user selects "Category" in filter names pull-down menu
-      And user select "Fault tolerance" from the rigth pull-down menu
+     Then search input field becomes a pull-down menu with several options
+          | Option |
+          | Service Availability |
+          | Performance          |
+          | Fault Tolerance      |
+          | Security             |
+     When user select "Fault tolerance" from the rigth pull-down menu
      Then table with several columns should be displayed
           | Column name |
           | Name        |
@@ -604,7 +628,13 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
           | Low    | 10 days ago | Important  | 1        |
       And filter widget should consists of filter names pull-down menu and filter search input field
      When user selects "Likelihood" in filter names pull-down menu
-      And user select "High" from the rigth pull-down menu
+     Then search input field becomes a pull-down menu with several options
+          | Option name |
+          | Critical    |
+          | High        |
+          | Medium      |
+          | Low         |
+     When user select "High" from the rigth pull-down menu
      Then table with several columns should be displayed
           | Column name |
           | Name        |
@@ -618,7 +648,13 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
           | Filter name | Tag  |
           | Likelihood  | High |
      When user selects "Likelihood" in filter names pull-down menu
-      And user select "Low" from the rigth pull-down menu
+     Then search input field becomes a pull-down menu with several options
+          | Option name |
+          | Critical    |
+          | High        |
+          | Medium      |
+          | Low         |
+     When user select "Low" from the rigth pull-down menu
      Then table with several columns should be displayed
           | Column name |
           | Name        |
