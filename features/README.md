@@ -133,7 +133,7 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Displaying Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and one cluster
 * Displaying Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
 
-## `Insights_Advisor_recommendations_expanded_info.feature`
+## `Insights_Advisor_recommendations_page_expanded_info.feature`
 
 * Displaying expanded information about selected recommendation with high likelihood and high impact
 * Displaying expanded information about selected recommendation with medium likelihood and low impact
@@ -147,7 +147,7 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Goto to previous page in Advisor recommendations page on Hybrid Cloud Console using top right pagination widget
 * Goto to first page in Advisor recommendations page on Hybrid Cloud Console using top right pagination widget
 
-## `Insights_Advisor_recommendations_filtering.feature`
+## `Insights_Advisor_recommendations_page_filtering.feature`
 
 * Default filter on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
 * Reset filter on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
