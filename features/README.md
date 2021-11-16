@@ -159,6 +159,15 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Set filter "Likelihood" on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
 * No-op action in filter menu on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
 
+## `Insights_Advisor_recommendations_page_sorting.feature`
+
+* Default sorting on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
+* Sorting by name on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
+* Sorting by total risk on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
+* Sorting by clusters on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
+* Sorting by added at on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
+* Sorting by different columns at on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
+
 ## `Insights_Advisor_affected_clusters_page.feature`
 
 * Displaying Advisor's "Affected clusters" page on Hybrid Cloud Console with at least one recommendation and one cluster
