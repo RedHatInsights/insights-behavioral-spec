@@ -187,6 +187,16 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * On-the-fly filtering by name on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
 * Ability to clear filter on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
 
+## `Insights_Advisor_cluster_page.feature`
+
+* Cluster view page on Hybrid Cloud Console with five recommendations and one cluster
+* Recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
+* Expanded recommendation on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
+* Folding recommendation on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
+* Expanding recommendation on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
+* Expanding all recommendations on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
+* Collapsing all recommendations on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
+
 ## `customer_notifications.feature`
 
 * Check that notification service has all the information it needs to work properly
