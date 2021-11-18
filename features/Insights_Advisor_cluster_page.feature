@@ -57,13 +57,14 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
       When user clicks on cluster name (00000000-0000-0000-0000-000000000000)
       Then a new page needs to be displayd
        And that page should contain following controls and widgets
-          | Control/widget  | Content                                                  |
-          | Page title      | Advisor clusters -> 00000000-0000-0000-0000-000000000000 |
-          | Cluster name    | 00000000-0000-0000-0000-000000000000                     |
-          | Cluster UUID    | 00000000-0000-0000-0000-000000000000                     |
-          | Filter widget   | Filter selection, addional widget, "Collapse all" button |
-          | Active filter   | Status "Enabled" + Reset filters link                    |
-          | Recommendations | Table containing list of recommendations                 |
+          | Control/widget  | Content                                                               |
+          | Page title      | Advisor clusters -> 00000000-0000-0000-0000-000000000000              |
+          | Cluster name    | 00000000-0000-0000-0000-000000000000                                  |
+          | Cluster UUID    | 00000000-0000-0000-0000-000000000000                                  |
+          | Expand/collapse | Icon > or v controlling expansion and collapse of all recommendations |
+          | Filter widget   | Filter selection, addional widget, "Collapse all" button              |
+          | Active filter   | Status "Enabled" + Reset filters link                                 |
+          | Recommendations | Table containing list of recommendations                              |
 
 
   Scenario: Recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
@@ -123,13 +124,14 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
       When user clicks on cluster name (00000000-0000-0000-0000-000000000000)
       Then a new page needs to be displayd
        And that page should contain following controls and widgets
-          | Control/widget  | Content                                                  |
-          | Page title      | Advisor clusters -> 00000000-0000-0000-0000-000000000000 |
-          | Cluster name    | 00000000-0000-0000-0000-000000000000                     |
-          | Cluster UUID    | 00000000-0000-0000-0000-000000000000                     |
-          | Filter widget   | Filter selection, addional widget, "Collapse all" button |
-          | Active filter   | Status "Enabled" + Reset filters link                    |
-          | Recommendations | Table containing list of recommendations                 |
+          | Control/widget  | Content                                                               |
+          | Page title      | Advisor clusters -> 00000000-0000-0000-0000-000000000000              |
+          | Cluster name    | 00000000-0000-0000-0000-000000000000                                  |
+          | Cluster UUID    | 00000000-0000-0000-0000-000000000000                                  |
+          | Expand/collapse | Icon > or v controlling expansion and collapse of all recommendations |
+          | Filter widget   | Filter selection, addional widget, "Collapse all" button              |
+          | Active filter   | Status "Enabled" + Reset filters link                                 |
+          | Recommendations | Table containing list of recommendations                              |
      When user look at "Recommendations" table
      Then table with several columns should be displayed
           | Column name |
@@ -201,13 +203,14 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
       When user clicks on cluster name (00000000-0000-0000-0000-000000000000)
       Then a new page needs to be displayd
        And that page should contain following controls and widgets
-          | Control/widget  | Content                                                  |
-          | Page title      | Advisor clusters -> 00000000-0000-0000-0000-000000000000 |
-          | Cluster name    | 00000000-0000-0000-0000-000000000000                     |
-          | Cluster UUID    | 00000000-0000-0000-0000-000000000000                     |
-          | Filter widget   | Filter selection, addional widget, "Collapse all" button |
-          | Active filter   | Status "Enabled" + Reset filters link                    |
-          | Recommendations | Table containing list of recommendations                 |
+          | Control/widget  | Content                                                               |
+          | Page title      | Advisor clusters -> 00000000-0000-0000-0000-000000000000              |
+          | Cluster name    | 00000000-0000-0000-0000-000000000000                                  |
+          | Cluster UUID    | 00000000-0000-0000-0000-000000000000                                  |
+          | Expand/collapse | Icon > or v controlling expansion and collapse of all recommendations |
+          | Filter widget   | Filter selection, addional widget, "Collapse all" button              |
+          | Active filter   | Status "Enabled" + Reset filters link                                 |
+          | Recommendations | Table containing list of recommendations                              |
      When user look at "Recommendations" table
      Then table with several columns should be displayed
           | Column name |
@@ -285,13 +288,14 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
       When user clicks on cluster name (00000000-0000-0000-0000-000000000000)
       Then a new page needs to be displayd
        And that page should contain following controls and widgets
-          | Control/widget  | Content                                                  |
-          | Page title      | Advisor clusters -> 00000000-0000-0000-0000-000000000000 |
-          | Cluster name    | 00000000-0000-0000-0000-000000000000                     |
-          | Cluster UUID    | 00000000-0000-0000-0000-000000000000                     |
-          | Filter widget   | Filter selection, addional widget, "Collapse all" button |
-          | Active filter   | Status "Enabled" + Reset filters link                    |
-          | Recommendations | Table containing list of recommendations                 |
+          | Control/widget  | Content                                                               |
+          | Page title      | Advisor clusters -> 00000000-0000-0000-0000-000000000000              |
+          | Cluster name    | 00000000-0000-0000-0000-000000000000                                  |
+          | Cluster UUID    | 00000000-0000-0000-0000-000000000000                                  |
+          | Expand/collapse | Icon > or v controlling expansion and collapse of all recommendations |
+          | Filter widget   | Filter selection, addional widget, "Collapse all" button              |
+          | Active filter   | Status "Enabled" + Reset filters link                                 |
+          | Recommendations | Table containing list of recommendations                              |
      When user look at "Recommendations" table
      Then table with several columns should be displayed
           | Column name |
@@ -371,13 +375,14 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
       When user clicks on cluster name (00000000-0000-0000-0000-000000000000)
       Then a new page needs to be displayd
        And that page should contain following controls and widgets
-          | Control/widget  | Content                                                  |
-          | Page title      | Advisor clusters -> 00000000-0000-0000-0000-000000000000 |
-          | Cluster name    | 00000000-0000-0000-0000-000000000000                     |
-          | Cluster UUID    | 00000000-0000-0000-0000-000000000000                     |
-          | Filter widget   | Filter selection, addional widget, "Collapse all" button |
-          | Active filter   | Status "Enabled" + Reset filters link                    |
-          | Recommendations | Table containing list of recommendations                 |
+          | Control/widget  | Content                                                               |
+          | Page title      | Advisor clusters -> 00000000-0000-0000-0000-000000000000              |
+          | Cluster name    | 00000000-0000-0000-0000-000000000000                                  |
+          | Cluster UUID    | 00000000-0000-0000-0000-000000000000                                  |
+          | Expand/collapse | Icon > or v controlling expansion and collapse of all recommendations |
+          | Filter widget   | Filter selection, addional widget, "Collapse all" button              |
+          | Active filter   | Status "Enabled" + Reset filters link                                 |
+          | Recommendations | Table containing list of recommendations                              |
      When user look at "Recommendations" table
      Then table with several columns should be displayed
           | Column name |
