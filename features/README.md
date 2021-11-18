@@ -197,6 +197,13 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Expanding all recommendations on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
 * Collapsing all recommendations on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
 
+## `Insights_Advisor_cluster_page_sorting.feature`
+
+* Default sort order in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
+* Sorting by description in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
+* Sorting by added at in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
+* Sorting by total risk at in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
+
 ## `customer_notifications.feature`
 
 * Check that notification service has all the information it needs to work properly
