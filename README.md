@@ -42,6 +42,7 @@ Behavioral specifications for Insights pipelines and its integration into OCM, O
 * [Sorting feature in Advisor recommendations page on Hybrid Cloud Console](features/Insights_Advisor_recommendations_page_sorting.feature)
 * [Cluster view page with recommendations behaviour on Hybrid Cloud Console](features/Insights_Advisor_affected_clusters_page.feature)
 * [Sorting feature in Affected clusters page on Hybrid Cloud Console](features/Insights_Advisor_affected_clusters_sorting.feature)
+* [Filtering feature in Affected clusters page on Hybrid Cloud Console](features/Insights_Advisor_affected_clusters_filtering.feature)
 
 ### Customer Notifications
 
