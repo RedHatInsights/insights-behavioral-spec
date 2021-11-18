@@ -160,7 +160,7 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
      When user clicks on ↕ symbol in "Description" column title
      Then table with recommendations should be rearranged
           | Column name | Sort | Highlighted |
-          | Description | ↓    | yes         |
+          | Description | ↑    | yes         |
           | Added       | ↕    | no          |
           | Total risk  | ↕    | no          |
       And the table should contain following rows in that order
@@ -169,10 +169,10 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
           | 2     | Bug12345    | 10 days ago | Critical   | yes        |
           | 3     | Uvw12345    | 10 days ago | Low        | no         |
           | 4     | Xyz12345    | 10 days ago | Moderate   | no         |
-     When user clicks on ↓ symbol in "Description" column title
+     When user clicks on ↑ symbol in "Description" column title
      Then table with recommendations should be rearranged
           | Column name | Sort | Highlighted |
-          | Description | ↑    | yes         |
+          | Description | ↓    | yes         |
           | Added       | ↕    | no          |
           | Total risk  | ↕    | no          |
       And the table should contain following rows in that order
@@ -264,19 +264,7 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
      Then table with recommendations should be rearranged
           | Column name | Sort | Highlighted |
           | Description | ↕    | no          |
-          | Added       | ↓    | yes         |
-          | Total risk  | ↕    | no          |
-      And the table should contain following rows in that order
-          | Index | Description | Added       | Total risk | (Expanded) |
-          | 1     | Bug12345    | 10 days ago | Critical   | yes        |
-          | 2     | Abc12345    | 20 days ago | Important  | no         |
-          | 3     | Xyz12345    | 30 days ago | Moderate   | no         |
-          | 4     | Uvw12345    | 40 days ago | Low        | no         |
-     When user clicks on ↓ symbol in "Added" column title
-     Then table with recommendations should be rearranged
-          | Column name | Sort | Highlighted |
-          | Description | ↕    | yes         |
-          | Added       | ↑    | no          |
+          | Added       | ↑    | yes         |
           | Total risk  | ↕    | no          |
       And the table should contain following rows in that order
           | Index | Description | Added       | Total risk | (Expanded) |
@@ -284,6 +272,18 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
           | 2     | Xyz12345    | 30 days ago | Moderate   | no         |
           | 3     | Abc12345    | 20 days ago | Important  | no         |
           | 4     | Bug12345    | 10 days ago | Critical   | yes        |
+     When user clicks on ↑ symbol in "Added" column title
+     Then table with recommendations should be rearranged
+          | Column name | Sort | Highlighted |
+          | Description | ↕    | yes         |
+          | Added       | ↓    | no          |
+          | Total risk  | ↕    | no          |
+      And the table should contain following rows in that order
+          | Index | Description | Added       | Total risk | (Expanded) |
+          | 1     | Bug12345    | 10 days ago | Critical   | yes        |
+          | 2     | Abc12345    | 20 days ago | Important  | no         |
+          | 3     | Xyz12345    | 30 days ago | Moderate   | no         |
+          | 4     | Uvw12345    | 40 days ago | Low        | no         |
 
 
   Scenario: Sorting by total risk at in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
@@ -368,6 +368,18 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
           | Column name | Sort | Highlighted |
           | Description | ↕    | no          |
           | Added       | ↕    | no          |
+          | Total risk  | ↑    | yes         |
+      And the table should contain following rows in that order
+          | Index | Description | Added       | Total risk | (Expanded) |
+          | 1     | Uvw12345    | 40 days ago | Low        | no         |
+          | 2     | Xyz12345    | 30 days ago | Moderate   | no         |
+          | 3     | Abc12345    | 20 days ago | Important  | no         |
+          | 4     | Bug12345    | 10 days ago | Critical   | yes        |
+     When user clicks on ↑ symbol in "Total risk" column title
+     Then table with recommendations should be rearranged
+          | Column name | Sort | Highlighted |
+          | Description | ↕    | no          |
+          | Added       | ↕    | no          |
           | Total risk  | ↓    | yes         |
       And the table should contain following rows in that order
           | Index | Description | Added       | Total risk | (Expanded) |
@@ -375,15 +387,3 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
           | 2     | Abc12345    | 20 days ago | Important  | no         |
           | 3     | Xyz12345    | 30 days ago | Moderate   | no         |
           | 4     | Uvw12345    | 40 days ago | Low        | no         |
-     When user clicks on ↓ symbol in "Total risk" column title
-     Then table with recommendations should be rearranged
-          | Column name | Sort | Highlighted |
-          | Description | ↕    | no          |
-          | Added       | ↕    | no          |
-          | Total risk  | ↑    | yes         |
-      And the table should contain following rows in that order
-          | Index | Description | Added       | Total risk | (Expanded) |
-          | 4     | Uvw12345    | 40 days ago | Low        | no         |
-          | 3     | Xyz12345    | 30 days ago | Moderate   | no         |
-          | 2     | Abc12345    | 20 days ago | Important  | no         |
-          | 1     | Bug12345    | 10 days ago | Critical   | yes        |
