@@ -204,6 +204,17 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Sorting by added at in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
 * Sorting by total risk at in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
 
+## `Insights_Advisor_cluster_page_filtering.feature`
+
+* Default filtering in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
+* Filtering by description in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
+* Filtering by total risk in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
+* Filtering by multiple total risk values in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
+* Filtering by category in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
+* Filtering by multiple categories in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
+* Filtering by status in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
+* Filtering by status all in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
+
 ## `customer_notifications.feature`
 
 * Check that notification service has all the information it needs to work properly
