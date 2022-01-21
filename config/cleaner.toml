@@ -1,0 +1,16 @@
+[storage]
+db_driver = "postgres"
+pg_username = "postgres"
+pg_password = "postgres"
+pg_host = "localhost"
+pg_port = 5432
+pg_db_name = "test"
+pg_params = "sslmode=disable"
+
+[logging]
+debug = true
+log_level = ""
+
+[cleaner]
+max_age = "90 days"
+cluster_list_file = "cluster_list.txt"
