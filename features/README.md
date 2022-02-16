@@ -223,3 +223,12 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Check that notification are sent to user when events are sent to the notification service's kafka topic
 * Check that instant notification does not include the same reports as in previous notification
 * Check that notification service does not flood custer with unnecessary instant emails
+
+## `sha_extractor.feature`
+
+* Check that SHA exctractor service has all the information it needs to work properly
+* Check if SHA extractor is able to consume messages from Kafka
+* Check if SHA extractor is able to consume messages from Kafka and download tarball
+* Check if SHA extractor is able to consume messages from Kafka, download tarball, and take SHA images
+* Check if SHA extractor is able to finish the processing of SHA images
+
