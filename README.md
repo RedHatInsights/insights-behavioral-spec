@@ -51,4 +51,8 @@ Behavioral specifications for Insights pipelines and its integration into OCM, O
 
 * [Customer Notifications](features/customer_notifications.feature)
 
+### SHA Extractor
+
+* [SHA Extractor](features/sha_extractor.feature)
+
 List of scenarios can be seen [there](features/README.md)
