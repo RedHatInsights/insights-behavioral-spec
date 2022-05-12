@@ -1,4 +1,4 @@
-Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Console should show the cluster version
+Feature: Recommendations view page with recommendations behaviour on Hybrid Cloud Console should show the cluster version
 
 
     Scenario: Displaying Advisor's "Affected clusters" page on Hybrid Cloud Console with at least one recommendation and one cluster should show the cluster version
