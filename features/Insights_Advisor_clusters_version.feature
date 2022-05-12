@@ -1,12 +1,16 @@
 Feature: Clusters view page with recommendations behaviour on Hybrid Cloud Console should show the cluster version
 
 
-    Scenario: Displaying Advisor's "Affected clusters" page on Hybrid Cloud Console with at least one recommendation and one cluster should show the cluster version
+    Scenario: Displaying Advisor's "Affected clusters" page on Hybrid Cloud Console should show the cluster version
         Given user USER1 is part of account (organization) ACCOUNT1
         And account (organization) ACCOUNT1 owns 1 cluster
             | Cluster name                         | Version |
             | 00000000-0000-0000-0000-000000000000 | 0.0     |
+            | 11111111-0000-0000-0000-000000000000 |         |
         And 1 issue is detected for cluster 00000000-0000-0000-0000-000000000000
+            | Title    | Added       | Total risk | Likelihood | Impact |
+            | Bug12345 | 10 days ago | Important  | high       | high   |
+        And 1 issue is detected for cluster 11111111-0000-0000-0000-000000000000
             | Title    | Added       | Total risk | Likelihood | Impact |
             | Bug12345 | 10 days ago | Important  | high       | high   |
         And the user USER1 is already logged in into Hybrid Cloud Console
@@ -42,10 +46,19 @@ Feature: Clusters view page with recommendations behaviour on Hybrid Cloud Conso
             | Moderate        |
             | Low             |
             | Last Seen       |
-        And that table should contain at least one row
+        And that table should contain this row
             | Column name     | Value                                |
             | Name            | 00000000-0000-0000-0000-000000000000 |
             | Version         | 0.0                                  |
+            | Recommendations | 1                                    |
+            | Critical        | 0                                    |
+            | Important       | 1                                    |
+            | Moderate        | 0                                    |
+            | Low             | 0                                    |
+        And that table should contain this row
+            | Column name     | Value                                |
+            | Name            | 11111111-0000-0000-0000-000000000000 |
+            | Version         | N/A                                  |
             | Recommendations | 1                                    |
             | Critical        | 0                                    |
             | Important       | 1                                    |

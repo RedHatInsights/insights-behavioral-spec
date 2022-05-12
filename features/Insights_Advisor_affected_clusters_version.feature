@@ -64,7 +64,7 @@ Feature: Recommendations view page with recommendations behaviour on Hybrid Clou
         And account (organization) ACCOUNT1 owns 2 clusters
             | Cluster name                         | Version |
             | 00000000-0000-0000-0000-000000000000 | 0.0     |
-            | 11111111-0000-0000-0000-000000000000 | 1.0     |
+            | 11111111-0000-0000-0000-000000000000 |         |
         And 1 issue is detected for cluster 00000000-0000-0000-0000-000000000000
             | Title    | Added       | Total risk | Likelihood | Impact |
             | Bug12345 | 10 days ago | Important  | high       | high   |
@@ -118,7 +118,7 @@ Feature: Recommendations view page with recommendations behaviour on Hybrid Clou
         And "Affected clusters" table needs to be displayed below additional info
             | Name                                 | Clickable (link) | Version |
             | 00000000-0000-0000-0000-000000000000 | yes              | 0.0     |
-            | 11111111-0000-0000-0000-000000000000 | yes              | 1.0     |
+            | 11111111-0000-0000-0000-000000000000 | yes              | N/A     |
         And paging widget should say "1-2 of 2"
 
 
