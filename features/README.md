@@ -221,6 +221,10 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Filtering by status in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
 * Filtering by status all in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
 
+## `Insights_Advisor_cluster_version.feature`
+
+* Displaying Advisor's "Affected clusters" page on Hybrid Cloud Console with at least one recommendation and one cluster should show the cluster version
+
 ## `customer_notifications.feature`
 
 * Check that notification service has all the information it needs to work properly
