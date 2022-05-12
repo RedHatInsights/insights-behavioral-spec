@@ -180,6 +180,12 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Sorting by name on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
 * Sorting by name in different order on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
 
+## `Insights_Advisor_affected_clusters_version.feature`
+
+* Displaying Advisor's "Affected clusters" page on Hybrid Cloud Console with at least one recommendation and one cluster should show the cluster version
+* Displaying Advisor's "Affected clusters" page on Hybrid Cloud Console with at least one recommendation and two clusters should show the cluster version
+* Pagination on "Affected clusters" page on Hybrid Cloud Console with more than 10 clusters should show the cluster version
+
 ## `Insights_Advisor_affected_clusters_filtering.feature`
 
 * Default filtering on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
