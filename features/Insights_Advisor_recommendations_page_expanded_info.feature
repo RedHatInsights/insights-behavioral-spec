@@ -49,12 +49,12 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
       And the "expand" arrow should point to south
      When user looks at expanded information
      Then the following values needs to be displayed
-          | Value type  | Content             | Displayed as              |
-          | Description | Textual description | Text                      |
-          | KB article  | Link to KB article  | Link                      |
-          | Total risk  | Important           | Widget (icon+label)       |
-          | Likelihood  | High                | Widget (thermometer-like) |
-          | Impact      | High                | Widget (thermometer-like) |
+          | Value type  | Content             | Displayed as              | Optional |
+          | Description | Textual description | Text                      | no       |
+          | KB article  | Link to KB article  | Link                      | yes      |
+          | Total risk  | Important           | Widget (icon+label)       | no       |
+          | Likelihood  | High                | Widget (thermometer-like) | no       |
+          | Impact      | High                | Widget (thermometer-like) | no       |
      When user clicks on an "expand" arrow
      Then additional information about selected recommendation should be hidden
       And the "expand" arrow should point to east
@@ -108,9 +108,9 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
       And the "expand" arrow should point to south
      When user looks at expanded information
      Then the following values needs to be displayed
-          | Value type  | Content             | Displayed as              |
-          | Description | Textual description | Text                      |
-          | KB article  | Link to KB article  | Link                      |
+          | Value type  | Content             | Displayed as              | Optional |
+          | Description | Textual description | Text                      | no       |
+          | KB article  | Link to KB article  | Link                      | yes      |
           | Total risk  | Low                 | Widget (icon+label)       |
           | Likelihood  | Medium              | Widget (thermometer-like) |
           | Impact      | Low                 | Widget (thermometer-like) |
@@ -167,9 +167,9 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
      When user looks at expanded information
       And the "expand" arrow should point to south
      Then the following values needs to be displayed
-          | Value type  | Content             | Displayed as              |
-          | Description | Textual description | Text                      |
-          | KB article  | Link to KB article  | Link                      |
+          | Value type  | Content             | Displayed as              | Optional |
+          | Description | Textual description | Text                      | no       |
+          | KB article  | Link to KB article  | Link                      | yes      |
           | Total risk  | Moderate            | Widget (icon+label)       |
           | Likelihood  | Critical            | Widget (thermometer-like) |
           | Impact      | Low                 | Widget (thermometer-like) |

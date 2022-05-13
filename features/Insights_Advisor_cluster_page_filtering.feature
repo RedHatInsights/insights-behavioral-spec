@@ -46,12 +46,12 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              |
-          | Description | Textual description | Text                      |
-          | KB article  | Link to KB article  | Link                      |
-          | Total risk  | Important           | Widget (icon+label)       |
-          | Likelihood  | High                | Widget (thermometer-like) |
-          | Impact      | High                | Widget (thermometer-like) |
+          | Value type  | Content             | Displayed as              | Optional |
+          | Description | Textual description | Text                      | no       |
+          | KB article  | Link to KB article  | Link                      | yes      |
+          | Total risk  | Important           | Widget (icon+label)       | no       |
+          | Likelihood  | High                | Widget (thermometer-like) | no       |
+          | Impact      | High                | Widget (thermometer-like) | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -131,12 +131,12 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              |
-          | Description | Textual description | Text                      |
-          | KB article  | Link to KB article  | Link                      |
-          | Total risk  | Important           | Widget (icon+label)       |
-          | Likelihood  | High                | Widget (thermometer-like) |
-          | Impact      | High                | Widget (thermometer-like) |
+          | Value type  | Content             | Displayed as              | Optional |
+          | Description | Textual description | Text                      | no       |
+          | KB article  | Link to KB article  | Link                      | yes      |
+          | Total risk  | Important           | Widget (icon+label)       | no       |
+          | Likelihood  | High                | Widget (thermometer-like) | no       |
+          | Impact      | High                | Widget (thermometer-like) | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -233,12 +233,12 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              |
-          | Description | Textual description | Text                      |
-          | KB article  | Link to KB article  | Link                      |
-          | Total risk  | Important           | Widget (icon+label)       |
-          | Likelihood  | High                | Widget (thermometer-like) |
-          | Impact      | High                | Widget (thermometer-like) |
+          | Value type  | Content             | Displayed as              | Optional |
+          | Description | Textual description | Text                      | no       |
+          | KB article  | Link to KB article  | Link                      | yes      |
+          | Total risk  | Important           | Widget (icon+label)       | no       |
+          | Likelihood  | High                | Widget (thermometer-like) | no       |
+          | Impact      | High                | Widget (thermometer-like) | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -338,12 +338,12 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              |
-          | Description | Textual description | Text                      |
-          | KB article  | Link to KB article  | Link                      |
-          | Total risk  | Important           | Widget (icon+label)       |
-          | Likelihood  | High                | Widget (thermometer-like) |
-          | Impact      | High                | Widget (thermometer-like) |
+          | Value type  | Content             | Displayed as              | Optional |
+          | Description | Textual description | Text                      | no       |
+          | KB article  | Link to KB article  | Link                      | yes      |
+          | Total risk  | Important           | Widget (icon+label)       | no       |
+          | Likelihood  | High                | Widget (thermometer-like) | no       |
+          | Impact      | High                | Widget (thermometer-like) | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -453,12 +453,12 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              |
-          | Description | Textual description | Text                      |
-          | KB article  | Link to KB article  | Link                      |
-          | Total risk  | Important           | Widget (icon+label)       |
-          | Likelihood  | High                | Widget (thermometer-like) |
-          | Impact      | High                | Widget (thermometer-like) |
+          | Value type  | Content             | Displayed as              | Optional |
+          | Description | Textual description | Text                      | no       |
+          | KB article  | Link to KB article  | Link                      | yes      |
+          | Total risk  | Important           | Widget (icon+label)       | no       |
+          | Likelihood  | High                | Widget (thermometer-like) | no       |
+          | Impact      | High                | Widget (thermometer-like) | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -558,12 +558,12 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              |
-          | Description | Textual description | Text                      |
-          | KB article  | Link to KB article  | Link                      |
-          | Total risk  | Important           | Widget (icon+label)       |
-          | Likelihood  | High                | Widget (thermometer-like) |
-          | Impact      | High                | Widget (thermometer-like) |
+          | Value type  | Content             | Displayed as              | Optional |
+          | Description | Textual description | Text                      | no       |
+          | KB article  | Link to KB article  | Link                      | yes      |
+          | Total risk  | Important           | Widget (icon+label)       | no       |
+          | Likelihood  | High                | Widget (thermometer-like) | no       |
+          | Impact      | High                | Widget (thermometer-like) | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -674,12 +674,12 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              |
-          | Description | Textual description | Text                      |
-          | KB article  | Link to KB article  | Link                      |
-          | Total risk  | Important           | Widget (icon+label)       |
-          | Likelihood  | High                | Widget (thermometer-like) |
-          | Impact      | High                | Widget (thermometer-like) |
+          | Value type  | Content             | Displayed as              | Optional |
+          | Description | Textual description | Text                      | no       |
+          | KB article  | Link to KB article  | Link                      | yes      |
+          | Total risk  | Important           | Widget (icon+label)       | no       |
+          | Likelihood  | High                | Widget (thermometer-like) | no       |
+          | Impact      | High                | Widget (thermometer-like) | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -794,12 +794,12 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              |
-          | Description | Textual description | Text                      |
-          | KB article  | Link to KB article  | Link                      |
-          | Total risk  | Important           | Widget (icon+label)       |
-          | Likelihood  | High                | Widget (thermometer-like) |
-          | Impact      | High                | Widget (thermometer-like) |
+          | Value type  | Content             | Displayed as              | Optional |
+          | Description | Textual description | Text                      | no       |
+          | KB article  | Link to KB article  | Link                      | yes      |
+          | Total risk  | Important           | Widget (icon+label)       | no       |
+          | Likelihood  | High                | Widget (thermometer-like) | no       |
+          | Impact      | High                | Widget (thermometer-like) | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
