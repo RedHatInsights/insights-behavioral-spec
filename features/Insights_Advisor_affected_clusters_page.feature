@@ -7,7 +7,7 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 1 issue is detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk | Likelihood | Impact |
+          | Title    | Modified    | Total risk | Likelihood | Impact |
           | Bug12345 | 10 days ago | Important  | high       | high   |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -35,24 +35,24 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
       And table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain at least one row
           | Column name | Value       |
           | Name        | Bug1234     |
-          | Added       | 10 days ago |
+          | Modified    | 10 days ago |
           | Total risk  | Important   |
           | Clusters    | 1           |
      When user clicks on an "Bug1234" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              |
-          | Description | Textual description | Text                      |
-          | KB article  | Link to KB article  | Link                      |
-          | Total risk  | Important           | Widget (icon+label)       |
-          | Likelihood  | High                | Widget (thermometer-like) |
-          | Impact      | High                | Widget (thermometer-like) |
+          | Value type  | Content             | Displayed as              | Optional |
+          | Description | Textual description | Text                      | no       |
+          | KB article  | Link to KB article  | Link                      | yes      |
+          | Total risk  | Important           | Widget (icon+label)       | no       |
+          | Likelihood  | High                | Widget (thermometer-like) | no       |
+          | Impact      | High                | Widget (thermometer-like) | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -66,10 +66,10 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
           | 00000000-0000-0000-0000-000000000000 |
           | 11111111-0000-0000-0000-000000000000 |
       And 1 issue is detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk | Likelihood | Impact |
+          | Title    | Modified    | Total risk | Likelihood | Impact |
           | Bug12345 | 10 days ago | Important  | high       | high   |
       And 1 issue is detected for cluster 11111111-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk | Likelihood | Impact |
+          | Title    | Modified    | Total risk | Likelihood | Impact |
           | Bug12345 | 10 days ago | Important  | high       | high   |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -97,24 +97,24 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
       And table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain at least one row
           | Column name | Value       |
           | Name        | Bug1234     |
-          | Added       | 10 days ago |
+          | Modified    | 10 days ago |
           | Total risk  | Important   |
           | Clusters    | 2           |
      When user clicks on an "Bug1234" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              |
-          | Description | Textual description | Text                      |
-          | KB article  | Link to KB article  | Link                      |
-          | Total risk  | Important           | Widget (icon+label)       |
-          | Likelihood  | High                | Widget (thermometer-like) |
-          | Impact      | High                | Widget (thermometer-like) |
+          | Value type  | Content             | Displayed as              | Optional |
+          | Description | Textual description | Text                      | no       |
+          | KB article  | Link to KB article  | Link                      | yes      |
+          | Total risk  | Important           | Widget (icon+label)       | no       |
+          | Likelihood  | High                | Widget (thermometer-like) | no       |
+          | Impact      | High                | Widget (thermometer-like) | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -165,24 +165,24 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
       And table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain at least one row
           | Column name | Value       |
           | Name        | Bug1234     |
-          | Added       | 10 days ago |
+          | Modified    | 10 days ago |
           | Total risk  | Important   |
           | Clusters    | 12          |
      When user clicks on an "Bug1234" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              |
-          | Description | Textual description | Text                      |
-          | KB article  | Link to KB article  | Link                      |
-          | Total risk  | Important           | Widget (icon+label)       |
-          | Likelihood  | High                | Widget (thermometer-like) |
-          | Impact      | High                | Widget (thermometer-like) |
+          | Value type  | Content             | Displayed as              | Optional |
+          | Description | Textual description | Text                      | no       |
+          | KB article  | Link to KB article  | Link                      | yes      |
+          | Total risk  | Important           | Widget (icon+label)       | no       |
+          | Likelihood  | High                | Widget (thermometer-like) | no       |
+          | Impact      | High                | Widget (thermometer-like) | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |

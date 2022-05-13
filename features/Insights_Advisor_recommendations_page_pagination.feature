@@ -5,7 +5,7 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
     Given user USER1 is part of account (organization) ACCOUNT1
       And account (organization) ACCOUNT1 owns one cluster
       And 30 issues are detected for this cluster
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug01    | 10 days ago | Important  |
           | Bug02    | 10 days ago | Important  |
           | Bug03    | 10 days ago | Important  |
@@ -62,11 +62,11 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
       And table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain the following 20 rows
-          | Name  | Added       | Total risk | Clusters |
+          | Name  | Modified    | Total risk | Clusters |
           | Bug01 | 10 days ago | Important  | 1        |
           | Bug02 | 10 days ago | Important  | 1        |
           | Bug03 | 10 days ago | Important  | 1        |
@@ -126,7 +126,7 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
     Given user USER1 is part of account (organization) ACCOUNT1
       And account (organization) ACCOUNT1 owns one cluster
       And 30 issues are detected for this cluster
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug01    | 10 days ago | Important  |
           | Bug02    | 10 days ago | Important  |
           | Bug03    | 10 days ago | Important  |
@@ -183,11 +183,11 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
       And table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain the following 20 rows
-          | Name  | Added       | Total risk | Clusters |
+          | Name  | Modified    | Total risk | Clusters |
           | Bug01 | 10 days ago | Important  | 1        |
           | Bug02 | 10 days ago | Important  | 1        |
           | Bug03 | 10 days ago | Important  | 1        |
@@ -220,7 +220,7 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
      When user click on ">" arrow on the pagination widget
      Then table with recommendations should be refreshed with new content
       And that table should contain the following 10 rows
-          | Name  | Added       | Total risk | Clusters |
+          | Name  | Modified    | Total risk | Clusters |
           | Bug21 | 10 days ago | Low        | 1        |
           | Bug22 | 10 days ago | Low        | 1        |
           | Bug23 | 10 days ago | Low        | 1        |
@@ -256,7 +256,7 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
     Given user USER1 is part of account (organization) ACCOUNT1
       And account (organization) ACCOUNT1 owns one cluster
       And 30 issues are detected for this cluster
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug01    | 10 days ago | Important  |
           | Bug02    | 10 days ago | Important  |
           | Bug03    | 10 days ago | Important  |
@@ -313,11 +313,11 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
       And table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain the following 20 rows
-          | Name  | Added       | Total risk | Clusters |
+          | Name  | Modified    | Total risk | Clusters |
           | Bug01 | 10 days ago | Important  | 1        |
           | Bug02 | 10 days ago | Important  | 1        |
           | Bug03 | 10 days ago | Important  | 1        |
@@ -352,7 +352,7 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
      When user click on ">>" arrow on the pagination widget
      Then table with recommendations should be refreshed with new content
       And that table should contain the following 10 rows
-          | Name  | Added       | Total risk | Clusters |
+          | Name  | Modified    | Total risk | Clusters |
           | Bug21 | 10 days ago | Low        | 1        |
           | Bug22 | 10 days ago | Low        | 1        |
           | Bug23 | 10 days ago | Low        | 1        |
@@ -388,7 +388,7 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
     Given user USER1 is part of account (organization) ACCOUNT1
       And account (organization) ACCOUNT1 owns one cluster
       And 30 issues are detected for this cluster
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug01    | 10 days ago | Important  |
           | Bug02    | 10 days ago | Important  |
           | Bug03    | 10 days ago | Important  |
@@ -445,11 +445,11 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
       And table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain the following 20 rows
-          | Name  | Added       | Total risk | Clusters |
+          | Name  | Modified    | Total risk | Clusters |
           | Bug01 | 10 days ago | Important  | 1        |
           | Bug02 | 10 days ago | Important  | 1        |
           | Bug03 | 10 days ago | Important  | 1        |
@@ -482,7 +482,7 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
      When user click on ">" arrow on the pagination widget
      Then table with recommendations should be refreshed with new content
       And that table should contain the following 10 rows
-          | Name  | Added       | Total risk | Clusters |
+          | Name  | Modified    | Total risk | Clusters |
           | Bug21 | 10 days ago | Low        | 1        |
           | Bug22 | 10 days ago | Low        | 1        |
           | Bug23 | 10 days ago | Low        | 1        |
@@ -514,7 +514,7 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
      When user click on "<" arrow on the pagination widget
      Then table with recommendations should be refreshed with new content
       And that table should contain the following 20 rows
-          | Name  | Added       | Total risk | Clusters |
+          | Name  | Modified    | Total risk | Clusters |
           | Bug01 | 10 days ago | Important  | 1        |
           | Bug02 | 10 days ago | Important  | 1        |
           | Bug03 | 10 days ago | Important  | 1        |
@@ -560,7 +560,7 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
     Given user USER1 is part of account (organization) ACCOUNT1
       And account (organization) ACCOUNT1 owns one cluster
       And 30 issues are detected for this cluster
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug01    | 10 days ago | Important  |
           | Bug02    | 10 days ago | Important  |
           | Bug03    | 10 days ago | Important  |
@@ -617,11 +617,11 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
       And table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain the following 20 rows
-          | Name  | Added       | Total risk | Clusters |
+          | Name  | Modified    | Total risk | Clusters |
           | Bug01 | 10 days ago | Important  | 1        |
           | Bug02 | 10 days ago | Important  | 1        |
           | Bug03 | 10 days ago | Important  | 1        |
@@ -654,7 +654,7 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
      When user click on ">" arrow on the pagination widget
      Then table with recommendations should be refreshed with new content
       And that table should contain the following 10 rows
-          | Name  | Added       | Total risk | Clusters |
+          | Name  | Modified    | Total risk | Clusters |
           | Bug21 | 10 days ago | Low        | 1        |
           | Bug22 | 10 days ago | Low        | 1        |
           | Bug23 | 10 days ago | Low        | 1        |
@@ -686,7 +686,7 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
      When user click on "<<" arrow on the pagination widget
      Then table with recommendations should be refreshed with new content
       And that table should contain the following 20 rows
-          | Name  | Added       | Total risk | Clusters |
+          | Name  | Modified    | Total risk | Clusters |
           | Bug01 | 10 days ago | Important  | 1        |
           | Bug02 | 10 days ago | Important  | 1        |
           | Bug03 | 10 days ago | Important  | 1        |

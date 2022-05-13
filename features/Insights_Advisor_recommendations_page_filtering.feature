@@ -8,7 +8,7 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
           | 00000000-0000-0000-0000-000000000000 |
           | 11111111-0000-0000-0000-000000000000 |
       And 1 issue is detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Important  |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -36,11 +36,11 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
       And table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain exactly 1 row
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Important  | 1        |
       And one filter needs to be preselected
           | Filter name       | Tag         |
@@ -54,10 +54,10 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
           | 00000000-0000-0000-0000-000000000000 |
           | 11111111-0000-0000-0000-000000000000 |
       And 1 issue is detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Important  |
       And 2 another recommendations are available (but not detected)
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Abc12345 | 10 days ago | Important  |
           | Xyz12345 | 10 days ago | Important  |
       And the user USER1 is already logged in into Hybrid Cloud Console
@@ -86,11 +86,11 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
       And table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain exactly 1 row
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Important  | 1        |
       And one filter needs to be preselected
           | Filter name       | Tag         |
@@ -98,7 +98,7 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
      When user clicks on "x" icon displayed on "1 or more" filter tag
      Then table with advisor recommendation should contain recommendations names with 0 clusters
       And that table should contain 3 rows
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Abc12345    | 10 days ago | Important  | 0        |
           | Bug12345    | 10 days ago | Important  | 1        |
           | Xyz12345    | 10 days ago | Important  | 0        |
@@ -111,10 +111,10 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
           | 00000000-0000-0000-0000-000000000000 |
           | 11111111-0000-0000-0000-000000000000 |
       And 1 issue is detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Important  |
       And 2 another recommendations are available (but not detected)
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Abc12345 | 10 days ago | Important  |
           | Xyz12345 | 10 days ago | Important  |
       And the user USER1 is already logged in into Hybrid Cloud Console
@@ -143,18 +143,18 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
       And table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain exactly 1 row
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Important  | 1        |
       And one filter needs to be preselected
           | Filter name       | Tag         |
           | Clusters impacted | 1 or more   |
      When user clicks on "x" icon displayed on "1 or more" filter tag
      Then table with advisor recommendation should contain recommendations names with 0 clusters
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Abc12345    | 10 days ago | Important  | 0        |
           | Bug12345    | 10 days ago | Important  | 1        |
           | Xyz12345    | 10 days ago | Important  | 0        |
@@ -164,11 +164,11 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
      Then table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain exactly 1 row
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Abc12345    | 10 days ago | Important  | 0        |
       And one filter needs to be preselected
           | Filter name | Tag     |
@@ -177,11 +177,11 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
      Then table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain three rows
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Abc12345    | 10 days ago | Important  | 0        |
           | Bug12345    | 10 days ago | Important  | 1        |
           | Xyz12345    | 10 days ago | Important  | 0        |
@@ -194,10 +194,10 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
           | 00000000-0000-0000-0000-000000000000 |
           | 11111111-0000-0000-0000-000000000000 |
       And 1 issue is detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Important  |
       And 2 another recommendations are available (but not detected)
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Abc12345 | 10 days ago | Important  |
           | Xyz12345 | 10 days ago | Moderate   |
       And the user USER1 is already logged in into Hybrid Cloud Console
@@ -226,18 +226,18 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
       And table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain exactly 1 row
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Important  | 1        |
       And one filter needs to be preselected
           | Filter name       | Tag         |
           | Clusters impacted | 1 or more   |
      When user clicks on "x" icon displayed on "1 or more" filter tag
      Then table with advisor recommendation should contain recommendations names with 0 clusters
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Abc12345    | 10 days ago | Important  | 0        |
           | Bug12345    | 10 days ago | Important  | 1        |
           | Xyz12345    | 10 days ago | Moderate   | 0        |
@@ -253,11 +253,11 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
      Then table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain exactly 1 row
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Xyz12345    | 10 days ago | Moderate   | 0        |
       And one filter needs to be preselected
           | Filter name | Tag        |
@@ -266,11 +266,11 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
      Then table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain three rows
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Abc12345    | 10 days ago | Important  | 0        |
           | Bug12345    | 10 days ago | Important  | 1        |
           | Xyz12345    | 10 days ago | Moderate   | 0        |
@@ -283,10 +283,10 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
           | 00000000-0000-0000-0000-000000000000 |
           | 11111111-0000-0000-0000-000000000000 |
       And 1 issue is detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Important  |
       And 2 another recommendations are available (but not detected)
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Abc12345 | 10 days ago | Important  |
           | Xyz12345 | 10 days ago | Moderate   |
       And the user USER1 is already logged in into Hybrid Cloud Console
@@ -315,18 +315,18 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
       And table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain exactly 1 row
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Important  | 1        |
       And one filter needs to be preselected
           | Filter name       | Tag         |
           | Clusters impacted | 1 or more   |
      When user clicks on "x" icon displayed on "1 or more" filter tag
      Then table with advisor recommendation should contain recommendations names with 0 clusters
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Abc12345    | 10 days ago | Important  | 0        |
           | Bug12345    | 10 days ago | Important  | 1        |
           | Xyz12345    | 10 days ago | Moderate   | 0        |
@@ -336,11 +336,11 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
      Then table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain exactly 1 row
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Important  | 1        |
       And one filter needs to be preselected
           | Filter name       | Tag       |
@@ -349,11 +349,11 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
      Then table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain three rows
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Abc12345    | 10 days ago | Important  | 0        |
           | Bug12345    | 10 days ago | Important  | 1        |
           | Xyz12345    | 10 days ago | Moderate   | 0        |
@@ -366,10 +366,10 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
           | 00000000-0000-0000-0000-000000000000 |
           | 11111111-0000-0000-0000-000000000000 |
       And 1 issue is detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Important  |
       And 2 another recommendations are available (but not detected)
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Abc12345 | 10 days ago | Important  |
           | Xyz12345 | 10 days ago | Moderate   |
       And the user USER1 is already logged in into Hybrid Cloud Console
@@ -398,18 +398,18 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
       And table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain exactly 1 row
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Important  | 1        |
       And one filter needs to be preselected
           | Filter name       | Tag         |
           | Clusters impacted | 1 or more   |
      When user clicks on "x" icon displayed on "1 or more" filter tag
      Then table with advisor recommendation should contain recommendations names with 0 clusters
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Abc12345    | 10 days ago | Important  | 0        |
           | Bug12345    | 10 days ago | Important  | 1        |
           | Xyz12345    | 10 days ago | Moderate   | 0        |
@@ -425,11 +425,11 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
      Then table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain exactly 1 row
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Xyz12345    | 10 days ago | Moderate   | 0        |
       And one filter needs to be preselected
           | Filter name | Tag        |
@@ -438,11 +438,11 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
      Then table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain 1 row
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Abc12345    | 10 days ago | Important  | 0        |
           | Bug12345    | 10 days ago | Important  | 1        |
           | Xyz12345    | 10 days ago | Moderate   | 0        |
@@ -458,7 +458,7 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
           | 00000000-0000-0000-0000-000000000000 |
           | 11111111-0000-0000-0000-000000000000 |
       And 3 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk | Category        |
+          | Title    | Modified    | Total risk | Category        |
           | PerfBug  | 10 days ago | Important  | Performance     |
           | FaultBug | 10 days ago | Important  | Fault tolerance |
           | Security | 10 days ago | Important  | Security        |
@@ -488,11 +488,11 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
       And table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain exactly 3 roww
-          | Name     | Added       | Total risk | Clusters |
+          | Name     | Modified    | Total risk | Clusters |
           | PerfBug  | 10 days ago | Important  | 1        |
           | FaultBug | 10 days ago | Important  | 1        |
           | Security | 10 days ago | Important  | 1        |
@@ -501,7 +501,7 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
           | Clusters impacted | 1 or more   |
      When user clicks on "x" icon displayed on "1 or more" filter tag
      Then table with advisor recommendation should contain recommendations names with 0 clusters
-          | Name     | Added       | Total risk | Clusters |
+          | Name     | Modified    | Total risk | Clusters |
           | PerfBug  | 10 days ago | Important  | 1        |
           | FaultBug | 10 days ago | Important  | 1        |
           | Security | 10 days ago | Important  | 1        |
@@ -517,11 +517,11 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
      Then table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain exactly 1 row
-          | Name     | Added       | Total risk | Clusters |
+          | Name     | Modified    | Total risk | Clusters |
           | PerfBug  | 10 days ago | Important  | 1        |
       And one filter needs to be preselected
           | Filter name       | Tag         |
@@ -537,11 +537,11 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
      Then table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain 2 rows
-          | Name     | Added       | Total risk | Clusters |
+          | Name     | Modified    | Total risk | Clusters |
           | PerfBug  | 10 days ago | Important  | 1        |
           | FaultBug | 10 days ago | Important  | 1        |
       And two filters needs to be preselected
@@ -552,21 +552,21 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
      Then table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain one row
-          | Name     | Added       | Total risk | Clusters |
+          | Name     | Modified    | Total risk | Clusters |
           | FaultBug | 10 days ago | Important  | 1        |
      When user clicks on "x" icon displayed on "Fault tolerance" filter tag
      Then table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain one row
-          | Name     | Added       | Total risk | Clusters |
+          | Name     | Modified    | Total risk | Clusters |
           | PerfBug  | 10 days ago | Important  | 1        |
           | FaultBug | 10 days ago | Important  | 1        |
           | Security | 10 days ago | Important  | 1        |
@@ -579,7 +579,7 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
           | 00000000-0000-0000-0000-000000000000 |
           | 11111111-0000-0000-0000-000000000000 |
       And 3 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title  | Added       | Total risk | Likelihood |
+          | Title  | Modified    | Total risk | Likelihood |
           | High   | 10 days ago | Important  | High       |
           | Medium | 10 days ago | Important  | Medium     |
           | Low    | 10 days ago | Important  | Low        |
@@ -609,11 +609,11 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
       And table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain exactly 3 roww
-          | Name   | Added       | Total risk | Clusters |
+          | Name   | Modified    | Total risk | Clusters |
           | High   | 10 days ago | Important  | 1        |
           | Medium | 10 days ago | Important  | 1        |
           | Low    | 10 days ago | Important  | 1        |
@@ -622,7 +622,7 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
           | Clusters impacted | 1 or more   |
      When user clicks on "x" icon displayed on "1 or more" filter tag
      Then table with advisor recommendation should contain recommendations names with 0 clusters
-          | Name   | Added       | Total risk | Clusters |
+          | Name   | Modified    | Total risk | Clusters |
           | High   | 10 days ago | Important  | 1        |
           | Medium | 10 days ago | Important  | 1        |
           | Low    | 10 days ago | Important  | 1        |
@@ -638,11 +638,11 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
      Then table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain exactly 1 row
-          | Name   | Added       | Total risk | Clusters |
+          | Name   | Modified    | Total risk | Clusters |
           | High   | 10 days ago | Important  | 1        |
       And one filter needs to be preselected
           | Filter name | Tag  |
@@ -658,11 +658,11 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
      Then table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain 2 rows
-          | Name   | Added       | Total risk | Clusters |
+          | Name   | Modified    | Total risk | Clusters |
           | High   | 10 days ago | Important  | 1        |
           | Low    | 10 days ago | Important  | 1        |
       And two filters needs to be preselected
@@ -673,21 +673,21 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
      Then table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain one row
-          | Name   | Added       | Total risk | Clusters |
+          | Name   | Modified    | Total risk | Clusters |
           | Low    | 10 days ago | Important  | 1        |
      When user clicks on "x" icon displayed on "Low" filter tag
      Then table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain one row
-          | Name   | Added       | Total risk | Clusters |
+          | Name   | Modified    | Total risk | Clusters |
           | High   | 10 days ago | Important  | 1        |
           | Medium | 10 days ago | Important  | 1        |
           | Low    | 10 days ago | Important  | 1        |
@@ -700,7 +700,7 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
           | 00000000-0000-0000-0000-000000000000 |
           | 11111111-0000-0000-0000-000000000000 |
       And 3 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title  | Added       | Total risk | Likelihood |
+          | Title  | Modified    | Total risk | Likelihood |
           | High   | 10 days ago | Important  | High       |
           | Medium | 10 days ago | Important  | Medium     |
           | Low    | 10 days ago | Important  | Low        |
@@ -730,11 +730,11 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
       And table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain exactly 3 roww
-          | Name   | Added       | Total risk | Clusters |
+          | Name   | Modified    | Total risk | Clusters |
           | High   | 10 days ago | Important  | 1        |
           | Medium | 10 days ago | Important  | 1        |
           | Low    | 10 days ago | Important  | 1        |

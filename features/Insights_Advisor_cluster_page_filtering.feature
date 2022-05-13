@@ -7,13 +7,13 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk | Category             | Status   |
+          | Title    | Modified    | Total risk | Category             | Status   |
           | Bug12345 | 10 days ago | Critical   | Service Availability | enabled  |
           | Abc12345 | 10 days ago | Important  | Performance          | enabled  |
           | Xyz12345 | 10 days ago | Moderate   | Fault Tolerance      | disabled |
           | Uvw12345 | 10 days ago | Low        | Security             | disabled |
       And 1 another issue without cluster hit exists
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Nohit    | 10 days ago | Critical   |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -38,7 +38,7 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Critical   | 1        |
           | Abc12345    | 10 days ago | Important  | 1        |
           | Xyz12345    | 10 days ago | Moderate   | 1        |
@@ -46,12 +46,12 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              |
-          | Description | Textual description | Text                      |
-          | KB article  | Link to KB article  | Link                      |
-          | Total risk  | Important           | Widget (icon+label)       |
-          | Likelihood  | High                | Widget (thermometer-like) |
-          | Impact      | High                | Widget (thermometer-like) |
+          | Value type  | Content             | Displayed as              | Optional |
+          | Description | Textual description | Text                      | no       |
+          | KB article  | Link to KB article  | Link                      | yes      |
+          | Total risk  | Important           | Widget (icon+label)       | no       |
+          | Likelihood  | High                | Widget (thermometer-like) | no       |
+          | Impact      | High                | Widget (thermometer-like) | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -75,10 +75,10 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      Then table with several columns should be displayed with sorting setting
           | Column name |
           | Descriptiom |
-          | Added       |
+          | Modified    |
           | Total risk  |
       And the table should contain following rows in any order
-          | Description | Added       | Total risk | (Expanded) |
+          | Description | Modified    | Total risk | (Expanded) |
           | Bug12345    | 10 days ago | Critical   | yes        |
           | Abc12345    | 10 days ago | Important  | no         |
           | Xyz12345    | 10 days ago | Moderate   | no         |
@@ -92,13 +92,13 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk | Category             | Status   |
+          | Title    | Modified    | Total risk | Category             | Status   |
           | Bug12345 | 10 days ago | Critical   | Service Availability | enabled  |
           | Abc12345 | 10 days ago | Important  | Performance          | enabled  |
           | Xyz12345 | 10 days ago | Moderate   | Fault Tolerance      | disabled |
           | Uvw12345 | 10 days ago | Low        | Security             | disabled |
       And 1 another issue without cluster hit exists
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Nohit    | 10 days ago | Critical   |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -123,7 +123,7 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Critical   | 1        |
           | Abc12345    | 10 days ago | Important  | 1        |
           | Xyz12345    | 10 days ago | Moderate   | 1        |
@@ -131,12 +131,12 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              |
-          | Description | Textual description | Text                      |
-          | KB article  | Link to KB article  | Link                      |
-          | Total risk  | Important           | Widget (icon+label)       |
-          | Likelihood  | High                | Widget (thermometer-like) |
-          | Impact      | High                | Widget (thermometer-like) |
+          | Value type  | Content             | Displayed as              | Optional |
+          | Description | Textual description | Text                      | no       |
+          | KB article  | Link to KB article  | Link                      | yes      |
+          | Total risk  | Important           | Widget (icon+label)       | no       |
+          | Likelihood  | High                | Widget (thermometer-like) | no       |
+          | Impact      | High                | Widget (thermometer-like) | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -160,10 +160,10 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      Then table with several columns should be displayed with sorting setting
           | Column name |
           | Descriptiom |
-          | Added       |
+          | Modified    |
           | Total risk  |
       And the table should contain following rows in any order
-          | Description | Added       | Total risk | (Expanded) |
+          | Description | Modified    | Total risk | (Expanded) |
           | Bug12345    | 10 days ago | Critical   | yes        |
           | Abc12345    | 10 days ago | Important  | no         |
           | Xyz12345    | 10 days ago | Moderate   | no         |
@@ -172,12 +172,12 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      Then new widget with label "Description" and value "Bug" should be made visible
       And "Reset filters" link should appear next to the widget
       And the table should contain following row
-          | Description | Added       | Total risk | (Expanded) |
+          | Description | Modified    | Total risk | (Expanded) |
           | Bug12345    | 10 days ago | Critical   | yes        |
      When user deletes all text from search pattern "Filter by description" widget
      Then widget with label "Description" and value "Bug" should be made invisible
       And the table should contain following rows in any order
-          | Description | Added       | Total risk | (Expanded) |
+          | Description | Modified    | Total risk | (Expanded) |
           | Bug12345    | 10 days ago | Critical   | yes        |
           | Abc12345    | 10 days ago | Important  | no         |
           | Xyz12345    | 10 days ago | Moderate   | no         |
@@ -194,13 +194,13 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk | Category             | Status   |
+          | Title    | Modified    | Total risk | Category             | Status   |
           | Bug12345 | 10 days ago | Critical   | Service Availability | enabled  |
           | Abc12345 | 10 days ago | Important  | Performance          | enabled  |
           | Xyz12345 | 10 days ago | Moderate   | Fault Tolerance      | disabled |
           | Uvw12345 | 10 days ago | Low        | Security             | disabled |
       And 1 another issue without cluster hit exists
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Nohit    | 10 days ago | Critical   |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -225,7 +225,7 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Critical   | 1        |
           | Abc12345    | 10 days ago | Important  | 1        |
           | Xyz12345    | 10 days ago | Moderate   | 1        |
@@ -233,12 +233,12 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              |
-          | Description | Textual description | Text                      |
-          | KB article  | Link to KB article  | Link                      |
-          | Total risk  | Important           | Widget (icon+label)       |
-          | Likelihood  | High                | Widget (thermometer-like) |
-          | Impact      | High                | Widget (thermometer-like) |
+          | Value type  | Content             | Displayed as              | Optional |
+          | Description | Textual description | Text                      | no       |
+          | KB article  | Link to KB article  | Link                      | yes      |
+          | Total risk  | Important           | Widget (icon+label)       | no       |
+          | Likelihood  | High                | Widget (thermometer-like) | no       |
+          | Impact      | High                | Widget (thermometer-like) | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -262,10 +262,10 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      Then table with several columns should be displayed with sorting setting
           | Column name |
           | Descriptiom |
-          | Added       |
+          | Modified    |
           | Total risk  |
       And the table should contain following rows in any order
-          | Description | Added       | Total risk | (Expanded) |
+          | Description | Modified    | Total risk | (Expanded) |
           | Bug12345    | 10 days ago | Critical   | yes        |
           | Abc12345    | 10 days ago | Important  | no         |
           | Xyz12345    | 10 days ago | Moderate   | no         |
@@ -281,12 +281,12 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      Then new widget with label "Total risk" and value "Critical" should be made visible
       And "Reset filters" link should appear next to the widget
       And the table should contain following row
-          | Description | Added       | Total risk | (Expanded) |
+          | Description | Modified    | Total risk | (Expanded) |
           | Bug12345    | 10 days ago | Critical   | yes        |
      When user click on the "x" icon on "Critical" label
      Then new widget with label "Total risk" and value "Critical" should be made invisible
       And the table should contain following rows in any order
-          | Description | Added       | Total risk | (Expanded) |
+          | Description | Modified    | Total risk | (Expanded) |
           | Bug12345    | 10 days ago | Critical   | yes        |
           | Abc12345    | 10 days ago | Important  | no         |
           | Xyz12345    | 10 days ago | Moderate   | no         |
@@ -299,13 +299,13 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk | Category             | Status   |
+          | Title    | Modified    | Total risk | Category             | Status   |
           | Bug12345 | 10 days ago | Critical   | Service Availability | enabled  |
           | Abc12345 | 10 days ago | Important  | Performance          | enabled  |
           | Xyz12345 | 10 days ago | Moderate   | Fault Tolerance      | disabled |
           | Uvw12345 | 10 days ago | Low        | Security             | disabled |
       And 1 another issue without cluster hit exists
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Nohit    | 10 days ago | Critical   |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -330,7 +330,7 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Critical   | 1        |
           | Abc12345    | 10 days ago | Important  | 1        |
           | Xyz12345    | 10 days ago | Moderate   | 1        |
@@ -338,12 +338,12 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              |
-          | Description | Textual description | Text                      |
-          | KB article  | Link to KB article  | Link                      |
-          | Total risk  | Important           | Widget (icon+label)       |
-          | Likelihood  | High                | Widget (thermometer-like) |
-          | Impact      | High                | Widget (thermometer-like) |
+          | Value type  | Content             | Displayed as              | Optional |
+          | Description | Textual description | Text                      | no       |
+          | KB article  | Link to KB article  | Link                      | yes      |
+          | Total risk  | Important           | Widget (icon+label)       | no       |
+          | Likelihood  | High                | Widget (thermometer-like) | no       |
+          | Impact      | High                | Widget (thermometer-like) | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -367,10 +367,10 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      Then table with several columns should be displayed with sorting setting
           | Column name |
           | Descriptiom |
-          | Added       |
+          | Modified    |
           | Total risk  |
       And the table should contain following rows in any order
-          | Description | Added       | Total risk | (Expanded) |
+          | Description | Modified    | Total risk | (Expanded) |
           | Bug12345    | 10 days ago | Critical   | yes        |
           | Abc12345    | 10 days ago | Important  | no         |
           | Xyz12345    | 10 days ago | Moderate   | no         |
@@ -386,22 +386,22 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      Then new widget with label "Total risk" and value "Critical" should be made visible
       And "Reset filters" link should appear next to the widget
       And the table should contain following row
-          | Description | Added       | Total risk | (Expanded) |
+          | Description | Modified    | Total risk | (Expanded) |
           | Bug12345    | 10 days ago | Critical   | yes        |
      When user select "Important" value from the previous list
      Then new value "Important" should added into the "Total risk" widget
       And the table should contain following rows in any order
-          | Description | Added       | Total risk | (Expanded) |
+          | Description | Modified    | Total risk | (Expanded) |
           | Bug12345    | 10 days ago | Critical   | yes        |
           | Abc12345    | 10 days ago | Important  | no         |
      When user click on the "x" icon on "Critical" label
       And the table should contain following rows in any order
-          | Description | Added       | Total risk | (Expanded) |
+          | Description | Modified    | Total risk | (Expanded) |
           | Abc12345    | 10 days ago | Important  | no         |
      When user click on the "x" icon on "Important" label
      Then new widget with label "Total risk" should be made invisible
       And the table should contain following rows in any order
-          | Description | Added       | Total risk | (Expanded) |
+          | Description | Modified    | Total risk | (Expanded) |
           | Bug12345    | 10 days ago | Critical   | yes        |
           | Abc12345    | 10 days ago | Important  | no         |
           | Xyz12345    | 10 days ago | Moderate   | no         |
@@ -414,13 +414,13 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk | Category             | Status   |
+          | Title    | Modified    | Total risk | Category             | Status   |
           | Bug12345 | 10 days ago | Critical   | Service Availability | enabled  |
           | Abc12345 | 10 days ago | Important  | Performance          | enabled  |
           | Xyz12345 | 10 days ago | Moderate   | Fault Tolerance      | disabled |
           | Uvw12345 | 10 days ago | Low        | Security             | disabled |
       And 1 another issue without cluster hit exists
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Nohit    | 10 days ago | Critical   |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -445,7 +445,7 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Critical   | 1        |
           | Abc12345    | 10 days ago | Important  | 1        |
           | Xyz12345    | 10 days ago | Moderate   | 1        |
@@ -453,12 +453,12 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              |
-          | Description | Textual description | Text                      |
-          | KB article  | Link to KB article  | Link                      |
-          | Total risk  | Important           | Widget (icon+label)       |
-          | Likelihood  | High                | Widget (thermometer-like) |
-          | Impact      | High                | Widget (thermometer-like) |
+          | Value type  | Content             | Displayed as              | Optional |
+          | Description | Textual description | Text                      | no       |
+          | KB article  | Link to KB article  | Link                      | yes      |
+          | Total risk  | Important           | Widget (icon+label)       | no       |
+          | Likelihood  | High                | Widget (thermometer-like) | no       |
+          | Impact      | High                | Widget (thermometer-like) | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -482,10 +482,10 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      Then table with several columns should be displayed with sorting setting
           | Column name |
           | Descriptiom |
-          | Added       |
+          | Modified    |
           | Total risk  |
       And the table should contain following rows in any order
-          | Description | Added       | Total risk | (Expanded) |
+          | Description | Modified    | Total risk | (Expanded) |
           | Bug12345    | 10 days ago | Critical   | yes        |
           | Abc12345    | 10 days ago | Important  | no         |
           | Xyz12345    | 10 days ago | Moderate   | no         |
@@ -501,12 +501,12 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      Then new widget with label "Category" and value "Service Availability" should be made visible
       And "Reset filters" link should appear next to the widget
       And the table should contain following row
-          | Description | Added       | Total risk | (Expanded) |
+          | Description | Modified    | Total risk | (Expanded) |
           | Bug12345    | 10 days ago | Critical   | yes        |
      When user click on the "x" icon on "Service Availability" label
      Then new widget with label "Category" and value "Service Availability" should be made invisible
       And the table should contain following rows in any order
-          | Description | Added       | Total risk | (Expanded) |
+          | Description | Modified    | Total risk | (Expanded) |
           | Bug12345    | 10 days ago | Critical   | yes        |
           | Abc12345    | 10 days ago | Important  | no         |
           | Xyz12345    | 10 days ago | Moderate   | no         |
@@ -519,13 +519,13 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk | Category             | Status   |
+          | Title    | Modified    | Total risk | Category             | Status   |
           | Bug12345 | 10 days ago | Critical   | Service Availability | enabled  |
           | Abc12345 | 10 days ago | Important  | Performance          | enabled  |
           | Xyz12345 | 10 days ago | Moderate   | Fault Tolerance      | disabled |
           | Uvw12345 | 10 days ago | Low        | Security             | disabled |
       And 1 another issue without cluster hit exists
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Nohit    | 10 days ago | Critical   |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -550,7 +550,7 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Critical   | 1        |
           | Abc12345    | 10 days ago | Important  | 1        |
           | Xyz12345    | 10 days ago | Moderate   | 1        |
@@ -558,12 +558,12 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              |
-          | Description | Textual description | Text                      |
-          | KB article  | Link to KB article  | Link                      |
-          | Total risk  | Important           | Widget (icon+label)       |
-          | Likelihood  | High                | Widget (thermometer-like) |
-          | Impact      | High                | Widget (thermometer-like) |
+          | Value type  | Content             | Displayed as              | Optional |
+          | Description | Textual description | Text                      | no       |
+          | KB article  | Link to KB article  | Link                      | yes      |
+          | Total risk  | Important           | Widget (icon+label)       | no       |
+          | Likelihood  | High                | Widget (thermometer-like) | no       |
+          | Impact      | High                | Widget (thermometer-like) | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -587,10 +587,10 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      Then table with several columns should be displayed with sorting setting
           | Column name |
           | Descriptiom |
-          | Added       |
+          | Modified    |
           | Total risk  |
       And the table should contain following rows in any order
-          | Description | Added       | Total risk | (Expanded) |
+          | Description | Modified    | Total risk | (Expanded) |
           | Bug12345    | 10 days ago | Critical   | yes        |
           | Abc12345    | 10 days ago | Important  | no         |
           | Xyz12345    | 10 days ago | Moderate   | no         |
@@ -606,23 +606,23 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      Then new widget with label "Category" and value "Service Availability" should be made visible
       And "Reset filters" link should appear next to the widget
       And the table should contain following row
-          | Description | Added       | Total risk | (Expanded) |
+          | Description | Modified    | Total risk | (Expanded) |
           | Bug12345    | 10 days ago | Critical   | yes        |
      When user select "Category" from Filter type widget
       And user select "Performance" value from the previous list
      Then new value "Performance" should be made visible in the already existing widget "Category"
       And the table should contain following row
-          | Description | Added       | Total risk | (Expanded) |
+          | Description | Modified    | Total risk | (Expanded) |
           | Bug12345    | 10 days ago | Critical   | yes        |
           | Abc12345    | 10 days ago | Important  | no         |
      When user click on the "x" icon on "Service Availability" label
      Then the table should contain following rows in any order
-          | Description | Added       | Total risk | (Expanded) |
+          | Description | Modified    | Total risk | (Expanded) |
           | Abc12345    | 10 days ago | Important  | no         |
      When user click on the "x" icon on "Performance" label
      Then new widget with label "Category" and value "Service Availability" should be made invisible
       And the table should contain following rows in any order
-          | Description | Added       | Total risk | (Expanded) |
+          | Description | Modified    | Total risk | (Expanded) |
           | Bug12345    | 10 days ago | Critical   | yes        |
           | Abc12345    | 10 days ago | Important  | no         |
           | Xyz12345    | 10 days ago | Moderate   | no         |
@@ -635,13 +635,13 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk | Category             | Status   |
+          | Title    | Modified    | Total risk | Category             | Status   |
           | Bug12345 | 10 days ago | Critical   | Service Availability | enabled  |
           | Abc12345 | 10 days ago | Important  | Performance          | enabled  |
           | Xyz12345 | 10 days ago | Moderate   | Fault Tolerance      | disabled |
           | Uvw12345 | 10 days ago | Low        | Security             | disabled |
       And 1 another issue without cluster hit exists
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Nohit    | 10 days ago | Critical   |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -666,7 +666,7 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Critical   | 1        |
           | Abc12345    | 10 days ago | Important  | 1        |
           | Xyz12345    | 10 days ago | Moderate   | 1        |
@@ -674,12 +674,12 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              |
-          | Description | Textual description | Text                      |
-          | KB article  | Link to KB article  | Link                      |
-          | Total risk  | Important           | Widget (icon+label)       |
-          | Likelihood  | High                | Widget (thermometer-like) |
-          | Impact      | High                | Widget (thermometer-like) |
+          | Value type  | Content             | Displayed as              | Optional |
+          | Description | Textual description | Text                      | no       |
+          | KB article  | Link to KB article  | Link                      | yes      |
+          | Total risk  | Important           | Widget (icon+label)       | no       |
+          | Likelihood  | High                | Widget (thermometer-like) | no       |
+          | Impact      | High                | Widget (thermometer-like) | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -703,10 +703,10 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      Then table with several columns should be displayed with sorting setting
           | Column name |
           | Descriptiom |
-          | Added       |
+          | Modified    |
           | Total risk  |
       And the table should contain following rows in any order
-          | Description | Added       | Total risk | (Expanded) |
+          | Description | Modified    | Total risk | (Expanded) |
           | Bug12345    | 10 days ago | Critical   | yes        |
           | Abc12345    | 10 days ago | Important  | no         |
           | Xyz12345    | 10 days ago | Moderate   | no         |
@@ -721,13 +721,13 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      Then new widget with label "Status" and value "Enabled" should be made visible
       And "Reset filters" link should appear next to the widget
       And the table should contain following row
-          | Description | Added       | Total risk | (Expanded) |
+          | Description | Modified    | Total risk | (Expanded) |
           | Bug12345    | 10 days ago | Critical   | yes        |
           | Abc12345    | 10 days ago | Important  | no         |
      When user click on the "x" icon on "Enabled" label
      Then new widget with label "Status" and value "Enabled" should be made invisible
       And the table should contain following rows in any order
-          | Description | Added       | Total risk | (Expanded) |
+          | Description | Modified    | Total risk | (Expanded) |
           | Bug12345    | 10 days ago | Critical   | yes        |
           | Abc12345    | 10 days ago | Important  | no         |
           | Xyz12345    | 10 days ago | Moderate   | no         |
@@ -736,13 +736,13 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      Then widget with label "Status" and value "Disabled" should be made visible
       And "Reset filters" link should appear next to the widget
       And the table should contain following row
-          | Description | Added       | Total risk | (Expanded) |
+          | Description | Modified    | Total risk | (Expanded) |
           | Xyz12345    | 10 days ago | Moderate   | no         |
           | Uvw12345    | 10 days ago | Low        | no         |
      When user click on the "x" icon on "Enabled" label
      Then new widget with label "Status" and value "Enabled" should be made invisible
       And the table should contain following rows in any order
-          | Description | Added       | Total risk | (Expanded) |
+          | Description | Modified    | Total risk | (Expanded) |
           | Bug12345    | 10 days ago | Critical   | yes        |
           | Abc12345    | 10 days ago | Important  | no         |
           | Xyz12345    | 10 days ago | Moderate   | no         |
@@ -755,13 +755,13 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk | Category             | Status   |
+          | Title    | Modified    | Total risk | Category             | Status   |
           | Bug12345 | 10 days ago | Critical   | Service Availability | enabled  |
           | Abc12345 | 10 days ago | Important  | Performance          | enabled  |
           | Xyz12345 | 10 days ago | Moderate   | Fault Tolerance      | disabled |
           | Uvw12345 | 10 days ago | Low        | Security             | disabled |
       And 1 another issue without cluster hit exists
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Nohit    | 10 days ago | Critical   |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -786,7 +786,7 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Critical   | 1        |
           | Abc12345    | 10 days ago | Important  | 1        |
           | Xyz12345    | 10 days ago | Moderate   | 1        |
@@ -794,12 +794,12 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              |
-          | Description | Textual description | Text                      |
-          | KB article  | Link to KB article  | Link                      |
-          | Total risk  | Important           | Widget (icon+label)       |
-          | Likelihood  | High                | Widget (thermometer-like) |
-          | Impact      | High                | Widget (thermometer-like) |
+          | Value type  | Content             | Displayed as              | Optional |
+          | Description | Textual description | Text                      | no       |
+          | KB article  | Link to KB article  | Link                      | yes      |
+          | Total risk  | Important           | Widget (icon+label)       | no       |
+          | Likelihood  | High                | Widget (thermometer-like) | no       |
+          | Impact      | High                | Widget (thermometer-like) | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -823,10 +823,10 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      Then table with several columns should be displayed with sorting setting
           | Column name |
           | Descriptiom |
-          | Added       |
+          | Modified    |
           | Total risk  |
       And the table should contain following rows in any order
-          | Description | Added       | Total risk | (Expanded) |
+          | Description | Modified    | Total risk | (Expanded) |
           | Bug12345    | 10 days ago | Critical   | yes        |
           | Abc12345    | 10 days ago | Important  | no         |
           | Xyz12345    | 10 days ago | Moderate   | no         |
@@ -841,7 +841,7 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      Then new widget with label "Status" and value "All" should be made visible
       And "Reset filters" link should appear next to the widget
       And the table should contain following row
-          | Description | Added       | Total risk | (Expanded) |
+          | Description | Modified    | Total risk | (Expanded) |
           | Bug12345    | 10 days ago | Critical   | yes        |
           | Abc12345    | 10 days ago | Important  | no         |
           | Xyz12345    | 10 days ago | Moderate   | no         |
@@ -849,7 +849,7 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user click on the "x" icon on "Enabled" label
      Then new widget with label "Status" and value "All" should be made invisible
       And the table should contain following rows in any order
-          | Description | Added       | Total risk | (Expanded) |
+          | Description | Modified    | Total risk | (Expanded) |
           | Bug12345    | 10 days ago | Critical   | yes        |
           | Abc12345    | 10 days ago | Important  | no         |
           | Xyz12345    | 10 days ago | Moderate   | no         |

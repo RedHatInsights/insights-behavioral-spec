@@ -7,13 +7,13 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Critical   |
           | Abc12345 | 10 days ago | Important  |
           | Xyz12345 | 10 days ago | Moderate   |
           | Uvw12345 | 10 days ago | Low        |
       And 1 another issue without cluster hit exists
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Nohit    | 10 days ago | Critical   |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -38,7 +38,7 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Critical   | 1        |
           | Abc12345    | 10 days ago | Important  | 1        |
           | Xyz12345    | 10 days ago | Moderate   | 1        |
@@ -46,12 +46,12 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              |
-          | Description | Textual description | Text                      |
-          | KB article  | Link to KB article  | Link                      |
-          | Total risk  | Important           | Widget (icon+label)       |
-          | Likelihood  | High                | Widget (thermometer-like) |
-          | Impact      | High                | Widget (thermometer-like) |
+          | Value type  | Content             | Displayed as              | Optional |
+          | Description | Textual description | Text                      | no       |
+          | KB article  | Link to KB article  | Link                      | yes      |
+          | Total risk  | Important           | Widget (icon+label)       | no       |
+          | Likelihood  | High                | Widget (thermometer-like) | no       |
+          | Impact      | High                | Widget (thermometer-like) | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -70,10 +70,10 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
      Then table with several columns should be displayed with sorting setting
           | Column name | Sort | Highlighted |
           | Descriptiom | ↕    | no          |
-          | Added       | ↕    | no          |
+          | Modified    | ↕    | no          |
           | Total risk  | ↕    | no          |
       And the table should contain following rows in any order
-          | Index | Description | Added       | Total risk | (Expanded) |
+          | Index | Description | Modified    | Total risk | (Expanded) |
           | ?     | Bug12345    | 10 days ago | Critical   | yes        |
           | ?     | Abc12345    | 10 days ago | Important  | no         |
           | ?     | Xyz12345    | 10 days ago | Moderate   | no         |
@@ -86,13 +86,13 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Critical   |
           | Abc12345 | 10 days ago | Important  |
           | Xyz12345 | 10 days ago | Moderate   |
           | Uvw12345 | 10 days ago | Low        |
       And 1 another issue without cluster hit exists
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Nohit    | 10 days ago | Critical   |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -117,7 +117,7 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Critical   | 1        |
           | Abc12345    | 10 days ago | Important  | 1        |
           | Xyz12345    | 10 days ago | Moderate   | 1        |
@@ -125,12 +125,12 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              |
-          | Description | Textual description | Text                      |
-          | KB article  | Link to KB article  | Link                      |
-          | Total risk  | Important           | Widget (icon+label)       |
-          | Likelihood  | High                | Widget (thermometer-like) |
-          | Impact      | High                | Widget (thermometer-like) |
+          | Value type  | Content             | Displayed as              | Optional |
+          | Description | Textual description | Text                      | no       |
+          | KB article  | Link to KB article  | Link                      | yes      |
+          | Total risk  | Important           | Widget (icon+label)       | no       |
+          | Likelihood  | High                | Widget (thermometer-like) | no       |
+          | Impact      | High                | Widget (thermometer-like) | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -149,10 +149,10 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
      Then table with several columns should be displayed with sorting setting
           | Column name | Sort | Highlighted |
           | Description | ↕    | no          |
-          | Added       | ↕    | no          |
+          | Modified    | ↕    | no          |
           | Total risk  | ↕    | no          |
       And the table should contain following rows in any order
-          | Index | Description | Added       | Total risk | (Expanded) |
+          | Index | Description | Modified    | Total risk | (Expanded) |
           | ?     | Bug12345    | 10 days ago | Critical   | yes        |
           | ?     | Abc12345    | 10 days ago | Important  | no         |
           | ?     | Xyz12345    | 10 days ago | Moderate   | no         |
@@ -161,10 +161,10 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
      Then table with recommendations should be rearranged
           | Column name | Sort | Highlighted |
           | Description | ↑    | yes         |
-          | Added       | ↕    | no          |
+          | Modified    | ↕    | no          |
           | Total risk  | ↕    | no          |
       And the table should contain following rows in that order
-          | Index | Description | Added       | Total risk | (Expanded) |
+          | Index | Description | Modified    | Total risk | (Expanded) |
           | 1     | Abc12345    | 10 days ago | Important  | no         |
           | 2     | Bug12345    | 10 days ago | Critical   | yes        |
           | 3     | Uvw12345    | 10 days ago | Low        | no         |
@@ -173,10 +173,10 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
      Then table with recommendations should be rearranged
           | Column name | Sort | Highlighted |
           | Description | ↓    | yes         |
-          | Added       | ↕    | no          |
+          | Modified    | ↕    | no          |
           | Total risk  | ↕    | no          |
       And the table should contain following rows in that order
-          | Index | Description | Added       | Total risk | (Expanded) |
+          | Index | Description | Modified    | Total risk | (Expanded) |
           | 1     | Xyz12345    | 10 days ago | Moderate   | no         |
           | 2     | Uvw12345    | 10 days ago | Low        | no         |
           | 3     | Bug12345    | 10 days ago | Critical   | yes        |
@@ -189,13 +189,13 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Critical   |
           | Abc12345 | 20 days ago | Important  |
           | Xyz12345 | 30 days ago | Moderate   |
           | Uvw12345 | 40 days ago | Low        |
       And 1 another issue without cluster hit exists
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Nohit    | 10 days ago | Critical   |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -220,7 +220,7 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Critical   | 1        |
           | Abc12345    | 20 days ago | Important  | 1        |
           | Xyz12345    | 30 days ago | Moderate   | 1        |
@@ -228,12 +228,12 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              |
-          | Description | Textual description | Text                      |
-          | KB article  | Link to KB article  | Link                      |
-          | Total risk  | Important           | Widget (icon+label)       |
-          | Likelihood  | High                | Widget (thermometer-like) |
-          | Impact      | High                | Widget (thermometer-like) |
+          | Value type  | Content             | Displayed as              | Optional |
+          | Description | Textual description | Text                      | no       |
+          | KB article  | Link to KB article  | Link                      | yes      |
+          | Total risk  | Important           | Widget (icon+label)       | no       |
+          | Likelihood  | High                | Widget (thermometer-like) | no       |
+          | Impact      | High                | Widget (thermometer-like) | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -252,34 +252,34 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
      Then table with several columns should be displayed with sorting setting
           | Column name | Sort | Highlighted |
           | Description | ↕    | no          |
-          | Added       | ↕    | no          |
+          | Modified    | ↕    | no          |
           | Total risk  | ↕    | no          |
       And the table should contain following rows in any order
-          | Index | Description | Added       | Total risk | (Expanded) |
+          | Index | Description | Modified    | Total risk | (Expanded) |
           | ?     | Bug12345    | 10 days ago | Critical   | yes        |
           | ?     | Abc12345    | 20 days ago | Important  | no         |
           | ?     | Xyz12345    | 30 days ago | Moderate   | no         |
           | ?     | Uvw12345    | 40 days ago | Low        | no         |
-     When user clicks on ↕ symbol in "Added" column title
+     When user clicks on ↕ symbol in "Modified" column title
      Then table with recommendations should be rearranged
           | Column name | Sort | Highlighted |
           | Description | ↕    | no          |
-          | Added       | ↑    | yes         |
+          | Modified    | ↑    | yes         |
           | Total risk  | ↕    | no          |
       And the table should contain following rows in that order
-          | Index | Description | Added       | Total risk | (Expanded) |
+          | Index | Description | Modified    | Total risk | (Expanded) |
           | 1     | Uvw12345    | 40 days ago | Low        | no         |
           | 2     | Xyz12345    | 30 days ago | Moderate   | no         |
           | 3     | Abc12345    | 20 days ago | Important  | no         |
           | 4     | Bug12345    | 10 days ago | Critical   | yes        |
-     When user clicks on ↑ symbol in "Added" column title
+     When user clicks on ↑ symbol in "Modified" column title
      Then table with recommendations should be rearranged
           | Column name | Sort | Highlighted |
           | Description | ↕    | yes         |
-          | Added       | ↓    | no          |
+          | Modified    | ↓    | no          |
           | Total risk  | ↕    | no          |
       And the table should contain following rows in that order
-          | Index | Description | Added       | Total risk | (Expanded) |
+          | Index | Description | Modified    | Total risk | (Expanded) |
           | 1     | Bug12345    | 10 days ago | Critical   | yes        |
           | 2     | Abc12345    | 20 days ago | Important  | no         |
           | 3     | Xyz12345    | 30 days ago | Moderate   | no         |
@@ -292,13 +292,13 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Critical   |
           | Abc12345 | 20 days ago | Important  |
           | Xyz12345 | 30 days ago | Moderate   |
           | Uvw12345 | 40 days ago | Low        |
       And 1 another issue without cluster hit exists
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Nohit    | 10 days ago | Critical   |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -323,7 +323,7 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Critical   | 1        |
           | Abc12345    | 20 days ago | Important  | 1        |
           | Xyz12345    | 30 days ago | Moderate   | 1        |
@@ -331,12 +331,12 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              |
-          | Description | Textual description | Text                      |
-          | KB article  | Link to KB article  | Link                      |
-          | Total risk  | Important           | Widget (icon+label)       |
-          | Likelihood  | High                | Widget (thermometer-like) |
-          | Impact      | High                | Widget (thermometer-like) |
+          | Value type  | Content             | Displayed as              | Optional |
+          | Description | Textual description | Text                      | no       |
+          | KB article  | Link to KB article  | Link                      | yes      |
+          | Total risk  | Important           | Widget (icon+label)       | no       |
+          | Likelihood  | High                | Widget (thermometer-like) | no       |
+          | Impact      | High                | Widget (thermometer-like) | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -355,10 +355,10 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
      Then table with several columns should be displayed with sorting setting
           | Column name | Sort | Highlighted |
           | Description | ↕    | no          |
-          | Added       | ↕    | no          |
+          | Modified    | ↕    | no          |
           | Total risk  | ↕    | no          |
       And the table should contain following rows in any order
-          | Index | Description | Added       | Total risk | (Expanded) |
+          | Index | Description | Modified    | Total risk | (Expanded) |
           | ?     | Bug12345    | 10 days ago | Critical   | yes        |
           | ?     | Abc12345    | 20 days ago | Important  | no         |
           | ?     | Xyz12345    | 30 days ago | Moderate   | no         |
@@ -367,10 +367,10 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
      Then table with recommendations should be rearranged
           | Column name | Sort | Highlighted |
           | Description | ↕    | no          |
-          | Added       | ↕    | no          |
+          | Modified    | ↕    | no          |
           | Total risk  | ↑    | yes         |
       And the table should contain following rows in that order
-          | Index | Description | Added       | Total risk | (Expanded) |
+          | Index | Description | Modified    | Total risk | (Expanded) |
           | 1     | Uvw12345    | 40 days ago | Low        | no         |
           | 2     | Xyz12345    | 30 days ago | Moderate   | no         |
           | 3     | Abc12345    | 20 days ago | Important  | no         |
@@ -379,10 +379,10 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
      Then table with recommendations should be rearranged
           | Column name | Sort | Highlighted |
           | Description | ↕    | no          |
-          | Added       | ↕    | no          |
+          | Modified    | ↕    | no          |
           | Total risk  | ↓    | yes         |
       And the table should contain following rows in that order
-          | Index | Description | Added       | Total risk | (Expanded) |
+          | Index | Description | Modified    | Total risk | (Expanded) |
           | 1     | Bug12345    | 10 days ago | Critical   | yes        |
           | 2     | Abc12345    | 20 days ago | Important  | no         |
           | 3     | Xyz12345    | 30 days ago | Moderate   | no         |

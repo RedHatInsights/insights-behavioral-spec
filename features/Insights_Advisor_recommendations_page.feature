@@ -31,7 +31,7 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console
       And table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table might contains only rows saying Clusters: 0
@@ -41,7 +41,7 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console
     Given user USER1 is part of account (organization) ACCOUNT1
       And account (organization) ACCOUNT1 owns one cluster
       And 1 issue is detected for this cluster
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Important  |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -69,13 +69,13 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console
       And table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain at least one row
           | Column name | Value       |
           | Name        | Bug1234     |
-          | Added       | 10 days ago |
+          | Modified    | 10 days ago |
           | Total risk  | Important   |
           | Clusters    | 1           |
 
@@ -87,7 +87,7 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console
           | 00000000-0000-0000-0000-000000000000 |
           | 11111111-0000-0000-0000-000000000000 |
       And 1 issue is detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Important  |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -115,12 +115,12 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console
       And table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain at least one row
           | Column name | Value       |
           | Name        | Bug1234     |
-          | Added       | 10 days ago |
+          | Modified    | 10 days ago |
           | Total risk  | Important   |
           | Clusters    | 1           |

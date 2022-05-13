@@ -8,10 +8,10 @@ Feature: Clusters view page with recommendations behaviour on Hybrid Cloud Conso
             | 00000000-0000-0000-0000-000000000000 | 0.0     |
             | 11111111-0000-0000-0000-000000000000 |         |
         And 1 issue is detected for cluster 00000000-0000-0000-0000-000000000000
-            | Title    | Added       | Total risk | Likelihood | Impact |
+            | Title    | Modified    | Total risk | Likelihood | Impact |
             | Bug12345 | 10 days ago | Important  | high       | high   |
         And 1 issue is detected for cluster 11111111-0000-0000-0000-000000000000
-            | Title    | Added       | Total risk | Likelihood | Impact |
+            | Title    | Modified    | Total risk | Likelihood | Impact |
             | Bug12345 | 10 days ago | Important  | high       | high   |
         And the user USER1 is already logged in into Hybrid Cloud Console
         When user looks at Hybrid Cloud Console main page
