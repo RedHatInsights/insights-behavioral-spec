@@ -18,7 +18,7 @@ Feature: Filtering on Advisor affected clusters page behaviour on Hybrid Cloud C
           | 00000000-0000-0000-0000-fff000000000 |
           | 00000000-0000-0000-0000-ffff00000000 |
       And 1 issue is detected for following clusters
-          | Title    | Added       | Total risk | Cluster name                         |
+          | Title    | Modified    | Total risk | Cluster name                         |
           | Bug12345 | 10 days ago | Critical   | 00000000-0000-0000-aaaa-000000000000 |
           | Bug12345 | 10 days ago | Critical   | 11111111-0000-0000-aaaa-000000000000 |
           | Bug12345 | 10 days ago | Critical   | 22222222-0000-0000-aaaa-000000000000 |
@@ -50,7 +50,7 @@ Feature: Filtering on Advisor affected clusters page behaviour on Hybrid Cloud C
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Critical   | 8        |
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
@@ -95,7 +95,7 @@ Feature: Filtering on Advisor affected clusters page behaviour on Hybrid Cloud C
           | 00000000-0000-0000-0000-fff000000000 |
           | 00000000-0000-0000-0000-ffff00000000 |
       And 1 issue is detected for following clusters
-          | Title    | Added       | Total risk | Cluster name                         |
+          | Title    | Modified    | Total risk | Cluster name                         |
           | Bug12345 | 10 days ago | Critical   | 00000000-0000-0000-aaaa-000000000000 |
           | Bug12345 | 10 days ago | Critical   | 11111111-0000-0000-aaaa-000000000000 |
           | Bug12345 | 10 days ago | Critical   | 22222222-0000-0000-aaaa-000000000000 |
@@ -127,7 +127,7 @@ Feature: Filtering on Advisor affected clusters page behaviour on Hybrid Cloud C
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Critical   | 8        |
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
@@ -200,7 +200,7 @@ Feature: Filtering on Advisor affected clusters page behaviour on Hybrid Cloud C
           | 00000000-0000-0000-0000-fff000000000 |
           | 00000000-0000-0000-0000-ffff00000000 |
       And 1 issue is detected for following clusters
-          | Title    | Added       | Total risk | Cluster name                         |
+          | Title    | Modified    | Total risk | Cluster name                         |
           | Bug12345 | 10 days ago | Critical   | 00000000-0000-0000-aaaa-000000000000 |
           | Bug12345 | 10 days ago | Critical   | 11111111-0000-0000-aaaa-000000000000 |
           | Bug12345 | 10 days ago | Critical   | 22222222-0000-0000-aaaa-000000000000 |
@@ -232,7 +232,7 @@ Feature: Filtering on Advisor affected clusters page behaviour on Hybrid Cloud C
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Critical   | 8        |
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
@@ -311,7 +311,7 @@ Feature: Filtering on Advisor affected clusters page behaviour on Hybrid Cloud C
           | 00000000-0000-0000-0000-fff000000000 |
           | 00000000-0000-0000-0000-ffff00000000 |
       And 1 issue is detected for following clusters
-          | Title    | Added       | Total risk | Cluster name                         |
+          | Title    | Modified    | Total risk | Cluster name                         |
           | Bug12345 | 10 days ago | Critical   | 00000000-0000-0000-aaaa-000000000000 |
           | Bug12345 | 10 days ago | Critical   | 11111111-0000-0000-aaaa-000000000000 |
           | Bug12345 | 10 days ago | Critical   | 22222222-0000-0000-aaaa-000000000000 |
@@ -343,7 +343,7 @@ Feature: Filtering on Advisor affected clusters page behaviour on Hybrid Cloud C
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Critical   | 8        |
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed

@@ -7,7 +7,7 @@ Feature: Recommendations view page with recommendations behaviour on Hybrid Clou
             | Cluster name                         | Version |
             | 00000000-0000-0000-0000-000000000000 | 0.0     |
         And 1 issue is detected for cluster 00000000-0000-0000-0000-000000000000
-            | Title    | Added       | Total risk | Likelihood | Impact |
+            | Title    | Modified    | Total risk | Likelihood | Impact |
             | Bug12345 | 10 days ago | Important  | high       | high   |
         And the user USER1 is already logged in into Hybrid Cloud Console
         When user looks at Hybrid Cloud Console main page
@@ -35,13 +35,13 @@ Feature: Recommendations view page with recommendations behaviour on Hybrid Clou
         And table with several columns should be displayed
             | Column name |
             | Name        |
-            | Added       |
+            | Modified    |
             | Total risk  |
             | Clusters    |
         And that table should contain at least one row
             | Column name | Value       |
             | Name        | Bug1234     |
-            | Added       | 10 days ago |
+            | Modified    | 10 days ago |
             | Total risk  | Important   |
             | Clusters    | 1           |
         When user clicks on an "Bug1234" link
@@ -66,10 +66,10 @@ Feature: Recommendations view page with recommendations behaviour on Hybrid Clou
             | 00000000-0000-0000-0000-000000000000 | 0.0     |
             | 11111111-0000-0000-0000-000000000000 |         |
         And 1 issue is detected for cluster 00000000-0000-0000-0000-000000000000
-            | Title    | Added       | Total risk | Likelihood | Impact |
+            | Title    | Modified    | Total risk | Likelihood | Impact |
             | Bug12345 | 10 days ago | Important  | high       | high   |
         And 1 issue is detected for cluster 11111111-0000-0000-0000-000000000000
-            | Title    | Added       | Total risk | Likelihood | Impact |
+            | Title    | Modified    | Total risk | Likelihood | Impact |
             | Bug12345 | 10 days ago | Important  | high       | high   |
         And the user USER1 is already logged in into Hybrid Cloud Console
         When user looks at Hybrid Cloud Console main page
@@ -97,13 +97,13 @@ Feature: Recommendations view page with recommendations behaviour on Hybrid Clou
         And table with several columns should be displayed
             | Column name |
             | Name        |
-            | Added       |
+            | Modified    |
             | Total risk  |
             | Clusters    |
         And that table should contain at least one row
             | Column name | Value       |
             | Name        | Bug1234     |
-            | Added       | 10 days ago |
+            | Modified    | 10 days ago |
             | Total risk  | Important   |
             | Clusters    | 2           |
         When user clicks on an "Bug1234" link
@@ -165,13 +165,13 @@ Feature: Recommendations view page with recommendations behaviour on Hybrid Clou
         And table with several columns should be displayed
             | Column name |
             | Name        |
-            | Added       |
+            | Modified    |
             | Total risk  |
             | Clusters    |
         And that table should contain at least one row
             | Column name | Value       |
             | Name        | Bug1234     |
-            | Added       | 10 days ago |
+            | Modified    | 10 days ago |
             | Total risk  | Important   |
             | Clusters    | 12          |
         When user clicks on an "Bug1234" link

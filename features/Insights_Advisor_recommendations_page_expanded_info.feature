@@ -5,7 +5,7 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
     Given user USER1 is part of account (organization) ACCOUNT1
       And account (organization) ACCOUNT1 owns one cluster
       And 1 issue is detected for this cluster
-          | Title    | Added       | Total risk | Likelihood | Impact |
+          | Title    | Modified    | Total risk | Likelihood | Impact |
           | Bug12345 | 10 days ago | Important  | high       | high   |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -33,13 +33,13 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
       And table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain at least one row
           | Column name | Value       |
           | Name        | Bug1234     |
-          | Added       | 10 days ago |
+          | Modified    | 10 days ago |
           | Total risk  | Important   |
           | Clusters    | 1           |
       And an "expand" arrow should be displayed before recommendation name
@@ -64,7 +64,7 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
     Given user USER1 is part of account (organization) ACCOUNT1
       And account (organization) ACCOUNT1 owns one cluster
       And 1 issue is detected for this cluster
-          | Title    | Added       | Total risk | Likelihood | Impact |
+          | Title    | Modified    | Total risk | Likelihood | Impact |
           | Bug12345 | 10 days ago | Low        | medium     | low    |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -92,13 +92,13 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
       And table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain at least one row
           | Column name | Value       |
           | Name        | Bug1234     |
-          | Added       | 10 days ago |
+          | Modified    | 10 days ago |
           | Total risk  | Low         |
           | Clusters    | 1           |
       And an "expand" arrow should be displayed before recommendation name
@@ -123,7 +123,7 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
     Given user USER1 is part of account (organization) ACCOUNT1
       And account (organization) ACCOUNT1 owns one cluster
       And 1 issue is detected for this cluster
-          | Title    | Added       | Total risk | Likelihood | Impact |
+          | Title    | Modified    | Total risk | Likelihood | Impact |
           | Bug12345 | 10 days ago | Moderate   | medium     | low    |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -151,13 +151,13 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
       And table with several columns should be displayed
           | Column name |
           | Name        |
-          | Added       |
+          | Modified    |
           | Total risk  |
           | Clusters    |
       And that table should contain at least one row
           | Column name | Value       |
           | Name        | Bug1234     |
-          | Added       | 10 days ago |
+          | Modified    | 10 days ago |
           | Total risk  | Low         |
           | Clusters    | 1           |
       And an "expand" arrow should be displayed before recommendation name

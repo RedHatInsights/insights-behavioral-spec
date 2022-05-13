@@ -6,13 +6,13 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Critical   |
           | Abc12345 | 10 days ago | Important  |
           | Xyz12345 | 10 days ago | Moderate   |
           | Uvw12345 | 10 days ago | Low        |
       And 1 another issue without cluster hit exists
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Nohit    | 10 days ago | Critical   |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -37,7 +37,7 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Critical   | 1        |
           | Abc12345    | 10 days ago | Important  | 1        |
           | Xyz12345    | 10 days ago | Moderate   | 1        |
@@ -73,13 +73,13 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Critical   |
           | Abc12345 | 10 days ago | Important  |
           | Xyz12345 | 10 days ago | Moderate   |
           | Uvw12345 | 10 days ago | Low        |
       And 1 another issue without cluster hit exists
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Nohit    | 10 days ago | Critical   |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -104,7 +104,7 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Critical   | 1        |
           | Abc12345    | 10 days ago | Important  | 1        |
           | Xyz12345    | 10 days ago | Moderate   | 1        |
@@ -136,10 +136,10 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
      Then table with several columns should be displayed
           | Column name |
           | Descriptiom |
-          | Added       |
+          | Modified    |
           | Total risk  |
       And the table should contain following rows
-          | Icon | Description | Added       | Total risk | (Expanded) |
+          | Icon | Description | Modified    | Total risk | (Expanded) |
           | v    | Bug12345    | 10 days ago | Critical   | yes        |
           | >    | Abc12345    | 10 days ago | Important  | no         |
           | >    | Xyz12345    | 10 days ago | Moderate   | no         |
@@ -152,13 +152,13 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Critical   |
           | Abc12345 | 10 days ago | Important  |
           | Xyz12345 | 10 days ago | Moderate   |
           | Uvw12345 | 10 days ago | Low        |
       And 1 another issue without cluster hit exists
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Nohit    | 10 days ago | Critical   |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -183,7 +183,7 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Critical   | 1        |
           | Abc12345    | 10 days ago | Important  | 1        |
           | Xyz12345    | 10 days ago | Moderate   | 1        |
@@ -215,10 +215,10 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
      Then table with several columns should be displayed
           | Column name |
           | Descriptiom |
-          | Added       |
+          | Modified    |
           | Total risk  |
       And the table should contain following rows
-          | Icon | Description | Added       | Total risk | (Expanded) |
+          | Icon | Description | Modified    | Total risk | (Expanded) |
           | v    | Bug12345    | 10 days ago | Critical   | yes        |
           | >    | Abc12345    | 10 days ago | Important  | no         |
           | >    | Xyz12345    | 10 days ago | Moderate   | no         |
@@ -237,13 +237,13 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Critical   |
           | Abc12345 | 10 days ago | Important  |
           | Xyz12345 | 10 days ago | Moderate   |
           | Uvw12345 | 10 days ago | Low        |
       And 1 another issue without cluster hit exists
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Nohit    | 10 days ago | Critical   |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -268,7 +268,7 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Critical   | 1        |
           | Abc12345    | 10 days ago | Important  | 1        |
           | Xyz12345    | 10 days ago | Moderate   | 1        |
@@ -300,10 +300,10 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
      Then table with several columns should be displayed
           | Column name |
           | Descriptiom |
-          | Added       |
+          | Modified    |
           | Total risk  |
       And the table should contain following rows
-          | Icon | Description | Added       | Total risk | (Expanded) |
+          | Icon | Description | Modified    | Total risk | (Expanded) |
           | v    | Bug12345    | 10 days ago | Critical   | yes        |
           | >    | Abc12345    | 10 days ago | Important  | no         |
           | >    | Xyz12345    | 10 days ago | Moderate   | no         |
@@ -311,7 +311,7 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
      When user clicks on "v" button displayed left-of "Bug12345"
      Then the first row should be folded
       And the table should contain following rows
-          | Icon | Description | Added       | Total risk | (Expanded) |
+          | Icon | Description | Modified    | Total risk | (Expanded) |
           | >    | Bug12345    | 10 days ago | Critical   | no         |
           | >    | Abc12345    | 10 days ago | Important  | no         |
           | >    | Xyz12345    | 10 days ago | Moderate   | no         |
@@ -324,13 +324,13 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Critical   |
           | Abc12345 | 10 days ago | Important  |
           | Xyz12345 | 10 days ago | Moderate   |
           | Uvw12345 | 10 days ago | Low        |
       And 1 another issue without cluster hit exists
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Nohit    | 10 days ago | Critical   |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -355,7 +355,7 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Critical   | 1        |
           | Abc12345    | 10 days ago | Important  | 1        |
           | Xyz12345    | 10 days ago | Moderate   | 1        |
@@ -387,10 +387,10 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
      Then table with several columns should be displayed
           | Column name |
           | Descriptiom |
-          | Added       |
+          | Modified    |
           | Total risk  |
       And the table should contain following rows
-          | Icon | Description | Added       | Total risk | (Expanded) |
+          | Icon | Description | Modified    | Total risk | (Expanded) |
           | v    | Bug12345    | 10 days ago | Critical   | yes        |
           | >    | Abc12345    | 10 days ago | Important  | no         |
           | >    | Xyz12345    | 10 days ago | Moderate   | no         |
@@ -398,7 +398,7 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
      When user clicks on ">" button displayed left-of "Abc12345"
      Then the first row should be folded
       And the table should contain following rows
-          | Icon | Description | Added       | Total risk | (Expanded) |
+          | Icon | Description | Modified    | Total risk | (Expanded) |
           | v    | Bug12345    | 10 days ago | Critical   | yes        |
           | v    | Abc12345    | 10 days ago | Important  | yes        |
           | >    | Xyz12345    | 10 days ago | Moderate   | no         |
@@ -411,13 +411,13 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Critical   |
           | Abc12345 | 10 days ago | Important  |
           | Xyz12345 | 10 days ago | Moderate   |
           | Uvw12345 | 10 days ago | Low        |
       And 1 another issue without cluster hit exists
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Nohit    | 10 days ago | Critical   |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -442,7 +442,7 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Critical   | 1        |
           | Abc12345    | 10 days ago | Important  | 1        |
           | Xyz12345    | 10 days ago | Moderate   | 1        |
@@ -474,10 +474,10 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
      Then table with several columns should be displayed
           | Column name |
           | Descriptiom |
-          | Added       |
+          | Modified    |
           | Total risk  |
       And the table should contain following rows
-          | Icon | Description | Added       | Total risk | (Expanded) |
+          | Icon | Description | Modified    | Total risk | (Expanded) |
           | v    | Bug12345    | 10 days ago | Critical   | yes        |
           | >    | Abc12345    | 10 days ago | Important  | no         |
           | >    | Xyz12345    | 10 days ago | Moderate   | no         |
@@ -486,7 +486,7 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
      Then all rows should have expanded
       And the ">" button should change to "v"
       And the table should contain following rows
-          | Icon | Description | Added       | Total risk | (Expanded) |
+          | Icon | Description | Modified    | Total risk | (Expanded) |
           | v    | Bug12345    | 10 days ago | Critical   | yes        |
           | v    | Abc12345    | 10 days ago | Important  | yes        |
           | v    | Xyz12345    | 10 days ago | Moderate   | yes        |
@@ -499,13 +499,13 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Critical   |
           | Abc12345 | 10 days ago | Important  |
           | Xyz12345 | 10 days ago | Moderate   |
           | Uvw12345 | 10 days ago | Low        |
       And 1 another issue without cluster hit exists
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Nohit    | 10 days ago | Critical   |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -530,7 +530,7 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Critical   | 1        |
           | Abc12345    | 10 days ago | Important  | 1        |
           | Xyz12345    | 10 days ago | Moderate   | 1        |
@@ -562,10 +562,10 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
      Then table with several columns should be displayed
           | Column name |
           | Descriptiom |
-          | Added       |
+          | Modified    |
           | Total risk  |
       And the table should contain following rows
-          | Icon | Description | Added       | Total risk | (Expanded) |
+          | Icon | Description | Modified    | Total risk | (Expanded) |
           | v    | Bug12345    | 10 days ago | Critical   | yes        |
           | >    | Abc12345    | 10 days ago | Important  | no         |
           | >    | Xyz12345    | 10 days ago | Moderate   | no         |
@@ -577,7 +577,7 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
      Then all rows should have collapsed
       And the "v" button should change to ">"
       And the table should contain following rows
-          | Icon | Description | Added       | Total risk | (Expanded) |
+          | Icon | Description | Modified    | Total risk | (Expanded) |
           | >    | Bug12345    | 10 days ago | Critical   | no         |
           | >    | Abc12345    | 10 days ago | Important  | no         |
           | >    | Xyz12345    | 10 days ago | Moderate   | no         |

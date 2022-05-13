@@ -10,25 +10,25 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
           | 22222222-0000-0000-0000-000000000000 |
           | 33333333-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Critical   |
           | Abc12345 | 10 days ago | Important  |
           | Xyz12345 | 10 days ago | Moderate   |
           | Uvw12345 | 10 days ago | Low        |
       And 3 issues are detected for cluster 11111111-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Critical   |
           | Abc12345 | 10 days ago | Important  |
           | Xyz12345 | 10 days ago | Moderate   |
       And 2 issues are detected for cluster 22222222-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Critical   |
           | Abc12345 | 10 days ago | Important  |
       And 1 issue is detected for cluster 33333333-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Critical   |
       And 1 another issue without cluster hit exists
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Nohit    | 10 days ago | Critical   |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -56,11 +56,11 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
       And table with several columns should be displayed with sorting setting
           | Column name | Sort | Highlighted |
           | Name        | ↕    | no          |
-          | Added       | ↕    | no          |
+          | Modified    | ↕    | no          |
           | Total risk  | ↓    | yes         |
           | Clusters    | ↕    | no          |
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Critical   | 4        |
           | Abc12345    | 10 days ago | Important  | 3        |
           | Xyz12345    | 10 days ago | Moderate   | 2        |
@@ -76,25 +76,25 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
           | 22222222-0000-0000-0000-000000000000 |
           | 33333333-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Critical   |
           | Abc12345 | 10 days ago | Important  |
           | Xyz12345 | 10 days ago | Moderate   |
           | Uvw12345 | 10 days ago | Low        |
       And 3 issues are detected for cluster 11111111-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Critical   |
           | Abc12345 | 10 days ago | Important  |
           | Xyz12345 | 10 days ago | Moderate   |
       And 2 issues are detected for cluster 22222222-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Critical   |
           | Abc12345 | 10 days ago | Important  |
       And 1 issue is detected for cluster 33333333-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Critical   |
       And 1 another issue without cluster hit exists
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Nohit    | 10 days ago | Critical   |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -122,11 +122,11 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
       And table with several columns should be displayed with sorting setting
           | Column name | Sort | Highlighted |
           | Name        | ↕    | no          |
-          | Added       | ↕    | no          |
+          | Modified    | ↕    | no          |
           | Total risk  | ↓    | yes         |
           | Clusters    | ↕    | no          |
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Critical   | 4        |
           | Abc12345    | 10 days ago | Important  | 3        |
           | Xyz12345    | 10 days ago | Moderate   | 2        |
@@ -135,11 +135,11 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
       And table with several columns should be displayed with sorting setting
           | Column name | Sort | Highlighted |
           | Name        | ↓    | yes         |
-          | Added       | ↕    | no          |
+          | Modified    | ↕    | no          |
           | Total risk  | ↕    | no          |
           | Clusters    | ↕    | no          |
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Abc12345    | 10 days ago | Important  | 3        |
           | Bug12345    | 10 days ago | Critical   | 4        |
           | Uvw12345    | 10 days ago | Low        | 1        |
@@ -148,11 +148,11 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
       And table with several columns should be displayed with sorting setting
           | Column name | Sort | Highlighted |
           | Name        | ↑    | yes         |
-          | Added       | ↕    | no          |
+          | Modified    | ↕    | no          |
           | Total risk  | ↕    | no          |
           | Clusters    | ↕    | no          |
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Xyz12345    | 10 days ago | Moderate   | 2        |
           | Uvw12345    | 10 days ago | Low        | 1        |
           | Bug12345    | 10 days ago | Critical   | 4        |
@@ -168,25 +168,25 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
           | 22222222-0000-0000-0000-000000000000 |
           | 33333333-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Critical   |
           | Abc12345 | 10 days ago | Important  |
           | Xyz12345 | 10 days ago | Moderate   |
           | Uvw12345 | 10 days ago | Low        |
       And 3 issues are detected for cluster 11111111-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Critical   |
           | Abc12345 | 10 days ago | Important  |
           | Xyz12345 | 10 days ago | Moderate   |
       And 2 issues are detected for cluster 22222222-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Critical   |
           | Abc12345 | 10 days ago | Important  |
       And 1 issue is detected for cluster 33333333-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Critical   |
       And 1 another issue without cluster hit exists
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Nohit    | 10 days ago | Critical   |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -214,11 +214,11 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
       And table with several columns should be displayed with sorting setting
           | Column name | Sort | Highlighted |
           | Name        | ↕    | no          |
-          | Added       | ↕    | no          |
+          | Modified    | ↕    | no          |
           | Total risk  | ↓    | yes         |
           | Clusters    | ↕    | no          |
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Critical   | 4        |
           | Abc12345    | 10 days ago | Important  | 3        |
           | Xyz12345    | 10 days ago | Moderate   | 2        |
@@ -227,11 +227,11 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
       And table with several columns should be displayed with sorting setting
           | Column name | Sort | Highlighted |
           | Name        | ↕    | no          |
-          | Added       | ↕    | no          |
+          | Modified    | ↕    | no          |
           | Total risk  | ↑    | yes         |
           | Clusters    | ↕    | no          |
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Uvw12345    | 10 days ago | Low        | 1        |
           | Xyz12345    | 10 days ago | Moderate   | 2        |
           | Abc12345    | 10 days ago | Important  | 3        |
@@ -240,11 +240,11 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
       And table with several columns should be displayed with sorting setting
           | Column name | Sort | Highlighted |
           | Name        | ↕    | no          |
-          | Added       | ↕    | no          |
+          | Modified    | ↕    | no          |
           | Total risk  | ↓    | yes         |
           | Clusters    | ↕    | no          |
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Critical   | 4        |
           | Abc12345    | 10 days ago | Important  | 3        |
           | Xyz12345    | 10 days ago | Moderate   | 2        |
@@ -260,25 +260,25 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
           | 22222222-0000-0000-0000-000000000000 |
           | 33333333-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Critical   |
           | Abc12345 | 10 days ago | Important  |
           | Xyz12345 | 10 days ago | Moderate   |
           | Uvw12345 | 10 days ago | Low        |
       And 3 issues are detected for cluster 11111111-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Critical   |
           | Abc12345 | 10 days ago | Important  |
           | Xyz12345 | 10 days ago | Moderate   |
       And 2 issues are detected for cluster 22222222-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Critical   |
           | Abc12345 | 10 days ago | Important  |
       And 1 issue is detected for cluster 33333333-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 10 days ago | Critical   |
       And 1 another issue without cluster hit exists
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Nohit    | 10 days ago | Critical   |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -306,11 +306,11 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
       And table with several columns should be displayed with sorting setting
           | Column name | Sort | Highlighted |
           | Name        | ↕    | no          |
-          | Added       | ↕    | no          |
+          | Modified    | ↕    | no          |
           | Total risk  | ↓    | yes         |
           | Clusters    | ↕    | no          |
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Critical   | 4        |
           | Abc12345    | 10 days ago | Important  | 3        |
           | Xyz12345    | 10 days ago | Moderate   | 2        |
@@ -319,11 +319,11 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
       And table with several columns should be displayed with sorting setting
           | Column name | Sort | Highlighted |
           | Name        | ↕    | no          |
-          | Added       | ↕    | no          |
+          | Modified    | ↕    | no          |
           | Total risk  | ↕    | no          |
           | Clusters    | ↓    | yes         |
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 10 days ago | Critical   | 4        |
           | Abc12345    | 10 days ago | Important  | 3        |
           | Xyz12345    | 10 days ago | Moderate   | 2        |
@@ -332,11 +332,11 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
       And table with several columns should be displayed with sorting setting
           | Column name | Sort | Highlighted |
           | Name        | ↕    | no          |
-          | Added       | ↕    | no          |
+          | Modified    | ↕    | no          |
           | Total risk  | ↕    | no          |
           | Clusters    | ↑    | yes         |
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Uvw12345    | 10 days ago | Low        | 1        |
           | Xyz12345    | 10 days ago | Moderate   | 2        |
           | Abc12345    | 10 days ago | Important  | 3        |
@@ -352,25 +352,25 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
           | 22222222-0000-0000-0000-000000000000 |
           | 33333333-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 30 days ago | Critical   |
           | Abc12345 | 40 days ago | Important  |
           | Xyz12345 | 20 days ago | Moderate   |
           | Uvw12345 | 10 days ago | Low        |
       And 3 issues are detected for cluster 11111111-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 30 days ago | Critical   |
           | Abc12345 | 40 days ago | Important  |
           | Xyz12345 | 20 days ago | Moderate   |
       And 2 issues are detected for cluster 22222222-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 30 days ago | Critical   |
           | Abc12345 | 40 days ago | Important  |
       And 1 issue is detected for cluster 33333333-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 30 days ago | Critical   |
       And 1 another issue without cluster hit exists
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Nohit    | 50 days ago | Critical   |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -398,37 +398,37 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
       And table with several columns should be displayed with sorting setting
           | Column name | Sort | Highlighted |
           | Name        | ↕    | no          |
-          | Added       | ↕    | no          |
+          | Modified    | ↕    | no          |
           | Total risk  | ↓    | yes         |
           | Clusters    | ↕    | no          |
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 30 days ago | Critical   | 4        |
           | Abc12345    | 40 days ago | Important  | 3        |
           | Xyz12345    | 20 days ago | Moderate   | 2        |
           | Uvw12345    | 10 days ago | Low        | 1        |
-     When user clicks on ↕ symbol in "Added" column title
+     When user clicks on ↕ symbol in "Modified" column title
       And table with several columns should be displayed with sorting setting
           | Column name | Sort | Highlighted |
           | Name        | ↕    | no          |
-          | Added       | ↓    | yes         |
+          | Modified    | ↓    | yes         |
           | Total risk  | ↕    | no          |
           | Clusters    | ↕    | no          |
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Abc12345    | 40 days ago | Important  | 3        |
           | Bug12345    | 30 days ago | Critical   | 4        |
           | Xyz12345    | 20 days ago | Moderate   | 2        |
           | Uvw12345    | 10 days ago | Low        | 1        |
-     When user clicks on ↓ symbol in "Added" column title
+     When user clicks on ↓ symbol in "Modified" column title
       And table with several columns should be displayed with sorting setting
           | Column name | Sort | Highlighted |
           | Name        | ↕    | no          |
-          | Added       | ↑    | yes         |
+          | Modified    | ↑    | yes         |
           | Total risk  | ↕    | no          |
           | Clusters    | ↕    | no          |
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Uvw12345    | 10 days ago | Low        | 1        |
           | Xyz12345    | 20 days ago | Moderate   | 2        |
           | Bug12345    | 30 days ago | Critical   | 4        |
@@ -444,25 +444,25 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
           | 22222222-0000-0000-0000-000000000000 |
           | 33333333-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 30 days ago | Critical   |
           | Abc12345 | 40 days ago | Important  |
           | Xyz12345 | 20 days ago | Moderate   |
           | Uvw12345 | 10 days ago | Low        |
       And 3 issues are detected for cluster 11111111-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 30 days ago | Critical   |
           | Abc12345 | 40 days ago | Important  |
           | Xyz12345 | 20 days ago | Moderate   |
       And 2 issues are detected for cluster 22222222-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 30 days ago | Critical   |
           | Abc12345 | 40 days ago | Important  |
       And 1 issue is detected for cluster 33333333-0000-0000-0000-000000000000
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Bug12345 | 30 days ago | Critical   |
       And 1 another issue without cluster hit exists
-          | Title    | Added       | Total risk |
+          | Title    | Modified    | Total risk |
           | Nohit    | 50 days ago | Critical   |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -490,11 +490,11 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
       And table with several columns should be displayed with sorting setting
           | Column name | Sort | Highlighted |
           | Name        | ↕    | no          |
-          | Added       | ↕    | no          |
+          | Modified    | ↕    | no          |
           | Total risk  | ↓    | yes         |
           | Clusters    | ↕    | no          |
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 30 days ago | Critical   | 4        |
           | Abc12345    | 40 days ago | Important  | 3        |
           | Xyz12345    | 20 days ago | Moderate   | 2        |
@@ -503,24 +503,24 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
       And table with several columns should be displayed with sorting setting
           | Column name | Sort | Highlighted |
           | Name        | ↓    | yes         |
-          | Added       | ↕    | no          |
+          | Modified    | ↕    | no          |
           | Total risk  | ↕    | no          |
           | Clusters    | ↕    | no          |
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Abc12345    | 40 days ago | Important  | 3        |
           | Bug12345    | 30 days ago | Critical   | 4        |
           | Uvw12345    | 10 days ago | Low        | 1        |
           | Xyz12345    | 20 days ago | Moderate   | 2        |
-     When user clicks on ↕ symbol in "Added" column title
+     When user clicks on ↕ symbol in "Modified" column title
       And table with several columns should be displayed with sorting setting
           | Column name | Sort | Highlighted |
           | Name        | ↕    | no          |
-          | Added       | ↓    | yes         |
+          | Modified    | ↓    | yes         |
           | Total risk  | ↕    | no          |
           | Clusters    | ↕    | no          |
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Abc12345    | 40 days ago | Important  | 3        |
           | Bug12345    | 30 days ago | Critical   | 4        |
           | Xyz12345    | 20 days ago | Moderate   | 2        |
@@ -529,11 +529,11 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
       And table with several columns should be displayed with sorting setting
           | Column name | Sort | Highlighted |
           | Name        | ↕    | no          |
-          | Added       | ↕    | no          |
+          | Modified    | ↕    | no          |
           | Total risk  | ↕    | no          |
           | Clusters    | ↓    | yes         |
       And that table should contain following four rows in that order
-          | Name        | Added       | Total risk | Clusters |
+          | Name        | Modified    | Total risk | Clusters |
           | Bug12345    | 30 days ago | Critical   | 4        |
           | Abc12345    | 40 days ago | Important  | 3        |
           | Xyz12345    | 20 days ago | Moderate   | 2        |
