@@ -26,5 +26,5 @@ function prepare_venv() {
 [ "$NOVENV" == "1" ] || prepare_venv || exit 1
 
 # shellcheck disable=SC2068
-PYTHONDONTWRITEBYTECODE=1 python3 "$(which behave)" --tags=-skip -D dump_errors=true @cleaner_list.txt $@
+PYTHONDONTWRITEBYTECODE=1 python3 "$(which behave)" --tags=-skip -D dump_errors=true @test_list/cleaner.txt $@
 
