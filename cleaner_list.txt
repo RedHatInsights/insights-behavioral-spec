@@ -1,3 +1,0 @@
-features/cleaner_smoketests.feature
-features/cleaner_display_old_records.feature
-features/cleaner_cleanup_selected_records.feature
