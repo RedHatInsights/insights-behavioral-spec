@@ -87,3 +87,25 @@ def check_authors_info_from_exporter(context):
     # check the output
     assert "Pavel Tisnovsky, Red Hat Inc." in context.output, \
         "Caught output: {}".format(context.output)
+
+
+@then(u"I should see info about configuration displayed by exporter on standard output")
+def check_configuration_info_from_exporter(context):
+    """Check if information about configuration is displayed by exporter."""
+    # preliminary checks
+    assert context.output is not None
+    assert type(context.output) is list, "wrong type of output"
+
+    stdout = context.stdout.decode("utf-8").replace("\t", "    ")
+
+    # check the output
+    expected_artefacts = (
+            "DB Name",
+            "Username",
+            "Host",
+            "AccessKeyID",
+            "SecretAccessKey",
+            "S3 configuration",
+            "Storage configuration")
+    for expected_artefact in expected_artefacts:
+        assert expected_artefact in stdout, "{} not found in output".format(expected_artefact)
