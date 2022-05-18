@@ -266,7 +266,8 @@ def insert_records_into_database(context):
             assert type(org_id) is int, type(org_id)
 
             # try to perform insert statement
-            insertStatement = "INSERT INTO report(org_id, cluster, report, reported_at, last_checked_at, kafka_offset) VALUES(%s, %s, '', %s, %s, 1);"
+            insertStatement = "INSERT INTO report(org_id, cluster, report, " + \
+                "reported_at, last_checked_at, kafka_offset) VALUES(%s, %s, '', %s, %s, 1);"
             cursor.execute(insertStatement, (org_id, cluster_name, timestamp, timestamp))
 
         context.connection.commit()
