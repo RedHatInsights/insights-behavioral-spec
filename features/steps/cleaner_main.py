@@ -20,33 +20,6 @@ import subprocess
 test_output = "test"
 
 
-def process_cleaner_output(context, out, return_code):
-    """Process cleaner output."""
-    assert out is not None
-
-    # interact with the process:
-    # read data from stdout and stderr, until end-of-file is reached
-    stdout, stderr = out.communicate()
-
-    # basic checks
-    assert stderr is None, "Error during check"
-    assert stdout is not None, "No output from cleaner"
-
-    # check the return code of a process
-    assert out.returncode == 0 or out.returncode == return_code, \
-        "Return code is {}".format(out.returncode)
-
-    # try to decode output
-    output = stdout.decode('utf-8').split("\n")
-
-    assert output is not None
-
-    # update testing context
-    context.output = output
-    context.stdout = stdout
-    context.stderr = stderr
-
-
 @when(u"I run the cleaner to display all records older than {age}")
 def run_cleaner_for_older_records(context, age):
     """Start the cleaner to retrieve list of older records."""
@@ -56,7 +29,7 @@ def run_cleaner_for_older_records(context, age):
                            stderr=subprocess.STDOUT)
 
     assert out is not None
-    process_cleaner_output(context, out, 0)
+    process_generated_output(context, out, 0)
 
 
 @when(u"I run the cleaner with the {flag} command line flag")
@@ -67,7 +40,7 @@ def run_cleaner_with_flag(context, flag):
                            stderr=subprocess.STDOUT)
 
     assert out is not None
-    process_cleaner_output(context, out, 2)
+    process_generated_output(context, out, 2)
 
 
 @when(u"I run the cleaner with command to delete cluster {cluster}")
@@ -79,7 +52,7 @@ def run_cleaner_to_cleanup_cluster(context, cluster):
                            stderr=subprocess.STDOUT)
 
     assert out is not None
-    process_cleaner_output(context, out, 0)
+    process_generated_output(context, out, 0)
 
 
 @then(u"I should see help messages displayed on standard output")
