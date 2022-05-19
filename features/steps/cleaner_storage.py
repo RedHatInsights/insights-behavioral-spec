@@ -149,6 +149,7 @@ def given_database_password(context, password):
 
 
 @given(u"database connection is established")
+@when(u"database connection is established")
 def establish_connection_to_database(context):
     """Perform connection to selected database."""
     assert context.database_name is not None
@@ -162,6 +163,7 @@ def establish_connection_to_database(context):
 
 
 @given(u"the database is empty")
+@then(u"the database is empty")
 @then(u"I should find that the database is empty")
 def ensure_database_emptiness(context):
     """Perform check if the database is empty."""
