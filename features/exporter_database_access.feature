@@ -11,8 +11,8 @@ Feature: Ability to access database
      Then I should find that the database is empty
 
   Scenario: Check table creatinon on deletion
-     When database connection is established
-     Then the database is empty
+    Given database connection is established
+      And the database is empty
      When I prepare database schema
      Then I should find that all tables are empty
      When I delete all tables from database
