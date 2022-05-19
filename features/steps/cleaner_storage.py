@@ -163,6 +163,7 @@ def establish_connection_to_database(context):
 
 
 @given(u"the database is empty")
+@then(u"the database is empty")
 @then(u"I should find that the database is empty")
 def ensure_database_emptiness(context):
     """Perform check if the database is empty."""
