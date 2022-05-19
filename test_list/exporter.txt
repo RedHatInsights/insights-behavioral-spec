@@ -1,1 +1,2 @@
 ../features/exporter_smoketests.feature
+../features/exporter_database_access.feature
