@@ -25,4 +25,3 @@ def check_generated_files(context):
     for row in context.table:
         filename = row["File name"]
         assert exists(filename), "File {} does not exist".format(filename)
-
