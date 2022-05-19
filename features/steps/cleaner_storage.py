@@ -149,6 +149,7 @@ def given_database_password(context, password):
 
 
 @given(u"database connection is established")
+@when(u"database connection is established")
 def establish_connection_to_database(context):
     """Perform connection to selected database."""
     assert context.database_name is not None
