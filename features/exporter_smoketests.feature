@@ -23,3 +23,9 @@ Feature: Basic set of smoke tests
     Given the system is in default state
      When I run the exporter with the --authors command line flag
      Then I should see info about authors displayed by exporter on standard output
+
+
+  Scenario: Check if exporter displays configuration
+    Given the system is in default state
+     When I run the exporter with the --show-configuration command line flag
+     Then I should see info about configuration displayed by exporter on standard output
