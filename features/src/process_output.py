@@ -38,3 +38,5 @@ def process_generated_output(context, out, return_code):
     context.output = output
     context.stdout = stdout
     context.stderr = stderr
+
+    context.return_code = out.returncode

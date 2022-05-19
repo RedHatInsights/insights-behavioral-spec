@@ -29,6 +29,19 @@ def run_exporter_with_flag(context, flag):
     process_generated_output(context, out, 2)
 
 
+@when(u"I run the exporter with the following command line flags: {flags}")
+def run_exporter_with_flag(context, flags):
+    """Start the exporter with given command-line flags."""
+    flags = flags.split(" ")
+    cli = ["insights-results-aggregator-exporter"] + flags
+    out = subprocess.Popen(cli,
+                           stdout=subprocess.PIPE,
+                           stderr=subprocess.STDOUT)
+
+    assert out is not None
+    process_generated_output(context, out, 2)
+
+
 @then(u"I should see help messages displayed by exporter on standard output")
 def check_help_from_exporter(context):
     """Check if help is displayed by exporter."""
