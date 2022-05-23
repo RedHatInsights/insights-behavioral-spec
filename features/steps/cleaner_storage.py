@@ -135,6 +135,18 @@ CREATE TABLE report_info (
 );
 """
 
+CREATE_TABLE_RULE_DISABLE = """
+CREATE TABLE rule_disable (
+                        org_id        VARCHAR NOT NULL,
+                        user_id       VARCHAR NOT NULL,
+                        rule_id       VARCHAR NOT NULL,
+                        error_key     VARCHAR NOT NULL,
+                        justification VARCHAR,
+                        created_at    TIMESTAMP,
+                        updated_at    TIMESTAMP
+);
+"""
+
 
 # following tables should be processed
 DB_TABLES = (
@@ -148,6 +160,7 @@ DB_TABLES = (
         "migration_info",
         "recommendation",
         "report_info",
+        "rule_disable",
 )
 
 
@@ -291,6 +304,8 @@ def prepare_database_schema(context):
         cursor.execute(CREATE_TABLE_RECOMMENDATION)
         context.connection.commit()
         cursor.execute(CREATE_TABLE_REPORT_INFO)
+        context.connection.commit()
+        cursor.execute(CREATE_TABLE_RULE_DISABLE)
         context.connection.commit()
     except Exception as e:
         context.connection.rollback()
