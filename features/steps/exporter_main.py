@@ -21,9 +21,11 @@ from src.process_output import process_generated_output
 @when(u"I run the exporter with the {flag} command line flag")
 def run_exporter_with_flag(context, flag):
     """Start the exporter with given command-line flag."""
-    out = subprocess.Popen(["insights-results-aggregator-exporter", flag],
-                           stdout=subprocess.PIPE,
-                           stderr=subprocess.STDOUT)
+    out = subprocess.Popen(
+        ["insights-results-aggregator-exporter", flag],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
 
     assert out is not None
     process_generated_output(context, out, 2)
@@ -34,9 +36,7 @@ def run_exporter_with_flag(context, flags):
     """Start the exporter with given command-line flags."""
     flags = flags.split(" ")
     cli = ["insights-results-aggregator-exporter"] + flags
-    out = subprocess.Popen(cli,
-                           stdout=subprocess.PIPE,
-                           stderr=subprocess.STDOUT)
+    out = subprocess.Popen(cli, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
     assert out is not None
     process_generated_output(context, out, 2)
@@ -75,7 +75,9 @@ Usage of insights-results-aggregator-exporter:
     assert type(stdout) is str, "wrong type of stdout object"
 
     # check the output
-    assert stdout.strip() == expected_output.strip(), "{} != {}".format(stdout, expected_output)
+    assert stdout.strip() == expected_output.strip(), "{} != {}".format(
+        stdout, expected_output
+    )
 
 
 @then(u"I should see version info displayed by exporter on standard output")
@@ -86,8 +88,9 @@ def check_version_from_exporter(context):
     assert type(context.output) is list, "wrong type of output"
 
     # check the output
-    assert "Insights Results Aggregator Exporter version 1.0" in context.output, \
-        "Caught output: {}".format(context.output)
+    assert (
+        "Insights Results Aggregator Exporter version 1.0" in context.output
+    ), "Caught output: {}".format(context.output)
 
 
 @then(u"I should see info about authors displayed by exporter on standard output")
@@ -98,8 +101,9 @@ def check_authors_info_from_exporter(context):
     assert type(context.output) is list, "wrong type of output"
 
     # check the output
-    assert "Pavel Tisnovsky, Red Hat Inc." in context.output, \
-        "Caught output: {}".format(context.output)
+    assert (
+        "Pavel Tisnovsky, Red Hat Inc." in context.output
+    ), "Caught output: {}".format(context.output)
 
 
 @then(u"I should see info about configuration displayed by exporter on standard output")
@@ -113,12 +117,15 @@ def check_configuration_info_from_exporter(context):
 
     # check the output
     expected_artefacts = (
-            "DB Name",
-            "Username",
-            "Host",
-            "AccessKeyID",
-            "SecretAccessKey",
-            "S3 configuration",
-            "Storage configuration")
+        "DB Name",
+        "Username",
+        "Host",
+        "AccessKeyID",
+        "SecretAccessKey",
+        "S3 configuration",
+        "Storage configuration",
+    )
     for expected_artefact in expected_artefacts:
-        assert expected_artefact in stdout, "{} not found in output".format(expected_artefact)
+        assert expected_artefact in stdout, "{} not found in output".format(
+            expected_artefact
+        )
