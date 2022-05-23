@@ -116,6 +116,17 @@ CREATE TABLE migration_info (
 );
 """
 
+CREATE_TABLE_RECOMMENDATION = """
+CREATE TABLE recommendation (
+                        org_id     INTEGER NOT NULL,
+                        cluster_id VARCHAR NOT NULL,
+                        rule_fqdn  TEXT NOT NULL,
+                        error_key  VARCHAR NOT NULL,
+                        rule_id    VARCHAR NOT NULL,
+                        created_at TIMESTAMP
+);
+"""
+
 
 # following tables should be processed
 DB_TABLES = (
@@ -127,6 +138,7 @@ DB_TABLES = (
         "rule_hit",
         "consumer_error",
         "migration_info",
+        "recommendation",
 )
 
 
@@ -266,6 +278,8 @@ def prepare_database_schema(context):
         cursor.execute(CREATE_TABLE_CONSUMER_ERROR)
         context.connection.commit()
         cursor.execute(CREATE_TABLE_MIGRATION_INFO)
+        context.connection.commit()
+        cursor.execute(CREATE_TABLE_RECOMMENDATION)
         context.connection.commit()
     except Exception as e:
         context.connection.rollback()
