@@ -81,6 +81,16 @@ CREATE TABLE rule_hit (
 """
 
 
+# following tables should be processed
+DB_TABLES = (
+        "report",
+        "cluster_rule_toggle",
+        "cluster_rule_user_feedback",
+        "cluster_user_rule_disable_feedback",
+        "rule_hit",
+)
+
+
 @when(u"I connect to database named {database} as user {user} with password {password}")
 def connect_to_database(context, database, user, password):
     """Perform connection to selected database."""
@@ -167,17 +177,9 @@ def establish_connection_to_database(context):
 @then(u"I should find that the database is empty")
 def ensure_database_emptiness(context):
     """Perform check if the database is empty."""
-    # at least following tables should not exists
-    tables = (
-        "report",
-        "cluster_rule_toggle",
-        "cluster_rule_user_feedback",
-        "cluster_user_rule_disable_feedback",
-        "rule_hit",
-    )
 
     cursor = context.connection.cursor()
-    for table in tables:
+    for table in DB_TABLES:
         try:
             cursor.execute("SELECT 1 from {}".format(table))
             v = cursor.fetchone()
@@ -192,16 +194,7 @@ def ensure_database_emptiness(context):
 @then(u"I should find that all tables are empty")
 def ensure_data_tables_emptiness(context):
     """Perform check if data tables are empty."""
-    # following tables should be empty
-    tables = (
-        "report",
-        "cluster_rule_toggle",
-        "cluster_rule_user_feedback",
-        "cluster_user_rule_disable_feedback",
-        "rule_hit",
-    )
-
-    for table in tables:
+    for table in DB_TABLES:
         cursor = context.connection.cursor()
         try:
             cursor.execute("SELECT count(*) as cnt from {}".format(table))
@@ -219,6 +212,8 @@ def prepare_database_schema(context):
     """Prepare database schema."""
     cursor = context.connection.cursor()
     try:
+        cursor.execute(CREATE_TABLE_ADVISOR_RATINGS)
+        context.connection.commit()
         cursor.execute(CREATE_TABLE_REPORT)
         context.connection.commit()
         cursor.execute(CREATE_TABLE_CLUSTER_RULE_TOGGLE)
@@ -237,16 +232,7 @@ def prepare_database_schema(context):
 @when(u"I delete all tables from database")
 def delete_all_tables(context):
     """Delete all relevant tables from database."""
-    # following tables should be deleted
-    tables = (
-        "report",
-        "cluster_rule_toggle",
-        "cluster_rule_user_feedback",
-        "cluster_user_rule_disable_feedback",
-        "rule_hit",
-    )
-
-    for table in tables:
+    for table in DB_TABLES:
         cursor = context.connection.cursor()
         try:
             cursor.execute("DROP TABLE {}".format(table))
