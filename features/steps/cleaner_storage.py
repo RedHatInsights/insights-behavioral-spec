@@ -110,6 +110,12 @@ CREATE TABLE consumer_error (
                         );
 """
 
+CREATE_TABLE_MIGRATION_INFO = """
+CREATE TABLE migration_info (
+                        version INTEGER NOT NULL
+);
+"""
+
 
 # following tables should be processed
 DB_TABLES = (
@@ -120,6 +126,7 @@ DB_TABLES = (
         "cluster_user_rule_disable_feedback",
         "rule_hit",
         "consumer_error",
+        "migration_info",
 )
 
 
@@ -257,6 +264,8 @@ def prepare_database_schema(context):
         cursor.execute(CREATE_TABLE_RULE_HIT)
         context.connection.commit()
         cursor.execute(CREATE_TABLE_CONSUMER_ERROR)
+        context.connection.commit()
+        cursor.execute(CREATE_TABLE_MIGRATION_INFO)
         context.connection.commit()
     except Exception as e:
         context.connection.rollback()
