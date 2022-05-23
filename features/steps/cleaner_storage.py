@@ -97,6 +97,19 @@ CREATE TABLE rule_hit (
                         );
 """
 
+CREATE_TABLE_CONSUMER_ERROR = """
+CREATE TABLE consumer_error (
+                        topic        VARCHAR NOT NULL,
+                        partition    INTEGER NOT NULL,
+                        topic_offset INTEGER NOT NULL,
+                        key          VARCHAR,
+                        produced_at  TIMESTAMP NOT NULL,
+                        consumed_at  TIMESTAMP NOT NULL,
+                        message      VARCHAR,
+                        error        VARCHAR NOT NULL
+                        );
+"""
+
 
 # following tables should be processed
 DB_TABLES = (
@@ -106,6 +119,7 @@ DB_TABLES = (
         "cluster_rule_user_feedback",
         "cluster_user_rule_disable_feedback",
         "rule_hit",
+        "consumer_error",
 )
 
 
@@ -241,6 +255,8 @@ def prepare_database_schema(context):
         cursor.execute(CREATE_TABLE_CLUSTER_USER_RULE_DISABLE_FEEDBACK)
         context.connection.commit()
         cursor.execute(CREATE_TABLE_RULE_HIT)
+        context.connection.commit()
+        cursor.execute(CREATE_TABLE_CONSUMER_ERROR)
         context.connection.commit()
     except Exception as e:
         context.connection.rollback()
