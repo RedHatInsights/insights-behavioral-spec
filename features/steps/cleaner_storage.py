@@ -56,7 +56,8 @@ CREATE TABLE cluster_rule_toggle (
                                 disabled    SMALLINT NOT NULL,
                                 disabled_at TIMESTAMP NULL,
                                 enabled_at  TIMESTAMP NULL,
-                                updated_at  TIMESTAMP NOT NULL
+                                updated_at  TIMESTAMP NOT NULL,
+                                error_key   VARCHAR NOT NULL
                         );
 """
 
