@@ -26,11 +26,12 @@ def process_generated_output(context, out, return_code):
     assert stdout is not None, "No output from process"
 
     # check the return code of a process
-    assert out.returncode == 0 or out.returncode == return_code, \
-        "Return code is {}".format(out.returncode)
+    assert (
+        out.returncode == 0 or out.returncode == return_code
+    ), "Return code is {}".format(out.returncode)
 
     # try to decode output
-    output = stdout.decode('utf-8').split("\n")
+    output = stdout.decode("utf-8").split("\n")
 
     assert output is not None
 
