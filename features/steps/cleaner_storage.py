@@ -21,6 +21,19 @@ from psycopg2.errors import UndefinedTable
 from behave import given, then, when
 
 
+CREATE_TABLE_ADVISOR_RATINGS ="""
+CREATE TABLE advisor_ratings (
+                                user_id         VARCHAR NOT NULL,
+                                org_id          VARCHAR NOT NULL,
+                                rule_fqdn       VARCHAR NOT NULL,
+                                error_key       VARCHAR NOT NULL,
+                                rated_at        TIMESTAMP,
+                                last_updated_at TIMESTAMP,
+                                rating          SMALLINT,
+                                rule_id         VARCHAR NOT NULL
+                        );
+"""
+
 CREATE_TABLE_REPORT = """
 CREATE TABLE report (
                                 org_id          INTEGER NOT NULL,
@@ -83,6 +96,7 @@ CREATE TABLE rule_hit (
 
 # following tables should be processed
 DB_TABLES = (
+        "advisor_ratings",
         "report",
         "cluster_rule_toggle",
         "cluster_rule_user_feedback",
