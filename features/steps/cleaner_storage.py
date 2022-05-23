@@ -127,6 +127,14 @@ CREATE TABLE recommendation (
 );
 """
 
+CREATE_TABLE_REPORT_INFO = """
+CREATE TABLE report_info (
+                        org_id       INTEGER NOT NULL,
+                        cluster_id   VARCHAR NOT NULL,
+                        version_info VARCHAR NOT NULL
+);
+"""
+
 
 # following tables should be processed
 DB_TABLES = (
@@ -139,6 +147,7 @@ DB_TABLES = (
         "consumer_error",
         "migration_info",
         "recommendation",
+        "report_info",
 )
 
 
@@ -280,6 +289,8 @@ def prepare_database_schema(context):
         cursor.execute(CREATE_TABLE_MIGRATION_INFO)
         context.connection.commit()
         cursor.execute(CREATE_TABLE_RECOMMENDATION)
+        context.connection.commit()
+        cursor.execute(CREATE_TABLE_REPORT_INFO)
         context.connection.commit()
     except Exception as e:
         context.connection.rollback()
