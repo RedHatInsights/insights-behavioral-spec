@@ -21,7 +21,7 @@ from psycopg2.errors import UndefinedTable
 from behave import given, then, when
 
 
-CREATE_TABLE_ADVISOR_RATINGS ="""
+CREATE_TABLE_ADVISOR_RATINGS = """
 CREATE TABLE advisor_ratings (
                                 user_id         VARCHAR NOT NULL,
                                 org_id          VARCHAR NOT NULL,
@@ -147,6 +147,20 @@ CREATE TABLE rule_disable (
 );
 """
 
+# all commands to create tables
+CREATE_TABLE_COMMANDS = (
+        CREATE_TABLE_ADVISOR_RATINGS,
+        CREATE_TABLE_REPORT,
+        CREATE_TABLE_CLUSTER_RULE_TOGGLE,
+        CREATE_TABLE_CLUSTER_RULE_USER_FEEDBACK,
+        CREATE_TABLE_CLUSTER_USER_RULE_DISABLE_FEEDBACK,
+        CREATE_TABLE_RULE_HIT,
+        CREATE_TABLE_CONSUMER_ERROR,
+        CREATE_TABLE_MIGRATION_INFO,
+        CREATE_TABLE_RECOMMENDATION,
+        CREATE_TABLE_REPORT_INFO,
+        CREATE_TABLE_RULE_DISABLE,
+        )
 
 # following tables should be processed
 DB_TABLES = (
@@ -285,28 +299,9 @@ def prepare_database_schema(context):
     """Prepare database schema."""
     cursor = context.connection.cursor()
     try:
-        cursor.execute(CREATE_TABLE_ADVISOR_RATINGS)
-        context.connection.commit()
-        cursor.execute(CREATE_TABLE_REPORT)
-        context.connection.commit()
-        cursor.execute(CREATE_TABLE_CLUSTER_RULE_TOGGLE)
-        context.connection.commit()
-        cursor.execute(CREATE_TABLE_CLUSTER_RULE_USER_FEEDBACK)
-        context.connection.commit()
-        cursor.execute(CREATE_TABLE_CLUSTER_USER_RULE_DISABLE_FEEDBACK)
-        context.connection.commit()
-        cursor.execute(CREATE_TABLE_RULE_HIT)
-        context.connection.commit()
-        cursor.execute(CREATE_TABLE_CONSUMER_ERROR)
-        context.connection.commit()
-        cursor.execute(CREATE_TABLE_MIGRATION_INFO)
-        context.connection.commit()
-        cursor.execute(CREATE_TABLE_RECOMMENDATION)
-        context.connection.commit()
-        cursor.execute(CREATE_TABLE_REPORT_INFO)
-        context.connection.commit()
-        cursor.execute(CREATE_TABLE_RULE_DISABLE)
-        context.connection.commit()
+        for createTableCommand in CREATE_TABLE_COMMANDS:
+            cursor.execute(createTableCommand)
+            context.connection.commit()
     except Exception as e:
         context.connection.rollback()
         raise e
