@@ -42,6 +42,7 @@ CREATE TABLE report (
                                 reported_at     TIMESTAMP,
                                 last_checked_at TIMESTAMP,
                                 kafka_offset    BIGINT NOT NULL DEFAULT 0,
+                                gathered_at     TIMESTAMP,
                                 PRIMARY KEY(org_id, cluster)
                         );
 
