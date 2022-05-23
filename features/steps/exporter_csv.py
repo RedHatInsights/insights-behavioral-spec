@@ -37,6 +37,8 @@ def number_of_records_in_csv(context):
                 stored_records += 1
 
         # now check numbers
-        assert expected_records == stored_records, \
-            "Expected number records in file {} is {} but {} was read".format(
-                        filename, expected_records, stored_records)
+        assert (
+            expected_records == stored_records
+        ), "Expected number records in file {} is {} but {} was read".format(
+            filename, expected_records, stored_records
+        )

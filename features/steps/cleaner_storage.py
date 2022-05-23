@@ -155,9 +155,9 @@ def establish_connection_to_database(context):
     assert context.database_name is not None
     assert context.database_user is not None
     assert context.database_password is not None
-    connection_string = "dbname={} user={} password={}".format(context.database_name,
-                                                               context.database_user,
-                                                               context.database_password)
+    connection_string = "dbname={} user={} password={}".format(
+        context.database_name, context.database_user, context.database_password
+    )
     context.connection = psycopg2.connect(connection_string)
     assert context.connection is not None, "connection should be established"
 
@@ -168,11 +168,13 @@ def establish_connection_to_database(context):
 def ensure_database_emptiness(context):
     """Perform check if the database is empty."""
     # at least following tables should not exists
-    tables = ("report",
-              "cluster_rule_toggle",
-              "cluster_rule_user_feedback",
-              "cluster_user_rule_disable_feedback",
-              "rule_hit")
+    tables = (
+        "report",
+        "cluster_rule_toggle",
+        "cluster_rule_user_feedback",
+        "cluster_user_rule_disable_feedback",
+        "rule_hit",
+    )
 
     cursor = context.connection.cursor()
     for table in tables:
@@ -191,18 +193,22 @@ def ensure_database_emptiness(context):
 def ensure_data_tables_emptiness(context):
     """Perform check if data tables are empty."""
     # following tables should be empty
-    tables = ("report",
-              "cluster_rule_toggle",
-              "cluster_rule_user_feedback",
-              "cluster_user_rule_disable_feedback",
-              "rule_hit")
+    tables = (
+        "report",
+        "cluster_rule_toggle",
+        "cluster_rule_user_feedback",
+        "cluster_user_rule_disable_feedback",
+        "rule_hit",
+    )
 
     for table in tables:
         cursor = context.connection.cursor()
         try:
             cursor.execute("SELECT count(*) as cnt from {}".format(table))
             results = cursor.fetchone()
-            assert len(results) == 1, "Wrong number of records returned: {}".format(len(results))
+            assert len(results) == 1, "Wrong number of records returned: {}".format(
+                len(results)
+            )
             assert results[0] == 0, "Table '{}' is not empty as expected".format(table)
         except Exception as e:
             raise e
@@ -232,11 +238,13 @@ def prepare_database_schema(context):
 def delete_all_tables(context):
     """Delete all relevant tables from database."""
     # following tables should be deleted
-    tables = ("report",
-              "cluster_rule_toggle",
-              "cluster_rule_user_feedback",
-              "cluster_user_rule_disable_feedback",
-              "rule_hit")
+    tables = (
+        "report",
+        "cluster_rule_toggle",
+        "cluster_rule_user_feedback",
+        "cluster_user_rule_disable_feedback",
+        "rule_hit",
+    )
 
     for table in tables:
         cursor = context.connection.cursor()
@@ -268,9 +276,13 @@ def insert_records_into_database(context):
             assert type(org_id) is int, type(org_id)
 
             # try to perform insert statement
-            insertStatement = "INSERT INTO report(org_id, cluster, report, " + \
-                "reported_at, last_checked_at, kafka_offset) VALUES(%s, %s, '', %s, %s, 1);"
-            cursor.execute(insertStatement, (org_id, cluster_name, timestamp, timestamp))
+            insertStatement = (
+                "INSERT INTO report(org_id, cluster, report, "
+                + "reported_at, last_checked_at, kafka_offset) VALUES(%s, %s, '', %s, %s, 1);"
+            )
+            cursor.execute(
+                insertStatement, (org_id, cluster_name, timestamp, timestamp)
+            )
 
         context.connection.commit()
     except Exception as e:

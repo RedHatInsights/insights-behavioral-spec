@@ -24,10 +24,17 @@ test_output = "test"
 @when(u"I run the cleaner to display all records older than {age}")
 def run_cleaner_for_older_records(context, age):
     """Start the cleaner to retrieve list of older records."""
-    out = subprocess.Popen(["insights-results-aggregator-cleaner", "--output", test_output,
-                            "--max-age", age],
-                           stdout=subprocess.PIPE,
-                           stderr=subprocess.STDOUT)
+    out = subprocess.Popen(
+        [
+            "insights-results-aggregator-cleaner",
+            "--output",
+            test_output,
+            "--max-age",
+            age,
+        ],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
 
     assert out is not None
     process_generated_output(context, out, 0)
@@ -36,9 +43,11 @@ def run_cleaner_for_older_records(context, age):
 @when(u"I run the cleaner with the {flag} command line flag")
 def run_cleaner_with_flag(context, flag):
     """Start the cleaner with given command-line flag."""
-    out = subprocess.Popen(["insights-results-aggregator-cleaner", flag],
-                           stdout=subprocess.PIPE,
-                           stderr=subprocess.STDOUT)
+    out = subprocess.Popen(
+        ["insights-results-aggregator-cleaner", flag],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
 
     assert out is not None
     process_generated_output(context, out, 2)
@@ -47,10 +56,11 @@ def run_cleaner_with_flag(context, flag):
 @when(u"I run the cleaner with command to delete cluster {cluster}")
 def run_cleaner_to_cleanup_cluster(context, cluster):
     """Start the cleaner clean up given cluster."""
-    out = subprocess.Popen(["insights-results-aggregator-cleaner", "--cleanup",
-                            "--clusters", cluster],
-                           stdout=subprocess.PIPE,
-                           stderr=subprocess.STDOUT)
+    out = subprocess.Popen(
+        ["insights-results-aggregator-cleaner", "--cleanup", "--clusters", cluster],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
 
     assert out is not None
     process_generated_output(context, out, 0)
@@ -88,7 +98,9 @@ Usage of insights-results-aggregator-cleaner:
     assert type(stdout) is str, "wrong type of stdout object"
 
     # check the output
-    assert stdout.strip() == expected_output.strip(), "{} != {}".format(stdout, expected_output)
+    assert stdout.strip() == expected_output.strip(), "{} != {}".format(
+        stdout, expected_output
+    )
 
 
 @then(u"I should see version info displayed on standard output")
@@ -99,8 +111,9 @@ def check_version_from_cleaner(context):
     assert type(context.output) is list, "wrong type of output"
 
     # check the output
-    assert "Insights Results Aggregator Cleaner version 1.0" in context.output, \
-        "Caught output: {}".format(context.output)
+    assert (
+        "Insights Results Aggregator Cleaner version 1.0" in context.output
+    ), "Caught output: {}".format(context.output)
 
 
 @then(u"I should see info about authors displayed on standard output")
@@ -111,8 +124,9 @@ def check_authors_info_from_cleaner(context):
     assert type(context.output) is list, "wrong type of output"
 
     # check the output
-    assert "Pavel Tisnovsky, Red Hat Inc." in context.output, \
-        "Caught output: {}".format(context.output)
+    assert (
+        "Pavel Tisnovsky, Red Hat Inc." in context.output
+    ), "Caught output: {}".format(context.output)
 
 
 @then(u"I should see empty list of records")
@@ -141,5 +155,6 @@ def check_non_empty_list_of_records(context):
             found_clusters.add(cluster_name)
 
     # compare both sets
-    assert expected_clusters == found_clusters, \
-        "Difference: {}".format(expected_clusters ^ found_clusters)
+    assert expected_clusters == found_clusters, "Difference: {}".format(
+        expected_clusters ^ found_clusters
+    )
