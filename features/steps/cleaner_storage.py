@@ -81,7 +81,8 @@ CREATE TABLE cluster_user_rule_disable_feedback (
                                 rule_id    VARCHAR NOT NULL,
                                 message    VARCHAR NOT NULL,
                                 added_at   TIMESTAMP NOT NULL,
-                                updated_at TIMESTAMP NOT NULL
+                                updated_at TIMESTAMP NOT NULL,
+                                error_key  VARCHAR NOT NULL
                         );
 """
 
