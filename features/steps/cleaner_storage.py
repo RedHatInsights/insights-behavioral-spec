@@ -21,6 +21,19 @@ from psycopg2.errors import UndefinedTable
 from behave import given, then, when
 
 
+CREATE_TABLE_ADVISOR_RATINGS = """
+CREATE TABLE advisor_ratings (
+                                user_id         VARCHAR NOT NULL,
+                                org_id          VARCHAR NOT NULL,
+                                rule_fqdn       VARCHAR NOT NULL,
+                                error_key       VARCHAR NOT NULL,
+                                rated_at        TIMESTAMP,
+                                last_updated_at TIMESTAMP,
+                                rating          SMALLINT,
+                                rule_id         VARCHAR NOT NULL
+                        );
+"""
+
 CREATE_TABLE_REPORT = """
 CREATE TABLE report (
                                 org_id          INTEGER NOT NULL,
@@ -29,6 +42,7 @@ CREATE TABLE report (
                                 reported_at     TIMESTAMP,
                                 last_checked_at TIMESTAMP,
                                 kafka_offset    BIGINT NOT NULL DEFAULT 0,
+                                gathered_at     TIMESTAMP,
                                 PRIMARY KEY(org_id, cluster)
                         );
 
@@ -42,7 +56,8 @@ CREATE TABLE cluster_rule_toggle (
                                 disabled    SMALLINT NOT NULL,
                                 disabled_at TIMESTAMP NULL,
                                 enabled_at  TIMESTAMP NULL,
-                                updated_at  TIMESTAMP NOT NULL
+                                updated_at  TIMESTAMP NOT NULL,
+                                error_key   VARCHAR NOT NULL
                         );
 """
 
@@ -54,7 +69,8 @@ CREATE TABLE cluster_rule_user_feedback (
                                         message    VARCHAR NOT NULL,
                                         user_vote  SMALLINT NOT NULL,
                                         added_at   TIMESTAMP NOT NULL,
-                                        updated_at TIMESTAMP NOT NULL
+                                        updated_at TIMESTAMP NOT NULL,
+                                        error_key  VARCHAR NOT NULL
                         );
 """
 
@@ -65,7 +81,8 @@ CREATE TABLE cluster_user_rule_disable_feedback (
                                 rule_id    VARCHAR NOT NULL,
                                 message    VARCHAR NOT NULL,
                                 added_at   TIMESTAMP NOT NULL,
-                                updated_at TIMESTAMP NOT NULL
+                                updated_at TIMESTAMP NOT NULL,
+                                error_key  VARCHAR NOT NULL
                         );
 """
 
@@ -79,6 +96,86 @@ CREATE TABLE rule_hit (
                         PRIMARY KEY(cluster_id, org_id, rule_fqdn, error_key)
                         );
 """
+
+CREATE_TABLE_CONSUMER_ERROR = """
+CREATE TABLE consumer_error (
+                        topic        VARCHAR NOT NULL,
+                        partition    INTEGER NOT NULL,
+                        topic_offset INTEGER NOT NULL,
+                        key          VARCHAR,
+                        produced_at  TIMESTAMP NOT NULL,
+                        consumed_at  TIMESTAMP NOT NULL,
+                        message      VARCHAR,
+                        error        VARCHAR NOT NULL
+                        );
+"""
+
+CREATE_TABLE_MIGRATION_INFO = """
+CREATE TABLE migration_info (
+                        version INTEGER NOT NULL
+);
+"""
+
+CREATE_TABLE_RECOMMENDATION = """
+CREATE TABLE recommendation (
+                        org_id     INTEGER NOT NULL,
+                        cluster_id VARCHAR NOT NULL,
+                        rule_fqdn  TEXT NOT NULL,
+                        error_key  VARCHAR NOT NULL,
+                        rule_id    VARCHAR NOT NULL,
+                        created_at TIMESTAMP
+);
+"""
+
+CREATE_TABLE_REPORT_INFO = """
+CREATE TABLE report_info (
+                        org_id       INTEGER NOT NULL,
+                        cluster_id   VARCHAR NOT NULL,
+                        version_info VARCHAR NOT NULL
+);
+"""
+
+CREATE_TABLE_RULE_DISABLE = """
+CREATE TABLE rule_disable (
+                        org_id        VARCHAR NOT NULL,
+                        user_id       VARCHAR NOT NULL,
+                        rule_id       VARCHAR NOT NULL,
+                        error_key     VARCHAR NOT NULL,
+                        justification VARCHAR,
+                        created_at    TIMESTAMP,
+                        updated_at    TIMESTAMP
+);
+"""
+
+# all commands to create tables
+CREATE_TABLE_COMMANDS = (
+        CREATE_TABLE_ADVISOR_RATINGS,
+        CREATE_TABLE_REPORT,
+        CREATE_TABLE_CLUSTER_RULE_TOGGLE,
+        CREATE_TABLE_CLUSTER_RULE_USER_FEEDBACK,
+        CREATE_TABLE_CLUSTER_USER_RULE_DISABLE_FEEDBACK,
+        CREATE_TABLE_RULE_HIT,
+        CREATE_TABLE_CONSUMER_ERROR,
+        CREATE_TABLE_MIGRATION_INFO,
+        CREATE_TABLE_RECOMMENDATION,
+        CREATE_TABLE_REPORT_INFO,
+        CREATE_TABLE_RULE_DISABLE,
+        )
+
+# following tables should be processed
+DB_TABLES = (
+        "advisor_ratings",
+        "report",
+        "cluster_rule_toggle",
+        "cluster_rule_user_feedback",
+        "cluster_user_rule_disable_feedback",
+        "rule_hit",
+        "consumer_error",
+        "migration_info",
+        "recommendation",
+        "report_info",
+        "rule_disable",
+)
 
 
 @when(u"I connect to database named {database} as user {user} with password {password}")
@@ -167,17 +264,9 @@ def establish_connection_to_database(context):
 @then(u"I should find that the database is empty")
 def ensure_database_emptiness(context):
     """Perform check if the database is empty."""
-    # at least following tables should not exists
-    tables = (
-        "report",
-        "cluster_rule_toggle",
-        "cluster_rule_user_feedback",
-        "cluster_user_rule_disable_feedback",
-        "rule_hit",
-    )
 
     cursor = context.connection.cursor()
-    for table in tables:
+    for table in DB_TABLES:
         try:
             cursor.execute("SELECT 1 from {}".format(table))
             v = cursor.fetchone()
@@ -192,16 +281,7 @@ def ensure_database_emptiness(context):
 @then(u"I should find that all tables are empty")
 def ensure_data_tables_emptiness(context):
     """Perform check if data tables are empty."""
-    # following tables should be empty
-    tables = (
-        "report",
-        "cluster_rule_toggle",
-        "cluster_rule_user_feedback",
-        "cluster_user_rule_disable_feedback",
-        "rule_hit",
-    )
-
-    for table in tables:
+    for table in DB_TABLES:
         cursor = context.connection.cursor()
         try:
             cursor.execute("SELECT count(*) as cnt from {}".format(table))
@@ -219,16 +299,9 @@ def prepare_database_schema(context):
     """Prepare database schema."""
     cursor = context.connection.cursor()
     try:
-        cursor.execute(CREATE_TABLE_REPORT)
-        context.connection.commit()
-        cursor.execute(CREATE_TABLE_CLUSTER_RULE_TOGGLE)
-        context.connection.commit()
-        cursor.execute(CREATE_TABLE_CLUSTER_RULE_USER_FEEDBACK)
-        context.connection.commit()
-        cursor.execute(CREATE_TABLE_CLUSTER_USER_RULE_DISABLE_FEEDBACK)
-        context.connection.commit()
-        cursor.execute(CREATE_TABLE_RULE_HIT)
-        context.connection.commit()
+        for createTableCommand in CREATE_TABLE_COMMANDS:
+            cursor.execute(createTableCommand)
+            context.connection.commit()
     except Exception as e:
         context.connection.rollback()
         raise e
@@ -237,16 +310,7 @@ def prepare_database_schema(context):
 @when(u"I delete all tables from database")
 def delete_all_tables(context):
     """Delete all relevant tables from database."""
-    # following tables should be deleted
-    tables = (
-        "report",
-        "cluster_rule_toggle",
-        "cluster_rule_user_feedback",
-        "cluster_user_rule_disable_feedback",
-        "rule_hit",
-    )
-
-    for table in tables:
+    for table in DB_TABLES:
         cursor = context.connection.cursor()
         try:
             cursor.execute("DROP TABLE {}".format(table))
