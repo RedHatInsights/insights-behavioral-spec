@@ -332,8 +332,6 @@ def insert_records_into_selected_table(context, table):
         # construct INSERT statement
         insert_statement = construct_insert_statement(table, headings)
 
-        # assert insert_statement == "", insert_statement
-
         # perform several INSERTs
         for row in context.table:
             # try to perform INSERT statement
