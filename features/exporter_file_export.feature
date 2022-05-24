@@ -137,13 +137,9 @@ Feature: Ability to export tables into file
           | Record |
           | error1 |
           | error2 |
-          | error1 |
-          | error2 |
       And I should see following records in exported file advisor_ratings.csv placed in column 7
           | Record |
           | ruleA  |
-          | ruleA  |
-          | ruleB  |
           | ruleB  |
      When I delete all tables from database
      Then I should find that the database is empty
@@ -195,13 +191,9 @@ Feature: Ability to export tables into file
       And I should see following records in exported file cluster_rule_toggle.csv placed in column 1
           | Record |
           | ruleA  |
-          | ruleA  |
-          | ruleB  |
           | ruleB  |
       And I should see following records in exported file cluster_rule_toggle.csv placed in column 7
           | Record |
-          | error1 |
-          | error2 |
           | error1 |
           | error2 |
      When I delete all tables from database
@@ -254,13 +246,9 @@ Feature: Ability to export tables into file
       And I should see following records in exported file cluster_rule_user_feedback.csv placed in column 1
           | Record |
           | ruleA  |
-          | ruleA  |
-          | ruleB  |
           | ruleB  |
       And I should see following records in exported file cluster_rule_user_feedback.csv placed in column 7
           | Record |
-          | error1 |
-          | error2 |
           | error1 |
           | error2 |
       And I should see following records in exported file cluster_rule_user_feedback.csv placed in column 3
@@ -319,13 +307,9 @@ Feature: Ability to export tables into file
       And I should see following records in exported file cluster_user_rule_disable_feedback.csv placed in column 2
           | Record |
           | ruleA  |
-          | ruleA  |
-          | ruleB  |
           | ruleB  |
       And I should see following records in exported file cluster_user_rule_disable_feedback.csv placed in column 6
           | Record |
-          | error1 |
-          | error2 |
           | error1 |
           | error2 |
       And I should see following records in exported file cluster_user_rule_disable_feedback.csv placed in column 3
@@ -391,14 +375,74 @@ Feature: Ability to export tables into file
           | Record |
           | error1 |
           | error2 |
-          | error1 |
-          | error2 |
       And I should see following records in exported file rule_hit.csv placed in column 4
           | Record |
           | template1 |
           | template2 |
           | template3 |
           | template4 |
+     When I delete all tables from database
+     Then I should find that the database is empty
+
+
+
+  Scenario: Check export from RECOMMENDATION table
+     When I prepare database schema
+     Then I should find that all tables are empty
+     When I insert following records into RECOMMENDATION table
+          | org_id | cluster_id                           | rule_fqdn    | error_key | rule_id |
+          | 1      | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | ruleA.error1 | error1    | ruleA   |
+          | 2      | 5d5892d4-1f74-4ccf-91af-548dfc9767ab | ruleA.error2 | error2    | ruleA   |
+          | 2      | 5d5892d4-1f74-4ccf-91af-548dfc9767ac | ruleB.error1 | error1    | ruleB   |
+          | 2      | 5d5892d4-1f74-4ccf-91af-548dfc9767ad | ruleB.error2 | error2    | ruleB   |
+      And I run the exporter with the following command line flags: --output file
+     Then The process should finish with exit code 0
+      And I should see following files generated
+          | File name                              |
+          | advisor_ratings.csv                    |
+          | cluster_rule_toggle.csv                |
+          | cluster_rule_user_feedback.csv         |
+          | cluster_user_rule_disable_feedback.csv |
+          | consumer_error.csv                     |
+          | migration_info.csv                     |
+          | recommendation.csv                     |
+          | report.csv                             |
+          | report_info.csv                        |
+          | rule_disable.csv                       |
+          | rule_hit.csv                           |
+      And I should see following number of records stored in CSV files
+          | File name                              | Records |
+          | advisor_ratings.csv                    | 0       |
+          | cluster_rule_toggle.csv                | 0       |
+          | cluster_rule_user_feedback.csv         | 0       |
+          | cluster_user_rule_disable_feedback.csv | 0       |
+          | consumer_error.csv                     | 0       |
+          | migration_info.csv                     | 0       |
+          | recommendation.csv                     | 4       |
+          | report.csv                             | 0       |
+          | report_info.csv                        | 0       |
+          | rule_disable.csv                       | 0       |
+          | rule_hit.csv                           | 0       |
+      And I should see following records in exported file recommendation.csv placed in column 1
+          | Record                               |
+          | 5d5892d4-1f74-4ccf-91af-548dfc9767aa |
+          | 5d5892d4-1f74-4ccf-91af-548dfc9767ab |
+          | 5d5892d4-1f74-4ccf-91af-548dfc9767ac |
+          | 5d5892d4-1f74-4ccf-91af-548dfc9767ad |
+      And I should see following records in exported file recommendation.csv placed in column 2
+          | Record |
+          | ruleA.error1 |
+          | ruleA.error2 |
+          | ruleB.error1 |
+          | ruleB.error2 |
+      And I should see following records in exported file recommendation.csv placed in column 3
+          | Record |
+          | error1 |
+          | error2 |
+      And I should see following records in exported file recommendation.csv placed in column 4
+          | Record |
+          | ruleA |
+          | ruleB |
      When I delete all tables from database
      Then I should find that the database is empty
 
