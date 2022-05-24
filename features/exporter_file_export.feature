@@ -46,11 +46,11 @@ Feature: Ability to export tables into file
      When I prepare database schema
      Then I should find that all tables are empty
      When I insert following records into REPORT table
-          | org id | cluster name                         | timestamp  |
-          | 1      | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1990-01-01 |
-          | 2      | 5d5892d4-1f74-4ccf-91af-548dfc9767ab | 1990-01-01 |
-          | 2      | 5d5892d4-1f74-4ccf-91af-548dfc9767ac | 2100-01-01 |
-          | 2      | 5d5892d4-1f74-4ccf-91af-548dfc9767ad | 2100-01-01 |
+          | org_id | cluster                              | report | reported_at  |
+          | 1      | 5d5892d4-1f74-4ccf-91af-548dfc9767aa |        | 1990-01-01   |
+          | 2      | 5d5892d4-1f74-4ccf-91af-548dfc9767ab |        | 1990-01-01   |
+          | 2      | 5d5892d4-1f74-4ccf-91af-548dfc9767ac |        | 2100-01-01   |
+          | 2      | 5d5892d4-1f74-4ccf-91af-548dfc9767ad |        | 2100-01-01   |
       And I run the exporter with the following command line flags: --output file
      Then The process should finish with exit code 0
       And I should see following files generated

@@ -16,7 +16,7 @@
 
 import psycopg2
 from psycopg2.errors import UndefinedTable
-
+from src.sql import construct_insert_statement
 
 from behave import given, then, when
 
@@ -320,33 +320,22 @@ def delete_all_tables(context):
             raise e
 
 
-@when(u"I insert following records into REPORT table")
-def insert_records_into_database(context):
-    """Insert provided records into REPORT table."""
+@when(u"I insert following records into {table} table")
+def insert_records_into_selected_table(context, table):
+    """Insert provided records into specified table."""
 
     cursor = context.connection.cursor()
 
     try:
+        headings = context.table.headings
+
+        # construct INSERT statement
+        insert_statement = construct_insert_statement(table, headings)
+
+        # perform several INSERTs
         for row in context.table:
-            org_id = int(row["org id"])
-            cluster_name = row["cluster name"]
-            timestamp = row["timestamp"]
-
-            # check the input table
-            assert org_id is not None, "Organization ID should be set"
-            assert cluster_name is not None, "Cluster name should be set"
-            assert timestamp is not None, "Timestamp should be set"
-
-            assert type(org_id) is int, type(org_id)
-
-            # try to perform insert statement
-            insertStatement = (
-                "INSERT INTO report(org_id, cluster, report, "
-                + "reported_at, last_checked_at, kafka_offset) VALUES(%s, %s, '', %s, %s, 1);"
-            )
-            cursor.execute(
-                insertStatement, (org_id, cluster_name, timestamp, timestamp)
-            )
+            # try to perform INSERT statement
+            cursor.execute(insert_statement, row)
 
         context.connection.commit()
     except Exception as e:
