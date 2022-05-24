@@ -9,7 +9,7 @@ Feature: Ability de delete selected records
       And the database is empty
      When I prepare database schema
      Then I should find that all tables are empty
-     When I insert following records into database
+     When I insert following records into REPORT table
           | org id | cluster name                         | timestamp  |
           | 1      | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1990-01-01 |
           | 2      | 5d5892d4-1f74-4ccf-91af-548dfc9767ab | 1990-01-01 |
@@ -37,7 +37,7 @@ Feature: Ability de delete selected records
       And the database is empty
      When I prepare database schema
      Then I should find that all tables are empty
-     When I insert following records into database
+     When I insert following records into REPORT table
           | org id | cluster name                         | timestamp  |
           | 1      | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1990-01-01 |
           | 2      | 5d5892d4-1f74-4ccf-91af-548dfc9767ab | 1990-01-01 |
@@ -64,7 +64,7 @@ Feature: Ability de delete selected records
       And the database is empty
      When I prepare database schema
      Then I should find that all tables are empty
-     When I insert following records into database
+     When I insert following records into REPORT table
           | org id | cluster name                         | timestamp  |
           | 1      | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1990-01-01 |
           | 2      | 5d5892d4-1f74-4ccf-91af-548dfc9767ab | 1990-01-01 |
@@ -94,7 +94,7 @@ Feature: Ability de delete selected records
       And the database is empty
      When I prepare database schema
      Then I should find that all tables are empty
-     When I insert following records into database
+     When I insert following records into REPORT table
           | org id | cluster name                         | timestamp  |
           | 1      | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1990-01-01 |
           | 2      | 5d5892d4-1f74-4ccf-91af-548dfc9767ab | 1990-01-01 |
@@ -124,7 +124,7 @@ Feature: Ability de delete selected records
       And the database is empty
      When I prepare database schema
      Then I should find that all tables are empty
-     When I insert following records into database
+     When I insert following records into REPORT table
           | org id | cluster name                         | timestamp  |
           | 1      | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1990-01-01 |
           | 2      | 5d5892d4-1f74-4ccf-91af-548dfc9767ab | 1990-01-01 |
