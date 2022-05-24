@@ -42,3 +42,25 @@ def number_of_records_in_csv(context):
         ), "Expected number records in file {} is {} but {} was read".format(
             filename, expected_records, stored_records
         )
+
+
+@then(u"I should see following records in exported file {filename} placed in column {column:d}")
+def check_records_in_csv(context, filename, column):
+    """Check if all records are really stored in given CSV file."""
+    with open(filename, "r") as fin:
+        csvFile = csv.reader(fin)
+        # skip the first row of the CSV file.
+        next(csvFile)
+
+        for line in csvFile:
+            found = False
+            # iterate over all records that needs to be stored in CSV
+            for row in context.table:
+                record = row["Record"]
+
+                # check if selected column contains the expected record
+                if line[column] == record:
+                    found = True
+                    break
+
+            assert found, "Record {} not found in CSV file {}".format(record, line[1])
