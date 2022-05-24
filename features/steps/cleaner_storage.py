@@ -320,9 +320,9 @@ def delete_all_tables(context):
             raise e
 
 
-@when(u"I insert following records into database")
+@when(u"I insert following records into REPORT table")
 def insert_records_into_database(context):
-    """Insert provided records into database."""
+    """Insert provided records into REPORT table."""
 
     cursor = context.connection.cursor()
 
