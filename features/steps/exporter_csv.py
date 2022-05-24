@@ -59,7 +59,7 @@ def check_records_in_csv(context, filename, column):
                 record = row["Record"]
 
                 # check if selected column contains the expected record
-                if line[1] == record:
+                if line[column] == record:
                     found = True
                     break
 
