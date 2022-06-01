@@ -56,6 +56,8 @@ Usage of insights-results-aggregator-exporter:
         export rules disabled by more users
   -export-log
         export log
+  -limit int
+        limit number of exported records (default -1)
   -metadata
         export metadata
   -output string
