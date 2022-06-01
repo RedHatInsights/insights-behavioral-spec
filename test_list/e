@@ -1,4 +1,0 @@
-../features/exporter_smoketests.feature
-../features/exporter_database_access.feature
-../features/exporter_file_export.feature
-../features/exporter_s3_export.feature
