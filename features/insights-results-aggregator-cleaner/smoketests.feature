@@ -25,6 +25,7 @@ Feature: Basic set of smoke tests
      Then I should see info about authors displayed on standard output
 
 
+  @database
   Scenario: Check if Postgres database is available
     Given the system is in default state
      When I connect to database named test as user postgres with password postgres
@@ -33,6 +34,7 @@ Feature: Basic set of smoke tests
      Then I should be disconnected
 
 
+  @database
   Scenario Outline: Check if the test database does not contain tables to be created by tests
     Given the system is in default state
      When I connect to database named test as user postgres with password postgres

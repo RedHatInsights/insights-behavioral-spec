@@ -6,10 +6,12 @@ Feature: Ability to access database
       And database user is set to postgres
       And database password is set to postgres
 
+  @database
   Scenario: Check access to empty database
      When database connection is established
      Then I should find that the database is empty
 
+  @database
   Scenario: Check table creatinon on deletion
     Given database connection is established
       And the database is empty

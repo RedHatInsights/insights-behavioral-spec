@@ -1,5 +1,6 @@
 Feature: Ability de delete selected records
 
+  @database
   Scenario: Clean up one old cluster should be visible
     Given the system is in default state
       And the database is named test
@@ -28,6 +29,7 @@ Feature: Ability de delete selected records
      When I delete all tables from database
      Then I should find that the database is empty
 
+  @database
   Scenario: Clean up of existing old clusters
     Given the system is in default state
       And the database is named test
@@ -55,6 +57,7 @@ Feature: Ability de delete selected records
      When I delete all tables from database
      Then I should find that the database is empty
 
+  @database
   Scenario: Clean up of existing new clusters
     Given the system is in default state
       And the database is named test
@@ -85,6 +88,7 @@ Feature: Ability de delete selected records
      When I delete all tables from database
      Then I should find that the database is empty
 
+  @database
   Scenario: Clean up non-existing clusters
     Given the system is in default state
       And the database is named test
@@ -115,6 +119,7 @@ Feature: Ability de delete selected records
      When I delete all tables from database
      Then I should find that the database is empty
 
+  @database
   Scenario: Clean up clusters with wrong names
     Given the system is in default state
       And the database is named test
