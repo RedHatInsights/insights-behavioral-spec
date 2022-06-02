@@ -8,6 +8,7 @@ Feature: Ability to export tables into file
       And database connection is established
       And the database is empty
 
+  @database
   Scenario: Check export empty tables into file
      When I prepare database schema
      Then I should find that all tables are empty
@@ -43,6 +44,7 @@ Feature: Ability to export tables into file
      Then I should find that the database is empty
 
 
+  @database
   Scenario: Check export from REPORT table
      When I prepare database schema
      Then I should find that all tables are empty
@@ -90,6 +92,7 @@ Feature: Ability to export tables into file
      Then I should find that the database is empty
 
 
+  @database
   Scenario: Check export from ADVISOR_RATINGS table
      When I prepare database schema
      Then I should find that all tables are empty
@@ -145,6 +148,7 @@ Feature: Ability to export tables into file
      Then I should find that the database is empty
 
 
+  @database
   Scenario: Check export from CLUSTER_RULE_TOGGLE table
      When I prepare database schema
      Then I should find that all tables are empty
@@ -200,6 +204,7 @@ Feature: Ability to export tables into file
      Then I should find that the database is empty
 
 
+  @database
   Scenario: Check export from CLUSTER_RULE_USER_FEEDBACK table
      When I prepare database schema
      Then I should find that all tables are empty
@@ -261,6 +266,7 @@ Feature: Ability to export tables into file
      Then I should find that the database is empty
 
 
+  @database
   Scenario: Check export from CLUSTER_USER_RULE_DISABLE_FEEDBACK table
      When I prepare database schema
      Then I should find that all tables are empty
@@ -322,6 +328,7 @@ Feature: Ability to export tables into file
      Then I should find that the database is empty
 
 
+  @database
   Scenario: Check export from RULE_HIT table
      When I prepare database schema
      Then I should find that all tables are empty
@@ -386,6 +393,7 @@ Feature: Ability to export tables into file
 
 
 
+  @database
   Scenario: Check export from RECOMMENDATION table
      When I prepare database schema
      Then I should find that all tables are empty
@@ -447,6 +455,7 @@ Feature: Ability to export tables into file
      Then I should find that the database is empty
 
 
+  @database
   Scenario: Check export from MIGRATION_INFO table
      When I prepare database schema
      Then I should find that all tables are empty
@@ -488,6 +497,7 @@ Feature: Ability to export tables into file
      Then I should find that the database is empty
 
 
+  @database
   Scenario: Check export from ADVISOR_RATINGS table
      When I prepare database schema
      Then I should find that all tables are empty
@@ -543,6 +553,7 @@ Feature: Ability to export tables into file
      Then I should find that the database is empty
 
 
+  @database
   Scenario: Check export from CLUSTER_RULE_TOGGLE table
      When I prepare database schema
      Then I should find that all tables are empty
@@ -598,6 +609,7 @@ Feature: Ability to export tables into file
      Then I should find that the database is empty
 
 
+  @database
   Scenario: Check export from CLUSTER_RULE_USER_FEEDBACK table
      When I prepare database schema
      Then I should find that all tables are empty
@@ -659,6 +671,7 @@ Feature: Ability to export tables into file
      Then I should find that the database is empty
 
 
+  @database
   Scenario: Check export from CLUSTER_USER_RULE_DISABLE_FEEDBACK table
      When I prepare database schema
      Then I should find that all tables are empty
@@ -720,6 +733,7 @@ Feature: Ability to export tables into file
      Then I should find that the database is empty
 
 
+  @database
   Scenario: Check export from RULE_HIT table
      When I prepare database schema
      Then I should find that all tables are empty
@@ -784,6 +798,7 @@ Feature: Ability to export tables into file
 
 
 
+  @database
   Scenario: Check export from RECOMMENDATION table
      When I prepare database schema
      Then I should find that all tables are empty
@@ -845,6 +860,7 @@ Feature: Ability to export tables into file
      Then I should find that the database is empty
 
 
+  @database
   Scenario: Check export from CONSUMER_ERROR table
      When I prepare database schema
      Then I should find that all tables are empty
@@ -910,6 +926,7 @@ Feature: Ability to export tables into file
      Then I should find that the database is empty
 
 
+  @database
   Scenario: Check export from REPORT_INFO table
      When I prepare database schema
      Then I should find that all tables are empty
@@ -963,6 +980,7 @@ Feature: Ability to export tables into file
      Then I should find that the database is empty
 
 
+  @database
   Scenario: Check export from RULE_DISABLE table
      When I prepare database schema
      Then I should find that all tables are empty
