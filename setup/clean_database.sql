@@ -1,0 +1,11 @@
+drop table cluster_rule_toggle;
+drop table cluster_rule_user_feedback;
+drop table cluster_user_rule_disable_feedback;
+drop table report;
+drop table rule_hit;
+drop table advisor_ratings;
+drop table consumer_error;
+drop table migration_info;
+drop table recommendation;
+drop table report_info;
+drop table rule_disable;
