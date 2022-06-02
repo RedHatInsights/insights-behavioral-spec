@@ -1,6 +1,7 @@
 Feature: Ability to display old records
 
 
+  @database
   Scenario: Read old records from empty database
     Given the system is in default state
       And the database is named test
@@ -16,6 +17,7 @@ Feature: Ability to display old records
      Then I should find that the database is empty
 
 
+  @database
   Scenario: Read old records from empty database giving different time period
     Given the system is in default state
       And the database is named test
@@ -31,6 +33,7 @@ Feature: Ability to display old records
      Then I should find that the database is empty
 
 
+  @database
   Scenario: Read old records from prepared non-empty database with new records only
     Given the system is in default state
       And the database is named test
@@ -51,6 +54,7 @@ Feature: Ability to display old records
      Then I should find that the database is empty
 
 
+  @database
   Scenario: Read old records from prepared non-empty database with old records only
     Given the system is in default state
       And the database is named test
@@ -75,6 +79,7 @@ Feature: Ability to display old records
      Then I should find that the database is empty
 
 
+  @database
   Scenario: Read old records from prepared non-empty database with mixed records
     Given the system is in default state
       And the database is named test
