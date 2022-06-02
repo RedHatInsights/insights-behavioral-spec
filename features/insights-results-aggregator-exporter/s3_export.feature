@@ -7,6 +7,11 @@ Feature: Ability to export tables into S3
       And database password is set to postgres
       And database connection is established
       And the database is empty
+      And Minio endpoint is set to 127.0.0.1
+      And Minio port is set to 9000
+      And Minio access key is set to foobar
+      And Minio secret access key is set to foobar
+      And Minio bucket name is set to test
 
   @database
   Scenario: Check export empty tables into S3/Minio
