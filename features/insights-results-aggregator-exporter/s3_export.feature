@@ -9,8 +9,8 @@ Feature: Ability to export tables into S3
       And the database is empty
       And Minio endpoint is set to 127.0.0.1
       And Minio port is set to 9000
-      And Minio access key is set to foobar
-      And Minio secret access key is set to foobar
+      And Minio access key is set to foobar01
+      And Minio secret access key is set to foobar01
       And Minio bucket name is set to test
 
   @database
