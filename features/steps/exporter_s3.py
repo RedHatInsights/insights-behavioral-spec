@@ -14,6 +14,8 @@
 
 """Implementation of test steps that check or access S3/Minio service."""
 
+from src.minio import minio_client, bucket_check
+
 
 @given(u"Minio endpoint is set to {endpoint}")
 def set_minio_endpoing(context, endpoint):
@@ -47,3 +49,25 @@ def set_minio_bucket_name(context, value):
     """Set Minio bucket name."""
     assert value is not None, "Bucket name needs to be specified"
     context.minio_bucket_name = value
+
+
+@then(u"I should see following objects generated in S3")
+def check_objects_in_s3(context):
+    """Check that all specified objects was generated."""
+    # construct new Minio client
+    client = minio_client(context)
+
+    # check if bucket used by exporter exists
+    bucket_check(context, client)
+
+    # retrieve all obejcts stored in bucket
+    objects = client.list_objects(context.minio_bucket_name, recursive=False)
+
+    # retrieve object names only
+    names = [o.object_name for o in objects]
+
+    # iterate over all items in feature table
+    for row in context.table:
+        object_name = row["File name"]
+        assert object_name in names, \
+            "Can not find object {} in bucket {}".format(object_name, context.minio_bucket_name)
