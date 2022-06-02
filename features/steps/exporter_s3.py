@@ -15,6 +15,8 @@
 """Implementation of test steps that check or access S3/Minio service."""
 
 from src.minio import minio_client, bucket_check
+from io import StringIO
+import csv
 
 
 @given(u"Minio endpoint is set to {endpoint}")
@@ -60,7 +62,7 @@ def check_objects_in_s3(context):
     # check if bucket used by exporter exists
     bucket_check(context, client)
 
-    # retrieve all obejcts stored in bucket
+    # retrieve all objects stored in bucket
     objects = client.list_objects(context.minio_bucket_name, recursive=False)
 
     # retrieve object names only
@@ -71,3 +73,43 @@ def check_objects_in_s3(context):
         object_name = row["File name"]
         assert object_name in names, \
             "Can not find object {} in bucket {}".format(object_name, context.minio_bucket_name)
+
+
+@then(u"I should see following number of records stored in CSV objects in S3")
+def check_csv_content_in_s3(context):
+    """Check content of objects stored in S3."""
+    # construct new Minio client
+    client = minio_client(context)
+
+    # check if bucket used by exporter exists
+    bucket_check(context, client)
+
+    # iterate over all items in feature table
+    for row in context.table:
+        object_name = row["File name"]
+        expected_records = int(row["Records"])
+
+        # retrieve object
+        response = client.get_object(context.minio_bucket_name, object_name)
+        assert response is not None, "No response from storage."
+
+        # convert into buffer
+        buff = StringIO(response.read().decode())
+        assert buff is not None, "Decoding/read error"
+
+        # read CVS from buffer
+        csvFile = csv.reader(buff)
+
+        # skip the first row of the CSV file.
+        next(csvFile)
+
+        stored_records = 0
+        for lines in csvFile:
+            stored_records += 1
+
+        # now check numbers
+        assert (
+            expected_records == stored_records
+        ), "Expected number records in object {} is {} but {} was read".format(
+            object_name, expected_records, stored_records
+        )
