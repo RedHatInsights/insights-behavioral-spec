@@ -15,6 +15,7 @@
 """Minio/S3-related code."""
 
 from minio import Minio, ResponseError
+from io import StringIO
 
 
 def minio_client(context):
@@ -35,3 +36,16 @@ def bucket_check(context, client):
     """Check bucket existence."""
     found = client.bucket_exists(context.minio_bucket_name)
     assert found, "Bucket can't be accessed"
+
+
+def read_object_into_buffer(context, client, object_name):
+    """Read object from pre-selected bucket into a buffer."""
+    # retrieve object
+    response = client.get_object(context.minio_bucket_name, object_name)
+    assert response is not None, "No response from storage."
+
+    # convert into buffer
+    buff = StringIO(response.read().decode())
+    assert buff is not None, "Decoding/read error"
+
+    return buff
