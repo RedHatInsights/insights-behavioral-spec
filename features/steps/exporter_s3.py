@@ -89,13 +89,8 @@ def check_csv_content_in_s3(context):
         object_name = row["File name"]
         expected_records = int(row["Records"])
 
-        # retrieve object
-        response = client.get_object(context.minio_bucket_name, object_name)
-        assert response is not None, "No response from storage."
-
-        # convert into buffer
-        buff = StringIO(response.read().decode())
-        assert buff is not None, "Decoding/read error"
+        # read object content
+        buff = read_object_into_buffer(context, client, object_name)
 
         # read CVS from buffer
         csvFile = csv.reader(buff)
