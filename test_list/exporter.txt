@@ -2,3 +2,4 @@
 ../features/insights-results-aggregator-exporter/database_access.feature
 ../features/insights-results-aggregator-exporter/file_export.feature
 ../features/insights-results-aggregator-exporter/s3_export.feature
+../features/insights-results-aggregator-exporter/file_export_metadata.feature
