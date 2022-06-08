@@ -110,7 +110,7 @@ def check_csv_content_in_s3(context):
         )
 
 
-@then(u"I should see following records in exported object {object_name} placed in column {column:d}") # noqa: E501
+@then(u"I should see following records in exported object {object_name} placed in column {column:d}")  # noqa: E501
 @then(u"I should see following records in exported object {object_name} placed in columns {column:d} and {column2:d}")   # noqa: E501
 def check_records_in_csv_object(context, object_name, column, column2=None):
     """Check if all records are really stored in given CSV file/object in S3/Minio."""
