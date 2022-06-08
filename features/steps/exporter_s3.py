@@ -16,6 +16,7 @@
 
 from src.minio import minio_client, bucket_check, read_object_into_buffer
 import csv
+from src.csv_checks import check_table_content
 
 
 @given(u"Minio endpoint is set to {endpoint}")
@@ -109,8 +110,9 @@ def check_csv_content_in_s3(context):
         )
 
 
-@then(u"I should see following records in exported object {obj_name} placed in column {column:d}")
-def chck_records_in_csv_object(context, object_name, column):
+@then(u"I should see following records in exported object {object_name} placed in column {column:d}")  # noqa: E501
+@then(u"I should see following records in exported object {object_name} placed in columns {column:d} and {column2:d}")   # noqa: E501
+def check_records_in_csv_object(context, object_name, column, column2=None):
     """Check if all records are really stored in given CSV file/object in S3/Minio."""
     # construct new Minio client
     client = minio_client(context)
@@ -118,21 +120,4 @@ def chck_records_in_csv_object(context, object_name, column):
     # read object content
     buff = read_object_into_buffer(context, client, object_name)
 
-    # read CVS from buffer
-    csvFile = csv.reader(buff)
-
-    # skip the first row of the CSV file.
-    next(csvFile)
-
-    for line in csvFile:
-        found = False
-        # iterate over all records that needs to be stored in CSV
-        for row in context.table:
-            record = row["Record"]
-
-            # check if selected column contains the expected record
-            if line[column] == record:
-                found = True
-                break
-
-        assert found, "Record {} not found in CSV file {}".format(record, line[1])
+    check_table_content(context, buff, object_name, column, column2)
