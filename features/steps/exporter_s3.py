@@ -109,8 +109,9 @@ def check_csv_content_in_s3(context):
         )
 
 
-@then(u"I should see following records in exported object {obj_name} placed in column {column:d}")
-def chck_records_in_csv_object(context, object_name, column):
+@then(u"I should see following records in exported object {object_name} placed in column {column:d}") # noqa: E501
+@then(u"I should see following records in exported object {object_name} placed in columns {column:d} and {column2:d}")   # noqa: E501
+def check_records_in_csv_object(context, object_name, column, column2=None):
     """Check if all records are really stored in given CSV file/object in S3/Minio."""
     # construct new Minio client
     client = minio_client(context)
@@ -128,11 +129,25 @@ def chck_records_in_csv_object(context, object_name, column):
         found = False
         # iterate over all records that needs to be stored in CSV
         for row in context.table:
-            record = row["Record"]
+            if column2 is None:
+                # one column case
+                record = row[context.table.headings[0]]
 
-            # check if selected column contains the expected record
-            if line[column] == record:
-                found = True
-                break
+                # check if selected column contains the expected record
+                if line[column] == record:
+                    found = True
+                    break
+            else:
+                # two columns case
+                record1 = row[context.table.headings[0]]
+                record2 = row[context.table.headings[1]]
 
-        assert found, "Record {} not found in CSV file {}".format(record, line[1])
+                # check if selected column contains the expected record
+                if line[column] == record1 and line[column2] == record2:
+                    found = True
+                    break
+
+        if column2 is None:
+            assert found, "Record {} not found in CSV file {}".format(record, line[1])
+        else:
+            assert found, "Record {} not found in CSV file {}".format([record1, record2], line)
