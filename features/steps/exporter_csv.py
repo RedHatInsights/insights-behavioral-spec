@@ -16,6 +16,7 @@
 
 from os.path import exists
 import csv
+from src.csv_checks import check_table_content
 
 
 @then(u"I should see following number of records stored in CSV files")
@@ -49,33 +50,4 @@ def number_of_records_in_csv(context):
 def check_records_in_csv(context, filename, column, column2=None):
     """Check if all records are really stored in given CSV file."""
     with open(filename, "r") as fin:
-        csvFile = csv.reader(fin)
-        # skip the first row of the CSV file.
-        next(csvFile)
-
-        for line in csvFile:
-            found = False
-            # iterate over all records that needs to be stored in CSV
-            for row in context.table:
-                if column2 is None:
-                    # one column case
-                    record = row[context.table.headings[0]]
-
-                    # check if selected column contains the expected record
-                    if line[column] == record:
-                        found = True
-                        break
-                else:
-                    # two columns case
-                    record1 = row[context.table.headings[0]]
-                    record2 = row[context.table.headings[1]]
-
-                    # check if selected column contains the expected record
-                    if line[column] == record1 and line[column2] == record2:
-                        found = True
-                        break
-
-            if column2 is None:
-                assert found, "Record {} not found in CSV file {}".format(record, filename)
-            else:
-                assert found, "Record {} not found in CSV file {}".format([record1, record2], line)
+        check_table_content(context, fin, filename, column, column2)

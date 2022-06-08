@@ -16,6 +16,7 @@
 
 from src.minio import minio_client, bucket_check, read_object_into_buffer
 import csv
+from src.csv_checks import check_table_content
 
 
 @given(u"Minio endpoint is set to {endpoint}")
@@ -119,35 +120,4 @@ def check_records_in_csv_object(context, object_name, column, column2=None):
     # read object content
     buff = read_object_into_buffer(context, client, object_name)
 
-    # read CVS from buffer
-    csvFile = csv.reader(buff)
-
-    # skip the first row of the CSV file.
-    next(csvFile)
-
-    for line in csvFile:
-        found = False
-        # iterate over all records that needs to be stored in CSV
-        for row in context.table:
-            if column2 is None:
-                # one column case
-                record = row[context.table.headings[0]]
-
-                # check if selected column contains the expected record
-                if line[column] == record:
-                    found = True
-                    break
-            else:
-                # two columns case
-                record1 = row[context.table.headings[0]]
-                record2 = row[context.table.headings[1]]
-
-                # check if selected column contains the expected record
-                if line[column] == record1 and line[column2] == record2:
-                    found = True
-                    break
-
-        if column2 is None:
-            assert found, "Record {} not found in CSV file {}".format(record, line[1])
-        else:
-            assert found, "Record {} not found in CSV file {}".format([record1, record2], line)
+    check_table_content(context, buff, object_name, column, column2)
