@@ -14,7 +14,7 @@ Feature: Ability to export metadata into S3
       And Minio bucket name is set to test
 
 
-  @database
+  @database @s3 @export @metadata
   Scenario: Check export metadata table into S3 object
      When I prepare database schema
      Then I should find that all tables are empty
@@ -65,7 +65,7 @@ Feature: Ability to export metadata into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export @metadata
   Scenario: Check export metadata table into S3 object when REPORT table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -122,7 +122,7 @@ Feature: Ability to export metadata into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export @metadata
   Scenario: Check export metadata table into S3 object when ADVISOR_RATINGS table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -179,7 +179,7 @@ Feature: Ability to export metadata into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export @metadata
   Scenario: Check export metadata table into S3 object when CLUSTER_RULE_TOGGLE table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -236,7 +236,7 @@ Feature: Ability to export metadata into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export @metadata
   Scenario: Check export metadata table into S3 object when CLUSTER_RULE_USER_FEEDBACK table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -293,7 +293,7 @@ Feature: Ability to export metadata into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export @metadata
   Scenario: Check export metadata table into S3 object when CLUSTER_USER_RULE_DISABLE_FEEDBACK table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -307,7 +307,7 @@ Feature: Ability to export metadata into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export @metadata
   Scenario: Check export metadata table into S3 object when RULE_HIT table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -364,7 +364,7 @@ Feature: Ability to export metadata into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export @metadata
   Scenario: Check export metadata table into S3 object when RECOMMENDATION table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -421,7 +421,7 @@ Feature: Ability to export metadata into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export @metadata
   Scenario: Check export metadata table into S3 object when MIGRATION_INFO table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -475,7 +475,7 @@ Feature: Ability to export metadata into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export @metadata
   Scenario: Check export metadata table into S3 object when ADVISOR_RATINGS table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -532,7 +532,7 @@ Feature: Ability to export metadata into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export @metadata
   Scenario: Check export metadata table into S3 object when CLUSTER_RULE_TOGGLE table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -589,7 +589,7 @@ Feature: Ability to export metadata into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export @metadata
   Scenario: Check export metadata table into S3 object when CLUSTER_RULE_USER_FEEDBACK table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -646,7 +646,7 @@ Feature: Ability to export metadata into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export @metadata
   Scenario: Check export metadata table into S3 object when CLUSTER_USER_RULE_DISABLE_FEEDBACK table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -703,7 +703,7 @@ Feature: Ability to export metadata into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export @metadata
   Scenario: Check export metadata table into S3 object when RULE_HIT table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -760,7 +760,7 @@ Feature: Ability to export metadata into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export @metadata
   Scenario: Check export metadata table into S3 object when RECOMMENDATION table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -817,7 +817,7 @@ Feature: Ability to export metadata into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export @metadata
   Scenario: Check export metadata table into S3 object when CONSUMER_ERROR table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -874,7 +874,7 @@ Feature: Ability to export metadata into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export @metadata
   Scenario: Check export metadata table into S3 object when REPORT_INFO table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -931,7 +931,7 @@ Feature: Ability to export metadata into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export @metadata
   Scenario: Check export metadata table into S3 object when RULE_DISABLE table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
