@@ -13,7 +13,7 @@ Feature: Ability to export tables into S3
       And Minio secret access key is set to foobar01
       And Minio bucket name is set to test
 
-  @database
+  @database @s3 @export
   Scenario: Check export empty tables into S3/Minio
      When I prepare database schema
      Then I should find that all tables are empty
@@ -49,7 +49,7 @@ Feature: Ability to export tables into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export
   Scenario: Check export from REPORT table into S3/Minio
      When I prepare database schema
      Then I should find that all tables are empty
@@ -97,7 +97,7 @@ Feature: Ability to export tables into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export
   Scenario: Check export from ADVISOR_RATINGS table into S3/Minio
      When I prepare database schema
      Then I should find that all tables are empty
@@ -153,7 +153,7 @@ Feature: Ability to export tables into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export
   Scenario: Check export from CLUSTER_RULE_TOGGLE table into S3/Minio
      When I prepare database schema
      Then I should find that all tables are empty
@@ -209,7 +209,7 @@ Feature: Ability to export tables into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export
   Scenario: Check export from CLUSTER_RULE_USER_FEEDBACK table into S3/Minio
      When I prepare database schema
      Then I should find that all tables are empty
@@ -271,7 +271,7 @@ Feature: Ability to export tables into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export
   Scenario: Check export from CLUSTER_USER_RULE_DISABLE_FEEDBACK table into S3/Minio
      When I prepare database schema
      Then I should find that all tables are empty
@@ -333,7 +333,7 @@ Feature: Ability to export tables into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export
   Scenario: Check export from RULE_HIT table into S3/Minio
      When I prepare database schema
      Then I should find that all tables are empty
@@ -398,7 +398,7 @@ Feature: Ability to export tables into S3
 
 
 
-  @database
+  @database @s3 @export
   Scenario: Check export from RECOMMENDATION table into S3/Minio
      When I prepare database schema
      Then I should find that all tables are empty
@@ -460,7 +460,7 @@ Feature: Ability to export tables into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export
   Scenario: Check export from MIGRATION_INFO table into S3/Minio
      When I prepare database schema
      Then I should find that all tables are empty
@@ -502,7 +502,7 @@ Feature: Ability to export tables into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export
   Scenario: Check export from ADVISOR_RATINGS table into S3/Minio
      When I prepare database schema
      Then I should find that all tables are empty
@@ -558,7 +558,7 @@ Feature: Ability to export tables into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export
   Scenario: Check export from CLUSTER_RULE_TOGGLE table into S3/Minio
      When I prepare database schema
      Then I should find that all tables are empty
@@ -614,7 +614,7 @@ Feature: Ability to export tables into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export
   Scenario: Check export from CLUSTER_RULE_USER_FEEDBACK table into S3/Minio
      When I prepare database schema
      Then I should find that all tables are empty
@@ -676,7 +676,7 @@ Feature: Ability to export tables into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export
   Scenario: Check export from CLUSTER_USER_RULE_DISABLE_FEEDBACK table into S3/Minio
      When I prepare database schema
      Then I should find that all tables are empty
@@ -738,7 +738,7 @@ Feature: Ability to export tables into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export
   Scenario: Check export from RULE_HIT table into S3/Minio
      When I prepare database schema
      Then I should find that all tables are empty
@@ -803,7 +803,7 @@ Feature: Ability to export tables into S3
 
 
 
-  @database
+  @database @s3 @export
   Scenario: Check export from RECOMMENDATION table into S3/Minio
      When I prepare database schema
      Then I should find that all tables are empty
@@ -865,7 +865,7 @@ Feature: Ability to export tables into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export
   Scenario: Check export from CONSUMER_ERROR table into S3/Minio
      When I prepare database schema
      Then I should find that all tables are empty
@@ -931,7 +931,7 @@ Feature: Ability to export tables into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export
   Scenario: Check export from REPORT_INFO table into S3/Minio
      When I prepare database schema
      Then I should find that all tables are empty
@@ -985,7 +985,7 @@ Feature: Ability to export tables into S3
      Then I should find that the database is empty
 
 
-  @database
+  @database @s3 @export
   Scenario: Check export from RULE_DISABLE table into S3/Minio
      When I prepare database schema
      Then I should find that all tables are empty

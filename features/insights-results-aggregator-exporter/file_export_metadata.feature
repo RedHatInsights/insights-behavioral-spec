@@ -9,7 +9,7 @@ Feature: Ability to export metadata into file
       And the database is empty
 
 
-  @database
+  @database @file @export @metadata
   Scenario: Check export metadata table into file
      When I prepare database schema
      Then I should find that all tables are empty
@@ -60,7 +60,7 @@ Feature: Ability to export metadata into file
      Then I should find that the database is empty
 
 
-  @database
+  @database @file @export @metadata
   Scenario: Check export metadata table into file when REPORT table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -117,7 +117,7 @@ Feature: Ability to export metadata into file
      Then I should find that the database is empty
 
 
-  @database
+  @database @file @export @metadata
   Scenario: Check export metadata table into file when ADVISOR_RATINGS table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -174,7 +174,7 @@ Feature: Ability to export metadata into file
      Then I should find that the database is empty
 
 
-  @database
+  @database @file @export @metadata
   Scenario: Check export metadata table into file when CLUSTER_RULE_TOGGLE table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -231,7 +231,7 @@ Feature: Ability to export metadata into file
      Then I should find that the database is empty
 
 
-  @database
+  @database @file @export @metadata
   Scenario: Check export metadata table into file when CLUSTER_RULE_USER_FEEDBACK table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -288,7 +288,7 @@ Feature: Ability to export metadata into file
      Then I should find that the database is empty
 
 
-  @database
+  @database @file @export @metadata
   Scenario: Check export metadata table into file when CLUSTER_USER_RULE_DISABLE_FEEDBACK table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -302,7 +302,7 @@ Feature: Ability to export metadata into file
      Then I should find that the database is empty
 
 
-  @database
+  @database @file @export @metadata
   Scenario: Check export metadata table into file when RULE_HIT table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -359,7 +359,7 @@ Feature: Ability to export metadata into file
      Then I should find that the database is empty
 
 
-  @database
+  @database @file @export @metadata
   Scenario: Check export metadata table into file when RECOMMENDATION table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -416,7 +416,7 @@ Feature: Ability to export metadata into file
      Then I should find that the database is empty
 
 
-  @database
+  @database @file @export @metadata
   Scenario: Check export metadata table into file when MIGRATION_INFO table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -470,7 +470,7 @@ Feature: Ability to export metadata into file
      Then I should find that the database is empty
 
 
-  @database
+  @database @file @export @metadata
   Scenario: Check export metadata table into file when ADVISOR_RATINGS table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -527,7 +527,7 @@ Feature: Ability to export metadata into file
      Then I should find that the database is empty
 
 
-  @database
+  @database @file @export @metadata
   Scenario: Check export metadata table into file when CLUSTER_RULE_TOGGLE table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -584,7 +584,7 @@ Feature: Ability to export metadata into file
      Then I should find that the database is empty
 
 
-  @database
+  @database @file @export @metadata
   Scenario: Check export metadata table into file when CLUSTER_RULE_USER_FEEDBACK table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -641,7 +641,7 @@ Feature: Ability to export metadata into file
      Then I should find that the database is empty
 
 
-  @database
+  @database @file @export @metadata
   Scenario: Check export metadata table into file when CLUSTER_USER_RULE_DISABLE_FEEDBACK table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -698,7 +698,7 @@ Feature: Ability to export metadata into file
      Then I should find that the database is empty
 
 
-  @database
+  @database @file @export @metadata
   Scenario: Check export metadata table into file when RULE_HIT table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -755,7 +755,7 @@ Feature: Ability to export metadata into file
      Then I should find that the database is empty
 
 
-  @database
+  @database @file @export @metadata
   Scenario: Check export metadata table into file when RECOMMENDATION table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -812,7 +812,7 @@ Feature: Ability to export metadata into file
      Then I should find that the database is empty
 
 
-  @database
+  @database @file @export @metadata
   Scenario: Check export metadata table into file when CONSUMER_ERROR table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -869,7 +869,7 @@ Feature: Ability to export metadata into file
      Then I should find that the database is empty
 
 
-  @database
+  @database @file @export @metadata
   Scenario: Check export metadata table into file when REPORT_INFO table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
@@ -926,7 +926,7 @@ Feature: Ability to export metadata into file
      Then I should find that the database is empty
 
 
-  @database
+  @database @file @export @metadata
   Scenario: Check export metadata table into file when RULE_DISABLE table is not empty
      When I prepare database schema
      Then I should find that all tables are empty
