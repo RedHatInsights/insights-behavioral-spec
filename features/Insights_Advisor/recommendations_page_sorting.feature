@@ -10,26 +10,26 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
           | 22222222-0000-0000-0000-000000000000 |
           | 33333333-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Modified    | Total risk |
-          | Bug12345 | 10 days ago | Critical   |
-          | Abc12345 | 10 days ago | Important  |
-          | Xyz12345 | 10 days ago | Moderate   |
-          | Uvw12345 | 10 days ago | Low        |
+          | Title    | Modified    | Total risk | Category                  |
+          | Bug12345 | 10 days ago | Critical   | Availability, Security    |
+          | Abc12345 | 10 days ago | Important  | Availability              |
+          | Xyz12345 | 10 days ago | Moderate   | Performance               |
+          | Uvw12345 | 10 days ago | Low        | Security                  |
       And 3 issues are detected for cluster 11111111-0000-0000-0000-000000000000
-          | Title    | Modified    | Total risk |
-          | Bug12345 | 10 days ago | Critical   |
-          | Abc12345 | 10 days ago | Important  |
-          | Xyz12345 | 10 days ago | Moderate   |
+          | Title    | Modified    | Total risk | Category                  |
+          | Bug12345 | 10 days ago | Critical   | Availability, Security    |
+          | Abc12345 | 10 days ago | Important  | Availability              |
+          | Xyz12345 | 10 days ago | Moderate   | Performance               |
       And 2 issues are detected for cluster 22222222-0000-0000-0000-000000000000
-          | Title    | Modified    | Total risk |
-          | Bug12345 | 10 days ago | Critical   |
-          | Abc12345 | 10 days ago | Important  |
+          | Title    | Modified    | Total risk | Category                  |
+          | Bug12345 | 10 days ago | Critical   | Availability, Security    |
+          | Abc12345 | 10 days ago | Important  | Availability              |
       And 1 issue is detected for cluster 33333333-0000-0000-0000-000000000000
-          | Title    | Modified    | Total risk |
-          | Bug12345 | 10 days ago | Critical   |
+          | Title    | Modified    | Total risk | Category                  |
+          | Bug12345 | 10 days ago | Critical   | Availability, Security    |
       And 1 another issue without cluster hit exists
-          | Title    | Modified    | Total risk |
-          | Nohit    | 10 days ago | Critical   |
+          | Title    | Modified    | Total risk | Category                  |
+          | Nohit    | 10 days ago | Critical   | Fault tolerance           |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
@@ -57,14 +57,15 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
           | Column name | Sort | Highlighted |
           | Name        | ↕    | no          |
           | Modified    | ↕    | no          |
+          | Category    | ↕    | no          |
           | Total risk  | ↓    | yes         |
           | Clusters    | ↕    | no          |
       And that table should contain following four rows in that order
-          | Name        | Modified    | Total risk | Clusters |
-          | Bug12345    | 10 days ago | Critical   | 4        |
-          | Abc12345    | 10 days ago | Important  | 3        |
-          | Xyz12345    | 10 days ago | Moderate   | 2        |
-          | Uvw12345    | 10 days ago | Low        | 1        |
+          | Name        | Modified    | Category             | Total risk | Clusters |
+          | Bug12345    | 10 days ago | Availability, 1 more | Critical   | 4        |
+          | Abc12345    | 10 days ago | Availability         | Important  | 3        |
+          | Xyz12345    | 10 days ago | Performance          | Moderate   | 2        |
+          | Uvw12345    | 10 days ago | Security             | Low        | 1        |
 
 
   Scenario: Sorting by name on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
@@ -123,6 +124,7 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
           | Column name | Sort | Highlighted |
           | Name        | ↕    | no          |
           | Modified    | ↕    | no          |
+          | Category    | ↕    | no          |
           | Total risk  | ↓    | yes         |
           | Clusters    | ↕    | no          |
       And that table should contain following four rows in that order
@@ -136,6 +138,7 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
           | Column name | Sort | Highlighted |
           | Name        | ↓    | yes         |
           | Modified    | ↕    | no          |
+          | Category    | ↕    | no          |
           | Total risk  | ↕    | no          |
           | Clusters    | ↕    | no          |
       And that table should contain following four rows in that order
@@ -149,6 +152,7 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
           | Column name | Sort | Highlighted |
           | Name        | ↑    | yes         |
           | Modified    | ↕    | no          |
+          | Category    | ↕    | no          |
           | Total risk  | ↕    | no          |
           | Clusters    | ↕    | no          |
       And that table should contain following four rows in that order
@@ -215,6 +219,7 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
           | Column name | Sort | Highlighted |
           | Name        | ↕    | no          |
           | Modified    | ↕    | no          |
+          | Category    | ↕    | no          |
           | Total risk  | ↓    | yes         |
           | Clusters    | ↕    | no          |
       And that table should contain following four rows in that order
@@ -228,6 +233,7 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
           | Column name | Sort | Highlighted |
           | Name        | ↕    | no          |
           | Modified    | ↕    | no          |
+          | Category    | ↕    | no          |
           | Total risk  | ↑    | yes         |
           | Clusters    | ↕    | no          |
       And that table should contain following four rows in that order
@@ -241,6 +247,7 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
           | Column name | Sort | Highlighted |
           | Name        | ↕    | no          |
           | Modified    | ↕    | no          |
+          | Category    | ↕    | no          |
           | Total risk  | ↓    | yes         |
           | Clusters    | ↕    | no          |
       And that table should contain following four rows in that order
@@ -307,6 +314,7 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
           | Column name | Sort | Highlighted |
           | Name        | ↕    | no          |
           | Modified    | ↕    | no          |
+          | Category    | ↕    | no          |
           | Total risk  | ↓    | yes         |
           | Clusters    | ↕    | no          |
       And that table should contain following four rows in that order
@@ -320,6 +328,7 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
           | Column name | Sort | Highlighted |
           | Name        | ↕    | no          |
           | Modified    | ↕    | no          |
+          | Category    | ↕    | no          |
           | Total risk  | ↕    | no          |
           | Clusters    | ↓    | yes         |
       And that table should contain following four rows in that order
@@ -333,6 +342,7 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
           | Column name | Sort | Highlighted |
           | Name        | ↕    | no          |
           | Modified    | ↕    | no          |
+          | Category    | ↕    | no          |
           | Total risk  | ↕    | no          |
           | Clusters    | ↑    | yes         |
       And that table should contain following four rows in that order
@@ -399,6 +409,7 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
           | Column name | Sort | Highlighted |
           | Name        | ↕    | no          |
           | Modified    | ↕    | no          |
+          | Category    | ↕    | no          |
           | Total risk  | ↓    | yes         |
           | Clusters    | ↕    | no          |
       And that table should contain following four rows in that order
@@ -412,6 +423,7 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
           | Column name | Sort | Highlighted |
           | Name        | ↕    | no          |
           | Modified    | ↓    | yes         |
+          | Category    | ↕    | no          |
           | Total risk  | ↕    | no          |
           | Clusters    | ↕    | no          |
       And that table should contain following four rows in that order
@@ -425,6 +437,7 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
           | Column name | Sort | Highlighted |
           | Name        | ↕    | no          |
           | Modified    | ↑    | yes         |
+          | Category    | ↕    | no          |
           | Total risk  | ↕    | no          |
           | Clusters    | ↕    | no          |
       And that table should contain following four rows in that order
@@ -491,6 +504,7 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
           | Column name | Sort | Highlighted |
           | Name        | ↕    | no          |
           | Modified    | ↕    | no          |
+          | Category    | ↕    | no          |
           | Total risk  | ↓    | yes         |
           | Clusters    | ↕    | no          |
       And that table should contain following four rows in that order
@@ -504,6 +518,7 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
           | Column name | Sort | Highlighted |
           | Name        | ↓    | yes         |
           | Modified    | ↕    | no          |
+          | Category    | ↕    | no          |
           | Total risk  | ↕    | no          |
           | Clusters    | ↕    | no          |
       And that table should contain following four rows in that order
@@ -517,6 +532,7 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
           | Column name | Sort | Highlighted |
           | Name        | ↕    | no          |
           | Modified    | ↓    | yes         |
+          | Category    | ↕    | no          |
           | Total risk  | ↕    | no          |
           | Clusters    | ↕    | no          |
       And that table should contain following four rows in that order
@@ -530,6 +546,7 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
           | Column name | Sort | Highlighted |
           | Name        | ↕    | no          |
           | Modified    | ↕    | no          |
+          | Category    | ↕    | no          |
           | Total risk  | ↕    | no          |
           | Clusters    | ↓    | yes         |
       And that table should contain following four rows in that order
@@ -538,3 +555,17 @@ Feature: Sorting on Advisor recommendations page behaviour on Hybrid Cloud Conso
           | Abc12345    | 40 days ago | Important  | 3        |
           | Xyz12345    | 20 days ago | Moderate   | 2        |
           | Uvw12345    | 10 days ago | Low        | 1        |
+     When user clicks on ↕ symbol in "Category" column title
+      And table with several columns should be displayed with sorting setting
+          | Column name | Sort | Highlighted |
+          | Name        | ↕    | no          |
+          | Modified    | ↕    | no          |
+          | Category    | ↑    | yes         |
+          | Total risk  | ↕    | no          |
+          | Clusters    | ↕    | no          |
+      And that table should contain following four rows in that order
+          | Name        | Modified    | Category                | Total risk | Clusters |
+          | Abc12345    | 40 days ago | Availability            | Important  | 3        |
+          | Bug12345    | 30 days ago | Availability, 1 more    | Critical   | 4        |
+          | Xyz12345    | 20 days ago | Performance             | Moderate   | 2        |
+          | Uvw12345    | 10 days ago | Security                | Low        | 1        |
