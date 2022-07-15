@@ -47,12 +47,22 @@ Behavioral specifications for Insights pipelines and its integration into OCM, O
 * [Filtering feature in Cluster view page with recommendations behaviour on Hybrid Cloud Console](features/Insights_Advisor/cluster_page_filtering.feature)
 * [Sorting feature in Cluster view page with recommendations behaviour on Hybrid Cloud Console](features/Insights_Advisor/cluster_page_sorting.feature)
 
+
 ### Customer Notifications
 
 * [Customer Notifications](features/Notification_Service/customer_notifications.feature)
 
+
 ### SHA Extractor
 
 * [SHA Extractor](features/SHA_Extractor/sha_extractor.feature)
+
+
+### Insights Results Aggregator Cleaner service
+
+* [Basic set of smoke tests](features/insights-results-aggregator-cleaner/smoketests.feature)
+* [Ability to display old records](features/insights-results-aggregator-cleaner/display_old_records.feature)
+* [Ability to delete selected records](features/insights-results-aggregator-cleaner/cleanup_selected_records.feature)
+
 
 List of scenarios can be seen [there](features/README.md)

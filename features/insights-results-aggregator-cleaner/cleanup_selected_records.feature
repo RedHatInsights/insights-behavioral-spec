@@ -1,4 +1,4 @@
-Feature: Ability de delete selected records
+Feature: Ability to delete selected records
 
   @database
   Scenario: Clean up one old cluster should be visible
