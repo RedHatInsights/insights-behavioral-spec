@@ -242,3 +242,28 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Check if SHA extractor is able to consume messages from Kafka, download tarball, and take SHA images
 * Check if SHA extractor is able to finish the processing of SHA images
 
+## `insights-results-aggregator-cleaner/smoketests.feature`
+
+* Check if cleaner application is available
+* Check if cleaner displays help message
+* Check if cleaner displays version info
+* Check if cleaner displays authors
+* Check if Postgres database is available
+* Check if the test database does not contain tables to be created by tests
+
+## `insights-results-aggregator-cleaner/display_old_records.feature`
+
+* Read old records from empty database
+* Read old records from empty database giving different time period
+* Read old records from prepared non-empty database with new records only
+* Read old records from prepared non-empty database with old records only
+* Read old records from prepared non-empty database with mixed records
+
+## `insights-results-aggregator-cleaner/cleanup_selected_records.feature`
+
+* Clean up one old cluster should be visible
+* Clean up of existing old clusters
+* Clean up of existing new clusters
+* Clean up non-existing clusters
+* Clean up clusters with wrong names
+
