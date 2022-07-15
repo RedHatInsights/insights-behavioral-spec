@@ -65,4 +65,16 @@ Behavioral specifications for Insights pipelines and its integration into OCM, O
 * [Ability to delete selected records](features/insights-results-aggregator-cleaner/cleanup_selected_records.feature)
 
 
+
+### Insights Results Aggregator Exporter service
+
+* [Basic set of smoke tests](features/insights-results-aggregator-exporter/smoketests.feature)
+* [Ability to access database](features/insights-results-aggregator-exporter/database_access.feature)
+* [Ability to export tables into file](features/insights-results-aggregator-exporter/file_export.feature)
+* [Ability to export metadata into file](features/insights-results-aggregator-exporter/file_export_metadata.feature)
+* [Ability to export tables into S3](features/insights-results-aggregator-exporter/s3_export.feature)
+* [Ability to export metadata into S3](features/insights-results-aggregator-exporter/s3_export_metadata.feature)
+
+
+
 List of scenarios can be seen [there](features/README.md)
