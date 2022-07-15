@@ -267,3 +267,99 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Clean up non-existing clusters
 * Clean up clusters with wrong names
 
+## `insights-results-aggregator-exporter/smoketests.feature`
+
+* Check if exporter application is available
+* Check if exporter displays help message
+* Check if exporter displays version info
+* Check if exporter displays authors
+* Check if exporter displays configuration
+
+## `insights-results-aggregator-exporter/database_access.feature`
+
+* Check access to empty database
+* Check table creatinon on deletion
+
+## `insights-results-aggregator-exporter/file_export.feature`
+
+* Check export empty tables into file
+* Check export from REPORT table
+* Check export from ADVISOR_RATINGS table
+* Check export from CLUSTER_RULE_TOGGLE table
+* Check export from CLUSTER_RULE_USER_FEEDBACK table
+* Check export from CLUSTER_USER_RULE_DISABLE_FEEDBACK table
+* Check export from RULE_HIT table
+* Check export from RECOMMENDATION table
+* Check export from MIGRATION_INFO table
+* Check export from ADVISOR_RATINGS table
+* Check export from CLUSTER_RULE_TOGGLE table
+* Check export from CLUSTER_RULE_USER_FEEDBACK table
+* Check export from CLUSTER_USER_RULE_DISABLE_FEEDBACK table
+* Check export from RULE_HIT table
+* Check export from RECOMMENDATION table
+* Check export from CONSUMER_ERROR table
+* Check export from REPORT_INFO table
+* Check export from RULE_DISABLE table
+
+## `insights-results-aggregator-exporter/file_export_metadata.feature`
+
+* Check export metadata table into file
+* Check export metadata table into file when REPORT table is not empty
+* Check export metadata table into file when ADVISOR_RATINGS table is not empty
+* Check export metadata table into file when CLUSTER_RULE_TOGGLE table is not empty
+* Check export metadata table into file when CLUSTER_RULE_USER_FEEDBACK table is not empty
+* Check export metadata table into file when CLUSTER_USER_RULE_DISABLE_FEEDBACK table is not empty
+* Check export metadata table into file when RULE_HIT table is not empty
+* Check export metadata table into file when RECOMMENDATION table is not empty
+* Check export metadata table into file when MIGRATION_INFO table is not empty
+* Check export metadata table into file when ADVISOR_RATINGS table is not empty
+* Check export metadata table into file when CLUSTER_RULE_TOGGLE table is not empty
+* Check export metadata table into file when CLUSTER_RULE_USER_FEEDBACK table is not empty
+* Check export metadata table into file when CLUSTER_USER_RULE_DISABLE_FEEDBACK table is not empty
+* Check export metadata table into file when RULE_HIT table is not empty
+* Check export metadata table into file when RECOMMENDATION table is not empty
+* Check export metadata table into file when CONSUMER_ERROR table is not empty
+* Check export metadata table into file when REPORT_INFO table is not empty
+* Check export metadata table into file when RULE_DISABLE table is not empty
+
+## `insights-results-aggregator-exporter/s3_export.feature`
+
+* Check export empty tables into S3/Minio
+* Check export from REPORT table into S3/Minio
+* Check export from ADVISOR_RATINGS table into S3/Minio
+* Check export from CLUSTER_RULE_TOGGLE table into S3/Minio
+* Check export from CLUSTER_RULE_USER_FEEDBACK table into S3/Minio
+* Check export from CLUSTER_USER_RULE_DISABLE_FEEDBACK table into S3/Minio
+* Check export from RULE_HIT table into S3/Minio
+* Check export from RECOMMENDATION table into S3/Minio
+* Check export from MIGRATION_INFO table into S3/Minio
+* Check export from ADVISOR_RATINGS table into S3/Minio
+* Check export from CLUSTER_RULE_TOGGLE table into S3/Minio
+* Check export from CLUSTER_RULE_USER_FEEDBACK table into S3/Minio
+* Check export from CLUSTER_USER_RULE_DISABLE_FEEDBACK table into S3/Minio
+* Check export from RULE_HIT table into S3/Minio
+* Check export from RECOMMENDATION table into S3/Minio
+* Check export from CONSUMER_ERROR table into S3/Minio
+* Check export from REPORT_INFO table into S3/Minio
+* Check export from RULE_DISABLE table into S3/Minio
+
+## `insights-results-aggregator-exporter/s3_export_metadata.feature`
+
+* Check export metadata table into S3 object
+* Check export metadata table into S3 object when REPORT table is not empty
+* Check export metadata table into S3 object when ADVISOR_RATINGS table is not empty
+* Check export metadata table into S3 object when CLUSTER_RULE_TOGGLE table is not empty
+* Check export metadata table into S3 object when CLUSTER_RULE_USER_FEEDBACK table is not empty
+* Check export metadata table into S3 object when CLUSTER_USER_RULE_DISABLE_FEEDBACK table is not empty
+* Check export metadata table into S3 object when RULE_HIT table is not empty
+* Check export metadata table into S3 object when RECOMMENDATION table is not empty
+* Check export metadata table into S3 object when MIGRATION_INFO table is not empty
+* Check export metadata table into S3 object when ADVISOR_RATINGS table is not empty
+* Check export metadata table into S3 object when CLUSTER_RULE_TOGGLE table is not empty
+* Check export metadata table into S3 object when CLUSTER_RULE_USER_FEEDBACK table is not empty
+* Check export metadata table into S3 object when CLUSTER_USER_RULE_DISABLE_FEEDBACK table is not empty
+* Check export metadata table into S3 object when RULE_HIT table is not empty
+* Check export metadata table into S3 object when RECOMMENDATION table is not empty
+* Check export metadata table into S3 object when CONSUMER_ERROR table is not empty
+* Check export metadata table into S3 object when REPORT_INFO table is not empty
+* Check export metadata table into S3 object when RULE_DISABLE table is not empty
