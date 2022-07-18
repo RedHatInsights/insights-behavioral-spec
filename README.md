@@ -25,12 +25,17 @@ Behavioral specifications for Insights pipelines and its integration into OCM, O
 
 ### Advanced Cluster Management
 
-* [Overview page behaviour on Advanced Cluster Management](features/ACM/overview.page.feature)
+* [Overview page behaviour on Advanced Cluster Management](features/ACM/overview_page.feature)
+* [Overview page behaviour on Advanced Cluster Management in case some or all issues are disabled in Insights Advisor](features/ACM/overview_page_disabled_issues.feature)
 * [List of clusters on ACM](features/ACM/cluster_list.feature)
 * [Cluster issues section on Overview page on ACM UI](features/ACM/cluster_issues_section.feature)
+* [Cluster issues section on Overview page on ACM UI in case some or all issues are disabled in Insights Advisor](features/ACM/cluster_issues_section_disabled_issues.feature)
 * [Search for issues](features/ACM/search_issues.feature)
+* [Search for issues in case some or all issues are disabled in Insights Advisor](features/ACM/search_disabled_issues.feature)
 * [Cluster view with issues on ACM UI](features/ACM/cluster_view_with_issues.feature)
+* [Cluster view with issues on ACM UI in case some or all issues are disabled in Insights Advisor](features/ACM/cluster_view_disabled_issues.feature)
 * [Recommendation description view](features/ACM/recommentation_description.feature)
+* [Recommendation description view in case some or all issues are disabled in Insights Advisor](features/ACM/recommentation_description_disabled_issues.feature)
 
 
 ### Insights Advisor
