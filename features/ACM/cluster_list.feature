@@ -50,7 +50,7 @@ Feature: List of clusters on ACM
       And Status for the one existing cluster should say "Ready"
 
 
-  Scenario: Displaying "Clusters" page on ACM for one managed clusters in Hibernating state managed by AWS infrastruture
+  Scenario: Displaying "Clusters" page on ACM for one managed clusters in Hibernating state managed by AWS infrastructure
     Given user USER1 is part of account (organization) ACCOUNT1
       And account (organization) ACCOUNT1 owns one managed cluster
       And the infrastructure for that managed cluster is provided by Amazon Web Services
