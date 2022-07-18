@@ -109,7 +109,7 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Displaying "Clusters" page on ACM for one managed clusters in Ready state managed by Microsoft Azure
 * Displaying "Clusters" page on ACM for two managed clusters
 
-## `ACM/cluster_issues_section`
+## `ACM/cluster_issues_section.feature`
 
 * Displaying "Cluster issues" section on "Overview" page - 1 cluster with no issues
 * Displaying "Cluster issues" section on "Overview" page - 1 cluster with 1 critical issue
@@ -248,9 +248,9 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Filtering by status in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
 * Filtering by status all in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
 
-## `Insights_Advisor/cluster_version.feature`
+## `Insights_Advisor/clusters_version.feature`
 
-* Displaying Advisor's "Affected clusters" page on Hybrid Cloud Console with at least one recommendation and one cluster should show the cluster version
+* Displaying Advisor's "Affected clusters" page on Hybrid Cloud Console should show the cluster version
 
 ## `Notification_Service/customer_notifications.feature`
 
@@ -263,9 +263,9 @@ Directory where feature files with scenarios and scenario outlines are stored.
 
 ## `SHA_Extractor/sha_extractor.feature`
 
-* Check that SHA extractor service has all the information it needs to work properly
+* Check that SHA exctractor service has all the information and interfaces it needs to work properly
 * Check if SHA extractor is able to consume messages from Kafka
-* Check if SHA extractor is able to consume messages from Kafka and download tarball
+* Check if SHA extractor is able to consume messages from Kafka and then download tarball
 * Check if SHA extractor is able to consume messages from Kafka, download tarball, and take SHA images
 * Check if SHA extractor is able to finish the processing of SHA images
 
