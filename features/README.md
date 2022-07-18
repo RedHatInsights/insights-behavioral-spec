@@ -99,7 +99,7 @@ Directory where feature files with scenarios and scenario outlines are stored.
 
 ## `ACM/overview_page_disabled_issues.feature`
 
-* Displaying "Overview" page on ACM for one managed cluster in Ready state managed by AWS infrastruture for cluster with one disabled rule
+* Displaying "Overview" page on ACM for one managed cluster in Ready state managed by AWS infrastructure for cluster with one disabled rule
 
 ## `ACM/cluster_list.feature`
 

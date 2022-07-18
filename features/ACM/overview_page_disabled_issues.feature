@@ -1,7 +1,7 @@
 Feature: Overview page behaviour on Advanced Cluster Management in case some or all issues are disabled in Insights Advisor
 
 
-  Scenario: Displaying "Overview" page on ACM for one managed cluster in Ready state managed by AWS infrastruture for cluster with one disabled rule
+  Scenario: Displaying "Overview" page on ACM for one managed cluster in Ready state managed by AWS infrastructure for cluster with one disabled rule
     Given user USER1 is part of account (organization) ACCOUNT1
       And account (organization) ACCOUNT1 owns one managed cluster
       And the infrastructure for that managed cluster is provided by Amazon Web Services
