@@ -17,7 +17,7 @@
 """Scenario list generator."""
 
 # Usage
-# python3 gen_scenario_list.py > feature/new_README.md
+# python3 tools/gen_scenario_list.py > feature/new_README.md
 
 import os
 
