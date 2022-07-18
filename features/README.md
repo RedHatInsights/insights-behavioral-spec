@@ -3,28 +3,6 @@ Directory where feature files with scenarios and scenario outlines are stored.
 
 # List of scenarios
 
-## `OCM/login.feature`
-
-* Login into console.redhat.com
-* Login into OCM UI
-
-## `OCM/insights_tab.feature`
-
-* Insights tab for cluster without any issue
-* Insights tab for cluster that does not send any insights-operator archive
-* Insights tab for cluster with 1 potential security issue identified
-
-## `OCM/rule_feedback.feature`
-
-* Displaying rule feedback controls on OCM UI
-* Upvote for rule on OCM UI
-* Downvote for rule on OCM UI
-* Upvote then downvote for rule on OCM UI
-
-## `OCM/single_rule_page.feature`
-
-* Displaying single rule page in OCM UI
-
 ## `OCM/cluster_list.feature`
 
 * Displaying info about no clusters on OCM UI ("empty list")
@@ -36,29 +14,6 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Display cluster overview page on OCM UI for cluster with one critical issue
 * Display cluster overview page on OCM UI for cluster with one critical issue and one low issue
 * Display cluster overview page on OCM UI for cluster with two moderate issues
-
-## `OCP_WebConsole/login.feature`
-
-* Login into OCP WebConsole via console.redhat.com
-
-## `OCP_WebConsole/insights.feature`
-
-* Insights on OCP WebConsole for a cluster without any issue
-* Insights on OCP WebConsole for a cluster that does not send any insights-operator archive
-* Insights on OCP WebConsole for a situation when REST API is not accessible
-* Insights on OCP WebConsole for a cluster with 1 critical issue
-* Insights on OCP WebConsole for a cluster with 2 critical issues
-* Insights on OCP WebConsole for a cluster with 1 low issue and 2 critical issues
-* Insights on OCP WebConsole for a cluster with 1 low issue, 1 important issue, and 1 moderate issue
-* Insights on OCP WebConsole for a cluster with 10 low issues
-
-## `OCP_WebConsole/to_cluster_page.feature`
-
-* Using link from OCP WebConsole "Insights Advisor status" window to cluster page on OCM UI
-
-## `OCM/disable_rule_on_OCP.feature`
-
-* Disabling rule in OCM user interface should be visible in OCP WebConsole as well
 
 ## `OCM/disable_rule.feature`
 
@@ -85,6 +40,9 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Check if first test account is able to disable rule R1
 * Check if rule disabled on OCM UI is still visible on ACM
 * Check if rule disabled on OCM UI by user U1 is still visible on ACM for other users
+
+## `OCM/disable_rule_on_OCP.feature`
+
 * Check if OCM user interface is accessible for two test accounts
 * Check if OCP WebConsole user interface is accessible for two test accounts
 * Check if selected rule R1 is visible for the first test account in OCM UI
@@ -93,21 +51,46 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Check if rule disabled on OCM UI is disabled on OCP WebConsole as well
 * Check if rule disabled on OCM UI by user U1 is disabled on OCP WebConsole for other users as well
 
-## `ACM/overview.page.feature`
+## `OCM/insights_tab.feature`
 
-* Displaying "Overview" page on ACM for one managed cluster in Ready state managed by AWS infrastructure
+* Insights tab for cluster without any issue
+* Insights tab for cluster that does not send any insights-operator archive
+* Insights tab for cluster with 1 potential security issue identified
 
-## `ACM/overview_page_disabled_issues.feature`
+## `OCM/login.feature`
 
-* Displaying "Overview" page on ACM for one managed cluster in Ready state managed by AWS infrastructure for cluster with one disabled rule
+* Login into console.redhat.com
+* Login into OCM UI
 
-## `ACM/cluster_list.feature`
+## `OCM/rule_feedback.feature`
 
-* Displaying "Clusters" page on ACM for one managed clusters in Ready state managed by AWS infrastructure
-* Displaying "Clusters" page on ACM for one managed clusters in Hibernating state managed by AWS infrastructure
-* Displaying "Clusters" page on ACM for one managed clusters in Ready state managed by Google Cloud Platform
-* Displaying "Clusters" page on ACM for one managed clusters in Ready state managed by Microsoft Azure
-* Displaying "Clusters" page on ACM for two managed clusters
+* Displaying rule feedback controls on OCM UI
+* Upvote for rule on OCM UI
+* Downvote for rule on OCM UI
+* Upvote then downvote for rule on OCM UI
+
+## `OCM/single_rule_page.feature`
+
+* Displaying single rule page in OCM UI
+
+## `OCP_WebConsole/insights.feature`
+
+* Insights on OCP WebConsole for a cluster without any issue
+* Insights on OCP WebConsole for a cluster that does not send any insights-operator archive
+* Insights on OCP WebConsole for a situation when REST API is not accessbile
+* Insights on OCP WebConsole for a cluster with 1 critical issue
+* Insights on OCP WebConsole for a cluster with 2 critical issues
+* Insights on OCP WebConsole for a cluster with 1 low issue and 2 critical issues
+* Insights on OCP WebConsole for a cluster with 1 low issue, 1 important issue, and 1 moderate issue
+* Insights on OCP WebConsole for a cluster with 10 low issues
+
+## `OCP_WebConsole/login.feature`
+
+* Login into OCP WebConsole via console.redhat.com
+
+## `OCP_WebConsole/to_cluster_page.feature`
+
+* Using link from OCP WebConsole "Insights Advisor status" window to cluster page on OCM UI
 
 ## `ACM/cluster_issues_section.feature`
 
@@ -127,22 +110,29 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Displaying "Cluster issues" section on "Overview" page - 1 cluster with 2 issues, that are being disabled in Insights Advisor one by one
 * Displaying "Cluster issues" section on "Overview" page - 1 cluster with 2 issues with low severity that is being enabled in Insights Advisor
 
-## `ACM/search_issues.feature`
+## `ACM/cluster_list.feature`
 
-* Ability to search for issues on Advanced Cluster Management for one local cluster
-* Ability to search for issues on Advanced Cluster Management for one managed cluster
+* Displaying "Clusters" page on ACM for one managed clusters in Ready state managed by AWS infrastructure
+* Displaying "Clusters" page on ACM for one managed clusters in Hibernating state managed by AWS infrastructure
+* Displaying "Clusters" page on ACM for one managed clusters in Ready state managed by Google Cloud Platform
+* Displaying "Clusters" page on ACM for one managed clusters in Ready state managed by Microsoft Azure
+* Displaying "Clusters" page on ACM for two managed clusters
 
-## `ACM/search_disabled_issues.feature`
+## `ACM/cluster_view_disabled_issues.feature`
 
-* Ability to search for issues on Advanced Cluster Management for one local cluster (1 rule disabled)
+* Displaying "Cluster issues" section on "Overview" page - 1 cluster with 1 critical issue and 1 issue disabled in Insights Advisor
 
 ## `ACM/cluster_view_with_issues.feature`
 
 * Displaying "Cluster issues" section on "Overview" page - 1 cluster with 1 critical issue
 
-## `ACM/cluster_view_disabled_issues.feature`
+## `ACM/overview.page.feature`
 
-* Displaying "Cluster issues" section on "Overview" page - 1 cluster with 1 critical issue and 1 issue disabled in Insights Advisor
+* Displaying "Overview" page on ACM for one managed cluster in Ready state managed by AWS infrastruture
+
+## `ACM/overview_page_disabled_issues.feature`
+
+* Displaying "Overview" page on ACM for one managed cluster in Ready state managed by AWS infrastructure for cluster with one disabled rule
 
 ## `ACM/recommentation_description.feature`
 
@@ -154,46 +144,21 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Displaying description of recommendation found for 1 cluster with 1 critical issue and 1 other issue being enabled in Insights Advisor
 * Displaying description of recommendation found for 1 cluster with 2 critical issue, one issue being disabled in Insights Advisor
 
-## `Insights_Advisor/recommendations_page.feature`
+## `ACM/search_disabled_issues.feature`
 
-* Displaying Advisor's "Recommendations" page on Hybrid Cloud Console without any recommendations
-* Displaying Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and one cluster
-* Displaying Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
+* Ability to search for issues on Advanced Cluster Management for one local cluster (1 rule disabled)
 
-## `Insights_Advisor/recommendations_page_expanded_info.feature`
+## `ACM/search_issues.feature`
 
-* Displaying expanded information about selected recommendation with high likelihood and high impact
-* Displaying expanded information about selected recommendation with medium likelihood and low impact
-* Displaying expanded information about selected recommendation with critical likelihood and low impact
+* Ability to search for issues on Advanced Cluster Management for one local cluster
+* Ability to search for issues on Advanced Cluster Management for one managed cluster
 
-## `Insights_Advisor/recommendations_page_pagination.feature`
+## `Insights_Advisor/affected_clusters_filtering.feature`
 
-* Pagination widgets displayed in Advisor recommendations page on Hybrid Cloud Console
-* Goto to next page in Advisor recommendations page on Hybrid Cloud Console using top right pagination widget
-* Goto to last page in Advisor recommendations page on Hybrid Cloud Console using top right pagination widget
-* Goto to previous page in Advisor recommendations page on Hybrid Cloud Console using top right pagination widget
-* Goto to first page in Advisor recommendations page on Hybrid Cloud Console using top right pagination widget
-
-## `Insights_Advisor/recommendations_page_filtering.feature`
-
-* Default filter on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
-* Reset filter on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
-* Set filter "Name" on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
-* Set filter "Total risk" on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
-* Set filter "Clusters impacted" on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
-* Reset filter to default value on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
-* Set filter "Category" on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
-* Set filter "Likelihood" on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
-* No-op action in filter menu on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
-
-## `Insights_Advisor/recommendations_page_sorting.feature`
-
-* Default sorting on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
-* Sorting by name on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
-* Sorting by total risk on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
-* Sorting by clusters on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
-* Sorting by added at on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
-* Sorting by different columns at on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
+* Default filtering on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
+* Basic filtering by name on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
+* On-the-fly filtering by name on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
+* Ability to clear filter on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
 
 ## `Insights_Advisor/affected_clusters_page.feature`
 
@@ -213,13 +178,6 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Displaying Advisor's "Affected clusters" page on Hybrid Cloud Console with at least one recommendation and two clusters should show the cluster version
 * Pagination on "Affected clusters" page on Hybrid Cloud Console with more than 10 clusters should show the cluster version
 
-## `Insights_Advisor/affected_clusters_filtering.feature`
-
-* Default filtering on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
-* Basic filtering by name on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
-* On-the-fly filtering by name on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
-* Ability to clear filter on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
-
 ## `Insights_Advisor/cluster_page.feature`
 
 * Cluster view page on Hybrid Cloud Console with five recommendations and one cluster
@@ -229,13 +187,6 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Expanding recommendation on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
 * Expanding all recommendations on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
 * Collapsing all recommendations on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
-
-## `Insights_Advisor/cluster_page_sorting.feature`
-
-* Default sort order in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
-* Sorting by description in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
-* Sorting by added at in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
-* Sorting by total risk at in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
 
 ## `Insights_Advisor/cluster_page_filtering.feature`
 
@@ -248,9 +199,57 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Filtering by status in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
 * Filtering by status all in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
 
+## `Insights_Advisor/cluster_page_sorting.feature`
+
+* Default sort order in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
+* Sorting by description in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
+* Sorting by added at in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
+* Sorting by total risk at in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
+
 ## `Insights_Advisor/clusters_version.feature`
 
 * Displaying Advisor's "Affected clusters" page on Hybrid Cloud Console should show the cluster version
+
+## `Insights_Advisor/recommendations_page.feature`
+
+* Displaying Advisor's "Recommendations" page on Hybrid Cloud Console without any recommendations
+* Displaying Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and one cluster
+* Displaying Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
+
+## `Insights_Advisor/recommendations_page_expanded_info.feature`
+
+* Displaying expanded information about selected recommendation with high likelihood and high impact
+* Displaying expanded information about selected recommendation with medium likelihood and low impact
+* Displaying expanded information about selected recommendation with critical likelihood and low impact
+
+## `Insights_Advisor/recommendations_page_filtering.feature`
+
+* Default filter on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
+* Reset filter on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
+* Set filter "Name" on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
+* Set filter "Total risk" on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
+* Set filter "Clusters impacted" on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
+* Reset filter to default value on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
+* Set filter "Category" on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
+* Set filter "Likelihood" on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
+* No-op action in filter menu on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
+
+## `Insights_Advisor/recommendations_page_pagination.feature`
+
+* Pagination widgets displayed in Advisor recommendations page on Hybrid Cloud Console
+* Goto to next page in Advisor recommendations page on Hybrid Cloud Console using top right pagination widget
+* Goto to last page in Advisor recommendations page on Hybrid Cloud Console using top right pagination widget
+* Goto to previous page in Advisor recommendations page on Hybrid Cloud Console using top right pagination widget
+* Goto to first page in Advisor recommendations page on Hybrid Cloud Console using top right pagination widget
+
+## `Insights_Advisor/recommendations_page_sorting.feature`
+
+* Default sorting on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
+* Sorting by name on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
+* Sorting by total risk on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
+* Sorting by clusters on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
+* Sorting by added at on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
+* Sorting by different columns at on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
 
 ## `Notification_Service/customer_notifications.feature`
 
@@ -269,14 +268,13 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Check if SHA extractor is able to consume messages from Kafka, download tarball, and take SHA images
 * Check if SHA extractor is able to finish the processing of SHA images
 
-## `insights-results-aggregator-cleaner/smoketests.feature`
+## `insights-results-aggregator-cleaner/cleanup_selected_records.feature`
 
-* Check if cleaner application is available
-* Check if cleaner displays help message
-* Check if cleaner displays version info
-* Check if cleaner displays authors
-* Check if Postgres database is available
-* Check if the test database does not contain tables to be created by tests
+* Clean up one old cluster should be visible
+* Clean up of existing old clusters
+* Clean up of existing new clusters
+* Clean up non-existing clusters
+* Clean up clusters with wrong names
 
 ## `insights-results-aggregator-cleaner/display_old_records.feature`
 
@@ -286,21 +284,14 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Read old records from prepared non-empty database with old records only
 * Read old records from prepared non-empty database with mixed records
 
-## `insights-results-aggregator-cleaner/cleanup_selected_records.feature`
+## `insights-results-aggregator-cleaner/smoketests.feature`
 
-* Clean up one old cluster should be visible
-* Clean up of existing old clusters
-* Clean up of existing new clusters
-* Clean up non-existing clusters
-* Clean up clusters with wrong names
-
-## `insights-results-aggregator-exporter/smoketests.feature`
-
-* Check if exporter application is available
-* Check if exporter displays help message
-* Check if exporter displays version info
-* Check if exporter displays authors
-* Check if exporter displays configuration
+* Check if cleaner application is available
+* Check if cleaner displays help message
+* Check if cleaner displays version info
+* Check if cleaner displays authors
+* Check if Postgres database is available
+* Check if the test database does not contain tables to be created by tests
 
 ## `insights-results-aggregator-exporter/database_access.feature`
 
@@ -390,3 +381,12 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Check export metadata table into S3 object when CONSUMER_ERROR table is not empty
 * Check export metadata table into S3 object when REPORT_INFO table is not empty
 * Check export metadata table into S3 object when RULE_DISABLE table is not empty
+
+## `insights-results-aggregator-exporter/smoketests.feature`
+
+* Check if exporter application is available
+* Check if exporter displays help message
+* Check if exporter displays version info
+* Check if exporter displays authors
+* Check if exporter displays configuration
+

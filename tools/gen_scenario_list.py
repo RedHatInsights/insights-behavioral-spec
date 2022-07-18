@@ -47,7 +47,7 @@ print()
 
 for subdirectory in SUBDIRECTORIES:
     directory = os.path.join(FEATURE_DIRECTORY, subdirectory)
-    files = os.listdir(directory)
+    files = sorted(os.listdir(directory))
     for filename in files:
         # grep all .feature files
         if filename.endswith(".feature"):
