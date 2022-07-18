@@ -12,7 +12,7 @@ Feature: Ability to access database
      Then I should find that the database is empty
 
   @database
-  Scenario: Check table creatinon on deletion
+  Scenario: Check table creation on deletion
     Given database connection is established
       And the database is empty
      When I prepare database schema
