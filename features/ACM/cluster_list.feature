@@ -1,7 +1,7 @@
 Feature: List of clusters on ACM
 
 
-  Scenario: Displaying "Clusters" page on ACM for one managed clusters in Ready state managed by AWS infrastruture
+  Scenario: Displaying "Clusters" page on ACM for one managed clusters in Ready state managed by AWS infrastructure
     Given user USER1 is part of account (organization) ACCOUNT1
       And account (organization) ACCOUNT1 owns one managed cluster
       And the infrastructure for that managed cluster is provided by Amazon Web Services
