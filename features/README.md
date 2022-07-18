@@ -45,7 +45,7 @@ Directory where feature files with scenarios and scenario outlines are stored.
 
 * Insights on OCP WebConsole for a cluster without any issue
 * Insights on OCP WebConsole for a cluster that does not send any insights-operator archive
-* Insights on OCP WebConsole for a situation when REST API is not accessbile
+* Insights on OCP WebConsole for a situation when REST API is not accessible
 * Insights on OCP WebConsole for a cluster with 1 critical issue
 * Insights on OCP WebConsole for a cluster with 2 critical issues
 * Insights on OCP WebConsole for a cluster with 1 low issue and 2 critical issues
@@ -95,12 +95,12 @@ Directory where feature files with scenarios and scenario outlines are stored.
 
 ## `ACM/overview.page.feature`
 
-* Displaying "Overview" page on ACM for one managed cluster in Ready state managed by AWS infrastruture
+* Displaying "Overview" page on ACM for one managed cluster in Ready state managed by AWS infrastructure
 
 ## `ACM/cluster_list.feature`
 
-* Displaying "Clusters" page on ACM for one managed clusters in Ready state managed by AWS infrastruture
-* Displaying "Clusters" page on ACM for one managed clusters in Hibernating state managed by AWS infrastruture
+* Displaying "Clusters" page on ACM for one managed clusters in Ready state managed by AWS infrastructure
+* Displaying "Clusters" page on ACM for one managed clusters in Hibernating state managed by AWS infrastructure
 * Displaying "Clusters" page on ACM for one managed clusters in Ready state managed by Google Cloud Platform
 * Displaying "Clusters" page on ACM for one managed clusters in Ready state managed by Microsoft Azure
 * Displaying "Clusters" page on ACM for two managed clusters
@@ -123,7 +123,7 @@ Directory where feature files with scenarios and scenario outlines are stored.
 
 * Displaying "Cluster issues" section on "Overview" page - 1 cluster with 1 critical issue
 
-## `ACM/recommentation_description.feature`
+## `ACM/recommendation_description.feature`
 
 * Displaying description of recommendation found for 1 cluster with 1 critical issue
 
@@ -236,7 +236,7 @@ Directory where feature files with scenarios and scenario outlines are stored.
 
 ## `SHA_Extractor/sha_extractor.feature`
 
-* Check that SHA exctractor service has all the information it needs to work properly
+* Check that SHA extractor service has all the information it needs to work properly
 * Check if SHA extractor is able to consume messages from Kafka
 * Check if SHA extractor is able to consume messages from Kafka and download tarball
 * Check if SHA extractor is able to consume messages from Kafka, download tarball, and take SHA images
@@ -278,7 +278,7 @@ Directory where feature files with scenarios and scenario outlines are stored.
 ## `insights-results-aggregator-exporter/database_access.feature`
 
 * Check access to empty database
-* Check table creatinon on deletion
+* Check table creation on deletion
 
 ## `insights-results-aggregator-exporter/file_export.feature`
 
