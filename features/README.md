@@ -97,6 +97,10 @@ Directory where feature files with scenarios and scenario outlines are stored.
 
 * Displaying "Overview" page on ACM for one managed cluster in Ready state managed by AWS infrastructure
 
+## `ACM/overview_page_disabled_issues.feature`
+
+* Displaying "Overview" page on ACM for one managed cluster in Ready state managed by AWS infrastructure for cluster with one disabled rule
+
 ## `ACM/cluster_list.feature`
 
 * Displaying "Clusters" page on ACM for one managed clusters in Ready state managed by AWS infrastructure
@@ -114,18 +118,41 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Displaying "Cluster issues" section on "Overview" page - 1 cluster with 1 low issue
 * Displaying "Cluster issues" section on "Overview" page - 2 clusters each having 1 low issue
 
+## `ACM/cluster_issues_section_disabled_issues.feature`
+
+* Displaying "Cluster issues" section on "Overview" page - 1 cluster with 1 already disabled issue with low severity
+* Displaying "Cluster issues" section on "Overview" page - 1 cluster with 1 issue with low severity that is being disabled in Insights Advisor
+* Displaying "Cluster issues" section on "Overview" page - 1 cluster with 1 issue with low severity that is being enabled in Insights Advisor
+* Displaying "Cluster issues" section on "Overview" page - 1 cluster with 2 issues, that are being disabled in Insights Advisor in one time
+* Displaying "Cluster issues" section on "Overview" page - 1 cluster with 2 issues, that are being disabled in Insights Advisor one by one
+* Displaying "Cluster issues" section on "Overview" page - 1 cluster with 2 issues with low severity that is being enabled in Insights Advisor
+
 ## `ACM/search_issues.feature`
 
 * Ability to search for issues on Advanced Cluster Management for one local cluster
 * Ability to search for issues on Advanced Cluster Management for one managed cluster
 
+## `ACM/search_disabled_issues.feature`
+
+* Ability to search for issues on Advanced Cluster Management for one local cluster (1 rule disabled)
+
 ## `ACM/cluster_view_with_issues.feature`
 
 * Displaying "Cluster issues" section on "Overview" page - 1 cluster with 1 critical issue
 
-## `ACM/recommendation_description.feature`
+## `ACM/cluster_view_disabled_issues.feature`
+
+* Displaying "Cluster issues" section on "Overview" page - 1 cluster with 1 critical issue and 1 issue disabled in Insights Advisor
+
+## `ACM/recommentation_description.feature`
 
 * Displaying description of recommendation found for 1 cluster with 1 critical issue
+
+## `ACM/recommentation_description_disabled_issues.feature`
+
+* Displaying description of recommendation found for 1 cluster with 1 critical issue and 1 other issue disabled in Insights Advisor
+* Displaying description of recommendation found for 1 cluster with 1 critical issue and 1 other issue being enabled in Insights Advisor
+* Displaying description of recommendation found for 1 cluster with 2 critical issue, one issue being disabled in Insights Advisor
 
 ## `Insights_Advisor/recommendations_page.feature`
 
