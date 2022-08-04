@@ -1,0 +1,5 @@
+../features/ccx-notification-writer/smoketests.feature
+../features/ccx-notification-writer/cli_flags.feature
+../features/ccx-notification-writer/display_old_records.feature
+../features/ccx-notification-writer/cleanup_old_records.feature
+../features/ccx-notification-writer/cleanup_new_records.feature
