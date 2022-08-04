@@ -1,0 +1,23 @@
+[broker]
+address = "localhost:9092"
+topic = "ccx.ocp.results"
+group = "test-consumer-group"
+enabled = true
+
+[storage]
+db_driver = "postgres"
+pg_username = "postgres"
+pg_password = "postgres"
+pg_host = "localhost"
+pg_port = 5432
+pg_db_name = "notification"
+pg_params = "sslmode=disable"
+log_sql_queries = true
+
+[logging]
+debug = true
+log_level = ""
+
+[metrics]
+namespace = "notification_writer"
+address = ":8080"
