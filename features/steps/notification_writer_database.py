@@ -201,7 +201,8 @@ def insert_rows_into_reported_table(context):
 
             # try to perform insert statement
             insertStatement = """INSERT INTO reported
-                                 (org_id, account_number, cluster, notification_type, state, report, updated_at, notified_at, error_log)
+                                 (org_id, account_number, cluster, notification_type, state,
+                                  report, updated_at, notified_at, error_log)
                                  VALUES(%s, %s, %s, %s, %s, '', %s, %s, %s);"""
             cursor.execute(
                 insertStatement,
