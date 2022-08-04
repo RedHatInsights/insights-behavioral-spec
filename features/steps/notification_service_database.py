@@ -158,8 +158,8 @@ def insert_rows_into_reported_table(context):
             assert updated_at is not None, "Timestamp updated_at should be set"
             assert notified_at is not None, "Timestamp notified_at should be set"
             assert total_risk in ['low', 'moderate', 'important', 'critical'], \
-                f"Invalid category of total risk {total_risk}. Expected one of ['low', 'moderate', 'important', 'critical']"
-            report = '{"analysis_metadata":{"metadata":"some metadata"},"reports":[{"rule_id":"test_rule|<replace_me>","component":"ccx_rules_ocp.external.rules.test_rule.report","type":"rule","key":"<replace_me>","details":"some details"}]}'
+                f"Invalid category of total risk {total_risk}. Expected one of ['low', 'moderate', 'important', 'critical']"  # noqa E501
+            report = '{"analysis_metadata":{"metadata":"some metadata"},"reports":[{"rule_id":"test_rule|<replace_me>","component":"ccx_rules_ocp.external.rules.test_rule.report","type":"rule","key":"<replace_me>","details":"some details"}]}'  # noqa E501
             if total_risk == "critical":
                 report = report.replace("<replace_me>", "TEST_RULE_CRITICAL_IMPACT")
             elif total_risk == "important":
@@ -171,7 +171,7 @@ def insert_rows_into_reported_table(context):
             # try to perform insert statement
             insertStatement = """INSERT INTO reported
                                  (org_id, account_number, cluster, notification_type, state, report, updated_at, notified_at, error_log)
-                                 VALUES(%s, %s, %s, %s, %s, %s, %s, %s, '');"""
+                                 VALUES(%s, %s, %s, %s, %s, %s, %s, %s, '');"""  # noqa E501
             cursor.execute(insertStatement, (
                 org_id, account_number, cluster_name,
                 notification_type, state, report,
@@ -220,7 +220,7 @@ def insert_rows_into_new_reports_table(context):
 
 @when("I insert 1 report with {risk:w} total risk for the following clusters")
 def insert_report_with_risk_in_new_reports_table(context, risk, updated_at=None):
-    report = '{"analysis_metadata":{"metadata":"some metadata"},"reports":[{"rule_id":"test_rule|<replace_me>","component":"ccx_rules_ocp.external.rules.test_rule.report","type":"rule","key":"<replace_me>","details":"some details"}]}'
+    report = '{"analysis_metadata":{"metadata":"some metadata"},"reports":[{"rule_id":"test_rule|<replace_me>","component":"ccx_rules_ocp.external.rules.test_rule.report","type":"rule","key":"<replace_me>","details":"some details"}]}'  # noqa E501
     if risk == "critical":
         report = report.replace("<replace_me>", "TEST_RULE_CRITICAL_IMPACT")
     elif risk == "important":
@@ -230,7 +230,7 @@ def insert_report_with_risk_in_new_reports_table(context, risk, updated_at=None)
     elif risk == "low":
         report = report.replace("<replace_me>", "TEST_RULE_LOW_IMPACT")
     else:
-        raise ValueError(f"Invalid category of total risk {risk}. Expected one of ['low', 'moderate', 'important', 'critical']")
+        raise ValueError(f"Invalid category of total risk {risk}. Expected one of ['low', 'moderate', 'important', 'critical']")  # noqa E501
 
     if not updated_at:
         updated_at = datetime.now()
@@ -244,7 +244,7 @@ def insert_report_with_risk_in_new_reports_table(context, risk, updated_at=None)
             cluster_name = row["cluster name"]
             insertStatement = """INSERT INTO new_reports
                                     (org_id, account_number, cluster, report, updated_at, kafka_offset)
-                                    VALUES(%s, %s, %s, %s, %s, %s);"""
+                                    VALUES(%s, %s, %s, %s, %s, %s);"""  # noqa E501
             cursor.execute(insertStatement, (
                 org_id, account_number, cluster_name, report, updated_at, 0))
         context.connection.commit()
@@ -253,7 +253,7 @@ def insert_report_with_risk_in_new_reports_table(context, risk, updated_at=None)
         raise e
 
 
-@when("I insert 1 report with {risk:w} total risk after cooldown has passed for the following clusters")
+@when("I insert 1 report with {risk:w} total risk after cooldown has passed for the following clusters")  # noqa E501
 def insert_report_with_risk_and_cooldown_in_new_reports_table(context, risk):
     timestamp_after_cooldown = datetime.now() + timedelta(minutes=1)
     insert_report_with_risk_in_new_reports_table(context, risk, updated_at=timestamp_after_cooldown)

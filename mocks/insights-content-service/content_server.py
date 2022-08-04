@@ -35,41 +35,42 @@ This is the data and format returned
         test_rule: {
             Plugin: {
                 Name:Rule for testing purposes
-                NodeID: 
-                ProductCode: OCP4 
+                NodeID:
+                ProductCode: OCP4
                 PythonModule: ccx_rules_ocm.test_rule
             }
             ErrorKeys: map[
                 TEST_RULE_CRITICAL_IMPACT: {
                     Metadata: {
-                        Description:A test rule for E2E tests that depend on this service 
+                        Description:A test rule for E2E tests that depend on this service
                         Impact:{Name:Data Loss Impact:4}
-                        Likelihood:4 
-                        PublishDate:2020-04-08 00:42:00 
-                        Status:active 
+                        Likelihood:4
+                        PublishDate:2020-04-08 00:42:00
+                        Status:active
                         Tags:[openshift service_availability]
-                    } 
-                    TotalRisk:0 
-                    Generic:Generic description of the critical impact test rule.\n 
-                    Summary:This is an example recommendation used for testing purposes. IT SHOULD NOT BE SERVED IN ANY ENVIRONMENT THAT IS NOT FOR TESTING.\n 
-                    Resolution:some resolution\n 
-                    MoreInfo:For more info about the Remote Health Monitoring, refer to [documentation](https://docs.openshift.com/container-platform/4.3/support/remote_health_monitoring/about-remote-health-monitoring.html)\n 
-                    Reason:some reason\n 
+                    }
+                    TotalRisk:0
+                    Generic:Generic description of the critical impact test rule.\n
+                    Summary:This is an example recommendation used for testing purposes. IT SHOULD NOT BE SERVED IN ANY ENVIRONMENT THAT IS NOT FOR TESTING.\n
+                    Resolution:some resolution\n
+                    MoreInfo:For more info about the Remote Health Monitoring, refer to [documentation](https://docs.openshift.com/container-platform/4.3/support/remote_health_monitoring/about-remote-health-monitoring.html)\n
+                    Reason:some reason\n
                     HasReason:true
                 }
                 TEST_RULE_IMPORTANT_IMPACT: {Metadata:{Description:A test rule for E2E tests that depend on this service Impact:{Name:Hung Task Impact:3} Likelihood:3 PublishDate:2020-04-08 00:42:00 Status:active Tags:[openshift service_availability]} TotalRisk:0 Generic:Generic description of the important impact test rule.\n Summary:This is an example recommendation used for testing purposes. IT SHOULD NOT BE SERVED IN ANY ENVIRONMENT THAT IS NOT FOR TESTING.\n Resolution:some resolution\n MoreInfo:For more info about the Remote Health Monitoring, refer to [documentation](https://docs.openshift.com/container-platform/4.3/support/remote_health_monitoring/about-remote-health-monitoring.html)\n Reason:some reason\n HasReason:true}
                 TEST_RULE_LOW_IMPACT:{Metadata:{Description:A test rule for E2E tests that depend on this service Impact:{Name:Hardening Impact:1} Likelihood:1 PublishDate:2020-04-08 00:42:00 Status:active Tags:[openshift service_availability]} TotalRisk:0 Generic:Generic description of the low impact test rule.\n Summary:This is an example recommendation used for testing purposes. IT SHOULD NOT BE SERVED IN ANY ENVIRONMENT THAT IS NOT FOR TESTING.\n Resolution:some resolution\n MoreInfo:For more info about the Remote Health Monitoring, refer to [documentation](https://docs.openshift.com/container-platform/4.3/support/remote_health_monitoring/about-remote-health-monitoring.html)\n Reason:some reason\n HasReason:true}
                 TEST_RULE_MODERATE_IMPACT:{Metadata:{Description:A test rule for E2E tests that depend on this service Impact:{Name:Application Failure Impact:2} Likelihood:2 PublishDate:2020-04-08 00:42:00 Status:active Tags:[openshift service_availability]} TotalRisk:0 Generic:Generic description of the moderate impact test rule.\n Summary:This is an example recommendation used for testing purposes. IT SHOULD NOT BE SERVED IN ANY ENVIRONMENT THAT IS NOT FOR TESTING.\n Resolution:some resolution\n MoreInfo:For more info about the Remote Health Monitoring, refer to [documentation](https://docs.openshift.com/container-platform/4.3/support/remote_health_monitoring/about-remote-health-monitoring.html)\n Reason:some reason\n HasReason:true}
             ]
-            Generic: Summary:This is an example recommendation used for testing purposes. IT SHOULD NOT BE SERVED IN ANY ENVIRONMENT THAT IS NOT FOR TESTING.\n 
-            Resolution:some resolution\n 
-            MoreInfo:For more info about the Remote Health Monitoring, refer to [documentation](https://docs.openshift.com/container-platform/4.3/support/remote_health_monitoring/about-remote-health-monitoring.html)\n 
-            Reason:some reason\n 
+            Generic: Summary:This is an example recommendation used for testing purposes. IT SHOULD NOT BE SERVED IN ANY ENVIRONMENT THAT IS NOT FOR TESTING.\n
+            Resolution:some resolution\n
+            MoreInfo:For more info about the Remote Health Monitoring, refer to [documentation](https://docs.openshift.com/container-platform/4.3/support/remote_health_monitoring/about-remote-health-monitoring.html)\n
+            Reason:some reason\n
             HasReason:true
         }
     ]
 }
-"""
+"""  # noqa E501
+
 
 @app.get("/api/v1/openapi.json")
 def read_test_content():

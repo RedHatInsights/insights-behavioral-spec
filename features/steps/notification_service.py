@@ -22,15 +22,19 @@ import json
 test_output = "test"
 
 
-# return parsed text as str if it fits expected format. Not really better than using {max_age:d} {age_unit:w},
-# but at least this way it is clear when it gets unexpected values
+# return parsed text as str if it fits expected format. Not really better than
+# using {max_age:d} {age_unit:w}, but at least this way it is clear when it
+# gets unexpected values
 def parse_max_age(max_age):
     assert isinstance(max_age, str), \
-        f"expected max_age to be a string with 2 parts: the value and the unit. Got {type(max_age)} - {max_age} "
+        f"expected max_age to be a string with 2 parts: the value and the unit. Got {type(max_age)} - {max_age} "  # noqa E501
     items = max_age.replace('"', '').split(" ")
-    assert len(items) == 2, f"expected max_age to have 2 parts: the value and the unit. Got {max_age}"
-    assert items[0].isdigit(), f"expected max_age to start with an integer, got {items[0]}"
-    assert items[1].isalpha(), f"expected max_age to contain an alpha string for the max_age unit, got {items[1]}"
+    assert len(items) == 2, \
+        f"expected max_age to have 2 parts: the value and the unit. Got {max_age}"
+    assert items[0].isdigit(), \
+        f"expected max_age to start with an integer, got {items[0]}"
+    assert items[1].isalpha(), \
+        f"expected max_age to contain an alpha string for the max_age unit, got {items[1]}"
     return max_age
 
 
@@ -104,9 +108,11 @@ def start_ccx_notification_service_with_flag(context, flag):
 @then("I should see help messages displayed on standard output")
 def check_help_from_ccx_notification_service(context):
     """Check if help is displayed by CCX Notification Service."""
-    expected_output = ["  -cleanup-on-startup", "  -instant-reports", "  -max-age string", "  -new-reports-cleanup",
-                       "  -old-reports-cleanup", "  -print-new-reports-for-cleanup", "  -print-old-reports-for-cleanup",
-                       "  -show-authors", "  -show-configuration", "  -show-version", "  -weekly-reports"]
+    expected_output = ["  -cleanup-on-startup", "  -instant-reports", "  -max-age string",
+                       "  -new-reports-cleanup", "  -old-reports-cleanup",
+                       "  -print-new-reports-for-cleanup", "  -print-old-reports-for-cleanup",
+                       "  -show-authors", "  -show-configuration", "  -show-version",
+                       "  -weekly-reports"]
 
     # preliminary checks
     assert context.output is not None
@@ -166,9 +172,9 @@ def check_configuration_info_from_ccx_notification_service(context):
         assert item in stdout, "Caught output: {}".format(stdout)
 
 
-@then("I should see info about not notified reports older than {max_age:Age} displayed on standard output")
+@then("I should see info about not notified reports older than {max_age:Age} displayed on standard output")  # noqa E501
 def check_print_new_reports_for_cleanup(context, max_age):
-    """Check if information about new reports for cleanup is displayed by CCX Notification Service."""
+    """Check if information about new reports for cleanup is displayed by CCX Notification Service."""  # noqa E501
     # preliminary checks
     assert context.stdout is not None
     stdout = context.stdout.decode("utf-8").replace("\t", "    ")
@@ -182,9 +188,9 @@ def check_print_new_reports_for_cleanup(context, max_age):
     assert max_age in stdout, "Caught output: {}".format(stdout)
 
 
-@then("I should see info about cleaned up not notified reports older than {max_age:Age} displayed on standard output")
+@then("I should see info about cleaned up not notified reports older than {max_age:Age} displayed on standard output")  # noqa E501
 def check_new_reports_cleanup(context, max_age):
-    """Check if information about not notified reports cleanup is displayed by CCX Notification Service."""
+    """Check if information about not notified reports cleanup is displayed by CCX Notification Service."""  # noqa E501
     # preliminary checks
     assert context.stdout is not None
     stdout = context.stdout.decode("utf-8").replace("\t", "    ")
@@ -199,9 +205,9 @@ def check_new_reports_cleanup(context, max_age):
     assert "Cleanup `new_reports` finished" in stdout, "Caught output: {}".format(stdout)
 
 
-@then("I should see info about notified reports older than {max_age:d} {age_unit:w} displayed on standard output")
+@then("I should see info about notified reports older than {max_age:d} {age_unit:w} displayed on standard output")  # noqa E501
 def check_print_old_reports_for_cleanup(context, max_age, age_unit):
-    """Check if information about notified reports for cleanup is displayed by CCX Notification Service."""
+    """Check if information about notified reports for cleanup is displayed by CCX Notification Service."""  # noqa E501
     # preliminary checks
     assert context.stdout is not None
     stdout = context.stdout.decode("utf-8").replace("\t", "    ")
@@ -215,9 +221,9 @@ def check_print_old_reports_for_cleanup(context, max_age, age_unit):
     assert str(max_age) + " " + age_unit in stdout, "Caught output: {}".format(stdout)
 
 
-@then("I should see info about cleaned up notified reports older than {max_age:d} {age_unit:w} displayed on standard output")
+@then("I should see info about cleaned up notified reports older than {max_age:d} {age_unit:w} displayed on standard output")  # noqa E501
 def check_old_reports_cleanup(context, max_age, age_unit):
-    """Check if information about notified reports for cleanup is displayed by CCX Notification Service."""
+    """Check if information about notified reports for cleanup is displayed by CCX Notification Service."""  # noqa E501
     # preliminary checks
     assert context.stdout is not None
     stdout = context.stdout.decode("utf-8").replace("\t", "    ")
@@ -300,7 +306,8 @@ def retrieve_notification_events(context, num_event):
     address = "localhost:29092"
     topic = "platform.notifications.ingress"
 
-    params = ["kafkacat", "-b", address, "-C", "-t", topic, "-c", str(num_event), "-o", str(-num_event), "-e"]
+    params = ["kafkacat", "-b", address, "-C",
+              "-t", topic, "-c", str(num_event), "-o", str(-num_event), "-e"]
 
     print("subprocess: ", params)
     out = subprocess.Popen(params,
@@ -334,13 +341,15 @@ def retrieve_notification_events(context, num_event):
         assert "application" in encoded and encoded[
             "application"] == "advisor", "Expected event to contain the `advisor` application"
         assert "event_type" in encoded and encoded[
-            "event_type"] == "new-recommendation", "Expected event to contain the `new-recommendation` event type"
+            "event_type"] == "new-recommendation", \
+            "Expected event to contain the `new-recommendation` event type"
         assert "account_id" in encoded, "Expected `account_id` to be included in the event"
 
         account_id = context.table[index]["account number"]
         cluster_id = context.table[index]["cluster name"]
         total_risk = context.table[index]["total risk"]
         assert account_id == encoded["account_id"], f"Expected account id to be {account_id}"
-        assert cluster_id in encoded["context"], f"Expected cluster name in event to be {cluster_id}."
+        assert cluster_id in encoded["context"], \
+            f"Expected cluster name in event to be {cluster_id}."
         assert f'"total_risk":"{total_risk}"' in encoded["events"][0][
             'payload'], f'"total_risk":"{total_risk}" not in {encoded["events"][0]["payload"]}'
