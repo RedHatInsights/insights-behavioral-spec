@@ -1,0 +1,38 @@
+[logging]
+debug = true
+log_level = "info"
+
+[kafka_broker]
+address = "kafka:29092"
+topic = "platform.notifications.ingress"
+timeout = "60s"
+
+[storage]
+db_driver = "postgres"
+pg_username = "postgres"
+pg_password = "postgres"
+pg_host = "localhost"
+pg_port = 5432
+pg_db_name = "notification"
+pg_params = "sslmode=disable"
+log_sql_queries = true
+
+[dependencies]
+content_server = "localhost:8082"
+content_endpoint = "/api/v1/content"
+
+[notifications]
+insights_advisor_url = "https://console.redhat.com/openshift/insights/advisor/clusters/{cluster_id}"
+cluster_details_uri = "https://console.redhat.com/openshift/details/{cluster_id}#insights"
+rule_details_uri = "https://console.redhat.com/openshift/details/{cluster_id}/insights/{module}/{error_key}"
+# Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h".
+cooldown = "1m"
+
+[metrics]
+job_name = "ccx_notification_service"
+namespace = "ccx_notification_service"
+gateway_url = "localhost:9091"
+gateway_auth_token = ""
+
+[cleaner]
+max_age = "90 days"

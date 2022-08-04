@@ -1,5 +1,3 @@
-#!/bin/bash -ex
-
 # Copyright 2022 Red Hat, Inc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,19 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from fastapi import FastAPI
 
-export PATH=$PATH:./
-export NOVENV=1
 
-function prepare_venv() {
-    echo "Preparing environment"
-    # shellcheck disable=SC1091
-    virtualenv -p python3 venv && source venv/bin/activate && python3 "$(which pip3)" install -r requirements/notification_writer.txt
-    echo "Environment ready"
-}
+app = FastAPI()
 
-[ "$NOVENV" == "1" ] || prepare_venv || exit 1
 
-# shellcheck disable=SC2068
-PYTHONDONTWRITEBYTECODE=1 python3 "$(which behave)" --tags=-skip -D dump_errors=true @test_list/notification_writer.txt "$@"
+@app.get("/metrics")
+def get_metrics():
+    return {"metrics": "ok"}
 
+
+@app.put("/metrics/job/ccx_notification_service")
+def upload_metrics():
+    return {"put_metrics": "ok"}
