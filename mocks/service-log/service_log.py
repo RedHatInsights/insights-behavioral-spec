@@ -156,7 +156,10 @@ def publish_log(log: Log, request: Request):
         return noAuthResponse
     log = fill_default_fields(log)
     log = add_additional_fields(log)
-    return log.dict(exclude_none=True)
+    return JSONResponse(
+        log.dict(exclude_none=True), 
+        status_code=201
+    )
 
 
 def fill_default_fields(log: Log) -> Log:
