@@ -16,11 +16,11 @@
 
 curl -X POST -H "Authorization: Bearer $ACCESS_TOKEN" \
     -d '{
-        "severity": "Info", 
-        "service_name": "Insights", 
-        "cluster_uuid": "d484b150-3106-4d6a-96b4-e03c327a2f66", 
-        "summary": "Subscription created", 
-        "description": "Following issues have been found…", 
+        "severity": "Info",
+        "service_name": "Insights",
+        "cluster_uuid": "d484b150-3106-4d6a-96b4-e03c327a2f66",
+        "summary": "Subscription created",
+        "description": "Following issues have been found…",
         "internal_only": false
         }' \
     -H "Content-Type: application/json" \
@@ -64,7 +64,10 @@ With a 401 status code. If there is some missing field, you will receive this er
   "operation_id": "k8rdeR2Sv3oNIAnmXRrC4lIEwgA"
 }
 
-With status code 400. The reason field in the ocm API is more sophisticated, telling you the field that you are missing. However, I don't consider it necessary for this use case.
+With status code 400. The reason field in the ocm API is more sophisticated,
+telling you the field that you are missing.
+
+However, I don't consider it necessary for this use case.
 
 """
 
@@ -87,14 +90,19 @@ CCX = "ccx@redhat.com"
 letters = "abcdef"
 numbers = "0123456789"
 
-random_ksuid = lambda N: ''.join(
-    random.choice(letters + numbers) for _ in range(N))
 
-random_id = lambda N: ''.join(
-    random.choice(string.ascii_letters + numbers) for _ in range(N))
+def random_ksuid(N: int) -> str:
+    return ''.join(
+        random.choice(letters + numbers) for _ in range(N))
+
+
+def random_id(N: int) -> str:
+    return ''.join(
+        random.choice(string.ascii_letters + numbers) for _ in range(N))
 
 
 app = FastAPI()
+
 
 class Log(BaseModel):
     cluster_uuid: str
@@ -108,7 +116,8 @@ class Log(BaseModel):
     timestamp: Union[str, None] = None  # default will be current time
     username: Union[str, None] = None
     event_stream_id: Union[str, None] = None  # default will be a random ksuid
-    
+
+
 class ReturnLog(Log):
     id: str
     kind: str
@@ -117,12 +126,14 @@ class ReturnLog(Log):
     created_at: str
     email: str
 
+
 class ReturnError(BaseModel):
     id: str
     kind: str
     href: str
     reason: str
     operation_id: str
+
 
 noAuthResponse = JSONResponse(
     {
@@ -140,15 +151,16 @@ noAuthResponse = JSONResponse(
 async def validation_handler(request: Request, exc: Exception):
     return JSONResponse(
         ReturnError(
-            id = random.randint(0, 10),
-            kind = "Error",
-            href = "/api/service_logs/v1/errors/8",
-            code = "OCM-CA-8",
-            reason = "missing field",
-            operation_id = random_id(ID_LENGTH)
+            id=random.randint(0, 10),
+            kind="Error",
+            href="/api/service_logs/v1/errors/8",
+            code="OCM-CA-8",
+            reason="missing field",
+            operation_id=random_id(ID_LENGTH)
         ).dict(),
         status_code=400
     )
+
 
 @app.post("/api/service_logs/v1/cluster_logs")
 def publish_log(log: Log, request: Request):
@@ -157,7 +169,7 @@ def publish_log(log: Log, request: Request):
     log = fill_default_fields(log)
     log = add_additional_fields(log)
     return JSONResponse(
-        log.dict(exclude_none=True), 
+        log.dict(exclude_none=True),
         status_code=201
     )
 
@@ -174,10 +186,10 @@ def add_additional_fields(log: Log) -> ReturnLog:
     rnd_id = random_id(ID_LENGTH)
     return ReturnLog(
         **log.dict(),
-        id = rnd_id,
-        kind = "ClusterLog",
-        href = f"/api/service_logs/v1/cluster_logs/{rnd_id}",
-        created_by = CCX,
-        created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        email= CCX,
+        id=rnd_id,
+        kind="ClusterLog",
+        href=f"/api/service_logs/v1/cluster_logs/{rnd_id}",
+        created_by=CCX,
+        created_at=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        email=CCX,
     )
