@@ -17,11 +17,13 @@ Common steps for DB related operations."""
 
 from behave import then, when, given
 
+import subprocess
+import psycopg2
 
 @when(u"I connect to database named {database} as user {user} with password {password}")
-def connect_to_database(context, database, user, password):
+def connect_to_database(context, database, user, password, host="localhost"):
     """Perform connection to selected database."""
-    connection_string = "dbname={} user={} password={}".format(database, user, password)
+    connection_string = "dbname={} user={} password={} host={}".format(database, user, password, host)
     context.connection = psycopg2.connect(connection_string)
 
 

@@ -14,7 +14,6 @@
 
 import json
 from fastapi import FastAPI, Response
-import pygob
 
 
 app = FastAPI()

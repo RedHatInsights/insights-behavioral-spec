@@ -25,6 +25,7 @@ from behave import given, when, then, step
 @step("CCX Notification database is created for user {user} with password {password}")
 def database_is_created(context, user, password):
     """Perform connection to CCX Notification database to check its ability."""
+    from steps.common_db import connect_to_database
     connect_to_database(context, "notification", user, password)
 
 
