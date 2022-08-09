@@ -105,7 +105,6 @@ def start_ccx_notification_service_with_flag(context, flag):
     process_ccx_notification_service_output(context, out, context.return_codes)
 
 
-@then("I should see help messages displayed on standard output")
 def check_help_from_ccx_notification_service(context):
     """Check if help is displayed by CCX Notification Service."""
     expected_output = ["  -cleanup-on-startup", "  -instant-reports", "  -max-age string",

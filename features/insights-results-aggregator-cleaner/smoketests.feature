@@ -10,7 +10,7 @@ Feature: Basic set of smoke tests
   Scenario: Check if cleaner displays help message
     Given the system is in default state
      When I run the cleaner with the --help command line flag
-     Then I should see help messages displayed on standard output
+     Then I should see help messages displayed by cleaner on standard output
 
 
   Scenario: Check if cleaner displays version info

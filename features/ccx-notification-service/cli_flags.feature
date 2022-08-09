@@ -4,7 +4,7 @@ Feature: Check command line options provided by CCX Notification Service
   Scenario: Check if CCX Notification Service displays help message
     Given the system is in default state
      When I start the CCX Notification Service with the --help command line flag
-     Then I should see help messages displayed on standard output
+     Then I should see help messages displayed by ccx-notification-service on standard output
 
 
   Scenario: Check if CCX Notification Service displays version info

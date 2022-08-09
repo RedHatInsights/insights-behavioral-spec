@@ -66,7 +66,6 @@ def run_cleaner_to_cleanup_cluster(context, cluster):
     process_generated_output(context, out, 0)
 
 
-@then(u"I should see help messages displayed on standard output")
 def check_help_from_cleaner(context):
     """Check if help is displayed by cleaner."""
     expected_output = """

@@ -42,7 +42,6 @@ def run_exporter_with_flag(context, flags):
     process_generated_output(context, out, 2)
 
 
-@then(u"I should see help messages displayed by exporter on standard output")
 def check_help_from_exporter(context):
     """Check if help is displayed by exporter."""
     expected_output = """

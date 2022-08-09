@@ -47,3 +47,21 @@ def check_process_exit_code(context, exit_code):
     assert context.return_code == exit_code, "Unexpected exit code {}".format(
         context.return_code
     )
+
+@then("I should see help messages displayed by {service} on standard output")
+def check_help_message(context, service):
+    """Check if help is displayed by the service."""
+    if service == "ccx-notification-service":
+        from notification_service import check_help_from_ccx_notification_service
+        check_help_from_ccx_notification_service(context)
+    elif service == "ccx-notification-writer":
+        from notification_writer import check_help_from_ccx_notification_writer
+        check_help_from_ccx_notification_writer(context)
+    elif service == "cleaner":
+        from cleaner import check_help_from_cleaner
+        check_help_from_cleaner(context)
+    elif service == "exporter":
+        from exporter_main import check_help_from_exporter
+        check_help_from_exporter(context)
+    else:
+        raise ValueError(f"Unknown service '{service}'.")

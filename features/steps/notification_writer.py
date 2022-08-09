@@ -62,7 +62,6 @@ def start_ccx_notification_writer_with_flag(context, flag):
     process_ccx_notification_writer_output(context, out, 2)
 
 
-@then(u"I should see help messages displayed on standard output")
 def check_help_from_ccx_notification_writer(context):
     """Check if help is displayed by CCX Notification Writer."""
     expected_output = """Clowder is not enabled, skipping init...
