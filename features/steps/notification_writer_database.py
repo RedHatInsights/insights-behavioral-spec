@@ -39,32 +39,6 @@ def check_if_postgres_is_running(context):
     )
 
 
-@when(u"I connect to database named {database} as user {user} with password {password}")
-def connect_to_database(context, database, user, password):
-    """Perform connection to selected database."""
-    connection_string = "dbname={} user={} password={}".format(database, user, password)
-    context.connection = psycopg2.connect(connection_string)
-
-
-@then(u"I should be able to connect to such database")
-def check_connection(context):
-    """Check the connection to database."""
-    assert context.connection is not None, "connection should be established"
-
-
-@when(u"I close database connection")
-def disconnect_from_database(context):
-    """Close the connection to database."""
-    context.connection.close()
-    context.connection = None
-
-
-@then(u"I should be disconnected")
-def check_disconnection(context):
-    """Check that the connection has been closed."""
-    assert context.connection is None, "connection should be closed"
-
-
 @given(
     u"CCX Notification Writer database is created for user {user} with password {password}"
 )
