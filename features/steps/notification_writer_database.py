@@ -22,23 +22,6 @@ from psycopg2.errors import UndefinedTable
 from behave import given, when, then
 
 
-@given(u"Postgres is running")
-def check_if_postgres_is_running(context):
-    """Check if Postgresql service is active."""
-    p = subprocess.Popen(["systemctl", "is-active", "--quiet", "postgresql"])
-    assert p is not None
-
-    # interact with the process:
-    p.communicate()
-
-    # check the return code
-    assert (
-        p.returncode == 0
-    ), "Postgresql service not running: got return code {code}".format(
-        code=p.returncode
-    )
-
-
 @given(
     u"CCX Notification Writer database is created for user {user} with password {password}"
 )

@@ -41,3 +41,16 @@ def disconnect_from_database(context):
 def check_disconnection(context):
     """Check that the connection has been closed."""
     assert context.connection is None, "connection should be closed"
+
+@given("Postgres is running")
+def check_if_postgres_is_running(context):
+    """Check if Postgresql service is active."""
+    p = subprocess.Popen(["systemctl", "is-active", "--quiet", "postgresql"])
+    assert p is not None
+
+    # interact with the process:
+    p.communicate()
+
+    # check the return code
+    assert p.returncode == 0, \
+        "Postgresql service not running: got return code {code}".format(code=p.returncode)
