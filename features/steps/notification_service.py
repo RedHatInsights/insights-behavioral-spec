@@ -132,7 +132,6 @@ def check_version_from_ccx_notification_service(context):
         "Caught output: {}".format(context.output)
 
 
-@then("I should see info about authors displayed on standard output")
 def check_authors_info_from_ccx_notification_service(context):
     """Check if information about authors is displayed by CCX Notification Service."""
     # preliminary checks

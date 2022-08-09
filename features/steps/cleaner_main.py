@@ -114,7 +114,6 @@ def check_version_from_cleaner(context):
     ), "Caught output: {}".format(context.output)
 
 
-@then(u"I should see info about authors displayed on standard output")
 def check_authors_info_from_cleaner(context):
     """Check if information about authors is displayed by cleaner."""
     # preliminary checks

@@ -22,7 +22,7 @@ Feature: Basic set of smoke tests
   Scenario: Check if cleaner displays authors
     Given the system is in default state
      When I run the cleaner with the --authors command line flag
-     Then I should see info about authors displayed on standard output
+     Then I should see info about authors displayed by cleaner on standard output
 
 
   @database

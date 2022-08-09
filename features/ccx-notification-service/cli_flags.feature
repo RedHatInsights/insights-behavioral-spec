@@ -22,7 +22,7 @@ Feature: Check command line options provided by CCX Notification Service
   Scenario: Check if CCX Notification Service displays authors
     Given the system is in default state
      When I start the CCX Notification Service with the --show-authors command line flag
-     Then I should see info about authors displayed on standard output
+     Then I should see info about authors displayed by ccx-notification-service on standard output
 
 
   Scenario: Check the ability to display new reports for cleanup

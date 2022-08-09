@@ -93,7 +93,6 @@ def check_version_from_exporter(context):
     ), "Caught output: {}".format(context.output)
 
 
-@then(u"I should see info about authors displayed by exporter on standard output")
 def check_authors_info_from_exporter(context):
     """Check if information about authors is displayed by exporter."""
     # preliminary checks

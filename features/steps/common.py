@@ -58,7 +58,7 @@ def check_help_message(context, service):
         from notification_writer import check_help_from_ccx_notification_writer
         check_help_from_ccx_notification_writer(context)
     elif service == "cleaner":
-        from cleaner import check_help_from_cleaner
+        from cleaner_main import check_help_from_cleaner
         check_help_from_cleaner(context)
     elif service == "exporter":
         from exporter_main import check_help_from_exporter
@@ -76,10 +76,28 @@ def check_version_info(context, service):
         from notification_writer import check_version_from_ccx_notification_writer
         check_version_from_ccx_notification_service(context)
     elif service == "cleaner":
-        from cleaner import check_version_from_cleaner
+        from cleaner_main import check_version_from_cleaner
         check_version_from_cleaner(context)
     elif service == "exporter":
         from exporter_main import check_version_from_exporter
         check_version_from_exporter(context)
+    else:
+        raise ValueError(f"Unknown service '{service}'.")
+
+@then("I should see info about authors displayed by {service} on standard output")
+def check_authors_info(context, service):
+    """Check if information about authors is displayed by the service."""
+    if service == "ccx-notification-service":
+        from notification_service import check_authors_info_from_ccx_notification_service
+        check_authors_info_from_ccx_notification_service(context)
+    elif service == "ccx-notification-writer":
+        from notification_writer import check_authors_info_from_ccx_notification_writer
+        check_authors_info_from_ccx_notification_writer(context)
+    elif service == "cleaner":
+        from cleaner_main import check_authors_info_from_cleaner
+        check_authors_info_from_cleaner(context)
+    elif service == "exporter":
+        from exporter_main import check_authors_info_from_exporter
+        check_authors_info_from_exporter(context)
     else:
         raise ValueError(f"Unknown service '{service}'.")
