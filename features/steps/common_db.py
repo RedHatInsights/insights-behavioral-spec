@@ -20,10 +20,12 @@ from behave import then, when, given
 import subprocess
 import psycopg2
 
+
 @when(u"I connect to database named {database} as user {user} with password {password}")
 def connect_to_database(context, database, user, password, host="localhost"):
     """Perform connection to selected database."""
-    connection_string = "dbname={} user={} password={} host={}".format(database, user, password, host)
+    connection_string = "dbname={} user={} password={} host={}".format(
+        database, user, password, host)
     context.connection = psycopg2.connect(connection_string)
 
 
@@ -50,8 +52,8 @@ def check_disconnection(context):
 def check_if_postgres_is_running(context):
     """Check if Postgresql service is active."""
     p = subprocess.Popen([
-        "pg_isready", 
-        "--host", "localhost", 
+        "pg_isready",
+        "--host", "localhost",
         "--port", "5432"
         ])
     assert p is not None

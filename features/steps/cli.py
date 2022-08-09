@@ -42,6 +42,7 @@ def check_help_message(context, service):
     else:
         raise ValueError(f"Unknown service '{service}'.")
 
+
 @then(u"I should see version info displayed by {service} on standard output")
 def check_version_info(context, service):
     """Check if version info is displayed by the service."""
@@ -59,6 +60,7 @@ def check_version_info(context, service):
         check_version_from_exporter(context)
     else:
         raise ValueError(f"Unknown service '{service}'.")
+
 
 @then("I should see info about authors displayed by {service} on standard output")
 def check_authors_info(context, service):
