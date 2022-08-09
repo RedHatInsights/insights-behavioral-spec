@@ -47,7 +47,11 @@ def check_disconnection(context):
 @given("Postgres is running")
 def check_if_postgres_is_running(context):
     """Check if Postgresql service is active."""
-    p = subprocess.Popen(["systemctl", "is-active", "--quiet", "postgresql"])
+    p = subprocess.Popen([
+        "pg_isready", 
+        "--host", "localhost", 
+        "--port", "5432"
+        ])
     assert p is not None
 
     # interact with the process:
