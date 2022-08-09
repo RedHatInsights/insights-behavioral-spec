@@ -33,7 +33,7 @@ function prepare_venv() {
 }
 
 function start_mocked_dependencies() {
-    python3 $(which pip3) install -r requirements_mocks.txt
+    python3 $(which pip3) install -r requirements/mocks.txt
     pushd $dir_path/mocks/insights-content-service && uvicorn content_server:app --port 8082 &
     pushd $dir_path/mocks/prometheus && uvicorn push_gateway:app --port 9091 &
     trap 'kill $(lsof -ti:8082); kill $(lsof -ti:9091);' EXIT
