@@ -102,7 +102,6 @@ Usage of insights-results-aggregator-cleaner:
     )
 
 
-@then(u"I should see version info displayed on standard output")
 def check_version_from_cleaner(context):
     """Check if version info is displayed by cleaner."""
     # preliminary checks

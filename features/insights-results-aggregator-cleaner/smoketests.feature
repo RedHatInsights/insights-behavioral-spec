@@ -16,7 +16,7 @@ Feature: Basic set of smoke tests
   Scenario: Check if cleaner displays version info
     Given the system is in default state
      When I run the cleaner with the --version command line flag
-     Then I should see version info displayed on standard output
+     Then I should see version info displayed by cleaner on standard output
 
 
   Scenario: Check if cleaner displays authors

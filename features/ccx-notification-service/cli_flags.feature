@@ -10,7 +10,7 @@ Feature: Check command line options provided by CCX Notification Service
   Scenario: Check if CCX Notification Service displays version info
     Given the system is in default state
      When I start the CCX Notification Service with the --show-version command line flag
-     Then I should see version info displayed on standard output
+     Then I should see version info displayed by ccx-notification-service on standard output
 
 
   Scenario: Check if CCX Notification Service displays configuration

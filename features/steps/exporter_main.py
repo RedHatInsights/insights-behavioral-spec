@@ -81,7 +81,6 @@ Usage of insights-results-aggregator-exporter:
     )
 
 
-@then(u"I should see version info displayed by exporter on standard output")
 def check_version_from_exporter(context):
     """Check if version info is displayed by exporter."""
     # preliminary checks

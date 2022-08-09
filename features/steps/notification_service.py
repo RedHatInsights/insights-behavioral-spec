@@ -121,7 +121,6 @@ def check_help_from_ccx_notification_service(context):
         assert item in context.output, f"{item} not in {context.output}"
 
 
-@then("I should see version info displayed on standard output")
 def check_version_from_ccx_notification_service(context):
     """Check if version info is displayed by CCX Notification Service."""
     # preliminary checks

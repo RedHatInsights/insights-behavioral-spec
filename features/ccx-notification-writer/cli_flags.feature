@@ -10,7 +10,7 @@ Feature: Check command line options provided by CCX Notification Writer
   Scenario: Check if CCX Notification Writer displays version info
     Given the system is in default state
      When I start the CCX Notification Writer with the --version command line flag
-     Then I should see version info displayed on standard output
+     Then I should see version info displayed by ccx-notification-writer on standard output
 
 
   Scenario: Check if CCX Notification Writer displays authors

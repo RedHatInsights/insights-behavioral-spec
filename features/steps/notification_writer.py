@@ -109,7 +109,6 @@ Usage of ccx-notification-writer:
     )
 
 
-@then(u"I should see version info displayed on standard output")
 def check_version_from_ccx_notification_writer(context):
     """Check if version info is displayed by CCX Notification Writer."""
     # preliminary checks
