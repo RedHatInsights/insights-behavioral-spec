@@ -12,6 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""
+Common steps for CLI related operations. Will raise a ValueError in case the service
+is not among:
+- ccx-notification-service
+- ccx-notification-writer
+- cleaner
+- exporter
+"""
+
 from behave import then
 
 
