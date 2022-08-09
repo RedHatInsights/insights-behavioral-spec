@@ -42,7 +42,6 @@ def run_exporter_with_flag(context, flags):
     process_generated_output(context, out, 2)
 
 
-@then(u"I should see help messages displayed by exporter on standard output")
 def check_help_from_exporter(context):
     """Check if help is displayed by exporter."""
     expected_output = """
@@ -82,7 +81,6 @@ Usage of insights-results-aggregator-exporter:
     )
 
 
-@then(u"I should see version info displayed by exporter on standard output")
 def check_version_from_exporter(context):
     """Check if version info is displayed by exporter."""
     # preliminary checks
@@ -95,7 +93,6 @@ def check_version_from_exporter(context):
     ), "Caught output: {}".format(context.output)
 
 
-@then(u"I should see info about authors displayed by exporter on standard output")
 def check_authors_info_from_exporter(context):
     """Check if information about authors is displayed by exporter."""
     # preliminary checks

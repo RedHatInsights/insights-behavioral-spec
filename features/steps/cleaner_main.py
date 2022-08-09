@@ -66,7 +66,6 @@ def run_cleaner_to_cleanup_cluster(context, cluster):
     process_generated_output(context, out, 0)
 
 
-@then(u"I should see help messages displayed on standard output")
 def check_help_from_cleaner(context):
     """Check if help is displayed by cleaner."""
     expected_output = """
@@ -103,7 +102,6 @@ Usage of insights-results-aggregator-cleaner:
     )
 
 
-@then(u"I should see version info displayed on standard output")
 def check_version_from_cleaner(context):
     """Check if version info is displayed by cleaner."""
     # preliminary checks
@@ -116,7 +114,6 @@ def check_version_from_cleaner(context):
     ), "Caught output: {}".format(context.output)
 
 
-@then(u"I should see info about authors displayed on standard output")
 def check_authors_info_from_cleaner(context):
     """Check if information about authors is displayed by cleaner."""
     # preliminary checks

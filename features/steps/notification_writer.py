@@ -62,7 +62,6 @@ def start_ccx_notification_writer_with_flag(context, flag):
     process_ccx_notification_writer_output(context, out, 2)
 
 
-@then(u"I should see help messages displayed on standard output")
 def check_help_from_ccx_notification_writer(context):
     """Check if help is displayed by CCX Notification Writer."""
     expected_output = """Clowder is not enabled, skipping init...
@@ -110,7 +109,6 @@ Usage of ccx-notification-writer:
     )
 
 
-@then(u"I should see version info displayed on standard output")
 def check_version_from_ccx_notification_writer(context):
     """Check if version info is displayed by CCX Notification Writer."""
     # preliminary checks
@@ -123,7 +121,6 @@ def check_version_from_ccx_notification_writer(context):
     ), "Caught output: {}".format(context.output)
 
 
-@then(u"I should see info about authors displayed on standard output")
 def check_authors_info_from_ccx_notification_writer(context):
     """Check if information about authors is displayed by CCX Notification Writer."""
     # preliminary checks

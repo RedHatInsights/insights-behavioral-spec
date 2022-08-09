@@ -21,8 +21,10 @@ export PATH=$PATH:/tmp/ramdisk/
 export NOVENV=1
 
 function prepare_venv() {
+    echo "Preparing environment"
     # shellcheck disable=SC1091
     virtualenv -p python3 venv && source venv/bin/activate && python3 "$(which pip3)" install -r requirements/exporter.txt
+    echo "Environment ready"
 }
 
 [ "$NOVENV" == "1" ] || prepare_venv || exit 1

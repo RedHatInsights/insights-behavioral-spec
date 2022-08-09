@@ -10,6 +10,12 @@ cleaner-tests:
 exporter-tests:
 	./exporter_tests.sh
 
+notification-service:
+	./notification_service_tests.sh
+
+notification-writer:
+	./notification_writer_tests.sh
+
 code-style:
 	python3 tools/run_pycodestyle.py
 

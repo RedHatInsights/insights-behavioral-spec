@@ -105,7 +105,6 @@ def start_ccx_notification_service_with_flag(context, flag):
     process_ccx_notification_service_output(context, out, context.return_codes)
 
 
-@then("I should see help messages displayed on standard output")
 def check_help_from_ccx_notification_service(context):
     """Check if help is displayed by CCX Notification Service."""
     expected_output = ["  -cleanup-on-startup", "  -instant-reports", "  -max-age string",
@@ -122,7 +121,6 @@ def check_help_from_ccx_notification_service(context):
         assert item in context.output, f"{item} not in {context.output}"
 
 
-@then("I should see version info displayed on standard output")
 def check_version_from_ccx_notification_service(context):
     """Check if version info is displayed by CCX Notification Service."""
     # preliminary checks
@@ -134,7 +132,6 @@ def check_version_from_ccx_notification_service(context):
         "Caught output: {}".format(context.output)
 
 
-@then("I should see info about authors displayed on standard output")
 def check_authors_info_from_ccx_notification_service(context):
     """Check if information about authors is displayed by CCX Notification Service."""
     # preliminary checks

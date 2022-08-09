@@ -14,7 +14,7 @@
 
 """Minio/S3-related code."""
 
-from minio import Minio, ResponseError
+from minio import Minio
 from io import StringIO
 
 
