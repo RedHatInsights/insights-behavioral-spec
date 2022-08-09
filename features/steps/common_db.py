@@ -37,10 +37,12 @@ def disconnect_from_database(context):
     context.connection.close()
     context.connection = None
 
+
 @then(u"I should be disconnected")
 def check_disconnection(context):
     """Check that the connection has been closed."""
     assert context.connection is None, "connection should be closed"
+
 
 @given("Postgres is running")
 def check_if_postgres_is_running(context):
