@@ -3,9 +3,17 @@ debug = true
 log_level = "info"
 
 [kafka_broker]
+enabled = true
 address = "kafka:29092"
 topic = "platform.notifications.ingress"
 timeout = "60s"
+total_risk_threshold = 3
+event_filter = "totalRisk >= totalRiskThreshold"
+
+[service_log]
+enabled = false
+total_risk_threshold = 3
+event_filter = "totalRisk > totalRiskThreshold"
 
 [storage]
 db_driver = "postgres"
@@ -35,4 +43,5 @@ gateway_url = "localhost:9091"
 gateway_auth_token = ""
 
 [cleaner]
+# valid units are SQL epoch time units: months days hours minutes seconds"
 max_age = "90 days"
