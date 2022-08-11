@@ -1,6 +1,20 @@
 # insights-behavioral-spec
 Behavioral specifications for Insights pipelines and its integration into OCM, OCP, and ACM
 
+## How to run the scenarios
+
+Spin up the docker containers:
+
+```
+docker-compose up -d
+```
+
+Run the tests for your repository, for example:
+
+```
+make notification-service
+```
+
 ## List of existing behavioral specifications (features)
 
 ### OCM UI
