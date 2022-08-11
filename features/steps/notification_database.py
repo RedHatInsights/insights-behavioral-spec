@@ -180,7 +180,11 @@ def insert_rows_into_reported_table(context):
             state = int(row["state"])
             updated_at = row["updated at"]
             notified_at = row["notified at"]
-            error_log = row["error log"]
+            try:
+                error_log = row["error log"]
+            except KeyError:
+                error_log = ""
+                pass
 
             # check the input table
             assert org_id is not None, "Organization ID should be set"
