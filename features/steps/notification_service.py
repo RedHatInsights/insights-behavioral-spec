@@ -162,7 +162,8 @@ def check_configuration_info_from_ccx_notification_service(context):
         "Storage configuration",
         "Logging configuration",
         "Notifications configuration",
-        "Metrics configuration"
+        "Metrics configuration",
+        "ServiceLog configuration"
     ]
 
     for item in expected_info:
