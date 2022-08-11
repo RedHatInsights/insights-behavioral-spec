@@ -4,14 +4,20 @@ log_level = "info"
 
 [kafka_broker]
 enabled = true
-address = "kafka:29092"
+address = "kafka:9092"
 topic = "platform.notifications.ingress"
 timeout = "60s"
+likelihood_threshold = 0
+impact_threshold = 0
+severity_threshold = 0
 total_risk_threshold = 3
 event_filter = "totalRisk >= totalRiskThreshold"
 
 [service_log]
 enabled = false
+likelihood_threshold = 0
+impact_threshold = 0
+severity_threshold = 0
 total_risk_threshold = 3
 event_filter = "totalRisk > totalRiskThreshold"
 
@@ -41,6 +47,9 @@ job_name = "ccx_notification_service"
 namespace = "ccx_notification_service"
 gateway_url = "localhost:9091"
 gateway_auth_token = ""
+retries = 3
+# Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h".
+retry_after = "60s"
 
 [cleaner]
 # valid units are SQL epoch time units: months days hours minutes seconds"

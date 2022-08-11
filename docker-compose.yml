@@ -1,0 +1,18 @@
+version: "3"
+services:
+  # Auxiliar services the external data pipeline needs
+  db:
+    ports:
+      - 5432:5432
+    image: registry.redhat.io/rhscl/postgresql-13-rhel7
+    environment:
+      - POSTGRESQL_USER=user
+      - POSTGRESQL_PASSWORD=password
+      - POSTGRESQL_ADMIN_PASSWORD=postgres
+      - POSTGRESQL_DATABASE=notification
+  kafka:
+    image: quay.io/ccxdev/kafka-no-zk:latest
+    ports:
+      - 9092:9092
+    environment:
+      - KAFKA_ADVERTISED_HOST_NAME=kafka

@@ -300,7 +300,7 @@ def retrieve_notification_events(context, num_event):
     """Use the Kafkacat tool to retrieve metadata from Kafka broker."""
     # -J enables Kafkacat to produce output in JSON format
     # -L flag choose mode: metadata list
-    address = "localhost:29092"
+    address = "localhost:9092"
     topic = "platform.notifications.ingress"
 
     params = ["kafkacat", "-b", address, "-C",

@@ -13,7 +13,7 @@ Feature: Customer Notifications
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
       And insights-content service is available on localhost:8082
-      And Kafka broker is available on localhost:29092
+      And Kafka broker is available on localhost:9092
       And prometheus push gateway is available on localhost:9091
       And CCX Notification database is empty
      When I insert 1 report with important total risk for the following clusters
@@ -30,7 +30,7 @@ Feature: Customer Notifications
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
       And insights-content service is available on localhost:8082
-      And Kafka broker is available on localhost:29092
+      And Kafka broker is available on localhost:9092
       And prometheus push gateway is available on localhost:9091
       And CCX Notification database is empty
      When I insert 1 report with important total risk for the following clusters
@@ -51,7 +51,7 @@ Feature: Customer Notifications
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
       And insights-content service is available on localhost:8082
-      And Kafka broker is available on localhost:29092
+      And Kafka broker is available on localhost:9092
       And prometheus push gateway is available on localhost:9091
       And CCX Notification database is empty
       And I insert following row into table reported
@@ -75,7 +75,7 @@ Feature: Customer Notifications
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
       And insights-content service is available on localhost:8082
-      And Kafka broker is available on localhost:29092
+      And Kafka broker is available on localhost:9092
       And prometheus push gateway is available on localhost:9091
       And CCX Notification database is empty
      When I insert 1 report with important total risk for the following clusters
@@ -100,7 +100,7 @@ Feature: Customer Notifications
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
       And insights-content service is available on localhost:8082
-      And Kafka broker is available on localhost:29092
+      And Kafka broker is available on localhost:9092
       And prometheus push gateway is available on localhost:9091
       And CCX Notification database is empty
      When I insert 1 report with important total risk for the following clusters

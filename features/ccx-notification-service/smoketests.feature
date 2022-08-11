@@ -48,7 +48,7 @@ Feature: Basic set of smoke tests - checks if all required tools are available a
 
   Scenario: Check if Kafka broker is running on expected port
     Given the system is in default state
-     When I retrieve metadata from Kafka broker running on localhost:29092
+     When I retrieve metadata from Kafka broker running on localhost:9092
      Then I should find at least one available broker
 
 
