@@ -3,11 +3,13 @@ Behavioral specifications for Insights pipelines and its integration into OCM, O
 
 ## How to run the scenarios
 
-Spin up the docker containers:
+Optional: Spin up the docker containers:
 
 ```
 docker-compose up -d
 ```
+
+If you don't want to spin up the containers, you'll need to locally run the required services (database, Kafka, etc.). You may need to add or remove the `managed` tag in the `${SERVICE}_tests.sh`.
 
 Run the tests for your repository, for example:
 

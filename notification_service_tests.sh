@@ -73,5 +73,5 @@ get_binary
 # shellcheck disable=SC2068
 PYTHONDONTWRITEBYTECODE=1 python3 "$(which behave)" \
     --format=progress2 \
-    --tags=-skip --tags=-no-docker \
+    --tags=-skip --tags=-managed \
     -D dump_errors=true @test_list/notification_service.txt "$@"

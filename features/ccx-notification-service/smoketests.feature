@@ -12,7 +12,7 @@ Feature: Basic set of smoke tests - checks if all required tools are available a
      When I look for executable file kafkacat
      Then I should find that file on PATH
 
-  @no-docker
+  @managed
   Scenario: Check if jps utility is available
     Given the system is in default state
      When I look for executable file jps
@@ -33,13 +33,13 @@ Feature: Basic set of smoke tests - checks if all required tools are available a
      When I close database connection
      Then I should be disconnected
 
-  @no-docker
+  @managed
   Scenario: Check if ZooKeeper is running locally
     Given the system is in default state
      When I retrieve a list of all applications running under JVM
      Then I should find the following application org.apache.zookeeper.server.quorum.QuorumPeerMain
 
-  @no-docker
+  @managed
   Scenario: Check if Kafka broker is running locally
     Given the system is in default state
      When I retrieve a list of all applications running under JVM
