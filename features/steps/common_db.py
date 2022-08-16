@@ -52,7 +52,7 @@ def check_disconnection(context):
 def check_if_postgres_is_running(context):
     """Check if Postgresql service is active."""
     p = subprocess.Popen([
-        "pg_isready",
+        "pg_isready", "-q",
         "--host", "localhost",
         "--port", "5432"
         ])

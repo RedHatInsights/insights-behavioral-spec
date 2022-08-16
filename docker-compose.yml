@@ -1,0 +1,70 @@
+version: "3"
+services:
+  # Auxiliar services the external data pipeline needs
+  db:
+    ports:
+      - 5432:5432
+    image: registry.redhat.io/rhscl/postgresql-13-rhel7
+    environment:
+      - POSTGRESQL_USER=user
+      - POSTGRESQL_PASSWORD=password
+      - POSTGRESQL_ADMIN_PASSWORD=postgres
+      - POSTGRESQL_DATABASE=notification
+  kafka:
+    image: quay.io/ccxdev/kafka-no-zk:latest
+    ports:
+      - 9092:9092
+    environment:
+      - KAFKA_ADVERTISED_HOST_NAME=kafka
+      - KAFKA_CREATE_TOPICS="platform.notifications.ingress:1:1" 
+  pushgateway:
+    image: quay.io/prometheus/pushgateway:latest
+    ports:
+      - 9091:9091
+    command:
+      - --web.enable-admin-api
+
+  content-service:
+    profiles:
+      - no-mock
+    image: quay.io/cloudservices/ccx-insights-content-service
+    ports:
+      - 8082:8082
+    environment:
+      - INSIGHTS_CONTENT_SERVICE__SERVER__ADDRESS=:8082
+      - INSIGHTS_CONTENT_SERVICE__SERVER__API_PREFIX=/api/v1/
+      - INSIGHTS_CONTENT_SERVICE__SERVER__API_SPEC_FILE=/openapi/openapi.json
+      - INSIGHTS_CONTENT_SERVICE__GROUPS__PATH=/groups/groups_config.yaml
+
+  init-service-log-db:
+    profiles:
+      - no-mock
+    image: registry.redhat.io/rhscl/postgresql-13-rhel7
+    volumes:
+      - ./setup/:/tmp/setup-scripts
+    entrypoint: sh
+    environment:
+      - PGPASSWORD=postgres
+    command: >
+      psql 
+        --username=postgres --host=db --port=5432 --dbname notification 
+        -f /tmp/setup-scripts/ocm_service_log.sql
+
+  service-log:
+    depends_on:
+      - init-service-log-db
+    profiles:
+      - no-mock
+    image: quay.io/ccxdev/ocm-service-log
+    ports:
+      - 8000:8000 # API server
+      - 8083:8083 # Healthcheck
+      - 8080:8080 # Metrics
+    command: >
+      sh -c "echo db > secrets/db.host
+        ./ocm-service-log serve \
+        --api-server-bindaddress "localhost:8000" \
+        --health-check-server-bindaddress "localhost:8083" \
+        --metrics-server-bindaddress "localhost:8080" \
+        --enable-ocm-mock
+      "

@@ -17,6 +17,8 @@
 
 dir_path=$(dirname $(realpath $0))
 export PATH=$PATH:$dir_path
+PATH_TO_LOCAL_NOTIFICATION_SERVICE="../ccx-notification-service"
+PATH_TO_LOCAL_NOTIFICATION_WRITER="../ccx-notification-writer"
 
 #set NOVENV is current environment is not a python virtual env
 [ "$VIRTUAL_ENV" != "" ] || NOVENV=1
@@ -38,6 +40,23 @@ function start_mocked_dependencies() {
     pushd $dir_path/mocks/prometheus && uvicorn push_gateway:app --port 9091 &
     trap 'kill $(lsof -ti:8082); kill $(lsof -ti:9091);' EXIT
     pushd $dir_path
+    sleep 2  # wait for the mocks to be up
+}
+
+function get_binary() {
+    cp "$PATH_TO_LOCAL_NOTIFICATION_SERVICE/ccx-notification-service" .
+    # cp "$PATH_TO_LOCAL_NOTIFICATION_SERVICE/config.toml" .
+    cp config/notification_service.toml config.toml
+    trap 'rm ccx-notification-service; rm config.toml;' EXIT
+}
+
+function init_db() {
+    cp "$PATH_TO_LOCAL_NOTIFICATION_WRITER/ccx-notification-writer" .
+    cp "$PATH_TO_LOCAL_NOTIFICATION_WRITER/config.toml" .
+    ./ccx-notification-writer -db-init-migration
+    ./ccx-notification-writer -db-init
+    rm ccx-notification-writer 
+    rm config.toml
 }
 
 [ "$NOVENV" != "1" ] && install_reqs || prepare_venv || exit 1
@@ -45,5 +64,14 @@ function start_mocked_dependencies() {
 #launch mocked services if WITHMOCK is provided
 [ "$WITHMOCK" == "1" ] && start_mocked_dependencies
 
+# Create all the tables
+init_db
+
+# Copy the binary and configuration to this folder
+get_binary
+
 # shellcheck disable=SC2068
-PYTHONDONTWRITEBYTECODE=1 python3 "$(which behave)" --tags=-skip -D dump_errors=true @test_list/notification_service.txt "$@"
+PYTHONDONTWRITEBYTECODE=1 python3 "$(which behave)" \
+    --format=progress2 \
+    --tags=-skip --tags=-managed \
+    -D dump_errors=true @test_list/notification_service.txt "$@"
