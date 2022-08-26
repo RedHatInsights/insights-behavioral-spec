@@ -56,7 +56,8 @@ def process_ccx_notification_service_output(context, out, return_codes):
 
     # check the return code of a process
     assert out.returncode == 0 or out.returncode in return_codes, \
-        "Return code is {}".format(out.returncode)
+        "Return code is {}. Check the logs:\nvvvvv\n{}\n^^^^^\n".format(
+            out.returncode, stdout.decode('utf-8'))
 
     # try to decode output
     output = stdout.decode('utf-8').split("\n")
