@@ -3,95 +3,6 @@ Directory where feature files with scenarios and scenario outlines are stored.
 
 # List of scenarios
 
-## `OCM/cluster_list.feature`
-
-* Displaying info about no clusters on OCM UI ("empty list")
-* Displaying list of clusters on OCM UI
-
-## `OCM/cluster_overview.feature`
-
-* Display cluster overview page on OCM UI for cluster w/o any issues
-* Display cluster overview page on OCM UI for cluster with one critical issue
-* Display cluster overview page on OCM UI for cluster with one critical issue and one low issue
-* Display cluster overview page on OCM UI for cluster with two moderate issues
-
-## `OCM/disable_rule.feature`
-
-* Check if OCM user interface is accessible for two test accounts
-* Check if tutorial rule is visible for two test accounts
-* Check if first test account is able to disable tutorial rule
-* Check if tutorial rule disabled by first test account is disabled for second test account as well
-* Check if first test account is able to enable tutorial rule
-* Check if tutorial rule enabled by first test account is enabled for second test account as well
-* Check if rule is disabled for one cluster only
-* Check if rule R1 is visible for two test accounts
-* Check if first test account is able to disable rule R1
-* Check if rule R1 disabled by first test account is disabled for second test account as well
-* Check if first test account is able to enable rule R1
-* Check if rule R1 enabled by first test account is enabled for second test account as well
-* Check if rule is disabled for one cluster only
-
-## `OCM/disable_rule_on_ACM.feature`
-
-* Check if OCM user interface is accessible for two test accounts
-* Check if ACM user interface is accessible for two test accounts
-* Check if selected rule R1 is visible for the first test account in OCM UI
-* Check if selected rule R1 is visible for test account in ACM
-* Check if first test account is able to disable rule R1
-* Check if rule disabled on OCM UI is still visible on ACM
-* Check if rule disabled on OCM UI by user U1 is still visible on ACM for other users
-
-## `OCM/disable_rule_on_OCP.feature`
-
-* Check if OCM user interface is accessible for two test accounts
-* Check if OCP WebConsole user interface is accessible for two test accounts
-* Check if selected rule R1 is visible for the first test account in OCM UI
-* Check if selected rule R1 is visible for test account in OCP WebConsole
-* Check if first test account is able to disable rule R1
-* Check if rule disabled on OCM UI is disabled on OCP WebConsole as well
-* Check if rule disabled on OCM UI by user U1 is disabled on OCP WebConsole for other users as well
-
-## `OCM/insights_tab.feature`
-
-* Insights tab for cluster without any issue
-* Insights tab for cluster that does not send any insights-operator archive
-* Insights tab for cluster with 1 potential security issue identified
-
-## `OCM/login.feature`
-
-* Login into console.redhat.com
-* Login into OCM UI
-
-## `OCM/rule_feedback.feature`
-
-* Displaying rule feedback controls on OCM UI
-* Upvote for rule on OCM UI
-* Downvote for rule on OCM UI
-* Upvote then downvote for rule on OCM UI
-
-## `OCM/single_rule_page.feature`
-
-* Displaying single rule page in OCM UI
-
-## `OCP_WebConsole/insights.feature`
-
-* Insights on OCP WebConsole for a cluster without any issue
-* Insights on OCP WebConsole for a cluster that does not send any insights-operator archive
-* Insights on OCP WebConsole for a situation when REST API is not accessbile
-* Insights on OCP WebConsole for a cluster with 1 critical issue
-* Insights on OCP WebConsole for a cluster with 2 critical issues
-* Insights on OCP WebConsole for a cluster with 1 low issue and 2 critical issues
-* Insights on OCP WebConsole for a cluster with 1 low issue, 1 important issue, and 1 moderate issue
-* Insights on OCP WebConsole for a cluster with 10 low issues
-
-## `OCP_WebConsole/login.feature`
-
-* Login into OCP WebConsole via console.redhat.com
-
-## `OCP_WebConsole/to_cluster_page.feature`
-
-* Using link from OCP WebConsole "Insights Advisor status" window to cluster page on OCM UI
-
 ## `ACM/cluster_issues_section.feature`
 
 * Displaying "Cluster issues" section on "Overview" page - 1 cluster with no issues
@@ -152,6 +63,123 @@ Directory where feature files with scenarios and scenario outlines are stored.
 
 * Ability to search for issues on Advanced Cluster Management for one local cluster
 * Ability to search for issues on Advanced Cluster Management for one managed cluster
+
+## `ccx-notification-service/cleanup_records.feature`
+
+* Check the ability to clean up old records from `new_reports` table if the table is empty.
+* Check the ability to clean up old records from `reported` if the table is empty.
+* Check the ability to clean up old records from `new_reports` if the table contains one old report.
+* Check the ability to clean up old records from `new_reports` table if the table contains multiple old reports.
+* Check the ability to clean up old records from `reported` table if the table contains one old report.
+* Check the ability to clean up old records from `reported` table if the table contains two old reports.
+* Check that newest records in `new_reports` table are not deleted by cleanup - one new record only.
+* Check that newest records in `new_reports` table are not deleted by cleanup - multiple new records only.
+* Check that newest records in `new_reports` table are not deleted by cleanup - old and new records.
+* Check the ability to clean up old records from `reported` table if the table is not empty - contains one new report.
+* Check the ability to clean up old records from `reported` table if the table is not empty and contains only new reports.
+* Check the ability to clean up old records from `reported` table if the table is not empty and contains old and new reports.
+
+## `ccx-notification-service/cli_flags.feature`
+
+* Check if CCX Notification Service displays help message
+* Check if CCX Notification Service displays version info
+* Check if CCX Notification Service displays configuration
+* Check if CCX Notification Service displays authors
+* Check the ability to display new reports for cleanup
+* Check the ability to display old reports for cleanup
+* Check the ability to display new reports for cleanup with max-age specified
+* Check the ability to display old reports for cleanup with max-age specified
+* Check the ability to perform database cleanup on startup
+
+## `ccx-notification-service/customer_notifications.feature`
+
+* Check that notification service does not need kafka if database has no new report
+* Check that notification service produces instant notifications with the expected content if all dependencies are available
+* Check that notification service produces instant notifications multiple events same cluster
+* Check that instant notification does not include the same reports as in previous notification
+* Check that notification service does not flood customer with unnecessary instant emails
+* Check that notification service resends notification after cooldown has passed
+
+## `ccx-notification-service/display_records.feature`
+
+* Check the ability to display old records from `new_reports` if the table is empty.
+* Check the ability to display old records from `reported` table if the table is empty.
+* Check the ability to display old records from `new_reports` if the table contains one old report.
+* Check the ability to display old records from `new_reports` if the table contains only new reports.
+* Check the ability to display old records from `new_reports` if the table contains new and old reports.
+* Check the ability to display old records from `reported` if the table contains one old report.
+* Check the ability to display old records from `reported` if the table contains only new reports.
+* Check the ability to display old records from `reported` if the table contains multiple old reports.
+* Check the ability to display old records from `reported` if the table contains old and new reports
+
+## `ccx-notification-service/smoketests.feature`
+
+* Check if CCX Notification Service application is available
+* Check if Kafkacat utility is available
+* Check if jps utility is available
+* Check if Postgres database is available
+* Check if CCX Notification database can be reached
+* Check if ZooKeeper is running locally
+* Check if Kafka broker is running locally
+* Check if Kafka broker is running on expected port
+* Check if content-service dependency is available on expected port
+* Check if prometheus push gateway dependency is available on expected port
+
+## `ccx-notification-writer/cleanup_new_records.feature`
+
+* Check the ability to clean up old records from `new_reports` table if the table is empty.
+* Check the ability to clean up old records from `reported` table if the table is empty.
+* Check the ability to clean up old records from `new_reports` table if the table is not empty.
+* Check the ability to clean up old records from `new_reports` table if the table is not empty and contains two new reports.
+* Check the ability to clean up old records from `new_reports` table if the table is not empty and contains old and new reports.
+* Check the ability to clean up old records from `reported` table if the table is not empty - contains one new report.
+* Check the ability to clean up old records from `reported` table if the table is not empty and contains only new reports.
+* Check the ability to clean up old records from `reported` table if the table is not empty and contains old and new reports.
+
+## `ccx-notification-writer/cleanup_old_records.feature`
+
+* Check the ability to clean up old records from `new_reports` table if the table is empty.
+* Check the ability to clean up old records from `reported` table if the table is empty.
+* Check the ability to clean up old records from `new_reports` table if the table contains one old report.
+* Check the ability to clean up old records from `new_reports` table if the table contains two old reports.
+* Check the ability to clean up old records from `reported` table if the table contains one old report.
+* Check the ability to clean up old records from `reported` table if the table contains two old reports.
+
+## `ccx-notification-writer/cli_flags.feature`
+
+* Check if CCX Notification Writer displays help message
+* Check if CCX Notification Writer displays version info
+* Check if CCX Notification Writer displays authors
+* Check the ability to initialize migration info table
+* Check the ability to initialize all database tables
+* Check the ability to perform database cleanup
+* Check the ability to drop all database tables
+
+## `ccx-notification-writer/display_old_records.feature`
+
+* Check the ability to display old records from `new_reports` table if the table is empty.
+* Check the ability to display old records from `reported` table if the table is empty.
+* Check the ability to display old records from `new_reports` table if the table is not empty and contains old report.
+* Check the ability to display old records from `new_reports` table if the table is not empty and contains new report.
+* Check the ability to display old records from `new_reports` table if the table is not empty and contains old reports.
+* Check the ability to display old records from `new_reports` table if the table is not empty and contains new reports.
+* Check the ability to display old records from `new_reports` table if the table is not empty and contains mixed reports.
+* Check the ability to display old records from `reported` table if the table is not empty and contains one old report.
+* Check the ability to display old records from `reported` table if the table is not empty and contains one new report.
+* Check the ability to display old records from `reported` table if the table is not empty and contains old reports.
+* Check the ability to display old records from `reported` table if the table is not empty and contains old reports and contains new reports.
+* Check the ability to display old records from `reported` table if the table is not empty and contains old reports and contains mixed reports.
+
+## `ccx-notification-writer/smoketests.feature`
+
+* Check if CCX Notification Writer application is available
+* Check if Kafkacat utility is available
+* Check if jps utility is available
+* Check if Postgres database is available
+* Check if CCX Notification Writer database can be reached
+* Check if ZooKeeper is running locally
+* Check if Kafka broker is running locally
+* Check if Kafka broker is running on expected port
 
 ## `Insights_Advisor/affected_clusters_filtering.feature`
 
@@ -250,23 +278,6 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Sorting by clusters on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
 * Sorting by added at on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
 * Sorting by different columns at on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
-
-## `Notification_Service/customer_notifications.feature`
-
-* Check that notification service has all the information it needs to work properly
-* Check that notification service produces instant notifications with the expected content
-* Check that notification service produces instant notifications with the expected content
-* Check that notification are sent to user when events are sent to the notification service's kafka topic
-* Check that instant notification does not include the same reports as in previous notification
-* Check that notification service does not flood custer with unnecessary instant emails
-
-## `SHA_Extractor/sha_extractor.feature`
-
-* Check that SHA exctractor service has all the information and interfaces it needs to work properly
-* Check if SHA extractor is able to consume messages from Kafka
-* Check if SHA extractor is able to consume messages from Kafka and then download tarball
-* Check if SHA extractor is able to consume messages from Kafka, download tarball, and take SHA images
-* Check if SHA extractor is able to finish the processing of SHA images
 
 ## `insights-results-aggregator-cleaner/cleanup_selected_records.feature`
 
@@ -389,4 +400,110 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Check if exporter displays version info
 * Check if exporter displays authors
 * Check if exporter displays configuration
+
+## `Notification_Service/customer_notifications.feature`
+
+* Check that notification service has all the information it needs to work properly
+* Check that notification service produces instant notifications with the expected content
+* Check that notification service produces instant notifications with the expected content
+* Check that notification are sent to user when events are sent to the notification service's kafka topic
+* Check that instant notification does not include the same reports as in previous notification
+* Check that notification service does not flood custer with unnecessary instant emails
+
+## `OCM/cluster_list.feature`
+
+* Displaying info about no clusters on OCM UI ("empty list")
+* Displaying list of clusters on OCM UI
+
+## `OCM/cluster_overview.feature`
+
+* Display cluster overview page on OCM UI for cluster w/o any issues
+* Display cluster overview page on OCM UI for cluster with one critical issue
+* Display cluster overview page on OCM UI for cluster with one critical issue and one low issue
+* Display cluster overview page on OCM UI for cluster with two moderate issues
+
+## `OCM/disable_rule.feature`
+
+* Check if OCM user interface is accessible for two test accounts
+* Check if tutorial rule is visible for two test accounts
+* Check if first test account is able to disable tutorial rule
+* Check if tutorial rule disabled by first test account is disabled for second test account as well
+* Check if first test account is able to enable tutorial rule
+* Check if tutorial rule enabled by first test account is enabled for second test account as well
+* Check if rule is disabled for one cluster only
+* Check if rule R1 is visible for two test accounts
+* Check if first test account is able to disable rule R1
+* Check if rule R1 disabled by first test account is disabled for second test account as well
+* Check if first test account is able to enable rule R1
+* Check if rule R1 enabled by first test account is enabled for second test account as well
+* Check if rule is disabled for one cluster only
+
+## `OCM/disable_rule_on_ACM.feature`
+
+* Check if OCM user interface is accessible for two test accounts
+* Check if ACM user interface is accessible for two test accounts
+* Check if selected rule R1 is visible for the first test account in OCM UI
+* Check if selected rule R1 is visible for test account in ACM
+* Check if first test account is able to disable rule R1
+* Check if rule disabled on OCM UI is still visible on ACM
+* Check if rule disabled on OCM UI by user U1 is still visible on ACM for other users
+
+## `OCM/disable_rule_on_OCP.feature`
+
+* Check if OCM user interface is accessible for two test accounts
+* Check if OCP WebConsole user interface is accessible for two test accounts
+* Check if selected rule R1 is visible for the first test account in OCM UI
+* Check if selected rule R1 is visible for test account in OCP WebConsole
+* Check if first test account is able to disable rule R1
+* Check if rule disabled on OCM UI is disabled on OCP WebConsole as well
+* Check if rule disabled on OCM UI by user U1 is disabled on OCP WebConsole for other users as well
+
+## `OCM/insights_tab.feature`
+
+* Insights tab for cluster without any issue
+* Insights tab for cluster that does not send any insights-operator archive
+* Insights tab for cluster with 1 potential security issue identified
+
+## `OCM/login.feature`
+
+* Login into console.redhat.com
+* Login into OCM UI
+
+## `OCM/rule_feedback.feature`
+
+* Displaying rule feedback controls on OCM UI
+* Upvote for rule on OCM UI
+* Downvote for rule on OCM UI
+* Upvote then downvote for rule on OCM UI
+
+## `OCM/single_rule_page.feature`
+
+* Displaying single rule page in OCM UI
+
+## `OCP_WebConsole/insights.feature`
+
+* Insights on OCP WebConsole for a cluster without any issue
+* Insights on OCP WebConsole for a cluster that does not send any insights-operator archive
+* Insights on OCP WebConsole for a situation when REST API is not accessbile
+* Insights on OCP WebConsole for a cluster with 1 critical issue
+* Insights on OCP WebConsole for a cluster with 2 critical issues
+* Insights on OCP WebConsole for a cluster with 1 low issue and 2 critical issues
+* Insights on OCP WebConsole for a cluster with 1 low issue, 1 important issue, and 1 moderate issue
+* Insights on OCP WebConsole for a cluster with 10 low issues
+
+## `OCP_WebConsole/login.feature`
+
+* Login into OCP WebConsole via console.redhat.com
+
+## `OCP_WebConsole/to_cluster_page.feature`
+
+* Using link from OCP WebConsole "Insights Advisor status" window to cluster page on OCM UI
+
+## `SHA_Extractor/sha_extractor.feature`
+
+* Check that SHA exctractor service has all the information and interfaces it needs to work properly
+* Check if SHA extractor is able to consume messages from Kafka
+* Check if SHA extractor is able to consume messages from Kafka and then download tarball
+* Check if SHA extractor is able to consume messages from Kafka, download tarball, and take SHA images
+* Check if SHA extractor is able to finish the processing of SHA images
 
