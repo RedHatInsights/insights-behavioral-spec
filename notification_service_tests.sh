@@ -44,6 +44,10 @@ function start_mocked_dependencies() {
 }
 
 function get_binary() {
+    (
+        cd $PATH_TO_LOCAL_NOTIFICATION_SERVICE
+        make build
+    ) 
     cp "$PATH_TO_LOCAL_NOTIFICATION_SERVICE/ccx-notification-service" .
     # cp "$PATH_TO_LOCAL_NOTIFICATION_SERVICE/config.toml" .
     cp config/notification_service.toml config.toml
@@ -51,10 +55,15 @@ function get_binary() {
 }
 
 function init_db() {
+    (
+        cd $PATH_TO_LOCAL_NOTIFICATION_WRITER
+        make build
+    ) 
     cp "$PATH_TO_LOCAL_NOTIFICATION_WRITER/ccx-notification-writer" .
     cp "$PATH_TO_LOCAL_NOTIFICATION_WRITER/config.toml" .
-    ./ccx-notification-writer -db-init-migration
     ./ccx-notification-writer -db-init
+    ./ccx-notification-writer -db-init-migration
+    ./ccx-notification-writer -migrate latest
     rm ccx-notification-writer 
     rm config.toml
 }
