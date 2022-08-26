@@ -1,5 +1,7 @@
 Feature: Customer Notifications
 
+  Background: Kafka is empty
+    Given Kafka is empty
 
   Scenario: Check that notification service does not need kafka if database has no new report
     Given Postgres is running
@@ -8,6 +10,19 @@ Feature: Customer Notifications
      When I start the CCX Notification Service with the --instant-reports command line flag
      Then the process should exit with status code set to 0
 
+
+  Scenario: Check that notification service does not need kafka if the broker is disabled
+    Given Postgres is running
+      And CCX Notification database is created for user postgres with password postgres
+      And insights-content service is available on localhost:8082
+     When I insert 1 report with important total risk for the following clusters
+          | org id |  account number | cluster name                         |
+          | 1      |  1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa |
+      And I start the CCX Notification Service with the --instant-reports command line flag
+          | val                                             | var   |
+          | CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ENABLED | false |
+     Then it should have sent 0 notification events
+      And the process should exit with status code set to 0
 
   Scenario: Check that notification service produces instant notifications with the expected content if all dependencies are available
     Given Postgres is running
