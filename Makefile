@@ -19,4 +19,7 @@ notification-writer:
 code-style:
 	python3 tools/run_pycodestyle.py
 
-before_commit: code-style
+update-scenarios:
+	python3 tools/gen_scenario_list.py > features/README.md
+
+before_commit: code-style update-scenarios

@@ -390,3 +390,120 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Check if exporter displays authors
 * Check if exporter displays configuration
 
+## `ccx-notification-service/cleanup_records.feature`
+
+* Check the ability to clean up old records from `new_reports` table if the table is empty.
+* Check the ability to clean up old records from `reported` if the table is empty.
+* Check the ability to clean up old records from `new_reports` if the table contains one old report.
+* Check the ability to clean up old records from `new_reports` table if the table contains multiple old reports.
+* Check the ability to clean up old records from `reported` table if the table contains one old report.
+* Check the ability to clean up old records from `reported` table if the table contains two old reports.
+* Check that newest records in `new_reports` table are not deleted by cleanup - one new record only.
+* Check that newest records in `new_reports` table are not deleted by cleanup - multiple new records only.
+* Check that newest records in `new_reports` table are not deleted by cleanup - old and new records.
+* Check the ability to clean up old records from `reported` table if the table is not empty - contains one new report.
+* Check the ability to clean up old records from `reported` table if the table is not empty and contains only new reports.
+* Check the ability to clean up old records from `reported` table if the table is not empty and contains old and new reports.
+
+## `ccx-notification-service/cli_flags.feature`
+
+* Check if CCX Notification Service displays help message
+* Check if CCX Notification Service displays version info
+* Check if CCX Notification Service displays configuration
+* Check if CCX Notification Service displays authors
+* Check the ability to display new reports for cleanup
+* Check the ability to display old reports for cleanup
+* Check the ability to display new reports for cleanup with max-age specified
+* Check the ability to display old reports for cleanup with max-age specified
+* Check the ability to perform database cleanup on startup
+
+## `ccx-notification-service/customer_notifications.feature`
+
+* Check that notification service does not need kafka if database has no new report
+* Check that notification service produces instant notifications with the expected content if all dependencies are available
+* Check that notification service produces instant notifications multiple events same cluster
+* Check that instant notification does not include the same reports as in previous notification
+* Check that notification service does not flood customer with unnecessary instant emails
+* Check that notification service resends notification after cooldown has passed
+
+## `ccx-notification-service/display_records.feature`
+
+* Check the ability to display old records from `new_reports` if the table is empty.
+* Check the ability to display old records from `reported` table if the table is empty.
+* Check the ability to display old records from `new_reports` if the table contains one old report.
+* Check the ability to display old records from `new_reports` if the table contains only new reports.
+* Check the ability to display old records from `new_reports` if the table contains new and old reports.
+* Check the ability to display old records from `reported` if the table contains one old report.
+* Check the ability to display old records from `reported` if the table contains only new reports.
+* Check the ability to display old records from `reported` if the table contains multiple old reports.
+* Check the ability to display old records from `reported` if the table contains old and new reports
+
+## `ccx-notification-service/smoketests.feature`
+
+* Check if CCX Notification Service application is available
+* Check if Kafkacat utility is available
+* Check if jps utility is available
+* Check if Postgres database is available
+* Check if CCX Notification database can be reached
+* Check if ZooKeeper is running locally
+* Check if Kafka broker is running locally
+* Check if Kafka broker is running on expected port
+* Check if content-service dependency is available on expected port
+* Check if prometheus push gateway dependency is available on expected port
+
+## `ccx-notification-writer/cleanup_new_records.feature`
+
+* Check the ability to clean up old records from `new_reports` table if the table is empty.
+* Check the ability to clean up old records from `reported` table if the table is empty.
+* Check the ability to clean up old records from `new_reports` table if the table is not empty.
+* Check the ability to clean up old records from `new_reports` table if the table is not empty and contains two new reports.
+* Check the ability to clean up old records from `new_reports` table if the table is not empty and contains old and new reports.
+* Check the ability to clean up old records from `reported` table if the table is not empty - contains one new report.
+* Check the ability to clean up old records from `reported` table if the table is not empty and contains only new reports.
+* Check the ability to clean up old records from `reported` table if the table is not empty and contains old and new reports.
+
+## `ccx-notification-writer/cleanup_old_records.feature`
+
+* Check the ability to clean up old records from `new_reports` table if the table is empty.
+* Check the ability to clean up old records from `reported` table if the table is empty.
+* Check the ability to clean up old records from `new_reports` table if the table contains one old report.
+* Check the ability to clean up old records from `new_reports` table if the table contains two old reports.
+* Check the ability to clean up old records from `reported` table if the table contains one old report.
+* Check the ability to clean up old records from `reported` table if the table contains two old reports.
+
+## `ccx-notification-writer/cli_flags.feature`
+
+* Check if CCX Notification Writer displays help message
+* Check if CCX Notification Writer displays version info
+* Check if CCX Notification Writer displays authors
+* Check the ability to initialize migration info table
+* Check the ability to initialize all database tables
+* Check the ability to perform database cleanup
+* Check the ability to drop all database tables
+
+## `ccx-notification-writer/display_old_records.feature`
+
+* Check the ability to display old records from `new_reports` table if the table is empty.
+* Check the ability to display old records from `reported` table if the table is empty.
+* Check the ability to display old records from `new_reports` table if the table is not empty and contains old report.
+* Check the ability to display old records from `new_reports` table if the table is not empty and contains new report.
+* Check the ability to display old records from `new_reports` table if the table is not empty and contains old reports.
+* Check the ability to display old records from `new_reports` table if the table is not empty and contains new reports.
+* Check the ability to display old records from `new_reports` table if the table is not empty and contains mixed reports.
+* Check the ability to display old records from `reported` table if the table is not empty and contains one old report.
+* Check the ability to display old records from `reported` table if the table is not empty and contains one new report.
+* Check the ability to display old records from `reported` table if the table is not empty and contains old reports.
+* Check the ability to display old records from `reported` table if the table is not empty and contains old reports and contains new reports.
+* Check the ability to display old records from `reported` table if the table is not empty and contains old reports and contains mixed reports.
+
+## `ccx-notification-writer/smoketests.feature`
+
+* Check if CCX Notification Writer application is available
+* Check if Kafkacat utility is available
+* Check if jps utility is available
+* Check if Postgres database is available
+* Check if CCX Notification Writer database can be reached
+* Check if ZooKeeper is running locally
+* Check if Kafka broker is running locally
+* Check if Kafka broker is running on expected port
+

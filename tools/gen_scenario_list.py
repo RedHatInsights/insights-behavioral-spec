@@ -28,15 +28,18 @@ PREFIXES = ("Scenario: ", "Scenario Outline: ")
 FEATURE_DIRECTORY = "features"
 
 # list of subdirectories with feature files with specified order
-SUBDIRECTORIES = ("OCM",
-                  "OCP_WebConsole",
-                  "ACM",
-                  "Insights_Advisor",
-                  "Notification_Service",
-                  "SHA_Extractor",
-                  "insights-results-aggregator-cleaner",
-                  "insights-results-aggregator-exporter",
-                  )
+SUBDIRECTORIES = (
+    "OCM",
+    "OCP_WebConsole",
+    "ACM",
+    "Insights_Advisor",
+    "Notification_Service",
+    "SHA_Extractor",
+    "insights-results-aggregator-cleaner",
+    "insights-results-aggregator-exporter",
+    "ccx-notification-service",
+    "ccx-notification-writer",
+)
 
 # page header
 print("# Description")

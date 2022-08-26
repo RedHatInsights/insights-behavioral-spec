@@ -23,6 +23,7 @@ import pycodestyle
 
 def main():
     files = list(Path(".").rglob("*.py"))
+    files = [f for f in files if not str(f).startswith('venv/')]
     print("Files to check:")
     print("\n".join(str(f) for f in files))
     print("\nChecks:")
