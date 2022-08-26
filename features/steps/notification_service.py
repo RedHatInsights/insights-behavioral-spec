@@ -100,9 +100,10 @@ def start_ccx_notification_service_with_flag(context, flag):
         # We don't care, unless explicitly configured for a test
         context.return_codes = [4, 5, 9]
 
-    env = os.environ
-    for row in context.table:
-        env[row["val"]] = row["var"]
+    env = os.environ.copy()
+    if context.table is not None:
+        for row in context.table:
+            env[row["val"]] = row["var"]
 
     out = subprocess.Popen(params,
                            stdout=subprocess.PIPE,
