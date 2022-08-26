@@ -296,9 +296,8 @@ def check_cleaned_items_on_standard_output(context, table, max_age):
     assert max_age in stdout, "Caught output: {}".format(stdout)
 
 
-@then("it should have sent the following {num_event:d} notification events")
-def retrieve_notification_events(context, num_event):
-    """Get events from kafka topic and check they are the expected"""
+def get_events(num_event):
+    """Get the latest {num_event} messages in Kafka."""
     """Use the Kafkacat tool to retrieve metadata from Kafka broker."""
     # -J enables Kafkacat to produce output in JSON format
     # -L flag choose mode: metadata list
@@ -323,8 +322,21 @@ def retrieve_notification_events(context, num_event):
     # try to decode output
     output = stdout.decode('utf-8')
 
-    events = [i for i in output.split('\n') if i]
+    return [i for i in output.split('\n') if i]
+
+
+@then("it should have sent {num_event:d} notification events")
+def count_notification_events(context, num_event):
+    """Get events from kafka topic and count them to check if matches"""
+    events = get_events(num_event)
     assert len(events) == num_event, f"Retrieved {len(events)} events when {num_event} was expected"
+
+
+@then("it should have sent the following {num_event:d} notification events")
+def retrieve_notification_events(context, num_event):
+    """Get events from kafka topic and check they are the expected"""
+    events = get_events(num_event)
+    count_notification_events(context, num_event)
 
     for index, line in enumerate(events):
         print("The index: ", index, "The line: ", line)
