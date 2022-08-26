@@ -47,7 +47,8 @@ def ensure_database_is_set_up(context):
               "new_reports",
               "notification_types",
               "reported",
-              "states")
+              "states",
+              "event_targets")
 
     cursor = context.connection.cursor()
     for table in tables:
