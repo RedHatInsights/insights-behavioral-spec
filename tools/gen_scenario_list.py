@@ -29,16 +29,16 @@ FEATURE_DIRECTORY = "features"
 
 # list of subdirectories with feature files with specified order
 SUBDIRECTORIES = (
-    "ACM",
-    "ccx-notification-service",
-    "ccx-notification-writer",
-    "Insights_Advisor",
-    "insights-results-aggregator-cleaner",
-    "insights-results-aggregator-exporter",
-    "Notification_Service",
     "OCM",
     "OCP_WebConsole",
-    "SHA_Extractor"
+    "ACM",
+    "Insights_Advisor",
+    "Notification_Service",
+    "SHA_Extractor",
+    "insights-results-aggregator-cleaner",
+    "insights-results-aggregator-exporter",
+    "ccx-notification-service",
+    "ccx-notification-writer",
 )
 
 # page header
