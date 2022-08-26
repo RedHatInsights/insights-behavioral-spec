@@ -1,7 +1,7 @@
 Feature: Customer Notifications
 
   Background: Kafka is empty
-    Given Kafka is empty
+    Given Kafka topic "platform.notifications.ingress" is empty
 
   Scenario: Check that notification service does not need kafka if database has no new report
     Given Postgres is running

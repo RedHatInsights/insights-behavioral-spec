@@ -334,7 +334,7 @@ def get_events(num_event):
     if "Unknown topic or partition" in output:
         return []
 
-    return [i for i in output.split('\n') if i]
+    return [i for i in output.split('\n') if i and i[0] == "{"]
 
 
 @then("it should have sent {num_event:d} notification events")
