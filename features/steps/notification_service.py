@@ -376,3 +376,26 @@ def retrieve_notification_events(context, num_event):
             f"Expected cluster name in event to be {cluster_id}."
         assert f'"total_risk":"{total_risk}"' in encoded["events"][0][
             'payload'], f'"total_risk":"{total_risk}" not in {encoded["events"][0]["payload"]}'
+
+
+@then("The logs should match")
+def check_logs(context):
+    """
+    Check if the notification service logs logs given the context,table.
+    You can specify whether if the substring should be present or not.
+    
+    | log                      | contains |
+    | this one should match    | yes      |
+    | this one should't match  | no       |
+    """
+
+    output = context.stdout.decode('utf-8')
+
+    for row in context.table:
+        log, contains = row["log"], row["contains"]
+        if contains == "yes":
+            assert log in output, f'log "{log}" not found in output:\n{output}'
+        elif contains == "no":
+            assert log not in output, f'log "{log}" found in output:\n{output}'
+        else:
+            raise ValueError(f'option "{contains}" is other than "yes" or "no"')
