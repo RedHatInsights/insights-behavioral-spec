@@ -70,7 +70,7 @@ def find_available_brokers(context):
 
 @given('Kafka topic "{topic}" is empty')
 def make_kafka_empty(context, topic):
-    """Delete all records from Kafka."""
+    """Delete all events from Kafka."""
     # TODO: Make it compatible with local kafka, not just for docker
     out = subprocess.Popen(
         [
