@@ -69,6 +69,9 @@ telling you the field that you are missing.
 
 However, I don't consider it necessary for this use case.
 
+You can also query using:
+- GET: return the logs sent to this service
+- DELETE: delete the logs stored given an ID
 """
 
 
@@ -146,6 +149,9 @@ noAuthResponse = JSONResponse(
     status_code=401
 )
 
+# use a list as storage
+log_storage = []
+
 
 @app.exception_handler(RequestValidationError)
 async def validation_handler(request: Request, exc: Exception):
@@ -164,13 +170,49 @@ async def validation_handler(request: Request, exc: Exception):
 
 @app.post("/api/service_logs/v1/cluster_logs")
 def publish_log(log: Log, request: Request):
-    if request.headers.get("authorization", None) is None:
+    if request.headers.get("Authorization", None) is None:
         return noAuthResponse
     log = fill_default_fields(log)
     log = add_additional_fields(log)
+    log_storage.append(log)
     return JSONResponse(
         log.dict(exclude_none=True),
         status_code=201
+    )
+
+
+@app.get("/api/service_logs/v1/cluster_logs")
+def get_logs(request: Request):
+    if request.headers.get("Authorization", None) is None:
+        return noAuthResponse
+    return JSONResponse(
+        {
+            "kind": "ClusterLogList",
+            "page": 1,
+            "size": len(log_storage),
+            "total": len(log_storage),
+            "items": [log.dict(exclude_none=True) for log in log_storage]
+        },
+        status_code=200
+    )
+
+
+# This one has not been properly tested against the real ocm
+@app.delete("/api/service_logs/v1/cluster_logs/{id}")
+def delete_logs(id: str, request: Request):
+    if request.headers.get("Authorization", None) is None:
+        return noAuthResponse
+    for i, log in enumerate(log_storage):
+        if log.id == id:
+            log_storage.pop(i)
+            return 204
+    return ReturnError(
+        id=id,
+        kind="Error",
+        href="/api/service_logs/v1/errors/7",
+        code="OCM-CA-7",
+        reason=f"The requested resource '{id}' doesn't exist",
+        operation_id=random_id(ID_LENGTH)
     )
 
 

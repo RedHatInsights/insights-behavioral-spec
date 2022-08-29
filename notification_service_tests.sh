@@ -38,7 +38,8 @@ function start_mocked_dependencies() {
     python3 $(which pip3) install -r requirements/mocks.txt
     pushd $dir_path/mocks/insights-content-service && uvicorn content_server:app --port 8082 &
     pushd $dir_path/mocks/prometheus && uvicorn push_gateway:app --port 9091 &
-    trap 'kill $(lsof -ti:8082); kill $(lsof -ti:9091);' EXIT
+    pushd $dir_path/mocks/service-log && uvicorn service_log:app --port 8000 &
+    trap 'kill $(lsof -ti:8082); kill $(lsof -ti:9091); kill $(lsof -ti:8000)' EXIT
     pushd $dir_path
     sleep 2  # wait for the mocks to be up
 }
@@ -83,4 +84,5 @@ get_binary
 PYTHONDONTWRITEBYTECODE=1 python3 "$(which behave)" \
     --format=progress2 \
     --tags=-skip --tags=-managed \
+    -n "Check that notification service does not send messages to service log if it is disabled" \
     -D dump_errors=true @test_list/notification_service.txt "$@"
