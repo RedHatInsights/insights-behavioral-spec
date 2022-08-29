@@ -30,6 +30,18 @@ def check_content_service_availability(context, host, port):
     context.content_service_available = True
 
 
+@given("service-log service is available on {host:w}:{port:d}")
+def check_service_log_availability(context, host, port):
+    """Check if service-log is available at given address."""
+
+    if not str(host).startswith("http"):
+        host = "http://" + host
+    x = requests.get(
+        f'{host}:{port}/api/service_logs/v1/cluster_logs',
+        headers={'Authorization': 'TEST_TOKEN'})
+    assert x.status_code == 200, "service log is not up"
+
+
 @then("I should get data from insights-content-service")
 def content_service_is_available(context):
     if not hasattr(context, "content_service_available"):
