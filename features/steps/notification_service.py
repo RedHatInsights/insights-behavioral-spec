@@ -305,7 +305,7 @@ def check_cleaned_items_on_standard_output(context, table, max_age):
     assert max_age in stdout, "Caught output: {}".format(stdout)
 
 
-def get_events(num_event):
+def get_events_kafka(num_event):
     """Get the latest {num_event} messages in Kafka."""
     """Use the Kafkacat tool to retrieve metadata from Kafka broker."""
     # -J enables Kafkacat to produce output in JSON format
@@ -337,18 +337,18 @@ def get_events(num_event):
     return [i for i in output.split('\n') if i and i[0] == "{"]
 
 
-@then("it should have sent {num_event:d} notification events")
-def count_notification_events(context, num_event):
+@then("it should have sent {num_event:d} notification events to Kafka")
+def count_notification_events_kafka(context, num_event):
     """Get events from kafka topic and count them to check if matches"""
-    events = get_events(num_event)
+    events = get_events_kafka(num_event)
     assert len(events) == num_event, f"Retrieved {len(events)} events when {num_event} was expected"
 
 
-@then("it should have sent the following {num_event:d} notification events")
-def retrieve_notification_events(context, num_event):
+@then("it should have sent the following {num_event:d} notification events to Kafka")
+def retrieve_notification_events_kafka(context, num_event):
     """Get events from kafka topic and check they are the expected"""
-    events = get_events(num_event)
-    count_notification_events(context, num_event)
+    events = get_events_kafka(num_event)
+    count_notification_events_kafka(context, num_event)
 
     for index, line in enumerate(events):
         print("The index: ", index, "The line: ", line)
