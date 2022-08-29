@@ -408,7 +408,7 @@ def count_notification_events_service_log(context, num_event):
     assert len(events) == num_event, f"Retrieved {len(events)} events when {num_event} was expected"
 
 
-@then("The logs should match")
+@then("the logs should match")
 def check_logs(context):
     """
     Check if the notification service logs logs given the context,table.

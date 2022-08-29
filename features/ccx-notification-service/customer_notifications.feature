@@ -22,7 +22,7 @@ Feature: Customer Notifications
           | CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ENABLED | false |
      Then it should have sent 0 notification events to Kafka
       And the process should exit with status code set to 0
-      And The logs should match
+      And the logs should match
           | log                              | contains   |
           | Report with high impact detected | yes        |
           | No new issues to notify          | no         |
