@@ -383,7 +383,6 @@ def check_logs(context):
     """
     Check if the notification service logs logs given the context,table.
     You can specify whether if the substring should be present or not.
-    
     | log                      | contains |
     | this one should match    | yes      |
     | this one should't match  | no       |
