@@ -18,6 +18,8 @@ services:
       - KAFKA_ADVERTISED_HOST_NAME=kafka
       - KAFKA_CREATE_TOPICS="platform.notifications.ingress:1:1" 
   pushgateway:
+    profiles:
+      - no-mock
     image: quay.io/prometheus/pushgateway:latest
     ports:
       - 9091:9091

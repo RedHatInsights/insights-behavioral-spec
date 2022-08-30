@@ -66,3 +66,39 @@ def find_available_brokers(context):
     assert (
         len(context.broker_metadata["brokers"]) >= 1
     ), "At least one available broker expected"
+
+
+@given('Kafka topic "{topic}" is empty')
+def make_kafka_empty(context, topic):
+    """Delete all events from Kafka."""
+    # TODO: Make it compatible with local kafka, not just for docker
+    out = subprocess.Popen(
+        [
+            "docker",
+            "exec",
+            "-it",
+            "insights-behavioral-spec_kafka_1",
+            "./bin/kafka-topics.sh",
+            "--bootstrap-server",
+            "localhost:9092",
+            "--delete",
+            "--topic",
+            topic
+        ],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
+    # check if call was correct
+    assert out is not None
+
+    # interact with the process:
+    # read data from stdout and stderr, until end-of-file is reached
+    stdout, stderr = out.communicate()
+
+    # try to decode output
+    output = stdout.decode("utf-8")
+
+    if "does not exist" in output:
+        return
+
+    assert out.returncode == 0, f"got {out.returncode} want 0"
