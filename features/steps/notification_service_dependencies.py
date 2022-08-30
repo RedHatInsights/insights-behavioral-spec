@@ -25,7 +25,7 @@ def check_content_service_availability(context, host, port):
 
     if not str(host).startswith("http"):
         host = "http://" + host
-    x = requests.get(f'{host}:{port}/api/v1/openapi.json')
+    x = requests.get(f"{host}:{port}/api/v1/openapi.json")
     assert x.status_code == 200
     context.content_service_available = True
 
@@ -37,8 +37,9 @@ def check_service_log_availability(context, host, port):
     if not str(host).startswith("http"):
         host = "http://" + host
     x = requests.get(
-        f'{host}:{port}/api/service_logs/v1/cluster_logs',
-        headers={'Authorization': 'TEST_TOKEN'})
+        f"{host}:{port}/api/service_logs/v1/cluster_logs",
+        headers={"Authorization": "TEST_TOKEN"},
+    )
     assert x.status_code == 200, "service log is not up"
 
 
@@ -56,7 +57,7 @@ def check_push_gateway_availability(context, host, port):
 
     if not str(host).startswith("http"):
         host = "http://" + host
-    x = requests.get(f'{host}:{port}/metrics')
+    x = requests.get(f"{host}:{port}/metrics")
     assert x.status_code == 200
     context.push_gateway_available = True
 

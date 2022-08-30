@@ -39,7 +39,10 @@ function start_mocked_dependencies() {
     pushd $dir_path/mocks/insights-content-service && uvicorn content_server:app --port 8082 &
     pushd $dir_path/mocks/prometheus && uvicorn push_gateway:app --port 9091 &
     pushd $dir_path/mocks/service-log && uvicorn service_log:app --port 8000 &
-    trap 'kill $(lsof -ti:8082); kill $(lsof -ti:9091); kill $(lsof -ti:8000)' EXIT
+    pushd $dir_path/mocks/content-template-renderer && uvicorn content_template_renderer:app --port 8083 &
+    pushd $dir_path/mocks/token-refreshment && uvicorn token_refreshment:app --port 8001 &
+
+    add_exit_trap 'kill $(lsof -ti:8082); kill $(lsof -ti:9091); kill $(lsof -ti:8000); kill $(lsof -ti:8083); kill $(lsof -ti:8001)'
     pushd $dir_path
     sleep 2  # wait for the mocks to be up
 }
@@ -52,7 +55,7 @@ function get_binary() {
     cp "$PATH_TO_LOCAL_NOTIFICATION_SERVICE/ccx-notification-service" .
     # cp "$PATH_TO_LOCAL_NOTIFICATION_SERVICE/config.toml" .
     cp config/notification_service.toml config.toml
-    trap 'rm ccx-notification-service; rm config.toml;' EXIT
+    add_exit_trap 'rm ccx-notification-service; rm config.toml'
 }
 
 function init_db() {
@@ -67,6 +70,23 @@ function init_db() {
     ./ccx-notification-writer -migrate latest
     rm ccx-notification-writer 
     rm config.toml
+}
+
+# mechanism to chain more trap commands added in different parts of this script
+exit_trap_command=""
+function cleanup {
+    eval "$exit_trap_command"
+}
+trap cleanup EXIT
+
+function add_exit_trap {
+    local to_add=$1
+    if [[ -z "$exit_trap_command" ]]
+    then
+        exit_trap_command="$to_add"
+    else
+        exit_trap_command="$exit_trap_command; $to_add"
+    fi
 }
 
 [ "$NOVENV" != "1" ] && install_reqs || prepare_venv || exit 1

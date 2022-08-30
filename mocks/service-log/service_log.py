@@ -77,7 +77,7 @@ You can also query using:
 
 from typing import Union
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Response, status
 from fastapi.exceptions import RequestValidationError
 from starlette.responses import JSONResponse
 from pydantic import BaseModel
@@ -205,7 +205,7 @@ def delete_logs(id: str, request: Request):
     for i, log in enumerate(log_storage):
         if log.id == id:
             log_storage.pop(i)
-            return 204
+            return Response(status_code=status.HTTP_204_NO_CONTENT)
     return ReturnError(
         id=id,
         kind="Error",
