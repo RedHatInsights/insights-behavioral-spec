@@ -84,5 +84,4 @@ get_binary
 PYTHONDONTWRITEBYTECODE=1 python3 "$(which behave)" \
     --format=progress2 \
     --tags=-skip --tags=-managed \
-    -n "Check that notification service does not send messages to service log if it is disabled" \
     -D dump_errors=true @test_list/notification_service.txt "$@"
