@@ -15,7 +15,7 @@
 """Implementation of test steps that run CCX Notification Service and check its output."""
 
 import subprocess
-from behave import register_type, then, when
+from behave import register_type, then, when, given
 import json
 import os
 import requests
