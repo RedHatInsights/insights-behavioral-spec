@@ -29,15 +29,19 @@ test_output = "test"
 # using {max_age:d} {age_unit:w}, but at least this way it is clear when it
 # gets unexpected values
 def parse_max_age(max_age):
-    assert isinstance(max_age, str), \
-        f"expected max_age to be a string with 2 parts: the value and the unit. Got {type(max_age)} - {max_age} "  # noqa E501
-    items = max_age.replace('"', '').split(" ")
-    assert len(items) == 2, \
-        f"expected max_age to have 2 parts: the value and the unit. Got {max_age}"
-    assert items[0].isdigit(), \
-        f"expected max_age to start with an integer, got {items[0]}"
-    assert items[1].isalpha(), \
-        f"expected max_age to contain an alpha string for the max_age unit, got {items[1]}"
+    assert isinstance(
+        max_age, str
+    ), f"expected max_age to be a string with 2 parts: the value and the unit. Got {type(max_age)} - {max_age} "  # noqa E501
+    items = max_age.replace('"', "").split(" ")
+    assert (
+        len(items) == 2
+    ), f"expected max_age to have 2 parts: the value and the unit. Got {max_age}"
+    assert items[
+        0
+    ].isdigit(), f"expected max_age to start with an integer, got {items[0]}"
+    assert items[
+        1
+    ].isalpha(), f"expected max_age to contain an alpha string for the max_age unit, got {items[1]}"
     return max_age
 
 
@@ -58,12 +62,14 @@ def process_ccx_notification_service_output(context, out, return_codes):
     assert stdout is not None, "No output from application"
 
     # check the return code of a process
-    assert out.returncode == 0 or out.returncode in return_codes, \
-        "Return code is {}. Check the logs:\nvvvvv\n{}\n^^^^^\n".format(
-            out.returncode, stdout.decode('utf-8'))
+    assert (
+        out.returncode == 0 or out.returncode in return_codes
+    ), "Return code is {}. Check the logs:\nvvvvv\n{}\n^^^^^\n".format(
+        out.returncode, stdout.decode("utf-8")
+    )
 
     # try to decode output
-    output = stdout.decode('utf-8').split("\n")
+    output = stdout.decode("utf-8").split("\n")
 
     assert output is not None
 
@@ -106,22 +112,28 @@ def start_ccx_notification_service_with_flag(context, flag):
         for row in context.table:
             env[row["val"]] = row["var"]
 
-    out = subprocess.Popen(params,
-                           stdout=subprocess.PIPE,
-                           stderr=subprocess.STDOUT,
-                           env=env)
-
+    out = subprocess.Popen(
+        params, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env
+    )
     assert out is not None
     process_ccx_notification_service_output(context, out, context.return_codes)
 
 
 def check_help_from_ccx_notification_service(context):
     """Check if help is displayed by CCX Notification Service."""
-    expected_output = ["  -cleanup-on-startup", "  -instant-reports", "  -max-age string",
-                       "  -new-reports-cleanup", "  -old-reports-cleanup",
-                       "  -print-new-reports-for-cleanup", "  -print-old-reports-for-cleanup",
-                       "  -show-authors", "  -show-configuration", "  -show-version",
-                       "  -weekly-reports"]
+    expected_output = [
+        "  -cleanup-on-startup",
+        "  -instant-reports",
+        "  -max-age string",
+        "  -new-reports-cleanup",
+        "  -old-reports-cleanup",
+        "  -print-new-reports-for-cleanup",
+        "  -print-old-reports-for-cleanup",
+        "  -show-authors",
+        "  -show-configuration",
+        "  -show-version",
+        "  -weekly-reports",
+    ]
 
     # preliminary checks
     assert context.output is not None
@@ -138,8 +150,9 @@ def check_version_from_ccx_notification_service(context):
     assert type(context.output) is list, "wrong type of output"
 
     # check the output
-    assert "Notification service version 1.0" in context.output, \
-        "Caught output: {}".format(context.output)
+    assert (
+        "Notification service version 1.0" in context.output
+    ), "Caught output: {}".format(context.output)
 
 
 def check_authors_info_from_ccx_notification_service(context):
@@ -149,8 +162,9 @@ def check_authors_info_from_ccx_notification_service(context):
     assert type(context.output) is list, "wrong type of output"
 
     # check the output
-    assert "Pavel Tisnovsky, Papa Bakary Camara, Red Hat Inc." in context.output, \
-        "Caught output: {}".format(context.output)
+    assert (
+        "Pavel Tisnovsky, Papa Bakary Camara, Red Hat Inc." in context.output
+    ), "Caught output: {}".format(context.output)
 
 
 @then("I should see the current configuration displayed on standard output")
@@ -173,14 +187,17 @@ def check_configuration_info_from_ccx_notification_service(context):
         "Logging configuration",
         "Notifications configuration",
         "Metrics configuration",
-        "ServiceLog configuration"
+        "ServiceLog configuration",
     ]
 
     for item in expected_info:
         assert item in stdout, "Caught output: {}".format(stdout)
 
 
-@then("I should see info about not notified reports older than {max_age:Age} displayed on standard output")  # noqa E501
+@then(
+    "I should see info about not notified reports older "
+    "than {max_age:Age} displayed on standard output"
+)  # noqa E501
 def check_print_new_reports_for_cleanup(context, max_age):
     """Check if information about new reports for cleanup is displayed by CCX Notification Service."""  # noqa E501
     # preliminary checks
@@ -191,12 +208,17 @@ def check_print_new_reports_for_cleanup(context, max_age):
     assert stdout is not None, "stdout object should exist"
     assert type(stdout) is str, "wrong type of stdout object"
 
-    assert "PrintReportsForCleanup operation" in stdout, "Caught output: {}".format(stdout)
+    assert "PrintReportsForCleanup operation" in stdout, "Caught output: {}".format(
+        stdout
+    )
     assert "FROM new_reports" in stdout, "Caught output: {}".format(stdout)
     assert max_age in stdout, "Caught output: {}".format(stdout)
 
 
-@then("I should see info about cleaned up not notified reports older than {max_age:Age} displayed on standard output")  # noqa E501
+@then(
+    "I should see info about cleaned up not notified reports "
+    "older than {max_age:Age} displayed on standard output"
+)  # noqa E501
 def check_new_reports_cleanup(context, max_age):
     """Check if information about not notified reports cleanup is displayed by CCX Notification Service."""  # noqa E501
     # preliminary checks
@@ -207,13 +229,20 @@ def check_new_reports_cleanup(context, max_age):
     assert stdout is not None, "stdout object should exist"
     assert type(stdout) is str, "wrong type of stdout object"
 
-    assert "Cleanup operation for all organizations" in stdout, "Caught output: {}".format(stdout)
+    assert (
+        "Cleanup operation for all organizations" in stdout
+    ), "Caught output: {}".format(stdout)
     assert "FROM new_reports" in stdout, "Caught output: {}".format(stdout)
     assert max_age in stdout, "Caught output: {}".format(stdout)
-    assert "Cleanup `new_reports` finished" in stdout, "Caught output: {}".format(stdout)
+    assert "Cleanup `new_reports` finished" in stdout, "Caught output: {}".format(
+        stdout
+    )
 
 
-@then("I should see info about notified reports older than {max_age:d} {age_unit:w} displayed on standard output")  # noqa E501
+@then(
+    "I should see info about notified reports older "
+    "than {max_age:d} {age_unit:w} displayed on standard output"
+)  # noqa E501
 def check_print_old_reports_for_cleanup(context, max_age, age_unit):
     """Check if information about notified reports for cleanup is displayed by CCX Notification Service."""  # noqa E501
     # preliminary checks
@@ -224,12 +253,17 @@ def check_print_old_reports_for_cleanup(context, max_age, age_unit):
     assert stdout is not None, "stdout object should exist"
     assert type(stdout) is str, "wrong type of stdout object"
 
-    assert "PrintReportsForCleanup operation" in stdout, "Caught output: {}".format(stdout)
+    assert "PrintReportsForCleanup operation" in stdout, "Caught output: {}".format(
+        stdout
+    )
     assert "FROM reported" in stdout, "Caught output: {}".format(stdout)
     assert str(max_age) + " " + age_unit in stdout, "Caught output: {}".format(stdout)
 
 
-@then("I should see info about cleaned up notified reports older than {max_age:d} {age_unit:w} displayed on standard output")  # noqa E501
+@then(
+    "I should see info about cleaned up notified reports older "
+    "than {max_age:d} {age_unit:w} displayed on standard output"
+)  # noqa E501
 def check_old_reports_cleanup(context, max_age, age_unit):
     """Check if information about notified reports for cleanup is displayed by CCX Notification Service."""  # noqa E501
     # preliminary checks
@@ -240,7 +274,9 @@ def check_old_reports_cleanup(context, max_age, age_unit):
     assert stdout is not None, "stdout object should exist"
     assert type(stdout) is str, "wrong type of stdout object"
 
-    assert "Cleanup operation for all organizations" in stdout, "Caught output: {}".format(stdout)
+    assert (
+        "Cleanup operation for all organizations" in stdout
+    ), "Caught output: {}".format(stdout)
     assert "FROM reported" in stdout, "Caught output: {}".format(stdout)
     assert str(max_age) + " " + age_unit in stdout, "Caught output: {}".format(stdout)
     assert "Cleanup `reported` finished" in stdout, "Caught output: {}".format(stdout)
@@ -258,7 +294,9 @@ def check_old_reports_in_table(context, table):
     assert stdout is not None, "stdout object should exist"
     assert type(stdout) is str, "wrong type of stdout object"
 
-    assert f"Old report from `{table}` table" in stdout, "Caught output: {}".format(stdout)
+    assert f"Old report from `{table}` table" in stdout, "Caught output: {}".format(
+        stdout
+    )
     for row in context.table:
         assert row["org id"] in stdout, "Caught output: {}".format(stdout)
         assert row["account number"] in stdout, "Caught output: {}".format(stdout)
@@ -277,7 +315,9 @@ def check_no_old_reports_in_table(context, table):
     assert stdout is not None, "stdout object should exist"
     assert type(stdout) is str, "wrong type of stdout object"
 
-    assert f"Old report from `{table}` table" not in stdout, "Caught output: {}".format(stdout)
+    assert f"Old report from `{table}` table" not in stdout, "Caught output: {}".format(
+        stdout
+    )
     assert "ClusterName" not in stdout
 
 
@@ -285,9 +325,11 @@ def check_no_old_reports_in_table(context, table):
 def check_status_code(context, expected_code):
     """Check the status code of the last started process."""
     # check the return code of a process
-    assert context.returncode == expected_code, \
-        "Return code is {}, but {} is expected. Check the logs:\n{}".format(
-            context.returncode, expected_code, context.stdout.decode("utf-8"))
+    assert (
+        context.returncode == expected_code
+    ), "Return code is {}, but {} is expected. Check the logs:\n{}".format(
+        context.returncode, expected_code, context.stdout.decode("utf-8")
+    )
 
 
 @then("It should clean items in {table:w} table older than {max_age:Age}")
@@ -301,7 +343,9 @@ def check_cleaned_items_on_standard_output(context, table, max_age):
     assert stdout is not None, "stdout object should exist"
     assert type(stdout) is str, "wrong type of stdout object"
 
-    assert "Cleanup operation for all organizations" in stdout, "Caught output: {}".format(stdout)
+    assert (
+        "Cleanup operation for all organizations" in stdout
+    ), "Caught output: {}".format(stdout)
     assert f"Cleanup `{table}` finished" in stdout, "Caught output: {}".format(stdout)
     assert max_age in stdout, "Caught output: {}".format(stdout)
 
@@ -314,13 +358,22 @@ def get_events_kafka(num_event):
     address = "localhost:9092"
     topic = "platform.notifications.ingress"
 
-    params = ["kafkacat", "-b", address, "-C",
-              "-t", topic, "-c", str(num_event), "-o", str(-num_event), "-e"]
+    params = [
+        "kafkacat",
+        "-b",
+        address,
+        "-C",
+        "-t",
+        topic,
+        "-c",
+        str(num_event),
+        "-o",
+        str(-num_event),
+        "-e",
+    ]
 
     print("subprocess: ", params)
-    out = subprocess.Popen(params,
-                           stdout=subprocess.PIPE,
-                           stderr=subprocess.STDOUT)
+    out = subprocess.Popen(params, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
     # check if call was correct
     assert out is not None
@@ -330,19 +383,21 @@ def get_events_kafka(num_event):
     stdout, stderr = out.communicate()
 
     # try to decode output
-    output = stdout.decode('utf-8')
+    output = stdout.decode("utf-8")
 
     if "Unknown topic or partition" in output:
         return []
 
-    return [i for i in output.split('\n') if i and i[0] == "{"]
+    return [i for i in output.split("\n") if i and i[0] == "{"]
 
 
 @then("it should have sent {num_event:d} notification events to Kafka")
 def count_notification_events_kafka(context, num_event):
     """Get events from kafka topic and count them to check if matches"""
     events = get_events_kafka(num_event)
-    assert len(events) == num_event, f"Retrieved {len(events)} events when {num_event} was expected"
+    assert (
+        len(events) == num_event
+    ), f"Retrieved {len(events)} events when {num_event} was expected"
 
 
 @then("it should have sent the following {num_event:d} notification events to Kafka")
@@ -360,23 +415,31 @@ def retrieve_notification_events_kafka(context, num_event):
         assert encoded is not None
 
         # let's verify the data
-        assert "bundle" in encoded and encoded[
-            "bundle"] == "openshift", "Expected event to contain the `openshift` bundle"
-        assert "application" in encoded and encoded[
-            "application"] == "advisor", "Expected event to contain the `advisor` application"
-        assert "event_type" in encoded and encoded[
-            "event_type"] == "new-recommendation", \
-            "Expected event to contain the `new-recommendation` event type"
-        assert "account_id" in encoded, "Expected `account_id` to be included in the event"
+        assert (
+            "bundle" in encoded and encoded["bundle"] == "openshift"
+        ), "Expected event to contain the `openshift` bundle"
+        assert (
+            "application" in encoded and encoded["application"] == "advisor"
+        ), "Expected event to contain the `advisor` application"
+        assert (
+            "event_type" in encoded and encoded["event_type"] == "new-recommendation"
+        ), "Expected event to contain the `new-recommendation` event type"
+        assert (
+            "account_id" in encoded
+        ), "Expected `account_id` to be included in the event"
 
         account_id = context.table[index]["account number"]
         cluster_id = context.table[index]["cluster name"]
         total_risk = context.table[index]["total risk"]
-        assert account_id == encoded["account_id"], f"Expected account id to be {account_id}"
-        assert cluster_id in encoded["context"], \
-            f"Expected cluster name in event to be {cluster_id}."
-        assert f'"total_risk":"{total_risk}"' in encoded["events"][0][
-            'payload'], f'"total_risk":"{total_risk}" not in {encoded["events"][0]["payload"]}'
+        assert (
+            account_id == encoded["account_id"]
+        ), f"Expected account id to be {account_id}"
+        assert (
+            cluster_id in encoded["context"]
+        ), f"Expected cluster name in event to be {cluster_id}."
+        assert (
+            f'"total_risk":"{total_risk}"' in encoded["events"][0]["payload"]
+        ), f'"total_risk":"{total_risk}" not in {encoded["events"][0]["payload"]}'
 
 
 def get_events_service_log():
@@ -384,9 +447,12 @@ def get_events_service_log():
     address = "http://localhost:8000"
     x = requests.get(
         address + "/api/service_logs/v1/cluster_logs",
-        headers={'Authorization': 'TEST_TOKEN'})
-    assert x.status_code == 200, f'unexpected status code: got "{x.status_code}" want "200"'
-    return x.json()['items']
+        headers={"Authorization": "TEST_TOKEN"},
+    )
+    assert (
+        x.status_code == 200
+    ), f'unexpected status code: got "{x.status_code}" want "200"'
+    return x.json()["items"]
 
 
 @given("service-log service is empty")
@@ -396,16 +462,21 @@ def remove_service_log_logs(context):
     logs = get_events_service_log()
     for log in logs:
         x = requests.delete(
-            address + "/api/service_logs/v1/cluster_logs/" + log.id,
-            headers={'Authorization': 'TEST_TOKEN'})
-        assert x.status_code == 204, f'unexpected status code: got "{x.status_code}" want "204"'
+            address + "/api/service_logs/v1/cluster_logs/" + log["id"],
+            headers={"Authorization": "TEST_TOKEN"},
+        )
+        assert (
+            x.status_code == 204
+        ), f'unexpected status code: got "{x.status_code}" want "204"'
 
 
 @then("it should have sent {num_event:d} notification events to Service Log")
 def count_notification_events_service_log(context, num_event):
     """Get events from kafka topic and count them to check if matches"""
     events = get_events_service_log()
-    assert len(events) == num_event, f"Retrieved {len(events)} events when {num_event} was expected"
+    assert (
+        len(events) == num_event
+    ), f"Retrieved {len(events)} events when {num_event} was expected"
 
 
 @then("the logs should match")
@@ -418,7 +489,7 @@ def check_logs(context):
     | this one should't match  | no       |
     """
 
-    output = context.stdout.decode('utf-8')
+    output = context.stdout.decode("utf-8")
 
     for row in context.table:
         log, contains = row["log"], row["contains"]

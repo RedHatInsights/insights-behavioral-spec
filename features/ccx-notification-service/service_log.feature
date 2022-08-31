@@ -33,3 +33,15 @@ Feature: Service Log
           | CCX_NOTIFICATION_SERVICE__SERVICE_LOG__ENABLED  | true |
      Then it should have sent 1 notification events to Service Log
       And the process should exit with status code set to 0
+
+  Scenario: Check that notification service doesn't send message to service log if it is not important
+    Given Postgres is running
+      And service-log service is empty
+     When I insert 1 report with low total risk for the following clusters
+          | org id |  account number | cluster name                         |
+          | 1      |  1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa |
+      And I start the CCX Notification Service with the --instant-reports command line flag
+          | val                                             | var   |
+          | CCX_NOTIFICATION_SERVICE__SERVICE_LOG__ENABLED  | true |
+     Then it should have sent 0 notification events to Service Log
+      And the process should exit with status code set to 0
