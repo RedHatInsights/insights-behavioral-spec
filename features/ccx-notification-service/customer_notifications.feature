@@ -26,6 +26,8 @@ Feature: Customer Notifications
           | log                              | contains   |
           | Report with high impact detected | yes        |
           | No new issues to notify          | no         |
+     When I select all rows from table reported
+     Then I should get 0 rows
 
   Scenario: Check that notification service produces instant notifications with the expected content if all dependencies are available
     Given Postgres is running
@@ -40,7 +42,8 @@ Feature: Customer Notifications
           |  account number | cluster name                         | total risk |
           |  1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 3          |
       And the process should exit with status code set to 0
-
+     When I select all rows from table reported
+     Then I should get 1 rows
 
   Scenario: Check that notification service produces instant notifications multiple events same cluster
     Given Postgres is running
