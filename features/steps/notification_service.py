@@ -88,7 +88,14 @@ def store_cleanup_flag(context):
 
 @when("I start the CCX Notification Service with the {flag} command line flag")
 def start_ccx_notification_service_with_flag(context, flag):
-    """Start the CCX Notification Service with given command-line flag."""
+    """
+    Start the CCX Notification Service with given command-line flag.
+
+    You can pass environment variables in a table with columns "val" and "var":
+
+        | val                                             | var   |
+        | CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ENABLED | false |
+    """
     params = ["ccx-notification-service", flag]
     if hasattr(context, "max_age"):
         params.append("--max-age=" + context.max_age)
