@@ -188,7 +188,7 @@ def check_configuration_info_from_ccx_notification_service(context):
     assert type(stdout) is str, "wrong type of stdout object"
 
     expected_info = [
-        "Parsing configuration file",
+        "parsing configuration file",
         "Broker configuration",
         "Storage configuration",
         "Logging configuration",
