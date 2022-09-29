@@ -12,7 +12,7 @@ Feature: Customer Notifications
      Then the process should exit with status code set to 0
 
 
-  Scenario: Check that notification service does not send messages to kafka if the broker is disabled
+  Scenario: Check that notification service does not send messages to kafka if both broker is disabled and service log enabled
     Given Postgres is running
      When I insert 1 report with important total risk for the following clusters
           | org id |  account number | cluster name                         |
@@ -20,6 +20,7 @@ Feature: Customer Notifications
       And I start the CCX Notification Service with the --instant-reports command line flag
           | val                                             | var   |
           | CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ENABLED | false |
+          | CCX_NOTIFICATION_SERVICE__SERVICE_LOG__ENABLED  | true |
      Then it should have sent 0 notification events to Kafka
       And the process should exit with status code set to 0
       And the logs should match
