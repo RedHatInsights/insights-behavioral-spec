@@ -63,8 +63,8 @@ Feature: Ability to clean up records stored in database
       And CCX Notification database is created for user postgres with password postgres
       And CCX Notification database is empty
       And I insert following row into table reported
-          | org id |  account number | cluster name                         | notification type | state | updated at  | notified at  | total risk |
-          | 1      |  10             | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 1990-01-01  | 1990-01-01   | important  |
+          | org id |  account number | cluster name                         | notification type | state | updated at  | notified at  | total risk | event type id |
+          | 1      |  10             | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 1990-01-01  | 1990-01-01   | important  | 1             |
      When I select all rows from table reported
      Then I should get 1 row
      When I start the CCX Notification Service with the --old-reports-cleanup command line flag
@@ -78,9 +78,9 @@ Feature: Ability to clean up records stored in database
       And CCX Notification database is created for user postgres with password postgres
       And CCX Notification database is empty
       And I insert following rows into table reported
-          | org id |  account number | cluster name                         | notification type | state | updated at  | notified at  | total risk |
-          | 1      |  10             | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 1990-01-01  | 1990-01-01   | important  |
-          | 2      |  20             | aaaaaaaa-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 1990-01-01  | 1990-01-01   | important  |
+          | org id |  account number | cluster name                         | notification type | state | updated at  | notified at  | total risk | event type id |
+          | 1      |  10             | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 1990-01-01  | 1990-01-01   | important  | 1             |
+          | 2      |  20             | aaaaaaaa-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 1990-01-01  | 1990-01-01   | important  | 1             |
      When I select all rows from table reported
      Then I should get 2 rows
      When I start the CCX Notification Service with the --old-reports-cleanup command line flag
@@ -141,8 +141,8 @@ Feature: Ability to clean up records stored in database
       And CCX Notification database is created for user postgres with password postgres
       And CCX Notification database is empty
       And I insert following row into table reported
-          | org id |  account number | cluster name                         | notification type | state | updated at  | notified at  | total risk |
-          | 1      |  10             | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 2990-01-01  | 2990-01-01   | important  |
+          | org id |  account number | cluster name                         | notification type | state | updated at  | notified at  | total risk | event type id |
+          | 1      |  10             | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 2990-01-01  | 2990-01-01   | important  | 1             |
      When I select all rows from table reported
      Then I should get 1 row
      When I start the CCX Notification Service with the --old-reports-cleanup command line flag
@@ -156,9 +156,9 @@ Feature: Ability to clean up records stored in database
       And CCX Notification database is created for user postgres with password postgres
       And CCX Notification database is empty
       And I insert following rows into table reported
-          | org id |  account number | cluster name                         | notification type | state | updated at  | notified at  | total risk |
-          | 1      |  10             | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 2990-01-01  | 2990-01-01   | important  |
-          | 2      |  20             | aaaaaaaa-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 2990-01-01  | 2990-01-01   | important |
+          | org id |  account number | cluster name                         | notification type | state | updated at  | notified at  | total risk | event type id |
+          | 1      |  10             | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 2990-01-01  | 2990-01-01   | important  | 1             |
+          | 2      |  20             | aaaaaaaa-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 2990-01-01  | 2990-01-01   | important  | 1             |
      When I select all rows from table reported
      Then I should get 2 rows
      When I start the CCX Notification Service with the --old-reports-cleanup command line flag
@@ -172,9 +172,9 @@ Feature: Ability to clean up records stored in database
       And CCX Notification database is created for user postgres with password postgres
       And CCX Notification database is empty
       And I insert following rows into table reported
-          | org id |  account number | cluster name                         | notification type | state | updated at  | notified at  | total risk |
-          | 1      |  10             | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 1990-01-01  | 1990-01-01   | important  |
-          | 2      |  20             | aaaaaaaa-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 2990-01-01  | 2990-01-01   | important |
+          | org id |  account number | cluster name                         | notification type | state | updated at  | notified at  | total risk | event type id |
+          | 1      |  10             | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 1990-01-01  | 1990-01-01   | important  | 1             |
+          | 2      |  20             | aaaaaaaa-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 2990-01-01  | 2990-01-01   | important  | 1             |
      When I select all rows from table reported
      Then I should get 2 rows
      When I start the CCX Notification Service with the --old-reports-cleanup command line flag

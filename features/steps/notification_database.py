@@ -181,6 +181,7 @@ def insert_rows_into_reported_table(context):
             state = int(row["state"])
             updated_at = row["updated at"]
             notified_at = row["notified at"]
+            event_type_id = row["event type id"]
             try:
                 error_log = row["error log"]
             except KeyError:
@@ -194,12 +195,13 @@ def insert_rows_into_reported_table(context):
             assert updated_at is not None, "Timestamp updated_at should be set"
             assert notified_at is not None, "Timestamp notified_at should be set"
             assert error_log is not None, "Kafka offset should be set"
+            assert event_type_id is not None, "Event type ID should be set"
 
             # try to perform insert statement
             insertStatement = """INSERT INTO reported
                                  (org_id, account_number, cluster, notification_type, state,
-                                  report, updated_at, notified_at, error_log)
-                                 VALUES(%s, %s, %s, %s, %s, '', %s, %s, %s);"""
+                                  report, updated_at, notified_at, error_log, event_type_id)
+                                 VALUES(%s, %s, %s, %s, %s, '', %s, %s, %s, %s);"""
             cursor.execute(
                 insertStatement,
                 (
@@ -211,6 +213,7 @@ def insert_rows_into_reported_table(context):
                     updated_at,
                     notified_at,
                     error_log,
+                    event_type_id,
                 ),
             )
 
