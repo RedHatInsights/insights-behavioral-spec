@@ -115,21 +115,17 @@ Feature: Customer Notifications
       And Kafka broker is available on localhost:9092
       And prometheus push gateway is available on localhost:9091
       And CCX Notification database is empty
+      And I insert following row into table reported
+          | org id |  account number | cluster name                         | notification type | state | updated at  | notified at  | total risk | event type id |
+          | 1      |  1              | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 1990-01-01  | 1990-01-01   | important  | 1             |
      When I insert 1 report with important total risk for the following clusters
           | org id |  account number | cluster name                         |
           | 1      |  1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa |
       And I insert 1 report with important total risk for the following clusters
           | org id |  account number | cluster name                         |
           | 1      |  1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa |
-      And I insert 1 report with important total risk after cooldown has passed for the following clusters
-          | org id |  account number | cluster name                         |
-          | 1      |  1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa |
-      And I insert 1 report with important total risk after cooldown has passed for the following clusters
-          | org id |  account number | cluster name                         |
-          | 1      |  1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa |
       And I start the CCX Notification Service with the --instant-reports command line flag
-     Then it should have sent the following 2 notification events to Kafka
+     Then it should have sent the following 1 notification events to Kafka
           |  account number | cluster name                         | total risk |
-          |  1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 3          |
           |  1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 3          |
       And the process should exit with status code set to 0
