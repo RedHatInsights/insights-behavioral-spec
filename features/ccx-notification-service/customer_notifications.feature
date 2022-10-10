@@ -46,7 +46,7 @@ Feature: Customer Notifications
      When I select all rows from table reported
      Then I should get 1 rows
 
-  Scenario: Check that notification service produces instant notifications multiple events same cluster
+  Scenario: Check that notification service produces a single notification event for cluster with multiple new reports
     Given Postgres is running
       And Kafka broker is available on localhost:9092
       And prometheus push gateway is available on localhost:9091
@@ -58,9 +58,8 @@ Feature: Customer Notifications
           | org id |  account number | cluster name                         |
           | 1      |  1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa |
       And I start the CCX Notification Service with the --instant-reports command line flag
-     Then it should have sent the following 2 notification events to Kafka
+     Then it should have sent the following 1 notification events to Kafka
           |  account number | cluster name                         | total risk |
-          |  1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 3          |
           |  1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 4          |
       And the process should exit with status code set to 0
 
