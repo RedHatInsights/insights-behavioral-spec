@@ -30,7 +30,8 @@ Feature: Service Log
           | 1      |  1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa |
       And I start the CCX Notification Service with the --instant-reports command line flag
           | val                                             | var   |
-          | CCX_NOTIFICATION_SERVICE__SERVICE_LOG__ENABLED  | true |
+          | CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ENABLED | false |
+          | CCX_NOTIFICATION_SERVICE__SERVICE_LOG__ENABLED  | true  |
      Then it should have sent 1 notification events to Service Log
       And the process should exit with status code set to 0
 

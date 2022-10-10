@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from fastapi import FastAPI, Request, Form
+from fastapi import FastAPI, Form
 from starlette.responses import JSONResponse
 from pydantic import BaseModel
 
@@ -25,12 +25,39 @@ class ReturnError(BaseModel):
 
 
 @app.post("/auth/realms/redhat-external/protocol/openid-connect/token")
-def get_access_token(refresh_token: str = Form()):
-    if refresh_token != "TEST_TOKEN":
+def get_access_token(grant_type: str = Form(), client_id: str = Form(), scope: str = Form()):
+    if grant_type != "client_credentials":
+        return JSONResponse(
+            ReturnError(
+                error="expected client credentials",
+                error_description=f"This mock cannot handle other types of token refreshment"
+            ).dict(),
+            status_code=501,
+        )
+    if client_id != "CLIENT_ID":
         return JSONResponse(
             ReturnError(
                 error="invalid grant", error_description="Invalid refresh token"
             ).dict(),
             status_code=401,
         )
-    return {"access_token": "ACCESS_TOKEN"}
+    if scope != "openid":
+        return JSONResponse(
+            ReturnError(
+                error="expected openid scope",
+                error_description=f"This mock does not support other scopes"
+            ).dict(),
+            status_code=501,
+        )
+
+    # mock JWT token with this content is returned (no secret is leaked):
+    # {
+    #    "Issuer": "Mock Token Refreshment",
+    #    "Issued At": "2022-10-10T10:52:46.462Z",
+    #    "Username": "CCX Notification Service",
+    #    "Role": "Service"
+    # }
+    return {"access_token": "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiU2VydmljZSIsIklzc3VlciI6Ik1vY2sgVG9r"
+                            "ZW4gUmVmcmVzaG1lbnQiLCJVc2VybmFtZSI6IkNDWCBOb3RpZmljYXRpb24gU2VydmljZ"
+                            "SIsImlhdCI6MTY2NTM5OTY0OH0.LcHHN1KSA0W4FllEZT3X5t0i0AjOU6aFWc00vjV-8g"
+                            "w"}
