@@ -15,14 +15,15 @@ event_filter = "totalRisk >= totalRiskThreshold"
 
 [service_log]
 enabled = false
-offline_token = "TEST_TOKEN"
-token_refreshment_url = "http://localhost:8001/auth/realms/redhat-external/protocol/openid-connect/token"
-url = "localhost:8000/api/service_logs/v1/cluster_logs/"
+client_id = "CLIENT_ID"
+client_secret = "CLIENT_SECRET"
+token_url = "http://localhost:8001/auth/realms/redhat-external/protocol/openid-connect/token"
+url = "http://localhost:8000/api/service_logs/v1/cluster_logs/"
 likelihood_threshold = 0
 impact_threshold = 0
 severity_threshold = 0
 total_risk_threshold = 3
-event_filter = "totalRisk > totalRiskThreshold"
+event_filter = "totalRisk >= totalRiskThreshold"
 
 [storage]
 db_driver = "postgres"
@@ -35,9 +36,9 @@ pg_params = "sslmode=disable"
 log_sql_queries = true
 
 [dependencies]
-content_server = "localhost:8082"
+content_server = "http://localhost:8082"
 content_endpoint = "/api/v1/content"
-template_renderer_server = "localhost:8083"
+template_renderer_server = "http://localhost:8083"
 template_renderer_endpoint = "/rendered_reports"
 
 [notifications]
