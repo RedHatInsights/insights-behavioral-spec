@@ -167,13 +167,9 @@ def insert_rows_into_new_reports_table(context):
 
 @given(u"I insert following row into table reported")
 @given(u"I insert following rows into table reported")
-def insert_rows_into_reported_table(context, report='', notified_at=None):
+def insert_rows_into_reported_table(context, report='', default_notified_at=None):
     """Insert rows into table reported."""
     cursor = context.connection.cursor()
-
-    notified_at_set = False
-    if notified_at is not None:
-        notified_at_set = True
 
     try:
         # retrieve table data from feature file
@@ -184,8 +180,7 @@ def insert_rows_into_reported_table(context, report='', notified_at=None):
             notification_type = int(row["notification type"])
             state = int(row["state"])
             updated_at = row["updated at"]
-            if not notified_at_set:
-                notified_at = row["notified at"]
+            notified_at = default_notified_at or row["notified at"]
             event_type_id = row["event type id"]
             try:
                 error_log = row["error log"]
