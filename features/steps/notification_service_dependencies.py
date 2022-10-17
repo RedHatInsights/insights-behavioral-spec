@@ -23,9 +23,8 @@ from behave import given, then, when
 def check_content_service_availability(context, host, port):
     """Check if insights-content-service is available at given address."""
 
-    if not str(host).startswith("http:") and not str(host).startswith("https:"):
-        host = "http://" + host
-    x = requests.get(f"{host}:{port}/api/v1/openapi.json")
+    url = create_url(host, port, "/api/v1/openapi.json")
+    x = requests.get(url)
     assert x.status_code == 200
     context.content_service_available = True
 
@@ -34,27 +33,18 @@ def check_content_service_availability(context, host, port):
 def check_service_log_availability(context, host, port):
     """Check if service-log is available at given address."""
 
-    if not str(host).startswith("http:") and not str(host).startswith("https:"):
-        host = "http://" + host
-    x = requests.get(
-        f"{host}:{port}/api/service_logs/v1/cluster_logs",
-        headers={"Authorization": "TEST_TOKEN"},
-    )
+    url = create_url(host, port, "/api/service_logs/v1/cluster_logs")
+    x = requests.get(url, headers={"Authorization": "TEST_TOKEN"})
     assert x.status_code == 200, "service log is not up"
 
 
 @given("token refreshment server is available on {host:w}:{port:d}")
 def check_token_refreshment_availability(context, host, port):
     """Check if token refreshment server is available at given address"""
-    if not str(host).startswith("http:") and not str(host).startswith("https:"):
-        host = "http://" + host
 
+    url = create_url(host, port, "/auth/realms/redhat-external/protocol/openid-connect/token")
     body = {"grant_type": "client_credentials", "client_id": "CLIENT_ID", "scope": "openid"}
-    x = requests.post(
-        f"{host}:{port}/auth/realms/redhat-external/protocol/openid-connect/token",
-        data=body
-    )
-    print(x.status_code)
+    x = requests.post(url, data=body)
     assert x.status_code == 200, "token refreshment server is not up"
 
 
@@ -70,9 +60,8 @@ def content_service_is_available(context):
 def check_push_gateway_availability(context, host, port):
     """Check if prometheus push gateway is available at given address."""
 
-    if not str(host).startswith("http:") and not str(host).startswith("https:"):
-        host = "http://" + host
-    x = requests.get(f"{host}:{port}/metrics")
+    url = create_url(host, port, "/metrics")
+    x = requests.get(url)
     assert x.status_code == 200
     context.push_gateway_available = True
 
@@ -82,3 +71,9 @@ def prom_push_gateway_is_available(context):
     if not hasattr(context, "push_gateway_available"):
         raise Exception("Push gateway is not available")
     assert context.push_gateway_available
+
+
+def create_url(host, port, endpoint):
+    if not str(host).startswith("http:") and not str(host).startswith("https:"):
+        host = "http://" + host
+    return f"{host}:{port}{endpoint}"
