@@ -23,7 +23,7 @@ from behave import given, then, when
 def check_content_service_availability(context, host, port):
     """Check if insights-content-service is available at given address."""
 
-    if not str(host).startswith("http"):
+    if not str(host).startswith("http:") and not str(host).startswith("https:"):
         host = "http://" + host
     x = requests.get(f"{host}:{port}/api/v1/openapi.json")
     assert x.status_code == 200
@@ -34,7 +34,7 @@ def check_content_service_availability(context, host, port):
 def check_service_log_availability(context, host, port):
     """Check if service-log is available at given address."""
 
-    if not str(host).startswith("http"):
+    if not str(host).startswith("http:") and not str(host).startswith("https:"):
         host = "http://" + host
     x = requests.get(
         f"{host}:{port}/api/service_logs/v1/cluster_logs",
@@ -46,7 +46,7 @@ def check_service_log_availability(context, host, port):
 @given("token refreshment server is available on {host:w}:{port:d}")
 def check_token_refreshment_availability(context, host, port):
     """Check if token refreshment server is available at given address"""
-    if not str(host).startswith("http"):
+    if not str(host).startswith("http:") and not str(host).startswith("https:"):
         host = "http://" + host
 
     body = {"grant_type": "client_credentials", "client_id": "CLIENT_ID", "scope": "openid"}
@@ -70,7 +70,7 @@ def content_service_is_available(context):
 def check_push_gateway_availability(context, host, port):
     """Check if prometheus push gateway is available at given address."""
 
-    if not str(host).startswith("http"):
+    if not str(host).startswith("http:") and not str(host).startswith("https:"):
         host = "http://" + host
     x = requests.get(f"{host}:{port}/metrics")
     assert x.status_code == 200
