@@ -280,5 +280,5 @@ def generate_report_with_risk(risk):
         "moderate": "TEST_RULE_MODERATE_IMPACT",
         "low": "TEST_RULE_LOW_IMPACT"
     }
-    report.replace("<replace_me>", risk_rule_key_map[risk])
+    report = report.replace("<replace_me>", risk_rule_key_map[risk])
     return report
