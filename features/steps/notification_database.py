@@ -167,9 +167,13 @@ def insert_rows_into_new_reports_table(context):
 
 @given(u"I insert following row into table reported")
 @given(u"I insert following rows into table reported")
-def insert_rows_into_reported_table(context):
+def insert_rows_into_reported_table(context, report='', notified_at=None):
     """Insert rows into table reported."""
     cursor = context.connection.cursor()
+
+    notified_at_set = False
+    if notified_at is not None:
+        notified_at_set = True
 
     try:
         # retrieve table data from feature file
@@ -180,7 +184,8 @@ def insert_rows_into_reported_table(context):
             notification_type = int(row["notification type"])
             state = int(row["state"])
             updated_at = row["updated at"]
-            notified_at = row["notified at"]
+            if not notified_at_set:
+                notified_at = row["notified at"]
             event_type_id = row["event type id"]
             try:
                 error_log = row["error log"]
@@ -201,7 +206,7 @@ def insert_rows_into_reported_table(context):
             insertStatement = """INSERT INTO reported
                                  (org_id, account_number, cluster, notification_type, state,
                                   report, updated_at, notified_at, error_log, event_type_id)
-                                 VALUES(%s, %s, %s, %s, %s, '', %s, %s, %s, %s);"""
+                                 VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
             cursor.execute(
                 insertStatement,
                 (
@@ -210,6 +215,7 @@ def insert_rows_into_reported_table(context):
                     cluster_name,
                     notification_type,
                     state,
+                    report,
                     updated_at,
                     notified_at,
                     error_log,
@@ -226,17 +232,7 @@ def insert_rows_into_reported_table(context):
 @when("I insert 1 report with {risk:w} total risk for the following clusters")
 def insert_report_with_risk_in_new_reports_table(context, risk, updated_at=None):
     """Insert rows into table new_reports."""
-    report = '{"analysis_metadata":{"metadata":"some metadata"},"reports":[{"rule_id":"test_rule|<replace_me>","component":"ccx_rules_ocp.external.rules.test_rule.report","type":"rule","key":"<replace_me>","details":"some details"}]}'  # noqa E501
-    if risk == "critical":
-        report = report.replace("<replace_me>", "TEST_RULE_CRITICAL_IMPACT")
-    elif risk == "important":
-        report = report.replace("<replace_me>", "TEST_RULE_IMPORTANT_IMPACT")
-    elif risk == "moderate":
-        report = report.replace("<replace_me>", "TEST_RULE_MODERATE_IMPACT")
-    elif risk == "low":
-        report = report.replace("<replace_me>", "TEST_RULE_LOW_IMPACT")
-    else:
-        raise ValueError(f"Invalid category of total risk {risk}. Expected one of ['low', 'moderate', 'important', 'critical']")  # noqa E501
+    report = generate_report_with_risk(risk)
 
     if not updated_at:
         updated_at = datetime.now()
@@ -264,3 +260,34 @@ def insert_report_with_risk_and_cooldown_in_new_reports_table(context, risk):
     """Insert rows into table new_reports after the cooldown has passed."""
     timestamp_after_cooldown = datetime.now() + timedelta(minutes=1)
     insert_report_with_risk_in_new_reports_table(context, risk, updated_at=timestamp_after_cooldown)
+
+
+@given("I insert 1 previously reported report with {risk:w} total risk")
+def insert_report_into_reported_table(context, risk, timestamp=None):
+    """Inserts rows into reported table."""
+    report = generate_report_with_risk(risk)
+    insert_rows_into_reported_table(context, report, timestamp)
+
+
+@given("I insert 1 previously reported report with {risk:w} total risk notified within cooldown")
+def insert_report_within_cooldown_in_reported_table(context, risk):
+    """Inserts rows into reported table within cooldown."""
+    timestamp_within_cooldown = datetime.now() - timedelta(seconds=30)
+    insert_report_into_reported_table(context, risk, timestamp_within_cooldown)
+
+
+def generate_report_with_risk(risk):
+    """Creates a report with specified risk."""
+    report = '{"analysis_metadata":{"metadata":"some metadata"},"reports":[{"rule_id":"test_rule|<replace_me>","component":"ccx_rules_ocp.external.rules.test_rule.report","type":"rule","key":"<replace_me>","details":"some details"}]}'  # noqa E501
+    if risk == "critical":
+        report = report.replace("<replace_me>", "TEST_RULE_CRITICAL_IMPACT")
+    elif risk == "important":
+        report = report.replace("<replace_me>", "TEST_RULE_IMPORTANT_IMPACT")
+    elif risk == "moderate":
+        report = report.replace("<replace_me>", "TEST_RULE_MODERATE_IMPACT")
+    elif risk == "low":
+        report = report.replace("<replace_me>", "TEST_RULE_LOW_IMPACT")
+    else:
+        raise ValueError(
+            f"Invalid category of total risk {risk}. Expected one of ['low', 'moderate', 'important', 'critical']")  # noqa E501
+    return report
