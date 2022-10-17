@@ -274,15 +274,11 @@ def insert_report_within_cooldown_in_reported_table(context, risk):
 def generate_report_with_risk(risk):
     """Creates a report with specified risk."""
     report = '{"analysis_metadata":{"metadata":"some metadata"},"reports":[{"rule_id":"test_rule|<replace_me>","component":"ccx_rules_ocp.external.rules.test_rule.report","type":"rule","key":"<replace_me>","details":"some details"}]}'  # noqa E501
-    if risk == "critical":
-        report = report.replace("<replace_me>", "TEST_RULE_CRITICAL_IMPACT")
-    elif risk == "important":
-        report = report.replace("<replace_me>", "TEST_RULE_IMPORTANT_IMPACT")
-    elif risk == "moderate":
-        report = report.replace("<replace_me>", "TEST_RULE_MODERATE_IMPACT")
-    elif risk == "low":
-        report = report.replace("<replace_me>", "TEST_RULE_LOW_IMPACT")
-    else:
-        raise ValueError(
-            f"Invalid category of total risk {risk}. Expected one of ['low', 'moderate', 'important', 'critical']")  # noqa E501
+    risk_rule_key_map = {
+        "critical": "TEST_RULE_CRITICAL_IMPACT",
+        "important": "TEST_RULE_IMPORTANT_IMPACT",
+        "moderate": "TEST_RULE_MODERATE_IMPACT",
+        "low": "TEST_RULE_LOW_IMPACT"
+    }
+    report.replace("<replace_me>", risk_rule_key_map[risk])
     return report
