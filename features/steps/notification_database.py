@@ -27,6 +27,7 @@ from behave import given, when, then, step
 def database_is_created(context, user, password):
     """Perform connection to CCX Notification database to check its ability."""
     from steps.common_db import connect_to_database
+
     connect_to_database(context, "notification", user, password)
 
 
@@ -43,12 +44,14 @@ def database_contains_all_tables(context):
 def ensure_database_is_set_up(context):
     """Check that the tables exist in the DB."""
     # at least following tables should exist
-    tables = ("migration_info",
-              "new_reports",
-              "notification_types",
-              "reported",
-              "states",
-              "event_targets")
+    tables = (
+        "migration_info",
+        "new_reports",
+        "notification_types",
+        "reported",
+        "states",
+        "event_targets",
+    )
 
     cursor = context.connection.cursor()
     for table in tables:
@@ -167,7 +170,7 @@ def insert_rows_into_new_reports_table(context):
 
 @given(u"I insert following row into table reported")
 @given(u"I insert following rows into table reported")
-def insert_rows_into_reported_table(context, report='', default_notified_at=None):
+def insert_rows_into_reported_table(context, report="", default_notified_at=None):
     """Insert rows into table reported."""
     cursor = context.connection.cursor()
 
@@ -242,8 +245,10 @@ def insert_report_with_risk_in_new_reports_table(context, risk, updated_at=None)
             insertStatement = """INSERT INTO new_reports
                                     (org_id, account_number, cluster, report, updated_at, kafka_offset)
                                     VALUES(%s, %s, %s, %s, %s, %s);"""  # noqa E501
-            cursor.execute(insertStatement, (
-                org_id, account_number, cluster_name, report, updated_at, 0))
+            cursor.execute(
+                insertStatement,
+                (org_id, account_number, cluster_name, report, updated_at, 0),
+            )
         context.connection.commit()
     except Exception as e:
         context.connection.rollback()
@@ -254,7 +259,9 @@ def insert_report_with_risk_in_new_reports_table(context, risk, updated_at=None)
 def insert_report_with_risk_and_cooldown_in_new_reports_table(context, risk):
     """Insert rows into table new_reports after the cooldown has passed."""
     timestamp_after_cooldown = datetime.now() + timedelta(minutes=1)
-    insert_report_with_risk_in_new_reports_table(context, risk, updated_at=timestamp_after_cooldown)
+    insert_report_with_risk_in_new_reports_table(
+        context, risk, updated_at=timestamp_after_cooldown
+    )
 
 
 @given("I insert 1 previously reported report with {risk:w} total risk")
@@ -278,7 +285,7 @@ def generate_report_with_risk(risk):
         "critical": "TEST_RULE_CRITICAL_IMPACT",
         "important": "TEST_RULE_IMPORTANT_IMPACT",
         "moderate": "TEST_RULE_MODERATE_IMPACT",
-        "low": "TEST_RULE_LOW_IMPACT"
+        "low": "TEST_RULE_LOW_IMPACT",
     }
     report = report.replace("<replace_me>", risk_rule_key_map[risk])
     return report
