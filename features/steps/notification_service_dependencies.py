@@ -43,8 +43,14 @@ def check_service_log_availability(context, host, port):
 def check_token_refreshment_availability(context, host, port):
     """Check if token refreshment server is available at given address"""
 
-    url = create_url(host, port, "/auth/realms/redhat-external/protocol/openid-connect/token")
-    body = {"grant_type": "client_credentials", "client_id": "CLIENT_ID", "scope": "openid"}
+    url = create_url(
+        host, port, "/auth/realms/redhat-external/protocol/openid-connect/token"
+    )
+    body = {
+        "grant_type": "client_credentials",
+        "client_id": "CLIENT_ID",
+        "scope": "openid",
+    }
     x = requests.post(url, data=body)
     assert x.status_code == 200, "token refreshment server is not up"
 
