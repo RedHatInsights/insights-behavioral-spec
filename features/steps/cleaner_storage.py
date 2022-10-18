@@ -149,32 +149,32 @@ CREATE TABLE rule_disable (
 
 # all commands to create tables
 CREATE_TABLE_COMMANDS = (
-        CREATE_TABLE_ADVISOR_RATINGS,
-        CREATE_TABLE_REPORT,
-        CREATE_TABLE_CLUSTER_RULE_TOGGLE,
-        CREATE_TABLE_CLUSTER_RULE_USER_FEEDBACK,
-        CREATE_TABLE_CLUSTER_USER_RULE_DISABLE_FEEDBACK,
-        CREATE_TABLE_RULE_HIT,
-        CREATE_TABLE_CONSUMER_ERROR,
-        CREATE_TABLE_MIGRATION_INFO,
-        CREATE_TABLE_RECOMMENDATION,
-        CREATE_TABLE_REPORT_INFO,
-        CREATE_TABLE_RULE_DISABLE,
-        )
+    CREATE_TABLE_ADVISOR_RATINGS,
+    CREATE_TABLE_REPORT,
+    CREATE_TABLE_CLUSTER_RULE_TOGGLE,
+    CREATE_TABLE_CLUSTER_RULE_USER_FEEDBACK,
+    CREATE_TABLE_CLUSTER_USER_RULE_DISABLE_FEEDBACK,
+    CREATE_TABLE_RULE_HIT,
+    CREATE_TABLE_CONSUMER_ERROR,
+    CREATE_TABLE_MIGRATION_INFO,
+    CREATE_TABLE_RECOMMENDATION,
+    CREATE_TABLE_REPORT_INFO,
+    CREATE_TABLE_RULE_DISABLE,
+)
 
 # following tables should be processed
 DB_TABLES = (
-        "advisor_ratings",
-        "report",
-        "cluster_rule_toggle",
-        "cluster_rule_user_feedback",
-        "cluster_user_rule_disable_feedback",
-        "rule_hit",
-        "consumer_error",
-        "migration_info",
-        "recommendation",
-        "report_info",
-        "rule_disable",
+    "advisor_ratings",
+    "report",
+    "cluster_rule_toggle",
+    "cluster_rule_user_feedback",
+    "cluster_user_rule_disable_feedback",
+    "rule_hit",
+    "consumer_error",
+    "migration_info",
+    "recommendation",
+    "report_info",
+    "rule_disable",
 )
 
 

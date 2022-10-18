@@ -22,8 +22,8 @@ import json
 from behave import given, then, when
 
 
-@when(u"I retrieve metadata from Kafka broker running on {hostname}:{port}")
-@given(u"Kafka broker is available on {hostname}:{port}")
+@when("I retrieve metadata from Kafka broker running on {hostname}:{port}")
+@given("Kafka broker is available on {hostname}:{port}")
 def retrieve_broker_metadata(context, hostname, port):
     """Use the Kafkacat tool to retrieve metadata from Kafka broker."""
     # -J enables Kafkacat to produce output in JSON format
@@ -57,7 +57,7 @@ def retrieve_broker_metadata(context, hostname, port):
     context.broker_metadata = encoded
 
 
-@then(u"I should find at least one available broker")
+@then("I should find at least one available broker")
 def find_available_brokers(context):
     """Find available brokers returned from Kafka metadata."""
     assert "brokers" in context.broker_metadata, "'brokers' attribute expected"
@@ -83,7 +83,7 @@ def make_kafka_empty(context, topic):
             "localhost:9092",
             "--delete",
             "--topic",
-            topic
+            topic,
         ],
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
