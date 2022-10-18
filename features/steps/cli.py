@@ -29,34 +29,44 @@ def check_help_message(context, service):
     """Check if help is displayed by the service."""
     if service == "ccx-notification-service":
         from steps.notification_service import check_help_from_ccx_notification_service
+
         check_help_from_ccx_notification_service(context)
     elif service == "ccx-notification-writer":
         from steps.notification_writer import check_help_from_ccx_notification_writer
+
         check_help_from_ccx_notification_writer(context)
     elif service == "cleaner":
         from steps.cleaner_main import check_help_from_cleaner
+
         check_help_from_cleaner(context)
     elif service == "exporter":
         from steps.exporter_main import check_help_from_exporter
+
         check_help_from_exporter(context)
     else:
         raise ValueError(f"Unknown service '{service}'.")
 
 
-@then(u"I should see version info displayed by {service} on standard output")
+@then("I should see version info displayed by {service} on standard output")
 def check_version_info(context, service):
     """Check if version info is displayed by the service."""
     if service == "ccx-notification-service":
-        from steps.notification_service import check_version_from_ccx_notification_service
+        from steps.notification_service import (
+            check_version_from_ccx_notification_service,
+        )
+
         check_version_from_ccx_notification_service(context)
     elif service == "ccx-notification-writer":
         from steps.notification_writer import check_version_from_ccx_notification_writer
+
         check_version_from_ccx_notification_service(context)
     elif service == "cleaner":
         from steps.cleaner_main import check_version_from_cleaner
+
         check_version_from_cleaner(context)
     elif service == "exporter":
         from steps.exporter_main import check_version_from_exporter
+
         check_version_from_exporter(context)
     else:
         raise ValueError(f"Unknown service '{service}'.")
@@ -66,16 +76,24 @@ def check_version_info(context, service):
 def check_authors_info(context, service):
     """Check if information about authors is displayed by the service."""
     if service == "ccx-notification-service":
-        from steps.notification_service import check_authors_info_from_ccx_notification_service
+        from steps.notification_service import (
+            check_authors_info_from_ccx_notification_service,
+        )
+
         check_authors_info_from_ccx_notification_service(context)
     elif service == "ccx-notification-writer":
-        from steps.notification_writer import check_authors_info_from_ccx_notification_writer
+        from steps.notification_writer import (
+            check_authors_info_from_ccx_notification_writer,
+        )
+
         check_authors_info_from_ccx_notification_writer(context)
     elif service == "cleaner":
         from steps.cleaner_main import check_authors_info_from_cleaner
+
         check_authors_info_from_cleaner(context)
     elif service == "exporter":
         from steps.exporter_main import check_authors_info_from_exporter
+
         check_authors_info_from_exporter(context)
     else:
         raise ValueError(f"Unknown service '{service}'.")
