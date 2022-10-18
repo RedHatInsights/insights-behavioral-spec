@@ -16,6 +16,7 @@
 import requests
 
 from behave import given, then, when
+from urllib import parse
 
 
 @when("I retrieve data from insights-content-service on {host:w}:{port:d}")
@@ -74,6 +75,7 @@ def prom_push_gateway_is_available(context):
 
 
 def create_url(host, port, endpoint):
-    if not str(host).startswith("http:") and not str(host).startswith("https:"):
-        host = "http://" + host
-    return f"{host}:{port}{endpoint}"
+    netloc = f"{host}:{port}"
+    if netloc.startswith("http://") or netloc.startswith("https://"):
+        return parse.urlunparse((None, netloc, endpoint, None, None, None))
+    return parse.urlunparse(("http", netloc, endpoint, None, None, None))
