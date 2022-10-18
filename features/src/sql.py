@@ -30,13 +30,13 @@ def construct_insert_statement(table_name, headings):
 
     column_names = ", ".join(headings)
 
-    placeholder_marks = ("%s",)*len(headings)
+    placeholder_marks = ("%s",) * len(headings)
     placeholders = ", ".join(placeholder_marks)
 
     # apply template
-    return template.format(table_name=table_name,
-                           column_names=column_names,
-                           placeholders=placeholders)
+    return template.format(
+        table_name=table_name, column_names=column_names, placeholders=placeholders
+    )
 
 
 if __name__ == "__main__":

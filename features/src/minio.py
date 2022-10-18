@@ -25,7 +25,7 @@ def minio_client(context):
         "{}:{}".format(context.minio_endpoint, context.minio_port),
         context.minio_access_key,
         context.minio_secret_access_key,
-        secure=False
+        secure=False,
     )
 
     assert client is not None, "Minio client constructor issue"
