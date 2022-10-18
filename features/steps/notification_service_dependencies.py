@@ -18,13 +18,18 @@ import requests
 from behave import given, then, when
 from urllib import parse
 
+CONTENT_SERVICE_OPENAPI_ENDPOINT = "/api/v1/openapi.json"
+SERVICE_LOG_CLUSTER_LOGS_ENDPOINT = "/api/service_logs/v1/cluster_logs"
+PUSH_GATEWAY_METRICS_ENDPOINT = "/metrics"
+TOKEN_REFRESHMENT_ENDPOINT = "/auth/realms/redhat-external/protocol/openid-connect/token"
+
 
 @when("I retrieve data from insights-content-service on {host:w}:{port:d}")
 @given("insights-content service is available on {host:w}:{port:d}")
 def check_content_service_availability(context, host, port):
     """Check if insights-content-service is available at given address."""
 
-    url = create_url(host, port, "/api/v1/openapi.json")
+    url = create_url(host, port, CONTENT_SERVICE_OPENAPI_ENDPOINT)
     x = requests.get(url)
     assert x.status_code == 200
     context.content_service_available = True
@@ -34,7 +39,7 @@ def check_content_service_availability(context, host, port):
 def check_service_log_availability(context, host, port):
     """Check if service-log is available at given address."""
 
-    url = create_url(host, port, "/api/service_logs/v1/cluster_logs")
+    url = create_url(host, port, SERVICE_LOG_CLUSTER_LOGS_ENDPOINT)
     x = requests.get(url, headers={"Authorization": "TEST_TOKEN"})
     assert x.status_code == 200, "service log is not up"
 
@@ -43,9 +48,7 @@ def check_service_log_availability(context, host, port):
 def check_token_refreshment_availability(context, host, port):
     """Check if token refreshment server is available at given address"""
 
-    url = create_url(
-        host, port, "/auth/realms/redhat-external/protocol/openid-connect/token"
-    )
+    url = create_url(host, port, TOKEN_REFRESHMENT_ENDPOINT)
     body = {
         "grant_type": "client_credentials",
         "client_id": "CLIENT_ID",
@@ -67,7 +70,7 @@ def content_service_is_available(context):
 def check_push_gateway_availability(context, host, port):
     """Check if prometheus push gateway is available at given address."""
 
-    url = create_url(host, port, "/metrics")
+    url = create_url(host, port, PUSH_GATEWAY_METRICS_ENDPOINT)
     x = requests.get(url)
     assert x.status_code == 200
     context.push_gateway_available = True
