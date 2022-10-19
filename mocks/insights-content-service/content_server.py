@@ -78,5 +78,5 @@ def read_test_content():
 
 @app.get("/api/v1/content")
 def read_test_content():
-    with open('test_content_gob', 'rb') as test_content_gob:
+    with open("test_content_gob", "rb") as test_content_gob:
         return Response(test_content_gob.read())
