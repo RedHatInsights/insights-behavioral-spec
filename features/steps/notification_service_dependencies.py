@@ -12,11 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Steps checking availability of notification service dependencies"""
+
+from urllib import parse
 
 import requests
 
 from behave import given, then, when
-from urllib import parse
 
 CONTENT_SERVICE_OPENAPI_ENDPOINT = "/api/v1/openapi.json"
 SERVICE_LOG_CLUSTER_LOGS_ENDPOINT = "/api/service_logs/v1/cluster_logs"
@@ -26,60 +28,69 @@ TOKEN_REFRESHMENT_ENDPOINT = "/auth/realms/redhat-external/protocol/openid-conne
 
 @when("I retrieve data from insights-content-service on {host:w}:{port:d}")
 @given("insights-content service is available on {host:w}:{port:d}")
-def check_content_service_availability(context, host, port):
+@then("I should get data from insights-content-service")
+def check_content_service_availability(context, host = None, port = None):
     """Check if insights-content-service is available at given address."""
+    assert (host is not None and port is not None) or \
+           (hasattr(context, "content_host") and hasattr(context, "content_port")), \
+           "host and port of content service has not been set"
+
+    if host is None and port is None:
+        host = context.content_host
+        port = context.content_port
+    else:
+        context.content_host = host
+        context.content_port = port
+
     url = create_url(host, port, CONTENT_SERVICE_OPENAPI_ENDPOINT)
-    x = requests.get(url)
-    assert x.status_code == 200
-    context.content_service_available = True
+    response = requests.get(url)
+    assert response.status_code == 200
 
 
 @given("service-log service is available on {host:w}:{port:d}")
 def check_service_log_availability(context, host, port):
     """Check if service-log is available at given address."""
     url = create_url(host, port, SERVICE_LOG_CLUSTER_LOGS_ENDPOINT)
-    x = requests.get(url, headers={"Authorization": "TEST_TOKEN"})
-    assert x.status_code == 200, "service log is not up"
+    response = requests.get(url, headers={"Authorization": "TEST_TOKEN"})
+    assert response.status_code == 200, "service log is not up"
 
 
 @given("token refreshment server is available on {host:w}:{port:d}")
 def check_token_refreshment_availability(context, host, port):
-    """Check if token refreshment server is available at given address"""
+    """Check if token refreshment server is available at given address."""
     url = create_url(host, port, TOKEN_REFRESHMENT_ENDPOINT)
     body = {
         "grant_type": "client_credentials",
         "client_id": "CLIENT_ID",
         "scope": "openid",
     }
-    x = requests.post(url, data=body)
-    assert x.status_code == 200, "token refreshment server is not up"
-
-
-@then("I should get data from insights-content-service")
-def content_service_is_available(context):
-    if not hasattr(context, "content_service_available"):
-        raise Exception("Content service is not available")
-    assert context.content_service_available
+    response = requests.post(url, data=body)
+    assert response.status_code == 200, "token refreshment server is not up"
 
 
 @when("I retrieve metrics from the gateway on {host:w}:{port:d}")
 @given("prometheus push gateway is available on {host:w}:{port:d}")
-def check_push_gateway_availability(context, host, port):
-    """Check if prometheus push gateway is available at given address."""
-    url = create_url(host, port, PUSH_GATEWAY_METRICS_ENDPOINT)
-    x = requests.get(url)
-    assert x.status_code == 200
-    context.push_gateway_available = True
-
-
 @then("I should get data from the gateway")
-def prom_push_gateway_is_available(context):
-    if not hasattr(context, "push_gateway_available"):
-        raise Exception("Push gateway is not available")
-    assert context.push_gateway_available
+def check_push_gateway_availability(context, host = None, port = None):
+    """Check if prometheus push gateway is available at given address."""
+    assert (host is not None and port is not None) or \
+           (hasattr(context, "gateway_host") and hasattr(context, "gateway_port")), \
+           "host and port of gateway has not been set"
+
+    if host is None and port is None:
+        host = context.gateway_host
+        port = context.gateway_port
+    else:
+        context.gateway_host = host
+        context.gateway_port = port
+
+    url = create_url(host, port, PUSH_GATEWAY_METRICS_ENDPOINT)
+    response = requests.get(url)
+    assert response.status_code == 200
 
 
 def create_url(host, port, endpoint):
+    """Create URL based on given host, port and endpoint."""
     netloc = f"{host}:{port}"
     if netloc.startswith("http://") or netloc.startswith("https://"):
         return parse.urlunparse((None, netloc, endpoint, None, None, None))
