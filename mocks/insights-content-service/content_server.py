@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Mock server that can be used instead of fully functional Content Service."""
+
 import json
 from fastapi import FastAPI, Response
 
