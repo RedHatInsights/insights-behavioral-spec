@@ -12,8 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Common steps for DB related operations."""
+"""Common steps for DB related operations."""
 
 from behave import then, when, given
 
