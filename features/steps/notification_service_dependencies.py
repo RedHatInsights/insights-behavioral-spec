@@ -29,7 +29,7 @@ TOKEN_REFRESHMENT_ENDPOINT = "/auth/realms/redhat-external/protocol/openid-conne
 @when("I retrieve data from insights-content-service on {host:w}:{port:d}")
 @given("insights-content service is available on {host:w}:{port:d}")
 @then("I should get data from insights-content-service")
-def check_content_service_availability(context, host = None, port = None):
+def check_content_service_availability(context, host=None, port=None):
     """Check if insights-content-service is available at given address."""
     assert (host is not None and port is not None) or \
            (hasattr(context, "content_host") and hasattr(context, "content_port")), \
@@ -71,7 +71,7 @@ def check_token_refreshment_availability(context, host, port):
 @when("I retrieve metrics from the gateway on {host:w}:{port:d}")
 @given("prometheus push gateway is available on {host:w}:{port:d}")
 @then("I should get data from the gateway")
-def check_push_gateway_availability(context, host = None, port = None):
+def check_push_gateway_availability(context, host=None, port=None):
     """Check if prometheus push gateway is available at given address."""
     assert (host is not None and port is not None) or \
            (hasattr(context, "gateway_host") and hasattr(context, "gateway_port")), \
