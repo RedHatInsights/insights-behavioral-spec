@@ -77,7 +77,10 @@ You can also query using:
 - DELETE: delete the logs stored given an ID
 """
 
+import random
+import string
 
+from datetime import datetime
 from typing import Union
 
 from fastapi import FastAPI, Request, Response, status
@@ -85,30 +88,30 @@ from fastapi.exceptions import RequestValidationError
 from starlette.responses import JSONResponse
 from pydantic import BaseModel
 
-from datetime import datetime
-import random
-import string
 
 KSUID_LENGTH = 40
 ID_LENGTH = 27
 CCX = "ccx@redhat.com"
 
-letters = "abcdef"
-numbers = "0123456789"
+LETTERS = "abcdef"
+NUMBERS = "0123456789"
 
 
-def random_ksuid(N: int) -> str:
-    return "".join(random.choice(letters + numbers) for _ in range(N))
+def random_ksuid(length: int) -> str:
+    """Generates random KSUID with given length."""
+    return "".join(random.choice(LETTERS + NUMBERS) for _ in range(length))
 
 
-def random_id(N: int) -> str:
-    return "".join(random.choice(string.ascii_letters + numbers) for _ in range(N))
+def random_id(length: int) -> str:
+    """Generates random ID with given length."""
+    return "".join(random.choice(string.ascii_letters + NUMBERS) for _ in range(length))
 
 
 app = FastAPI()
 
 
 class Log(BaseModel):
+    """Model for log structure received by Service Log"""
     cluster_uuid: str
     cluster_id: Union[str, None] = None
     subscription_id: Union[str, None] = None
@@ -123,6 +126,7 @@ class Log(BaseModel):
 
 
 class ReturnLog(Log):
+    """Log structure enriched by some fields added by Service Log"""
     id: str
     kind: str
     href: str
@@ -132,6 +136,7 @@ class ReturnLog(Log):
 
 
 class ReturnError(BaseModel):
+    """Structure returned by service when error occurs"""
     id: str
     kind: str
     href: str
@@ -155,7 +160,8 @@ log_storage = []
 
 
 @app.exception_handler(RequestValidationError)
-async def validation_handler(request: Request, exc: Exception):
+async def validation_handler():
+    """Check that no mandatory field is missing in the request."""
     return JSONResponse(
         ReturnError(
             id=random.randint(0, 10),
@@ -171,6 +177,7 @@ async def validation_handler(request: Request, exc: Exception):
 
 @app.post("/api/service_logs/v1/cluster_logs")
 def publish_log(log: Log, request: Request):
+    """Store received log in mock storage (list)."""
     if request.headers.get("Authorization", None) is None:
         return noAuthResponse
     log = fill_default_fields(log)
@@ -181,6 +188,7 @@ def publish_log(log: Log, request: Request):
 
 @app.get("/api/service_logs/v1/cluster_logs")
 def get_logs(request: Request):
+    """Retrieve stored logs and return them in JSON format."""
     if request.headers.get("Authorization", None) is None:
         return noAuthResponse
     return JSONResponse(
@@ -198,6 +206,7 @@ def get_logs(request: Request):
 # This one has not been properly tested against the real ocm
 @app.delete("/api/service_logs/v1/cluster_logs/{id}")
 def delete_logs(id: str, request: Request):
+    """Delete log based on given id."""
     if request.headers.get("Authorization", None) is None:
         return noAuthResponse
     for i, log in enumerate(log_storage):
@@ -215,6 +224,7 @@ def delete_logs(id: str, request: Request):
 
 
 def fill_default_fields(log: Log) -> Log:
+    """Add timestamp and event ID fields to the received log."""
     if log.timestamp is None:
         log.timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     if log.event_stream_id is None:
@@ -223,6 +233,7 @@ def fill_default_fields(log: Log) -> Log:
 
 
 def add_additional_fields(log: Log) -> ReturnLog:
+    """Create an enriched log with additional fields."""
     rnd_id = random_id(ID_LENGTH)
     return ReturnLog(
         **log.dict(),
