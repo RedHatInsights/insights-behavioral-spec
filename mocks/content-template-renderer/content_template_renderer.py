@@ -13,8 +13,10 @@
 # limitations under the License.
 
 """
-Mock of the content-template-renderer service. The original service is used to
-interpolate rule templates from content-service with report details.
+Mock of the content-template-renderer service.
+
+The original service is used to interpolate rule templates from content-service
+with report details.
 
 The input is in this form (some additional data are optional, but not used by this service):
 
@@ -68,7 +70,7 @@ async def render_reports(request: Request):
         for report in cluster_data["reports"]:
             reports.append(
                 {
-                    "rule_id": report["component"][0 : report["component"].rfind(".")],
+                    "rule_id": report["component"][0: report["component"].rfind(".")],
                     "error_key": report["key"],
                     "description": "detailed description",
                     "reason": "detailed report",
