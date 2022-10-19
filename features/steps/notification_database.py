@@ -266,20 +266,20 @@ def insert_report_with_risk_and_cooldown_in_new_reports_table(context, risk):
 
 @given("I insert 1 previously reported report with {risk:w} total risk")
 def insert_report_into_reported_table(context, risk, timestamp=None):
-    """Inserts rows into reported table."""
+    """Insert rows into reported table."""
     report = generate_report_with_risk(risk)
     insert_rows_into_reported_table(context, report, timestamp)
 
 
 @given("I insert 1 previously reported report with {risk:w} total risk notified within cooldown")
 def insert_report_within_cooldown_in_reported_table(context, risk):
-    """Inserts rows into reported table within cooldown."""
+    """Insert rows into reported table within cooldown."""
     timestamp_within_cooldown = datetime.now() - timedelta(seconds=30)
     insert_report_into_reported_table(context, risk, timestamp_within_cooldown)
 
 
 def generate_report_with_risk(risk):
-    """Creates a report with specified risk."""
+    """Create a report with specified risk."""
     report = '{"analysis_metadata":{"metadata":"some metadata"},"reports":[{"rule_id":"test_rule|<replace_me>","component":"ccx_rules_ocp.external.rules.test_rule.report","type":"rule","key":"<replace_me>","details":"some details"}]}'  # noqa E501
     risk_rule_key_map = {
         "critical": "TEST_RULE_CRITICAL_IMPACT",
