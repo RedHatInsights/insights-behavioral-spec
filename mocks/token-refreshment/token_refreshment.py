@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Mock service that can be used to simulate access token gathering."""
+
 from fastapi import FastAPI, Form
 from starlette.responses import JSONResponse
 from pydantic import BaseModel
