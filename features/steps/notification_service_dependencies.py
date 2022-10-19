@@ -31,16 +31,15 @@ TOKEN_REFRESHMENT_ENDPOINT = "/auth/realms/redhat-external/protocol/openid-conne
 @then("I should get data from insights-content-service")
 def check_content_service_availability(context, host=None, port=None):
     """Check if insights-content-service is available at given address."""
-    assert (host is not None and port is not None) or \
-           (hasattr(context, "content_host") and hasattr(context, "content_port")), \
-           "host and port of content service has not been set"
-
     if host is None and port is None:
         host = context.content_host
         port = context.content_port
     else:
         context.content_host = host
         context.content_port = port
+
+    assert host is not None and port is not None, \
+        "host and port of content service has not been set"
 
     url = create_url(host, port, CONTENT_SERVICE_OPENAPI_ENDPOINT)
     response = requests.get(url)
@@ -73,16 +72,15 @@ def check_token_refreshment_availability(context, host, port):
 @then("I should get data from the gateway")
 def check_push_gateway_availability(context, host=None, port=None):
     """Check if prometheus push gateway is available at given address."""
-    assert (host is not None and port is not None) or \
-           (hasattr(context, "gateway_host") and hasattr(context, "gateway_port")), \
-           "host and port of gateway has not been set"
-
     if host is None and port is None:
         host = context.gateway_host
         port = context.gateway_port
     else:
         context.gateway_host = host
         context.gateway_port = port
+
+    assert host is not None and port is not None, \
+        "host and port of gateway has not been set"
 
     url = create_url(host, port, PUSH_GATEWAY_METRICS_ENDPOINT)
     response = requests.get(url)
