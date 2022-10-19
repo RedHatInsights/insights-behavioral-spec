@@ -68,7 +68,7 @@ async def render_reports(request: Request):
         for report in cluster_data["reports"]:
             reports.append(
                 {
-                    "rule_id": report["component"][0: report["component"].rfind(".")],
+                    "rule_id": report["component"][0 : report["component"].rfind(".")],
                     "error_key": report["key"],
                     "description": "detailed description",
                     "reason": "detailed report",
