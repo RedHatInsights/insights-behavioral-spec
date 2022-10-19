@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Implementation of common test steps."""
+
 from shutil import which
 import psycopg2
 from psycopg2.errors import UndefinedTable
