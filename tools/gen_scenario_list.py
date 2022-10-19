@@ -62,7 +62,7 @@ for subdirectory in SUBDIRECTORIES:
                     # process all scenarios and scenario outlines
                     for prefix in PREFIXES:
                         if line.startswith(prefix):
-                            line = line[len(prefix):]
+                            line = line[len(prefix) :]
                             print("* {}".format(line))
             # vertical space between subsections in generated file
             print()
