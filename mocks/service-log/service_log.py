@@ -12,7 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""You can try this mock with:
+r"""
+Mock server that can be used instead of fully functional ServiceLog service.
+
+You can try this mock with:
 
 curl -X POST -H "Authorization: Bearer $ACCESS_TOKEN" \
     -d '{
