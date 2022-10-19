@@ -63,6 +63,7 @@ app = FastAPI()
 
 @app.post("/rendered_reports")
 async def render_reports(request: Request):
+    """Request handler for REST API endpoint to render reports."""
     data = await request.json()
 
     reports = []

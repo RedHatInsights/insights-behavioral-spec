@@ -28,6 +28,7 @@ class ReturnError(BaseModel):
 
 @app.post("/auth/realms/redhat-external/protocol/openid-connect/token")
 def get_access_token(grant_type: str = Form(), client_id: str = Form(), scope: str = Form()):
+    """Request handler for REST API call to gather access token."""
     if grant_type != "client_credentials":
         return JSONResponse(
             ReturnError(

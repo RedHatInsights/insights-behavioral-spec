@@ -20,7 +20,6 @@ from os.path import exists
 @then(u"I should see following files generated")
 def check_generated_files(context):
     """Check that all specified files was generated."""
-
     # iterate over all items in feature table
     for row in context.table:
         filename = row["File name"]

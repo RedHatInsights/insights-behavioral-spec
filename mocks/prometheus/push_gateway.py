@@ -22,9 +22,11 @@ app = FastAPI()
 
 @app.get("/metrics")
 def get_metrics():
+    """Request handler for REST API endpoint to retrieve metrics."""
     return {"metrics": "ok"}
 
 
 @app.put("/metrics/job/ccx_notification_service")
 def upload_metrics():
+    """Request handler for REST API endpoint to upload metrics."""
     return {"put_metrics": "ok"}

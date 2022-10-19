@@ -13,8 +13,9 @@
 # limitations under the License.
 
 """
-Common steps for CLI related operations. Will raise a ValueError in case the service
-is not among:
+Common steps for CLI related operations.
+
+Will raise a ValueError in case the service is not among:
 - ccx-notification-service
 - ccx-notification-writer
 - cleaner
