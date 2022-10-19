@@ -28,7 +28,6 @@ TOKEN_REFRESHMENT_ENDPOINT = "/auth/realms/redhat-external/protocol/openid-conne
 @given("insights-content service is available on {host:w}:{port:d}")
 def check_content_service_availability(context, host, port):
     """Check if insights-content-service is available at given address."""
-
     url = create_url(host, port, CONTENT_SERVICE_OPENAPI_ENDPOINT)
     x = requests.get(url)
     assert x.status_code == 200
@@ -38,7 +37,6 @@ def check_content_service_availability(context, host, port):
 @given("service-log service is available on {host:w}:{port:d}")
 def check_service_log_availability(context, host, port):
     """Check if service-log is available at given address."""
-
     url = create_url(host, port, SERVICE_LOG_CLUSTER_LOGS_ENDPOINT)
     x = requests.get(url, headers={"Authorization": "TEST_TOKEN"})
     assert x.status_code == 200, "service log is not up"
@@ -47,7 +45,6 @@ def check_service_log_availability(context, host, port):
 @given("token refreshment server is available on {host:w}:{port:d}")
 def check_token_refreshment_availability(context, host, port):
     """Check if token refreshment server is available at given address"""
-
     url = create_url(host, port, TOKEN_REFRESHMENT_ENDPOINT)
     body = {
         "grant_type": "client_credentials",
@@ -69,7 +66,6 @@ def content_service_is_available(context):
 @given("prometheus push gateway is available on {host:w}:{port:d}")
 def check_push_gateway_availability(context, host, port):
     """Check if prometheus push gateway is available at given address."""
-
     url = create_url(host, port, PUSH_GATEWAY_METRICS_ENDPOINT)
     x = requests.get(url)
     assert x.status_code == 200
