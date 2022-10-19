@@ -12,7 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""You can try this mock with:
+r"""
+Mock server that can be used instead of fully functional ServiceLog service.
+
+You can try this mock with:
 
 curl -X POST -H "Authorization: Bearer $ACCESS_TOKEN" \
     -d '{
@@ -95,13 +98,11 @@ numbers = "0123456789"
 
 
 def random_ksuid(N: int) -> str:
-    return ''.join(
-        random.choice(letters + numbers) for _ in range(N))
+    return "".join(random.choice(letters + numbers) for _ in range(N))
 
 
 def random_id(N: int) -> str:
-    return ''.join(
-        random.choice(string.ascii_letters + numbers) for _ in range(N))
+    return "".join(random.choice(string.ascii_letters + numbers) for _ in range(N))
 
 
 app = FastAPI()
@@ -144,9 +145,9 @@ noAuthResponse = JSONResponse(
         "id": "401",
         "href": "/api/service_logs/v1/errors/401",
         "code": "SERVICE-LOGS-401",
-        "reason": "Request doesn't contain the 'Authorization' header or the 'cs_jwt' cookie"
+        "reason": "Request doesn't contain the 'Authorization' header or the 'cs_jwt' cookie",
     },
-    status_code=401
+    status_code=401,
 )
 
 # use a list as storage
@@ -162,9 +163,9 @@ async def validation_handler(request: Request, exc: Exception):
             href="/api/service_logs/v1/errors/8",
             code="OCM-CA-8",
             reason="missing field",
-            operation_id=random_id(ID_LENGTH)
+            operation_id=random_id(ID_LENGTH),
         ).dict(),
-        status_code=400
+        status_code=400,
     )
 
 
@@ -175,10 +176,7 @@ def publish_log(log: Log, request: Request):
     log = fill_default_fields(log)
     log = add_additional_fields(log)
     log_storage.append(log)
-    return JSONResponse(
-        log.dict(exclude_none=True),
-        status_code=201
-    )
+    return JSONResponse(log.dict(exclude_none=True), status_code=201)
 
 
 @app.get("/api/service_logs/v1/cluster_logs")
@@ -191,9 +189,9 @@ def get_logs(request: Request):
             "page": 1,
             "size": len(log_storage),
             "total": len(log_storage),
-            "items": [log.dict(exclude_none=True) for log in log_storage]
+            "items": [log.dict(exclude_none=True) for log in log_storage],
         },
-        status_code=200
+        status_code=200,
     )
 
 
@@ -212,7 +210,7 @@ def delete_logs(id: str, request: Request):
         href="/api/service_logs/v1/errors/7",
         code="OCM-CA-7",
         reason=f"The requested resource '{id}' doesn't exist",
-        operation_id=random_id(ID_LENGTH)
+        operation_id=random_id(ID_LENGTH),
     )
 
 

@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Mock service that can be used to simulate access token gathering."""
+
 from fastapi import FastAPI, Form
 from starlette.responses import JSONResponse
 from pydantic import BaseModel
@@ -30,7 +32,7 @@ def get_access_token(grant_type: str = Form(), client_id: str = Form(), scope: s
         return JSONResponse(
             ReturnError(
                 error="expected client credentials",
-                error_description=f"This mock cannot handle other types of token refreshment"
+                error_description=f"This mock cannot handle other types of token refreshment",
             ).dict(),
             status_code=501,
         )
@@ -45,7 +47,7 @@ def get_access_token(grant_type: str = Form(), client_id: str = Form(), scope: s
         return JSONResponse(
             ReturnError(
                 error="expected openid scope",
-                error_description=f"This mock does not support other scopes"
+                error_description=f"This mock does not support other scopes",
             ).dict(),
             status_code=501,
         )
@@ -57,7 +59,9 @@ def get_access_token(grant_type: str = Form(), client_id: str = Form(), scope: s
     #    "Username": "CCX Notification Service",
     #    "Role": "Service"
     # }
-    return {"access_token": "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiU2VydmljZSIsIklzc3VlciI6Ik1vY2sgVG9r"
-                            "ZW4gUmVmcmVzaG1lbnQiLCJVc2VybmFtZSI6IkNDWCBOb3RpZmljYXRpb24gU2VydmljZ"
-                            "SIsImlhdCI6MTY2NTM5OTY0OH0.LcHHN1KSA0W4FllEZT3X5t0i0AjOU6aFWc00vjV-8g"
-                            "w"}
+    return {
+        "access_token": "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiU2VydmljZSIsIklzc3VlciI6Ik1vY2sgVG9r"
+        "ZW4gUmVmcmVzaG1lbnQiLCJVc2VybmFtZSI6IkNDWCBOb3RpZmljYXRpb24gU2VydmljZ"
+        "SIsImlhdCI6MTY2NTM5OTY0OH0.LcHHN1KSA0W4FllEZT3X5t0i0AjOU6aFWc00vjV-8g"
+        "w"
+    }

@@ -13,8 +13,10 @@
 # limitations under the License.
 
 """
-Mock of the content-template-renderer service. The original service is used to
-interpolate rule templates from content-service with report details.
+Mock of the content-template-renderer service.
+
+The original service is used to interpolate rule templates from content-service
+with report details.
 
 The input is in this form (some additional data are optional, but not used by this service):
 

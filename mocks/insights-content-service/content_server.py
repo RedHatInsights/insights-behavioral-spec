@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Mock server that can be used instead of fully functional Content Service."""
+
 import json
 from fastapi import FastAPI, Response
 
@@ -73,10 +75,12 @@ This is the data and format returned
 
 @app.get("/api/v1/openapi.json")
 def read_test_content():
+    """Request handler for REST API endpoint to return OpenAPI specification."""
     return {"openapi.json": "ok"}
 
 
 @app.get("/api/v1/content")
 def read_test_content():
-    with open('test_content_gob', 'rb') as test_content_gob:
+    """Request handler for REST API endpoint to return rule contents."""
+    with open("test_content_gob", "rb") as test_content_gob:
         return Response(test_content_gob.read())
