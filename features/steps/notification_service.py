@@ -291,8 +291,7 @@ def check_old_reports_cleanup(context, max_age, age_unit):
 
 @then("I should see old reports from {table:w} for the following clusters")
 def check_old_reports_in_table(context, table):
-    """Check the old reports displayed for the given table"""
-
+    """Check the old reports displayed for the given table."""
     # preliminary checks
     assert context.stdout is not None
     stdout = context.stdout.decode("utf-8").replace("\t", "    ")
@@ -312,8 +311,7 @@ def check_old_reports_in_table(context, table):
 
 @then("I should not see any old reports from {table:w}")
 def check_no_old_reports_in_table(context, table):
-    """Check the old reports displayed for the given table"""
-
+    """Check the old reports displayed for the given table."""
     # preliminary checks
     assert context.stdout is not None
     stdout = context.stdout.decode("utf-8").replace("\t", "    ")
@@ -400,7 +398,7 @@ def get_events_kafka(num_event):
 
 @then("it should have sent {num_event:d} notification events to Kafka")
 def count_notification_events_kafka(context, num_event):
-    """Get events from kafka topic and count them to check if matches"""
+    """Get events from kafka topic and count them to check if matches."""
     events = get_events_kafka(num_event)
     assert (
         len(events) == num_event
@@ -409,7 +407,7 @@ def count_notification_events_kafka(context, num_event):
 
 @then("it should have sent the following {num_event:d} notification events to Kafka")
 def retrieve_notification_events_kafka(context, num_event):
-    """Get events from kafka topic and check they are the expected"""
+    """Get events from kafka topic and check they are the expected."""
     events = get_events_kafka(num_event)
     count_notification_events_kafka(context, num_event)
 
@@ -479,7 +477,7 @@ def remove_service_log_logs(context):
 
 @then("it should have sent {num_event:d} notification events to Service Log")
 def count_notification_events_service_log(context, num_event):
-    """Get events from kafka topic and count them to check if matches"""
+    """Get events from kafka topic and count them to check if matches."""
     events = get_events_service_log()
     assert (
         len(events) == num_event
@@ -488,14 +486,13 @@ def count_notification_events_service_log(context, num_event):
 
 @then("the logs should match")
 def check_logs(context):
-    """
-    Check if the notification service logs logs given the context,table.
+    """Check if the notification service logs logs given the context,table.
+
     You can specify whether if the substring should be present or not.
     | log                      | contains |
     | this one should match    | yes      |
     | this one should't match  | no       |
     """
-
     output = context.stdout.decode("utf-8")
 
     for row in context.table:
