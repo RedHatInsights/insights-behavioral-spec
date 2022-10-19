@@ -238,7 +238,6 @@ def establish_connection_to_database(context):
 @then(u"I should find that the database is empty")
 def ensure_database_emptiness(context):
     """Perform check if the database is empty."""
-
     cursor = context.connection.cursor()
     for table in DB_TABLES:
         try:
@@ -297,7 +296,6 @@ def delete_all_tables(context):
 @when(u"I insert following records into {table} table")
 def insert_records_into_selected_table(context, table):
     """Insert provided records into specified table."""
-
     cursor = context.connection.cursor()
 
     try:
