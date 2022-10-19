@@ -22,6 +22,11 @@ import pycodestyle
 
 
 def main():
+    """Entry point to this tool.
+
+    It is needed to find all Python sources, iterate over them, and run checker
+    for all such sources.
+    """
     files = list(Path(".").rglob("*.py"))
     files = [f for f in files if not str(f).startswith("venv/")]
     print("Files to check:")
