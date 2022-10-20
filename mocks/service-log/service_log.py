@@ -98,12 +98,12 @@ NUMBERS = "0123456789"
 
 
 def random_ksuid(length: int) -> str:
-    """Generates random KSUID with given length."""
+    """Generate random KSUID with given length."""
     return "".join(random.choice(LETTERS + NUMBERS) for _ in range(length))
 
 
 def random_id(length: int) -> str:
-    """Generates random ID with given length."""
+    """Generate random ID with given length."""
     return "".join(random.choice(string.ascii_letters + NUMBERS) for _ in range(length))
 
 
@@ -111,7 +111,8 @@ app = FastAPI()
 
 
 class Log(BaseModel):
-    """Model for log structure received by Service Log"""
+    """Model for log structure received by Service Log."""
+
     cluster_uuid: str
     cluster_id: Union[str, None] = None
     subscription_id: Union[str, None] = None
@@ -126,7 +127,8 @@ class Log(BaseModel):
 
 
 class ReturnLog(Log):
-    """Log structure enriched by some fields added by Service Log"""
+    """Log structure enriched by some fields added by Service Log."""
+
     id: str
     kind: str
     href: str
@@ -136,7 +138,8 @@ class ReturnLog(Log):
 
 
 class ReturnError(BaseModel):
-    """Structure returned by service when error occurs"""
+    """Structure returned by service when error occurs."""
+
     id: str
     kind: str
     href: str

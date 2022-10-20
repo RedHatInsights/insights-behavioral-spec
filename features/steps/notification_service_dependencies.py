@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Steps checking availability of notification service dependencies"""
+"""Steps checking availability of notification service dependencies."""
 
 from urllib import parse
 
