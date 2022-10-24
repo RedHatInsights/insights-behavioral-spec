@@ -22,6 +22,7 @@ app = FastAPI()
 
 
 class ReturnError(BaseModel):
+    """Class describing error message returned by token refreshment API."""
     error: str
     error_description: str
 
@@ -33,7 +34,7 @@ def get_access_token(grant_type: str = Form(), client_id: str = Form(), scope: s
         return JSONResponse(
             ReturnError(
                 error="expected client credentials",
-                error_description=f"This mock cannot handle other types of token refreshment",
+                error_description="This mock cannot handle other types of token refreshment",
             ).dict(),
             status_code=501,
         )
@@ -48,7 +49,7 @@ def get_access_token(grant_type: str = Form(), client_id: str = Form(), scope: s
         return JSONResponse(
             ReturnError(
                 error="expected openid scope",
-                error_description=f"This mock does not support other scopes",
+                error_description="This mock does not support other scopes",
             ).dict(),
             status_code=501,
         )
