@@ -16,7 +16,10 @@ Please delete options that are not relevant.
 - This change requires a documentation update
 - Refactor (refactoring code, removing useless files)
 - Bump-up dependent library (no changes in the code)
+- Security fix in dependent library (no changes in the code)
+- Security fix in dependent library (changes made in the code)
 - Documentation update
+- Configuration update
 
 ## Testing steps
 
