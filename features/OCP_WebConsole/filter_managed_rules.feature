@@ -6,7 +6,7 @@ Feature: Insights displayed on OCP WebConsole
       And user U1 is already logged in into console.redhat.com
       And user U1 switch to "OpenShift" page in console.redhat.com (OCM UI)
       And user U1 is part of account (organization) with at least one cluster C1
-      And the cluster C1 sent insights-operator archive to the external data pip
+      And the cluster C1 sent insights-operator archive to the external data pipeline
       And the cluster C1 is managed
       And at least 1 managed issue have been detected for cluster C1
       And no non-managed issues have been detected for cluster C1
