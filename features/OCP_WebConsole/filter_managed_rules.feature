@@ -37,4 +37,4 @@ Feature: Insights displayed on OCP WebConsole
      When user U1 click on "Open Console" button
      Then new page named "Overview" with OCP WebConsole content should be displayed
       And clickable "Insights" label should be displayed on that page
-      And information about 1 issues found should be displayed below "Insights" label
+      And information about 1 issue found should be displayed below "Insights" label
