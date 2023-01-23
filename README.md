@@ -75,6 +75,13 @@ make notification-service
 
 * [Customer Notifications](features/Notification_Service/customer_notifications.feature)
 
+#### CCX Notification Writer
+
+* [Basic set of smoke tests - checks if all required tools are available and all services are running](features/ccx-notification-writer/smoketests.feature)
+* [Check command line options provided by CCX Notification Writer](features/ccx-notification-writer/cli_flags.feature)
+* [Ability to clean up old records stored in database](features/ccx-notification-writer/cleanup_old_records.feature)
+* [Ability to clean up old records stored in database with new records](features/ccx-notification-writer/cleanup_new_records.feature)
+* [Ability to display old records stored in database](features/ccx-notification-writer/display_old_records.feature)
 
 ### SHA Extractor
 
