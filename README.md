@@ -83,6 +83,15 @@ make notification-service
 * [Ability to clean up old records stored in database with new records](features/ccx-notification-writer/cleanup_new_records.feature)
 * [Ability to display old records stored in database](features/ccx-notification-writer/display_old_records.feature)
 
+#### CCX Notification Service
+
+* [Basic set of smoke tests - checks if all required tools are available and all services are running](features/ccx-notification-service/smoketests.feature)
+* [Check command line options provided by CCX Notification Service](features/ccx-notification-service/cli_flags.feature)
+* [Integration with Customer Notifications](features/ccx-notification-service/customer_notifications.feature)
+* [Integration with Service Log](features/ccx-notification-service/service_log.feature)
+* [Ability to clean up records stored in database](features/ccx-notification-service/cleanup_records.feature)
+* [Ability to display old records stored in database](features/ccx-notification-service/display_records.feature)
+
 ### SHA Extractor
 
 * [SHA Extractor](features/SHA_Extractor/sha_extractor.feature)
