@@ -527,8 +527,8 @@ Directory where feature files with scenarios and scenario outlines are stored.
 
 * Check Inference Service response with no body is sent in the request
 * Check Inference Service response with an invalid body is used in the request
-* Check Inference Service response with an valid body with invalid data is used in the request
-* Check Inference Service response with an valid body with valid data is used in the request
+* Check Inference Service response with a valid body with invalid data is used in the request
+* Check Inference Service response with a valid body with valid data is used in the request
 
 ## `ccx-upgrades-inference/smoketests.feature`
 

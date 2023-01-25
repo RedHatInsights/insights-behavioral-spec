@@ -86,7 +86,7 @@ def check_response_body_schema(context):
     """Check that response body is compliant with a given schema."""
 
     schema = json.loads(context.text)
-    body = json.loads(context.response.text)
+    body = context.response.json()
 
     try:
         jsonschema.validate(
@@ -99,3 +99,12 @@ def check_response_body_schema(context):
 
     except jsonschema.SchemaError:
         assert False, "The provided schema is faulty"
+
+
+@then("The body of the response is the following")
+def check_prediction_result(context):
+    """Check the content of the response to be exactly the same."""
+
+    expected_body = json.loads(context.text)
+    result = context.response.json()
+    assert result == expected_body
