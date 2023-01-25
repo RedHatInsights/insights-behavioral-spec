@@ -1,0 +1,2 @@
+../features/ccx-upgrades-inference/smoketests.feature
+../features/ccx-upgrades-inference/perform_inference.feature
