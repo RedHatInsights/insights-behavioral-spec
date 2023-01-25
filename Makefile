@@ -1,8 +1,8 @@
-.PHONY: tests
+.PHONY: default tests code-style update-scenarios before_commit cleaner-tests exporter-tests notification-service notification-writer inference-service
 
 default: tests
 
-tests:	cleaner-tests exporter-tests
+tests:	cleaner-tests exporter-tests inference-service
 
 cleaner-tests:
 	./cleaner_tests.sh
@@ -15,6 +15,9 @@ notification-service:
 
 notification-writer:
 	./notification_writer_tests.sh
+
+inference-service:
+	./ccx_upgrade_risk_inference_tests.sh
 
 code-style:
 	python3 tools/run_pycodestyle.py
