@@ -39,6 +39,7 @@ SUBDIRECTORIES = (
     "insights-results-aggregator-exporter",
     "ccx-notification-service",
     "ccx-notification-writer",
+    "ccx-upgrades-inference",
 )
 
 # page header

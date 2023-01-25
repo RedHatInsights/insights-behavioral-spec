@@ -1,16 +1,16 @@
 Feature: Upgrade Risks Prediction inference - test well known values
 
-  Scenario: Empty body is used
+  Scenario: Check Inference Service response with no body is sent in the request
     Given The CCX Inference Service is running
      When I request the upgrade-risks-prediction endpoint
      Then The status code of the response is 422
 
-  Scenario: Invalid body is used
+  Scenario: Check Inference Service response with an invalid body is used in the request
     Given The CCX Inference Service is running
      When I request the upgrade-risks-prediction endpoint with junk in the body
      Then The status code of the response is 422
     
-  Scenario: Invalid kind is used
+  Scenario: Check Inference Service response with an valid body with invalid data is used in the request
     Given The CCX Inference Service is running
      When I request the upgrade-risks-prediction endpoint using the following data as risks
           | kind | value     |
@@ -18,7 +18,7 @@ Feature: Upgrade Risks Prediction inference - test well known values
           | junk | some.junk |
      Then The status code of the response is 422
 
-  Scenario: Valid input risks are used
+  Scenario: Check Inference Service response with an valid body with valid data is used in the request
     Given The CCX Inference Service is running
      When I request the upgrade-risks-prediction endpoint using the following data as risks
           | kind  | value       |

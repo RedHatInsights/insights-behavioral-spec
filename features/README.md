@@ -73,6 +73,11 @@ Directory where feature files with scenarios and scenario outlines are stored.
 
 * Displaying single rule page in OCM UI
 
+## `OCP_WebConsole/filter_managed_rules.feature`
+
+* Managed rules are not shown in OCP WebConsole
+* Non-managed rules are shown, but managed rules are not in OCP WebConsole
+
 ## `OCP_WebConsole/insights.feature`
 
 * Insights on OCP WebConsole for a cluster without any issue
@@ -420,8 +425,9 @@ Directory where feature files with scenarios and scenario outlines are stored.
 ## `ccx-notification-service/customer_notifications.feature`
 
 * Check that notification service does not need kafka if database has no new report
+* Check that notification service does not send messages to kafka if both broker is disabled and service log enabled
 * Check that notification service produces instant notifications with the expected content if all dependencies are available
-* Check that notification service produces instant notifications multiple events same cluster
+* Check that notification service produces a single notification event for cluster with multiple new reports
 * Check that instant notification does not include the same reports as in previous notification
 * Check that notification service does not flood customer with unnecessary instant emails
 * Check that notification service resends notification after cooldown has passed
@@ -437,6 +443,16 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Check the ability to display old records from `reported` if the table contains only new reports.
 * Check the ability to display old records from `reported` if the table contains multiple old reports.
 * Check the ability to display old records from `reported` if the table contains old and new reports
+
+## `ccx-notification-service/service_log.feature`
+
+* Check that notification service does not send messages to service log if it is disabled
+* Check that notification service sends messages to service log if it is enabled
+* Check that notification service doesn't send message to service log if it is not important
+* Check that notification service doesn't send message that has been sent within cooldown
+* Check that notification service resends message after cooldown has passed
+* Check that notification service produces a single notification event for cluster with multiple new reports
+* Check that Kafka related rows in reported table do not affect notifications sent to service log
 
 ## `ccx-notification-service/smoketests.feature`
 
@@ -506,4 +522,16 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Check if ZooKeeper is running locally
 * Check if Kafka broker is running locally
 * Check if Kafka broker is running on expected port
+
+## `ccx-upgrades-inference/perform_inference.feature`
+
+* Check Inference Service response with no body is sent in the request
+* Check Inference Service response with an invalid body is used in the request
+* Check Inference Service response with an valid body with invalid data is used in the request
+* Check Inference Service response with an valid body with valid data is used in the request
+
+## `ccx-upgrades-inference/smoketests.feature`
+
+* Check if CCX Upgrade Risk Inference Service application is available
+* Check if CCX Upgrade Risk Inference Service can be run
 

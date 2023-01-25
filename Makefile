@@ -16,6 +16,9 @@ notification-service:
 notification-writer:
 	./notification_writer_tests.sh
 
+inference-service:
+	./ccx_upgrade_risk_inference_tests.sh
+
 code-style:
 	python3 tools/run_pycodestyle.py
 

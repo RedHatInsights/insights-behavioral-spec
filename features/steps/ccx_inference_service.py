@@ -68,7 +68,7 @@ def request_endpoint_with_formatted_body(context, endpoint, key):
         kind = row["kind"]
         value = row["value"]
         values.append(f"{kind}|{value}")
-    
+
     data = {key: values}
     context.response = requests.get(
         f"http://localhost:8000/{endpoint}",
@@ -79,6 +79,7 @@ def request_endpoint_with_formatted_body(context, endpoint, key):
 @then("The status code of the response is {status}")
 def check_status_code(context, status):
     assert context.response.status_code == int(status)
+
 
 @then("The body of the response has the following schema")
 def check_response_body_schema(context):
@@ -92,9 +93,9 @@ def check_response_body_schema(context):
             instance=body,
             schema=schema,
         )
-    
+
     except jsonschema.ValidationError:
         assert False, "The response body doesn't fit the expected schema"
-    
+
     except jsonschema.SchemaError:
         assert False, "The provided schema is faulty"
