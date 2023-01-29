@@ -5,37 +5,37 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
     Given user USER1 is part of account (organization) ACCOUNT1
       And account (organization) ACCOUNT1 owns one cluster
       And 30 issues are detected for this cluster
-          | Title    | Modified    | Total risk |
-          | Bug01    | 10 days ago | Important  |
-          | Bug02    | 10 days ago | Important  |
-          | Bug03    | 10 days ago | Important  |
-          | Bug04    | 10 days ago | Important  |
-          | Bug05    | 10 days ago | Important  |
-          | Bug06    | 10 days ago | Important  |
-          | Bug07    | 10 days ago | Important  |
-          | Bug08    | 10 days ago | Important  |
-          | Bug09    | 10 days ago | Important  |
-          | Bug10    | 10 days ago | Important  |
-          | Bug11    | 10 days ago | Moderate   |
-          | Bug12    | 10 days ago | Moderate   |
-          | Bug13    | 10 days ago | Moderate   |
-          | Bug14    | 10 days ago | Moderate   |
-          | Bug15    | 10 days ago | Moderate   |
-          | Bug16    | 10 days ago | Moderate   |
-          | Bug17    | 10 days ago | Moderate   |
-          | Bug18    | 10 days ago | Moderate   |
-          | Bug19    | 10 days ago | Moderate   |
-          | Bug20    | 10 days ago | Moderate   |
-          | Bug21    | 10 days ago | Low        |
-          | Bug22    | 10 days ago | Low        |
-          | Bug23    | 10 days ago | Low        |
-          | Bug24    | 10 days ago | Low        |
-          | Bug25    | 10 days ago | Low        |
-          | Bug26    | 10 days ago | Low        |
-          | Bug27    | 10 days ago | Low        |
-          | Bug28    | 10 days ago | Low        |
-          | Bug29    | 10 days ago | Low        |
-          | Bug30    | 10 days ago | Low        |
+          | Title    | Modified    | Category | Total risk | Risk of change |
+          | Bug01    | 10 days ago | Security | Important  | High           |
+          | Bug02    | 10 days ago | Security | Important  | High           |
+          | Bug03    | 10 days ago | Security | Important  | High           |
+          | Bug04    | 10 days ago | Security | Important  | High           |
+          | Bug05    | 10 days ago | Security | Important  | High           |
+          | Bug06    | 10 days ago | Security | Important  | High           |
+          | Bug07    | 10 days ago | Security | Important  | High           |
+          | Bug08    | 10 days ago | Security | Important  | High           |
+          | Bug09    | 10 days ago | Security | Important  | High           |
+          | Bug10    | 10 days ago | Security | Important  | High           |
+          | Bug11    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug12    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug13    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug14    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug15    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug16    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug17    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug18    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug19    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug20    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug21    | 10 days ago | Security | Low        | Very Low       |
+          | Bug22    | 10 days ago | Security | Low        | Very Low       |
+          | Bug23    | 10 days ago | Security | Low        | Very Low       |
+          | Bug24    | 10 days ago | Security | Low        | Very Low       |
+          | Bug25    | 10 days ago | Security | Low        | Very Low       |
+          | Bug26    | 10 days ago | Security | Low        | Very Low       |
+          | Bug27    | 10 days ago | Security | Low        | Very Low       |
+          | Bug28    | 10 days ago | Security | Low        | Very Low       |
+          | Bug29    | 10 days ago | Security | Low        | Very Low       |
+          | Bug30    | 10 days ago | Security | Low        | Very Low       |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
@@ -60,33 +60,35 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And widget with filter settings should be displayed
       And table with several columns should be displayed
-          | Column name |
-          | Name        |
-          | Modified    |
-          | Total risk  |
-          | Clusters    |
+          | Column name    |
+          | Name           |
+          | Modified       |
+          | Category       |
+          | Total risk     |
+          | Risk of change |
+          | Clusters       |
       And that table should contain the following 20 rows
-          | Name  | Modified    | Total risk | Clusters |
-          | Bug01 | 10 days ago | Important  | 1        |
-          | Bug02 | 10 days ago | Important  | 1        |
-          | Bug03 | 10 days ago | Important  | 1        |
-          | Bug04 | 10 days ago | Important  | 1        |
-          | Bug05 | 10 days ago | Important  | 1        |
-          | Bug06 | 10 days ago | Important  | 1        |
-          | Bug07 | 10 days ago | Important  | 1        |
-          | Bug08 | 10 days ago | Important  | 1        |
-          | Bug09 | 10 days ago | Important  | 1        |
-          | Bug10 | 10 days ago | Important  | 1        |
-          | Bug11 | 10 days ago | Moderate   | 1        |
-          | Bug12 | 10 days ago | Moderate   | 1        |
-          | Bug13 | 10 days ago | Moderate   | 1        |
-          | Bug14 | 10 days ago | Moderate   | 1        |
-          | Bug15 | 10 days ago | Moderate   | 1        |
-          | Bug16 | 10 days ago | Moderate   | 1        |
-          | Bug17 | 10 days ago | Moderate   | 1        |
-          | Bug18 | 10 days ago | Moderate   | 1        |
-          | Bug19 | 10 days ago | Moderate   | 1        |
-          | Bug20 | 10 days ago | Moderate   | 1        |
+          | Name  | Modified    | Category | Total risk | Risk of change | Clusters |
+          | Bug01 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug02 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug03 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug04 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug05 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug06 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug07 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug08 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug09 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug10 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug11 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug12 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug13 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug14 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug15 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug16 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug17 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug18 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug19 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug20 | 10 days ago | Security | Moderate   | Moderate       | 1        |
       And pagination widget needs to be displayed in the top right corner
       And pagination widget needs to be displayed in the bottom right
      When user look at top right pagination widget
@@ -126,37 +128,37 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
     Given user USER1 is part of account (organization) ACCOUNT1
       And account (organization) ACCOUNT1 owns one cluster
       And 30 issues are detected for this cluster
-          | Title    | Modified    | Total risk |
-          | Bug01    | 10 days ago | Important  |
-          | Bug02    | 10 days ago | Important  |
-          | Bug03    | 10 days ago | Important  |
-          | Bug04    | 10 days ago | Important  |
-          | Bug05    | 10 days ago | Important  |
-          | Bug06    | 10 days ago | Important  |
-          | Bug07    | 10 days ago | Important  |
-          | Bug08    | 10 days ago | Important  |
-          | Bug09    | 10 days ago | Important  |
-          | Bug10    | 10 days ago | Important  |
-          | Bug11    | 10 days ago | Moderate   |
-          | Bug12    | 10 days ago | Moderate   |
-          | Bug13    | 10 days ago | Moderate   |
-          | Bug14    | 10 days ago | Moderate   |
-          | Bug15    | 10 days ago | Moderate   |
-          | Bug16    | 10 days ago | Moderate   |
-          | Bug17    | 10 days ago | Moderate   |
-          | Bug18    | 10 days ago | Moderate   |
-          | Bug19    | 10 days ago | Moderate   |
-          | Bug20    | 10 days ago | Moderate   |
-          | Bug21    | 10 days ago | Low        |
-          | Bug22    | 10 days ago | Low        |
-          | Bug23    | 10 days ago | Low        |
-          | Bug24    | 10 days ago | Low        |
-          | Bug25    | 10 days ago | Low        |
-          | Bug26    | 10 days ago | Low        |
-          | Bug27    | 10 days ago | Low        |
-          | Bug28    | 10 days ago | Low        |
-          | Bug29    | 10 days ago | Low        |
-          | Bug30    | 10 days ago | Low        |
+          | Title    | Modified    | Category | Total risk | Risk of change |
+          | Bug01    | 10 days ago | Security | Important  | High           |
+          | Bug02    | 10 days ago | Security | Important  | High           |
+          | Bug03    | 10 days ago | Security | Important  | High           |
+          | Bug04    | 10 days ago | Security | Important  | High           |
+          | Bug05    | 10 days ago | Security | Important  | High           |
+          | Bug06    | 10 days ago | Security | Important  | High           |
+          | Bug07    | 10 days ago | Security | Important  | High           |
+          | Bug08    | 10 days ago | Security | Important  | High           |
+          | Bug09    | 10 days ago | Security | Important  | High           |
+          | Bug10    | 10 days ago | Security | Important  | High           |
+          | Bug11    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug12    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug13    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug14    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug15    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug16    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug17    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug18    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug19    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug20    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug21    | 10 days ago | Security | Low        | Very Low       |
+          | Bug22    | 10 days ago | Security | Low        | Very Low       |
+          | Bug23    | 10 days ago | Security | Low        | Very Low       |
+          | Bug24    | 10 days ago | Security | Low        | Very Low       |
+          | Bug25    | 10 days ago | Security | Low        | Very Low       |
+          | Bug26    | 10 days ago | Security | Low        | Very Low       |
+          | Bug27    | 10 days ago | Security | Low        | Very Low       |
+          | Bug28    | 10 days ago | Security | Low        | Very Low       |
+          | Bug29    | 10 days ago | Security | Low        | Very Low       |
+          | Bug30    | 10 days ago | Security | Low        | Very Low       |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
@@ -181,33 +183,35 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And widget with filter settings should be displayed
       And table with several columns should be displayed
-          | Column name |
-          | Name        |
-          | Modified    |
-          | Total risk  |
-          | Clusters    |
+          | Column name    |
+          | Name           |
+          | Modified       |
+          | Category       |
+          | Total risk     |
+          | Risk of change |
+          | Clusters       |
       And that table should contain the following 20 rows
-          | Name  | Modified    | Total risk | Clusters |
-          | Bug01 | 10 days ago | Important  | 1        |
-          | Bug02 | 10 days ago | Important  | 1        |
-          | Bug03 | 10 days ago | Important  | 1        |
-          | Bug04 | 10 days ago | Important  | 1        |
-          | Bug05 | 10 days ago | Important  | 1        |
-          | Bug06 | 10 days ago | Important  | 1        |
-          | Bug07 | 10 days ago | Important  | 1        |
-          | Bug08 | 10 days ago | Important  | 1        |
-          | Bug09 | 10 days ago | Important  | 1        |
-          | Bug10 | 10 days ago | Important  | 1        |
-          | Bug11 | 10 days ago | Moderate   | 1        |
-          | Bug12 | 10 days ago | Moderate   | 1        |
-          | Bug13 | 10 days ago | Moderate   | 1        |
-          | Bug14 | 10 days ago | Moderate   | 1        |
-          | Bug15 | 10 days ago | Moderate   | 1        |
-          | Bug16 | 10 days ago | Moderate   | 1        |
-          | Bug17 | 10 days ago | Moderate   | 1        |
-          | Bug18 | 10 days ago | Moderate   | 1        |
-          | Bug19 | 10 days ago | Moderate   | 1        |
-          | Bug20 | 10 days ago | Moderate   | 1        |
+          | Name  | Modified    | Category | Total risk | Risk of change | Clusters |
+          | Bug01 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug02 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug03 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug04 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug05 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug06 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug07 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug08 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug09 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug10 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug11 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug12 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug13 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug14 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug15 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug16 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug17 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug18 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug19 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug20 | 10 days ago | Security | Moderate   | Moderate       | 1        |
       And pagination widget needs to be displayed in the top right corner
       And pagination widget needs to be displayed in the bottom right
      When user look at top right pagination widget
@@ -220,17 +224,17 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
      When user click on ">" arrow on the pagination widget
      Then table with recommendations should be refreshed with new content
       And that table should contain the following 10 rows
-          | Name  | Modified    | Total risk | Clusters |
-          | Bug21 | 10 days ago | Low        | 1        |
-          | Bug22 | 10 days ago | Low        | 1        |
-          | Bug23 | 10 days ago | Low        | 1        |
-          | Bug24 | 10 days ago | Low        | 1        |
-          | Bug25 | 10 days ago | Low        | 1        |
-          | Bug26 | 10 days ago | Low        | 1        |
-          | Bug27 | 10 days ago | Low        | 1        |
-          | Bug28 | 10 days ago | Low        | 1        |
-          | Bug29 | 10 days ago | Low        | 1        |
-          | Bug30 | 10 days ago | Low        | 1        |
+          | Name  | Modified    | Category | Total risk | Risk of change | Clusters |
+          | Bug21 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug22 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug23 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug24 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug25 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug26 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug27 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug28 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug29 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug30 | 10 days ago | Security | Low        | Very Low       | 1        |
       And pagination widget needs to be displayed in the top right corner
       And pagination widget needs to be displayed in the bottom right
      When user look at top right pagination widget
@@ -256,37 +260,37 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
     Given user USER1 is part of account (organization) ACCOUNT1
       And account (organization) ACCOUNT1 owns one cluster
       And 30 issues are detected for this cluster
-          | Title    | Modified    | Total risk |
-          | Bug01    | 10 days ago | Important  |
-          | Bug02    | 10 days ago | Important  |
-          | Bug03    | 10 days ago | Important  |
-          | Bug04    | 10 days ago | Important  |
-          | Bug05    | 10 days ago | Important  |
-          | Bug06    | 10 days ago | Important  |
-          | Bug07    | 10 days ago | Important  |
-          | Bug08    | 10 days ago | Important  |
-          | Bug09    | 10 days ago | Important  |
-          | Bug10    | 10 days ago | Important  |
-          | Bug11    | 10 days ago | Moderate   |
-          | Bug12    | 10 days ago | Moderate   |
-          | Bug13    | 10 days ago | Moderate   |
-          | Bug14    | 10 days ago | Moderate   |
-          | Bug15    | 10 days ago | Moderate   |
-          | Bug16    | 10 days ago | Moderate   |
-          | Bug17    | 10 days ago | Moderate   |
-          | Bug18    | 10 days ago | Moderate   |
-          | Bug19    | 10 days ago | Moderate   |
-          | Bug20    | 10 days ago | Moderate   |
-          | Bug21    | 10 days ago | Low        |
-          | Bug22    | 10 days ago | Low        |
-          | Bug23    | 10 days ago | Low        |
-          | Bug24    | 10 days ago | Low        |
-          | Bug25    | 10 days ago | Low        |
-          | Bug26    | 10 days ago | Low        |
-          | Bug27    | 10 days ago | Low        |
-          | Bug28    | 10 days ago | Low        |
-          | Bug29    | 10 days ago | Low        |
-          | Bug30    | 10 days ago | Low        |
+          | Title    | Modified    | Category | Total risk | Risk of change |
+          | Bug01    | 10 days ago | Security | Important  | High           |
+          | Bug02    | 10 days ago | Security | Important  | High           |
+          | Bug03    | 10 days ago | Security | Important  | High           |
+          | Bug04    | 10 days ago | Security | Important  | High           |
+          | Bug05    | 10 days ago | Security | Important  | High           |
+          | Bug06    | 10 days ago | Security | Important  | High           |
+          | Bug07    | 10 days ago | Security | Important  | High           |
+          | Bug08    | 10 days ago | Security | Important  | High           |
+          | Bug09    | 10 days ago | Security | Important  | High           |
+          | Bug10    | 10 days ago | Security | Important  | High           |
+          | Bug11    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug12    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug13    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug14    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug15    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug16    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug17    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug18    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug19    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug20    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug21    | 10 days ago | Security | Low        | Very Low       |
+          | Bug22    | 10 days ago | Security | Low        | Very Low       |
+          | Bug23    | 10 days ago | Security | Low        | Very Low       |
+          | Bug24    | 10 days ago | Security | Low        | Very Low       |
+          | Bug25    | 10 days ago | Security | Low        | Very Low       |
+          | Bug26    | 10 days ago | Security | Low        | Very Low       |
+          | Bug27    | 10 days ago | Security | Low        | Very Low       |
+          | Bug28    | 10 days ago | Security | Low        | Very Low       |
+          | Bug29    | 10 days ago | Security | Low        | Very Low       |
+          | Bug30    | 10 days ago | Security | Low        | Very Low       |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
@@ -311,33 +315,35 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And widget with filter settings should be displayed
       And table with several columns should be displayed
-          | Column name |
-          | Name        |
-          | Modified    |
-          | Total risk  |
-          | Clusters    |
+          | Column name    |
+          | Name           |
+          | Modified       |
+          | Category       |
+          | Total risk     |
+          | Risk of change |
+          | Clusters       |
       And that table should contain the following 20 rows
-          | Name  | Modified    | Total risk | Clusters |
-          | Bug01 | 10 days ago | Important  | 1        |
-          | Bug02 | 10 days ago | Important  | 1        |
-          | Bug03 | 10 days ago | Important  | 1        |
-          | Bug04 | 10 days ago | Important  | 1        |
-          | Bug05 | 10 days ago | Important  | 1        |
-          | Bug06 | 10 days ago | Important  | 1        |
-          | Bug07 | 10 days ago | Important  | 1        |
-          | Bug08 | 10 days ago | Important  | 1        |
-          | Bug09 | 10 days ago | Important  | 1        |
-          | Bug10 | 10 days ago | Important  | 1        |
-          | Bug11 | 10 days ago | Moderate   | 1        |
-          | Bug12 | 10 days ago | Moderate   | 1        |
-          | Bug13 | 10 days ago | Moderate   | 1        |
-          | Bug14 | 10 days ago | Moderate   | 1        |
-          | Bug15 | 10 days ago | Moderate   | 1        |
-          | Bug16 | 10 days ago | Moderate   | 1        |
-          | Bug17 | 10 days ago | Moderate   | 1        |
-          | Bug18 | 10 days ago | Moderate   | 1        |
-          | Bug19 | 10 days ago | Moderate   | 1        |
-          | Bug20 | 10 days ago | Moderate   | 1        |
+          | Name  | Modified    | Category | Total risk | Risk of change | Clusters |
+          | Bug01 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug02 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug03 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug04 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug05 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug06 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug07 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug08 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug09 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug10 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug11 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug12 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug13 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug14 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug15 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug16 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug17 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug18 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug19 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug20 | 10 days ago | Security | Moderate   | Moderate       | 1        |
       And pagination widget needs to be displayed in the top right corner
       And pagination widget needs to be displayed in the bottom right
      When user look at bottom right pagination widget
@@ -352,17 +358,17 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
      When user click on ">>" arrow on the pagination widget
      Then table with recommendations should be refreshed with new content
       And that table should contain the following 10 rows
-          | Name  | Modified    | Total risk | Clusters |
-          | Bug21 | 10 days ago | Low        | 1        |
-          | Bug22 | 10 days ago | Low        | 1        |
-          | Bug23 | 10 days ago | Low        | 1        |
-          | Bug24 | 10 days ago | Low        | 1        |
-          | Bug25 | 10 days ago | Low        | 1        |
-          | Bug26 | 10 days ago | Low        | 1        |
-          | Bug27 | 10 days ago | Low        | 1        |
-          | Bug28 | 10 days ago | Low        | 1        |
-          | Bug29 | 10 days ago | Low        | 1        |
-          | Bug30 | 10 days ago | Low        | 1        |
+          | Name  | Modified    | Category | Total risk | Risk of change | Clusters |
+          | Bug21 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug22 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug23 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug24 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug25 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug26 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug27 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug28 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug29 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug30 | 10 days ago | Security | Low        | Very Low       | 1        |
       And pagination widget needs to be displayed in the top right corner
       And pagination widget needs to be displayed in the bottom right
      When user look at top right pagination widget
@@ -388,37 +394,37 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
     Given user USER1 is part of account (organization) ACCOUNT1
       And account (organization) ACCOUNT1 owns one cluster
       And 30 issues are detected for this cluster
-          | Title    | Modified    | Total risk |
-          | Bug01    | 10 days ago | Important  |
-          | Bug02    | 10 days ago | Important  |
-          | Bug03    | 10 days ago | Important  |
-          | Bug04    | 10 days ago | Important  |
-          | Bug05    | 10 days ago | Important  |
-          | Bug06    | 10 days ago | Important  |
-          | Bug07    | 10 days ago | Important  |
-          | Bug08    | 10 days ago | Important  |
-          | Bug09    | 10 days ago | Important  |
-          | Bug10    | 10 days ago | Important  |
-          | Bug11    | 10 days ago | Moderate   |
-          | Bug12    | 10 days ago | Moderate   |
-          | Bug13    | 10 days ago | Moderate   |
-          | Bug14    | 10 days ago | Moderate   |
-          | Bug15    | 10 days ago | Moderate   |
-          | Bug16    | 10 days ago | Moderate   |
-          | Bug17    | 10 days ago | Moderate   |
-          | Bug18    | 10 days ago | Moderate   |
-          | Bug19    | 10 days ago | Moderate   |
-          | Bug20    | 10 days ago | Moderate   |
-          | Bug21    | 10 days ago | Low        |
-          | Bug22    | 10 days ago | Low        |
-          | Bug23    | 10 days ago | Low        |
-          | Bug24    | 10 days ago | Low        |
-          | Bug25    | 10 days ago | Low        |
-          | Bug26    | 10 days ago | Low        |
-          | Bug27    | 10 days ago | Low        |
-          | Bug28    | 10 days ago | Low        |
-          | Bug29    | 10 days ago | Low        |
-          | Bug30    | 10 days ago | Low        |
+          | Title    | Modified    | Category | Total risk | Risk of change |
+          | Bug01    | 10 days ago | Security | Important  | High           |
+          | Bug02    | 10 days ago | Security | Important  | High           |
+          | Bug03    | 10 days ago | Security | Important  | High           |
+          | Bug04    | 10 days ago | Security | Important  | High           |
+          | Bug05    | 10 days ago | Security | Important  | High           |
+          | Bug06    | 10 days ago | Security | Important  | High           |
+          | Bug07    | 10 days ago | Security | Important  | High           |
+          | Bug08    | 10 days ago | Security | Important  | High           |
+          | Bug09    | 10 days ago | Security | Important  | High           |
+          | Bug10    | 10 days ago | Security | Important  | High           |
+          | Bug11    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug12    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug13    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug14    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug15    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug16    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug17    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug18    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug19    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug20    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug21    | 10 days ago | Security | Low        | Very Low       |
+          | Bug22    | 10 days ago | Security | Low        | Very Low       |
+          | Bug23    | 10 days ago | Security | Low        | Very Low       |
+          | Bug24    | 10 days ago | Security | Low        | Very Low       |
+          | Bug25    | 10 days ago | Security | Low        | Very Low       |
+          | Bug26    | 10 days ago | Security | Low        | Very Low       |
+          | Bug27    | 10 days ago | Security | Low        | Very Low       |
+          | Bug28    | 10 days ago | Security | Low        | Very Low       |
+          | Bug29    | 10 days ago | Security | Low        | Very Low       |
+          | Bug30    | 10 days ago | Security | Low        | Very Low       |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
@@ -443,33 +449,35 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And widget with filter settings should be displayed
       And table with several columns should be displayed
-          | Column name |
-          | Name        |
-          | Modified    |
-          | Total risk  |
-          | Clusters    |
+          | Column name    |
+          | Name           |
+          | Modified       |
+          | Category       |
+          | Total risk     |
+          | Risk of change |
+          | Clusters       |
       And that table should contain the following 20 rows
-          | Name  | Modified    | Total risk | Clusters |
-          | Bug01 | 10 days ago | Important  | 1        |
-          | Bug02 | 10 days ago | Important  | 1        |
-          | Bug03 | 10 days ago | Important  | 1        |
-          | Bug04 | 10 days ago | Important  | 1        |
-          | Bug05 | 10 days ago | Important  | 1        |
-          | Bug06 | 10 days ago | Important  | 1        |
-          | Bug07 | 10 days ago | Important  | 1        |
-          | Bug08 | 10 days ago | Important  | 1        |
-          | Bug09 | 10 days ago | Important  | 1        |
-          | Bug10 | 10 days ago | Important  | 1        |
-          | Bug11 | 10 days ago | Moderate   | 1        |
-          | Bug12 | 10 days ago | Moderate   | 1        |
-          | Bug13 | 10 days ago | Moderate   | 1        |
-          | Bug14 | 10 days ago | Moderate   | 1        |
-          | Bug15 | 10 days ago | Moderate   | 1        |
-          | Bug16 | 10 days ago | Moderate   | 1        |
-          | Bug17 | 10 days ago | Moderate   | 1        |
-          | Bug18 | 10 days ago | Moderate   | 1        |
-          | Bug19 | 10 days ago | Moderate   | 1        |
-          | Bug20 | 10 days ago | Moderate   | 1        |
+          | Name  | Modified    | Category | Total risk | Risk of change | Clusters |
+          | Bug01 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug02 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug03 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug04 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug05 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug06 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug07 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug08 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug09 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug10 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug11 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug12 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug13 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug14 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug15 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug16 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug17 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug18 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug19 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug20 | 10 days ago | Security | Moderate   | Moderate       | 1        |
       And pagination widget needs to be displayed in the top right corner
       And pagination widget needs to be displayed in the bottom right
      When user look at top right pagination widget
@@ -482,17 +490,17 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
      When user click on ">" arrow on the pagination widget
      Then table with recommendations should be refreshed with new content
       And that table should contain the following 10 rows
-          | Name  | Modified    | Total risk | Clusters |
-          | Bug21 | 10 days ago | Low        | 1        |
-          | Bug22 | 10 days ago | Low        | 1        |
-          | Bug23 | 10 days ago | Low        | 1        |
-          | Bug24 | 10 days ago | Low        | 1        |
-          | Bug25 | 10 days ago | Low        | 1        |
-          | Bug26 | 10 days ago | Low        | 1        |
-          | Bug27 | 10 days ago | Low        | 1        |
-          | Bug28 | 10 days ago | Low        | 1        |
-          | Bug29 | 10 days ago | Low        | 1        |
-          | Bug30 | 10 days ago | Low        | 1        |
+          | Name  | Modified    | Category | Total risk | Risk of change | Clusters |
+          | Bug21 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug22 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug23 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug24 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug25 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug26 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug27 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug28 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug29 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug30 | 10 days ago | Security | Low        | Very Low       | 1        |
       And pagination widget needs to be displayed in the top right corner
       And pagination widget needs to be displayed in the bottom right
      When user look at top right pagination widget
@@ -514,27 +522,27 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
      When user click on "<" arrow on the pagination widget
      Then table with recommendations should be refreshed with new content
       And that table should contain the following 20 rows
-          | Name  | Modified    | Total risk | Clusters |
-          | Bug01 | 10 days ago | Important  | 1        |
-          | Bug02 | 10 days ago | Important  | 1        |
-          | Bug03 | 10 days ago | Important  | 1        |
-          | Bug04 | 10 days ago | Important  | 1        |
-          | Bug05 | 10 days ago | Important  | 1        |
-          | Bug06 | 10 days ago | Important  | 1        |
-          | Bug07 | 10 days ago | Important  | 1        |
-          | Bug08 | 10 days ago | Important  | 1        |
-          | Bug09 | 10 days ago | Important  | 1        |
-          | Bug10 | 10 days ago | Important  | 1        |
-          | Bug11 | 10 days ago | Moderate   | 1        |
-          | Bug12 | 10 days ago | Moderate   | 1        |
-          | Bug13 | 10 days ago | Moderate   | 1        |
-          | Bug14 | 10 days ago | Moderate   | 1        |
-          | Bug15 | 10 days ago | Moderate   | 1        |
-          | Bug16 | 10 days ago | Moderate   | 1        |
-          | Bug17 | 10 days ago | Moderate   | 1        |
-          | Bug18 | 10 days ago | Moderate   | 1        |
-          | Bug19 | 10 days ago | Moderate   | 1        |
-          | Bug20 | 10 days ago | Moderate   | 1        |
+          | Name  | Modified    | Category | Total risk | Risk of change | Clusters |
+          | Bug01 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug02 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug03 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug04 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug05 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug06 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug07 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug08 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug09 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug10 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug11 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug12 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug13 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug14 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug15 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug16 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug17 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug18 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug19 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug20 | 10 days ago | Security | Moderate   | Moderate       | 1        |
       And pagination widget needs to be displayed in the top right corner
       And pagination widget needs to be displayed in the bottom right
      When user look at top right pagination widget
@@ -560,37 +568,37 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
     Given user USER1 is part of account (organization) ACCOUNT1
       And account (organization) ACCOUNT1 owns one cluster
       And 30 issues are detected for this cluster
-          | Title    | Modified    | Total risk |
-          | Bug01    | 10 days ago | Important  |
-          | Bug02    | 10 days ago | Important  |
-          | Bug03    | 10 days ago | Important  |
-          | Bug04    | 10 days ago | Important  |
-          | Bug05    | 10 days ago | Important  |
-          | Bug06    | 10 days ago | Important  |
-          | Bug07    | 10 days ago | Important  |
-          | Bug08    | 10 days ago | Important  |
-          | Bug09    | 10 days ago | Important  |
-          | Bug10    | 10 days ago | Important  |
-          | Bug11    | 10 days ago | Moderate   |
-          | Bug12    | 10 days ago | Moderate   |
-          | Bug13    | 10 days ago | Moderate   |
-          | Bug14    | 10 days ago | Moderate   |
-          | Bug15    | 10 days ago | Moderate   |
-          | Bug16    | 10 days ago | Moderate   |
-          | Bug17    | 10 days ago | Moderate   |
-          | Bug18    | 10 days ago | Moderate   |
-          | Bug19    | 10 days ago | Moderate   |
-          | Bug20    | 10 days ago | Moderate   |
-          | Bug21    | 10 days ago | Low        |
-          | Bug22    | 10 days ago | Low        |
-          | Bug23    | 10 days ago | Low        |
-          | Bug24    | 10 days ago | Low        |
-          | Bug25    | 10 days ago | Low        |
-          | Bug26    | 10 days ago | Low        |
-          | Bug27    | 10 days ago | Low        |
-          | Bug28    | 10 days ago | Low        |
-          | Bug29    | 10 days ago | Low        |
-          | Bug30    | 10 days ago | Low        |
+          | Title    | Modified    | Category | Total risk | Risk of change |
+          | Bug01    | 10 days ago | Security | Important  | High           |
+          | Bug02    | 10 days ago | Security | Important  | High           |
+          | Bug03    | 10 days ago | Security | Important  | High           |
+          | Bug04    | 10 days ago | Security | Important  | High           |
+          | Bug05    | 10 days ago | Security | Important  | High           |
+          | Bug06    | 10 days ago | Security | Important  | High           |
+          | Bug07    | 10 days ago | Security | Important  | High           |
+          | Bug08    | 10 days ago | Security | Important  | High           |
+          | Bug09    | 10 days ago | Security | Important  | High           |
+          | Bug10    | 10 days ago | Security | Important  | High           |
+          | Bug11    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug12    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug13    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug14    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug15    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug16    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug17    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug18    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug19    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug20    | 10 days ago | Security | Moderate   | Moderate       |
+          | Bug21    | 10 days ago | Security | Low        | Very Low       |
+          | Bug22    | 10 days ago | Security | Low        | Very Low       |
+          | Bug23    | 10 days ago | Security | Low        | Very Low       |
+          | Bug24    | 10 days ago | Security | Low        | Very Low       |
+          | Bug25    | 10 days ago | Security | Low        | Very Low       |
+          | Bug26    | 10 days ago | Security | Low        | Very Low       |
+          | Bug27    | 10 days ago | Security | Low        | Very Low       |
+          | Bug28    | 10 days ago | Security | Low        | Very Low       |
+          | Bug29    | 10 days ago | Security | Low        | Very Low       |
+          | Bug30    | 10 days ago | Security | Low        | Very Low       |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
@@ -615,33 +623,35 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And widget with filter settings should be displayed
       And table with several columns should be displayed
-          | Column name |
-          | Name        |
-          | Modified    |
-          | Total risk  |
-          | Clusters    |
+          | Column name    |
+          | Name           |
+          | Modified       |
+          | Category       |
+          | Total risk     |
+          | Risk of change |
+          | Clusters       |
       And that table should contain the following 20 rows
-          | Name  | Modified    | Total risk | Clusters |
-          | Bug01 | 10 days ago | Important  | 1        |
-          | Bug02 | 10 days ago | Important  | 1        |
-          | Bug03 | 10 days ago | Important  | 1        |
-          | Bug04 | 10 days ago | Important  | 1        |
-          | Bug05 | 10 days ago | Important  | 1        |
-          | Bug06 | 10 days ago | Important  | 1        |
-          | Bug07 | 10 days ago | Important  | 1        |
-          | Bug08 | 10 days ago | Important  | 1        |
-          | Bug09 | 10 days ago | Important  | 1        |
-          | Bug10 | 10 days ago | Important  | 1        |
-          | Bug11 | 10 days ago | Moderate   | 1        |
-          | Bug12 | 10 days ago | Moderate   | 1        |
-          | Bug13 | 10 days ago | Moderate   | 1        |
-          | Bug14 | 10 days ago | Moderate   | 1        |
-          | Bug15 | 10 days ago | Moderate   | 1        |
-          | Bug16 | 10 days ago | Moderate   | 1        |
-          | Bug17 | 10 days ago | Moderate   | 1        |
-          | Bug18 | 10 days ago | Moderate   | 1        |
-          | Bug19 | 10 days ago | Moderate   | 1        |
-          | Bug20 | 10 days ago | Moderate   | 1        |
+          | Name  | Modified    | Category | Total risk | Risk of change | Clusters |
+          | Bug01 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug02 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug03 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug04 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug05 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug06 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug07 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug08 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug09 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug10 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug11 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug12 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug13 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug14 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug15 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug16 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug17 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug18 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug19 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug20 | 10 days ago | Security | Moderate   | Moderate       | 1        |
       And pagination widget needs to be displayed in the top right corner
       And pagination widget needs to be displayed in the bottom right
      When user look at top right pagination widget
@@ -654,17 +664,17 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
      When user click on ">" arrow on the pagination widget
      Then table with recommendations should be refreshed with new content
       And that table should contain the following 10 rows
-          | Name  | Modified    | Total risk | Clusters |
-          | Bug21 | 10 days ago | Low        | 1        |
-          | Bug22 | 10 days ago | Low        | 1        |
-          | Bug23 | 10 days ago | Low        | 1        |
-          | Bug24 | 10 days ago | Low        | 1        |
-          | Bug25 | 10 days ago | Low        | 1        |
-          | Bug26 | 10 days ago | Low        | 1        |
-          | Bug27 | 10 days ago | Low        | 1        |
-          | Bug28 | 10 days ago | Low        | 1        |
-          | Bug29 | 10 days ago | Low        | 1        |
-          | Bug30 | 10 days ago | Low        | 1        |
+          | Name  | Modified    | Category | Total risk | Risk of change | Clusters |
+          | Bug21 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug22 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug23 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug24 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug25 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug26 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug27 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug28 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug29 | 10 days ago | Security | Low        | Very Low       | 1        |
+          | Bug30 | 10 days ago | Security | Low        | Very Low       | 1        |
       And pagination widget needs to be displayed in the top right corner
       And pagination widget needs to be displayed in the bottom right
      When user look at top right pagination widget
@@ -686,27 +696,27 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
      When user click on "<<" arrow on the pagination widget
      Then table with recommendations should be refreshed with new content
       And that table should contain the following 20 rows
-          | Name  | Modified    | Total risk | Clusters |
-          | Bug01 | 10 days ago | Important  | 1        |
-          | Bug02 | 10 days ago | Important  | 1        |
-          | Bug03 | 10 days ago | Important  | 1        |
-          | Bug04 | 10 days ago | Important  | 1        |
-          | Bug05 | 10 days ago | Important  | 1        |
-          | Bug06 | 10 days ago | Important  | 1        |
-          | Bug07 | 10 days ago | Important  | 1        |
-          | Bug08 | 10 days ago | Important  | 1        |
-          | Bug09 | 10 days ago | Important  | 1        |
-          | Bug10 | 10 days ago | Important  | 1        |
-          | Bug11 | 10 days ago | Moderate   | 1        |
-          | Bug12 | 10 days ago | Moderate   | 1        |
-          | Bug13 | 10 days ago | Moderate   | 1        |
-          | Bug14 | 10 days ago | Moderate   | 1        |
-          | Bug15 | 10 days ago | Moderate   | 1        |
-          | Bug16 | 10 days ago | Moderate   | 1        |
-          | Bug17 | 10 days ago | Moderate   | 1        |
-          | Bug18 | 10 days ago | Moderate   | 1        |
-          | Bug19 | 10 days ago | Moderate   | 1        |
-          | Bug20 | 10 days ago | Moderate   | 1        |
+          | Name  | Modified    | Category | Total risk | Risk of change | Clusters |
+          | Bug01 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug02 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug03 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug04 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug05 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug06 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug07 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug08 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug09 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug10 | 10 days ago | Security | Important  | High           | 1        |
+          | Bug11 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug12 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug13 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug14 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug15 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug16 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug17 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug18 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug19 | 10 days ago | Security | Moderate   | Moderate       | 1        |
+          | Bug20 | 10 days ago | Security | Moderate   | Moderate       | 1        |
       And pagination widget needs to be displayed in the top right corner
       And pagination widget needs to be displayed in the bottom right
      When user look at top right pagination widget

@@ -5,8 +5,8 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
     Given user USER1 is part of account (organization) ACCOUNT1
       And account (organization) ACCOUNT1 owns one cluster
       And 1 issue is detected for this cluster
-          | Title    | Modified    | Total risk | Likelihood | Impact |
-          | Bug12345 | 10 days ago | Important  | high       | high   |
+          | Title    | Modified    | Category | Total risk | Likelihood | Impact | Risk of change |
+          | Bug12345 | 10 days ago | Security | Important  | high       | high   | Moderate       |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
@@ -31,17 +31,21 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And widget with filter settings should be displayed
       And table with several columns should be displayed
-          | Column name |
-          | Name        |
-          | Modified    |
-          | Total risk  |
-          | Clusters    |
+          | Column name    |
+          | Name           |
+          | Modified       |
+          | Category       |
+          | Total risk     |
+          | Risk of change |
+          | Clusters       |
       And that table should contain at least one row
-          | Column name | Value       |
-          | Name        | Bug1234     |
-          | Modified    | 10 days ago |
-          | Total risk  | Important   |
-          | Clusters    | 1           |
+          | Column name    | Value       |
+          | Name           | Bug1234     |
+          | Modified       | 10 days ago |
+          | Category       | Security    |
+          | Total risk     | Important   |
+          | Risk of change | Moderate    |
+          | Clusters       | 1           |
       And an "expand" arrow should be displayed before recommendation name
       And the "expand" arrow should point to east
      When user clicks on an "expand" arrow
@@ -49,12 +53,13 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
       And the "expand" arrow should point to south
      When user looks at expanded information
      Then the following values needs to be displayed
-          | Value type  | Content             | Displayed as              | Optional |
-          | Description | Textual description | Text                      | no       |
-          | KB article  | Link to KB article  | Link                      | yes      |
-          | Total risk  | Important           | Widget (icon+label)       | no       |
-          | Likelihood  | High                | Widget (thermometer-like) | no       |
-          | Impact      | High                | Widget (thermometer-like) | no       |
+          | Value type     | Content             | Displayed as              | Optional |
+          | Description    | Textual description | Text                      | no       |
+          | KB article     | Link to KB article  | Link                      | yes      |
+          | Total risk     | Important           | Widget (icon+label)       | no       |
+          | Likelihood     | High                | Widget (thermometer-like) | no       |
+          | Impact         | High                | Widget (thermometer-like) | no       |
+          | Risk of change | Moderate            | Widget (icon+label)       | no       |
      When user clicks on an "expand" arrow
      Then additional information about selected recommendation should be hidden
       And the "expand" arrow should point to east
@@ -64,8 +69,8 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
     Given user USER1 is part of account (organization) ACCOUNT1
       And account (organization) ACCOUNT1 owns one cluster
       And 1 issue is detected for this cluster
-          | Title    | Modified    | Total risk | Likelihood | Impact |
-          | Bug12345 | 10 days ago | Low        | medium     | low    |
+          | Title    | Modified    | Category | Total risk | Likelihood | Impact | Risk of change |
+          | Bug12345 | 10 days ago | Security | Low        | medium     | low    | Very Low       |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
@@ -90,17 +95,21 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And widget with filter settings should be displayed
       And table with several columns should be displayed
-          | Column name |
-          | Name        |
-          | Modified    |
-          | Total risk  |
-          | Clusters    |
+          | Column name    |
+          | Name           |
+          | Modified       |
+          | Category       |
+          | Total risk     |
+          | Risk of change |
+          | Clusters       |
       And that table should contain at least one row
-          | Column name | Value       |
-          | Name        | Bug1234     |
-          | Modified    | 10 days ago |
-          | Total risk  | Low         |
-          | Clusters    | 1           |
+          | Column name    | Value       |
+          | Name           | Bug1234     |
+          | Modified       | 10 days ago |
+          | Category       | Security    |
+          | Total risk     | Low         |
+          | Risk of change | Very Low    |
+          | Clusters       | 1           |
       And an "expand" arrow should be displayed before recommendation name
       And the "expand" arrow should point to east
      When user clicks on an "expand" arrow
@@ -108,12 +117,13 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
       And the "expand" arrow should point to south
      When user looks at expanded information
      Then the following values needs to be displayed
-          | Value type  | Content             | Displayed as              | Optional |
-          | Description | Textual description | Text                      | no       |
-          | KB article  | Link to KB article  | Link                      | yes      |
-          | Total risk  | Low                 | Widget (icon+label)       |
-          | Likelihood  | Medium              | Widget (thermometer-like) |
-          | Impact      | Low                 | Widget (thermometer-like) |
+          | Value type     | Content             | Displayed as              | Optional |
+          | Description    | Textual description | Text                      | no       |
+          | KB article     | Link to KB article  | Link                      | yes      |
+          | Total risk     | Low                 | Widget (icon+label)       | no       |
+          | Likelihood     | Medium              | Widget (thermometer-like) | no       |
+          | Impact         | Low                 | Widget (thermometer-like) | no       |
+          | Risk of change | Very Low            | Widget (icon+label)       | no       |
      When user clicks on an "expand" arrow
      Then additional information about selected recommendation should be hidden
       And the "expand" arrow should point to east
@@ -123,8 +133,8 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
     Given user USER1 is part of account (organization) ACCOUNT1
       And account (organization) ACCOUNT1 owns one cluster
       And 1 issue is detected for this cluster
-          | Title    | Modified    | Total risk | Likelihood | Impact |
-          | Bug12345 | 10 days ago | Moderate   | medium     | low    |
+          | Title    | Modified    | Category    | Total risk | Likelihood | Impact | Risk of change |
+          | Bug12345 | 10 days ago | Performance | Moderate   | medium     | low    | Low            |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
@@ -149,17 +159,21 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And widget with filter settings should be displayed
       And table with several columns should be displayed
-          | Column name |
-          | Name        |
-          | Modified    |
-          | Total risk  |
-          | Clusters    |
+          | Column name    |
+          | Name           |
+          | Modified       |
+          | Category       |
+          | Total risk     |
+          | Risk of change |
+          | Clusters       |
       And that table should contain at least one row
-          | Column name | Value       |
-          | Name        | Bug1234     |
-          | Modified    | 10 days ago |
-          | Total risk  | Low         |
-          | Clusters    | 1           |
+          | Column name    | Value       |
+          | Name           | Bug1234     |
+          | Modified       | 10 days ago |
+          | Category       | Performance |
+          | Total risk     | Moderate    |
+          | Risk of change | Low         |
+          | Clusters       | 1           |
       And an "expand" arrow should be displayed before recommendation name
       And the "expand" arrow should point to east
      When user clicks on an "expand" arrow
@@ -167,12 +181,13 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
      When user looks at expanded information
       And the "expand" arrow should point to south
      Then the following values needs to be displayed
-          | Value type  | Content             | Displayed as              | Optional |
-          | Description | Textual description | Text                      | no       |
-          | KB article  | Link to KB article  | Link                      | yes      |
-          | Total risk  | Moderate            | Widget (icon+label)       |
-          | Likelihood  | Critical            | Widget (thermometer-like) |
-          | Impact      | Low                 | Widget (thermometer-like) |
+          | Value type     | Content             | Displayed as              | Optional |
+          | Description    | Textual description | Text                      | no       |
+          | KB article     | Link to KB article  | Link                      | yes      |
+          | Total risk     | Moderate            | Widget (icon+label)       | no       |
+          | Likelihood     | Medium              | Widget (thermometer-like) | no       |
+          | Impact         | Low                 | Widget (thermometer-like) | no       |
+          | Risk of change | Low                 | Widget (icon+label)       | no       |
      When user clicks on an "expand" arrow
      Then additional information about selected recommendation should be hidden
       And the "expand" arrow should point to east
