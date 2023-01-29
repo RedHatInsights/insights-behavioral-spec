@@ -134,7 +134,7 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
 
   Scenario: Pagination on "Affected clusters" page on Hybrid Cloud Console with more than 10 clusters
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns 2 clusters
+      And account (organization) ACCOUNT1 owns 12 clusters
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
           | 11111111-0000-0000-0000-000000000000 |

@@ -3,7 +3,7 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
 
   Scenario: Default sort order in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns 4 clusters
+      And account (organization) ACCOUNT1 owns 1 cluster
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
@@ -83,7 +83,7 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
 
   Scenario: Sorting by description in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns 4 clusters
+      And account (organization) ACCOUNT1 owns 1 cluster
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
@@ -187,7 +187,7 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
 
   Scenario: Sorting by added at in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns 4 clusters
+      And account (organization) ACCOUNT1 owns 1 cluster
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
@@ -291,7 +291,7 @@ Feature: Sorting on cluster view page with recommendations behaviour on Hybrid C
 
   Scenario: Sorting by total risk at in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns 4 clusters
+      And account (organization) ACCOUNT1 owns 1 cluster
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000

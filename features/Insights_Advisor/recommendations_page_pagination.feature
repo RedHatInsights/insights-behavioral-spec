@@ -3,7 +3,7 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
 
   Scenario: Pagination widgets displayed in Advisor recommendations page on Hybrid Cloud Console
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns one cluster
+      And account (organization) ACCOUNT1 owns 1 cluster
       And 30 issues are detected for this cluster
           | Title    | Modified    | Category | Total risk | Risk of change |
           | Bug01    | 10 days ago | Security | Important  | High           |
@@ -126,7 +126,7 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
 
   Scenario: Goto to next page in Advisor recommendations page on Hybrid Cloud Console using top right pagination widget
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns one cluster
+      And account (organization) ACCOUNT1 owns 1 cluster
       And 30 issues are detected for this cluster
           | Title    | Modified    | Category | Total risk | Risk of change |
           | Bug01    | 10 days ago | Security | Important  | High           |
@@ -258,7 +258,7 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
 
   Scenario: Goto to last page in Advisor recommendations page on Hybrid Cloud Console using top right pagination widget
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns one cluster
+      And account (organization) ACCOUNT1 owns 1 cluster
       And 30 issues are detected for this cluster
           | Title    | Modified    | Category | Total risk | Risk of change |
           | Bug01    | 10 days ago | Security | Important  | High           |
@@ -392,7 +392,7 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
 
   Scenario: Goto to previous page in Advisor recommendations page on Hybrid Cloud Console using top right pagination widget
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns one cluster
+      And account (organization) ACCOUNT1 owns 1 cluster
       And 30 issues are detected for this cluster
           | Title    | Modified    | Category | Total risk | Risk of change |
           | Bug01    | 10 days ago | Security | Important  | High           |
@@ -566,7 +566,7 @@ Feature: Pagination feature in Advisor recommendations page on Hybrid Cloud Cons
 
   Scenario: Goto to first page in Advisor recommendations page on Hybrid Cloud Console using top right pagination widget
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns one cluster
+      And account (organization) ACCOUNT1 owns 1 cluster
       And 30 issues are detected for this cluster
           | Title    | Modified    | Category | Total risk | Risk of change |
           | Bug01    | 10 days ago | Security | Important  | High           |

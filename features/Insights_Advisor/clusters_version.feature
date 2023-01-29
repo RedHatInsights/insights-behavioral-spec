@@ -3,7 +3,7 @@ Feature: Clusters view page with recommendations behaviour on Hybrid Cloud Conso
 
     Scenario: Displaying Advisor's "Affected clusters" page on Hybrid Cloud Console should show the cluster version
         Given user USER1 is part of account (organization) ACCOUNT1
-        And account (organization) ACCOUNT1 owns 1 cluster
+        And account (organization) ACCOUNT1 owns 2 clusters
             | Cluster name                         | Version |
             | 00000000-0000-0000-0000-000000000000 | 0.0     |
             | 11111111-0000-0000-0000-000000000000 |         |

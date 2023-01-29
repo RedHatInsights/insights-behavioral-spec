@@ -3,7 +3,7 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console
 
   Scenario: Displaying Advisor's "Recommendations" page on Hybrid Cloud Console without any recommendations
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns one cluster
+      And account (organization) ACCOUNT1 owns 1 cluster
       And 0 issues are detected for this cluster
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
@@ -41,7 +41,7 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console
 
   Scenario: Displaying Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and one cluster
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns one cluster
+      And account (organization) ACCOUNT1 owns 1 cluster
       And 1 issue is detected for this cluster
           | Title    | Modified    | Total risk | Risk of change | Category             |
           | Bug12345 | 10 days ago | Critical   | High           | Service Availability |

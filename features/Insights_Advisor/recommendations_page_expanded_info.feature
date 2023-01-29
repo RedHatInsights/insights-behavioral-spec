@@ -3,7 +3,7 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
 
   Scenario: Displaying expanded information about selected recommendation with high likelihood and high impact
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns one cluster
+      And account (organization) ACCOUNT1 owns 1 cluster
       And 1 issue is detected for this cluster
           | Title    | Modified    | Category | Total risk | Likelihood | Impact | Risk of change |
           | Bug12345 | 10 days ago | Security | Important  | high       | high   | Moderate       |
@@ -67,7 +67,7 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
 
   Scenario: Displaying expanded information about selected recommendation with medium likelihood and low impact
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns one cluster
+      And account (organization) ACCOUNT1 owns 1 cluster
       And 1 issue is detected for this cluster
           | Title    | Modified    | Category | Total risk | Likelihood | Impact | Risk of change |
           | Bug12345 | 10 days ago | Security | Low        | medium     | low    | Very Low       |
@@ -131,7 +131,7 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
 
   Scenario: Displaying expanded information about selected recommendation with critical likelihood and low impact
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns one cluster
+      And account (organization) ACCOUNT1 owns 1 cluster
       And 1 issue is detected for this cluster
           | Title    | Modified    | Category    | Total risk | Likelihood | Impact | Risk of change |
           | Bug12345 | 10 days ago | Performance | Moderate   | medium     | low    | Low            |

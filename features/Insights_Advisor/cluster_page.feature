@@ -2,7 +2,7 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
 
   Scenario: Cluster view page on Hybrid Cloud Console with five recommendations and one cluster
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns 4 clusters
+      And account (organization) ACCOUNT1 owns 1 cluster
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
@@ -70,7 +70,7 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
 
   Scenario: Recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns 4 clusters
+      And account (organization) ACCOUNT1 owns 1 cluster
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
@@ -150,7 +150,7 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
 
   Scenario: Expanded recommendation on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns 4 clusters
+      And account (organization) ACCOUNT1 owns 1 cluster
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
@@ -236,7 +236,7 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
 
   Scenario: Folding recommendation on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns 4 clusters
+      And account (organization) ACCOUNT1 owns 1 cluster
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
@@ -324,7 +324,7 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
 
   Scenario: Expanding recommendation on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns 4 clusters
+      And account (organization) ACCOUNT1 owns 1 cluster
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
@@ -412,7 +412,7 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
 
   Scenario: Expanding all recommendations on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns 4 clusters
+      And account (organization) ACCOUNT1 owns 1 cluster
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
@@ -501,7 +501,7 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
 
   Scenario: Collapsing all recommendations on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns 4 clusters
+      And account (organization) ACCOUNT1 owns 1 cluster
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
