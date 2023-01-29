@@ -14,13 +14,25 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
       And the left menu might contain these top level items
+          | Left menu item                | Required for this test |
+          | Application and Data Services | no                     |
+          | OpenShift                     | yes                    |
+          | Red Hat Enterprise Linux      | no                     |
+          | Ansible Automation Platform   | no                     |
+     When user selects "OpenShift" from the left side menu
+     Then menu on the left side should be changed
+      And the left menu might contain these top level items
           | Left menu item           | Required for this test |
+          | Clusters                 | no                     |
           | Overview                 | no                     |
           | Releases                 | no                     |
+          | Developer Sandbox        | no                     |
           | Downloads                | no                     |
           | Advisor                  | yes                    |
+          | Vulnerability            | no                     |
           | Subscriptions            | no                     |
           | Cost Management          | no                     |
+          | Support Cases            | no                     |
           | Cluster Manager Feedback | no                     |
           | Red Hat Marketplace      | no                     |
           | Documentation            | no                     |
@@ -67,13 +79,25 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
       And the left menu might contain these top level items
+          | Left menu item                | Required for this test |
+          | Application and Data Services | no                     |
+          | OpenShift                     | yes                    |
+          | Red Hat Enterprise Linux      | no                     |
+          | Ansible Automation Platform   | no                     |
+     When user selects "OpenShift" from the left side menu
+     Then menu on the left side should be changed
+      And the left menu might contain these top level items
           | Left menu item           | Required for this test |
+          | Clusters                 | no                     |
           | Overview                 | no                     |
           | Releases                 | no                     |
+          | Developer Sandbox        | no                     |
           | Downloads                | no                     |
           | Advisor                  | yes                    |
+          | Vulnerability            | no                     |
           | Subscriptions            | no                     |
           | Cost Management          | no                     |
+          | Support Cases            | no                     |
           | Cluster Manager Feedback | no                     |
           | Red Hat Marketplace      | no                     |
           | Documentation            | no                     |
@@ -127,13 +151,25 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
       And the left menu might contain these top level items
+          | Left menu item                | Required for this test |
+          | Application and Data Services | no                     |
+          | OpenShift                     | yes                    |
+          | Red Hat Enterprise Linux      | no                     |
+          | Ansible Automation Platform   | no                     |
+     When user selects "OpenShift" from the left side menu
+     Then menu on the left side should be changed
+      And the left menu might contain these top level items
           | Left menu item           | Required for this test |
+          | Clusters                 | no                     |
           | Overview                 | no                     |
           | Releases                 | no                     |
+          | Developer Sandbox        | no                     |
           | Downloads                | no                     |
           | Advisor                  | yes                    |
+          | Vulnerability            | no                     |
           | Subscriptions            | no                     |
           | Cost Management          | no                     |
+          | Support Cases            | no                     |
           | Cluster Manager Feedback | no                     |
           | Red Hat Marketplace      | no                     |
           | Documentation            | no                     |
@@ -218,13 +254,25 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
       And the left menu might contain these top level items
+          | Left menu item                | Required for this test |
+          | Application and Data Services | no                     |
+          | OpenShift                     | yes                    |
+          | Red Hat Enterprise Linux      | no                     |
+          | Ansible Automation Platform   | no                     |
+     When user selects "OpenShift" from the left side menu
+     Then menu on the left side should be changed
+      And the left menu might contain these top level items
           | Left menu item           | Required for this test |
+          | Clusters                 | no                     |
           | Overview                 | no                     |
           | Releases                 | no                     |
+          | Developer Sandbox        | no                     |
           | Downloads                | no                     |
           | Advisor                  | yes                    |
+          | Vulnerability            | no                     |
           | Subscriptions            | no                     |
           | Cost Management          | no                     |
+          | Support Cases            | no                     |
           | Cluster Manager Feedback | no                     |
           | Red Hat Marketplace      | no                     |
           | Documentation            | no                     |
@@ -315,13 +363,25 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
       And the left menu might contain these top level items
+          | Left menu item                | Required for this test |
+          | Application and Data Services | no                     |
+          | OpenShift                     | yes                    |
+          | Red Hat Enterprise Linux      | no                     |
+          | Ansible Automation Platform   | no                     |
+     When user selects "OpenShift" from the left side menu
+     Then menu on the left side should be changed
+      And the left menu might contain these top level items
           | Left menu item           | Required for this test |
+          | Clusters                 | no                     |
           | Overview                 | no                     |
           | Releases                 | no                     |
+          | Developer Sandbox        | no                     |
           | Downloads                | no                     |
           | Advisor                  | yes                    |
+          | Vulnerability            | no                     |
           | Subscriptions            | no                     |
           | Cost Management          | no                     |
+          | Support Cases            | no                     |
           | Cluster Manager Feedback | no                     |
           | Red Hat Marketplace      | no                     |
           | Documentation            | no                     |
@@ -406,13 +466,25 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
       And the left menu might contain these top level items
+          | Left menu item                | Required for this test |
+          | Application and Data Services | no                     |
+          | OpenShift                     | yes                    |
+          | Red Hat Enterprise Linux      | no                     |
+          | Ansible Automation Platform   | no                     |
+     When user selects "OpenShift" from the left side menu
+     Then menu on the left side should be changed
+      And the left menu might contain these top level items
           | Left menu item           | Required for this test |
+          | Clusters                 | no                     |
           | Overview                 | no                     |
           | Releases                 | no                     |
+          | Developer Sandbox        | no                     |
           | Downloads                | no                     |
           | Advisor                  | yes                    |
+          | Vulnerability            | no                     |
           | Subscriptions            | no                     |
           | Cost Management          | no                     |
+          | Support Cases            | no                     |
           | Cluster Manager Feedback | no                     |
           | Red Hat Marketplace      | no                     |
           | Documentation            | no                     |
@@ -505,13 +577,25 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
       And the left menu might contain these top level items
+          | Left menu item                | Required for this test |
+          | Application and Data Services | no                     |
+          | OpenShift                     | yes                    |
+          | Red Hat Enterprise Linux      | no                     |
+          | Ansible Automation Platform   | no                     |
+     When user selects "OpenShift" from the left side menu
+     Then menu on the left side should be changed
+      And the left menu might contain these top level items
           | Left menu item           | Required for this test |
+          | Clusters                 | no                     |
           | Overview                 | no                     |
           | Releases                 | no                     |
+          | Developer Sandbox        | no                     |
           | Downloads                | no                     |
           | Advisor                  | yes                    |
+          | Vulnerability            | no                     |
           | Subscriptions            | no                     |
           | Cost Management          | no                     |
+          | Support Cases            | no                     |
           | Cluster Manager Feedback | no                     |
           | Red Hat Marketplace      | no                     |
           | Documentation            | no                     |
@@ -639,13 +723,25 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
       And the left menu might contain these top level items
+          | Left menu item                | Required for this test |
+          | Application and Data Services | no                     |
+          | OpenShift                     | yes                    |
+          | Red Hat Enterprise Linux      | no                     |
+          | Ansible Automation Platform   | no                     |
+     When user selects "OpenShift" from the left side menu
+     Then menu on the left side should be changed
+      And the left menu might contain these top level items
           | Left menu item           | Required for this test |
+          | Clusters                 | no                     |
           | Overview                 | no                     |
           | Releases                 | no                     |
+          | Developer Sandbox        | no                     |
           | Downloads                | no                     |
           | Advisor                  | yes                    |
+          | Vulnerability            | no                     |
           | Subscriptions            | no                     |
           | Cost Management          | no                     |
+          | Support Cases            | no                     |
           | Cluster Manager Feedback | no                     |
           | Red Hat Marketplace      | no                     |
           | Documentation            | no                     |
@@ -773,13 +869,25 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
       And the left menu might contain these top level items
+          | Left menu item                | Required for this test |
+          | Application and Data Services | no                     |
+          | OpenShift                     | yes                    |
+          | Red Hat Enterprise Linux      | no                     |
+          | Ansible Automation Platform   | no                     |
+     When user selects "OpenShift" from the left side menu
+     Then menu on the left side should be changed
+      And the left menu might contain these top level items
           | Left menu item           | Required for this test |
+          | Clusters                 | no                     |
           | Overview                 | no                     |
           | Releases                 | no                     |
+          | Developer Sandbox        | no                     |
           | Downloads                | no                     |
           | Advisor                  | yes                    |
+          | Vulnerability            | no                     |
           | Subscriptions            | no                     |
           | Cost Management          | no                     |
+          | Support Cases            | no                     |
           | Cluster Manager Feedback | no                     |
           | Red Hat Marketplace      | no                     |
           | Documentation            | no                     |
@@ -837,13 +945,25 @@ Feature: Filtering on Advisor recommendations page behaviour on Hybrid Cloud Con
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
       And the left menu might contain these top level items
+          | Left menu item                | Required for this test |
+          | Application and Data Services | no                     |
+          | OpenShift                     | yes                    |
+          | Red Hat Enterprise Linux      | no                     |
+          | Ansible Automation Platform   | no                     |
+     When user selects "OpenShift" from the left side menu
+     Then menu on the left side should be changed
+      And the left menu might contain these top level items
           | Left menu item           | Required for this test |
+          | Clusters                 | no                     |
           | Overview                 | no                     |
           | Releases                 | no                     |
+          | Developer Sandbox        | no                     |
           | Downloads                | no                     |
           | Advisor                  | yes                    |
+          | Vulnerability            | no                     |
           | Subscriptions            | no                     |
           | Cost Management          | no                     |
+          | Support Cases            | no                     |
           | Cluster Manager Feedback | no                     |
           | Red Hat Marketplace      | no                     |
           | Documentation            | no                     |
