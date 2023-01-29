@@ -40,7 +40,7 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
           | Clusters       |
       And that table should contain at least one row
           | Column name    | Value       |
-          | Name           | Bug1234     |
+          | Name           | Bug12345     |
           | Modified       | 10 days ago |
           | Category       | Security    |
           | Total risk     | Important   |
@@ -104,7 +104,7 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
           | Clusters       |
       And that table should contain at least one row
           | Column name    | Value       |
-          | Name           | Bug1234     |
+          | Name           | Bug12345     |
           | Modified       | 10 days ago |
           | Category       | Security    |
           | Total risk     | Low         |
@@ -168,7 +168,7 @@ Feature: Advisor recommendations page behaviour on Hybrid Cloud Console - expand
           | Clusters       |
       And that table should contain at least one row
           | Column name    | Value       |
-          | Name           | Bug1234     |
+          | Name           | Bug12345     |
           | Modified       | 10 days ago |
           | Category       | Performance |
           | Total risk     | Moderate    |

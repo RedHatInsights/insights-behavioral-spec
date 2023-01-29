@@ -42,13 +42,13 @@ Feature: Recommendations view page with recommendations behaviour on Hybrid Clou
             | Clusters       |
         And that table should contain at least one row
             | Column name    | Value       |
-            | Name           | Bug1234     |
+            | Name           | Bug12345     |
             | Modified       | 10 days ago |
             | Category       | Security    |
             | Total risk     | Important   |
             | Risk of change | Moderate    |
             | Clusters       | 1           |
-        When user clicks on an "Bug1234" link
+        When user clicks on an "Bug12345" link
         Then new page with additional information about selected recommendation should be displayed
         And the following values needs to be displayed
           | Value type     | Content             | Displayed as              | Optional |
@@ -109,13 +109,13 @@ Feature: Recommendations view page with recommendations behaviour on Hybrid Clou
             | Clusters       |
         And that table should contain at least one row
             | Column name    | Value       |
-            | Name           | Bug1234     |
+            | Name           | Bug12345     |
             | Modified       | 10 days ago |
             | Category       | Security    |
             | Total risk     | Important   |
             | Risk of change | Moderate    |
             | Clusters       | 2           |
-        When user clicks on an "Bug1234" link
+        When user clicks on an "Bug12345" link
         Then new page with additional information about selected recommendation should be displayed
         And the following values needs to be displayed
           | Value type     | Content             | Displayed as              | Optional |
@@ -184,13 +184,13 @@ Feature: Recommendations view page with recommendations behaviour on Hybrid Clou
             | Clusters       |
         And that table should contain at least one row
             | Column name    | Value       |
-            | Name           | Bug1234     |
+            | Name           | Bug12345     |
             | Modified       | 10 days ago |
             | Category       | Security    |
             | Total risk     | Important   |
             | Risk of change | Moderate    |
             | Clusters       | 12          |
-        When user clicks on an "Bug1234" link
+        When user clicks on an "Bug12345" link
         Then new page with additional information about selected recommendation should be displayed
         And the following values needs to be displayed
           | Value type     | Content             | Displayed as              | Optional |
