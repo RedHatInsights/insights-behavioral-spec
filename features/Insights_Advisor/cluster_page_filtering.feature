@@ -3,29 +3,41 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
 
   Scenario: Default filtering in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns 4 clusters
+      And account (organization) ACCOUNT1 owns 1 cluster
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Modified    | Total risk | Category             | Status   |
-          | Bug12345 | 10 days ago | Critical   | Service Availability | enabled  |
-          | Abc12345 | 10 days ago | Important  | Performance          | enabled  |
-          | Xyz12345 | 10 days ago | Moderate   | Fault Tolerance      | disabled |
-          | Uvw12345 | 10 days ago | Low        | Security             | disabled |
+          | Title    | Modified    | Total risk | Risk of change | Category             | Status   |
+          | Bug12345 | 10 days ago | Critical   | High           | Service Availability | enabled  |
+          | Abc12345 | 10 days ago | Important  | Moderate       | Performance          | enabled  |
+          | Xyz12345 | 10 days ago | Moderate   | Low            | Fault Tolerance      | disabled |
+          | Uvw12345 | 10 days ago | Low        | Very low       | Security             | disabled |
       And 1 another issue without cluster hit exists
-          | Title    | Modified    | Total risk |
-          | Nohit    | 10 days ago | Critical   |
+          | Title    | Modified    | Total risk | Risk of change | Category             |
+          | Nohit    | 10 days ago | Critical   | High           | Service Availability |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
       And the left menu might contain these top level items
+          | Left menu item                | Required for this test |
+          | Application and Data Services | no                     |
+          | OpenShift                     | yes                    |
+          | Red Hat Enterprise Linux      | no                     |
+          | Ansible Automation Platform   | no                     |
+     When user selects "OpenShift" from the left side menu
+     Then menu on the left side should be changed
+      And the left menu might contain these top level items
           | Left menu item           | Required for this test |
+          | Clusters                 | no                     |
           | Overview                 | no                     |
           | Releases                 | no                     |
+          | Developer Sandbox        | no                     |
           | Downloads                | no                     |
           | Advisor                  | yes                    |
+          | Vulnerability            | no                     |
           | Subscriptions            | no                     |
           | Cost Management          | no                     |
+          | Support Cases            | no                     |
           | Cluster Manager Feedback | no                     |
           | Red Hat Marketplace      | no                     |
           | Documentation            | no                     |
@@ -38,20 +50,21 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Modified    | Total risk | Clusters |
-          | Bug12345    | 10 days ago | Critical   | 1        |
-          | Abc12345    | 10 days ago | Important  | 1        |
-          | Xyz12345    | 10 days ago | Moderate   | 1        |
-          | Uvw12345    | 10 days ago | Low        | 1        |
+          | Name        | Modified    | Category             | Total risk | Risk of change | Clusters |
+          | Bug12345    | 10 days ago | Service Availability | Critical   | High           | 1        |
+          | Abc12345    | 10 days ago | Performance          | Important  | Moderate       | 1        |
+          | Xyz12345    | 10 days ago | Fault Tolerance      | Moderate   | Low            | 1        |
+          | Uvw12345    | 10 days ago | Security             | Low        | Very low       | 1        |
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              | Optional |
-          | Description | Textual description | Text                      | no       |
-          | KB article  | Link to KB article  | Link                      | yes      |
-          | Total risk  | Important           | Widget (icon+label)       | no       |
-          | Likelihood  | High                | Widget (thermometer-like) | no       |
-          | Impact      | High                | Widget (thermometer-like) | no       |
+          | Value type     | Content             | Displayed as              | Optional |
+          | Description    | Textual description | Text                      | no       |
+          | KB article     | Link to KB article  | Link                      | yes      |
+          | Total risk     | Important           | Widget (icon+label)       | no       |
+          | Likelihood     | High                | Widget (thermometer-like) | no       |
+          | Impact         | High                | Widget (thermometer-like) | no       |
+          | Risk of change | Moderate            | Widget (icon+label)       | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -88,29 +101,41 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
 
   Scenario: Filtering by description in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns 4 clusters
+      And account (organization) ACCOUNT1 owns 1 cluster
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Modified    | Total risk | Category             | Status   |
-          | Bug12345 | 10 days ago | Critical   | Service Availability | enabled  |
-          | Abc12345 | 10 days ago | Important  | Performance          | enabled  |
-          | Xyz12345 | 10 days ago | Moderate   | Fault Tolerance      | disabled |
-          | Uvw12345 | 10 days ago | Low        | Security             | disabled |
+          | Title    | Modified    | Total risk | Risk of change | Category             | Status   |
+          | Bug12345 | 10 days ago | Critical   | High           | Service Availability | enabled  |
+          | Abc12345 | 10 days ago | Important  | Moderate       | Performance          | enabled  |
+          | Xyz12345 | 10 days ago | Moderate   | Low            | Fault Tolerance      | disabled |
+          | Uvw12345 | 10 days ago | Low        | Very low       | Security             | disabled |
       And 1 another issue without cluster hit exists
-          | Title    | Modified    | Total risk |
-          | Nohit    | 10 days ago | Critical   |
+          | Title    | Modified    | Total risk | Risk of change | Category             |
+          | Nohit    | 10 days ago | Critical   | High           | Service Availability |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
       And the left menu might contain these top level items
+          | Left menu item                | Required for this test |
+          | Application and Data Services | no                     |
+          | OpenShift                     | yes                    |
+          | Red Hat Enterprise Linux      | no                     |
+          | Ansible Automation Platform   | no                     |
+     When user selects "OpenShift" from the left side menu
+     Then menu on the left side should be changed
+      And the left menu might contain these top level items
           | Left menu item           | Required for this test |
+          | Clusters                 | no                     |
           | Overview                 | no                     |
           | Releases                 | no                     |
+          | Developer Sandbox        | no                     |
           | Downloads                | no                     |
           | Advisor                  | yes                    |
+          | Vulnerability            | no                     |
           | Subscriptions            | no                     |
           | Cost Management          | no                     |
+          | Support Cases            | no                     |
           | Cluster Manager Feedback | no                     |
           | Red Hat Marketplace      | no                     |
           | Documentation            | no                     |
@@ -123,20 +148,21 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Modified    | Total risk | Clusters |
-          | Bug12345    | 10 days ago | Critical   | 1        |
-          | Abc12345    | 10 days ago | Important  | 1        |
-          | Xyz12345    | 10 days ago | Moderate   | 1        |
-          | Uvw12345    | 10 days ago | Low        | 1        |
+          | Name        | Modified    | Category             | Total risk | Risk of change | Clusters |
+          | Bug12345    | 10 days ago | Service Availability | Critical   | High           | 1        |
+          | Abc12345    | 10 days ago | Performance          | Important  | Moderate       | 1        |
+          | Xyz12345    | 10 days ago | Fault Tolerance      | Moderate   | Low            | 1        |
+          | Uvw12345    | 10 days ago | Security             | Low        | Very low       | 1        |
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              | Optional |
-          | Description | Textual description | Text                      | no       |
-          | KB article  | Link to KB article  | Link                      | yes      |
-          | Total risk  | Important           | Widget (icon+label)       | no       |
-          | Likelihood  | High                | Widget (thermometer-like) | no       |
-          | Impact      | High                | Widget (thermometer-like) | no       |
+          | Value type     | Content             | Displayed as              | Optional |
+          | Description    | Textual description | Text                      | no       |
+          | KB article     | Link to KB article  | Link                      | yes      |
+          | Total risk     | Important           | Widget (icon+label)       | no       |
+          | Likelihood     | High                | Widget (thermometer-like) | no       |
+          | Impact         | High                | Widget (thermometer-like) | no       |
+          | Risk of change | Moderate            | Widget (icon+label)       | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -190,29 +216,41 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
 
   Scenario: Filtering by total risk in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns 4 clusters
+      And account (organization) ACCOUNT1 owns 1 cluster
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Modified    | Total risk | Category             | Status   |
-          | Bug12345 | 10 days ago | Critical   | Service Availability | enabled  |
-          | Abc12345 | 10 days ago | Important  | Performance          | enabled  |
-          | Xyz12345 | 10 days ago | Moderate   | Fault Tolerance      | disabled |
-          | Uvw12345 | 10 days ago | Low        | Security             | disabled |
+          | Title    | Modified    | Total risk | Risk of change | Category             | Status   |
+          | Bug12345 | 10 days ago | Critical   | High           | Service Availability | enabled  |
+          | Abc12345 | 10 days ago | Important  | Moderate       | Performance          | enabled  |
+          | Xyz12345 | 10 days ago | Moderate   | Low            | Fault Tolerance      | disabled |
+          | Uvw12345 | 10 days ago | Low        | Very low       | Security             | disabled |
       And 1 another issue without cluster hit exists
-          | Title    | Modified    | Total risk |
-          | Nohit    | 10 days ago | Critical   |
+          | Title    | Modified    | Total risk | Risk of change | Category             |
+          | Nohit    | 10 days ago | Critical   | High           | Service Availability |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
       And the left menu might contain these top level items
+          | Left menu item                | Required for this test |
+          | Application and Data Services | no                     |
+          | OpenShift                     | yes                    |
+          | Red Hat Enterprise Linux      | no                     |
+          | Ansible Automation Platform   | no                     |
+     When user selects "OpenShift" from the left side menu
+     Then menu on the left side should be changed
+      And the left menu might contain these top level items
           | Left menu item           | Required for this test |
+          | Clusters                 | no                     |
           | Overview                 | no                     |
           | Releases                 | no                     |
+          | Developer Sandbox        | no                     |
           | Downloads                | no                     |
           | Advisor                  | yes                    |
+          | Vulnerability            | no                     |
           | Subscriptions            | no                     |
           | Cost Management          | no                     |
+          | Support Cases            | no                     |
           | Cluster Manager Feedback | no                     |
           | Red Hat Marketplace      | no                     |
           | Documentation            | no                     |
@@ -225,20 +263,21 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Modified    | Total risk | Clusters |
-          | Bug12345    | 10 days ago | Critical   | 1        |
-          | Abc12345    | 10 days ago | Important  | 1        |
-          | Xyz12345    | 10 days ago | Moderate   | 1        |
-          | Uvw12345    | 10 days ago | Low        | 1        |
+          | Name        | Modified    | Category             | Total risk | Risk of change | Clusters |
+          | Bug12345    | 10 days ago | Service Availability | Critical   | High           | 1        |
+          | Abc12345    | 10 days ago | Performance          | Important  | Moderate       | 1        |
+          | Xyz12345    | 10 days ago | Fault Tolerance      | Moderate   | Low            | 1        |
+          | Uvw12345    | 10 days ago | Security             | Low        | Very low       | 1        |
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              | Optional |
-          | Description | Textual description | Text                      | no       |
-          | KB article  | Link to KB article  | Link                      | yes      |
-          | Total risk  | Important           | Widget (icon+label)       | no       |
-          | Likelihood  | High                | Widget (thermometer-like) | no       |
-          | Impact      | High                | Widget (thermometer-like) | no       |
+          | Value type     | Content             | Displayed as              | Optional |
+          | Description    | Textual description | Text                      | no       |
+          | KB article     | Link to KB article  | Link                      | yes      |
+          | Total risk     | Important           | Widget (icon+label)       | no       |
+          | Likelihood     | High                | Widget (thermometer-like) | no       |
+          | Impact         | High                | Widget (thermometer-like) | no       |
+          | Risk of change | Moderate            | Widget (icon+label)       | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -295,29 +334,41 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
 
   Scenario: Filtering by multiple total risk values in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns 4 clusters
+      And account (organization) ACCOUNT1 owns 1 cluster
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Modified    | Total risk | Category             | Status   |
-          | Bug12345 | 10 days ago | Critical   | Service Availability | enabled  |
-          | Abc12345 | 10 days ago | Important  | Performance          | enabled  |
-          | Xyz12345 | 10 days ago | Moderate   | Fault Tolerance      | disabled |
-          | Uvw12345 | 10 days ago | Low        | Security             | disabled |
+          | Title    | Modified    | Total risk | Risk of change | Category             | Status   |
+          | Bug12345 | 10 days ago | Critical   | High           | Service Availability | enabled  |
+          | Abc12345 | 10 days ago | Important  | Moderate       | Performance          | enabled  |
+          | Xyz12345 | 10 days ago | Moderate   | Low            | Fault Tolerance      | disabled |
+          | Uvw12345 | 10 days ago | Low        | Very low       | Security             | disabled |
       And 1 another issue without cluster hit exists
-          | Title    | Modified    | Total risk |
-          | Nohit    | 10 days ago | Critical   |
+          | Title    | Modified    | Total risk | Risk of change | Category             |
+          | Nohit    | 10 days ago | Critical   | High           | Service Availability |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
       And the left menu might contain these top level items
+          | Left menu item                | Required for this test |
+          | Application and Data Services | no                     |
+          | OpenShift                     | yes                    |
+          | Red Hat Enterprise Linux      | no                     |
+          | Ansible Automation Platform   | no                     |
+     When user selects "OpenShift" from the left side menu
+     Then menu on the left side should be changed
+      And the left menu might contain these top level items
           | Left menu item           | Required for this test |
+          | Clusters                 | no                     |
           | Overview                 | no                     |
           | Releases                 | no                     |
+          | Developer Sandbox        | no                     |
           | Downloads                | no                     |
           | Advisor                  | yes                    |
+          | Vulnerability            | no                     |
           | Subscriptions            | no                     |
           | Cost Management          | no                     |
+          | Support Cases            | no                     |
           | Cluster Manager Feedback | no                     |
           | Red Hat Marketplace      | no                     |
           | Documentation            | no                     |
@@ -330,20 +381,21 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Modified    | Total risk | Clusters |
-          | Bug12345    | 10 days ago | Critical   | 1        |
-          | Abc12345    | 10 days ago | Important  | 1        |
-          | Xyz12345    | 10 days ago | Moderate   | 1        |
-          | Uvw12345    | 10 days ago | Low        | 1        |
+          | Name        | Modified    | Category             | Total risk | Risk of change | Clusters |
+          | Bug12345    | 10 days ago | Service Availability | Critical   | High           | 1        |
+          | Abc12345    | 10 days ago | Performance          | Important  | Moderate       | 1        |
+          | Xyz12345    | 10 days ago | Fault Tolerance      | Moderate   | Low            | 1        |
+          | Uvw12345    | 10 days ago | Security             | Low        | Very low       | 1        |
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              | Optional |
-          | Description | Textual description | Text                      | no       |
-          | KB article  | Link to KB article  | Link                      | yes      |
-          | Total risk  | Important           | Widget (icon+label)       | no       |
-          | Likelihood  | High                | Widget (thermometer-like) | no       |
-          | Impact      | High                | Widget (thermometer-like) | no       |
+          | Value type     | Content             | Displayed as              | Optional |
+          | Description    | Textual description | Text                      | no       |
+          | KB article     | Link to KB article  | Link                      | yes      |
+          | Total risk     | Important           | Widget (icon+label)       | no       |
+          | Likelihood     | High                | Widget (thermometer-like) | no       |
+          | Impact         | High                | Widget (thermometer-like) | no       |
+          | Risk of change | Moderate            | Widget (icon+label)       | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -410,29 +462,41 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
 
   Scenario: Filtering by category in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns 4 clusters
+      And account (organization) ACCOUNT1 owns 1 cluster
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Modified    | Total risk | Category             | Status   |
-          | Bug12345 | 10 days ago | Critical   | Service Availability | enabled  |
-          | Abc12345 | 10 days ago | Important  | Performance          | enabled  |
-          | Xyz12345 | 10 days ago | Moderate   | Fault Tolerance      | disabled |
-          | Uvw12345 | 10 days ago | Low        | Security             | disabled |
+          | Title    | Modified    | Total risk | Risk of change | Category             | Status   |
+          | Bug12345 | 10 days ago | Critical   | High           | Service Availability | enabled  |
+          | Abc12345 | 10 days ago | Important  | Moderate       | Performance          | enabled  |
+          | Xyz12345 | 10 days ago | Moderate   | Low            | Fault Tolerance      | disabled |
+          | Uvw12345 | 10 days ago | Low        | Very low       | Security             | disabled |
       And 1 another issue without cluster hit exists
-          | Title    | Modified    | Total risk |
-          | Nohit    | 10 days ago | Critical   |
+          | Title    | Modified    | Total risk | Risk of change | Category             |
+          | Nohit    | 10 days ago | Critical   | High           | Service Availability |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
       And the left menu might contain these top level items
+          | Left menu item                | Required for this test |
+          | Application and Data Services | no                     |
+          | OpenShift                     | yes                    |
+          | Red Hat Enterprise Linux      | no                     |
+          | Ansible Automation Platform   | no                     |
+     When user selects "OpenShift" from the left side menu
+     Then menu on the left side should be changed
+      And the left menu might contain these top level items
           | Left menu item           | Required for this test |
+          | Clusters                 | no                     |
           | Overview                 | no                     |
           | Releases                 | no                     |
+          | Developer Sandbox        | no                     |
           | Downloads                | no                     |
           | Advisor                  | yes                    |
+          | Vulnerability            | no                     |
           | Subscriptions            | no                     |
           | Cost Management          | no                     |
+          | Support Cases            | no                     |
           | Cluster Manager Feedback | no                     |
           | Red Hat Marketplace      | no                     |
           | Documentation            | no                     |
@@ -445,20 +509,21 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Modified    | Total risk | Clusters |
-          | Bug12345    | 10 days ago | Critical   | 1        |
-          | Abc12345    | 10 days ago | Important  | 1        |
-          | Xyz12345    | 10 days ago | Moderate   | 1        |
-          | Uvw12345    | 10 days ago | Low        | 1        |
+          | Name        | Modified    | Category             | Total risk | Risk of change | Clusters |
+          | Bug12345    | 10 days ago | Service Availability | Critical   | High           | 1        |
+          | Abc12345    | 10 days ago | Performance          | Important  | Moderate       | 1        |
+          | Xyz12345    | 10 days ago | Fault Tolerance      | Moderate   | Low            | 1        |
+          | Uvw12345    | 10 days ago | Security             | Low        | Very low       | 1        |
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              | Optional |
-          | Description | Textual description | Text                      | no       |
-          | KB article  | Link to KB article  | Link                      | yes      |
-          | Total risk  | Important           | Widget (icon+label)       | no       |
-          | Likelihood  | High                | Widget (thermometer-like) | no       |
-          | Impact      | High                | Widget (thermometer-like) | no       |
+          | Value type     | Content             | Displayed as              | Optional |
+          | Description    | Textual description | Text                      | no       |
+          | KB article     | Link to KB article  | Link                      | yes      |
+          | Total risk     | Important           | Widget (icon+label)       | no       |
+          | Likelihood     | High                | Widget (thermometer-like) | no       |
+          | Impact         | High                | Widget (thermometer-like) | no       |
+          | Risk of change | Moderate            | Widget (icon+label)       | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -515,29 +580,41 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
 
   Scenario: Filtering by multiple categories in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns 4 clusters
+      And account (organization) ACCOUNT1 owns 1 cluster
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Modified    | Total risk | Category             | Status   |
-          | Bug12345 | 10 days ago | Critical   | Service Availability | enabled  |
-          | Abc12345 | 10 days ago | Important  | Performance          | enabled  |
-          | Xyz12345 | 10 days ago | Moderate   | Fault Tolerance      | disabled |
-          | Uvw12345 | 10 days ago | Low        | Security             | disabled |
+          | Title    | Modified    | Total risk | Risk of change | Category             | Status   |
+          | Bug12345 | 10 days ago | Critical   | High           | Service Availability | enabled  |
+          | Abc12345 | 10 days ago | Important  | Moderate       | Performance          | enabled  |
+          | Xyz12345 | 10 days ago | Moderate   | Low            | Fault Tolerance      | disabled |
+          | Uvw12345 | 10 days ago | Low        | Very low       | Security             | disabled |
       And 1 another issue without cluster hit exists
-          | Title    | Modified    | Total risk |
-          | Nohit    | 10 days ago | Critical   |
+          | Title    | Modified    | Total risk | Risk of change | Category             |
+          | Nohit    | 10 days ago | Critical   | High           | Service Availability |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
       And the left menu might contain these top level items
+          | Left menu item                | Required for this test |
+          | Application and Data Services | no                     |
+          | OpenShift                     | yes                    |
+          | Red Hat Enterprise Linux      | no                     |
+          | Ansible Automation Platform   | no                     |
+     When user selects "OpenShift" from the left side menu
+     Then menu on the left side should be changed
+      And the left menu might contain these top level items
           | Left menu item           | Required for this test |
+          | Clusters                 | no                     |
           | Overview                 | no                     |
           | Releases                 | no                     |
+          | Developer Sandbox        | no                     |
           | Downloads                | no                     |
           | Advisor                  | yes                    |
+          | Vulnerability            | no                     |
           | Subscriptions            | no                     |
           | Cost Management          | no                     |
+          | Support Cases            | no                     |
           | Cluster Manager Feedback | no                     |
           | Red Hat Marketplace      | no                     |
           | Documentation            | no                     |
@@ -550,20 +627,21 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Modified    | Total risk | Clusters |
-          | Bug12345    | 10 days ago | Critical   | 1        |
-          | Abc12345    | 10 days ago | Important  | 1        |
-          | Xyz12345    | 10 days ago | Moderate   | 1        |
-          | Uvw12345    | 10 days ago | Low        | 1        |
+          | Name        | Modified    | Category             | Total risk | Risk of change | Clusters |
+          | Bug12345    | 10 days ago | Service Availability | Critical   | High           | 1        |
+          | Abc12345    | 10 days ago | Performance          | Important  | Moderate       | 1        |
+          | Xyz12345    | 10 days ago | Fault Tolerance      | Moderate   | Low            | 1        |
+          | Uvw12345    | 10 days ago | Security             | Low        | Very low       | 1        |
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              | Optional |
-          | Description | Textual description | Text                      | no       |
-          | KB article  | Link to KB article  | Link                      | yes      |
-          | Total risk  | Important           | Widget (icon+label)       | no       |
-          | Likelihood  | High                | Widget (thermometer-like) | no       |
-          | Impact      | High                | Widget (thermometer-like) | no       |
+          | Value type     | Content             | Displayed as              | Optional |
+          | Description    | Textual description | Text                      | no       |
+          | KB article     | Link to KB article  | Link                      | yes      |
+          | Total risk     | Important           | Widget (icon+label)       | no       |
+          | Likelihood     | High                | Widget (thermometer-like) | no       |
+          | Impact         | High                | Widget (thermometer-like) | no       |
+          | Risk of change | Moderate            | Widget (icon+label)       | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -631,29 +709,41 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
 
   Scenario: Filtering by status in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns 4 clusters
+      And account (organization) ACCOUNT1 owns 1 cluster
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Modified    | Total risk | Category             | Status   |
-          | Bug12345 | 10 days ago | Critical   | Service Availability | enabled  |
-          | Abc12345 | 10 days ago | Important  | Performance          | enabled  |
-          | Xyz12345 | 10 days ago | Moderate   | Fault Tolerance      | disabled |
-          | Uvw12345 | 10 days ago | Low        | Security             | disabled |
+          | Title    | Modified    | Total risk | Risk of change | Category             | Status   |
+          | Bug12345 | 10 days ago | Critical   | High           | Service Availability | enabled  |
+          | Abc12345 | 10 days ago | Important  | Moderate       | Performance          | enabled  |
+          | Xyz12345 | 10 days ago | Moderate   | Low            | Fault Tolerance      | disabled |
+          | Uvw12345 | 10 days ago | Low        | Very low       | Security             | disabled |
       And 1 another issue without cluster hit exists
-          | Title    | Modified    | Total risk |
-          | Nohit    | 10 days ago | Critical   |
+          | Title    | Modified    | Total risk | Risk of change | Category             |
+          | Nohit    | 10 days ago | Critical   | High           | Service Availability |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
       And the left menu might contain these top level items
+          | Left menu item                | Required for this test |
+          | Application and Data Services | no                     |
+          | OpenShift                     | yes                    |
+          | Red Hat Enterprise Linux      | no                     |
+          | Ansible Automation Platform   | no                     |
+     When user selects "OpenShift" from the left side menu
+     Then menu on the left side should be changed
+      And the left menu might contain these top level items
           | Left menu item           | Required for this test |
+          | Clusters                 | no                     |
           | Overview                 | no                     |
           | Releases                 | no                     |
+          | Developer Sandbox        | no                     |
           | Downloads                | no                     |
           | Advisor                  | yes                    |
+          | Vulnerability            | no                     |
           | Subscriptions            | no                     |
           | Cost Management          | no                     |
+          | Support Cases            | no                     |
           | Cluster Manager Feedback | no                     |
           | Red Hat Marketplace      | no                     |
           | Documentation            | no                     |
@@ -666,20 +756,21 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Modified    | Total risk | Clusters |
-          | Bug12345    | 10 days ago | Critical   | 1        |
-          | Abc12345    | 10 days ago | Important  | 1        |
-          | Xyz12345    | 10 days ago | Moderate   | 1        |
-          | Uvw12345    | 10 days ago | Low        | 1        |
+          | Name        | Modified    | Category             | Total risk | Risk of change | Clusters |
+          | Bug12345    | 10 days ago | Service Availability | Critical   | High           | 1        |
+          | Abc12345    | 10 days ago | Performance          | Important  | Moderate       | 1        |
+          | Xyz12345    | 10 days ago | Fault Tolerance      | Moderate   | Low            | 1        |
+          | Uvw12345    | 10 days ago | Security             | Low        | Very low       | 1        |
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              | Optional |
-          | Description | Textual description | Text                      | no       |
-          | KB article  | Link to KB article  | Link                      | yes      |
-          | Total risk  | Important           | Widget (icon+label)       | no       |
-          | Likelihood  | High                | Widget (thermometer-like) | no       |
-          | Impact      | High                | Widget (thermometer-like) | no       |
+          | Value type     | Content             | Displayed as              | Optional |
+          | Description    | Textual description | Text                      | no       |
+          | KB article     | Link to KB article  | Link                      | yes      |
+          | Total risk     | Important           | Widget (icon+label)       | no       |
+          | Likelihood     | High                | Widget (thermometer-like) | no       |
+          | Impact         | High                | Widget (thermometer-like) | no       |
+          | Risk of change | Moderate            | Widget (icon+label)       | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -751,29 +842,41 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
 
   Scenario: Filtering by status all in recommendations table on cluster view page on Hybrid Cloud Console with five recommendations and one cluster
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns 4 clusters
+      And account (organization) ACCOUNT1 owns 1 cluster
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 4 issues are detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Modified    | Total risk | Category             | Status   |
-          | Bug12345 | 10 days ago | Critical   | Service Availability | enabled  |
-          | Abc12345 | 10 days ago | Important  | Performance          | enabled  |
-          | Xyz12345 | 10 days ago | Moderate   | Fault Tolerance      | disabled |
-          | Uvw12345 | 10 days ago | Low        | Security             | disabled |
+          | Title    | Modified    | Total risk | Risk of change | Category             | Status   |
+          | Bug12345 | 10 days ago | Critical   | High           | Service Availability | enabled  |
+          | Abc12345 | 10 days ago | Important  | Moderate       | Performance          | enabled  |
+          | Xyz12345 | 10 days ago | Moderate   | Low            | Fault Tolerance      | disabled |
+          | Uvw12345 | 10 days ago | Low        | Very low       | Security             | disabled |
       And 1 another issue without cluster hit exists
-          | Title    | Modified    | Total risk |
-          | Nohit    | 10 days ago | Critical   |
+          | Title    | Modified    | Total risk | Risk of change | Category             |
+          | Nohit    | 10 days ago | Critical   | High           | Service Availability |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
       And the left menu might contain these top level items
+          | Left menu item                | Required for this test |
+          | Application and Data Services | no                     |
+          | OpenShift                     | yes                    |
+          | Red Hat Enterprise Linux      | no                     |
+          | Ansible Automation Platform   | no                     |
+     When user selects "OpenShift" from the left side menu
+     Then menu on the left side should be changed
+      And the left menu might contain these top level items
           | Left menu item           | Required for this test |
+          | Clusters                 | no                     |
           | Overview                 | no                     |
           | Releases                 | no                     |
+          | Developer Sandbox        | no                     |
           | Downloads                | no                     |
           | Advisor                  | yes                    |
+          | Vulnerability            | no                     |
           | Subscriptions            | no                     |
           | Cost Management          | no                     |
+          | Support Cases            | no                     |
           | Cluster Manager Feedback | no                     |
           | Red Hat Marketplace      | no                     |
           | Documentation            | no                     |
@@ -786,20 +889,21 @@ Feature: Filtering on cluster view page with recommendations behaviour on Hybrid
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And that table should contain following four rows in that order
-          | Name        | Modified    | Total risk | Clusters |
-          | Bug12345    | 10 days ago | Critical   | 1        |
-          | Abc12345    | 10 days ago | Important  | 1        |
-          | Xyz12345    | 10 days ago | Moderate   | 1        |
-          | Uvw12345    | 10 days ago | Low        | 1        |
+          | Name        | Modified    | Category             | Total risk | Risk of change | Clusters |
+          | Bug12345    | 10 days ago | Service Availability | Critical   | High           | 1        |
+          | Abc12345    | 10 days ago | Performance          | Important  | Moderate       | 1        |
+          | Xyz12345    | 10 days ago | Fault Tolerance      | Moderate   | Low            | 1        |
+          | Uvw12345    | 10 days ago | Security             | Low        | Very low       | 1        |
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              | Optional |
-          | Description | Textual description | Text                      | no       |
-          | KB article  | Link to KB article  | Link                      | yes      |
-          | Total risk  | Important           | Widget (icon+label)       | no       |
-          | Likelihood  | High                | Widget (thermometer-like) | no       |
-          | Impact      | High                | Widget (thermometer-like) | no       |
+          | Value type     | Content             | Displayed as              | Optional |
+          | Description    | Textual description | Text                      | no       |
+          | KB article     | Link to KB article  | Link                      | yes      |
+          | Total risk     | Important           | Widget (icon+label)       | no       |
+          | Likelihood     | High                | Widget (thermometer-like) | no       |
+          | Impact         | High                | Widget (thermometer-like) | no       |
+          | Risk of change | Moderate            | Widget (icon+label)       | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |

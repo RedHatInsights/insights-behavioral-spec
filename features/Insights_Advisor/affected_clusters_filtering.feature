@@ -18,26 +18,38 @@ Feature: Filtering on Advisor affected clusters page behaviour on Hybrid Cloud C
           | 00000000-0000-0000-0000-fff000000000 |
           | 00000000-0000-0000-0000-ffff00000000 |
       And 1 issue is detected for following clusters
-          | Title    | Modified    | Total risk | Cluster name                         |
-          | Bug12345 | 10 days ago | Critical   | 00000000-0000-0000-aaaa-000000000000 |
-          | Bug12345 | 10 days ago | Critical   | 11111111-0000-0000-aaaa-000000000000 |
-          | Bug12345 | 10 days ago | Critical   | 22222222-0000-0000-aaaa-000000000000 |
-          | Bug12345 | 10 days ago | Critical   | 33333333-0000-0000-aaaa-000000000000 |
-          | Bug12345 | 10 days ago | Critical   | 00000000-0000-0000-bbbb-000000000000 |
-          | Bug12345 | 10 days ago | Critical   | 11111111-0000-0000-bbbb-000000000000 |
-          | Bug12345 | 10 days ago | Critical   | 22222222-0000-0000-bbbb-000000000000 |
-          | Bug12345 | 10 days ago | Critical   | 33333333-0000-0000-bbbb-000000000000 |
+          | Title    | Modified    | Category | Total risk | Risk of change | Cluster name                         |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 00000000-0000-0000-aaaa-000000000000 |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 11111111-0000-0000-aaaa-000000000000 |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 22222222-0000-0000-aaaa-000000000000 |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 33333333-0000-0000-aaaa-000000000000 |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 00000000-0000-0000-bbbb-000000000000 |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 11111111-0000-0000-bbbb-000000000000 |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 22222222-0000-0000-bbbb-000000000000 |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 33333333-0000-0000-bbbb-000000000000 |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
       And the left menu might contain these top level items
+          | Left menu item                | Required for this test |
+          | Application and Data Services | no                     |
+          | OpenShift                     | yes                    |
+          | Red Hat Enterprise Linux      | no                     |
+          | Ansible Automation Platform   | no                     |
+     When user selects "OpenShift" from the left side menu
+     Then menu on the left side should be changed
+      And the left menu might contain these top level items
           | Left menu item           | Required for this test |
+          | Clusters                 | no                     |
           | Overview                 | no                     |
           | Releases                 | no                     |
+          | Developer Sandbox        | no                     |
           | Downloads                | no                     |
           | Advisor                  | yes                    |
+          | Vulnerability            | no                     |
           | Subscriptions            | no                     |
           | Cost Management          | no                     |
+          | Support Cases            | no                     |
           | Cluster Manager Feedback | no                     |
           | Red Hat Marketplace      | no                     |
           | Documentation            | no                     |
@@ -49,18 +61,19 @@ Feature: Filtering on Advisor affected clusters page behaviour on Hybrid Cloud C
           | Recommendations     | yes                    |
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
-      And that table should contain following four rows in that order
-          | Name        | Modified    | Total risk | Clusters |
-          | Bug12345    | 10 days ago | Critical   | 8        |
+      And that table should contain following six rows in that order
+          | Name        | Modified    | Category | Total risk | Risk of change | Clusters |
+          | Bug12345    | 10 days ago | Security | Critical   | Moderate       | 8        |
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              | Optional |
-          | Description | Textual description | Text                      | no       |
-          | KB article  | Link to KB article  | Link                      | yes      |
-          | Total risk  | Important           | Widget (icon+label)       | no       |
-          | Likelihood  | High                | Widget (thermometer-like) | no       |
-          | Impact      | High                | Widget (thermometer-like) | no       |
+          | Value type     | Content             | Displayed as              | Optional |
+          | Description    | Textual description | Text                      | no       |
+          | KB article     | Link to KB article  | Link                      | yes      |
+          | Total risk     | Important           | Widget (icon+label)       | no       |
+          | Likelihood     | High                | Widget (thermometer-like) | no       |
+          | Impact         | High                | Widget (thermometer-like) | no       |
+          | Risk of change | Moderate            | Widget (icon+label)       | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-aaaa-000000000000 | yes              |
@@ -95,26 +108,38 @@ Feature: Filtering on Advisor affected clusters page behaviour on Hybrid Cloud C
           | 00000000-0000-0000-0000-fff000000000 |
           | 00000000-0000-0000-0000-ffff00000000 |
       And 1 issue is detected for following clusters
-          | Title    | Modified    | Total risk | Cluster name                         |
-          | Bug12345 | 10 days ago | Critical   | 00000000-0000-0000-aaaa-000000000000 |
-          | Bug12345 | 10 days ago | Critical   | 11111111-0000-0000-aaaa-000000000000 |
-          | Bug12345 | 10 days ago | Critical   | 22222222-0000-0000-aaaa-000000000000 |
-          | Bug12345 | 10 days ago | Critical   | 33333333-0000-0000-aaaa-000000000000 |
-          | Bug12345 | 10 days ago | Critical   | 00000000-0000-0000-bbbb-000000000000 |
-          | Bug12345 | 10 days ago | Critical   | 11111111-0000-0000-bbbb-000000000000 |
-          | Bug12345 | 10 days ago | Critical   | 22222222-0000-0000-bbbb-000000000000 |
-          | Bug12345 | 10 days ago | Critical   | 33333333-0000-0000-bbbb-000000000000 |
+          | Title    | Modified    | Category | Total risk | Risk of change | Cluster name                         |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 00000000-0000-0000-aaaa-000000000000 |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 11111111-0000-0000-aaaa-000000000000 |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 22222222-0000-0000-aaaa-000000000000 |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 33333333-0000-0000-aaaa-000000000000 |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 00000000-0000-0000-bbbb-000000000000 |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 11111111-0000-0000-bbbb-000000000000 |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 22222222-0000-0000-bbbb-000000000000 |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 33333333-0000-0000-bbbb-000000000000 |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
       And the left menu might contain these top level items
+          | Left menu item                | Required for this test |
+          | Application and Data Services | no                     |
+          | OpenShift                     | yes                    |
+          | Red Hat Enterprise Linux      | no                     |
+          | Ansible Automation Platform   | no                     |
+     When user selects "OpenShift" from the left side menu
+     Then menu on the left side should be changed
+      And the left menu might contain these top level items
           | Left menu item           | Required for this test |
+          | Clusters                 | no                     |
           | Overview                 | no                     |
           | Releases                 | no                     |
+          | Developer Sandbox        | no                     |
           | Downloads                | no                     |
           | Advisor                  | yes                    |
+          | Vulnerability            | no                     |
           | Subscriptions            | no                     |
           | Cost Management          | no                     |
+          | Support Cases            | no                     |
           | Cluster Manager Feedback | no                     |
           | Red Hat Marketplace      | no                     |
           | Documentation            | no                     |
@@ -126,18 +151,19 @@ Feature: Filtering on Advisor affected clusters page behaviour on Hybrid Cloud C
           | Recommendations     | yes                    |
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
-      And that table should contain following four rows in that order
-          | Name        | Modified    | Total risk | Clusters |
-          | Bug12345    | 10 days ago | Critical   | 8        |
+      And that table should contain following six rows in that order
+          | Name        | Modified    | Category | Total risk | Risk of change | Clusters |
+          | Bug12345    | 10 days ago | Security | Critical   | Moderate       | 8        |
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              | Optional |
-          | Description | Textual description | Text                      | no       |
-          | KB article  | Link to KB article  | Link                      | yes      |
-          | Total risk  | Important           | Widget (icon+label)       | no       |
-          | Likelihood  | High                | Widget (thermometer-like) | no       |
-          | Impact      | High                | Widget (thermometer-like) | no       |
+          | Value type     | Content             | Displayed as              | Optional |
+          | Description    | Textual description | Text                      | no       |
+          | KB article     | Link to KB article  | Link                      | yes      |
+          | Total risk     | Important           | Widget (icon+label)       | no       |
+          | Likelihood     | High                | Widget (thermometer-like) | no       |
+          | Impact         | High                | Widget (thermometer-like) | no       |
+          | Risk of change | Moderate            | Widget (icon+label)       | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-aaaa-000000000000 | yes              |
@@ -200,26 +226,38 @@ Feature: Filtering on Advisor affected clusters page behaviour on Hybrid Cloud C
           | 00000000-0000-0000-0000-fff000000000 |
           | 00000000-0000-0000-0000-ffff00000000 |
       And 1 issue is detected for following clusters
-          | Title    | Modified    | Total risk | Cluster name                         |
-          | Bug12345 | 10 days ago | Critical   | 00000000-0000-0000-aaaa-000000000000 |
-          | Bug12345 | 10 days ago | Critical   | 11111111-0000-0000-aaaa-000000000000 |
-          | Bug12345 | 10 days ago | Critical   | 22222222-0000-0000-aaaa-000000000000 |
-          | Bug12345 | 10 days ago | Critical   | 33333333-0000-0000-aaaa-000000000000 |
-          | Bug12345 | 10 days ago | Critical   | 00000000-0000-0000-bbbb-000000000000 |
-          | Bug12345 | 10 days ago | Critical   | 11111111-0000-0000-bbbb-000000000000 |
-          | Bug12345 | 10 days ago | Critical   | 22222222-0000-0000-bbbb-000000000000 |
-          | Bug12345 | 10 days ago | Critical   | 33333333-0000-0000-bbbb-000000000000 |
+          | Title    | Modified    | Category | Total risk | Risk of change | Cluster name                         |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 00000000-0000-0000-aaaa-000000000000 |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 11111111-0000-0000-aaaa-000000000000 |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 22222222-0000-0000-aaaa-000000000000 |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 33333333-0000-0000-aaaa-000000000000 |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 00000000-0000-0000-bbbb-000000000000 |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 11111111-0000-0000-bbbb-000000000000 |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 22222222-0000-0000-bbbb-000000000000 |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 33333333-0000-0000-bbbb-000000000000 |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
       And the left menu might contain these top level items
+          | Left menu item                | Required for this test |
+          | Application and Data Services | no                     |
+          | OpenShift                     | yes                    |
+          | Red Hat Enterprise Linux      | no                     |
+          | Ansible Automation Platform   | no                     |
+     When user selects "OpenShift" from the left side menu
+     Then menu on the left side should be changed
+      And the left menu might contain these top level items
           | Left menu item           | Required for this test |
+          | Clusters                 | no                     |
           | Overview                 | no                     |
           | Releases                 | no                     |
+          | Developer Sandbox        | no                     |
           | Downloads                | no                     |
           | Advisor                  | yes                    |
+          | Vulnerability            | no                     |
           | Subscriptions            | no                     |
           | Cost Management          | no                     |
+          | Support Cases            | no                     |
           | Cluster Manager Feedback | no                     |
           | Red Hat Marketplace      | no                     |
           | Documentation            | no                     |
@@ -231,18 +269,19 @@ Feature: Filtering on Advisor affected clusters page behaviour on Hybrid Cloud C
           | Recommendations     | yes                    |
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
-      And that table should contain following four rows in that order
-          | Name        | Modified    | Total risk | Clusters |
-          | Bug12345    | 10 days ago | Critical   | 8        |
+      And that table should contain following six rows in that order
+          | Name        | Modified    | Category | Total risk | Risk of change | Clusters |
+          | Bug12345    | 10 days ago | Security | Critical   | Moderate       | 8        |
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              | Optional |
-          | Description | Textual description | Text                      | no       |
-          | KB article  | Link to KB article  | Link                      | yes      |
-          | Total risk  | Important           | Widget (icon+label)       | no       |
-          | Likelihood  | High                | Widget (thermometer-like) | no       |
-          | Impact      | High                | Widget (thermometer-like) | no       |
+          | Value type     | Content             | Displayed as              | Optional |
+          | Description    | Textual description | Text                      | no       |
+          | KB article     | Link to KB article  | Link                      | yes      |
+          | Total risk     | Important           | Widget (icon+label)       | no       |
+          | Likelihood     | High                | Widget (thermometer-like) | no       |
+          | Impact         | High                | Widget (thermometer-like) | no       |
+          | Risk of change | Moderate            | Widget (icon+label)       | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-aaaa-000000000000 | yes              |
@@ -311,26 +350,38 @@ Feature: Filtering on Advisor affected clusters page behaviour on Hybrid Cloud C
           | 00000000-0000-0000-0000-fff000000000 |
           | 00000000-0000-0000-0000-ffff00000000 |
       And 1 issue is detected for following clusters
-          | Title    | Modified    | Total risk | Cluster name                         |
-          | Bug12345 | 10 days ago | Critical   | 00000000-0000-0000-aaaa-000000000000 |
-          | Bug12345 | 10 days ago | Critical   | 11111111-0000-0000-aaaa-000000000000 |
-          | Bug12345 | 10 days ago | Critical   | 22222222-0000-0000-aaaa-000000000000 |
-          | Bug12345 | 10 days ago | Critical   | 33333333-0000-0000-aaaa-000000000000 |
-          | Bug12345 | 10 days ago | Critical   | 00000000-0000-0000-bbbb-000000000000 |
-          | Bug12345 | 10 days ago | Critical   | 11111111-0000-0000-bbbb-000000000000 |
-          | Bug12345 | 10 days ago | Critical   | 22222222-0000-0000-bbbb-000000000000 |
-          | Bug12345 | 10 days ago | Critical   | 33333333-0000-0000-bbbb-000000000000 |
+          | Title    | Modified    | Category | Total risk | Risk of change | Cluster name                         |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 00000000-0000-0000-aaaa-000000000000 |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 11111111-0000-0000-aaaa-000000000000 |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 22222222-0000-0000-aaaa-000000000000 |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 33333333-0000-0000-aaaa-000000000000 |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 00000000-0000-0000-bbbb-000000000000 |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 11111111-0000-0000-bbbb-000000000000 |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 22222222-0000-0000-bbbb-000000000000 |
+          | Bug12345 | 10 days ago | Security | Critical   | Moderate       | 33333333-0000-0000-bbbb-000000000000 |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
       And the left menu might contain these top level items
+          | Left menu item                | Required for this test |
+          | Application and Data Services | no                     |
+          | OpenShift                     | yes                    |
+          | Red Hat Enterprise Linux      | no                     |
+          | Ansible Automation Platform   | no                     |
+     When user selects "OpenShift" from the left side menu
+     Then menu on the left side should be changed
+      And the left menu might contain these top level items
           | Left menu item           | Required for this test |
+          | Clusters                 | no                     |
           | Overview                 | no                     |
           | Releases                 | no                     |
+          | Developer Sandbox        | no                     |
           | Downloads                | no                     |
           | Advisor                  | yes                    |
+          | Vulnerability            | no                     |
           | Subscriptions            | no                     |
           | Cost Management          | no                     |
+          | Support Cases            | no                     |
           | Cluster Manager Feedback | no                     |
           | Red Hat Marketplace      | no                     |
           | Documentation            | no                     |
@@ -342,18 +393,19 @@ Feature: Filtering on Advisor affected clusters page behaviour on Hybrid Cloud C
           | Recommendations     | yes                    |
      When user select "Recommendations" menu item from this sub-menu
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
-      And that table should contain following four rows in that order
-          | Name        | Modified    | Total risk | Clusters |
-          | Bug12345    | 10 days ago | Critical   | 8        |
+      And that table should contain following six rows in that order
+          | Name        | Modified    | Category | Total risk | Risk of change | Clusters |
+          | Bug12345    | 10 days ago | Security | Critical   | Moderate       | 8        |
      When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              | Optional |
-          | Description | Textual description | Text                      | no       |
-          | KB article  | Link to KB article  | Link                      | yes      |
-          | Total risk  | Important           | Widget (icon+label)       | no       |
-          | Likelihood  | High                | Widget (thermometer-like) | no       |
-          | Impact      | High                | Widget (thermometer-like) | no       |
+          | Value type     | Content             | Displayed as              | Optional |
+          | Description    | Textual description | Text                      | no       |
+          | KB article     | Link to KB article  | Link                      | yes      |
+          | Total risk     | Important           | Widget (icon+label)       | no       |
+          | Likelihood     | High                | Widget (thermometer-like) | no       |
+          | Impact         | High                | Widget (thermometer-like) | no       |
+          | Risk of change | Moderate            | Widget (icon+label)       | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-aaaa-000000000000 | yes              |

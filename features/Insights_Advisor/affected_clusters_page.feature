@@ -7,19 +7,31 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
       And 1 issue is detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Modified    | Total risk | Likelihood | Impact |
-          | Bug12345 | 10 days ago | Important  | high       | high   |
+          | Title    | Modified    | Category | Total risk | Likelihood | Impact | Risk of change |
+          | Bug12345 | 10 days ago | Security | Important  | high       | high   | Moderate       |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
       And the left menu might contain these top level items
+          | Left menu item                | Required for this test |
+          | Application and Data Services | no                     |
+          | OpenShift                     | yes                    |
+          | Red Hat Enterprise Linux      | no                     |
+          | Ansible Automation Platform   | no                     |
+     When user selects "OpenShift" from the left side menu
+     Then menu on the left side should be changed
+      And the left menu might contain these top level items
           | Left menu item           | Required for this test |
+          | Clusters                 | no                     |
           | Overview                 | no                     |
           | Releases                 | no                     |
+          | Developer Sandbox        | no                     |
           | Downloads                | no                     |
           | Advisor                  | yes                    |
+          | Vulnerability            | no                     |
           | Subscriptions            | no                     |
           | Cost Management          | no                     |
+          | Support Cases            | no                     |
           | Cluster Manager Feedback | no                     |
           | Red Hat Marketplace      | no                     |
           | Documentation            | no                     |
@@ -33,26 +45,31 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And widget with filter settings should be displayed
       And table with several columns should be displayed
-          | Column name |
-          | Name        |
-          | Modified    |
-          | Total risk  |
-          | Clusters    |
+          | Column name    |
+          | Name           |
+          | Modified       |
+          | Category       |
+          | Total risk     |
+          | Risk of change |
+          | Clusters       |
       And that table should contain at least one row
-          | Column name | Value       |
-          | Name        | Bug1234     |
-          | Modified    | 10 days ago |
-          | Total risk  | Important   |
-          | Clusters    | 1           |
-     When user clicks on an "Bug1234" link
+          | Column name    | Value       |
+          | Name           | Bug12345     |
+          | Modified       | 10 days ago |
+          | Category       | Security    |
+          | Total risk     | Important   |
+          | Risk of change | Moderate    |
+          | Clusters       | 1           |
+     When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              | Optional |
-          | Description | Textual description | Text                      | no       |
-          | KB article  | Link to KB article  | Link                      | yes      |
-          | Total risk  | Important           | Widget (icon+label)       | no       |
-          | Likelihood  | High                | Widget (thermometer-like) | no       |
-          | Impact      | High                | Widget (thermometer-like) | no       |
+          | Value type     | Content             | Displayed as              | Optional |
+          | Description    | Textual description | Text                      | no       |
+          | KB article     | Link to KB article  | Link                      | yes      |
+          | Total risk     | Important           | Widget (icon+label)       | no       |
+          | Likelihood     | High                | Widget (thermometer-like) | no       |
+          | Impact         | High                | Widget (thermometer-like) | no       |
+          | Risk of change | Moderate            | Widget (icon+label)       | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -66,22 +83,34 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
           | 00000000-0000-0000-0000-000000000000 |
           | 11111111-0000-0000-0000-000000000000 |
       And 1 issue is detected for cluster 00000000-0000-0000-0000-000000000000
-          | Title    | Modified    | Total risk | Likelihood | Impact |
-          | Bug12345 | 10 days ago | Important  | high       | high   |
+          | Title    | Modified    | Category | Total risk | Likelihood | Impact | Risk of change |
+          | Bug12345 | 10 days ago | Security | Important  | high       | high   | Moderate       |
       And 1 issue is detected for cluster 11111111-0000-0000-0000-000000000000
-          | Title    | Modified    | Total risk | Likelihood | Impact |
-          | Bug12345 | 10 days ago | Important  | high       | high   |
+          | Title    | Modified    | Category | Total risk | Likelihood | Impact | Risk of change |
+          | Bug12345 | 10 days ago | Security | Important  | high       | high   | Moderate       |
       And the user USER1 is already logged in into Hybrid Cloud Console
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
       And the left menu might contain these top level items
+          | Left menu item                | Required for this test |
+          | Application and Data Services | no                     |
+          | OpenShift                     | yes                    |
+          | Red Hat Enterprise Linux      | no                     |
+          | Ansible Automation Platform   | no                     |
+     When user selects "OpenShift" from the left side menu
+     Then menu on the left side should be changed
+      And the left menu might contain these top level items
           | Left menu item           | Required for this test |
+          | Clusters                 | no                     |
           | Overview                 | no                     |
           | Releases                 | no                     |
+          | Developer Sandbox        | no                     |
           | Downloads                | no                     |
           | Advisor                  | yes                    |
+          | Vulnerability            | no                     |
           | Subscriptions            | no                     |
           | Cost Management          | no                     |
+          | Support Cases            | no                     |
           | Cluster Manager Feedback | no                     |
           | Red Hat Marketplace      | no                     |
           | Documentation            | no                     |
@@ -95,26 +124,31 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And widget with filter settings should be displayed
       And table with several columns should be displayed
-          | Column name |
-          | Name        |
-          | Modified    |
-          | Total risk  |
-          | Clusters    |
+          | Column name    |
+          | Name           |
+          | Modified       |
+          | Category       |
+          | Total risk     |
+          | Risk of change |
+          | Clusters       |
       And that table should contain at least one row
-          | Column name | Value       |
-          | Name        | Bug1234     |
-          | Modified    | 10 days ago |
-          | Total risk  | Important   |
-          | Clusters    | 2           |
-     When user clicks on an "Bug1234" link
+          | Column name    | Value       |
+          | Name           | Bug12345     |
+          | Modified       | 10 days ago |
+          | Category       | Security    |
+          | Total risk     | Important   |
+          | Risk of change | Moderate    |
+          | Clusters       | 1           |
+     When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              | Optional |
-          | Description | Textual description | Text                      | no       |
-          | KB article  | Link to KB article  | Link                      | yes      |
-          | Total risk  | Important           | Widget (icon+label)       | no       |
-          | Likelihood  | High                | Widget (thermometer-like) | no       |
-          | Impact      | High                | Widget (thermometer-like) | no       |
+          | Value type     | Content             | Displayed as              | Optional |
+          | Description    | Textual description | Text                      | no       |
+          | KB article     | Link to KB article  | Link                      | yes      |
+          | Total risk     | Important           | Widget (icon+label)       | no       |
+          | Likelihood     | High                | Widget (thermometer-like) | no       |
+          | Impact         | High                | Widget (thermometer-like) | no       |
+          | Risk of change | Moderate            | Widget (icon+label)       | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -124,7 +158,7 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
 
   Scenario: Pagination on "Affected clusters" page on Hybrid Cloud Console with more than 10 clusters
     Given user USER1 is part of account (organization) ACCOUNT1
-      And account (organization) ACCOUNT1 owns 2 clusters
+      And account (organization) ACCOUNT1 owns 12 clusters
           | Cluster name                         |
           | 00000000-0000-0000-0000-000000000000 |
           | 11111111-0000-0000-0000-000000000000 |
@@ -143,13 +177,25 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
       And the left menu might contain these top level items
+          | Left menu item                | Required for this test |
+          | Application and Data Services | no                     |
+          | OpenShift                     | yes                    |
+          | Red Hat Enterprise Linux      | no                     |
+          | Ansible Automation Platform   | no                     |
+     When user selects "OpenShift" from the left side menu
+     Then menu on the left side should be changed
+      And the left menu might contain these top level items
           | Left menu item           | Required for this test |
+          | Clusters                 | no                     |
           | Overview                 | no                     |
           | Releases                 | no                     |
+          | Developer Sandbox        | no                     |
           | Downloads                | no                     |
           | Advisor                  | yes                    |
+          | Vulnerability            | no                     |
           | Subscriptions            | no                     |
           | Cost Management          | no                     |
+          | Support Cases            | no                     |
           | Cluster Manager Feedback | no                     |
           | Red Hat Marketplace      | no                     |
           | Documentation            | no                     |
@@ -163,26 +209,31 @@ Feature: Cluster view page with recommendations behaviour on Hybrid Cloud Consol
      Then an "Advisor recommendations" page should be displayed right of the left menu bar
       And widget with filter settings should be displayed
       And table with several columns should be displayed
-          | Column name |
-          | Name        |
-          | Modified    |
-          | Total risk  |
-          | Clusters    |
+          | Column name    |
+          | Name           |
+          | Modified       |
+          | Category       |
+          | Total risk     |
+          | Risk of change |
+          | Clusters       |
       And that table should contain at least one row
-          | Column name | Value       |
-          | Name        | Bug1234     |
-          | Modified    | 10 days ago |
-          | Total risk  | Important   |
-          | Clusters    | 12          |
-     When user clicks on an "Bug1234" link
+          | Column name    | Value       |
+          | Name           | Bug12345     |
+          | Modified       | 10 days ago |
+          | Category       | Security    |
+          | Total risk     | Important   |
+          | Risk of change | Moderate    |
+          | Clusters       | 1           |
+     When user clicks on an "Bug12345" link
      Then new page with additional information about selected recommendation should be displayed
       And the following values needs to be displayed
-          | Value type  | Content             | Displayed as              | Optional |
-          | Description | Textual description | Text                      | no       |
-          | KB article  | Link to KB article  | Link                      | yes      |
-          | Total risk  | Important           | Widget (icon+label)       | no       |
-          | Likelihood  | High                | Widget (thermometer-like) | no       |
-          | Impact      | High                | Widget (thermometer-like) | no       |
+          | Value type     | Content             | Displayed as              | Optional |
+          | Description    | Textual description | Text                      | no       |
+          | KB article     | Link to KB article  | Link                      | yes      |
+          | Total risk     | Important           | Widget (icon+label)       | no       |
+          | Likelihood     | High                | Widget (thermometer-like) | no       |
+          | Impact         | High                | Widget (thermometer-like) | no       |
+          | Risk of change | Moderate            | Widget (icon+label)       | no       |
       And "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
