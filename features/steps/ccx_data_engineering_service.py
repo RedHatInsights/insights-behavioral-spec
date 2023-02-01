@@ -14,15 +14,20 @@
 
 """Implementation of test steps that run CCX Upgrade Risk Inference Service."""
 
+import json
 import os
+import socket
 import subprocess
 import time
 
+import requests
+import jsonschema
 
-@given("The CCX Inference Service is running on port {port:d}")
+
+@given("The CCX Data Engineering Service is running on port {port:d}")
 def start_ccx_inference_service(context, port):
     """Run ccx-inference-service for a test and prepare its stop."""
-    params = ["uvicorn", "ccx_upgrades_inference.main:app", "--port", str(port)]
+    params = ["uvicorn", "ccx_upgrades_data_eng.main:app", "--port", str(port)]
     env = os.environ.copy()
 
     popen = subprocess.Popen(
