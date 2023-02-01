@@ -21,17 +21,17 @@ import requests
 from behave import given, then, when
 
 
-@when("I request the {endpoint} endpoint in {url} with {body} in the body")
-def request_endpoint_with_body(context, endpoint, url, body):
+@when("I request the {endpoint} endpoint in {hostname:w}:{port:d} with {body} in the body")
+def request_endpoint_with_body(context, endpoint, hostname, port, body):
     """Perform a request to the local server with a given body in the request."""
     context.response = requests.get(
-        f"http://{url}/{endpoint}",
+        f"http://{hostname}:{port}/{endpoint}",
         data=body,
     )
 
 
-@when("I request the {endpoint} endpoint in {url} using the following data as {key}")
-def request_endpoint_with_formatted_body(context, endpoint, url, key):
+@when("I request the {endpoint} endpoint in {hostname:w}:{port:d} using the following data as {key}")
+def request_endpoint_with_formatted_body(context, endpoint, hostname, port, key):
     """Perform a request to the local server with a given set of data.
 
     This method expects a table with the columns "kind" and "value".
@@ -48,13 +48,13 @@ def request_endpoint_with_formatted_body(context, endpoint, url, key):
 
     data = {key: values}
     context.response = requests.get(
-        f"http://{url}/{endpoint}",
+        f"http://{hostname}:{port}/{endpoint}",
         data=json.dumps(data),
     )
 
 
-@when("I request the {endpoint} endpoint in {url} with following parameters")
-def request_endpoint_with_url_params(context, endpoint, url):
+@when("I request the {endpoint} endpoint in {hostname:w}:{port:d} with following parameters")
+def request_endpoint_with_url_params(context, endpoint, hostname, port):
     """Perform a request to the server defined by URL to a given endpoint."""
 
     params = dict()
@@ -65,15 +65,15 @@ def request_endpoint_with_url_params(context, endpoint, url):
         params[name] = value
 
     context.response = requests.get(
-        f"http://{url}/{endpoint}",
+        f"http://{hostname}:{port}/{endpoint}",
         params=params,
     )
 
 
-@when("I request the {endpoint} endpoint in {url}")
-def request_endpoint(context, endpoint, url):
+@when("I request the {endpoint} endpoint in {hostname:w}:{port:d}")
+def request_endpoint(context, endpoint, hostname, port):
     """Perform a request to the local server to the given endpoint."""
-    context.response = requests.get(f"http://{url}/{endpoint}")
+    context.response = requests.get(f"http://{hostname}:{port}/{endpoint}")
 
 
 @then("The status code of the response is {status:d}")
