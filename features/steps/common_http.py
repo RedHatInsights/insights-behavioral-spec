@@ -30,7 +30,9 @@ def request_endpoint_with_body(context, endpoint, hostname, port, body):
     )
 
 
-@when("I request the {endpoint} endpoint in {hostname:w}:{port:d} using the following data as {key}")
+@when(
+    "I request the {endpoint} endpoint in {hostname:w}:{port:d} using the following data as {key}"
+)
 def request_endpoint_with_formatted_body(context, endpoint, hostname, port, key):
     """Perform a request to the local server with a given set of data.
 
