@@ -19,7 +19,7 @@ import subprocess
 import time
 
 
-@given("The CCX Inference Service is running in port {port:d}")
+@given("The CCX Inference Service is running on port {port:d}")
 def start_ccx_inference_service(context, port):
     """Run ccx-inference-service for a test and prepare its stop."""
     params = ["uvicorn", "ccx_upgrades_inference.main:app", "--port", str(port)]

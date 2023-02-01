@@ -22,7 +22,7 @@ import time
 from behave import given
 
 
-@given("CCX Inference Service mock is running in port {port:d}")
+@given("CCX Inference Service mock is running on port {port:d}")
 def start_inference_service_mock(context, port):
     """Execute the inference service mock in the given port."""
     params = ["uvicorn", "inference_service:app", "--port", str(port)]

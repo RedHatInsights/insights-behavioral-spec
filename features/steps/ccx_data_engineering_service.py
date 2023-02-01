@@ -24,7 +24,7 @@ import requests
 import jsonschema
 
 
-@given("The CCX Data Engineering Service is running in port {port:d}")
+@given("The CCX Data Engineering Service is running on port {port:d}")
 def start_ccx_inference_service(context, port):
     """Run ccx-inference-service for a test and prepare its stop."""
     params = ["uvicorn", "ccx_upgrades_data_eng.main:app", "--port", str(port)]
