@@ -19,6 +19,9 @@ notification-writer:
 inference-service:
 	./ccx_upgrade_risk_inference_tests.sh
 
+data-engineering-service:
+	./ccx_upgrade_risk_data_eng_tests.sh
+
 code-style:
 	python3 tools/run_pycodestyle.py
 

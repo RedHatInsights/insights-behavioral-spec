@@ -12,22 +12,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Implementation of test steps that run CCX Upgrade Risk Inference Service."""
+"""Test steps relative to Data Engineering external dependencies."""
 
 import os
+import os.path
 import subprocess
 import time
 
+from behave import given
 
-@given("The CCX Inference Service is running in port {port:d}")
-def start_ccx_inference_service(context, port):
-    """Run ccx-inference-service for a test and prepare its stop."""
-    params = ["uvicorn", "ccx_upgrades_inference.main:app", "--port", str(port)]
+
+@given("CCX Inference Service mock is running in port {port:d}")
+def start_inference_service_mock(context, port):
+    """Execute the inference service mock in the given port."""
+    params = ["uvicorn", "inference_service:app", "--port", str(port)]
     env = os.environ.copy()
 
     popen = subprocess.Popen(
-        params, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env
+        params,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        env=env,
+        cwd=os.path.join(os.getcwd(), "mocks", "inference-service"),
     )
+
     assert popen is not None
     time.sleep(0.5)
     context.add_cleanup(popen.terminate)
