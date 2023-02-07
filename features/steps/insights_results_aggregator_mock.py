@@ -91,7 +91,7 @@ def check_authors_info_from_mock(context):
     ), "Caught output: {}".format(context.output)
 
 
-@then(u'I should see actual configuration displayed by Insights Results Aggregator Mock on standard output')
+@then(u'I should see actual configuration displayed by Insights Results Aggregator Mock on standard output')  # noqa E501
 def check_actual_configuration(context):
     """Check if actual configuration is displayed by Insights Results Aggregator Mock."""
     # preliminary checks
