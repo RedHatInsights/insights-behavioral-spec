@@ -44,6 +44,10 @@ def check_help_message(context, service):
         from steps.exporter_main import check_help_from_exporter
 
         check_help_from_exporter(context)
+    elif service == "Insights Results Aggregator Mock":
+        from steps.insights_results_aggregator_mock import check_help_from_mock
+
+        check_help_from_mock(context)
     else:
         raise ValueError(f"Unknown service '{service}'.")
 
@@ -69,6 +73,10 @@ def check_version_info(context, service):
         from steps.exporter_main import check_version_from_exporter
 
         check_version_from_exporter(context)
+    elif service == "Insights Results Aggregator Mock":
+        from steps.insights_results_aggregator_mock import check_version_from_mock
+
+        check_version_from_mock(context)
     else:
         raise ValueError(f"Unknown service '{service}'.")
 
@@ -96,5 +104,9 @@ def check_authors_info(context, service):
         from steps.exporter_main import check_authors_info_from_exporter
 
         check_authors_info_from_exporter(context)
+    elif service == "Insights Results Aggregator Mock":
+        from steps.insights_results_aggregator_mock import check_authors_info_from_mock
+
+        check_authors_info_from_mock(context)
     else:
         raise ValueError(f"Unknown service '{service}'.")
