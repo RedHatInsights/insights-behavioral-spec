@@ -116,4 +116,10 @@ make notification-service
 
 
 
+### Insights Results Aggregator Mock service
+
+* [Basic set of smoke tests](features/insights-results-aggregator-mock/smoketests.feature)
+
+
+
 List of scenarios can be seen [there](features/README.md)
