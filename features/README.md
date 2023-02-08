@@ -397,6 +397,14 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Check if exporter displays authors
 * Check if exporter displays configuration
 
+## `insights-results-aggregator-mock/smoketests.feature`
+
+* Check if Insights Results Aggregator Mock application is available
+* Check if Insights Results Aggregator Mock displays help message
+* Check if Insights Results Aggregator Mock displays version info
+* Check if Insights Results Aggregator Mock displays authors
+* Check if Insights Results Aggregator Mock displays actual configuration
+
 ## `ccx-notification-service/cleanup_records.feature`
 
 * Check the ability to clean up old records from `new_reports` table if the table is empty.
