@@ -238,6 +238,7 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Set filter "Category" on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
 * Set filter "Likelihood" on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
 * No-op action in filter menu on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
+* Set and reset filter "Risk of change" on Advisor's "Recommendations" page on Hybrid Cloud Console with at least one recommendation and two clusters
 
 ## `Insights_Advisor/recommendations_page_pagination.feature`
 
@@ -255,6 +256,7 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Sorting by clusters on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
 * Sorting by added at on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
 * Sorting by different columns at on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
+* Sorting by Risk of change on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
 
 ## `Notification_Service/customer_notifications.feature`
 
@@ -529,6 +531,7 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Check Inference Service response with an invalid body is used in the request
 * Check Inference Service response with a valid body with invalid data is used in the request
 * Check Inference Service response with a valid body with valid data is used in the request
+* Check Inference Service response with a valid body with valid data is used in the request that returns a success prediction
 
 ## `ccx-upgrades-inference/smoketests.feature`
 
