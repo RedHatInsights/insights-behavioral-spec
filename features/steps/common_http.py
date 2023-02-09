@@ -109,7 +109,9 @@ def check_prediction_result(context):
 
     expected_body = json.loads(context.text)
     result = context.response.json()
-    assert result == expected_body
+
+    # compare both JSONs and print actual result in case of any difference
+    assert result == expected_body, f"Result:\n{result}"
 
 
 @given("REST API service hostname is {hostname:w}")
