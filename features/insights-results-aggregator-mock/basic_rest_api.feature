@@ -109,3 +109,40 @@ Feature: Basic REST API endpoints provided by Insights Results Aggregator Mock
             "status": "ok"
           }
           """
+
+
+  Scenario: Check the organizations endpoint
+    Given the system is in default state
+      And REST API service hostname is localhost
+      And REST API service port is 8080
+      And REST API service prefix is /api/insights-results-aggregator/v1
+     When I access endpoint /organizations using HTTP GET method
+     Then The status code of the response is 200
+      And The body of the response has the following schema
+          """
+          {
+              "type": "object",
+              "properties": {
+                "organizations": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "organizations",
+                "status"
+              ]
+          }
+          """
+      And The body of the response is the following
+          """
+          {"organizations":[11789772,11940171],"status":"ok"}
+          """          
+
