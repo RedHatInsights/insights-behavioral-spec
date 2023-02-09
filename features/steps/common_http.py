@@ -1,4 +1,4 @@
-# Copyright © 2023, José Luis Segura Lucas, Red Hat, Inc.
+# Copyright © 2023, José Luis Segura Lucas, Pavel Tisnovsky, Red Hat, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -110,3 +110,27 @@ def check_prediction_result(context):
     expected_body = json.loads(context.text)
     result = context.response.json()
     assert result == expected_body
+
+
+@given("REST API service hostname is {hostname:w}")
+@when("REST API service hostname is {hostname:w}")
+def set_service_hostname(context, hostname):
+    context.hostname = hostname
+
+
+@given("REST API service port is {port:d}")
+@when("REST API service port is {port:d}")
+def set_service_port(context, port):
+    context.port = port
+
+
+@given("REST API service prefix is {prefix}")
+@when("REST API service prefix is {prefix}")
+def set_rest_api_prefix(context, prefix):
+    context.api_prefix = prefix
+
+
+@when("I access endpoint {endpoint} using HTTP GET method")
+def access_rest_api_endpoint_get(context, endpoint):
+    url = f"http://{context.hostname}:{context.port}/{context.api_prefix}/{endpoint}"
+    context.response = requests.get(url)
