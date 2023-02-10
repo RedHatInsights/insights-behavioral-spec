@@ -220,7 +220,9 @@ def request_report_for_cluster(context, cluster, organization):
 
 
 @then("The report should contain {expected_count:d} rule hits")
-def check_number_of_rule_hits(context, expected_count):
+@then("The report should contain 1 rule hit")
+@then("The report should contain one rule hit")
+def check_number_of_rule_hits(context, expected_count=1):
     """Check number of rule hits in report returned from the service."""
     json = context.response.json()
     assert json is not None
@@ -239,6 +241,13 @@ def check_number_of_rule_hits(context, expected_count):
         f"Expected rule hits count: {expected_count}, actual count: {actual_count}"
 
 
+@then("The report should not contain any rule hit")
+def check_no_rule_hits(context):
+    """Check number of rule hits in report returned from the service."""
+    check_number_of_rule_hits(context, 0)
+
+
+@then(u'I should find following rule hit in cluster report')
 @then(u'I should find following rule hits in cluster report')
 def check_all_rule_hits(context):
     """Check the rule hits returned by service against expected rule hits defined in scenario."""
