@@ -1,3 +1,4 @@
 ../features/insights-results-aggregator-mock/smoketests.feature
 ../features/insights-results-aggregator-mock/basic_rest_api.feature
 ../features/insights-results-aggregator-mock/rest_api_clusters.feature
+../features/insights-results-aggregator-mock/mock_responses.feature
