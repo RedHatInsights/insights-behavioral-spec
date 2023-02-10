@@ -397,6 +397,28 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Check if exporter displays authors
 * Check if exporter displays configuration
 
+## `insights-results-aggregator-mock/basic_rest_api.feature`
+
+* Check if the main endpoint is reachable
+* Check the groups endpoint
+* Check the organizations endpoint
+
+## `insights-results-aggregator-mock/mock_responses.feature`
+
+* Check if Insights Results Aggregator Mock service return correct list of organizations
+* Check if Insights Results Aggregator Mock service return correct list of groups
+* Check if Insights Results Aggregator Mock service return correct list of clusters for organization 1
+* Check if Insights Results Aggregator Mock service return correct list of clusters for organization 2
+* Check if Insights Results Aggregator Mock service return correct list of clusters for organization 3
+* Check if Insights Results Aggregator Mock service return correct list of clusters for organization with many clusters
+* Check if Insights Results Aggregator Mock service return correct list of clusters for organization w/o access rights
+
+## `insights-results-aggregator-mock/rest_api_clusters.feature`
+
+* Check if is is possible to get list of clusters for given organization #1
+* Check if is is possible to get list of clusters for given organization #2
+* Check if is is possible to get list of clusters for organization w/o access rights
+
 ## `insights-results-aggregator-mock/smoketests.feature`
 
 * Check if Insights Results Aggregator Mock application is available

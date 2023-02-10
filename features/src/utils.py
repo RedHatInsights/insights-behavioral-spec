@@ -15,7 +15,7 @@
 """Unsorted utility functions."""
 
 
-def get_array_from_json(context, selector):
+def get_array_from_json(context, selector, subselector=None):
     """Read all items from an array stored in JSON returned by service."""
     # try to parse response body
     json = context.response.json()
@@ -23,4 +23,10 @@ def get_array_from_json(context, selector):
 
     # try to retrieve content of given array
     assert selector in json
-    return json[selector]
+
+    # return items from array is subselector is not specified
+    if subselector is None:
+        return json[selector]
+    # return just one attribute from objects stored in an array
+    else:
+        return (item[subselector] for item in json[selector])

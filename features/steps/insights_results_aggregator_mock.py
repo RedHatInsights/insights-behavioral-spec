@@ -160,3 +160,49 @@ def check_list_of_clusters(context):
 
     # compare both sets and display diff (if diff is found)
     assert_sets_equality("cluster list", expected_clusters, found_clusters)
+
+
+@when("I request list of groups")
+def request_list_of_groups(context):
+    """Call Insights Results Aggregator Mock service and retrieve list groups."""
+    url = f"http://{context.hostname}:{context.port}/{context.api_prefix}/groups"
+    context.response = requests.get(url)
+
+    # check the response
+    assert context.response is not None
+    assert context.response.status_code == 200
+
+
+@then("I should retrieve following list of groups")
+def check_list_of_groups(context):
+    # construct set of expected group names
+    # from a table provided in feature file
+    expected_group_names = set(item["Title"] for item in context.table)
+
+    # construct set of actually found group names
+    # from JSON payload returned by the service
+    found_group_names = set(get_array_from_json(context, "groups", "title"))
+
+    # compare both sets and display diff (if diff is found)
+    assert_sets_equality("list of groups", expected_group_names, found_group_names)
+
+    # now we know that we retrieved the correct list of groups,
+    # time to check the content
+    for group in context.response.json()["groups"]:
+        assert group is not None
+
+        # retrieve attributes from JSON object
+        title = group["title"]
+        description = group["description"]
+        tags = ",".join(group["tags"])
+
+        # try to find the corresponding record in BDD table
+        for item in context.table:
+            if item["Title"] == title and \
+                    item["Description"] == description and \
+                    item["Tags"] == tags:
+                # we found the record
+                break
+        else:
+            # record was not found
+            raise KeyError(f"Group {group} was not returned by the service")
