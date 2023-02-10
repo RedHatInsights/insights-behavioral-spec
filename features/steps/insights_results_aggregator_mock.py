@@ -206,3 +206,74 @@ def check_list_of_groups(context):
         else:
             # record was not found
             raise KeyError(f"Group {group} was not returned by the service")
+
+
+@when("I request report for cluster {cluster:S} from organization {organization:d}")
+def request_report_for_cluster(context, cluster, organization):
+    """Call Insights Results Aggregator Mock service and retrieve report for given cluster."""
+    url = f"http://{context.hostname}:{context.port}/{context.api_prefix}/report/{organization}/{cluster}"  # noqa E501
+    context.response = requests.get(url)
+
+    # check the response
+    assert context.response is not None
+    assert context.response.status_code == 200
+
+
+@then("The report should contain {expected_count:d} rule hits")
+def check_number_of_rule_hits(context, expected_count):
+    """Check number of rule hits in report returned from the service."""
+    json = context.response.json()
+    assert json is not None
+
+    assert "report" in json, "Report attribute is missing"
+    report = json["report"]
+
+    assert "meta" in report, "Meta attribute is missing in report attribute"
+    meta = report["meta"]
+
+    assert "count" in meta, "Count attribute is missing in meta attribute"
+    actual_count = meta["count"]
+
+    # compare actual count with expected count
+    assert actual_count == expected_count, \
+        f"Expected rule hits count: {expected_count}, actual count: {actual_count}"
+
+
+@then(u'I should find following rule hits in cluster report')
+def check_all_rule_hits(context):
+    """Check the rule hits returned by service against expected rule hits defined in scenario."""
+    json = context.response.json()
+    assert json is not None
+
+    assert "report" in json, "Report attribute is missing"
+    report = json["report"]
+
+    assert "data" in report, "Data attribute is missing in report attribute"
+    data = report["data"]
+
+    # check if all rule hits definec in scenario is found in returned structure
+    for rule_hit in context.table:
+        expected_type = rule_hit["Type"]
+        expected_rule_id = rule_hit["Rule ID"]
+        expected_error_key = rule_hit["Error key"]
+        expected_total_risk = int(rule_hit["Total risk"])
+        expected_risk_of_change = int(rule_hit["Risk of change"])
+
+        # try to find the corresponding record in rule hits returned by service
+        for record in data:
+            actual_type = record["details"]["type"]
+            actual_rule_id = record["rule_id"]
+            actual_error_key = record["details"]["error_key"]
+            actual_total_risk = record["total_risk"]
+            actual_risk_of_change = record["risk_of_change"]
+
+            # exact match
+            if all((actual_type == expected_type,
+                    actual_rule_id == expected_rule_id,
+                    actual_error_key == expected_error_key,
+                    actual_total_risk == expected_total_risk,
+                    actual_risk_of_change == expected_risk_of_change)):
+                break
+        else:
+            # record was not found
+            raise KeyError(f"Rule hit {rule_hit} was not returned by the service")
