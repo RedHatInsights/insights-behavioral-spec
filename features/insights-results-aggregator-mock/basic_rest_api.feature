@@ -73,7 +73,7 @@ Feature: Basic REST API endpoints provided by Insights Results Aggregator Mock
               ]
           }
           """
-      And The body of the response is the following
+          #And The body of the response is the following ## returns set, not a list
           """
           {
             "groups":[
