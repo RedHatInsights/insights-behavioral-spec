@@ -412,7 +412,10 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Check if Insights Results Aggregator Mock service return correct list of clusters for organization 3
 * Check if Insights Results Aggregator Mock service return correct list of clusters for organization with many clusters
 * Check if Insights Results Aggregator Mock service return correct list of clusters for organization w/o access rights
-* Check if Insights Results Aggregator Mock service return correct cluster report
+* Check if Insights Results Aggregator Mock service return correct cluster report with 7 rule hits
+* Check if Insights Results Aggregator Mock service return correct cluster report with 7 rule hits
+* Check if Insights Results Aggregator Mock service return correct cluster report with one rule hit
+* Check if Insights Results Aggregator Mock service return correct cluster report with no rule hits
 
 ## `insights-results-aggregator-mock/rest_api_clusters.feature`
 
