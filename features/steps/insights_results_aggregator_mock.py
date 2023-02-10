@@ -134,3 +134,29 @@ def check_list_of_organizations(context):
 
     # compare both sets and display diff (if diff is found)
     assert_sets_equality("organizations", expected_organizations, found_organizations)
+
+
+@when("I request list of clusters for organization {organization:d}")
+def request_list_of_clusters(context, organization):
+    """Call Insights Results Aggregator Mock service and retrieve list of clusters for given org."""
+    url = f"http://{context.hostname}:{context.port}/{context.api_prefix}/organizations/{organization}/clusters"  # noqa E501
+    context.response = requests.get(url)
+
+    # check the response
+    assert context.response is not None
+    assert context.response.status_code == 200
+
+
+@then("I should retrieve following list of clusters")
+def check_list_of_clusters(context):
+    """Check if Insights Results Aggregator Mock service returned expected list of clusters."""
+    # construct set of expected cluster names
+    # from a table provided in feature file
+    expected_clusters = set(item["Cluster name"] for item in context.table)
+
+    # construct set of actually found clusters
+    # from JSON payload returned by the service
+    found_clusters = set(get_array_from_json(context, "clusters"))
+
+    # compare both sets and display diff (if diff is found)
+    assert_sets_equality("cluster list", expected_clusters, found_clusters)
