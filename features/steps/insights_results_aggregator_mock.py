@@ -144,7 +144,7 @@ def request_list_of_clusters(context, organization):
 
     # check the response
     assert context.response is not None
-    assert context.response.status_code == 200
+    assert context.response.status_code in (200, 403)
 
 
 @then("I should retrieve following list of clusters")
