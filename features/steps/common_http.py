@@ -136,3 +136,17 @@ def set_rest_api_prefix(context, prefix):
 def access_rest_api_endpoint_get(context, endpoint):
     url = f"http://{context.hostname}:{context.port}/{context.api_prefix}/{endpoint}"
     context.response = requests.get(url)
+
+
+@then("The status message of the response is \"{expected_message}\"")
+def check_status_of_response(context, expected_message):
+    assert context.response is not None, "Send request to service first"
+
+    # try to parse response body as JSON
+    body = context.response.json()
+    assert body is not None, "Improper format of response body"
+
+    assert "status" in body, "Response does not contain status message"
+    actual_message = body["status"]
+
+    assert actual_message == expected_message, f"Improper status message {actual_message}"
