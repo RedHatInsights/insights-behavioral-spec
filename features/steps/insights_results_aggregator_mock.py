@@ -272,7 +272,7 @@ def check_all_rule_hits(context):
     assert "data" in report, "Data attribute is missing in report attribute"
     data = report["data"]
 
-    # check if all rule hits definec in scenario is found in returned structure
+    # check if all rule hits defined in scenario is found in returned structure
     for rule_hit in context.table:
         expected_type = rule_hit["Type"]
         expected_rule_id = rule_hit["Rule ID"]
