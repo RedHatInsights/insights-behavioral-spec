@@ -2,3 +2,4 @@
 ../features/insights-results-aggregator-mock/basic_rest_api.feature
 ../features/insights-results-aggregator-mock/rest_api_clusters.feature
 ../features/insights-results-aggregator-mock/mock_responses.feature
+../features/insights-results-aggregator-mock/clusters_hitting_rule.feature
