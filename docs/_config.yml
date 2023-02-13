@@ -1,0 +1,24 @@
+title: Behavioral specifications for Insights pipelines and its integration into OCM, OCP, and ACM
+description: Behavioral specifications for Insights pipelines and its integration into OCM, OCP, and ACM 
+baseurl: "/insights-behavioral-spec"
+url: "https://redhatinsights.github.io"
+
+heading_anchors: true
+search_enabled: false
+
+aux_links:
+  "Github repository":
+    - "https://github.com/RedHatInsights/insights-behavioral-spec"
+
+footer_content: "Copyright &copy; 2023 Red Hat, Inc.</a>"
+
+# Build settings
+markdown: kramdown
+remote_theme: pmarsceill/just-the-docs
+plugins:
+  - jekyll-remote-theme
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
