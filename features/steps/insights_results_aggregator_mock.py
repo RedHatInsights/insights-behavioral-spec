@@ -163,6 +163,17 @@ def check_list_of_clusters(context, selector="clusters"):
     assert_sets_equality("cluster list", expected_clusters, found_clusters)
 
 
+@when("I request list of clusters hitting rule with name {rule_name} and error key {error_key}")
+def request_clusters_hitting_rule(context, rule_name, error_key):
+    """Check if Insights Results Aggregator Mock service returned expected list of clusters hitting rule."""  # noqa E501
+    url = f"http://{context.hostname}:{context.port}{context.api_prefix}/rule/{rule_name}.report|{error_key}/clusters_detail/"  # noqa E501
+    context.response = requests.get(url)
+
+    # check the response
+    assert context.response is not None
+    assert context.response.status_code == 200
+
+
 @when("I request list of groups")
 def request_list_of_groups(context):
     """Call Insights Results Aggregator Mock service and retrieve list groups."""
