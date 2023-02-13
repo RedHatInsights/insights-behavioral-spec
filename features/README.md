@@ -403,6 +403,14 @@ Directory where feature files with scenarios and scenario outlines are stored.
 * Check the groups endpoint
 * Check the organizations endpoint
 
+## `insights-results-aggregator-mock/clusters_hitting_rule.feature`
+
+* Check if Insights Results Aggregator Mock service returns correct list of clusters for rule ccx_rules_ocp.external.rules.cluster_wide_proxy_auth_check
+* Check if Insights Results Aggregator Mock service returns correct list of clusters for rule minimum requirements
+* Check if Insights Results Aggregator Mock service returns correct list of clusters for rule ccx_rules_ocp.external.bug_rules.bug_1766907
+* Check if Insights Results Aggregator Mock service returns correct list of clusters for rule ccx_rules_ocp.external.rules.nodes_kubelet_version_check
+* Check if Insights Results Aggregator Mock service returns correct list of clusters for rule ccx_rules_ocp.external.rules.samples_op_failed_image_import_check
+
 ## `insights-results-aggregator-mock/mock_responses.feature`
 
 * Check if Insights Results Aggregator Mock service return correct list of organizations

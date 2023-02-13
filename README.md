@@ -119,6 +119,10 @@ make notification-service
 ### Insights Results Aggregator Mock service
 
 * [Basic set of smoke tests](features/insights-results-aggregator-mock/smoketests.feature)
+* [REST API endpoints provided by Insights Results Aggregator Mock](features/insights-results-aggregator-mock/basic_rest_api.feature)
+* [Tests for cluster list endpoint](features/insights-results-aggregator-mock/rest_api_clusters.feature)
+* [Checking REST API endpoint that returns list of clusters hitting specified rule](features/insights-results-aggregator-mock/clusters_hitting_rule.feature)
+* [Checking all responses from Insights Results Aggregator Mock service](features/insights-results-aggregator-mock/mock_responses.feature)
 
 
 

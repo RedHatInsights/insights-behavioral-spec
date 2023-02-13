@@ -148,7 +148,8 @@ def request_list_of_clusters(context, organization):
 
 
 @then("I should retrieve following list of clusters")
-def check_list_of_clusters(context):
+@then("I should retrieve following list of clusters stored in attribute {selector}")
+def check_list_of_clusters(context, selector="clusters"):
     """Check if Insights Results Aggregator Mock service returned expected list of clusters."""
     # construct set of expected cluster names
     # from a table provided in feature file
@@ -156,10 +157,21 @@ def check_list_of_clusters(context):
 
     # construct set of actually found clusters
     # from JSON payload returned by the service
-    found_clusters = set(get_array_from_json(context, "clusters"))
+    found_clusters = set(get_array_from_json(context, selector))
 
     # compare both sets and display diff (if diff is found)
     assert_sets_equality("cluster list", expected_clusters, found_clusters)
+
+
+@when("I request list of clusters hitting rule with name {rule_name} and error key {error_key}")
+def request_clusters_hitting_rule(context, rule_name, error_key):
+    """Check if Insights Results Aggregator Mock service returned expected list of clusters hitting rule."""  # noqa E501
+    url = f"http://{context.hostname}:{context.port}{context.api_prefix}/rule/{rule_name}.report|{error_key}/clusters_detail/"  # noqa E501
+    context.response = requests.get(url)
+
+    # check the response
+    assert context.response is not None
+    assert context.response.status_code == 200
 
 
 @when("I request list of groups")
@@ -260,7 +272,7 @@ def check_all_rule_hits(context):
     assert "data" in report, "Data attribute is missing in report attribute"
     data = report["data"]
 
-    # check if all rule hits definec in scenario is found in returned structure
+    # check if all rule hits defined in scenario is found in returned structure
     for rule_hit in context.table:
         expected_type = rule_hit["Type"]
         expected_rule_id = rule_hit["Rule ID"]
@@ -286,3 +298,26 @@ def check_all_rule_hits(context):
         else:
             # record was not found
             raise KeyError(f"Rule hit {rule_hit} was not returned by the service")
+
+
+@then("The metadata should contain following attributes")
+def check_metadata(context):
+    """Check metadata returned from the service."""
+    json = context.response.json()
+    assert json is not None
+
+    # try to retrieve metadata attribute which should be object containing more attributes
+    assert "meta" in json, "meta attribute is missing"
+    meta = json["meta"]
+
+    # check if all metadata defined in scenario is found in returned structure
+    for expected_metadata in context.table:
+        expected_name = expected_metadata["Attribute name"]
+        expected_value = expected_metadata["Attribute value"]
+
+        # does the attribute exist?
+        assert expected_name in meta, f"Attribute with name {expected_name} is missing"
+
+        # has the attribute expected value?
+        assert str(meta[expected_name]) == expected_value, \
+            f"Attribute with name {expected_name} has unexpected value {meta[expected_name]}"
