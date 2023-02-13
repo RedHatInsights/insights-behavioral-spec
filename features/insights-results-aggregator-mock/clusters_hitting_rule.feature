@@ -2,7 +2,7 @@ Feature: Checking REST API endpoint that returns list of clusters hitting specif
 
 
 
-  Scenario: Check if Insights Results Aggregator Mock service return correct list of clusters for rule ccx_rules_ocp.external.rules.cluster_wide_proxy_auth_check
+  Scenario: Check if Insights Results Aggregator Mock service returns correct list of clusters for rule ccx_rules_ocp.external.rules.cluster_wide_proxy_auth_check
     Given the system is in default state
       And REST API service hostname is localhost
       And REST API service port is 8080
@@ -21,7 +21,7 @@ Feature: Checking REST API endpoint that returns list of clusters hitting specif
 
 
 
-  Scenario: Check if Insights Results Aggregator Mock service return correct list of clusters for rule minimum requirements
+  Scenario: Check if Insights Results Aggregator Mock service returns correct list of clusters for rule minimum requirements
     Given the system is in default state
       And REST API service hostname is localhost
       And REST API service port is 8080
@@ -62,7 +62,7 @@ Feature: Checking REST API endpoint that returns list of clusters hitting specif
 
 
 
-  Scenario: Check if Insights Results Aggregator Mock service return correct list of clusters for rule ccx_rules_ocp.external.bug_rules.bug_1766907
+  Scenario: Check if Insights Results Aggregator Mock service returns correct list of clusters for rule ccx_rules_ocp.external.bug_rules.bug_1766907
     Given the system is in default state
       And REST API service hostname is localhost
       And REST API service port is 8080
@@ -91,7 +91,7 @@ Feature: Checking REST API endpoint that returns list of clusters hitting specif
 
 
 
-  Scenario: Check if Insights Results Aggregator Mock service return correct list of clusters for rule ccx_rules_ocp.external.rules.nodes_kubelet_version_check
+  Scenario: Check if Insights Results Aggregator Mock service returns correct list of clusters for rule ccx_rules_ocp.external.rules.nodes_kubelet_version_check
     Given the system is in default state
       And REST API service hostname is localhost
       And REST API service port is 8080
@@ -114,7 +114,7 @@ Feature: Checking REST API endpoint that returns list of clusters hitting specif
 
 
 
-  Scenario: Check if Insights Results Aggregator Mock service return correct list of clusters for rule ccx_rules_ocp.external.rules.samples_op_failed_image_import_check
+  Scenario: Check if Insights Results Aggregator Mock service returns correct list of clusters for rule ccx_rules_ocp.external.rules.samples_op_failed_image_import_check
     Given the system is in default state
       And REST API service hostname is localhost
       And REST API service port is 8080
