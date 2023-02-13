@@ -1,5 +1,7 @@
-# Description
-Directory where feature files with scenarios and scenario outlines are stored.
+---
+layout: page
+nav_order: 2
+---
 
 # List of scenarios
 
