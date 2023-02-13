@@ -298,3 +298,26 @@ def check_all_rule_hits(context):
         else:
             # record was not found
             raise KeyError(f"Rule hit {rule_hit} was not returned by the service")
+
+
+@then("The metadata should contain following attributes")
+def check_metadata(context):
+    """Check metadata returned from the service."""
+    json = context.response.json()
+    assert json is not None
+
+    # try to retrieve metadata attribute which should be object containing more attributes
+    assert "meta" in json, "meta attribute is missing"
+    meta = json["meta"]
+
+    # check if all metadata defined in scenario is found in returned structure
+    for expected_metadata in context.table:
+        expected_name = expected_metadata["Attribute name"]
+        expected_value = expected_metadata["Attribute value"]
+
+        # does the attribute exist?
+        assert expected_name in meta, f"Attribute with name {expected_name} is missing"
+
+        # has the attribute expected value?
+        assert str(meta[expected_name]) == expected_value, \
+            f"Attribute with name {expected_name} has unexpected value {meta[expected_name]}"
