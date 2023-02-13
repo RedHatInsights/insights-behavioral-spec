@@ -23,5 +23,6 @@ make notification-service
 
 All features are listed [on this page](https://redhatinsights.github.io/insights-behavioral-spec/feature_list.html)
 
+## List of scenarios
 
-List of scenarios can be seen [there](features/README.md)
+List of scenarios can be seen [there](https://redhatinsights.github.io/insights-behavioral-spec/scenarios_list.html)
