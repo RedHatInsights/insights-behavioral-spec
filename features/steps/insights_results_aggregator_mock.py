@@ -148,7 +148,8 @@ def request_list_of_clusters(context, organization):
 
 
 @then("I should retrieve following list of clusters")
-def check_list_of_clusters(context):
+@then("I should retrieve following list of clusters stored in attribute {selector}")
+def check_list_of_clusters(context, selector="clusters"):
     """Check if Insights Results Aggregator Mock service returned expected list of clusters."""
     # construct set of expected cluster names
     # from a table provided in feature file
@@ -156,7 +157,7 @@ def check_list_of_clusters(context):
 
     # construct set of actually found clusters
     # from JSON payload returned by the service
-    found_clusters = set(get_array_from_json(context, "clusters"))
+    found_clusters = set(get_array_from_json(context, selector))
 
     # compare both sets and display diff (if diff is found)
     assert_sets_equality("cluster list", expected_clusters, found_clusters)
