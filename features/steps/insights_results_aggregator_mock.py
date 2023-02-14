@@ -398,6 +398,13 @@ def request_content_and_list_of_groups(context):
 
 
 @then("I should retrieve empty content")
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Then I should retrieve empty content')
+def check_empty_content(context):
+    """Check that the content attribute exists and is empty."""
+    json = context.response.json()
+    assert json is not None
 
+    # try to retrieve content attribute
+    assert "content" in json, "content attribute is missing"
+    content = json["content"]
+    
+    assert len(content) == 0, "content attribute should be empty"
