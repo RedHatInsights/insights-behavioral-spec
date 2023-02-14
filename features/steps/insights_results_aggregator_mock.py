@@ -343,11 +343,6 @@ def request_results_for_list_of_clusters(context):
     assert context.response.status_code == 200
 
 
-@then(u'I should see attribute named reports in response')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Then I should see attribute named reports in response')
-
-
 @then(u'I should see report for following list of clusters')
 def step_impl(context):
     raise NotImplementedError(u'STEP: Then I should see report for following list of clusters')
