@@ -387,8 +387,14 @@ def check_reports_for_list_of_clusters(context):
 
 
 @when("I request content and groups")
-def step_impl(context):
-    raise NotImplementedError(u'STEP: When I request content and groups')
+def request_content_and_list_of_groups(context):
+    """Call Insights Results Aggregator Mock service and retrieve content and list groups."""
+    url = f"http://{context.hostname}:{context.port}/{context.api_prefix}/content"
+    context.response = requests.get(url)
+
+    # check the response
+    assert context.response is not None
+    assert context.response.status_code == 200
 
 
 @then("I should retrieve empty content")
