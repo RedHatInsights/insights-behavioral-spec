@@ -405,6 +405,13 @@ nav_order: 2
 * Check the groups endpoint
 * Check the organizations endpoint
 
+## `insights-results-aggregator-mock/cluster_report.feature`
+
+* Check if Insights Results Aggregator Mock service return correct cluster report with 7 rule hits
+* Check if Insights Results Aggregator Mock service return correct cluster report with 7 rule hits
+* Check if Insights Results Aggregator Mock service return correct cluster report with one rule hit
+* Check if Insights Results Aggregator Mock service return correct cluster report with no rule hits
+
 ## `insights-results-aggregator-mock/clusters_hitting_rule.feature`
 
 * Check if Insights Results Aggregator Mock service returns correct list of clusters for rule ccx_rules_ocp.external.rules.cluster_wide_proxy_auth_check
@@ -413,19 +420,21 @@ nav_order: 2
 * Check if Insights Results Aggregator Mock service returns correct list of clusters for rule ccx_rules_ocp.external.rules.nodes_kubelet_version_check
 * Check if Insights Results Aggregator Mock service returns correct list of clusters for rule ccx_rules_ocp.external.rules.samples_op_failed_image_import_check
 
-## `insights-results-aggregator-mock/mock_responses.feature`
+## `insights-results-aggregator-mock/list_of_clusters.feature`
 
-* Check if Insights Results Aggregator Mock service return correct list of organizations
-* Check if Insights Results Aggregator Mock service return correct list of groups
 * Check if Insights Results Aggregator Mock service return correct list of clusters for organization 1
 * Check if Insights Results Aggregator Mock service return correct list of clusters for organization 2
 * Check if Insights Results Aggregator Mock service return correct list of clusters for organization 3
 * Check if Insights Results Aggregator Mock service return correct list of clusters for organization with many clusters
 * Check if Insights Results Aggregator Mock service return correct list of clusters for organization w/o access rights
-* Check if Insights Results Aggregator Mock service return correct cluster report with 7 rule hits
-* Check if Insights Results Aggregator Mock service return correct cluster report with 7 rule hits
-* Check if Insights Results Aggregator Mock service return correct cluster report with one rule hit
-* Check if Insights Results Aggregator Mock service return correct cluster report with no rule hits
+
+## `insights-results-aggregator-mock/list_of_groups.feature`
+
+* Check if Insights Results Aggregator Mock service return correct list of groups
+
+## `insights-results-aggregator-mock/list_of_organizations.feature`
+
+* Check if Insights Results Aggregator Mock service return correct list of organizations
 
 ## `insights-results-aggregator-mock/rest_api_clusters.feature`
 
