@@ -420,6 +420,10 @@ nav_order: 2
 * Check if Insights Results Aggregator Mock service returns correct list of clusters for rule ccx_rules_ocp.external.rules.nodes_kubelet_version_check
 * Check if Insights Results Aggregator Mock service returns correct list of clusters for rule ccx_rules_ocp.external.rules.samples_op_failed_image_import_check
 
+## `insights-results-aggregator-mock/content_info.feature`
+
+* Check if Insights Results Aggregator Mock service return correct list of groups
+
 ## `insights-results-aggregator-mock/list_of_clusters.feature`
 
 * Check if Insights Results Aggregator Mock service return correct list of clusters for organization 1

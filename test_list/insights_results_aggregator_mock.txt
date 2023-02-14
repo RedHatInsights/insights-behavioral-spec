@@ -2,6 +2,7 @@
 ../features/insights-results-aggregator-mock/basic_rest_api.feature
 ../features/insights-results-aggregator-mock/rest_api_clusters.feature
 ../features/insights-results-aggregator-mock/list_of_groups.feature
+../features/insights-results-aggregator-mock/content_info.feature
 ../features/insights-results-aggregator-mock/list_of_organizations.feature
 ../features/insights-results-aggregator-mock/list_of_clusters.feature
 ../features/insights-results-aggregator-mock/cluster_report.feature
