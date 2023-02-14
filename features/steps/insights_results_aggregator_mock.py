@@ -321,3 +321,23 @@ def check_metadata(context):
         # has the attribute expected value?
         assert str(meta[expected_name]) == expected_value, \
             f"Attribute with name {expected_name} has unexpected value {meta[expected_name]}"
+
+
+@when(u'I request results for the following list of clusters')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: When I request results for the following list of clusters')
+
+
+@then(u'Attribute errors should be null')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: Then Attribute errors should be null')
+
+
+@then(u'I should see attribute named reports in response')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: Then I should see attribute named reports in response')
+
+
+@then(u'I should see report for following list of clusters')
+def step_impl(context):
+    raise NotImplementedError(u'STEP: Then I should see report for following list of clusters')
