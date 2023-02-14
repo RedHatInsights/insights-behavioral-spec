@@ -323,7 +323,7 @@ def check_metadata(context):
             f"Attribute with name {expected_name} has unexpected value {meta[expected_name]}"
 
 
-@when(u'I request results for the following list of clusters')
+@when("I request results for the following list of clusters")
 def request_results_for_list_of_clusters(context):
     """Send list of clusters in JSON body of request into the service."""
     cluster_list = [item["Cluster name"] for item in context.table]
@@ -338,10 +338,9 @@ def request_results_for_list_of_clusters(context):
     # perform POST request
     context.response = requests.post(url, json=json_request_body)
 
-
-@then(u'Attribute errors should be null')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Then Attribute errors should be null')
+    # check the response
+    assert context.response is not None
+    assert context.response.status_code == 200
 
 
 @then(u'I should see attribute named reports in response')
