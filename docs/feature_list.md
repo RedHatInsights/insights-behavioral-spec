@@ -107,3 +107,4 @@ nav_order: 1
 * [Tests for cluster list endpoint](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-mock/rest_api_clusters.feature)
 * [Checking REST API endpoint that returns list of clusters hitting specified rule](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-mock/clusters_hitting_rule.feature)
 * [Checking all responses from Insights Results Aggregator Mock service](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-mock/mock_responses.feature)
+* [Checking REST API endpoint that returns results for provided list of clusters](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-mock/results_for_cluster_list.feature)

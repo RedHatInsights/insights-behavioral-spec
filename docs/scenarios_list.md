@@ -433,6 +433,10 @@ nav_order: 2
 * Check if is is possible to get list of clusters for given organization #2
 * Check if is is possible to get list of clusters for organization w/o access rights
 
+## `insights-results-aggregator-mock/results_for_cluster_list.feature`
+
+* Check if Insights Results Aggregator Mock service returns results for list of known clusters
+
 ## `insights-results-aggregator-mock/smoketests.feature`
 
 * Check if Insights Results Aggregator Mock application is available

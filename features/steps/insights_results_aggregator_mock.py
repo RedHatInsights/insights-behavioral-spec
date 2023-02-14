@@ -187,6 +187,7 @@ def request_list_of_groups(context):
 
 @then("I should retrieve following list of groups")
 def check_list_of_groups(context):
+    """Check list of groups returned from the service."""
     # construct set of expected group names
     # from a table provided in feature file
     expected_group_names = set(item["Title"] for item in context.table)
@@ -321,3 +322,65 @@ def check_metadata(context):
         # has the attribute expected value?
         assert str(meta[expected_name]) == expected_value, \
             f"Attribute with name {expected_name} has unexpected value {meta[expected_name]}"
+
+
+@when("I request results for the following list of clusters")
+def request_results_for_list_of_clusters(context):
+    """Send list of clusters in JSON body of request into the service."""
+    cluster_list = [item["Cluster name"] for item in context.table]
+    assert cluster_list is not None, "Test step definition problem"
+
+    # construct object to be send to the service
+    request_body = {"clusters": cluster_list}
+    json_request_body = {"clusters": cluster_list}
+
+    url = f"http://{context.hostname}:{context.port}{context.api_prefix}/clusters"
+
+    # perform POST request
+    context.response = requests.post(url, json=json_request_body)
+
+    # check the response
+    assert context.response is not None
+    assert context.response.status_code == 200
+
+
+@then(u'I should see report for following list of clusters')
+def check_reports_for_list_of_clusters(context):
+    """Send list of clusters in JSON body of request into the service."""
+    json = context.response.json()
+    assert json is not None
+
+    # try to retrieve report attribute which should be object containing more attributes
+    assert "reports" in json, "reports attribute is missing"
+    reports = json["reports"]
+
+    # retrieve expected set of clusters
+    expected_clusters = set([item["Cluster name"] for item in context.table])
+    assert expected_clusters is not None, "Test step definition problem"
+
+    # cluster reports found in response
+    found_clusters = reports.keys()
+
+    # compare both sets and display diff (if diff is found)
+    assert_sets_equality("cluster list", expected_clusters, found_clusters)
+
+    # now we need to check reports for basic structure
+    for cluster_name, cluster_entry in reports.items():
+        assert "status" in cluster_entry, cluster_entry
+        status = cluster_entry["status"]
+        assert status == "ok", f"Unexpected status {status}"
+
+        assert "report" in cluster_entry, cluster_entry
+        report = cluster_entry["report"]
+
+        assert "data" in report, report
+        data = report["data"]
+
+        assert "meta" in report, report
+        meta = report["meta"]
+
+        # check number of reports
+        meta_count = meta["count"]
+        report_count = len(data)
+        assert meta_count == report_count, \
+            "Incorrect number of reports {meta_count} <> {report_count}"

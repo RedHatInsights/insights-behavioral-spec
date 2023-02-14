@@ -150,3 +150,22 @@ def check_status_of_response(context, expected_message):
     actual_message = body["status"]
 
     assert actual_message == expected_message, f"Improper status message {actual_message}"
+
+
+@then("I should see attribute named {attribute} in response")
+def check_attribute_presence(context, attribute):
+    """Check if given attribute is returned in HTTP response."""
+    json = context.response.json()
+    assert json is not None
+
+    assert attribute in json, f"Attribute {attribute} is not returned by the service"
+
+
+@then("Attribute {attribute:w} should be null")
+def check_for_null_attribute(context, attribute):
+    """Check if given attribute returned in HTTP response is null."""
+    json = context.response.json()
+    assert json is not None
+
+    assert attribute in json, f"Attribute {attribute} is not returned by the service"
+    assert json[attribute] is None, f"Attribute {attribute} should be null"
