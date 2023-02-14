@@ -406,5 +406,5 @@ def check_empty_content(context):
     # try to retrieve content attribute
     assert "content" in json, "content attribute is missing"
     content = json["content"]
-    
+
     assert len(content) == 0, "content attribute should be empty"
