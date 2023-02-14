@@ -324,8 +324,19 @@ def check_metadata(context):
 
 
 @when(u'I request results for the following list of clusters')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: When I request results for the following list of clusters')
+def request_results_for_list_of_clusters(context):
+    """Send list of clusters in JSON body of request into the service."""
+    cluster_list = [item["Cluster name"] for item in context.table]
+    assert cluster_list is not None, "Test step definition problem"
+
+    # construct object to be send to the service
+    request_body = {"clusters": cluster_list}
+    json_request_body = {"clusters": cluster_list}
+
+    url = f"http://{context.hostname}:{context.port}{context.api_prefix}/clusters"
+
+    # perform POST request
+    context.response = requests.post(url, json=json_request_body)
 
 
 @then(u'Attribute errors should be null')
