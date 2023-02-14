@@ -106,6 +106,7 @@ nav_order: 1
 * [REST API endpoints provided by Insights Results Aggregator Mock](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-mock/basic_rest_api.feature)
 * [Tests for cluster list endpoint](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-mock/rest_api_clusters.feature)
 * [Checking responses from Insights Results Aggregator Mock service: "groups" endpoint](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-mock/list_of_groups.feature)
+* [Checking responses from Insights Results Aggregator Mock service: "content" endpoint](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-mock/content_info.feature)
 * [Checking responses from Insights Results Aggregator Mock service: "organizations" endpoint](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-mock/list_of_organizations.feature)
 * [Checking responses from Insights Results Aggregator Mock service: "{organization}/clusters" endpoint](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-mock/list_of_clusters.feature)
 * [Checking responses from Insights Results Aggregator Mock service: endpoint to return cluster report](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-mock/cluster_report.feature)
