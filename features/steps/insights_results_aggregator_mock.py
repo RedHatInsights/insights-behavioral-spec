@@ -27,7 +27,7 @@ from src.utils import get_array_from_json
 test_output = "test"
 
 
-@when(u'I run the Insights Results Aggregator Mock with the {flag} command line flag')
+@when("I run the Insights Results Aggregator Mock with the {flag} command line flag")
 def run_insights_results_aggregator_mock_with_flag(context, flag):
     """Start the cleaner with given command-line flag."""
     out = subprocess.Popen(
@@ -95,7 +95,7 @@ def check_authors_info_from_mock(context):
     ), "Caught output: {}".format(context.output)
 
 
-@then(u'I should see actual configuration displayed by Insights Results Aggregator Mock on standard output')  # noqa E501
+@then("I should see actual configuration displayed by Insights Results Aggregator Mock on standard output")  # noqa E501
 def check_actual_configuration(context):
     """Check if actual configuration is displayed by Insights Results Aggregator Mock."""
     # preliminary checks
@@ -260,8 +260,8 @@ def check_no_rule_hits(context):
     check_number_of_rule_hits(context, 0)
 
 
-@then(u'I should find following rule hit in cluster report')
-@then(u'I should find following rule hits in cluster report')
+@then("I should find following rule hit in cluster report")
+@then("I should find following rule hits in cluster report")
 def check_all_rule_hits(context):
     """Check the rule hits returned by service against expected rule hits defined in scenario."""
     json = context.response.json()
@@ -344,7 +344,7 @@ def request_results_for_list_of_clusters(context):
     assert context.response.status_code == 200
 
 
-@then(u'I should see report for following list of clusters')
+@then("I should see report for following list of clusters")
 def check_reports_for_list_of_clusters(context):
     """Send list of clusters in JSON body of request into the service."""
     json = context.response.json()
@@ -384,3 +384,14 @@ def check_reports_for_list_of_clusters(context):
         report_count = len(data)
         assert meta_count == report_count, \
             "Incorrect number of reports {meta_count} <> {report_count}"
+
+
+@when("I request content and groups")
+def step_impl(context):
+    raise NotImplementedError(u'STEP: When I request content and groups')
+
+
+@then("I should retrieve empty content")
+def step_impl(context):
+    raise NotImplementedError(u'STEP: Then I should retrieve empty content')
+
