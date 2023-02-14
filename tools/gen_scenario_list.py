@@ -44,11 +44,14 @@ SUBDIRECTORIES = (
 )
 
 # page header
-print("# Description")
-print("Directory where feature files with scenarios and scenario outlines are stored.")  # noqa
+print("---")
+print("layout: page")
+print("nav_order: 2")
+print("---")
 print()
 print("# List of scenarios")
 print()
+
 
 for subdirectory in SUBDIRECTORIES:
     directory = os.path.join(FEATURE_DIRECTORY, subdirectory)
