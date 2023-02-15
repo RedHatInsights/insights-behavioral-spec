@@ -262,6 +262,8 @@ def check_new_reports_cleanup(context, max_age):
 )  # noqa E501
 def check_print_old_reports_for_cleanup(context, max_age, age_unit):
     """
+    Check message with list of old reports to be cleaned.
+
     Check if information about notified reports for cleanup is displayed
     by CCX Notification Service.
     """  # noqa E501
