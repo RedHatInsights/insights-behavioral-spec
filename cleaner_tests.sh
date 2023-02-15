@@ -1,6 +1,6 @@
-#!/bin/bash -ex
+#!/bin/bash -x
 
-# Copyright 2021, 2022 Red Hat, Inc
+# Copyright 2021, 2022, 2023 Red Hat, Inc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,19 +14,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# clean up database
-psql postgresql://postgres:postgres@localhost:5432/test?sslmode=disable --file setup/clean_database.sql
-
-export PATH=$PATH:/tmp/ramdisk/
-export NOVENV=1
-
 function prepare_venv() {
+    echo "preparing virtual environment for tests execution"
     # shellcheck disable=SC1091
-    virtualenv -p python3 venv && source venv/bin/activate && python3 "$(which pip3)" install -r requirements.txt
+    python3 -m venv venv && source venv/bin/activate && python3 "$(which pip3)" install -r requirements.txt || exit 1
+    echo "Environment ready"
 }
 
-[ "$NOVENV" == "1" ] || prepare_venv || exit 1
+# prepare virtual environment if necessary
+[ "$VIRTUAL_ENV" != "" ] || NOVENV=1
+case "$NOVENV" in
+    "") echo "using existing virtual env";;
+    "1") prepare_venv;;
+esac
 
-# shellcheck disable=SC2068
-PYTHONDONTWRITEBYTECODE=1 python3 "$(which behave)" --tags=-skip -D dump_errors=true @test_list/cleaner.txt $@
+PYTHONDONTWRITEBYTECODE=1 python3 -m behave --tags=-skip -D dump_errors=true @test_list/cleaner.txt "$@"
 

@@ -1,10 +1,9 @@
 FROM registry.access.redhat.com/ubi8/ubi:latest
 
-ENV VENV=/insights-behavioral-spec-venv \
-    VENV_BIN=/insights-behavioral-spec-venv/bin \
+ENV VIRTUAL_ENV=/insights-behavioral-spec-venv \
+    VIRTUAL_ENV_BIN=/insights-behavioral-spec-venv/bin \
     HOME=/insights-behavioral-spec \
     REQUESTS_CA_BUNDLE=/etc/pki/tls/certs/ca-bundle.crt \
-    NOVENV=0 \
     ENV_DOCKER=1 \
     DB_NAME=test \
     DB_HOST=database \
@@ -26,21 +25,21 @@ WORKDIR $HOME
 
 COPY . $HOME
 
-ENV PATH="$VENV/bin:$PATH"
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 
 RUN dnf install --nodocs -y python3-pip unzip make && \
-    python3 -m venv $VENV && \
+    python3 -m venv $VIRTUAL_ENV && \
     curl -ksL https://password.corp.redhat.com/RH-IT-Root-CA.crt \
          -o /etc/pki/ca-trust/source/anchors/RH-IT-Root-CA.crt && \
     update-ca-trust && \
     pip install --no-cache-dir -U pip setuptools wheel && \
-    pip install --no-cache-dir -r requirements.txt && \
+    pip install --no-cache-dir -r requirements/.requirements_docker && \
     dnf clean all && \
-    chmod -R g=u $HOME $VENV /etc/passwd && \
-    chgrp -R 0 $HOME $VENV
+    chmod -R g=u $HOME $VIRTUAL_ENV /etc/passwd && \
+    chgrp -R 0 $HOME $VIRTUAL_ENV
 
-COPY --from=confluentinc/cp-kafkacat:7.1.5-1-ubi8 /usr/local/bin/kafkacat $VENV_BIN/kcat
+COPY --from=confluentinc/cp-kafkacat:7.1.5-1-ubi8 /usr/local/bin/kafkacat $VIRTUAL_ENV_BIN/kcat
 
 USER 1001
 

@@ -1,12 +1,21 @@
-#!/bin/bash -ex
-
-export NOVENV=1
+#!/bin/bash -x
 
 function prepare_venv() {
-    virtualenv -p python3 venv && source venv/bin/activate && python3 `which pip3` install -r requirements.txt
+    virtualenv -p python3 venv && source venv/bin/activate
+    python3 "$(which pip3)" install -r requirements.txt
+    for f in requirements/*.txt; do
+        echo "File -> $f" && python3 "$(which pip3)" install -r "$f" || exit 1
+    done
 }
 
-[ "$NOVENV" == "1" ] || prepare_venv || exit 1
+# prepare virtual environment if necessary
+[ "$VIRTUAL_ENV" != "" ] || NOVENV=1
+case "$NOVENV" in
+    "") echo "using existing virtual env";;
+    "1") prepare_venv;;
+esac
 
-PYTHONDONTWRITEBYTECODE=1 python3 "`which behave`" --tags=-skip -D dump_errors=true @feature_list.txt $@
+for f in test_list/*.txt; do
+    PYTHONDONTWRITEBYTECODE=1 python3 -m behave --tags=-skip -D dump_errors=true @"$f" "$@" || { echo "Tests in $f failed."; }
+done
 
