@@ -86,7 +86,6 @@ def check_status_code(context, status):
 @then("The body of the response has the following schema")
 def check_response_body_schema(context):
     """Check that response body is compliant with a given schema."""
-
     schema = json.loads(context.text)
     body = context.response.json()
 
