@@ -28,6 +28,8 @@ TEST_OUTPUT = "test"
 
 def parse_max_age(max_age):
     """
+    Parse max age string.
+
     Return parsed text as str if it fits expected format (not really better than
     using {max_age:d} {age_unit:w}, but at least this way it is clear when it
     gets unexpected values).
@@ -286,6 +288,8 @@ def check_print_old_reports_for_cleanup(context, max_age, age_unit):
 )
 def check_old_reports_cleanup(context, max_age, age_unit):
     """
+    Check cleanup of old reports message.
+
     Check if information about notified reports for cleanup
     is displayed by CCX Notification Service.
     """

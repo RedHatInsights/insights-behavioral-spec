@@ -58,7 +58,6 @@ def request_endpoint_with_formatted_body(context, endpoint, hostname, port, key)
 @when("I request the {endpoint} endpoint in {hostname:w}:{port:d} with following parameters")
 def request_endpoint_with_url_params(context, endpoint, hostname, port):
     """Perform a request to the server defined by URL to a given endpoint."""
-
     params = dict()
 
     for row in context.table:
@@ -86,7 +85,6 @@ def check_status_code(context, status):
 @then("The body of the response has the following schema")
 def check_response_body_schema(context):
     """Check that response body is compliant with a given schema."""
-
     schema = json.loads(context.text)
     body = context.response.json()
 
@@ -106,7 +104,6 @@ def check_response_body_schema(context):
 @then("The body of the response is the following")
 def check_prediction_result(context):
     """Check the content of the response to be exactly the same."""
-
     expected_body = json.loads(context.text)
     result = context.response.json()
 
@@ -117,29 +114,34 @@ def check_prediction_result(context):
 @given("REST API service hostname is {hostname:w}")
 @when("REST API service hostname is {hostname:w}")
 def set_service_hostname(context, hostname):
+    """Set REST API hostname to be used in following steps."""
     context.hostname = hostname
 
 
 @given("REST API service port is {port:d}")
 @when("REST API service port is {port:d}")
 def set_service_port(context, port):
+    """Set REST API port to be used in following steps."""
     context.port = port
 
 
 @given("REST API service prefix is {prefix}")
 @when("REST API service prefix is {prefix}")
 def set_rest_api_prefix(context, prefix):
+    """Set REST API prefix to be used in following steps."""
     context.api_prefix = prefix
 
 
 @when("I access endpoint {endpoint} using HTTP GET method")
 def access_rest_api_endpoint_get(context, endpoint):
+    """Send GET HTTP request to tested service."""
     url = f"http://{context.hostname}:{context.port}/{context.api_prefix}/{endpoint}"
     context.response = requests.get(url)
 
 
 @then("The status message of the response is \"{expected_message}\"")
 def check_status_of_response(context, expected_message):
+    """Check the actual message/value in status attribute."""
     assert context.response is not None, "Send request to service first"
 
     # try to parse response body as JSON
