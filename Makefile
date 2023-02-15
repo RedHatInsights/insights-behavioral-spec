@@ -29,3 +29,6 @@ update-scenarios:
 	python3 tools/gen_scenario_list.py > features/README.md
 
 before_commit: code-style update-scenarios
+
+docker-build:
+	docker build -t quay.io/ccxdev/insights-behavioral-spec:ci . && docker push quay.io/ccxdev/insights-behavioral-spec:ci
