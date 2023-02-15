@@ -101,7 +101,7 @@ init_db
 get_binary
 
 # shellcheck disable=SC2068
-PYTHONDONTWRITEBYTECODE=1 python3 "$(which behave)" \
+PYTHONDONTWRITEBYTECODE=1 python3 -m behave \
     --format=progress2 \
     --tags=-skip --tags=-managed \
     -D dump_errors=true @test_list/notification_service.txt "$@"

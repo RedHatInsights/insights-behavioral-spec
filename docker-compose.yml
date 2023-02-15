@@ -1,22 +1,49 @@
 version: "3"
 services:
-  # Auxiliar services the external data pipeline needs
-  db:
+  # "pod" with the tests
+  behavioral_spec:
+    image: quay.io/ccxdev/insights-behavioral-spec:ci
+    depends_on:
+      - createbuckets
+    entrypoint:
+      - /bin/sh
+      - -c
+      - "sleep infinity"
+  database:
     ports:
       - 5432:5432
-    image: registry.redhat.io/rhscl/postgresql-13-rhel7
+    image: postgres:13.9
     environment:
-      - POSTGRESQL_USER=user
-      - POSTGRESQL_PASSWORD=password
-      - POSTGRESQL_ADMIN_PASSWORD=postgres
-      - POSTGRESQL_DATABASE=notification
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=test
   kafka:
     image: quay.io/ccxdev/kafka-no-zk:latest
     ports:
       - 9092:9092
     environment:
       - KAFKA_ADVERTISED_HOST_NAME=kafka
-      - KAFKA_CREATE_TOPICS="platform.notifications.ingress:1:1" 
+      - KAFKA_CREATE_TOPICS="platform.notifications.ingress:1:1"
+  minio:
+    image: minio/minio
+    command:
+      - server
+      - /data
+    ports:
+      - 9000:9000
+    environment:
+      - MINIO_ACCESS_KEY=test_access_key
+      - MINIO_SECRET_KEY=test_secret_access_key
+  createbuckets:
+    image: minio/mc
+    depends_on:
+      - minio
+    entrypoint:
+      - /bin/sh
+      - -c
+      - "sleep 5;
+      /usr/bin/mc config host add myminio http://minio:9000 test_access_key test_secret_access_key;
+      /usr/bin/mc mb myminio/test;"
   pushgateway:
     profiles:
       - no-mock
@@ -37,11 +64,10 @@ services:
       - INSIGHTS_CONTENT_SERVICE__SERVER__API_PREFIX=/api/v1/
       - INSIGHTS_CONTENT_SERVICE__SERVER__API_SPEC_FILE=/openapi/openapi.json
       - INSIGHTS_CONTENT_SERVICE__GROUPS__PATH=/groups/groups_config.yaml
-
   init-service-log-db:
     profiles:
       - no-mock
-    image: registry.redhat.io/rhscl/postgresql-13-rhel7
+    image: postgres:13.9
     volumes:
       - ./setup/:/tmp/setup-scripts
     entrypoint: sh
@@ -49,7 +75,7 @@ services:
       - PGPASSWORD=postgres
     command: >
       psql 
-        --username=postgres --host=db --port=5432 --dbname notification 
+        --username=postgres --host=db --port=5432 --dbname notification
         -f /tmp/setup-scripts/ocm_service_log.sql
 
   service-log:
