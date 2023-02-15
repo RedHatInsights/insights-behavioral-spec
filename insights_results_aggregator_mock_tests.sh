@@ -22,8 +22,9 @@ function prepare_venv() {
 }
 
 # prepare virtual environment if necessary
+[ "$VIRTUAL_ENV" != "" ] || NOVENV=1
 case "$NOVENV" in
-    "0") echo "using existing virtual env";;
+    "") echo "using existing virtual env";;
     "1") prepare_venv;;
 esac
 

@@ -17,13 +17,14 @@
 function prepare_venv() {
     echo "Preparing environment"
     # shellcheck disable=SC1091
-    virtualenv -p python3 venv && source venv/bin/activate && python3 "$(which pip3)" install -r requirements/exporter.txt || exit 1
+    virtualenv -p python3 venv && source venv/bin/activate && python3 "$(which pip3)" install -r requirements/exporter.txt || exit 1
     echo "Environment ready"
 }
 
 # prepare virtual environment if necessary
+[ "$VIRTUAL_ENV" != "" ] || NOVENV=1
 case "$NOVENV" in
-    "0") echo "using existing virtual env";;
+    "") echo "using existing virtual env";;
     "1") prepare_venv;;
 esac
 
