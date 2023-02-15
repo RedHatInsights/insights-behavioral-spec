@@ -129,6 +129,7 @@ def set_service_port(context, port):
 @given("REST API service prefix is {prefix}")
 @when("REST API service prefix is {prefix}")
 def set_rest_api_prefix(context, prefix):
+    """Set REST API prefix to be used in following steps."""
     context.api_prefix = prefix
 
 
