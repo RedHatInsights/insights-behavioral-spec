@@ -221,9 +221,20 @@ def check_list_of_groups(context):
             raise KeyError(f"Group {group} was not returned by the service")
 
 
-@when("I request report for cluster {cluster:S} from organization {organization:d}")
-def request_report_for_cluster(context, cluster, organization):
+@when("I request report for cluster {cluster:S}")
+def request_report_for_cluster(context, cluster):
     """Call Insights Results Aggregator Mock service and retrieve report for given cluster."""
+    url = f"http://{context.hostname}:{context.port}/{context.api_prefix}/report/{cluster}"  # noqa E501
+    context.response = requests.get(url)
+
+    # check the response
+    assert context.response is not None
+    assert context.response.status_code == 200
+
+
+@when("I request report for cluster {cluster:S} from organization {organization:d}")
+def request_report_for_cluster_in_organization(context, cluster, organization):
+    """Call Insights Results Aggregator Mock service and retrieve report for given cluster and organization."""  # noqa E501
     url = f"http://{context.hostname}:{context.port}/{context.api_prefix}/report/{organization}/{cluster}"  # noqa E501
     context.response = requests.get(url)
 
