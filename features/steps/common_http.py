@@ -58,7 +58,6 @@ def request_endpoint_with_formatted_body(context, endpoint, hostname, port, key)
 @when("I request the {endpoint} endpoint in {hostname:w}:{port:d} with following parameters")
 def request_endpoint_with_url_params(context, endpoint, hostname, port):
     """Perform a request to the server defined by URL to a given endpoint."""
-
     params = dict()
 
     for row in context.table:
@@ -116,6 +115,7 @@ def check_prediction_result(context):
 @given("REST API service hostname is {hostname:w}")
 @when("REST API service hostname is {hostname:w}")
 def set_service_hostname(context, hostname):
+    """Set REST API hostname to be used in following steps."""
     context.hostname = hostname
 
 
