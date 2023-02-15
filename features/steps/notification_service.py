@@ -208,12 +208,14 @@ def check_configuration_info_from_ccx_notification_service(context):
 @then(
     "I should see info about not notified reports older "
     "than {max_age:Age} displayed on standard output"
-)  # noqa E501
+)
 def check_print_new_reports_for_cleanup(context, max_age):
     """
+    Check message with list of new reports to be cleaned.
+
     Check if information about new reports for cleanup is displayed
     by CCX Notification Service.
-    """  # noqa E501
+    """
     # preliminary checks
     assert context.stdout is not None
     stdout = context.stdout.decode("utf-8").replace("\t", "    ")
@@ -230,12 +232,14 @@ def check_print_new_reports_for_cleanup(context, max_age):
 @then(
     "I should see info about cleaned up not notified reports "
     "older than {max_age:Age} displayed on standard output"
-)  # noqa E501
+)
 def check_new_reports_cleanup(context, max_age):
     """
+    Check cleanup of new reports message.
+
     Check if information about not notified reports cleanup is
     displayed by CCX Notification Service.
-    """  # noqa E501
+    """
     # preliminary checks
     assert context.stdout is not None
     stdout = context.stdout.decode("utf-8").replace("\t", "    ")
@@ -258,6 +262,8 @@ def check_new_reports_cleanup(context, max_age):
 )  # noqa E501
 def check_print_old_reports_for_cleanup(context, max_age, age_unit):
     """
+    Check message with list of old reports to be cleaned.
+
     Check if information about notified reports for cleanup is displayed
     by CCX Notification Service.
     """  # noqa E501
@@ -277,12 +283,12 @@ def check_print_old_reports_for_cleanup(context, max_age, age_unit):
 @then(
     "I should see info about cleaned up notified reports older "
     "than {max_age:d} {age_unit:w} displayed on standard output"
-)  # noqa E501
+)
 def check_old_reports_cleanup(context, max_age, age_unit):
     """
     Check if information about notified reports for cleanup
     is displayed by CCX Notification Service.
-    """  # noqa E501
+    """
     # preliminary checks
     assert context.stdout is not None
     stdout = context.stdout.decode("utf-8").replace("\t", "    ")
@@ -362,7 +368,6 @@ def check_cleaned_items_on_standard_output(context, table, max_age):
 
 def get_events_kafka(num_event):
     """Get the latest {num_event} messages in Kafka."""
-
     # use the Kafkacat tool to retrieve metadata from Kafka broker:
     # -J enables Kafkacat to produce output in JSON format
     # -L flag choose mode: metadata list
