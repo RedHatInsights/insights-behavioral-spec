@@ -407,10 +407,14 @@ nav_order: 2
 
 ## `insights-results-aggregator-mock/cluster_report.feature`
 
-* Check if Insights Results Aggregator Mock service return correct cluster report with 7 rule hits
-* Check if Insights Results Aggregator Mock service return correct cluster report with 7 rule hits
-* Check if Insights Results Aggregator Mock service return correct cluster report with one rule hit
-* Check if Insights Results Aggregator Mock service return correct cluster report with no rule hits
+* Check if Insights Results Aggregator Mock service return correct cluster report with 7 rule hits without org. selector
+* Check if Insights Results Aggregator Mock service return correct cluster report with 7 rule hits without org. selector
+* Check if Insights Results Aggregator Mock service return correct cluster report with one rule hit without org. selector
+* Check if Insights Results Aggregator Mock service return correct cluster report with no rule hits without org. selector
+* Check if Insights Results Aggregator Mock service return correct cluster report with 7 rule hits with org. selector
+* Check if Insights Results Aggregator Mock service return correct cluster report with 7 rule hits with org. selector
+* Check if Insights Results Aggregator Mock service return correct cluster report with one rule hit with org. selector
+* Check if Insights Results Aggregator Mock service return correct cluster report with no rule hits with org. selector
 
 ## `insights-results-aggregator-mock/clusters_hitting_rule.feature`
 
