@@ -208,14 +208,14 @@ def check_configuration_info_from_ccx_notification_service(context):
 @then(
     "I should see info about not notified reports older "
     "than {max_age:Age} displayed on standard output"
-)  # noqa E501
+)
 def check_print_new_reports_for_cleanup(context, max_age):
     """
     Check message with list of new reports to be cleaned.
 
     Check if information about new reports for cleanup is displayed
     by CCX Notification Service.
-    """  # noqa E501
+    """
     # preliminary checks
     assert context.stdout is not None
     stdout = context.stdout.decode("utf-8").replace("\t", "    ")
