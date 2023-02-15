@@ -286,6 +286,8 @@ def check_print_old_reports_for_cleanup(context, max_age, age_unit):
 )
 def check_old_reports_cleanup(context, max_age, age_unit):
     """
+    Check cleanup of old reports message.
+
     Check if information about notified reports for cleanup
     is displayed by CCX Notification Service.
     """
