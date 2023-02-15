@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/bash -x
 
 function prepare_venv() {
     virtualenv -p python3 venv && source venv/bin/activate

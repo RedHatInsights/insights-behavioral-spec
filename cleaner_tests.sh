@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 # Copyright 2021, 2022, 2023 Red Hat, Inc
 #
