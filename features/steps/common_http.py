@@ -104,7 +104,6 @@ def check_response_body_schema(context):
 @then("The body of the response is the following")
 def check_prediction_result(context):
     """Check the content of the response to be exactly the same."""
-
     expected_body = json.loads(context.text)
     result = context.response.json()
 
