@@ -52,7 +52,6 @@ class Query(BaseModel):
 @app.get("/api/metrics/v1/telemeter/api/v1/query")
 def get_random_results(query: Query):
     """Request handler for REST API endpoint to return alerts and FOCs."""
-
     match = re.match(
         r"^alerts{{_id=(.+)}}\s+or\s+cluster_operator_conditions{{_id=(.+)}}",
         query.query,
