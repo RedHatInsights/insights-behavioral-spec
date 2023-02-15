@@ -14,11 +14,11 @@
 
 """Implementation of test steps that run CCX Upgrade Risk Inference Service."""
 
-from behave import given
+
 import os
 import subprocess
 import time
-
+from behave import given
 
 
 @given("The CCX Data Engineering Service is running on port {port:d}")
