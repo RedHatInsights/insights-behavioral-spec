@@ -123,6 +123,7 @@ def set_service_hostname(context, hostname):
 @given("REST API service port is {port:d}")
 @when("REST API service port is {port:d}")
 def set_service_port(context, port):
+    """Set REST API port to be used in following steps."""
     context.port = port
 
 
@@ -141,6 +142,7 @@ def access_rest_api_endpoint_get(context, endpoint):
 
 @then("The status message of the response is \"{expected_message}\"")
 def check_status_of_response(context, expected_message):
+    """Check the actual message/value in status attribute."""
     assert context.response is not None, "Send request to service first"
 
     # try to parse response body as JSON
