@@ -28,6 +28,8 @@ TEST_OUTPUT = "test"
 
 def parse_max_age(max_age):
     """
+    Parse max age string.
+
     Return parsed text as str if it fits expected format (not really better than
     using {max_age:d} {age_unit:w}, but at least this way it is clear when it
     gets unexpected values).
