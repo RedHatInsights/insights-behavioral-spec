@@ -33,7 +33,6 @@ class Risks(BaseModel):
 @app.get("/upgrade-risks-prediction")
 def upgrade_risk_prediction_mock(risks: Risks):
     """Request handler for REST API endpoint to return upgrade prediction prediction."""
-
     result = len(risks.risks) == 0
     return {
         "upgrade_recommended": result,
