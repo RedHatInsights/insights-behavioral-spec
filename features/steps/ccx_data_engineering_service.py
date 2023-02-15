@@ -14,14 +14,11 @@
 
 """Implementation of test steps that run CCX Upgrade Risk Inference Service."""
 
-import json
+from behave import given
 import os
-import socket
 import subprocess
 import time
 
-import requests
-import jsonschema
 
 
 @given("The CCX Data Engineering Service is running on port {port:d}")
