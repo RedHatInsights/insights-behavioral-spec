@@ -14,19 +14,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
-export PATH=$PATH:./
-export NOVENV=1
-
 function prepare_venv() {
     echo "Preparing environment"
     # shellcheck disable=SC1091
-    virtualenv -p python3 venv && source venv/bin/activate && python3 "$(which pip3)" install -r requirements/notification_writer.txt
+    virtualenv -p python3 venv && source venv/bin/activate && python3 "$(which pip3)" install -r requirements/notification_writer.txt || exit 1
     echo "Environment ready"
 }
 
-[ "$NOVENV" == "1" ] || prepare_venv || exit 1
-
+# prepare virtual environment if necessary
+case "$NOVENV" in
+    "0") echo "using existing virtual env";;
+    "1") prepare_venv;;
+esac
 # shellcheck disable=SC2068
-PYTHONDONTWRITEBYTECODE=1 python3 "$(which behave)" --tags=-skip -D dump_errors=true @test_list/notification_writer.txt "$@"
+PYTHONDONTWRITEBYTECODE=1 python3 -m behave --tags=-skip -D dump_errors=true @test_list/notification_writer.txt "$@"
 
