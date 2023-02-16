@@ -80,7 +80,7 @@ def make_kafka_empty(context, topic):
             "insights-behavioral-spec_kafka_1",
             "./bin/kafka-topics.sh",
             "--bootstrap-server",
-            "localhost:9092",
+            f"{context.kafka_hostname}:{context.kafka_port}",
             "--delete",
             "--topic",
             topic,
