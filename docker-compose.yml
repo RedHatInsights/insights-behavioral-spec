@@ -1,7 +1,7 @@
 version: "3"
 services:
   # "pod" with the tests
-  behavioral_spec:
+  bddtests:
     image: quay.io/ccxdev/insights-behavioral-spec:ci
     depends_on:
       - createbuckets
