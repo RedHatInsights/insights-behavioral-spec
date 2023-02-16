@@ -1,3 +1,4 @@
+@aggregator_exporter
 Feature: Ability to export metadata into S3
 
   Background: System is in default state, database exist and is empty
@@ -7,11 +8,12 @@ Feature: Ability to export metadata into S3
       And database password is set to postgres
       And database connection is established
       And the database is empty
-      And Minio endpoint is set to 127.0.0.1
-      And Minio port is set to 9000
-      And Minio access key is set to foobar01
-      And Minio secret access key is set to foobar01
-      And Minio bucket name is set to test
+      And S3 endpoint is set
+      And S3 port is set
+      And S3 access key is set
+      And S3 secret access key is set
+      And S3 bucket name is set to test
+      And S3 connection is established
 
 
   @database @s3 @export @metadata

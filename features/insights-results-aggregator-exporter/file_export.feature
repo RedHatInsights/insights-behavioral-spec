@@ -1,3 +1,4 @@
+@aggregator_exporter
 Feature: Ability to export tables into file
 
   Background: System is in default state, database exist and is empty

@@ -20,28 +20,37 @@ from io import StringIO
 
 def minio_client(context):
     """Construct new Minio client."""
-    # brand new Minio client
-    client = Minio(
-        "{}:{}".format(context.minio_endpoint, context.minio_port),
-        context.minio_access_key,
-        context.minio_secret_access_key,
-        secure=False,
-    )
+    if not hasattr(context, "minio_client"):
+        # brand new Minio client
+        endpoint, port, access_key, secret_access_key = (
+            context.S3_endpoint,
+            context.S3_port,
+            context.S3_access_key,
+            context.S3_secret_access_key,
+        )
+        client = Minio(
+            "{}:{}".format(endpoint, port),
+            access_key,
+            secret_access_key,
+            secure=False,
+        )
 
-    assert client is not None, "Minio client constructor issue"
-    return client
+        assert client is not None, "Minio client constructor issue"
+        context.minio_client = client
 
 
-def bucket_check(context, client):
+def bucket_check(context):
     """Check bucket existence."""
-    found = client.bucket_exists(context.minio_bucket_name)
+    bucket_name = context.S3_bucket_name
+    found = context.minio_client.bucket_exists(bucket_name)
     assert found, "Bucket can't be accessed"
 
 
-def read_object_into_buffer(context, client, object_name):
+def read_object_into_buffer(context, object_name):
     """Read object from pre-selected bucket into a buffer."""
     # retrieve object
-    response = client.get_object(context.minio_bucket_name, object_name)
+    bucket_name = context.S3_bucket_name
+    response = context.minio_client.get_object(bucket_name, object_name)
     assert response is not None, "No response from storage."
 
     # convert into buffer

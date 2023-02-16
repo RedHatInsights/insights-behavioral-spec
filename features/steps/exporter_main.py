@@ -16,6 +16,7 @@
 
 import subprocess
 from src.process_output import process_generated_output
+from behave import when, then
 
 
 @when(u"I run the exporter with the {flag} command line flag")
@@ -32,7 +33,7 @@ def run_exporter_with_flag(context, flag):
 
 
 @when(u"I run the exporter with the following command line flags: {flags}")
-def run_exporter_with_flag(context, flags):
+def run_exporter_with_flags(context, flags):
     """Start the exporter with given command-line flags."""
     flags = flags.split(" ")
     cli = ["insights-results-aggregator-exporter"] + flags
@@ -55,6 +56,8 @@ Usage of insights-results-aggregator-exporter:
         export rules disabled by more users
   -export-log
         export log
+  -ignore-tables string
+        comma-separated list of tables that will be ignored
   -limit int
         limit number of exported records (default -1)
   -metadata

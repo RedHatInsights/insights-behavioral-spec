@@ -1,3 +1,4 @@
+@aggregator_exporter
 Feature: Basic set of smoke tests
 
   @cli

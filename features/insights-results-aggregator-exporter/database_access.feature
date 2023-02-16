@@ -1,3 +1,4 @@
+@aggregator_exporter
 Feature: Ability to access database
 
   Background: System is in default state and database exist
