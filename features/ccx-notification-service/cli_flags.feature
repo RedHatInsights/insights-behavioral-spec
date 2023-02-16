@@ -28,7 +28,7 @@ Feature: Check command line options provided by CCX Notification Service
   Scenario: Check the ability to display new reports for cleanup
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
-      And CCX Notification Service database is set up
+      And CCX Notification database is set up
      When I start the CCX Notification Service with the --print-new-reports-for-cleanup command line flag
      Then I should see info about not notified reports older than 90 days displayed on standard output
       And the process should exit with status code set to 0
@@ -37,7 +37,7 @@ Feature: Check command line options provided by CCX Notification Service
   Scenario: Check the ability to display old reports for cleanup
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
-      And CCX Notification Service database is set up
+      And CCX Notification database is set up
      When I start the CCX Notification Service with the --print-old-reports-for-cleanup command line flag
      Then I should see info about notified reports older than 90 days displayed on standard output
       And the process should exit with status code set to 0
@@ -46,7 +46,7 @@ Feature: Check command line options provided by CCX Notification Service
   Scenario: Check the ability to display new reports for cleanup with max-age specified
    Given Postgres is running
      And CCX Notification database is created for user postgres with password postgres
-     And CCX Notification Service database is set up
+     And CCX Notification database is set up
     When max-age 10 days command line flag is specified
      And I start the CCX Notification Service with the --print-new-reports-for-cleanup command line flag
     Then I should see info about not notified reports older than 10 days displayed on standard output
@@ -56,7 +56,7 @@ Feature: Check command line options provided by CCX Notification Service
   Scenario: Check the ability to display old reports for cleanup with max-age specified
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
-      And CCX Notification Service database is set up
+      And CCX Notification database is set up
      When max-age 10 days command line flag is specified
       And I start the CCX Notification Service with the --print-old-reports-for-cleanup command line flag
      Then I should see info about notified reports older than 10 days displayed on standard output
@@ -66,7 +66,7 @@ Feature: Check command line options provided by CCX Notification Service
   Scenario: Check the ability to perform database cleanup on startup
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
-      And CCX Notification Service database is set up
+      And CCX Notification database is set up
      When cleanup-on-startup command line flag is specified
      When I start the CCX Notification Service with the --instant-reports command line flag
      Then It should clean items in new_reports table older than 90 days

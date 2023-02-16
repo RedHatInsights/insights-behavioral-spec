@@ -23,7 +23,9 @@ from behave import given, then, when
 CONTENT_SERVICE_OPENAPI_ENDPOINT = "/api/v1/openapi.json"
 SERVICE_LOG_CLUSTER_LOGS_ENDPOINT = "/api/service_logs/v1/cluster_logs"
 PUSH_GATEWAY_METRICS_ENDPOINT = "/metrics"
-TOKEN_REFRESHMENT_ENDPOINT = "/auth/realms/redhat-external/protocol/openid-connect/token"
+TOKEN_REFRESHMENT_ENDPOINT = (
+    "/auth/realms/redhat-external/protocol/openid-connect/token"
+)
 
 
 @when("I retrieve data from insights-content-service on {host:w}:{port:d}")
@@ -38,8 +40,9 @@ def check_content_service_availability(context, host=None, port=None):
         context.content_host = host
         context.content_port = port
 
-    assert host is not None and port is not None, \
-        "host and port of content service has not been set"
+    assert (
+        host is not None and port is not None
+    ), "host and port of content service has not been set"
 
     url = create_url(host, port, CONTENT_SERVICE_OPENAPI_ENDPOINT)
     response = requests.get(url)
@@ -79,8 +82,9 @@ def check_push_gateway_availability(context, host=None, port=None):
         context.gateway_host = host
         context.gateway_port = port
 
-    assert host is not None and port is not None, \
-        "host and port of gateway has not been set"
+    assert (
+        host is not None and port is not None
+    ), "host and port of gateway has not been set"
 
     url = create_url(host, port, PUSH_GATEWAY_METRICS_ENDPOINT)
     response = requests.get(url)

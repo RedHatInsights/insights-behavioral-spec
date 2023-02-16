@@ -17,19 +17,21 @@
 
 import subprocess
 import json
-from kafka import KafkaAdminClient
-
-
 from behave import given, then, when
 
 
+@when("I retrieve metadata from Kafka broker")
 @when("I retrieve metadata from Kafka broker running on {hostname}:{port}")
 @given("Kafka broker is available on {hostname}:{port}")
-def retrieve_broker_metadata(context, hostname, port):
+def retrieve_broker_metadata(context, hostname=None, port=None):
     """Use the kcat tool to retrieve metadata from Kafka broker."""
     # -J enables kcat to produce output in JSON format
     # -L flag choose mode: metadata list
+    if hostname is None or port is None:
+        hostname = context.kafka_hostname
+        port = context.kafka_port
     address = "{}:{}".format(hostname, port)
+
     out = subprocess.Popen(
         ["kcat", "-b", address, "-L", "-J"],
         stdout=subprocess.PIPE,
@@ -72,14 +74,34 @@ def find_available_brokers(context):
 @given('Kafka topic "{topic}" is empty')
 def make_kafka_empty(context, topic):
     """Delete all events from Kafka."""
-    admin_client = KafkaAdminClient(bootstrap_servers=[f'{context.kafka_hostname}:{context.kafka_port}'])
-    del_topic_futures = admin_client.delete_topics(topics=[topic])
+    # TODO: Make it compatible with local kafka, not just for docker
+    out = subprocess.Popen(
+        [
+            "docker",
+            "exec",
+            "-it",
+            "insights-behavioral-spec_kafka_1",
+            "./bin/kafka-topics.sh",
+            "--bootstrap-server",
+            f"{context.kafka_hostname}:{context.kafka_port}",
+            "--delete",
+            "--topic",
+            topic,
+        ],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
+    # check if call was correct
+    assert out is not None
 
-    # Wait for operation to finish.
-    for topic, future in del_topic_futures.items():
-        try:
-            future.result()  # The result itself is None
-            print("Topic {} deleted".format(topic))
-        except Exception as e:
-            print("Topic {} was not deleted. Error: {}".format(topic, e))
+    # interact with the process:
+    # read data from stdout and stderr, until end-of-file is reached
+    stdout, stderr = out.communicate()
 
+    # try to decode output
+    output = stdout.decode("utf-8")
+
+    if "does not exist" in output:
+        return
+
+    assert out.returncode == 0, f"got {out.returncode} want 0"
