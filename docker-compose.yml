@@ -3,13 +3,14 @@ services:
   # "pod" with the tests
   bddtests:
     image: quay.io/ccxdev/insights-behavioral-spec:ci
-    depends_on:
-      - createbuckets
     entrypoint:
       - /bin/sh
       - -c
       - "sleep infinity"
   database:
+    profiles:
+      - test-cleaner
+      - test-exporter
     ports:
       - 5432:5432
     image: postgres:13.9
@@ -17,7 +18,19 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=test
+  database:
+    profiles:
+      - test-notification-services
+    ports:
+      - 5432:5432
+    image: postgres:13.9
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=notification
   kafka:
+    profiles:
+      - test-notification-services
     image: quay.io/ccxdev/kafka-no-zk:latest
     ports:
       - 9092:9092
@@ -25,6 +38,8 @@ services:
       - KAFKA_ADVERTISED_HOST_NAME=kafka
       - KAFKA_CREATE_TOPICS="platform.notifications.ingress:1:1"
   minio:
+    profiles:
+      - test-exporter
     image: minio/minio
     command:
       - server
@@ -35,6 +50,8 @@ services:
       - MINIO_ACCESS_KEY=test_access_key
       - MINIO_SECRET_KEY=test_secret_access_key
   createbuckets:
+    profiles:
+      - test-exporter
     image: minio/mc
     depends_on:
       - minio
@@ -47,11 +64,20 @@ services:
   pushgateway:
     profiles:
       - no-mock
+      - test-notification-services
     image: quay.io/prometheus/pushgateway:latest
     ports:
       - 9091:9091
     command:
       - --web.enable-admin-api
+  initializenotificationdb:
+    profiles:
+      - test-notification-services
+    image: quay.io/cloudservices/ccx-notification-writer:latest
+    entrypoint:
+      - /bin/sh
+      - -c
+      - 'export CCX_NOTIFICATION_WRITER__STORAGE__DB_DRIVER=postgres CCX_NOTIFICATION_WRITER__STORAGE__PG_PARAMS="sslmode=disable" CCX_NOTIFICATION_WRITER__STORAGE__PG_USERNAME=postgres CCX_NOTIFICATION_WRITER__STORAGE__PG_PASSWORD=postgres CCX_NOTIFICATION_WRITER__STORAGE__PG_HOST=notification-db CCX_NOTIFICATION_WRITER__STORAGE__PG_PORT=5432 CCX_NOTIFICATION_WRITER__STORAGE__PG_DB_NAME=notification && ./ccx-notification-writer --db-init-migration && ./ccx-notification-writer --db-init && ./ccx-notification-writer --migrate latest'
 
   content-service:
     profiles:
