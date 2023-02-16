@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""An interface to Apache Kafka done using Kafkacat utility."""
+"""An interface to Apache Kafka done using kcat utility."""
 
 
 import subprocess
@@ -25,12 +25,12 @@ from behave import given, then, when
 @when("I retrieve metadata from Kafka broker running on {hostname}:{port}")
 @given("Kafka broker is available on {hostname}:{port}")
 def retrieve_broker_metadata(context, hostname, port):
-    """Use the Kafkacat tool to retrieve metadata from Kafka broker."""
-    # -J enables Kafkacat to produce output in JSON format
+    """Use the kcat tool to retrieve metadata from Kafka broker."""
+    # -J enables kcat to produce output in JSON format
     # -L flag choose mode: metadata list
     address = "{}:{}".format(hostname, port)
     out = subprocess.Popen(
-        ["kafkacat", "-b", address, "-L", "-J"],
+        ["kcat", "-b", address, "-L", "-J"],
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
     )
@@ -53,7 +53,7 @@ def retrieve_broker_metadata(context, hostname, port):
 
     assert len(encoded["brokers"]) >= 1, "At least one available broker expected"
 
-    # store encoded JSON data returned by Kafkacat utility
+    # store encoded JSON data returned by kcat utility
     context.broker_metadata = encoded
 
 
