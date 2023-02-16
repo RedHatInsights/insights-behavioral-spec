@@ -372,14 +372,14 @@ def check_cleaned_items_on_standard_output(context, table, max_age):
 
 def get_events_kafka(num_event):
     """Get the latest {num_event} messages in Kafka."""
-    # use the Kafkacat tool to retrieve metadata from Kafka broker:
-    # -J enables Kafkacat to produce output in JSON format
+    # use the kcat tool to retrieve metadata from Kafka broker:
+    # -J enables kcat to produce output in JSON format
     # -L flag choose mode: metadata list
     address = "localhost:9092"
     topic = "platform.notifications.ingress"
 
     params = [
-        "kafkacat",
+        "kcat",
         "-b",
         address,
         "-C",

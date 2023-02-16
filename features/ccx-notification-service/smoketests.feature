@@ -7,9 +7,9 @@ Feature: Basic set of smoke tests - checks if all required tools are available a
      Then I should find that file on PATH
 
 
-  Scenario: Check if Kafkacat utility is available
+  Scenario: Check if kcat utility is available
     Given the system is in default state
-     When I look for executable file kafkacat
+     When I look for executable file kcat
      Then I should find that file on PATH
 
   @managed
