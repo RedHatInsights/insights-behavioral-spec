@@ -48,6 +48,8 @@ def check_process_exit_code(context, exit_code):
     """Check exit code of process."""
 
     context.stdout
-    assert context.return_code == exit_code, "Unexpected exit code {}. Output:\n{}".format(
+    assert (
+        context.return_code == exit_code
+    ), "Unexpected exit code {}. Output:\n{}".format(
         context.return_code, context.output
     )

@@ -34,10 +34,10 @@ def parse_max_age(max_age):
     using {max_age:d} {age_unit:w}, but at least this way it is clear when it
     gets unexpected values).
     """
-    assert isinstance(
-        max_age, str
-    ), f"expected max_age to be a string with 2 parts: " \
-       f"the value and the unit. Got {type(max_age)} - {max_age}"  # noqa E501
+    assert isinstance(max_age, str), (
+        f"expected max_age to be a string with 2 parts: "
+        f"the value and the unit. Got {type(max_age)} - {max_age}"
+    )  # noqa E501
 
     items = max_age.replace('"', "").split(" ")
     assert (
@@ -346,10 +346,10 @@ def check_no_old_reports_in_table(context, table):
 def check_status_code(context, expected_code):
     """Check the status code of the last started process."""
     # check the return code of a process
-    assert (
-        context.returncode == expected_code
-    ), f"Return code is {context.returncode}, but {expected_code} is expected. " \
-       f"Check the logs:\n{context.stdout.decode('utf-8')}"
+    assert context.returncode == expected_code, (
+        f"Return code is {context.returncode}, but {expected_code} is expected. "
+        f"Check the logs:\n{context.stdout.decode('utf-8')}"
+    )
 
 
 @then("It should clean items in {table:w} table older than {max_age:Age}")

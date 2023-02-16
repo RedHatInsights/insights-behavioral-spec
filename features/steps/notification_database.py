@@ -14,50 +14,86 @@
 
 """Database-related operations performed by BDD tests."""
 
+
 import subprocess
 import psycopg2
-from psycopg2.errors import UndefinedTable
-from datetime import datetime, timedelta
-
-
 from behave import given, when, then, step
+from datetime import datetime, timedelta
+from psycopg2.errors import UndefinedTable
+
+
+MIGRATION_INFO_TABLE = "migration_info"
+
+
+DB_TABLES = (
+    "new_reports",
+    "notification_types",
+    "reported",
+    "states",
+)
+
+
+DB_TABLES_LATEST = (
+    "event_targets",
+    "migration_info",
+    "new_reports",
+    "notification_types",
+    "read_errors",
+    "reported",
+    "states",
+)
+
+
+class TableExistsException(Exception):
+    def __init__(self, table):
+        super().__init__(f"Table {table} exists")
+        self.table = table
 
 
 @step("CCX Notification database is created for user {user} with password {password}")
 def database_is_created(context, user, password):
-    """Perform connection to CCX Notification database to check its ability."""
+    """Perform connection to CCX Notification database to check its availability."""
     from steps.common_db import connect_to_database
 
     connect_to_database(context, "notification", user, password)
 
 
-@given(u"CXX Notification Writer database contains all required tables")
-def database_contains_all_tables(context):
-    """Check if CCX Notification Writer database contains all required tables."""
-    # TODO: implement this step
-    raise NotImplementedError(
-        u"STEP: Given CXX Notification Writer database contains all tables"
+@given("CCX Notification database is migrated to version {version}")
+def database_is_migrated(context, version):
+    """Migrate the CCX Notification database to given version."""
+    out = subprocess.Popen(
+        ["ccx-notification-writer", "--migrate", version],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
     )
+    assert out is not None
+    out.communicate()
+    out.wait()
 
 
-@given("CCX Notification Service database is set up")
-def ensure_database_is_set_up(context):
+@then("CCX Notification database is migrated")
+def database_contains_migration_info_table(context):
     """Check that the tables exist in the DB."""
-    # at least following tables should exist
-    tables = (
-        "migration_info",
-        "new_reports",
-        "notification_types",
-        "reported",
-        "states",
-        "event_targets",
-    )
-
     cursor = context.connection.cursor()
-    for table in tables:
+    try:
+        cursor.execute(f"SELECT version from {MIGRATION_INFO_TABLE}")
+        version = cursor.fetchone()[0]
+        assert isinstance(version, int)
+        context.connection.commit()
+    except Exception as e:
+        context.connection.rollback()
+        raise e
+
+
+@given("CCX Notification database is set up")
+@then("CCX Notification database is set up")
+def database_contains_all_tables(context):
+    """Check that the tables exist in the DB."""
+    cursor = context.connection.cursor()
+    for table in DB_TABLES:
         try:
             cursor.execute("SELECT 1 from {}".format(table))
-            v = cursor.fetchone()
+            _ = cursor.fetchone()
             context.connection.commit()
         except UndefinedTable as e:
             context.connection.rollback()
@@ -65,47 +101,26 @@ def ensure_database_is_set_up(context):
     pass
 
 
-@given("CCX Notification database is empty")
-def notification_db_empty(context):
-    """Ensure that the CCX Notification database has no reports, but has all tables."""
-    # We actually only want `new_reports` and `reported` table to be empty, so let's clean up
-    cursor = context.connection.cursor()
-    try:
-        cursor.execute("TRUNCATE TABLE new_reports")
-        cursor.execute("TRUNCATE TABLE reported")
-        context.connection.commit()
-    except Exception as e:
-        context.connection.rollback()
-        raise e
-
-
-@given(u"CCX Notification Writer database is not set up")
+@given("CCX Notification database is not set up")
 def ensure_database_emptiness(context):
     """Check that the tables do not exist in the DB."""
-    # at least following tables should not exists
-    tables = (
-        "report",
-        "cluster_rule_toggle",
-        "cluster_rule_user_feedback",
-        "cluster_user_rule_disable_feedback",
-        "rule_hit",
-    )
-
     cursor = context.connection.cursor()
-    for table in tables:
+    for table in DB_TABLES_LATEST:
         try:
             cursor.execute("SELECT 1 from {}".format(table))
-            v = cursor.fetchone()
-            context.connection.commit()
-            raise Exception("Table '{}' exists".format(table))
-        except UndefinedTable as e:
-            # exception means that the table does not exists
+            _ = cursor.fetchone()
+            raise TableExistsException(table)
+        except UndefinedTable:
             # which is expected behaviour
             context.connection.rollback()
-            pass
+            continue
+        except TableExistsException as e:
+            print(e)
+            cursor.execute(f"DROP TABLE IF EXISTS {e.table} CASCADE")
+            context.connection.commit()
 
 
-@when(u"I select all rows from table {table}")
+@when("I select all rows from table {table}")
 def select_all_rows_from_table(context, table):
     """Select number of all rows from given table."""
     cursor = context.connection.cursor()
@@ -120,8 +135,8 @@ def select_all_rows_from_table(context, table):
         raise e
 
 
-@then(u"I should get {expected_count:d} row")
-@then(u"I should get {expected_count:d} rows")
+@then("I should get {expected_count:d} row")
+@then("I should get {expected_count:d} rows")
 def check_rows_count(context, expected_count):
     """Check if expected number of rows were returned."""
     assert (
@@ -131,8 +146,8 @@ def check_rows_count(context, expected_count):
     )
 
 
-@given(u"I insert following row into table new_reports")
-@given(u"I insert following rows into table new_reports")
+@given("I insert following row into table new_reports")
+@given("I insert following rows into table new_reports")
 def insert_rows_into_new_reports_table(context):
     """Insert rows into table new_reports."""
     cursor = context.connection.cursor()
@@ -168,8 +183,8 @@ def insert_rows_into_new_reports_table(context):
         raise e
 
 
-@given(u"I insert following row into table reported")
-@given(u"I insert following rows into table reported")
+@given("I insert following row into table reported")
+@given("I insert following rows into table reported")
 def insert_rows_into_reported_table(context, report="", default_notified_at=None):
     """Insert rows into table reported."""
     cursor = context.connection.cursor()
@@ -255,7 +270,9 @@ def insert_report_with_risk_in_new_reports_table(context, risk, updated_at=None)
         raise e
 
 
-@when("I insert 1 report with {risk:w} total risk after cooldown has passed for the following clusters")  # noqa E501
+@when(
+    "I insert 1 report with {risk:w} total risk after cooldown for the following clusters"
+)  # noqa E501
 def insert_report_with_risk_and_cooldown_in_new_reports_table(context, risk):
     """Insert rows into table new_reports after the cooldown has passed."""
     timestamp_after_cooldown = datetime.now() + timedelta(minutes=1)
@@ -271,7 +288,9 @@ def insert_report_into_reported_table(context, risk, timestamp=None):
     insert_rows_into_reported_table(context, report, timestamp)
 
 
-@given("I insert 1 previously reported report with {risk:w} total risk notified within cooldown")
+@given(
+    "I insert 1 previously reported report with {risk:w} total risk notified within cooldown"
+)
 def insert_report_within_cooldown_in_reported_table(context, risk):
     """Insert rows into reported table within cooldown."""
     timestamp_within_cooldown = datetime.now() - timedelta(seconds=30)

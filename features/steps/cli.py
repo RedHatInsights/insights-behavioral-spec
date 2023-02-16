@@ -61,22 +61,27 @@ def check_version_info(context, service):
         )
 
         check_version_from_ccx_notification_service(context)
+
     elif service == "ccx-notification-writer":
         from steps.notification_writer import check_version_from_ccx_notification_writer
 
-        check_version_from_ccx_notification_service(context)
+        check_version_from_ccx_notification_writer(context)
+
     elif service == "cleaner":
         from steps.cleaner_main import check_version_from_cleaner
 
         check_version_from_cleaner(context)
+
     elif service == "exporter":
         from steps.exporter_main import check_version_from_exporter
 
         check_version_from_exporter(context)
+
     elif service == "Insights Results Aggregator Mock":
         from steps.insights_results_aggregator_mock import check_version_from_mock
 
         check_version_from_mock(context)
+
     else:
         raise ValueError(f"Unknown service '{service}'.")
 
