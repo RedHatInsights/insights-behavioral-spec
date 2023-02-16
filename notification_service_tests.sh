@@ -89,16 +89,22 @@ function add_exit_trap {
     fi
 }
 
-[ "$NOVENV" != "1" ] && install_reqs || prepare_venv || exit 1
+# prepare virtual environment if necessary
+case "$NOVENV" in
+    "") echo "using existing virtual env";;
+    "1") install_reqs && prepare_venv ;;
+esac
 
 #launch mocked services if WITHMOCK is provided
 [ "$WITHMOCK" == "1" ] && start_mocked_dependencies
 
-# Create all the tables
-init_db
-
-# Copy the binary and configuration to this folder
-get_binary
+if [[ -z $ENV_DOCKER ]]
+then
+    # Create all the tables
+    init_db
+    # Copy the binary and configuration to this folder
+    get_binary
+fi
 
 # shellcheck disable=SC2068
 PYTHONDONTWRITEBYTECODE=1 python3 -m behave \
