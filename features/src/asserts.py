@@ -17,4 +17,6 @@
 
 def assert_sets_equality(what, expected, actual):
     """Compare two sets of values."""
-    assert expected == actual, "Difference found in sets of {}: {}".format(what, expected ^ actual)
+    assert expected == actual, "Difference found in sets of {}: {}".format(
+        what, expected ^ actual
+    )

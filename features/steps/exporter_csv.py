@@ -45,8 +45,13 @@ def number_of_records_in_csv(context):
         )
 
 
-@then(u"I should see following records in exported file {filename} placed in column {column:d}")
-@then(u"I should see following records in exported file {filename} placed in columns {column:d} and {column2:d}")   # noqa: E501
+@then(
+    u"I should see following records in exported file {filename} placed in column {column:d}"
+)
+@then(
+    u"I should see following records in exported file {filename} placed in columns "
+    "{column:d} and {column2:d}"
+)  # noqa: E501
 def check_records_in_csv(context, filename, column, column2=None):
     """Check if all records are really stored in given CSV file."""
     with open(filename, "r") as fin:
