@@ -37,7 +37,7 @@ def clean_db(context):
     connection = psycopg2.connect(connection_string)
     assert connection is not None, "connection should be established"
     print(f"connected to {connection.info.dsn_parameters}")
-    with open("setup/clean_database.sql") as f:
+    with open("setup/clean_aggregator_database.sql") as f:
         c = connection.cursor()
         for line in f:
             print("Line to execute: ", line)
@@ -75,6 +75,7 @@ def create_notification_db(context):
             print("Couldn't create database notification")
             connection.rollback()
             raise
+
     cursor.close()
     connection.close()
 
