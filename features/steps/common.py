@@ -46,6 +46,8 @@ def file_was_found(context):
 @then(u"The process should finish with exit code {exit_code:d}")
 def check_process_exit_code(context, exit_code):
     """Check exit code of process."""
-    assert context.return_code == exit_code, "Unexpected exit code {}".format(
-        context.return_code
+
+    context.stdout
+    assert context.return_code == exit_code, "Unexpected exit code {}. Output:\n{}".format(
+        context.return_code, context.output
     )
