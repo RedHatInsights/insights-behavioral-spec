@@ -1,11 +1,15 @@
 Feature: Checking REST API endpoint that returns results for provided list of clusters
 
 
-  Scenario: Check if Insights Results Aggregator Mock service returns results for list of known clusters
-    Given the system is in default state
-      And REST API service hostname is localhost
+  Background:
+    Given REST API service hostname is localhost
       And REST API service port is 8080
       And REST API service prefix is /api/insights-results-aggregator/v1
+
+
+  @rest-api
+  Scenario: Check if Insights Results Aggregator Mock service returns results for list of known clusters
+    Given the system is in default state
      When I request results for the following list of clusters
          | Cluster name                         |
          | 34c3ecc5-624a-49a5-bab8-4fdc5e51a266 |
