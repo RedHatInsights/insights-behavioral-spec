@@ -2,11 +2,15 @@ Feature: Checking REST API endpoint that returns list of clusters hitting specif
 
 
 
-  Scenario: Check if Insights Results Aggregator Mock service returns correct list of clusters for rule ccx_rules_ocp.external.rules.cluster_wide_proxy_auth_check
-    Given the system is in default state
-      And REST API service hostname is localhost
+  Background:
+    Given REST API service hostname is localhost
       And REST API service port is 8080
       And REST API service prefix is /api/insights-results-aggregator/v1
+
+
+  @rest-api
+  Scenario: Check if Insights Results Aggregator Mock service returns correct list of clusters for rule ccx_rules_ocp.external.rules.cluster_wide_proxy_auth_check
+    Given the system is in default state
      When I request list of clusters hitting rule with name ccx_rules_ocp.external.rules.cluster_wide_proxy_auth_check and error key AUTH_OPERATOR_PROXY_ERROR
      Then The status code of the response is 200
       And The metadata should contain following attributes
@@ -21,11 +25,9 @@ Feature: Checking REST API endpoint that returns list of clusters hitting specif
 
 
 
+  @rest-api
   Scenario: Check if Insights Results Aggregator Mock service returns correct list of clusters for rule minimum requirements
     Given the system is in default state
-      And REST API service hostname is localhost
-      And REST API service port is 8080
-      And REST API service prefix is /api/insights-results-aggregator/v1
      When I request list of clusters hitting rule with name ccx_rules_ocp.external.rules.nodes_requirements_check and error key NODES_MINIMUM_REQUIREMENTS_NOT_MET
      Then The status code of the response is 200
       And The metadata should contain following attributes
@@ -62,11 +64,9 @@ Feature: Checking REST API endpoint that returns list of clusters hitting specif
 
 
 
+  @rest-api
   Scenario: Check if Insights Results Aggregator Mock service returns correct list of clusters for rule ccx_rules_ocp.external.bug_rules.bug_1766907
     Given the system is in default state
-      And REST API service hostname is localhost
-      And REST API service port is 8080
-      And REST API service prefix is /api/insights-results-aggregator/v1
      When I request list of clusters hitting rule with name ccx_rules_ocp.external.bug_rules.bug_1766907 and error key BUGZILLA_BUG_1766907
      Then The status code of the response is 200
       And The metadata should contain following attributes
@@ -91,11 +91,9 @@ Feature: Checking REST API endpoint that returns list of clusters hitting specif
 
 
 
+  @rest-api
   Scenario: Check if Insights Results Aggregator Mock service returns correct list of clusters for rule ccx_rules_ocp.external.rules.nodes_kubelet_version_check
     Given the system is in default state
-      And REST API service hostname is localhost
-      And REST API service port is 8080
-      And REST API service prefix is /api/insights-results-aggregator/v1
      When I request list of clusters hitting rule with name ccx_rules_ocp.external.rules.nodes_kubelet_version_check and error key NODE_KUBELET_VERSION
      Then The status code of the response is 200
       And The metadata should contain following attributes
@@ -114,11 +112,9 @@ Feature: Checking REST API endpoint that returns list of clusters hitting specif
 
 
 
+  @rest-api
   Scenario: Check if Insights Results Aggregator Mock service returns correct list of clusters for rule ccx_rules_ocp.external.rules.samples_op_failed_image_import_check
     Given the system is in default state
-      And REST API service hostname is localhost
-      And REST API service port is 8080
-      And REST API service prefix is /api/insights-results-aggregator/v1
      When I request list of clusters hitting rule with name ccx_rules_ocp.external.rules.samples_op_failed_image_import_check and error key SAMPLES_FAILED_IMAGE_IMPORT_ERR
      Then The status code of the response is 200
       And The metadata should contain following attributes
