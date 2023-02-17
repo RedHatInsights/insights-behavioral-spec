@@ -2,14 +2,17 @@
 Feature: Ability to display old records found in the database
 
 
-  @database
-  Scenario: Read old records from empty database
+  Background:
     Given the system is in default state
       And the database is named test
       And database user is set to postgres
       And database password is set to postgres
       And database connection is established
-      And the database is empty
+
+
+  @database
+  Scenario: Read old records from empty database
+    Given the database is empty
      When I prepare database schema
      Then I should find that all tables are empty
      When I run the cleaner to display all records older than 90 days
@@ -20,12 +23,7 @@ Feature: Ability to display old records found in the database
 
   @database
   Scenario: Read old records from empty database giving different time period
-    Given the system is in default state
-      And the database is named test
-      And database user is set to postgres
-      And database password is set to postgres
-      And database connection is established
-      And the database is empty
+    Given the database is empty
      When I prepare database schema
      Then I should find that all tables are empty
      When I run the cleaner to display all records older than 10 days
@@ -36,12 +34,7 @@ Feature: Ability to display old records found in the database
 
   @database
   Scenario: Read old records from prepared non-empty database with new records only
-    Given the system is in default state
-      And the database is named test
-      And database user is set to postgres
-      And database password is set to postgres
-      And database connection is established
-      And the database is empty
+    Given the database is empty
      When I prepare database schema
      Then I should find that all tables are empty
      When I insert following records into REPORT table
@@ -57,12 +50,7 @@ Feature: Ability to display old records found in the database
 
   @database
   Scenario: Read old records from prepared non-empty database with old records only
-    Given the system is in default state
-      And the database is named test
-      And database user is set to postgres
-      And database password is set to postgres
-      And database connection is established
-      And the database is empty
+    Given the database is empty
      When I prepare database schema
      Then I should find that all tables are empty
      When I insert following records into REPORT table
@@ -82,12 +70,7 @@ Feature: Ability to display old records found in the database
 
   @database
   Scenario: Read old records from prepared non-empty database with mixed records
-    Given the system is in default state
-      And the database is named test
-      And database user is set to postgres
-      And database password is set to postgres
-      And database connection is established
-      And the database is empty
+    Given the database is empty
      When I prepare database schema
      Then I should find that all tables are empty
      When I insert following records into REPORT table
