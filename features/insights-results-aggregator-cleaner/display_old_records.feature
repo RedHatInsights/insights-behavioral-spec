@@ -1,5 +1,5 @@
 @aggregator_cleaner
-Feature: Ability to display old records
+Feature: Ability to display old records found in the database
 
 
   @database

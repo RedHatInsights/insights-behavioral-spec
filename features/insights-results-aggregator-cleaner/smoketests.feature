@@ -2,24 +2,28 @@
 Feature: Basic set of smoke tests
 
 
+  @cli
   Scenario: Check if cleaner application is available
     Given the system is in default state
      When I look for executable file insights-results-aggregator-cleaner
      Then I should find that file on PATH
 
 
+  @cli
   Scenario: Check if cleaner displays help message
     Given the system is in default state
      When I run the cleaner with the --help command line flag
      Then I should see help messages displayed by cleaner on standard output
 
 
+  @cli
   Scenario: Check if cleaner displays version info
     Given the system is in default state
      When I run the cleaner with the --version command line flag
      Then I should see version info displayed by cleaner on standard output
 
 
+  @cli
   Scenario: Check if cleaner displays authors
     Given the system is in default state
      When I run the cleaner with the --authors command line flag

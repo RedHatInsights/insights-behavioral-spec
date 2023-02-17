@@ -1,5 +1,6 @@
 @aggregator_cleaner
-Feature: Ability to delete selected records
+Feature: Ability to delete selected records from database
+
 
   @database
   Scenario: Clean up one old cluster should be visible
@@ -30,6 +31,7 @@ Feature: Ability to delete selected records
      When I delete all tables from database
      Then I should find that the database is empty
 
+
   @database
   Scenario: Clean up of existing old clusters
     Given the system is in default state
@@ -57,6 +59,7 @@ Feature: Ability to delete selected records
      Then I should see empty list of records
      When I delete all tables from database
      Then I should find that the database is empty
+
 
   @database
   Scenario: Clean up of existing new clusters
@@ -89,6 +92,7 @@ Feature: Ability to delete selected records
      When I delete all tables from database
      Then I should find that the database is empty
 
+
   @database
   Scenario: Clean up non-existing clusters
     Given the system is in default state
@@ -119,6 +123,7 @@ Feature: Ability to delete selected records
           | 5d5892d4-1f74-4ccf-91af-548dfc9767ab |
      When I delete all tables from database
      Then I should find that the database is empty
+
 
   @database
   Scenario: Clean up clusters with wrong names
