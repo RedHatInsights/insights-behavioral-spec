@@ -2,14 +2,17 @@
 Feature: Ability to delete selected records from database
 
 
-  @database
-  Scenario: Clean up one old cluster should be visible
+  Background:
     Given the system is in default state
       And the database is named test
       And database user is set to postgres
       And database password is set to postgres
       And database connection is established
-      And the database is empty
+
+
+  @database
+  Scenario: Clean up one old cluster should be visible
+    Given the database is empty
      When I prepare database schema
      Then I should find that all tables are empty
      When I insert following records into REPORT table
@@ -34,12 +37,7 @@ Feature: Ability to delete selected records from database
 
   @database
   Scenario: Clean up of existing old clusters
-    Given the system is in default state
-      And the database is named test
-      And database user is set to postgres
-      And database password is set to postgres
-      And database connection is established
-      And the database is empty
+    Given the database is empty
      When I prepare database schema
      Then I should find that all tables are empty
      When I insert following records into REPORT table
@@ -63,12 +61,7 @@ Feature: Ability to delete selected records from database
 
   @database
   Scenario: Clean up of existing new clusters
-    Given the system is in default state
-      And the database is named test
-      And database user is set to postgres
-      And database password is set to postgres
-      And database connection is established
-      And the database is empty
+    Given the database is empty
      When I prepare database schema
      Then I should find that all tables are empty
      When I insert following records into REPORT table
@@ -95,12 +88,7 @@ Feature: Ability to delete selected records from database
 
   @database
   Scenario: Clean up non-existing clusters
-    Given the system is in default state
-      And the database is named test
-      And database user is set to postgres
-      And database password is set to postgres
-      And database connection is established
-      And the database is empty
+    Given the database is empty
      When I prepare database schema
      Then I should find that all tables are empty
      When I insert following records into REPORT table
@@ -127,12 +115,7 @@ Feature: Ability to delete selected records from database
 
   @database
   Scenario: Clean up clusters with wrong names
-    Given the system is in default state
-      And the database is named test
-      And database user is set to postgres
-      And database password is set to postgres
-      And database connection is established
-      And the database is empty
+    Given the database is empty
      When I prepare database schema
      Then I should find that all tables are empty
      When I insert following records into REPORT table
