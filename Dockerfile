@@ -28,7 +28,7 @@ COPY . $HOME
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 
-RUN dnf install --nodocs -y python3-pip unzip make && \
+RUN dnf install --nodocs -y python3-pip unzip make lsof && \
     python3 -m venv $VIRTUAL_ENV && \
     curl -ksL https://password.corp.redhat.com/RH-IT-Root-CA.crt \
          -o /etc/pki/ca-trust/source/anchors/RH-IT-Root-CA.crt && \
