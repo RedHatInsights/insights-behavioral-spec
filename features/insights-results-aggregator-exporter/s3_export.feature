@@ -1,6 +1,7 @@
 @aggregator_exporter
 Feature: Ability to export tables into S3
 
+
   Background: System is in default state, database exist and is empty, S3 is accessible
     Given the system is in default state
       And the database is named test
@@ -14,6 +15,7 @@ Feature: Ability to export tables into S3
       And S3 secret access key is set
       And S3 bucket name is set to test
       And S3 connection is established
+
 
   @database @s3 @export
   Scenario: Check export empty tables into S3/Minio

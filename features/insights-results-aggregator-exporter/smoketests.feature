@@ -1,6 +1,7 @@
 @aggregator_exporter
 Feature: Basic set of smoke tests
 
+
   @cli
   Scenario: Check if exporter application is available
     Given the system is in default state

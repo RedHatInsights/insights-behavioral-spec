@@ -1,6 +1,7 @@
 @aggregator_exporter
 Feature: Ability to export tables into file
 
+
   Background: System is in default state, database exist and is empty
     Given the system is in default state
       And the database is named test
@@ -8,6 +9,7 @@ Feature: Ability to export tables into file
       And database password is set to postgres
       And database connection is established
       And the database is empty
+
 
   @database @file @export
   Scenario: Check export empty tables into file
