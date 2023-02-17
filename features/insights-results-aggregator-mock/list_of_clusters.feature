@@ -2,11 +2,15 @@ Feature: Checking responses from Insights Results Aggregator Mock service: "{org
 
 
 
-  Scenario: Check if Insights Results Aggregator Mock service return correct list of clusters for organization 1
-    Given the system is in default state
-      And REST API service hostname is localhost
+  Background:
+    Given REST API service hostname is localhost
       And REST API service port is 8080
       And REST API service prefix is /api/insights-results-aggregator/v1
+
+
+  @rest-api
+  Scenario: Check if Insights Results Aggregator Mock service return correct list of clusters for organization 1
+    Given the system is in default state
      When I request list of clusters for organization 1
      Then The status code of the response is 200
       And The status message of the response is "ok"
@@ -28,11 +32,9 @@ Feature: Checking responses from Insights Results Aggregator Mock service: "{org
          | 00000001-eeee-eeee-eeee-000000000001 |
 
 
+  @rest-api
   Scenario: Check if Insights Results Aggregator Mock service return correct list of clusters for organization 2
     Given the system is in default state
-      And REST API service hostname is localhost
-      And REST API service port is 8080
-      And REST API service prefix is /api/insights-results-aggregator/v1
      When I request list of clusters for organization 2
      Then The status code of the response is 200
       And The status message of the response is "ok"
@@ -43,11 +45,9 @@ Feature: Checking responses from Insights Results Aggregator Mock service: "{org
          | 00000002-8933-4a3a-8634-3328fe806e08 |
 
 
+  @rest-api
   Scenario: Check if Insights Results Aggregator Mock service return correct list of clusters for organization 3
     Given the system is in default state
-      And REST API service hostname is localhost
-      And REST API service port is 8080
-      And REST API service prefix is /api/insights-results-aggregator/v1
      When I request list of clusters for organization 3
      Then The status code of the response is 200
       And The status message of the response is "ok"
@@ -58,11 +58,9 @@ Feature: Checking responses from Insights Results Aggregator Mock service: "{org
          | 00000003-eeee-eeee-eeee-000000000001 |
 
 
+  @rest-api
   Scenario: Check if Insights Results Aggregator Mock service return correct list of clusters for organization with many clusters
     Given the system is in default state
-      And REST API service hostname is localhost
-      And REST API service port is 8080
-      And REST API service prefix is /api/insights-results-aggregator/v1
      When I request list of clusters for organization 11789772
      Then The status code of the response is 200
       And The status message of the response is "ok"
@@ -85,11 +83,9 @@ Feature: Checking responses from Insights Results Aggregator Mock service: "{org
 
 
 
+  @rest-api
   Scenario: Check if Insights Results Aggregator Mock service return correct list of clusters for organization w/o access rights
     Given the system is in default state
-      And REST API service hostname is localhost
-      And REST API service port is 8080
-      And REST API service prefix is /api/insights-results-aggregator/v1
      When I request list of clusters for organization 11940171
      Then The status code of the response is 403
       And The status message of the response is "You have no permissions to get or change info about this organization"

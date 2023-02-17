@@ -1,12 +1,15 @@
 Feature: Checking responses from Insights Results Aggregator Mock service: endpoint to return cluster report
 
 
-
-  Scenario: Check if Insights Results Aggregator Mock service return correct cluster report with 7 rule hits without org. selector
-    Given the system is in default state
-      And REST API service hostname is localhost
+  Background:
+    Given REST API service hostname is localhost
       And REST API service port is 8080
       And REST API service prefix is /api/insights-results-aggregator/v1
+
+
+  @rest-api
+  Scenario: Check if Insights Results Aggregator Mock service return correct cluster report with 7 rule hits without org. selector
+    Given the system is in default state
      When I request report for cluster 34c3ecc5-624a-49a5-bab8-4fdc5e51a266
      Then The status code of the response is 200
       And The status message of the response is "ok"
@@ -22,11 +25,9 @@ Feature: Checking responses from Insights Results Aggregator Mock service: endpo
           | rule | ccx_rules_ocp.external.bug_rules.bug_1821905                      | BUGZILLA_BUG_1821905               | 3          | 0              |
 
 
+  @rest-api
   Scenario: Check if Insights Results Aggregator Mock service return correct cluster report with 7 rule hits without org. selector
     Given the system is in default state
-      And REST API service hostname is localhost
-      And REST API service port is 8080
-      And REST API service prefix is /api/insights-results-aggregator/v1
      When I request report for cluster 74ae54aa-6577-4e80-85e7-697cb646ff37
      Then The status code of the response is 200
       And The status message of the response is "ok"
@@ -42,11 +43,9 @@ Feature: Checking responses from Insights Results Aggregator Mock service: endpo
           | rule | ccx_rules_ocp.external.bug_rules.bug_1821905                      | BUGZILLA_BUG_1821905               | 3          | 0              |
 
 
+  @rest-api
   Scenario: Check if Insights Results Aggregator Mock service return correct cluster report with one rule hit without org. selector
     Given the system is in default state
-      And REST API service hostname is localhost
-      And REST API service port is 8080
-      And REST API service prefix is /api/insights-results-aggregator/v1
      When I request report for cluster ee7d2bf4-8933-4a3a-8634-3328fe806e08
      Then The status code of the response is 200
       And The status message of the response is "ok"
@@ -56,22 +55,18 @@ Feature: Checking responses from Insights Results Aggregator Mock service: endpo
           | rule | ccx_rules_ocm.tutorial_rule                                       | TUTORIAL_ERROR                     | 1          | 0              |
 
 
+  @rest-api
   Scenario: Check if Insights Results Aggregator Mock service return correct cluster report with no rule hits without org. selector
     Given the system is in default state
-      And REST API service hostname is localhost
-      And REST API service port is 8080
-      And REST API service prefix is /api/insights-results-aggregator/v1
      When I request report for cluster eeeeeeee-eeee-eeee-eeee-000000000001
      Then The status code of the response is 200
       And The status message of the response is "ok"
       And The report should not contain any rule hit
 
 
+  @rest-api
   Scenario: Check if Insights Results Aggregator Mock service return correct cluster report with 7 rule hits with org. selector
     Given the system is in default state
-      And REST API service hostname is localhost
-      And REST API service port is 8080
-      And REST API service prefix is /api/insights-results-aggregator/v1
      When I request report for cluster 34c3ecc5-624a-49a5-bab8-4fdc5e51a266 from organization 11789772
      Then The status code of the response is 200
       And The status message of the response is "ok"
@@ -87,11 +82,9 @@ Feature: Checking responses from Insights Results Aggregator Mock service: endpo
           | rule | ccx_rules_ocp.external.bug_rules.bug_1821905                      | BUGZILLA_BUG_1821905               | 3          | 0              |
 
 
+  @rest-api
   Scenario: Check if Insights Results Aggregator Mock service return correct cluster report with 7 rule hits with org. selector
     Given the system is in default state
-      And REST API service hostname is localhost
-      And REST API service port is 8080
-      And REST API service prefix is /api/insights-results-aggregator/v1
      When I request report for cluster 74ae54aa-6577-4e80-85e7-697cb646ff37 from organization 11789772
      Then The status code of the response is 200
       And The status message of the response is "ok"
@@ -107,11 +100,9 @@ Feature: Checking responses from Insights Results Aggregator Mock service: endpo
           | rule | ccx_rules_ocp.external.bug_rules.bug_1821905                      | BUGZILLA_BUG_1821905               | 3          | 0              |
 
 
+  @rest-api
   Scenario: Check if Insights Results Aggregator Mock service return correct cluster report with one rule hit with org. selector
     Given the system is in default state
-      And REST API service hostname is localhost
-      And REST API service port is 8080
-      And REST API service prefix is /api/insights-results-aggregator/v1
      When I request report for cluster ee7d2bf4-8933-4a3a-8634-3328fe806e08 from organization 11789772
      Then The status code of the response is 200
       And The status message of the response is "ok"
@@ -121,11 +112,9 @@ Feature: Checking responses from Insights Results Aggregator Mock service: endpo
           | rule | ccx_rules_ocm.tutorial_rule                                       | TUTORIAL_ERROR                     | 1          | 0              |
 
 
+  @rest-api
   Scenario: Check if Insights Results Aggregator Mock service return correct cluster report with no rule hits with org. selector
     Given the system is in default state
-      And REST API service hostname is localhost
-      And REST API service port is 8080
-      And REST API service prefix is /api/insights-results-aggregator/v1
      When I request report for cluster eeeeeeee-eeee-eeee-eeee-000000000001 from organization 11789772
      Then The status code of the response is 200
       And The status message of the response is "ok"

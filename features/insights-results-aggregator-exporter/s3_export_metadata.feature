@@ -1,6 +1,7 @@
 @aggregator_exporter
 Feature: Ability to export metadata into S3
 
+
   Background: System is in default state, database exist and is empty
     Given the system is in default state
       And the database is named test

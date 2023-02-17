@@ -1,11 +1,15 @@
 Feature: Tests for cluster list endpoint
 
 
-  Scenario: Check if is is possible to get list of clusters for given organization #1
-    Given the system is in default state
-      And REST API service hostname is localhost
+  Background:
+    Given REST API service hostname is localhost
       And REST API service port is 8080
       And REST API service prefix is /api/insights-results-aggregator/v1
+
+
+  @rest-api @json-schema-check
+  Scenario: Check if is is possible to get list of clusters for given organization #1
+    Given the system is in default state
      When I access endpoint /organizations/1/clusters using HTTP GET method
      Then The status code of the response is 200
       And The body of the response has the following schema
@@ -54,11 +58,9 @@ Feature: Tests for cluster list endpoint
           """
 
 
+  @rest-api @json-schema-check
   Scenario: Check if is is possible to get list of clusters for given organization #2
     Given the system is in default state
-      And REST API service hostname is localhost
-      And REST API service port is 8080
-      And REST API service prefix is /api/insights-results-aggregator/v1
      When I access endpoint /organizations/2/clusters using HTTP GET method
      Then The status code of the response is 200
       And The body of the response has the following schema
@@ -96,11 +98,9 @@ Feature: Tests for cluster list endpoint
           """
 
 
+  @rest-api @json-schema-check
   Scenario: Check if is is possible to get list of clusters for organization w/o access rights
     Given the system is in default state
-      And REST API service hostname is localhost
-      And REST API service port is 8080
-      And REST API service prefix is /api/insights-results-aggregator/v1
      When I access endpoint /organizations/11940171/clusters using HTTP GET method
      Then The status code of the response is 403
       And The body of the response has the following schema
