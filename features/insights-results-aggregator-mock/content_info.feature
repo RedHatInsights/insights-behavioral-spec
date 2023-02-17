@@ -1,11 +1,15 @@
 Feature: Checking responses from Insights Results Aggregator Mock service: "content" endpoint
 
 
-  Scenario: Check if Insights Results Aggregator Mock service return correct list of groups
-    Given the system is in default state
-      And REST API service hostname is localhost
+  Background:
+    Given REST API service hostname is localhost
       And REST API service port is 8080
       And REST API service prefix is /api/insights-results-aggregator/v1
+
+
+  @rest-api
+  Scenario: Check if Insights Results Aggregator Mock service return correct list of groups
+    Given the system is in default state
      When I request content and groups
      Then The status code of the response is 200
       And The status message of the response is "ok"
