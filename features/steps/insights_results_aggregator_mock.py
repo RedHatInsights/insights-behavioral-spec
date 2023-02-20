@@ -355,9 +355,22 @@ def request_results_for_list_of_clusters(context):
     assert context.response.status_code == 200
 
 
+@then("I should see empty list of reports")
+def step_impl(context):
+    """Check that list of reports returned from the service is empty."""
+    json = context.response.json()
+    assert json is not None
+
+    # try to retrieve report attribute which should be object containing more attributes
+    assert "reports" in json, "reports attribute is missing"
+    reports = json["reports"]
+
+    assert len(reports) == 0, "List of reports should be empty"
+
+
 @then("I should see report for following list of clusters")
 def check_reports_for_list_of_clusters(context):
-    """Send list of clusters in JSON body of request into the service."""
+    """Check list of reports returned from the service."""
     json = context.response.json()
     assert json is not None
 
@@ -395,6 +408,21 @@ def check_reports_for_list_of_clusters(context):
         report_count = len(data)
         assert meta_count == report_count, \
             "Incorrect number of reports {meta_count} <> {report_count}"
+
+
+@then("I should see following list of unknown clusters")
+def check_list_of_unknown_clusters(context):
+    # construct set of expected list of clusters
+    # from a table provided in feature file
+    expected_clusters = set(item["Cluster name"] for item in context.table)
+    assert expected_clusters is not None, "Test step definition problem"
+
+    # construct set of actually found list of clusters
+    # W/O report (i.e. "error" clusters
+    found_clusters = set(get_array_from_json(context, "errors"))
+
+    # compare both sets and display diff (if diff is found)
+    assert_sets_equality("list of error clusters", expected_clusters, found_clusters)
 
 
 @when("I request content and groups")

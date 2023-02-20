@@ -452,7 +452,13 @@ nav_order: 3
 
 ## `insights-results-aggregator-mock/results_for_cluster_list.feature`
 
-* Check if Insights Results Aggregator Mock service returns results for list of known clusters
+* Check if Insights Results Aggregator Mock service returns results for list of four known clusters
+* Check if Insights Results Aggregator Mock service returns results for list of three known clusters
+* Check if Insights Results Aggregator Mock service returns results for list of three known clusters
+* Check if Insights Results Aggregator Mock service returns results for list of one known cluster
+* Check if Insights Results Aggregator Mock service returns results for empty list of clusters
+* Check if Insights Results Aggregator Mock service returns results for one unknown cluster
+* Check if Insights Results Aggregator Mock service returns results for two unknown clusters
 
 ## `insights-results-aggregator-mock/smoketests.feature`
 
