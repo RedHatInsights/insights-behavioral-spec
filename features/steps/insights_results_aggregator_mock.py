@@ -355,9 +355,22 @@ def request_results_for_list_of_clusters(context):
     assert context.response.status_code == 200
 
 
+@then("I should see empty list of reports")
+def step_impl(context):
+    """Check that list of reports returned from the service is empty."""
+    json = context.response.json()
+    assert json is not None
+
+    # try to retrieve report attribute which should be object containing more attributes
+    assert "reports" in json, "reports attribute is missing"
+    reports = json["reports"]
+
+    assert len(reports) == 0, "List of reports should be empty"
+
+
 @then("I should see report for following list of clusters")
 def check_reports_for_list_of_clusters(context):
-    """Send list of clusters in JSON body of request into the service."""
+    """Check list of reports returned from the service."""
     json = context.response.json()
     assert json is not None
 
