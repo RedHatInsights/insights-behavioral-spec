@@ -46,7 +46,7 @@ SUBDIRECTORIES = (
 # page header
 print("---")
 print("layout: page")
-print("nav_order: 2")
+print("nav_order: 3")
 print("---")
 print()
 print("# List of scenarios")
