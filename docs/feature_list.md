@@ -1,6 +1,6 @@
 ---
 layout: page
-nav_order: 1
+nav_order: 2
 ---
 
 # List of existing behavioral specifications (features)
