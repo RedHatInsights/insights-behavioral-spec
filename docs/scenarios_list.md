@@ -300,7 +300,6 @@ nav_order: 3
 * Check if cleaner displays version info
 * Check if cleaner displays authors
 * Check if Postgres database is available
-* Check if the test database does not contain tables to be created by tests
 
 ## `insights-results-aggregator-exporter/database_access.feature`
 
@@ -530,7 +529,7 @@ nav_order: 3
 ## `ccx-notification-service/smoketests.feature`
 
 * Check if CCX Notification Service application is available
-* Check if Kafkacat utility is available
+* Check if kcat utility is available
 * Check if jps utility is available
 * Check if Postgres database is available
 * Check if CCX Notification database can be reached
@@ -588,7 +587,7 @@ nav_order: 3
 ## `ccx-notification-writer/smoketests.feature`
 
 * Check if CCX Notification Writer application is available
-* Check if Kafkacat utility is available
+* Check if kcat utility is available
 * Check if jps utility is available
 * Check if Postgres database is available
 * Check if CCX Notification Writer database can be reached
