@@ -26,7 +26,7 @@ Feature: Basic REST API endpoints provided by Insights Results Aggregator Mock
           """
 
 
-  @rest-api @json-check
+  @rest-api @json-schema-check
   Scenario: Check the groups endpoint
     Given the system is in default state
      When I access endpoint /groups using HTTP GET method
