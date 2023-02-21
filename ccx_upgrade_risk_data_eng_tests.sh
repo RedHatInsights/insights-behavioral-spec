@@ -17,7 +17,7 @@
 
 dir_path=$(dirname $(realpath $0))
 export PATH=$PATH:$dir_path
-PATH_TO_LOCAL_DATA_ENG_SERVICE=${PATH_TO_LOCAL_DATA_ENG_SERVICE:="../ccx-inference-service"}
+PATH_TO_LOCAL_DATA_ENG_SERVICE=${PATH_TO_LOCAL_DATA_ENG_SERVICE:="../ccx-upgrades-data-eng"}
 
 #set NOVENV is current environment is not a python virtual env
 [ "$VIRTUAL_ENV" != "" ] || NOVENV=1
@@ -33,7 +33,7 @@ function prepare_venv() {
     echo "Environment ready"
 }
 
-function install_inference_service() {
+function install_data_eng_service() {
     python3 "$(which pip3)" install $PATH_TO_LOCAL_DATA_ENG_SERVICE
     add_exit_trap 'python3 "$(which pip3)" uninstall -y ccx-upgrades-data-eng'
 }
@@ -58,7 +58,7 @@ function add_exit_trap {
 [ "$NOVENV" != "1" ] && install_reqs || prepare_venv || exit 1
 
 # Copy the binary and configuration to this folder
-install_inference_service
+install_data_eng_service
 
 # shellcheck disable=SC2068
 PYTHONDONTWRITEBYTECODE=1 python3 "$(which behave)" \
