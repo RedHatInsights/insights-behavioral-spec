@@ -518,8 +518,24 @@ def check_list_of_acked_rules(context):
             raise KeyError(f"Rule {rule} was not returned by the service")
 
 
+@when(u'I ack rule with ID "{rule_id}" and error key "{error_key}" without justification')
+def perform_rule_ack_without_justification(context, rule_id, error_key):
+    """Ack the rule identified by rule ID and error key."""
+    # construct full rule FQDN
+    rule_fqdn = f"{rule_id}.report|{error_key}"
+
+    url = f"http://{context.hostname}:{context.port}{context.api_prefix}/ack/{rule_fqdn}"
+
+    # perform GET request
+    context.response = requests.get(url)
+
+    # check the response
+    assert context.response is not None
+    assert context.response.status_code in (200, 201)
+
+
 @when('I ack rule with ID "{rule_id}" and error key "{error_key}" with justification "{justification}"')  # noqa E501
-def perform_rule_ack(context, rule_id, error_key, justification):
+def perform_rule_ack_with_justification(context, rule_id, error_key, justification):
     """Ack the rule identified by rule ID and error key."""
     # construct full rule FQDN
     rule_fqdn = f"{rule_id}.report|{error_key}"
