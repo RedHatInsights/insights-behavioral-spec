@@ -342,7 +342,6 @@ def request_results_for_list_of_clusters(context):
     assert cluster_list is not None, "Test step definition problem"
 
     # construct object to be send to the service
-    request_body = {"clusters": cluster_list}
     json_request_body = {"clusters": cluster_list}
 
     url = f"http://{context.hostname}:{context.port}{context.api_prefix}/clusters"
@@ -517,3 +516,23 @@ def check_list_of_acked_rules(context):
         else:
             # record was not found
             raise KeyError(f"Rule {rule} was not returned by the service")
+
+
+@when('I ack rule with ID "{rule_id}" and error key "{error_key}" with justification "{justification}"')  # noqa E501
+def perform_rule_ack(context, rule_id, error_key, justification):
+    """Ack the rule identified by rule ID and error key."""
+    # construct full rule FQDN
+    rule_fqdn = f"{rule_id}.report|{error_key}"
+
+    # construct object to be send to the service
+    json_request_body = {"rule_id": rule_fqdn,
+                         "justification": justification}
+
+    url = f"http://{context.hostname}:{context.port}{context.api_prefix}/ack"
+
+    # perform POST request
+    context.response = requests.post(url, json=json_request_body)
+
+    # check the response
+    assert context.response is not None
+    assert context.response.status_code in (200, 201)
