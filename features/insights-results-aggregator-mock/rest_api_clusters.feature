@@ -7,7 +7,7 @@ Feature: Tests for cluster list endpoint
       And REST API service prefix is /api/insights-results-aggregator/v1
 
 
-  @rest-api @json-schema-check
+  @rest-api @json-check @json-schema-check
   Scenario: Check if is is possible to get list of clusters for given organization #1
     Given the system is in default state
      When I access endpoint /organizations/1/clusters using HTTP GET method
@@ -58,7 +58,7 @@ Feature: Tests for cluster list endpoint
           """
 
 
-  @rest-api @json-schema-check
+  @rest-api @json-check @json-schema-check
   Scenario: Check if is is possible to get list of clusters for given organization #2
     Given the system is in default state
      When I access endpoint /organizations/2/clusters using HTTP GET method
@@ -98,7 +98,7 @@ Feature: Tests for cluster list endpoint
           """
 
 
-  @rest-api @json-schema-check
+  @rest-api @json-check @json-schema-check
   Scenario: Check if is is possible to get list of clusters for organization w/o access rights
     Given the system is in default state
      When I access endpoint /organizations/11940171/clusters using HTTP GET method

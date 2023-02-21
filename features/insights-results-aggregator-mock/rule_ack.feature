@@ -25,7 +25,7 @@ Feature: Reading acked rules, acking new rule and acking existing rule
          | ccx_rules_ocp.external.bug_rules.bug_1766907                      | BUGZILLA_BUG_1766907               | Justification2 | tester2    |
 
 
-  @rest-api
+  @rest-api @database-write
   Scenario: Check if it is possible to ack new rule
     Given the system is in default state
      When I ask for list of all acked rules
@@ -59,7 +59,7 @@ Feature: Reading acked rules, acking new rule and acking existing rule
          | foo                                                               | bar                                | this is justification message | onlineTester |
 
 
-  @rest-api
+  @rest-api @database-write
   Scenario: Check if it is possible to delete acknowledgement
     Given the system is in default state
      When I ask for list of all acked rules
@@ -93,7 +93,7 @@ Feature: Reading acked rules, acking new rule and acking existing rule
          | ccx_rules_ocp.external.bug_rules.bug_1766907                      | BUGZILLA_BUG_1766907               | Justification2                | tester2      |
 
 
-  @rest-api
+  @rest-api @database-write
   Scenario: Check if it is possible to ack already acked rule w/o changing the internal state of the service
     Given the system is in default state
      When I ack rule with ID "foo" and error key "bar" with justification "this is justification message"
@@ -132,7 +132,7 @@ Feature: Reading acked rules, acking new rule and acking existing rule
      Then The status code of the response is 204
 
 
-  @rest-api
+  @rest-api @database-write
   Scenario: Check the behaviour when ACK for non existing rule is to be deleted
     Given the system is in default state
      When I ask for list of all acked rules
@@ -152,7 +152,7 @@ Feature: Reading acked rules, acking new rule and acking existing rule
      Then The status code of the response is 404
 
 
-  @rest-api
+  @rest-api @database-write
   Scenario: Check if it is possible to ack new rule without providing justification
     Given the system is in default state
      When I ask for list of all acked rules
@@ -188,7 +188,7 @@ Feature: Reading acked rules, acking new rule and acking existing rule
      Then The status code of the response is 204
 
 
-  @rest-api
+  @rest-api @database-write
   Scenario: Check if it is possible to ack already acked rule without providing justification
     Given the system is in default state
      When I ask for list of all acked rules
@@ -226,7 +226,7 @@ Feature: Reading acked rules, acking new rule and acking existing rule
      Then The status code of the response is 204
 
 
-  @rest-api
+  @rest-api @database-write
   Scenario: Check if it is possible to change justification text of already acked rule
     Given the system is in default state
      When I ask for list of all acked rules
@@ -278,7 +278,7 @@ Feature: Reading acked rules, acking new rule and acking existing rule
      Then The status code of the response is 204
 
 
-  @rest-api
+  @rest-api @database-write
   Scenario: Check the behaviour when acked rule to be changed does not exist
     Given the system is in default state
      When I ask for list of all acked rules
