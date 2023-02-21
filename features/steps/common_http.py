@@ -71,10 +71,18 @@ def request_endpoint_with_url_params(context, endpoint, hostname, port):
     )
 
 
+@when("I request the {endpoint} endpoint in {hostname:w}:{port:d} with path {path}")
+def request_endpoint_with_url_path(context, endpoint, hostname, port, path):
+    """Perform a request to the server defined by URL to a given endpoint."""
+    context.response = requests.get(
+        f"http://{hostname}:{port}/{endpoint}/{path}",
+    )
+
+
 @when("I request the {endpoint} endpoint in {hostname:w}:{port:d}")
 def request_endpoint(context, endpoint, hostname, port):
     """Perform a request to the local server to the given endpoint."""
-    context.response = requests.get(f"http://{hostname}:{port}/{endpoint}")
+    context.response = requests.get(f"http://{hostname}:{port}/{endpoint}", timeout=2)
 
 
 @then("The status code of the response is {status:d}")
@@ -99,6 +107,13 @@ def check_response_body_schema(context):
 
     except jsonschema.SchemaError:
         assert False, "The provided schema is faulty"
+
+
+@then("The body of the response contains {substring}")
+def check_response_body_contains(context, substring):
+    """Check that response body contains a substring."""
+    assert substring in context.response.text, \
+        f"The response text doesn't contain {substring}"
 
 
 @then("The body of the response is the following")

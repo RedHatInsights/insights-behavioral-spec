@@ -22,8 +22,8 @@ from behave import given
 
 
 @given("The CCX Data Engineering Service is running on port {port:d}")
-def start_ccx_inference_service(context, port):
-    """Run ccx-inference-service for a test and prepare its stop."""
+def start_ccx_upgrades_data_eng(context, port):
+    """Run ccx-upgrades-data-eng for a test and prepare its stop."""
     params = ["uvicorn", "ccx_upgrades_data_eng.main:app", "--port", str(port)]
     env = os.environ.copy()
 
