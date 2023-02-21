@@ -110,6 +110,7 @@ nav_order: 2
 * [Checking responses from Insights Results Aggregator Mock service: "organizations" endpoint](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-mock/list_of_organizations.feature)
 * [Checking responses from Insights Results Aggregator Mock service: "{organization}/clusters" endpoint](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-mock/list_of_clusters.feature)
 * [Checking responses from Insights Results Aggregator Mock service: endpoint to return cluster report](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-mock/cluster_report.feature)
+* [Reading acked rules, acking new rule and acking existing rule](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-mock/smoketests.featurehttps://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-mock/rule_ack.feature)
 * [Checking REST API endpoint that returns list of clusters hitting specified rule](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-mock/clusters_hitting_rule.feature)
 * [Checking REST API endpoint that returns results for provided list of clusters](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-mock/results_for_cluster_list.feature)
 

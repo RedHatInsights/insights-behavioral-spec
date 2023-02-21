@@ -8,3 +8,4 @@
 ../features/insights-results-aggregator-mock/cluster_report.feature
 ../features/insights-results-aggregator-mock/clusters_hitting_rule.feature
 ../features/insights-results-aggregator-mock/results_for_cluster_list.feature
+../features/insights-results-aggregator-mock/rule_ack.feature

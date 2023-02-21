@@ -412,6 +412,7 @@ def check_reports_for_list_of_clusters(context):
 
 @then("I should see following list of unknown clusters")
 def check_list_of_unknown_clusters(context):
+    """Check if list of unknown clusters returned by service contains expected items."""
     # construct set of expected list of clusters
     # from a table provided in feature file
     expected_clusters = set(item["Cluster name"] for item in context.table)
@@ -447,3 +448,72 @@ def check_empty_content(context):
     content = json["content"]
 
     assert len(content) == 0, "content attribute should be empty"
+
+
+@when("I ask for list of all acked rules")
+def request_list_of_all_acked_rules(context):
+    """Send request to tested service to return list of all acked rules."""
+    url = f"http://{context.hostname}:{context.port}/{context.api_prefix}/ack"
+    context.response = requests.get(url)
+
+    # basic check if service responded with HTTP code 200 OK
+    assert context.response is not None
+    assert context.response.status_code == 200
+
+
+@then("I should retrieve list of {length:n} acked rules")
+def check_list_of_acked_rules_length(context, length):
+    """Test how many items are returned in a list of acked rules."""
+    # try to retrieve data to be checked from response payload
+    json = context.response.json()
+    assert json is not None
+
+    # JSON attribute with list of acked rules
+    assert "data" in json, "Data attribute is missing in report attribute"
+    data = json["data"]
+
+    # check length of the list
+    assert len(data) == length, f"Unexpected list of acked rules size {len(data)}"
+
+
+@then(u'I should retrieve following list of acked rules')
+def check_list_of_acked_rules(context):
+    """Test if returned acked rules are expected."""
+    # try to retrieve data to be checked from response payload
+    json = context.response.json()
+    assert json is not None
+
+    # JSON attribute with list of acked rules
+    assert "data" in json, "Data attribute is missing in report attribute"
+    data = json["data"]
+
+    # check if all acked rules in scenario is found in returned structure
+    for rule in context.table:
+        expected_rule_id = rule["Rule ID"]
+        expected_error_key = rule["Error key"]
+        expected_justification = rule["Justification"]
+        expected_created_by = rule["Created by"]
+
+        # try to find the corresponding record in list returned by service
+        for record in data:
+            rule_fqdn = record["rule"]
+
+            # split FQDN into rule ID and error key
+            actual_rule_id, actual_error_key = rule_fqdn.split("|")
+
+            # strip the ".report" suffix
+            assert actual_rule_id.endswith(".report")
+            actual_rule_id = actual_rule_id[:-len(".report")]
+
+            actual_justification = record["justification"]
+            actual_created_by = record["created_by"]
+
+            # exact match is required
+            if all((actual_rule_id == expected_rule_id,
+                    actual_error_key == expected_error_key,
+                    actual_justification == expected_justification,
+                    actual_created_by == expected_created_by)):
+                break
+        else:
+            # record was not found
+            raise KeyError(f"Rule {rule} was not returned by the service")
