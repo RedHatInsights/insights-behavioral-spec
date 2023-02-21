@@ -79,7 +79,8 @@ def request_endpoint(context, endpoint, hostname, port):
 
 @then("The status code of the response is {status:d}")
 def check_status_code(context, status):
-    assert context.response.status_code == status
+    assert context.response.status_code == status, \
+        f"Status code is {context.response.status_code}"
 
 
 @then("The body of the response has the following schema")

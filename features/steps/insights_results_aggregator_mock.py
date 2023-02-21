@@ -342,7 +342,6 @@ def request_results_for_list_of_clusters(context):
     assert cluster_list is not None, "Test step definition problem"
 
     # construct object to be send to the service
-    request_body = {"clusters": cluster_list}
     json_request_body = {"clusters": cluster_list}
 
     url = f"http://{context.hostname}:{context.port}{context.api_prefix}/clusters"
@@ -517,3 +516,75 @@ def check_list_of_acked_rules(context):
         else:
             # record was not found
             raise KeyError(f"Rule {rule} was not returned by the service")
+
+
+@when(u'I ack rule with ID "{rule_id}" and error key "{error_key}" without justification')
+def perform_rule_ack_without_justification(context, rule_id, error_key):
+    """Ack the rule identified by rule ID and error key."""
+    # construct full rule FQDN
+    rule_fqdn = f"{rule_id}.report|{error_key}"
+
+    url = f"http://{context.hostname}:{context.port}{context.api_prefix}/ack/{rule_fqdn}"
+
+    # perform GET request
+    context.response = requests.get(url)
+
+    # check the response
+    assert context.response is not None
+    assert context.response.status_code in (200, 201)
+
+
+@when('I ack rule with ID "{rule_id}" and error key "{error_key}" with justification "{justification}"')  # noqa E501
+def perform_rule_ack_with_justification(context, rule_id, error_key, justification):
+    """Ack the rule identified by rule ID and error key."""
+    # construct full rule FQDN
+    rule_fqdn = f"{rule_id}.report|{error_key}"
+
+    # construct object to be send to the service
+    json_request_body = {"rule_id": rule_fqdn,
+                         "justification": justification}
+
+    url = f"http://{context.hostname}:{context.port}{context.api_prefix}/ack"
+
+    # perform POST request
+    context.response = requests.post(url, json=json_request_body)
+
+    # check the response
+    assert context.response is not None
+    assert context.response.status_code in (200, 201)
+
+
+@when('I change justification text for rule with ID "{rule_id}" and error key "{error_key}" to "{justification}"')  # noqa E501
+def change_justification_text(context, rule_id, error_key, justification):
+    """Change justification for a rule via POST call."""
+    # construct full rule FQDN
+    rule_fqdn = f"{rule_id}.report|{error_key}"
+
+    # construct object to be send to the service
+    json_request_body = {"justification": justification}
+
+    url = f"http://{context.hostname}:{context.port}{context.api_prefix}/ack/{rule_fqdn}"
+
+    # perform PUT request
+    context.response = requests.put(url, json=json_request_body)
+
+    # check the response
+    assert context.response is not None
+    assert context.response.status_code == 200, context.response.status_code
+
+
+@when('I delete ack for rule with ID "{rule_id}" and error key "{error_key}"')
+def delete_rule_ack(context, rule_id, error_key):
+    """Delete ack for selected rule via REST API call."""
+    # construct full rule FQDN
+    rule_fqdn = f"{rule_id}.report|{error_key}"
+
+    url = f"http://{context.hostname}:{context.port}{context.api_prefix}/ack/{rule_fqdn}"
+
+    # perform DELETE request
+    context.response = requests.delete(url)
+
+    # check the response
+    assert context.response is not None
+    assert context.response.status_code in (200, 204, 404), \
+        f"Status code is {context.response.status_code}"
