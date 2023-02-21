@@ -459,3 +459,18 @@ def request_list_of_all_acked_rules(context):
     # basic check if service responded with HTTP code 200 OK
     assert context.response is not None
     assert context.response.status_code == 200
+
+
+@then("I should retrieve list of {length:n} acked rules")
+def check_list_of_acked_rules_length(context, length):
+    """Test how many items are returned in a list of acked rules."""
+    # try to retrieve data to be checked from response payload
+    json = context.response.json()
+    assert json is not None
+
+    # JSON attribute with list of acked rules
+    assert "data" in json, "Data attribute is missing in report attribute"
+    data = json["data"]
+
+    # check length of the list
+    assert len(data) == length, f"Unexpected list of acked rules size {len(data)}"
