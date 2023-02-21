@@ -10,7 +10,7 @@ Feature: Ability to display old records found in the database
       And database connection is established
 
 
-  @database
+  @database @database-read
   Scenario: Read old records from empty database
     Given the database is empty
      When I prepare database schema
@@ -21,7 +21,7 @@ Feature: Ability to display old records found in the database
      Then I should find that the database is empty
 
 
-  @database
+  @database @database-read
   Scenario: Read old records from empty database giving different time period
     Given the database is empty
      When I prepare database schema
@@ -32,7 +32,7 @@ Feature: Ability to display old records found in the database
      Then I should find that the database is empty
 
 
-  @database
+  @database @database-read
   Scenario: Read old records from prepared non-empty database with new records only
     Given the database is empty
      When I prepare database schema
@@ -48,7 +48,7 @@ Feature: Ability to display old records found in the database
      Then I should find that the database is empty
 
 
-  @database
+  @database @database-read
   Scenario: Read old records from prepared non-empty database with old records only
     Given the database is empty
      When I prepare database schema
@@ -68,7 +68,7 @@ Feature: Ability to display old records found in the database
      Then I should find that the database is empty
 
 
-  @database
+  @database @database-read
   Scenario: Read old records from prepared non-empty database with mixed records
     Given the database is empty
      When I prepare database schema

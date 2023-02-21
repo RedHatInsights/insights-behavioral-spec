@@ -10,7 +10,7 @@ Feature: Ability to delete selected records from database
       And database connection is established
 
 
-  @database
+  @database @database-write
   Scenario: Clean up one old cluster should be visible
     Given the database is empty
      When I prepare database schema
@@ -35,7 +35,7 @@ Feature: Ability to delete selected records from database
      Then I should find that the database is empty
 
 
-  @database
+  @database @database-write
   Scenario: Clean up of existing old clusters
     Given the database is empty
      When I prepare database schema
@@ -59,7 +59,7 @@ Feature: Ability to delete selected records from database
      Then I should find that the database is empty
 
 
-  @database
+  @database @database-write
   Scenario: Clean up of existing new clusters
     Given the database is empty
      When I prepare database schema
@@ -86,7 +86,7 @@ Feature: Ability to delete selected records from database
      Then I should find that the database is empty
 
 
-  @database
+  @database @database-write
   Scenario: Clean up non-existing clusters
     Given the database is empty
      When I prepare database schema
@@ -113,7 +113,7 @@ Feature: Ability to delete selected records from database
      Then I should find that the database is empty
 
 
-  @database
+  @database @database-write
   Scenario: Clean up clusters with wrong names
     Given the database is empty
      When I prepare database schema
