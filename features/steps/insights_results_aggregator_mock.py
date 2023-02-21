@@ -554,8 +554,28 @@ def perform_rule_ack_with_justification(context, rule_id, error_key, justificati
     assert context.response.status_code in (200, 201)
 
 
+@when('I change justification text for rule with ID "{rule_id}" and error key "{error_key}" to "{justification}"')  # noqa E501
+def change_justification_text(context, rule_id, error_key, justification):
+    """Change justification for a rule via POST call."""
+    # construct full rule FQDN
+    rule_fqdn = f"{rule_id}.report|{error_key}"
+
+    # construct object to be send to the service
+    json_request_body = {"justification": justification}
+
+    url = f"http://{context.hostname}:{context.port}{context.api_prefix}/ack/{rule_fqdn}"
+
+    # perform PUT request
+    context.response = requests.put(url, json=json_request_body)
+
+    # check the response
+    assert context.response is not None
+    assert context.response.status_code == 200, context.response.status_code
+
+
 @when('I delete ack for rule with ID "{rule_id}" and error key "{error_key}"')
 def delete_rule_ack(context, rule_id, error_key):
+    """Delete ack for selected rule via REST API call."""
     # construct full rule FQDN
     rule_fqdn = f"{rule_id}.report|{error_key}"
 
