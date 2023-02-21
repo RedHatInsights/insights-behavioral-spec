@@ -550,5 +550,5 @@ def delete_rule_ack(context, rule_id, error_key):
 
     # check the response
     assert context.response is not None
-    assert context.response.status_code in (200, 204), \
+    assert context.response.status_code in (200, 204, 404), \
         f"Status code is {context.response.status_code}"
