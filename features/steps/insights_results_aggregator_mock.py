@@ -412,6 +412,7 @@ def check_reports_for_list_of_clusters(context):
 
 @then("I should see following list of unknown clusters")
 def check_list_of_unknown_clusters(context):
+    """Check if list of unknown clusters returned by service contains expected items."""
     # construct set of expected list of clusters
     # from a table provided in feature file
     expected_clusters = set(item["Cluster name"] for item in context.table)
@@ -447,3 +448,14 @@ def check_empty_content(context):
     content = json["content"]
 
     assert len(content) == 0, "content attribute should be empty"
+
+
+@when("I ask for list of all acked rules")
+def request_list_of_all_acked_rules(context):
+    """Send request to tested service to return list of all acked rules."""
+    url = f"http://{context.hostname}:{context.port}/{context.api_prefix}/ack"
+    context.response = requests.get(url)
+
+    # basic check if service responded with HTTP code 200 OK
+    assert context.response is not None
+    assert context.response.status_code == 200
