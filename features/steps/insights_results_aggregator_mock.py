@@ -536,3 +536,19 @@ def perform_rule_ack(context, rule_id, error_key, justification):
     # check the response
     assert context.response is not None
     assert context.response.status_code in (200, 201)
+
+
+@when('I delete ack for rule with ID "{rule_id}" and error key "{error_key}"')
+def delete_rule_ack(context, rule_id, error_key):
+    # construct full rule FQDN
+    rule_fqdn = f"{rule_id}.report|{error_key}"
+
+    url = f"http://{context.hostname}:{context.port}{context.api_prefix}/ack/{rule_fqdn}"
+
+    # perform DELETE request
+    context.response = requests.delete(url)
+
+    # check the response
+    assert context.response is not None
+    assert context.response.status_code in (200, 204), \
+        f"Status code is {context.response.status_code}"
