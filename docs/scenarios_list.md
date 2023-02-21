@@ -462,6 +462,14 @@ nav_order: 3
 ## `insights-results-aggregator-mock/rule_ack.feature`
 
 * Check if Insights Results Aggregator Mock service returns list of acked rules
+* Check if it is possible to ack new rule
+* Check if it is possible to delete acknowledgement
+* Check if it is possible to ack already acked rule w/o changing the internal state of the service
+* Check the behaviour when ACK for non existing rule is to be deleted
+* Check if it is possible to ack new rule without providing justification
+* Check if it is possible to ack already acked rule without providing justification
+* Check if it is possible to change justification text of already acked rule
+* Check the behaviour when acked rule to be changed does not exist
 
 ## `insights-results-aggregator-mock/smoketests.feature`
 
