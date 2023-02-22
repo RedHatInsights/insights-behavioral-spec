@@ -84,3 +84,16 @@ def check_version_from_aggregator(context):
             break
     else:
         raise Exception("Improper or missing version info in {}".format(context.output))
+
+
+@then("I should see actual configuration displayed by Insights Results Aggregator on standard output")  # noqa E501
+def check_actual_configuration_for_aggregator(context):
+    # preliminary checks
+    assert context.output is not None
+    assert type(context.output) is list, "wrong type of output"
+
+    # check the output
+    assert "Broker" in context.output[3], "Caught output: {}".format(context.output)
+    assert "Address" in context.output[4], "Caught output: {}".format(context.output)
+    assert "SecurityProtocol" in context.output[5], "Caught output: {}".format(context.output)
+    assert "CertPath" in context.output[6], "Caught output: {}".format(context.output)
