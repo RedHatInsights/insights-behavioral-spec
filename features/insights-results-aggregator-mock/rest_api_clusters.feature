@@ -19,7 +19,7 @@ Feature: Tests for cluster list endpoint
             "properties": {
               "clusters": {
                 "type": "array",
-                "items": [
+                "prefixItems": [
                   {
                     "type": "string"
                   }
@@ -70,7 +70,7 @@ Feature: Tests for cluster list endpoint
             "properties": {
               "clusters": {
                 "type": "array",
-                "items": [
+                "prefixItems": [
                   {
                     "type": "string"
                   }
@@ -110,7 +110,7 @@ Feature: Tests for cluster list endpoint
             "properties": {
               "clusters": {
                 "type": "array",
-                "items": [
+                "prefixItems": [
                   {
                     "type": "string"
                   }
