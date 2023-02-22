@@ -103,7 +103,7 @@ def check_response_body_schema(context):
             schema=schema,
         )
 
-    except jsonschema.ValidationError:
+    except jsonschema.ValidationError as e:
         assert False, "The response body doesn't fit the expected schema:" + e
 
     except jsonschema.SchemaError as e:
