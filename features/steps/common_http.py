@@ -104,10 +104,10 @@ def check_response_body_schema(context):
         )
 
     except jsonschema.ValidationError:
-        assert False, "The response body doesn't fit the expected schema"
+        assert False, "The response body doesn't fit the expected schema:" + e
 
-    except jsonschema.SchemaError:
-        assert False, "The provided schema is faulty"
+    except jsonschema.SchemaError as e:
+        assert False, "The provided schema is faulty:" + e
 
 
 @then("The body of the response contains {substring}")
