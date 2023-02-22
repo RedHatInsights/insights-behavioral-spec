@@ -72,3 +72,15 @@ The commands are:
     )
 
 
+def check_version_from_aggregator(context):
+    """Check if version info is displayed by Insights Results Aggregator."""
+    # preliminary checks
+    assert context.output is not None
+    assert type(context.output) is list, "wrong type of output"
+
+    # check the output, line by line
+    for line in context.output:
+        if "Version: 0.5" in line:
+            break
+    else:
+        raise Exception("Improper or missing version info in {}".format(context.output))
