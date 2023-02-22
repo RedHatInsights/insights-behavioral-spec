@@ -69,3 +69,17 @@ The commands are:
     assert stdout.strip() == expected_output.strip(), "{} != {}".format(
         stdout, expected_output
     )
+
+
+def check_version_from_smart_proxy(context):
+    """Check if version info is displayed by Smart Proxy."""
+    # preliminary checks
+    assert context.output is not None
+    assert type(context.output) is list, "wrong type of output"
+
+    # check the output, line by line
+    for line in context.output:
+        if "Version:\t0.1" in line:
+            break
+    else:
+        raise Exception("Improper or missing version info in {}".format(context.output))
