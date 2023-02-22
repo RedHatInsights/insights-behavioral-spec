@@ -21,7 +21,6 @@ from behave import when, then
 from src.process_output import process_generated_output
 
 
-
 @when("I run the Insights Results Aggregator with the {flag} command line flag")
 def run_insights_results_aggregator_with_flag(context, flag):
     """Start the Insights Results Aggregator with given command-line flag."""
