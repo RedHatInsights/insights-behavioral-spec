@@ -277,6 +277,14 @@ nav_order: 3
 * Check if SHA extractor is able to consume messages from Kafka, download tarball, and take SHA images
 * Check if SHA extractor is able to finish the processing of SHA images
 
+## `insights-results-aggregator/smoketests.feature`
+
+* Check if Insights Results Aggregator application is available
+* Check if Insights Results Aggregator displays help message
+* Check if Insights Results Aggregator displays help message
+* Check if Insights Results Aggregator displays version info
+* Check if Insights Results Aggregator displays actual configuration
+
 ## `insights-results-aggregator-cleaner/cleanup_selected_records.feature`
 
 * Clean up one old cluster should be visible

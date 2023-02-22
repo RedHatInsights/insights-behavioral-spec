@@ -81,6 +81,11 @@ nav_order: 2
 * [SHA Extractor](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/SHA_Extractor/sha_extractor.feature)
 
 
+## Insights Results Aggregator
+
+* [Basic set of smoke tests](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/smoketests.feature)
+
+
 ## Insights Results Aggregator Cleaner service
 
 * [Basic set of smoke tests](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-cleaner/smoketests.feature)

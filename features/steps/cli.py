@@ -48,6 +48,10 @@ def check_help_message(context, service):
         from steps.insights_results_aggregator_mock import check_help_from_mock
 
         check_help_from_mock(context)
+    elif service == "Insights Results Aggregator":
+        from steps.insights_results_aggregator import check_help_from_aggregator
+
+        check_help_from_aggregator(context)
     else:
         raise ValueError(f"Unknown service '{service}'.")
 
