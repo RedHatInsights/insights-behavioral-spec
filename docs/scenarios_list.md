@@ -277,6 +277,12 @@ nav_order: 3
 * Check if SHA extractor is able to consume messages from Kafka, download tarball, and take SHA images
 * Check if SHA extractor is able to finish the processing of SHA images
 
+## `smart-proxy/smoketests.feature`
+
+* Check if Smart Proxy application is available
+* Check if Smart Proxy displays help message
+* Check if Smart Proxy displays version info
+
 ## `insights-results-aggregator/smoketests.feature`
 
 * Check if Insights Results Aggregator application is available
