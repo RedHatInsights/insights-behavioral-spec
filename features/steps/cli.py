@@ -1,4 +1,4 @@
-# Copyright © 2022 Red Hat, Inc.
+# Copyright © 2023 Red Hat, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -52,6 +52,10 @@ def check_help_message(context, service):
         from steps.insights_results_aggregator import check_help_from_aggregator
 
         check_help_from_aggregator(context)
+    elif service == "Smart Proxy":
+        from steps.smart_proxy import check_help_from_smart_proxy
+
+        check_help_from_smart_proxy(context)
     else:
         raise ValueError(f"Unknown service '{service}'.")
 
@@ -85,6 +89,16 @@ def check_version_info(context, service):
         from steps.insights_results_aggregator_mock import check_version_from_mock
 
         check_version_from_mock(context)
+
+    elif service == "Insights Results Aggregator":
+        from steps.insights_results_aggregator import check_version_from_aggregator
+
+        check_version_from_aggregator(context)
+
+    elif service == "Smart Proxy":
+        from steps.smart_proxy import check_version_from_smart_proxy
+
+        check_version_from_smart_proxy(context)
 
     else:
         raise ValueError(f"Unknown service '{service}'.")
