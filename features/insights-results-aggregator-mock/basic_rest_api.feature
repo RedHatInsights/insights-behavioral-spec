@@ -125,7 +125,7 @@ Feature: Basic REST API endpoints provided by Insights Results Aggregator Mock
               "properties": {
                 "organizations": {
                   "type": "array",
-                  "items": [
+                  "prefixItems": [
                     {
                       "type": "integer"
                     }
