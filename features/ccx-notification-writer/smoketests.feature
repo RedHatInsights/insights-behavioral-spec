@@ -35,11 +35,13 @@ Feature: Basic set of smoke tests - checks if all required tools are available a
      When I close database connection
      Then I should be disconnected
 
+
   @managed @local
   Scenario: Check if ZooKeeper is running locally
     Given the system is in default state
      When I retrieve a list of all applications running under JVM
      Then I should find the following application org.apache.zookeeper.server.quorum.QuorumPeerMain
+
 
   @managed @local
   Scenario: Check if Kafka broker is running locally
@@ -48,6 +50,7 @@ Feature: Basic set of smoke tests - checks if all required tools are available a
      Then I should find the following application kafka.Kafka
 
 
+  @managed @local
   Scenario: Check if Kafka broker is running on expected port
     Given the system is in default state
      When I retrieve metadata from Kafka broker
