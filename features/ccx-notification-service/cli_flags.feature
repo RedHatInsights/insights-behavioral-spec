@@ -1,30 +1,35 @@
 Feature: Check command line options provided by CCX Notification Service
 
 
+  @cli
   Scenario: Check if CCX Notification Service displays help message
     Given the system is in default state
      When I start the CCX Notification Service with the --help command line flag
      Then I should see help messages displayed by ccx-notification-service on standard output
 
 
+  @cli
   Scenario: Check if CCX Notification Service displays version info
     Given the system is in default state
      When I start the CCX Notification Service with the --show-version command line flag
      Then I should see version info displayed by ccx-notification-service on standard output
 
 
+  @cli
   Scenario: Check if CCX Notification Service displays configuration
     Given the system is in default state
      When I start the CCX Notification Service with the --show-configuration command line flag
      Then I should see the current configuration displayed on standard output
 
 
+  @cli
   Scenario: Check if CCX Notification Service displays authors
     Given the system is in default state
      When I start the CCX Notification Service with the --show-authors command line flag
      Then I should see info about authors displayed by ccx-notification-service on standard output
 
 
+  @cli
   Scenario: Check the ability to display new reports for cleanup
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
@@ -34,6 +39,7 @@ Feature: Check command line options provided by CCX Notification Service
       And the process should exit with status code set to 0
 
 
+  @cli
   Scenario: Check the ability to display old reports for cleanup
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
@@ -43,6 +49,7 @@ Feature: Check command line options provided by CCX Notification Service
       And the process should exit with status code set to 0
 
 
+  @cli
   Scenario: Check the ability to display new reports for cleanup with max-age specified
    Given Postgres is running
      And CCX Notification database is created for user postgres with password postgres
@@ -53,6 +60,7 @@ Feature: Check command line options provided by CCX Notification Service
      And the process should exit with status code set to 0
 
 
+  @cli
   Scenario: Check the ability to display old reports for cleanup with max-age specified
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
@@ -63,6 +71,7 @@ Feature: Check command line options provided by CCX Notification Service
       And the process should exit with status code set to 0
 
 
+  @cli
   Scenario: Check the ability to perform database cleanup on startup
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres

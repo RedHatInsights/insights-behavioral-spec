@@ -1,6 +1,7 @@
 Feature: Ability to display old records stored in database
 
 
+  @cli @database @database-read
   Scenario: Check the ability to display old records from `new_reports` if the table is empty.
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
@@ -12,6 +13,7 @@ Feature: Ability to display old records stored in database
       And the process should exit with status code set to 0
 
 
+  @cli @database @database-read
   Scenario: Check the ability to display old records from `reported` table if the table is empty.
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
@@ -23,6 +25,7 @@ Feature: Ability to display old records stored in database
     Then the process should exit with status code set to 0
 
 
+  @cli @database @database-read
   Scenario: Check the ability to display old records from `new_reports` if the table contains one old report.
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
@@ -40,6 +43,7 @@ Feature: Ability to display old records stored in database
      And the process should exit with status code set to 0
 
 
+  @cli @database @database-read
   Scenario: Check the ability to display old records from `new_reports` if the table contains only new reports.
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
@@ -56,6 +60,7 @@ Feature: Ability to display old records stored in database
      And the process should exit with status code set to 0
 
 
+  @cli @database @database-read
   Scenario: Check the ability to display old records from `new_reports` if the table contains new and old reports.
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
@@ -74,6 +79,7 @@ Feature: Ability to display old records stored in database
      Then the process should exit with status code set to 0
 
 
+  @cli @database @database-read
   Scenario: Check the ability to display old records from `reported` if the table contains one old report.
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
@@ -93,6 +99,7 @@ Feature: Ability to display old records stored in database
      Then the process should exit with status code set to 0
 
 
+  @cli @database @database-read
   Scenario: Check the ability to display old records from `reported` if the table contains only new reports.
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
@@ -110,6 +117,7 @@ Feature: Ability to display old records stored in database
       And the process should exit with status code set to 0
 
 
+  @cli @database @database-read
   Scenario: Check the ability to display old records from `reported` if the table contains multiple old reports.
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
@@ -131,6 +139,7 @@ Feature: Ability to display old records stored in database
       And the process should exit with status code set to 0
 
 
+  @cli @database @database-read
   Scenario: Check the ability to display old records from `reported` if the table contains old and new reports
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
