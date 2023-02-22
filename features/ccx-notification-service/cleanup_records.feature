@@ -1,6 +1,7 @@
 Feature: Ability to clean up records stored in database
 
 
+  @cli @database @database-write
   Scenario: Check the ability to clean up old records from `new_reports` table if the table is empty.
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
@@ -15,6 +16,7 @@ Feature: Ability to clean up records stored in database
      Then I should be disconnected
 
 
+  @cli @database @database-write
   Scenario: Check the ability to clean up old records from `reported` if the table is empty.
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
@@ -27,6 +29,7 @@ Feature: Ability to clean up records stored in database
      Then I should get 0 rows
 
 
+  @cli @database @database-write
   Scenario: Check the ability to clean up old records from `new_reports` if the table contains one old report.
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
@@ -42,6 +45,7 @@ Feature: Ability to clean up records stored in database
      Then I should get 0 rows
 
 
+  @cli @database @database-write
   Scenario: Check the ability to clean up old records from `new_reports` table if the table contains multiple old reports.
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
@@ -58,6 +62,7 @@ Feature: Ability to clean up records stored in database
      Then I should get 0 rows
 
 
+  @cli @database @database-write
   Scenario: Check the ability to clean up old records from `reported` table if the table contains one old report.
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
@@ -73,6 +78,7 @@ Feature: Ability to clean up records stored in database
      Then I should get 0 rows
 
 
+  @cli @database @database-write
   Scenario: Check the ability to clean up old records from `reported` table if the table contains two old reports.
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
@@ -89,6 +95,7 @@ Feature: Ability to clean up records stored in database
      Then I should get 0 rows
 
 
+  @cli @database @database-write
   Scenario: Check that newest records in `new_reports` table are not deleted by cleanup - one new record only.
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
@@ -104,6 +111,7 @@ Feature: Ability to clean up records stored in database
      Then I should get 1 row
 
 
+  @cli @database @database-write
   Scenario: Check that newest records in `new_reports` table are not deleted by cleanup - multiple new records only.
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
@@ -120,6 +128,7 @@ Feature: Ability to clean up records stored in database
      Then I should get 2 rows
 
 
+  @cli @database @database-write
   Scenario: Check that newest records in `new_reports` table are not deleted by cleanup - old and new records.
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
@@ -136,6 +145,7 @@ Feature: Ability to clean up records stored in database
      Then I should get 1 row
 
 
+  @cli @database @database-write
   Scenario: Check the ability to clean up old records from `reported` table if the table is not empty - contains one new report.
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
@@ -151,6 +161,7 @@ Feature: Ability to clean up records stored in database
      Then I should get 1 row
 
 
+  @cli @database @database-write
   Scenario: Check the ability to clean up old records from `reported` table if the table is not empty and contains only new reports.
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres
@@ -167,6 +178,7 @@ Feature: Ability to clean up records stored in database
      Then I should get 2 rows
 
 
+  @cli @database @database-write
   Scenario: Check the ability to clean up old records from `reported` table if the table is not empty and contains old and new reports.
     Given Postgres is running
       And CCX Notification database is created for user postgres with password postgres

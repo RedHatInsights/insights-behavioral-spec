@@ -1,10 +1,12 @@
 Feature: Customer Notifications
 
+
   Background: Kafka is empty
     Given Kafka topic "platform.notifications.ingress" is empty
       And CCX Notification database is created for user postgres with password postgres
       And CCX Notification database is empty 
       And insights-content service is available on localhost:8082
+
 
   Scenario: Check that notification service does not need kafka if database has no new report
     Given Postgres is running
@@ -12,6 +14,7 @@ Feature: Customer Notifications
      Then the process should exit with status code set to 0
 
 
+  @message-producer
   Scenario: Check that notification service does not send messages to kafka if both broker is disabled and service log enabled
     Given Postgres is running
      When I insert 1 report with important total risk for the following clusters
@@ -30,6 +33,8 @@ Feature: Customer Notifications
      When I select all rows from table reported
      Then I should get 0 rows
 
+
+  @message-producer
   Scenario: Check that notification service produces instant notifications with the expected content if all dependencies are available
     Given Postgres is running
       And Kafka broker is available on localhost:9092
@@ -46,6 +51,8 @@ Feature: Customer Notifications
      When I select all rows from table reported
      Then I should get 1 rows
 
+
+  @message-producer
   Scenario: Check that notification service produces a single notification event for cluster with multiple new reports
     Given Postgres is running
       And Kafka broker is available on localhost:9092
@@ -64,6 +71,7 @@ Feature: Customer Notifications
       And the process should exit with status code set to 0
 
 
+  @message-producer
   Scenario: Check that instant notification does not include the same reports as in previous notification
     Given Postgres is running
       And Kafka broker is available on localhost:9092
@@ -85,7 +93,7 @@ Feature: Customer Notifications
       And the process should exit with status code set to 0
 
 
-
+  @message-producer
   Scenario: Check that notification service does not flood customer with unnecessary instant emails
     Given Postgres is running
       And Kafka broker is available on localhost:9092
@@ -109,6 +117,8 @@ Feature: Customer Notifications
           |  1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 3          |
       And the process should exit with status code set to 0
 
+
+  @message-producer
   Scenario: Check that notification service resends notification after cooldown has passed
     Given Postgres is running
       And Kafka broker is available on localhost:9092

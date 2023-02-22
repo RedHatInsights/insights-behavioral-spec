@@ -7,6 +7,8 @@ Feature: Service Log
       And service-log service is available on localhost:8000
       And token refreshment server is available on localhost:8001
 
+
+  @rest-api
   Scenario: Check that notification service does not send messages to service log if it is disabled
     Given Postgres is running
       And service-log service is empty
@@ -23,6 +25,8 @@ Feature: Service Log
           | Report with high impact detected | yes        |
           | No new issues to notify          | no         |
 
+
+  @rest-api
   Scenario: Check that notification service sends messages to service log if it is enabled
     Given Postgres is running
       And service-log service is empty
@@ -36,6 +40,8 @@ Feature: Service Log
      Then it should have sent 1 notification events to Service Log
       And the process should exit with status code set to 0
 
+
+  @rest-api
   Scenario: Check that notification service doesn't send message to service log if it is not important
     Given Postgres is running
       And service-log service is empty
@@ -49,6 +55,8 @@ Feature: Service Log
      Then it should have sent 0 notification events to Service Log
       And the process should exit with status code set to 0
 
+
+  @rest-api
   Scenario: Check that notification service doesn't send message that has been sent within cooldown
     Given Postgres is running
       And service-log service is empty
@@ -65,6 +73,8 @@ Feature: Service Log
      Then it should have sent 0 notification events to Service Log
       And the process should exit with status code set to 0
 
+
+  @rest-api
   Scenario: Check that notification service resends message after cooldown has passed
     Given Postgres is running
       And service-log service is empty
@@ -81,6 +91,8 @@ Feature: Service Log
      Then it should have sent 1 notification events to Service Log
       And the process should exit with status code set to 0
 
+
+  @rest-api
   Scenario: Check that notification service produces a single notification event for cluster with multiple new reports
     Given Postgres is running
       And service-log service is empty
@@ -97,6 +109,8 @@ Feature: Service Log
      Then it should have sent 1 notification events to Service Log
       And the process should exit with status code set to 0
 
+
+  @rest-api
   Scenario: Check that Kafka related rows in reported table do not affect notifications sent to service log
     Given Postgres is running
       And service-log service is empty
