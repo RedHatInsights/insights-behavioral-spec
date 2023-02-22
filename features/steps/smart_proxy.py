@@ -34,3 +34,38 @@ def run_insights_results_aggregator_with_flag(context, flag):
     assert out is not None
     process_generated_output(context, out, 2)
 
+
+def check_help_from_smart_proxy(context):
+    """Check if help is displayed by Smart Proxy."""
+    expected_output = """
+Clowder is not enabled, skipping init...
+Clowder is disabled
+
+Smart Proxy service for insights results
+
+Usage:
+
+    insights-results-smart-proxy [command]
+
+The commands are:
+
+    <EMPTY>             starts smart-proxy
+    start-service       starts smart-proxy
+    help                prints help
+    print-help          prints help
+    print-config        prints current configuration set by files & env variables
+    print-env           prints env variables
+    print-version-info  prints version info
+"""
+
+    assert context.stdout is not None
+    stdout = context.stdout.decode("utf-8").replace("\t", "    ")
+
+    # preliminary checks
+    assert stdout is not None, "stdout object should exist"
+    assert type(stdout) is str, "wrong type of stdout object"
+
+    # check the output
+    assert stdout.strip() == expected_output.strip(), "{} != {}".format(
+        stdout, expected_output
+    )
