@@ -21,6 +21,7 @@ nav_order: 4
 * `@metadata` - scenarios that work with metadata (list of table, list of topics etc.)
 * `@json-check` - scenarios with test step that checks data (messages) for proper JSON format
 * `@json-schema-check` - scenarios with test step that checks data (messages) against JSON schema
+* `@message-producer` - scenarios that send messages to message broker (usually to Apache Kafka)
 
 ## Custom tags
 
