@@ -2,6 +2,7 @@
 Feature: Ability to display old records stored in database
 
 
+  @cli @database @database-read
   Scenario: Check the ability to display old records from `new_reports` table if the table is empty.
     Given the system is in default state
       And the database is named notification
@@ -19,6 +20,7 @@ Feature: Ability to display old records stored in database
      Then the process should exit with status code set to 0
 
 
+  @cli @database @database-read
   Scenario: Check the ability to display old records from `reported` table if the table is empty.
     Given the system is in default state
       And the database is named notification
@@ -36,6 +38,7 @@ Feature: Ability to display old records stored in database
      Then the process should exit with status code set to 0
 
 
+  @cli @database @database-read
   Scenario: Check the ability to display old records from `new_reports` table if the table is not empty and contains old report.
     Given the system is in default state
       And the database is named notification
@@ -56,6 +59,7 @@ Feature: Ability to display old records stored in database
      Then the process should exit with status code set to 0
 
 
+  @cli @database @database-read
   Scenario: Check the ability to display old records from `new_reports` table if the table is not empty and contains new report.
     Given the system is in default state
       And the database is named notification
@@ -76,6 +80,7 @@ Feature: Ability to display old records stored in database
      Then the process should exit with status code set to 0
 
 
+  @cli @database @database-read
   Scenario: Check the ability to display old records from `new_reports` table if the table is not empty and contains old reports.
     Given the system is in default state
       And the database is named notification
@@ -97,6 +102,7 @@ Feature: Ability to display old records stored in database
      Then the process should exit with status code set to 0
 
 
+  @cli @database @database-read
   Scenario: Check the ability to display old records from `new_reports` table if the table is not empty and contains new reports.
     Given the system is in default state
       And the database is named notification
@@ -118,6 +124,7 @@ Feature: Ability to display old records stored in database
      Then the process should exit with status code set to 0
 
 
+  @cli @database @database-read
   Scenario: Check the ability to display old records from `new_reports` table if the table is not empty and contains mixed reports.
     Given the system is in default state
       And the database is named notification
@@ -140,6 +147,7 @@ Feature: Ability to display old records stored in database
      Then the process should exit with status code set to 0
 
 
+  @cli @database @database-read
   Scenario: Check the ability to display old records from `reported` table if the table is not empty and contains one old report.
     Given the system is in default state
       And the database is named notification
@@ -161,6 +169,7 @@ Feature: Ability to display old records stored in database
      Then the process should exit with status code set to 0
 
 
+  @cli @database @database-read
   Scenario: Check the ability to display old records from `reported` table if the table is not empty and contains one new report.
     Given the system is in default state
       And the database is named notification
@@ -182,6 +191,7 @@ Feature: Ability to display old records stored in database
      Then the process should exit with status code set to 0
 
 
+  @cli @database @database-read
   Scenario: Check the ability to display old records from `reported` table if the table is not empty and contains old reports.
     Given the system is in default state
       And the database is named notification
@@ -204,6 +214,7 @@ Feature: Ability to display old records stored in database
      Then the process should exit with status code set to 0
 
 
+  @cli @database @database-read
   Scenario: Check the ability to display old records from `reported` table if the table is not empty and contains old reports and contains new reports.
     Given the system is in default state
       And the database is named notification
@@ -226,6 +237,7 @@ Feature: Ability to display old records stored in database
      Then the process should exit with status code set to 0
 
 
+  @cli @database @database-read
   Scenario: Check the ability to display old records from `reported` table if the table is not empty and contains old reports and contains mixed reports.
     Given the system is in default state
       And the database is named notification

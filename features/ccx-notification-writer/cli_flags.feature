@@ -2,24 +2,28 @@
 Feature: Check command line options provided by CCX Notification Writer
 
 
+  @cli
   Scenario: Check if CCX Notification Writer displays help message
     Given the system is in default state
      When I start the CCX Notification Writer with the --help command line flag
      Then I should see help messages displayed by ccx-notification-writer on standard output
 
 
+  @cli
   Scenario: Check if CCX Notification Writer displays version info
     Given the system is in default state
      When I start the CCX Notification Writer with the --version command line flag
      Then I should see version info displayed by ccx-notification-writer on standard output
 
 
+  @cli
   Scenario: Check if CCX Notification Writer displays authors
     Given the system is in default state
      When I start the CCX Notification Writer with the --authors command line flag
      Then I should see info about authors displayed by ccx-notification-writer on standard output
 
 
+  @cli @database @database-write
   Scenario: Check the ability to initialize migration info table
     Given the system is in default state
       And the database is named notification
@@ -32,6 +36,7 @@ Feature: Check command line options provided by CCX Notification Writer
       And CCX Notification database is migrated
 
 
+  @cli @database @database-write
   Scenario: Check the ability to initialize all database tables
     Given the system is in default state
       And the database is named notification
@@ -44,6 +49,7 @@ Feature: Check command line options provided by CCX Notification Writer
       And CCX Notification database is set up
 
 
+  @cli @database @database-write
   Scenario: Check the ability to perform database cleanup
     Given the system is in default state
       And the database is named notification
@@ -55,6 +61,7 @@ Feature: Check command line options provided by CCX Notification Writer
      Then the process should exit with status code set to 0
 
 
+  @cli @database @database-write
   Scenario: Check the ability to drop all database tables
     Given the system is in default state
       And the database is named notification

@@ -2,6 +2,7 @@
 Feature: Ability to clean up old records stored in database with new records
 
 
+  @cli @database @database-write
   Scenario: Check the ability to clean up old records from `new_reports` table if the table is empty.
     Given the system is in default state
       And the database is named notification
@@ -25,6 +26,7 @@ Feature: Ability to clean up old records stored in database with new records
      Then the process should exit with status code set to 0
 
 
+  @cli @database @database-write
   Scenario: Check the ability to clean up old records from `reported` table if the table is empty.
     Given the system is in default state
       And the database is named notification
@@ -48,6 +50,7 @@ Feature: Ability to clean up old records stored in database with new records
      Then the process should exit with status code set to 0
 
 
+  @cli @database @database-write
   Scenario: Check the ability to clean up old records from `new_reports` table if the table is not empty.
     Given the system is in default state
       And the database is named notification
@@ -74,6 +77,7 @@ Feature: Ability to clean up old records stored in database with new records
      Then the process should exit with status code set to 0
 
 
+  @cli @database @database-write
   Scenario: Check the ability to clean up old records from `new_reports` table if the table is not empty and contains two new reports.
     Given the system is in default state
       And the database is named notification
@@ -101,6 +105,7 @@ Feature: Ability to clean up old records stored in database with new records
      Then the process should exit with status code set to 0
 
 
+  @cli @database @database-write
   Scenario: Check the ability to clean up old records from `new_reports` table if the table is not empty and contains old and new reports.
     Given the system is in default state
       And the database is named notification
@@ -128,6 +133,7 @@ Feature: Ability to clean up old records stored in database with new records
      Then the process should exit with status code set to 0
 
 
+  @cli @database @database-write
   Scenario: Check the ability to clean up old records from `reported` table if the table is not empty - contains one new report.
     Given the system is in default state
       And the database is named notification
@@ -154,6 +160,7 @@ Feature: Ability to clean up old records stored in database with new records
      Then the process should exit with status code set to 0
 
 
+  @cli @database @database-write
   Scenario: Check the ability to clean up old records from `reported` table if the table is not empty and contains only new reports.
     Given the system is in default state
       And the database is named notification
@@ -181,6 +188,7 @@ Feature: Ability to clean up old records stored in database with new records
      Then the process should exit with status code set to 0
 
 
+  @cli @database @database-write
   Scenario: Check the ability to clean up old records from `reported` table if the table is not empty and contains old and new reports.
     Given the system is in default state
       And the database is named notification
