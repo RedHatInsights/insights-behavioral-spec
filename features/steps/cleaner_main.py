@@ -69,6 +69,19 @@ def run_cleaner_to_cleanup_cluster(context, cluster):
     process_generated_output(context, out, 0)
 
 
+@when("I instruct the cleaner to vacuum database")
+def start_db_vacuum(context):
+    """Start the cleaner to vacuum database."""
+    out = subprocess.Popen(
+        ["insights-results-aggregator-cleaner", "-vacuum"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
+
+    assert out is not None
+    process_generated_output(context, out, 0)
+
+
 def check_help_from_cleaner(context):
     """Check if help is displayed by cleaner."""
     expected_output = """Clowder is not enabled, skipping init...
