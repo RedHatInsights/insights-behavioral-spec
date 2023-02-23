@@ -82,6 +82,28 @@ def start_db_vacuum(context):
     process_generated_output(context, out, 0)
 
 
+@then("I should see information about vacuuming process")
+def check_db_vacuuming(context):
+    """Check if DB vacuuming were started and finished."""
+    # preliminary checks
+    assert context.output is not None
+    assert type(context.output) is list, "wrong type of output"
+
+    expected_messages = (
+            "DB connection configuration",
+            "driverName",
+            "postgres",
+            "Vacuuming started",
+            "Vacuuming finished")
+
+    for expected_message in expected_messages:
+        for line in context.output:
+            if expected_message in line:
+                break
+        else:
+            raise Exception(f"Message '{expected_message}' was not printed during vacuuming")
+
+
 def check_help_from_cleaner(context):
     """Check if help is displayed by cleaner."""
     expected_output = """Clowder is not enabled, skipping init...
