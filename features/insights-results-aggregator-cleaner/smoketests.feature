@@ -30,6 +30,13 @@ Feature: Basic set of smoke tests
      Then I should see info about authors displayed by cleaner on standard output
 
 
+  @cli
+  Scenario: Check if cleaner displays actual configuration
+    Given the system is in default state
+     When I run the cleaner with the --show-configuration command line flag
+     Then I should see info about configuration displayed by cleaner on standard output
+
+
   @database
   Scenario: Check if Postgres database is available
     Given the system is in default state
