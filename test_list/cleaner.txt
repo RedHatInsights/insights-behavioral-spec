@@ -1,3 +1,4 @@
 ../features/insights-results-aggregator-cleaner/smoketests.feature
 ../features/insights-results-aggregator-cleaner/display_old_records.feature
 ../features/insights-results-aggregator-cleaner/cleanup_selected_records.feature
+../features/insights-results-aggregator-cleaner/vacuuming.feature

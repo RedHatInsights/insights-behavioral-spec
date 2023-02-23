@@ -96,6 +96,7 @@ nav_order: 2
 * [Basic set of smoke tests](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-cleaner/smoketests.feature)
 * [Ability to display old records](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-cleaner/display_old_records.feature)
 * [Ability to delete selected records](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-cleaner/cleanup_selected_records.feature)
+* [Ability to vacuum database](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-cleaner/vacuuming.feature)
 
 
 
