@@ -313,6 +313,7 @@ nav_order: 3
 * Check if cleaner displays help message
 * Check if cleaner displays version info
 * Check if cleaner displays authors
+* Check if cleaner displays actual configuration
 * Check if Postgres database is available
 
 ## `insights-results-aggregator-exporter/database_access.feature`
