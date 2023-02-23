@@ -133,6 +133,27 @@ def check_authors_info_from_cleaner(context):
     ), "Caught output: {}".format(context.output)
 
 
+@then("I should see info about configuration displayed by cleaner on standard output")
+def check_cleaner_configuration(context):
+    """Check if information about actual configuration is displayed by cleaner."""
+    # preliminary checks
+    assert context.output is not None
+    assert type(context.output) is list, "wrong type of output"
+
+    expected_messages = (
+            "DB connection configuration",
+            "Storage configuration",
+            "Logging configuration",
+            "Cleaner configuration")
+
+    for expected_message in expected_messages:
+        for line in context.output:
+            if f'"message":"{expected_message}"' in line:
+                break
+        else:
+            raise Exception(f"Message '{expected_message}' was not found in configuration")
+
+
 @then(u"I should see empty list of records")
 def check_empty_list_of_records(context):
     """Check if the cleaner displays empty list of records."""
