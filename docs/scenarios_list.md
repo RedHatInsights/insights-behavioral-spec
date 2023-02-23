@@ -316,6 +316,10 @@ nav_order: 3
 * Check if cleaner displays actual configuration
 * Check if Postgres database is available
 
+## `insights-results-aggregator-cleaner/vacuuming.feature`
+
+* Vacuum the database
+
 ## `insights-results-aggregator-exporter/database_access.feature`
 
 * Check access to empty database
