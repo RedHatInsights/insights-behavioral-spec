@@ -108,6 +108,7 @@ nav_order: 2
 * [Ability to export tables into file with max limit of records set](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-exporter/file_export_with_limit.feature)
 * [Ability to export metadata into file](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-exporter/file_export_metadata.feature)
 * [Ability to export tables into S3](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-exporter/s3_export.feature)
+* [Ability to export tables into S3 with max limit of records set](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-exporter/s3_export_with_limit.feature)
 * [Ability to export metadata into S3](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-exporter/s3_export_metadata.feature)
 * [Ability to export log into file](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-exporter/export_log.feature)
 
