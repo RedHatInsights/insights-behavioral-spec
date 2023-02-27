@@ -89,6 +89,7 @@ def setup_default_S3_context(context):
         "S3_SECRET_ACCESS_KEY", "test_secret_access_key"
     )
     context.S3_bucket_name = os.getenv("S3_BUCKET", "test")
+    context.S3_old_minio_compatibility = os.getenv("S3_OLDER_MINIO_COMPATIBILITY", None)
 
 
 def setup_default_kafka_context(context):
