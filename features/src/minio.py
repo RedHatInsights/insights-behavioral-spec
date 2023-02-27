@@ -58,3 +58,11 @@ def read_object_into_buffer(context, object_name):
     assert buff is not None, "Decoding/read error"
 
     return buff
+
+
+def get_object_name(context, filename):
+    """Retrieve object name compatible with S3 and Minio, including older versions."""
+    if context.S3_old_minio_compatibility:
+        return filename
+    else:
+        return f"{context.S3_bucket_name}/{filename}"
