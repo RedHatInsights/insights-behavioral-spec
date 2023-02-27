@@ -7,6 +7,11 @@ FEATURES_WITH_KAFKA = ["notification_writer", "notification_service"]
 FEATURES_WITH_MINIO = ["aggregator_exporter"]
 FEATURES_NOTIFICATION = ["notification_writer", "notification_service", "service_log"]
 
+CLEANUP_FILE = {
+    "test": "setup/clean_aggregator_database.sql",
+    "notification": "setup/clean_notification_database.sql",
+}
+
 
 def before_all(context):
     context.database_host = os.getenv("DB_HOST", "localhost")
@@ -26,21 +31,20 @@ def before_scenario(context, scenario):
         return
 
 
-def clean_db(context):
+def clean_db(context, database="test"):
     connection_string = "host={} port={} dbname={} user={} password={}".format(
         context.database_host,
         context.database_port,
-        "test",
+        database,
         context.database_user,
         context.database_password,
     )
+
     connection = psycopg2.connect(connection_string)
     assert connection is not None, "connection should be established"
-    print(f"connected to {connection.info.dsn_parameters}")
-    with open("setup/clean_aggregator_database.sql") as f:
+    with open(CLEANUP_FILE[database]) as f:
         c = connection.cursor()
         for line in f:
-            print("Line to execute: ", line)
             try:
                 c.execute(line)
             except Exception:
@@ -49,34 +53,6 @@ def clean_db(context):
                 raise
         connection.commit()
         c.close()
-    connection.close()
-
-
-def create_notification_db(context):
-    connection_string = "host={} port={} dbname={} user={} password={}".format(
-        context.database_host,
-        context.database_port,
-        "test",
-        context.database_user,
-        context.database_password,
-    )
-    connection = psycopg2.connect(connection_string)
-    assert connection is not None, "connection should be established"
-    connection.autocommit = True
-    cursor = connection.cursor()
-
-    try:
-        cursor.execute("CREATE DATABASE notification")
-    except psycopg2.Error as err:
-        if (
-            err.pgerror != 'ERROR: database "notification" already exists'
-            and err.pgcode != "42P04"
-        ):
-            print("Couldn't create database notification")
-            connection.rollback()
-            raise
-
-    cursor.close()
     connection.close()
 
 
@@ -105,6 +81,3 @@ def before_feature(context, feature):
 
     if any(f in feature.tags for f in FEATURES_WITH_KAFKA):
         setup_default_kafka_context(context)
-
-    if any(f in feature.tags for f in FEATURES_NOTIFICATION):
-        create_notification_db(context)

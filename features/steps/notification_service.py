@@ -82,6 +82,8 @@ def process_ccx_notification_service_output(context, out, return_codes):
     context.stdout = stdout
     context.stderr = stderr
     context.returncode = out.returncode
+    for line in output:
+        print(line)
 
 
 @when("max-age {age:Age} command line flag is specified")
@@ -370,12 +372,12 @@ def check_cleaned_items_on_standard_output(context, table, max_age):
     assert max_age in stdout, f"Caught output: {stdout}"
 
 
-def get_events_kafka(num_event):
+def get_events_kafka(context, num_event):
     """Get the latest {num_event} messages in Kafka."""
     # use the kcat tool to retrieve metadata from Kafka broker:
     # -J enables kcat to produce output in JSON format
     # -L flag choose mode: metadata list
-    address = "localhost:9092"
+    address = f"{context.kafka_hostname}:{context.kafka_port}"
     topic = "platform.notifications.ingress"
 
     params = [
@@ -414,7 +416,7 @@ def get_events_kafka(num_event):
 @then("it should have sent {num_event:d} notification events to Kafka")
 def count_notification_events_kafka(context, num_event):
     """Get events from kafka topic and count them to check if matches."""
-    events = get_events_kafka(num_event)
+    events = get_events_kafka(context, num_event)
     assert (
         len(events) == num_event
     ), f"Retrieved {len(events)} events when {num_event} was expected"
@@ -423,7 +425,7 @@ def count_notification_events_kafka(context, num_event):
 @then("it should have sent the following {num_event:d} notification events to Kafka")
 def retrieve_notification_events_kafka(context, num_event):
     """Get events from kafka topic and check they are the expected."""
-    events = get_events_kafka(num_event)
+    events = get_events_kafka(context, num_event)
     count_notification_events_kafka(context, num_event)
 
     for index, line in enumerate(events):
@@ -455,11 +457,11 @@ def retrieve_notification_events_kafka(context, num_event):
             account_id == encoded["account_id"]
         ), f"Expected account id to be {account_id}"
         assert (
-            cluster_id in encoded["context"]
+            cluster_id == encoded["context"]["display_name"]
         ), f"Expected cluster name in event to be {cluster_id}."
         assert (
-            f'"total_risk":"{total_risk}"' in encoded["events"][0]["payload"]
-        ), f'"total_risk":"{total_risk}" not in {encoded["events"][0]["payload"]}'
+            total_risk == encoded["events"][0]["payload"]["total_risk"]
+        ), f"Expected reported risk in event to be {total_risk}."
 
 
 def get_events_service_log():
