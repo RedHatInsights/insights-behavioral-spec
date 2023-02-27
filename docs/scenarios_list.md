@@ -325,6 +325,32 @@ nav_order: 3
 * Check access to empty database
 * Check table creation on deletion
 
+## `insights-results-aggregator-exporter/export_log.feature`
+
+* Check export empty tables into file with producing log file
+* Check export empty tables and metadata table into file with producing log file
+
+## `insights-results-aggregator-exporter/export_with_limit.feature`
+
+* Check export empty tables into file with record limit explicitly set
+* Check export from REPORT table with record limit explicitly set
+* Check export from ADVISOR_RATINGS table with record limit explicitly set
+* Check export from CLUSTER_RULE_TOGGLE table with record limit explicitly set
+* Check export from CLUSTER_RULE_USER_FEEDBACK table with record limit explicitly set
+* Check export from CLUSTER_USER_RULE_DISABLE_FEEDBACK table with record limit explicitly set
+* Check export from RULE_HIT table with record limit explicitly set
+* Check export from RECOMMENDATION table with record limit explicitly set
+* Check export from MIGRATION_INFO table with record limit explicitly set
+* Check export from ADVISOR_RATINGS table with record limit explicitly set
+* Check export from CLUSTER_RULE_TOGGLE table with record limit explicitly set
+* Check export from CLUSTER_RULE_USER_FEEDBACK table with record limit explicitly set
+* Check export from CLUSTER_USER_RULE_DISABLE_FEEDBACK table with record limit explicitly set
+* Check export from RULE_HIT table with record limit explicitly set
+* Check export from RECOMMENDATION table with record limit explicitly set
+* Check export from CONSUMER_ERROR table with record limit explicitly set
+* Check export from REPORT_INFO table with record limit explicitly set
+* Check export from RULE_DISABLE table with record limit explicitly set
+
 ## `insights-results-aggregator-exporter/file_export.feature`
 
 * Check export empty tables into file

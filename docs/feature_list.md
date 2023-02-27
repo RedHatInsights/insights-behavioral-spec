@@ -105,9 +105,11 @@ nav_order: 2
 * [Basic set of smoke tests](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-exporter/smoketests.feature)
 * [Ability to access database](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-exporter/database_access.feature)
 * [Ability to export tables into file](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-exporter/file_export.feature)
+* [Ability to export tables into file with max limit of records set](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-exporter/export_with_limit.feature)
 * [Ability to export metadata into file](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-exporter/file_export_metadata.feature)
 * [Ability to export tables into S3](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-exporter/s3_export.feature)
 * [Ability to export metadata into S3](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-exporter/s3_export_metadata.feature)
+* [Ability to export log into file](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-exporter/export_log.feature)
 
 
 

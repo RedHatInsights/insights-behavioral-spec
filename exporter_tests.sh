@@ -34,5 +34,6 @@ PYTHONDONTWRITEBYTECODE=1 python3 -m behave --tags=-skip -D dump_errors=true @te
 if [ $? -eq 0 ]
 then
     rm *.csv
+    rm _logs.txt
 fi
 
