@@ -374,24 +374,42 @@ nav_order: 3
 
 ## `insights-results-aggregator-exporter/file_export_with_limit.feature`
 
-* Check export empty tables into file with record limit explicitly set
-* Check export from REPORT table with record limit explicitly set
-* Check export from ADVISOR_RATINGS table with record limit explicitly set
-* Check export from CLUSTER_RULE_TOGGLE table with record limit explicitly set
-* Check export from CLUSTER_RULE_USER_FEEDBACK table with record limit explicitly set
-* Check export from CLUSTER_USER_RULE_DISABLE_FEEDBACK table with record limit explicitly set
-* Check export from RULE_HIT table with record limit explicitly set
-* Check export from RECOMMENDATION table with record limit explicitly set
-* Check export from MIGRATION_INFO table with record limit explicitly set
-* Check export from ADVISOR_RATINGS table with record limit explicitly set
-* Check export from CLUSTER_RULE_TOGGLE table with record limit explicitly set
-* Check export from CLUSTER_RULE_USER_FEEDBACK table with record limit explicitly set
-* Check export from CLUSTER_USER_RULE_DISABLE_FEEDBACK table with record limit explicitly set
-* Check export from RULE_HIT table with record limit explicitly set
-* Check export from RECOMMENDATION table with record limit explicitly set
-* Check export from CONSUMER_ERROR table with record limit explicitly set
-* Check export from REPORT_INFO table with record limit explicitly set
-* Check export from RULE_DISABLE table with record limit explicitly set
+* Check export empty tables into file with record limit explicitly set to 2
+* Check export from REPORT table with record limit explicitly set to 2
+* Check export from ADVISOR_RATINGS table with record limit explicitly set to 2
+* Check export from CLUSTER_RULE_TOGGLE table with record limit explicitly set to 2
+* Check export from CLUSTER_RULE_USER_FEEDBACK table with record limit explicitly set to 2
+* Check export from CLUSTER_USER_RULE_DISABLE_FEEDBACK table with record limit explicitly set to 2
+* Check export from RULE_HIT table with record limit explicitly set to 2
+* Check export from RECOMMENDATION table with record limit explicitly set to 2
+* Check export from MIGRATION_INFO table with record limit explicitly set to 2
+* Check export from ADVISOR_RATINGS table with record limit explicitly set to 2
+* Check export from CLUSTER_RULE_TOGGLE table with record limit explicitly set to 2
+* Check export from CLUSTER_RULE_USER_FEEDBACK table with record limit explicitly set to 2
+* Check export from CLUSTER_USER_RULE_DISABLE_FEEDBACK table with record limit explicitly set to 2
+* Check export from RULE_HIT table with record limit explicitly set to 2
+* Check export from RECOMMENDATION table with record limit explicitly set to 2
+* Check export from CONSUMER_ERROR table with record limit explicitly set to 2
+* Check export from REPORT_INFO table with record limit explicitly set to 2
+* Check export from RULE_DISABLE table with record limit explicitly set to 2
+* Check export empty tables into file with limit explicitly set to zero
+* Check export from REPORT table with limit explicitly set to zero
+* Check export from ADVISOR_RATINGS table with limit explicitly set to zero
+* Check export from CLUSTER_RULE_TOGGLE table with limit explicitly set to zero
+* Check export from CLUSTER_RULE_USER_FEEDBACK table with limit explicitly set to zero
+* Check export from CLUSTER_USER_RULE_DISABLE_FEEDBACK table with limit explicitly set to zero
+* Check export from RULE_HIT table with limit explicitly set to zero
+* Check export from RECOMMENDATION table with limit explicitly set to zero
+* Check export from MIGRATION_INFO table with limit explicitly set to zero
+* Check export from ADVISOR_RATINGS table with limit explicitly set to zero
+* Check export from CLUSTER_RULE_TOGGLE table with limit explicitly set to zero
+* Check export from CLUSTER_RULE_USER_FEEDBACK table with limit explicitly set to zero
+* Check export from CLUSTER_USER_RULE_DISABLE_FEEDBACK table with limit explicitly set to zero
+* Check export from RULE_HIT table with limit explicitly set to zero
+* Check export from RECOMMENDATION table with limit explicitly set to zero
+* Check export from CONSUMER_ERROR table with limit explicitly set to zero
+* Check export from REPORT_INFO table with limit explicitly set to zero
+* Check export from RULE_DISABLE table with limit explicitly set to zero
 
 ## `insights-results-aggregator-exporter/s3_export.feature`
 
@@ -437,24 +455,42 @@ nav_order: 3
 
 ## `insights-results-aggregator-exporter/s3_export_with_limit.feature`
 
-* Check export empty tables into S3/Minio with record limit explicitly set
-* Check export from REPORT table into S3/Minio with record limit explicitly set
-* Check export from ADVISOR_RATINGS table into S3/Minio with record limit explicitly set
-* Check export from CLUSTER_RULE_TOGGLE table into S3/Minio with record limit explicitly set
-* Check export from CLUSTER_RULE_USER_FEEDBACK table into S3/Minio with record limit explicitly set
-* Check export from CLUSTER_USER_RULE_DISABLE_FEEDBACK table into S3/Minio with record limit explicitly set
-* Check export from RULE_HIT table into S3/Minio with record limit explicitly set
-* Check export from RECOMMENDATION table into S3/Minio with record limit explicitly set
-* Check export from MIGRATION_INFO table into S3/Minio with record limit explicitly set
-* Check export from ADVISOR_RATINGS table into S3/Minio with record limit explicitly set
-* Check export from CLUSTER_RULE_TOGGLE table into S3/Minio with record limit explicitly set
-* Check export from CLUSTER_RULE_USER_FEEDBACK table into S3/Minio with record limit explicitly set
-* Check export from CLUSTER_USER_RULE_DISABLE_FEEDBACK table into S3/Minio with record limit explicitly set
-* Check export from RULE_HIT table into S3/Minio with record limit explicitly set
-* Check export from RECOMMENDATION table into S3/Minio with record limit explicitly set
-* Check export from CONSUMER_ERROR table into S3/Minio with record limit explicitly set
-* Check export from REPORT_INFO table into S3/Minio with record limit explicitly set
-* Check export from RULE_DISABLE table into S3/Minio with record limit explicitly set
+* Check export empty tables into S3/Minio with record limit explicitly set to 2
+* Check export from REPORT table into S3/Minio with record limit explicitly set to 2
+* Check export from ADVISOR_RATINGS table into S3/Minio with record limit explicitly set to 2
+* Check export from CLUSTER_RULE_TOGGLE table into S3/Minio with record limit explicitly set to 2
+* Check export from CLUSTER_RULE_USER_FEEDBACK table into S3/Minio with record limit explicitly set to 2
+* Check export from CLUSTER_USER_RULE_DISABLE_FEEDBACK table into S3/Minio with record limit explicitly set to 2
+* Check export from RULE_HIT table into S3/Minio with record limit explicitly set to 2
+* Check export from RECOMMENDATION table into S3/Minio with record limit explicitly set to 2
+* Check export from MIGRATION_INFO table into S3/Minio with record limit explicitly set to 2
+* Check export from ADVISOR_RATINGS table into S3/Minio with record limit explicitly set to 2
+* Check export from CLUSTER_RULE_TOGGLE table into S3/Minio with record limit explicitly set to 2
+* Check export from CLUSTER_RULE_USER_FEEDBACK table into S3/Minio with record limit explicitly set to 2
+* Check export from CLUSTER_USER_RULE_DISABLE_FEEDBACK table into S3/Minio with record limit explicitly set to 2
+* Check export from RULE_HIT table into S3/Minio with record limit explicitly set to 2
+* Check export from RECOMMENDATION table into S3/Minio with record limit explicitly set to 2
+* Check export from CONSUMER_ERROR table into S3/Minio with record limit explicitly set to 2
+* Check export from REPORT_INFO table into S3/Minio with record limit explicitly set to 2
+* Check export from RULE_DISABLE table into S3/Minio with record limit explicitly set to 2
+* Check export empty tables into S3/Minio with limit explicitly set to zero
+* Check export from REPORT table into S3/Minio with limit explicitly set to zero
+* Check export from ADVISOR_RATINGS table into S3/Minio with limit explicitly set to zero
+* Check export from CLUSTER_RULE_TOGGLE table into S3/Minio with limit explicitly set to zero
+* Check export from CLUSTER_RULE_USER_FEEDBACK table into S3/Minio with limit explicitly set to zero
+* Check export from CLUSTER_USER_RULE_DISABLE_FEEDBACK table into S3/Minio with limit explicitly set to zero
+* Check export from RULE_HIT table into S3/Minio with limit explicitly set to zero
+* Check export from RECOMMENDATION table into S3/Minio with limit explicitly set to zero
+* Check export from MIGRATION_INFO table into S3/Minio with limit explicitly set to zero
+* Check export from ADVISOR_RATINGS table into S3/Minio with limit explicitly set to zero
+* Check export from CLUSTER_RULE_TOGGLE table into S3/Minio with limit explicitly set to zero
+* Check export from CLUSTER_RULE_USER_FEEDBACK table into S3/Minio with limit explicitly set to zero
+* Check export from CLUSTER_USER_RULE_DISABLE_FEEDBACK table into S3/Minio with limit explicitly set to zero
+* Check export from RULE_HIT table into S3/Minio with limit explicitly set to zero
+* Check export from RECOMMENDATION table into S3/Minio with limit explicitly set to zero
+* Check export from CONSUMER_ERROR table into S3/Minio with limit explicitly set to zero
+* Check export from REPORT_INFO table into S3/Minio with limit explicitly set to zero
+* Check export from RULE_DISABLE table into S3/Minio with limit explicitly set to zero
 
 ## `insights-results-aggregator-exporter/smoketests.feature`
 
