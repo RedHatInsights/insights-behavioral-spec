@@ -26,10 +26,11 @@ PUSH_GATEWAY_METRICS_ENDPOINT = "/metrics"
 TOKEN_REFRESHMENT_ENDPOINT = (
     "/auth/realms/redhat-external/protocol/openid-connect/token"
 )
+TEMPLATE_RENDERER_ENDPOINT = "/rendered_reports"
 
 
-@when("I retrieve data from insights-content-service on {host:w}:{port:d}")
-@given("insights-content service is available on {host:w}:{port:d}")
+@when("I retrieve data from insights-content-service on {host}:{port:d}")
+@given("insights-content service is available on {host}:{port:d}")
 @then("I should get data from insights-content-service")
 def check_content_service_availability(context, host=None, port=None):
     """Check if insights-content-service is available at given address."""
@@ -49,7 +50,7 @@ def check_content_service_availability(context, host=None, port=None):
     assert response.status_code == 200
 
 
-@given("service-log service is available on {host:w}:{port:d}")
+@given("service-log service is available on {host}:{port:d}")
 def check_service_log_availability(context, host, port):
     """Check if service-log is available at given address."""
     url = create_url(host, port, SERVICE_LOG_CLUSTER_LOGS_ENDPOINT)
@@ -57,7 +58,7 @@ def check_service_log_availability(context, host, port):
     assert response.status_code == 200, "service log is not up"
 
 
-@given("token refreshment server is available on {host:w}:{port:d}")
+@given("token refreshment server is available on {host}:{port:d}")
 def check_token_refreshment_availability(context, host, port):
     """Check if token refreshment server is available at given address."""
     url = create_url(host, port, TOKEN_REFRESHMENT_ENDPOINT)
@@ -70,8 +71,8 @@ def check_token_refreshment_availability(context, host, port):
     assert response.status_code == 200, "token refreshment server is not up"
 
 
-@when("I retrieve metrics from the gateway on {host:w}:{port:d}")
-@given("prometheus push gateway is available on {host:w}:{port:d}")
+@when("I retrieve metrics from the gateway on {host}:{port:d}")
+@given("prometheus push gateway is available on {host}:{port:d}")
 @then("I should get data from the gateway")
 def check_push_gateway_availability(context, host=None, port=None):
     """Check if prometheus push gateway is available at given address."""

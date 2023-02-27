@@ -27,15 +27,12 @@ MIGRATION_INFO_TABLE = "migration_info"
 
 DB_TABLES = (
     "new_reports",
-    "notification_types",
     "reported",
-    "states",
 )
 
 
 DB_TABLES_LATEST = (
     "event_targets",
-    "migration_info",
     "new_reports",
     "notification_types",
     "read_errors",
@@ -86,6 +83,20 @@ def database_contains_migration_info_table(context):
 
 
 @given("CCX Notification database is set up")
+def ensure_database_contains_all_tables(context):
+    """Ensure that the tables exist and arwe empty."""
+    cursor = context.connection.cursor()
+    for table in DB_TABLES:
+        try:
+            cursor.execute("SELECT 1 from {}".format(table))
+            _ = cursor.fetchone()
+            cursor.execute(f"TRUNCATE TABLE {table} CASCADE")
+            context.connection.commit()
+        except Exception:
+            context.connection.rollback()
+            raise
+
+
 @then("CCX Notification database is set up")
 def database_contains_all_tables(context):
     """Check that the tables exist in the DB."""
@@ -98,7 +109,6 @@ def database_contains_all_tables(context):
         except UndefinedTable as e:
             context.connection.rollback()
             raise e
-    pass
 
 
 @given("CCX Notification database is not set up")
@@ -293,7 +303,7 @@ def insert_report_into_reported_table(context, risk, timestamp=None):
 )
 def insert_report_within_cooldown_in_reported_table(context, risk):
     """Insert rows into reported table within cooldown."""
-    timestamp_within_cooldown = datetime.now() - timedelta(seconds=30)
+    timestamp_within_cooldown = datetime.now() - timedelta(seconds=10)
     insert_report_into_reported_table(context, risk, timestamp_within_cooldown)
 
 

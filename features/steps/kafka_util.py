@@ -18,11 +18,14 @@
 import subprocess
 import json
 from behave import given, then, when
+from kafka import KafkaAdminClient
+from kafka.errors import UnknownTopicOrPartitionError
 
 
 @when("I retrieve metadata from Kafka broker")
 @when("I retrieve metadata from Kafka broker running on {hostname}:{port}")
 @given("Kafka broker is available on {hostname}:{port}")
+@given("Kafka broker is available")
 def retrieve_broker_metadata(context, hostname=None, port=None):
     """Use the kcat tool to retrieve metadata from Kafka broker."""
     # -J enables kcat to produce output in JSON format
@@ -72,36 +75,14 @@ def find_available_brokers(context):
 
 
 @given('Kafka topic "{topic}" is empty')
-def make_kafka_empty(context, topic):
-    """Delete all events from Kafka."""
-    # TODO: Make it compatible with local kafka, not just for docker
-    out = subprocess.Popen(
-        [
-            "docker",
-            "exec",
-            "-it",
-            "insights-behavioral-spec_kafka_1",
-            "./bin/kafka-topics.sh",
-            "--bootstrap-server",
-            f"{context.kafka_hostname}:{context.kafka_port}",
-            "--delete",
-            "--topic",
-            topic,
-        ],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
+def delete_kafka_topic(context, topic):
+    """Delete a Kakfa topic."""
+    admin_client = KafkaAdminClient(
+        bootstrap_servers=[f"{context.kafka_hostname}:{context.kafka_port}"]
     )
-    # check if call was correct
-    assert out is not None
-
-    # interact with the process:
-    # read data from stdout and stderr, until end-of-file is reached
-    stdout, stderr = out.communicate()
-
-    # try to decode output
-    output = stdout.decode("utf-8")
-
-    if "does not exist" in output:
-        return
-
-    assert out.returncode == 0, f"got {out.returncode} want 0"
+    try:
+        admin_client.delete_topics(topics=[topic])
+    except UnknownTopicOrPartitionError:
+        pass
+    except Exception as e:
+        print("Topic {} was not deleted. Error: {}".format(topic, e))
