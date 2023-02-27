@@ -8,26 +8,13 @@ services:
       - -c
       - "sleep infinity"
   database:
-    profiles:
-      - test-cleaner
-      - test-exporter
     ports:
       - 5432:5432
     image: postgres:13.9
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=test
-  database:
-    profiles:
-      - test-notification-services
-    ports:
-      - 5432:5432
-    image: postgres:13.9
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=notification
+      - POSTGRES_DB=${POSTGRES_DB_NAME}
   kafka:
     profiles:
       - test-notification-services

@@ -11,8 +11,12 @@ Behavioral specifications for Insights pipelines and its integration into OCM, O
 Optional: Spin up the docker containers:
 
 ```
-docker-compose up -d
+POSTGRES_DB_NAME=test docker-compose up -d
+POSTGRES_DB_NAME=test docker-compose --profile test-exporter up -d
+POSTGRES_DB_NAME=notification docker-compose --profile test-notifiation-services up -d
 ```
+
+The POSTGRES_DB_NAME environment variable is mandatory, as the different services expect different database names.
 
 If you don't want to spin up the containers, you'll need to locally run the required services (database, Kafka, etc.). You may need to add or remove the `managed` tag in the `${SERVICE}_tests.sh`.
 
