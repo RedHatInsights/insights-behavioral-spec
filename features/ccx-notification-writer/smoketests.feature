@@ -14,6 +14,7 @@ Feature: Basic set of smoke tests - checks if all required tools are available a
      Then I should find that file on PATH
 
 
+  @local
   Scenario: Check if jps utility is available
     Given the system is in default state
      When I look for executable file jps

@@ -15,7 +15,7 @@ Feature: Basic set of smoke tests - checks if all required tools are available a
      When I look for executable file kcat
      Then I should find that file on PATH
 
-  @managed
+  @managed @local
   Scenario: Check if jps utility is available
      When I look for executable file jps
      Then I should find that file on PATH
