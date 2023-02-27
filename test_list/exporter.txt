@@ -1,6 +1,7 @@
 ../features/insights-results-aggregator-exporter/smoketests.feature
 ../features/insights-results-aggregator-exporter/database_access.feature
 ../features/insights-results-aggregator-exporter/file_export.feature
+../features/insights-results-aggregator-exporter/export_log.feature
 ../features/insights-results-aggregator-exporter/s3_export.feature
 ../features/insights-results-aggregator-exporter/file_export_metadata.feature
 ../features/insights-results-aggregator-exporter/s3_export_metadata.feature
