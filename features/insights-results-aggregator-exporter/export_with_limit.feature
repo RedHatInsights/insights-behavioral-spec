@@ -1,5 +1,5 @@
 @aggregator_exporter
-Feature: Ability to export tables into file
+Feature: Ability to export tables into file with max limit of records set
 
 
   Background: System is in default state, database exist and is empty
