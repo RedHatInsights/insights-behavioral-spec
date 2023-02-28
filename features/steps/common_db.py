@@ -102,7 +102,13 @@ def look_for_table(context, table):
     context.connection.commit()
 
 
-@then(u"I should not be able to find it")
+@then(u"I should be able to find it")
 def check_table_existence(context):
+    """Check the table existence in the database."""
+    assert context.table_found is True, "table should exist"
+
+
+@then(u"I should not be able to find it")
+def check_table_non_existence(context):
     """Check the table existence in the database."""
     assert context.table_found is False, "table should not exist"
