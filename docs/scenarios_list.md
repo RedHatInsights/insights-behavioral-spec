@@ -283,6 +283,10 @@ nav_order: 3
 * Check if Smart Proxy displays help message
 * Check if Smart Proxy displays version info
 
+## `insights-results-aggregator/database_access.feature`
+
+* Check access to empty database
+
 ## `insights-results-aggregator/smoketests.feature`
 
 * Check if Insights Results Aggregator application is available
