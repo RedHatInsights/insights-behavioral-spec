@@ -2,11 +2,11 @@ import os
 import psycopg2
 
 
-FEATURES_CLEAN_DB = ["aggregator", "aggregator_cleaner", "aggregator_exporter"]
-FEATURES_INIT_DB = ["aggregator"]
-FEATURES_WITH_KAFKA = ["notification_writer", "notification_service"]
-FEATURES_WITH_MINIO = ["aggregator_exporter"]
-FEATURES_NOTIFICATION = ["notification_writer", "notification_service", "service_log"]
+FEATURES_CLEAN_DB = ("aggregator", "aggregator_cleaner", "aggregator_exporter")
+FEATURES_INIT_DB = ("aggregator", )
+FEATURES_WITH_KAFKA = ("notification_writer", "notification_service")
+FEATURES_WITH_MINIO = ("aggregator_exporter", )
+FEATURES_NOTIFICATION = ("notification_writer", "notification_service", "service_log")
 
 CLEANUP_FILES = {
     "test": "setup/clean_aggregator_database.sql",
