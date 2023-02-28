@@ -3,9 +3,9 @@ import psycopg2
 
 
 FEATURES_CLEAN_DB = ("aggregator", "aggregator_cleaner", "aggregator_exporter")
-FEATURES_INIT_DB = ("aggregator", )
+FEATURES_INIT_DB = ("aggregator",)
 FEATURES_WITH_KAFKA = ("notification_writer", "notification_service")
-FEATURES_WITH_MINIO = ("aggregator_exporter", )
+FEATURES_WITH_MINIO = ("aggregator_exporter",)
 FEATURES_NOTIFICATION = ("notification_writer", "notification_service", "service_log")
 
 CLEANUP_FILES = {
@@ -29,13 +29,19 @@ def before_all(context):
 
 
 def before_scenario(context, scenario):
-    """Run before and after each scenario is run."""
+    """Run before each scenario is run."""
     if "skip" in scenario.effective_tags:
         scenario.skip("Marked with @skip")
         return
     if "local" in scenario.effective_tags and not context.local:
         scenario.skip("Marked with @local")
         return
+
+
+def after_scenario(context, scenario):
+    """Run after each scenario is run."""
+    if "@database" in scenario.effective_tags:
+        prepare_db(context, CLEANUP_FILES, context.database_name)
 
 
 def prepare_db(context, setup_files=CLEANUP_FILES, database="test"):
@@ -84,7 +90,7 @@ def setup_default_kafka_context(context):
 
 
 def before_feature(context, feature):
-    """Run before and after each feature file is exercised."""
+    """Run before each feature file is exercised."""
     if any(f in feature.tags for f in FEATURES_CLEAN_DB):
         prepare_db(context, CLEANUP_FILES)
 

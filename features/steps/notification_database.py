@@ -32,6 +32,7 @@ DB_TABLES = (
 
 
 DB_TABLES_LATEST = (
+    MIGRATION_INFO_TABLE,
     "event_targets",
     "new_reports",
     "notification_types",
@@ -64,6 +65,7 @@ def database_is_migrated(context, version):
         stderr=subprocess.STDOUT,
     )
     assert out is not None
+
     out.communicate()
     out.wait()
 
