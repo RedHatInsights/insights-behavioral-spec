@@ -38,7 +38,7 @@ def before_scenario(context, scenario):
         return
 
 
-def prepared_db(context, setup_files=CLEANUP_FILES, database="test"):
+def prepare_db(context, setup_files=CLEANUP_FILES, database="test"):
     """Prepare database, including all default objects in DB."""
     connection_string = "host={} port={} dbname={} user={} password={}".format(
         context.database_host,
@@ -86,10 +86,10 @@ def setup_default_kafka_context(context):
 def before_feature(context, feature):
     """Run before and after each feature file is exercised."""
     if any(f in feature.tags for f in FEATURES_CLEAN_DB):
-        prepared_db(context, CLEANUP_FILES)
+        prepare_db(context, CLEANUP_FILES)
 
     if any(f in feature.tags for f in FEATURES_INIT_DB):
-        prepared_db(context, DB_INIT_FILES)
+        prepare_db(context, DB_INIT_FILES)
 
     if any(f in feature.tags for f in FEATURES_WITH_MINIO):
         setup_default_S3_context(context)
