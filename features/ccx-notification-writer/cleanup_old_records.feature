@@ -22,8 +22,6 @@ Feature: Ability to clean up old records stored in database
      Then I should get 0 rows
      When I close database connection
      Then I should be disconnected
-     When I start the CCX Notification Writer with the --db-drop-tables command line flag
-     Then the process should exit with status code set to 0
 
 
   @cli @database @database-write
@@ -46,8 +44,6 @@ Feature: Ability to clean up old records stored in database
      Then I should get 0 rows
      When I close database connection
      Then I should be disconnected
-     When I start the CCX Notification Writer with the --db-drop-tables command line flag
-     Then the process should exit with status code set to 0
 
 
   @cli @database @database-write
@@ -73,8 +69,6 @@ Feature: Ability to clean up old records stored in database
      Then I should get 0 rows
      When I close database connection
      Then I should be disconnected
-     When I start the CCX Notification Writer with the --db-drop-tables command line flag
-     Then the process should exit with status code set to 0
 
 
   @cli @database @database-write
@@ -101,8 +95,6 @@ Feature: Ability to clean up old records stored in database
      Then I should get 0 rows
      When I close database connection
      Then I should be disconnected
-     When I start the CCX Notification Writer with the --db-drop-tables command line flag
-     Then the process should exit with status code set to 0
 
 
   @cli @database @database-write
@@ -128,8 +120,6 @@ Feature: Ability to clean up old records stored in database
      Then I should get 0 rows
      When I close database connection
      Then I should be disconnected
-     When I start the CCX Notification Writer with the --db-drop-tables command line flag
-     Then the process should exit with status code set to 0
 
 
   @cli @database @database-write
@@ -156,5 +146,3 @@ Feature: Ability to clean up old records stored in database
      Then I should get 0 rows
      When I close database connection
      Then I should be disconnected
-     When I start the CCX Notification Writer with the --db-drop-tables command line flag
-     Then the process should exit with status code set to 0
