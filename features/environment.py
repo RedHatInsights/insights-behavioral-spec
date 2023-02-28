@@ -8,12 +8,12 @@ FEATURES_WITH_KAFKA = ["notification_writer", "notification_service"]
 FEATURES_WITH_MINIO = ["aggregator_exporter"]
 FEATURES_NOTIFICATION = ["notification_writer", "notification_service", "service_log"]
 
-CLEANUP_FILE = {
+CLEANUP_FILES = {
     "test": "setup/clean_aggregator_database.sql",
     "notification": "setup/clean_notification_database.sql",
 }
 
-DB_INIT_FILE = {
+DB_INIT_FILES = {
     "test": "setup/prepare_aggregator_database.sql",
 }
 
@@ -36,7 +36,7 @@ def before_scenario(context, scenario):
         return
 
 
-def prepared_db(context, setup_files=CLEANUP_FILE, database="test"):
+def prepared_db(context, setup_files=CLEANUP_FILES, database="test"):
     connection_string = "host={} port={} dbname={} user={} password={}".format(
         context.database_host,
         context.database_port,
@@ -80,10 +80,10 @@ def setup_default_kafka_context(context):
 
 def before_feature(context, feature):
     if any(f in feature.tags for f in FEATURES_CLEAN_DB):
-        prepared_db(context, CLEANUP_FILE)
+        prepared_db(context, CLEANUP_FILES)
 
     if any(f in feature.tags for f in FEATURES_INIT_DB):
-        prepared_db(context, DB_INIT_FILE)
+        prepared_db(context, DB_INIT_FILES)
 
     if any(f in feature.tags for f in FEATURES_WITH_MINIO):
         setup_default_S3_context(context)
