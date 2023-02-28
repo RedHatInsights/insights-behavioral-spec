@@ -66,3 +66,25 @@ def disconnect_from_database(context):
 def check_disconnection(context):
     """Check that the connection has been closed."""
     assert context.connection is None, "connection should be closed"
+
+
+@given(u"database connection is established")
+@when(u"database connection is established")
+def establish_connection_to_database(context):
+    """Perform connection to selected database."""
+    assert context.database_name is not None
+    assert context.database_user is not None
+    assert context.database_password is not None
+    assert context.database_host is not None
+    assert context.database_port is not None
+    connection_string = "host={} port={} dbname={} user={} password={}".format(
+        context.database_host,
+        context.database_port,
+        context.database_name,
+        context.database_user,
+        context.database_password,
+    )
+    context.connection = psycopg2.connect(connection_string)
+    assert context.connection is not None, "connection should be established"
+
+

@@ -40,26 +40,6 @@ def check_table_existence(context):
     assert context.table_found is False, "table should not exist"
 
 
-@given(u"database connection is established")
-@when(u"database connection is established")
-def establish_connection_to_database(context):
-    """Perform connection to selected database."""
-    assert context.database_name is not None
-    assert context.database_user is not None
-    assert context.database_password is not None
-    assert context.database_host is not None
-    assert context.database_port is not None
-    connection_string = "host={} port={} dbname={} user={} password={}".format(
-        context.database_host,
-        context.database_port,
-        context.database_name,
-        context.database_user,
-        context.database_password,
-    )
-    context.connection = psycopg2.connect(connection_string)
-    assert context.connection is not None, "connection should be established"
-
-
 @given(u"the database is empty")
 @then(u"the database is empty")
 @then(u"I should find that the database is empty")
