@@ -40,27 +40,6 @@ def check_table_existence(context):
     assert context.table_found is False, "table should not exist"
 
 
-@given(u"the database is named {name}")
-def given_database_name(context, name):
-    """Set the database name."""
-    assert name != "", "Database name should be specified"
-    context.database_name = name
-
-
-@given(u"database user is set to {user}")
-def given_database_user(context, user):
-    """Set the database user name."""
-    assert user != "", "Database user name should be specified"
-    context.database_user = user
-
-
-@given(u"database password is set to {password}")
-def given_database_password(context, password):
-    """Set the database user password."""
-    assert password != "", "Database user password should be specified"
-    context.database_password = password
-
-
 @given(u"database connection is established")
 @when(u"database connection is established")
 def establish_connection_to_database(context):

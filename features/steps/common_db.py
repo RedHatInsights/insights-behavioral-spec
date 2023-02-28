@@ -19,6 +19,27 @@ import psycopg2
 from behave import when, then
 
 
+@given(u"the database is named {name}")
+def given_database_name(context, name):
+    """Set the database name."""
+    assert name != "", "Database name should be specified"
+    context.database_name = name
+
+
+@given(u"database user is set to {user}")
+def given_database_user(context, user):
+    """Set the database user name."""
+    assert user != "", "Database user name should be specified"
+    context.database_user = user
+
+
+@given(u"database password is set to {password}")
+def given_database_password(context, password):
+    """Set the database user password."""
+    assert password != "", "Database user password should be specified"
+    context.database_password = password
+
+
 @when(u"I connect to database named {database} as user {user} with password {password}")
 def connect_to_database(context, database, user, password):
     """Perform connection to selected database."""
