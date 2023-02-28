@@ -2,7 +2,8 @@ import os
 import psycopg2
 
 
-FEATURES_CLEAN_DB = ["aggregator_cleaner", "aggregator_exporter"]
+FEATURES_CLEAN_DB = ["aggregator", "aggregator_cleaner", "aggregator_exporter"]
+FEATURES_INIT_DB = ["aggregator"]
 FEATURES_WITH_KAFKA = ["notification_writer", "notification_service"]
 FEATURES_WITH_MINIO = ["aggregator_exporter"]
 FEATURES_NOTIFICATION = ["notification_writer", "notification_service", "service_log"]
@@ -10,6 +11,10 @@ FEATURES_NOTIFICATION = ["notification_writer", "notification_service", "service
 CLEANUP_FILE = {
     "test": "setup/clean_aggregator_database.sql",
     "notification": "setup/clean_notification_database.sql",
+}
+
+DB_INIT_FILE = {
+    "test": "setup/prepare_aggregator_database.sql",
 }
 
 
@@ -31,7 +36,7 @@ def before_scenario(context, scenario):
         return
 
 
-def clean_db(context, database="test"):
+def prepared_db(context, setup_files=CLEANUP_FILE, database="test"):
     connection_string = "host={} port={} dbname={} user={} password={}".format(
         context.database_host,
         context.database_port,
@@ -42,7 +47,7 @@ def clean_db(context, database="test"):
 
     connection = psycopg2.connect(connection_string)
     assert connection is not None, "connection should be established"
-    with open(CLEANUP_FILE[database]) as f:
+    with open(setup_files[database]) as f:
         c = connection.cursor()
         for line in f:
             try:
@@ -75,7 +80,10 @@ def setup_default_kafka_context(context):
 
 def before_feature(context, feature):
     if any(f in feature.tags for f in FEATURES_CLEAN_DB):
-        clean_db(context)
+        prepared_db(context, CLEANUP_FILE)
+
+    if any(f in feature.tags for f in FEATURES_INIT_DB):
+        prepared_db(context, DB_INIT_FILE)
 
     if any(f in feature.tags for f in FEATURES_WITH_MINIO):
         setup_default_S3_context(context)
