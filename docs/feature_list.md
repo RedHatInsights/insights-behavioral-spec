@@ -89,6 +89,7 @@ nav_order: 2
 ## Insights Results Aggregator
 
 * [Basic set of smoke tests](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/smoketests.feature)
+* [Ability to access database](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/database_access.feature)
 
 
 ## Insights Results Aggregator Cleaner service
