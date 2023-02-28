@@ -16,8 +16,6 @@ Feature: Ability to display old records stored in database
      Then I should be disconnected
      When I start the CCX Notification Writer with the --print-new-reports-for-cleanup command line flag
      Then the process should exit with status code set to 0
-     When I start the CCX Notification Writer with the --db-drop-tables command line flag
-     Then the process should exit with status code set to 0
 
 
   @cli @database @database-read
@@ -33,8 +31,6 @@ Feature: Ability to display old records stored in database
      When I close database connection
      Then I should be disconnected
      When I start the CCX Notification Writer with the --print-old-reports-for-cleanup command line flag
-     Then the process should exit with status code set to 0
-     When I start the CCX Notification Writer with the --db-drop-tables command line flag
      Then the process should exit with status code set to 0
 
 
@@ -55,8 +51,6 @@ Feature: Ability to display old records stored in database
      Then I should be disconnected
      When I start the CCX Notification Writer with the --print-new-reports-for-cleanup command line flag
      Then the process should exit with status code set to 0
-     When I start the CCX Notification Writer with the --db-drop-tables command line flag
-     Then the process should exit with status code set to 0
 
 
   @cli @database @database-read
@@ -75,8 +69,6 @@ Feature: Ability to display old records stored in database
      When I close database connection
      Then I should be disconnected
      When I start the CCX Notification Writer with the --print-new-reports-for-cleanup command line flag
-     Then the process should exit with status code set to 0
-     When I start the CCX Notification Writer with the --db-drop-tables command line flag
      Then the process should exit with status code set to 0
 
 
@@ -98,8 +90,6 @@ Feature: Ability to display old records stored in database
      Then I should be disconnected
      When I start the CCX Notification Writer with the --print-new-reports-for-cleanup command line flag
      Then the process should exit with status code set to 0
-     When I start the CCX Notification Writer with the --db-drop-tables command line flag
-     Then the process should exit with status code set to 0
 
 
   @cli @database @database-read
@@ -119,8 +109,6 @@ Feature: Ability to display old records stored in database
      When I close database connection
      Then I should be disconnected
      When I start the CCX Notification Writer with the --print-new-reports-for-cleanup command line flag
-     Then the process should exit with status code set to 0
-     When I start the CCX Notification Writer with the --db-drop-tables command line flag
      Then the process should exit with status code set to 0
 
 
@@ -143,8 +131,6 @@ Feature: Ability to display old records stored in database
      Then I should be disconnected
      When I start the CCX Notification Writer with the --print-new-reports-for-cleanup command line flag
      Then the process should exit with status code set to 0
-     When I start the CCX Notification Writer with the --db-drop-tables command line flag
-     Then the process should exit with status code set to 0
 
 
   @cli @database @database-read
@@ -165,8 +151,6 @@ Feature: Ability to display old records stored in database
      Then I should be disconnected
      When I start the CCX Notification Writer with the --print-old-reports-for-cleanup command line flag
      Then the process should exit with status code set to 0
-     When I start the CCX Notification Writer with the --db-drop-tables command line flag
-     Then the process should exit with status code set to 0
 
 
   @cli @database @database-read
@@ -186,8 +170,6 @@ Feature: Ability to display old records stored in database
      When I close database connection
      Then I should be disconnected
      When I start the CCX Notification Writer with the --print-old-reports-for-cleanup command line flag
-     Then the process should exit with status code set to 0
-     When I start the CCX Notification Writer with the --db-drop-tables command line flag
      Then the process should exit with status code set to 0
 
 
@@ -210,8 +192,6 @@ Feature: Ability to display old records stored in database
      Then I should be disconnected
      When I start the CCX Notification Writer with the --print-old-reports-for-cleanup command line flag
      Then the process should exit with status code set to 0
-     When I start the CCX Notification Writer with the --db-drop-tables command line flag
-     Then the process should exit with status code set to 0
 
 
   @cli @database @database-read
@@ -233,8 +213,6 @@ Feature: Ability to display old records stored in database
      Then I should be disconnected
      When I start the CCX Notification Writer with the --print-old-reports-for-cleanup command line flag
      Then the process should exit with status code set to 0
-     When I start the CCX Notification Writer with the --db-drop-tables command line flag
-     Then the process should exit with status code set to 0
 
 
   @cli @database @database-read
@@ -255,6 +233,4 @@ Feature: Ability to display old records stored in database
      When I close database connection
      Then I should be disconnected
      When I start the CCX Notification Writer with the --print-old-reports-for-cleanup command line flag
-     Then the process should exit with status code set to 0
-     When I start the CCX Notification Writer with the --db-drop-tables command line flag
      Then the process should exit with status code set to 0
