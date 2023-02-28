@@ -2,18 +2,24 @@ import os
 import psycopg2
 
 
-FEATURES_CLEAN_DB = ["aggregator_cleaner", "aggregator_exporter"]
-FEATURES_WITH_KAFKA = ["notification_writer", "notification_service"]
-FEATURES_WITH_MINIO = ["aggregator_exporter"]
-FEATURES_NOTIFICATION = ["notification_writer", "notification_service", "service_log"]
+FEATURES_CLEAN_DB = ("aggregator", "aggregator_cleaner", "aggregator_exporter")
+FEATURES_INIT_DB = ("aggregator", )
+FEATURES_WITH_KAFKA = ("notification_writer", "notification_service")
+FEATURES_WITH_MINIO = ("aggregator_exporter", )
+FEATURES_NOTIFICATION = ("notification_writer", "notification_service", "service_log")
 
-CLEANUP_FILE = {
+CLEANUP_FILES = {
     "test": "setup/clean_aggregator_database.sql",
     "notification": "setup/clean_notification_database.sql",
 }
 
+DB_INIT_FILES = {
+    "test": "setup/prepare_aggregator_database.sql",
+}
+
 
 def before_all(context):
+    """Run before and after the whole shooting match."""
     context.database_host = os.getenv("DB_HOST", "localhost")
     context.database_port = os.getenv("DB_PORT", 5432)
     context.database_name = os.getenv("DB_NAME", "postgres")
@@ -23,6 +29,7 @@ def before_all(context):
 
 
 def before_scenario(context, scenario):
+    """Run before and after each scenario is run."""
     if "skip" in scenario.effective_tags:
         scenario.skip("Marked with @skip")
         return
@@ -31,7 +38,8 @@ def before_scenario(context, scenario):
         return
 
 
-def clean_db(context, database="test"):
+def prepare_db(context, setup_files=CLEANUP_FILES, database="test"):
+    """Prepare database, including all default objects in DB."""
     connection_string = "host={} port={} dbname={} user={} password={}".format(
         context.database_host,
         context.database_port,
@@ -42,7 +50,7 @@ def clean_db(context, database="test"):
 
     connection = psycopg2.connect(connection_string)
     assert connection is not None, "connection should be established"
-    with open(CLEANUP_FILE[database]) as f:
+    with open(setup_files[database]) as f:
         c = connection.cursor()
         for line in f:
             try:
@@ -57,6 +65,7 @@ def clean_db(context, database="test"):
 
 
 def setup_default_S3_context(context):
+    """Prepare context variables to be used to connect to S3 or Minio."""
     context.S3_type = os.getenv("S3_TYPE", "minio")
     context.S3_endpoint = os.getenv("S3_HOST", "localhost")
     context.S3_port = os.getenv("S3_PORT", "9000")
@@ -69,13 +78,18 @@ def setup_default_S3_context(context):
 
 
 def setup_default_kafka_context(context):
+    """Prepare context variables to be used to connect to Kafka broker."""
     context.kafka_hostname = os.getenv("KAFKA_HOST", "localhost")
     context.kafka_port = os.getenv("KAFKA_PORT", "9092")
 
 
 def before_feature(context, feature):
+    """Run before and after each feature file is exercised."""
     if any(f in feature.tags for f in FEATURES_CLEAN_DB):
-        clean_db(context)
+        prepare_db(context, CLEANUP_FILES)
+
+    if any(f in feature.tags for f in FEATURES_INIT_DB):
+        prepare_db(context, DB_INIT_FILES)
 
     if any(f in feature.tags for f in FEATURES_WITH_MINIO):
         setup_default_S3_context(context)
