@@ -20,26 +20,6 @@ from behave import given, then, when
 from common_aggregator import DB_TABLES
 
 
-@when(u"I look for the table {table} in database")
-def look_for_table(context, table):
-    """Try to find a table in database."""
-    cursor = context.connection.cursor()
-    try:
-        cursor.execute("SELECT 1 from {}".format(table))
-        _ = cursor.fetchone()
-        context.table_found = True
-    except UndefinedTable:
-        context.table_found = False
-
-    context.connection.commit()
-
-
-@then(u"I should not be able to find it")
-def check_table_existence(context):
-    """Check the table existence in the database."""
-    assert context.table_found is False, "table should not exist"
-
-
 @given(u"the database is empty")
 @then(u"the database is empty")
 @then(u"I should find that the database is empty")

@@ -88,3 +88,21 @@ def establish_connection_to_database(context):
     assert context.connection is not None, "connection should be established"
 
 
+@when(u"I look for the table {table} in database")
+def look_for_table(context, table):
+    """Try to find a table in database."""
+    cursor = context.connection.cursor()
+    try:
+        cursor.execute("SELECT 1 from {}".format(table))
+        _ = cursor.fetchone()
+        context.table_found = True
+    except UndefinedTable:
+        context.table_found = False
+
+    context.connection.commit()
+
+
+@then(u"I should not be able to find it")
+def check_table_existence(context):
+    """Check the table existence in the database."""
+    assert context.table_found is False, "table should not exist"
