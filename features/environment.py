@@ -3,7 +3,7 @@ import psycopg2
 
 
 FEATURES_CLEAN_DB = ("aggregator", "aggregator_cleaner", "aggregator_exporter")
-FEATURES_INIT_DB = ("aggregator",)
+FEATURES_INIT_DB = ("aggregator", "notification_service")
 FEATURES_WITH_KAFKA = ("notification_writer", "notification_service")
 FEATURES_WITH_MINIO = ("aggregator_exporter",)
 FEATURES_NOTIFICATION = ("notification_writer", "notification_service", "service_log")
@@ -15,6 +15,7 @@ CLEANUP_FILES = {
 
 DB_INIT_FILES = {
     "test": "setup/prepare_aggregator_database.sql",
+    "notification": "setup/prepare_notification_database.sql",
 }
 
 
@@ -63,7 +64,7 @@ def prepare_db(context, setup_files=CLEANUP_FILES, database="test"):
                 c.execute(line)
             except Exception:
                 print(f"Couldn't execute '{line}'")
-                context.connection.rollback()
+                connection.rollback()
                 raise
         connection.commit()
         c.close()
@@ -95,7 +96,7 @@ def before_feature(context, feature):
         prepare_db(context, CLEANUP_FILES)
 
     if any(f in feature.tags for f in FEATURES_INIT_DB):
-        prepare_db(context, DB_INIT_FILES)
+        prepare_db(context, DB_INIT_FILES, context.database_name)
 
     if any(f in feature.tags for f in FEATURES_WITH_MINIO):
         setup_default_S3_context(context)
