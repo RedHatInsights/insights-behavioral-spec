@@ -290,6 +290,7 @@ nav_order: 3
 ## `insights-results-aggregator/database_migration.feature`
 
 * Check that default migration is set to 0
+* Check database migration from version #0 to version #1
 
 ## `insights-results-aggregator/smoketests.feature`
 

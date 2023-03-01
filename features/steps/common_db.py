@@ -112,3 +112,51 @@ def check_table_existence(context):
 def check_table_non_existence(context):
     """Check the table existence in the database."""
     assert context.table_found is False, "table should not exist"
+
+
+@then("I should see 1 table in the database")
+@then("I should see {expected:n} tables in the database")
+def check_number_of_tables(context, expected=1):
+    """Perform check how many tables are found in the database."""
+    # retrieve list of all tables from current database
+    query = "SELECT COUNT(*) AS cnt FROM information_schema.tables WHERE table_schema = 'public';"
+    cursor = context.connection.cursor()
+    cursor.execute(query)
+
+    # retrieve result from query
+    count = cursor.fetchone()
+    context.connection.commit()
+
+    # result is returned as tuple -> we need to get the 1st item from that tuple
+    assert len(count) == 1, "Wrong number of records returned: {}".format(len(count))
+    count = count[0]
+
+    # check number of tables returned
+    assert count == expected, \
+        f"Wrong number of tables found in database: {count} instead of {expected}"
+
+
+def read_list_of_tables(context):
+    """Read list of tables from current database."""
+    query = "SELECT table_name FROM information_schema.tables where table_schema='public';"
+    cursor = context.connection.cursor()
+    cursor.execute(query)
+
+    # retrieve result from query
+    tables = cursor.fetchall()
+    context.connection.commit()
+
+    # convert to flat list
+    return (table[0] for table in tables)
+
+
+@then("I should see these tables in the database")
+def check_tables_in_database(context):
+    """Check existence of tables in database."""
+    existing_tables = read_list_of_tables(context)
+
+    # iterate over all items in feature table
+    for row in context.table:
+        expected_table = row["Table name"]
+        assert expected_table in existing_tables, \
+            f"Table {expected_table} does not exist in {existing_tables}"

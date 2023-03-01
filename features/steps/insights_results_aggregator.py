@@ -96,3 +96,16 @@ def check_actual_configuration_for_aggregator(context):
     assert "Address" in context.output[4], "Caught output: {}".format(context.output)
     assert "SecurityProtocol" in context.output[5], "Caught output: {}".format(context.output)
     assert "CertPath" in context.output[6], "Caught output: {}".format(context.output)
+
+
+@when("I migrate aggregator database to version #{version:n}")
+def perform_aggregator_database_migration(context, version):
+    """Perform aggregator database migration to selected version."""
+    out = subprocess.Popen(
+        ["insights-results-aggregator", "migrate", str(version)],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
+
+    assert out is not None
+    process_generated_output(context, out, 2)
