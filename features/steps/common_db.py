@@ -112,3 +112,22 @@ def check_table_existence(context):
 def check_table_non_existence(context):
     """Check the table existence in the database."""
     assert context.table_found is False, "table should not exist"
+
+
+@then("I should see 1 table in the database")
+@then("I should see {expected:n} tables in the database")
+def check_number_of_tables(context, expected=1):
+    """Perform check how many tables are found in the database."""
+    # retrieve list of all tables from current database
+    cursor = context.connection.cursor()
+    cursor.execute("SELECT COUNT(*) AS cnt FROM information_schema.tables " +
+                   "WHERE table_schema = 'public'")
+    count = cursor.fetchone()
+
+    # result is returned as tuple -> we need to get the 1st item from that tuple
+    assert len(count) == 1, "Wrong number of records returned: {}".format(len(count))
+    count = count[0]
+
+    # check number of tables returned
+    assert count == expected, \
+        f"Wrong number of tables found in database: {count} instead of {expected}"
