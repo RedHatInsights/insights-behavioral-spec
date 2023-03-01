@@ -287,6 +287,10 @@ nav_order: 3
 
 * Check access to empty database
 
+## `insights-results-aggregator/database_migration.feature`
+
+* Check that default migration is set to 0
+
 ## `insights-results-aggregator/smoketests.feature`
 
 * Check if Insights Results Aggregator application is available
