@@ -1,6 +1,6 @@
 Feature: Service Log
 
-  Background: Kafka is empty
+  Background: Dependencies are prepared
     Given the database is named notification
       And database user is set to postgres
       And database password is set to postgres
