@@ -35,7 +35,7 @@ Feature: Ability to clean up records stored in database
 
   @cli @database @database-write
   Scenario: Check the ability to clean up old records from `new_reports` if the table contains one old report.
-      And I insert following row into table new_reports
+    Given I insert following row into table new_reports
           | org id |  account number | cluster name                         | updated at  | kafka offset |
           | 1      |  10             | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1990-01-01  | 1            |
      When I select all rows from table new_reports
@@ -48,7 +48,7 @@ Feature: Ability to clean up records stored in database
 
   @cli @database @database-write
   Scenario: Check the ability to clean up old records from `new_reports` table if the table contains multiple old reports.
-      And I insert following rows into table new_reports
+    Given I insert following rows into table new_reports
           | org id |  account number | cluster name                         | updated at  | kafka offset |
           | 1      |  10             | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1990-01-01  | 1            |
           | 2      |  20             | aaaaaaaa-1f74-4ccf-91af-548dfc9767aa | 1990-01-01  | 2            |
@@ -62,7 +62,7 @@ Feature: Ability to clean up records stored in database
 
   @cli @database @database-write
   Scenario: Check the ability to clean up old records from `reported` table if the table contains one old report.
-      And I insert following row into table reported
+    Given I insert following row into table reported
           | org id |  account number | cluster name                         | notification type | state | updated at  | notified at  | total risk | event type id |
           | 1      |  10             | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 1990-01-01  | 1990-01-01   | important  | 1             |
      When I select all rows from table reported
@@ -75,7 +75,7 @@ Feature: Ability to clean up records stored in database
 
   @cli @database @database-write
   Scenario: Check the ability to clean up old records from `reported` table if the table contains two old reports.
-      And I insert following rows into table reported
+    Given I insert following rows into table reported
           | org id |  account number | cluster name                         | notification type | state | updated at  | notified at  | total risk | event type id |
           | 1      |  10             | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 1990-01-01  | 1990-01-01   | important  | 1             |
           | 2      |  20             | aaaaaaaa-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 1990-01-01  | 1990-01-01   | important  | 1             |
@@ -89,7 +89,7 @@ Feature: Ability to clean up records stored in database
 
   @cli @database @database-write
   Scenario: Check that newest records in `new_reports` table are not deleted by cleanup - one new record only.
-      And I insert following row into table new_reports
+    Given I insert following row into table new_reports
           | org id |  account number | cluster name                         | updated at  | kafka offset |
           | 1      |  10             | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 2990-01-01  | 1            |
      When I select all rows from table new_reports
@@ -102,7 +102,7 @@ Feature: Ability to clean up records stored in database
 
   @cli @database @database-write
   Scenario: Check that newest records in `new_reports` table are not deleted by cleanup - multiple new records only.
-      And I insert following rows into table new_reports
+    Given I insert following rows into table new_reports
           | org id |  account number | cluster name                         | updated at  | kafka offset |
           | 1      |  10             | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 2990-01-01  | 1            |
           | 2      |  20             | aaaaaaaa-1f74-4ccf-91af-548dfc9767aa | 2990-01-01  | 2            |
@@ -130,7 +130,7 @@ Feature: Ability to clean up records stored in database
 
   @cli @database @database-write
   Scenario: Check the ability to clean up old records from `reported` table if the table is not empty - contains one new report.
-      And I insert following row into table reported
+    Given I insert following row into table reported
           | org id |  account number | cluster name                         | notification type | state | updated at  | notified at  | total risk | event type id |
           | 1      |  10             | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 2990-01-01  | 2990-01-01   | important  | 1             |
      When I select all rows from table reported
@@ -143,7 +143,7 @@ Feature: Ability to clean up records stored in database
 
   @cli @database @database-write
   Scenario: Check the ability to clean up old records from `reported` table if the table is not empty and contains only new reports.
-      And I insert following rows into table reported
+    Given I insert following rows into table reported
           | org id |  account number | cluster name                         | notification type | state | updated at  | notified at  | total risk | event type id |
           | 1      |  10             | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 2990-01-01  | 2990-01-01   | important  | 1             |
           | 2      |  20             | aaaaaaaa-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 2990-01-01  | 2990-01-01   | important  | 1             |
@@ -157,7 +157,7 @@ Feature: Ability to clean up records stored in database
 
   @cli @database @database-write
   Scenario: Check the ability to clean up old records from `reported` table if the table is not empty and contains old and new reports.
-      And I insert following rows into table reported
+    Given I insert following rows into table reported
           | org id |  account number | cluster name                         | notification type | state | updated at  | notified at  | total risk | event type id |
           | 1      |  10             | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 1990-01-01  | 1990-01-01   | important  | 1             |
           | 2      |  20             | aaaaaaaa-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 2990-01-01  | 2990-01-01   | important  | 1             |
