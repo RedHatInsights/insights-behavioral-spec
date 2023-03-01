@@ -2,10 +2,6 @@
 Feature: Basic set of smoke tests - checks if all required tools are available and all services are running.
 
 
-  Background:
-    Given the system is in default state
-
-
   Scenario: Check if CCX Notification Service application is available
      When I look for executable file ccx-notification-service
      Then I should find that file on PATH
@@ -22,7 +18,8 @@ Feature: Basic set of smoke tests - checks if all required tools are available a
 
 
   Scenario: Check if CCX Notification database can be reached
-    Given the database is named notification
+    Given the system is in default state
+      And the database is named notification
       And database user is set to postgres
       And database password is set to postgres
       And database connection is established
