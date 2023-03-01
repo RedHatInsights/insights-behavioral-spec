@@ -158,8 +158,8 @@ def check_rows_count(context, expected_count):
     )
 
 
-@given("I insert following row into table new_reports")
-@given("I insert following rows into table new_reports")
+@when("I insert following row into table new_reports")
+@when("I insert following rows into table new_reports")
 def insert_rows_into_new_reports_table(context):
     """Insert rows into table new_reports."""
     cursor = context.connection.cursor()

@@ -31,10 +31,10 @@ Feature: Ability to display old records stored in database
 
   @cli @database @database-read
   Scenario: Check the ability to display old records from `new_reports` if the table contains one old report.
-    Given I insert following row into table new_reports
+     When I insert following row into table new_reports
           | org id |  account number | cluster name                         | updated at  | kafka offset |
           | 1      |  10             | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1990-01-01  | 1            |
-     When I select all rows from table new_reports
+      And I select all rows from table new_reports
      Then I should get 1 rows
      When I start the CCX Notification Service with the --print-new-reports-for-cleanup command line flag
     Then I should see info about not notified reports older than 90 days displayed on standard output
@@ -46,11 +46,11 @@ Feature: Ability to display old records stored in database
 
   @cli @database @database-read
   Scenario: Check the ability to display old records from `new_reports` if the table contains only new reports.
-    Given I insert following row into table new_reports
+     When I insert following row into table new_reports
           | org id |  account number | cluster name                         | updated at  | kafka offset |
           | 1      |  10             | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 2990-01-01  | 1            |
           | 2      |  20             | aaaaaaaa-1f74-4ccf-91af-548dfc9767aa | 2990-01-01  | 2            |
-     When I select all rows from table new_reports
+      And I select all rows from table new_reports
      Then I should get 2 rows
      When I start the CCX Notification Service with the --print-new-reports-for-cleanup command line flag
          Then I should see info about not notified reports older than 90 days displayed on standard output
@@ -60,11 +60,11 @@ Feature: Ability to display old records stored in database
 
   @cli @database @database-read
   Scenario: Check the ability to display old records from `new_reports` if the table contains new and old reports.
-    Given I insert following rows into table new_reports
+     When I insert following rows into table new_reports
           | org id |  account number | cluster name                         | updated at  | kafka offset |
           | 1      |  10             | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1990-01-01  | 1            |
           | 2      |  20             | aaaaaaaa-1f74-4ccf-91af-548dfc9767aa | 2990-01-01  | 2            |
-     When I select all rows from table new_reports
+      And I select all rows from table new_reports
      Then I should get 2 rows
      When I start the CCX Notification Service with the --print-new-reports-for-cleanup command line flag
      Then I should see info about not notified reports older than 90 days displayed on standard output
