@@ -33,3 +33,9 @@ def read_migration_number_from_database(context):
     except Exception as e:
         context.connection.rollback()
         raise e
+
+
+@then("I should see that migration #{migration:n} is returned")
+def check_migration(context, migration):
+    assert migration == context.database_migration, \
+        f"Expected database migration {migration} but migration #{context.database_migration} was found"  # noqa E501
