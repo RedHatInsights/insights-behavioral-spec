@@ -142,10 +142,10 @@ Feature: Ability to display old records stored in database
       And database connection is established
       And CCX Notification database is empty
       And CCX Notification database is migrated to version latest
-      And I insert following row into table reported
+     When I insert following row into table reported
           | org id |  account number | cluster name                         | notification type | state | updated at  | notified at  | error log | event type id |
           | 1      |  10             | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 1990-01-01  | 1990-01-01   |           | 1             |
-     When I select all rows from table reported
+      And I select all rows from table reported
      Then I should get 1 rows
      When I close database connection
      Then I should be disconnected
@@ -162,10 +162,10 @@ Feature: Ability to display old records stored in database
       And database connection is established
       And CCX Notification database is empty
       And CCX Notification database is migrated to version latest
-      And I insert following row into table reported
+     When I insert following row into table reported
           | org id |  account number | cluster name                         | notification type | state | updated at  | notified at  | error log | event type id |
           | 1      |  10             | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 2990-01-01  | 2990-01-01   |           | 1             |
-     When I select all rows from table reported
+      And I select all rows from table reported
      Then I should get 1 rows
      When I close database connection
      Then I should be disconnected
@@ -182,11 +182,11 @@ Feature: Ability to display old records stored in database
       And database connection is established
       And CCX Notification database is empty
       And CCX Notification database is migrated to version latest
-      And I insert following rows into table reported
+     When I insert following rows into table reported
           | org id |  account number | cluster name                         | notification type | state | updated at  | notified at  | error log | event type id |
           | 1      |  10             | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 1990-01-01  | 1990-01-01   |           | 1             |
           | 2      |  20             | aaaaaaaa-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 1990-01-01  | 1990-01-01   |           | 1             |
-     When I select all rows from table reported
+      And I select all rows from table reported
      Then I should get 2 rows
      When I close database connection
      Then I should be disconnected
@@ -203,11 +203,11 @@ Feature: Ability to display old records stored in database
       And database connection is established
       And CCX Notification database is empty
       And CCX Notification database is migrated to version latest
-      And I insert following rows into table reported
+     When I insert following rows into table reported
           | org id |  account number | cluster name                         | notification type | state | updated at  | notified at  | error log | event type id |
           | 1      |  10             | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 2990-01-01  | 2990-01-01   |           | 1             |
           | 2      |  20             | aaaaaaaa-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 2990-01-01  | 2990-01-01   |           | 1             |
-     When I select all rows from table reported
+      And I select all rows from table reported
      Then I should get 2 rows
      When I close database connection
      Then I should be disconnected
@@ -224,11 +224,11 @@ Feature: Ability to display old records stored in database
       And database connection is established
       And CCX Notification database is empty
       And CCX Notification database is migrated to version latest
-      And I insert following rows into table reported
+     When I insert following rows into table reported
           | org id |  account number | cluster name                         | notification type | state | updated at  | notified at  | error log | event type id |
           | 1      |  10             | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 1990-01-01  | 1990-01-01   |           | 1             |
           | 2      |  20             | aaaaaaaa-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 2990-01-01  | 2990-01-01   |           | 1             |
-     When I select all rows from table reported
+      And I select all rows from table reported
      Then I should get 2 rows
      When I close database connection
      Then I should be disconnected

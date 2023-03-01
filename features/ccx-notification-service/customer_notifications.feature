@@ -69,10 +69,10 @@ Feature: Customer Notifications
 
   @message-producer
   Scenario: Check that instant notification does not include the same reports as in previous notification
-    Given I insert following row into table reported
+     When I insert following row into table reported
           | org id |  account number | cluster name                         | notification type | state | updated at  | notified at  | total risk | event type id |
           | 1      |  10             | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 1990-01-01  | 1990-01-01   | important  | 1             |
-     When I insert 1 report with important total risk for the following clusters
+      And I insert 1 report with important total risk for the following clusters
           | org id |  account number | cluster name                         |
           | 1      |  1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa |
       And I insert 1 report with critical total risk for the following clusters
@@ -107,10 +107,10 @@ Feature: Customer Notifications
 
   @message-producer
   Scenario: Check that notification service resends notification after cooldown has passed
-    Given I insert following row into table reported
+     When I insert following row into table reported
           | org id |  account number | cluster name                         | notification type | state | updated at  | notified at  | total risk | event type id |
           | 1      |  1              | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1                 | 1     | 1990-01-01  | 1990-01-01   | important  | 1             |
-     When I insert 1 report with important total risk for the following clusters
+      And I insert 1 report with important total risk for the following clusters
           | org id |  account number | cluster name                         |
           | 1      |  1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa |
       And I insert 1 report with important total risk for the following clusters
