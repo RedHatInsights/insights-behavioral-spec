@@ -146,3 +146,13 @@ def read_list_of_tables(context):
     tables =  cursor.fetchone()
     context.connection.commit()
     return tables
+
+
+@then("I should see these tables in the database")
+def check_tables_in_database(context):
+    existing_tables = read_list_of_tables(context)
+
+    # iterate over all items in feature table
+    for row in context.table:
+        expected_table = row["Table name"]
+        assert expected_table in existing_tables, f"Table {expected_table} does not exist"
