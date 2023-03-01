@@ -195,8 +195,8 @@ def insert_rows_into_new_reports_table(context):
         raise e
 
 
-@given("I insert following row into table reported")
-@given("I insert following rows into table reported")
+@when("I insert following row into table reported")
+@when("I insert following rows into table reported")
 def insert_rows_into_reported_table(context, report="", default_notified_at=None):
     """Insert rows into table reported."""
     cursor = context.connection.cursor()
