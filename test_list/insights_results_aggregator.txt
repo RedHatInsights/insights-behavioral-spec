@@ -1,2 +1,3 @@
 ../features/insights-results-aggregator/smoketests.feature
 ../features/insights-results-aggregator/database_access.feature
+../features/insights-results-aggregator/database_migration.feature
