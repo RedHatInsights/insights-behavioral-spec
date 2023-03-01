@@ -119,10 +119,13 @@ def check_table_non_existence(context):
 def check_number_of_tables(context, expected=1):
     """Perform check how many tables are found in the database."""
     # retrieve list of all tables from current database
+    query = "SELECT COUNT(*) AS cnt FROM information_schema.tables WHERE table_schema = 'public';"
     cursor = context.connection.cursor()
-    cursor.execute("SELECT COUNT(*) AS cnt FROM information_schema.tables " +
-                   "WHERE table_schema = 'public'")
+    cursor.execute(query)
+
+    # retrieve result from query
     count = cursor.fetchone()
+    context.connection.commit()
 
     # result is returned as tuple -> we need to get the 1st item from that tuple
     assert len(count) == 1, "Wrong number of records returned: {}".format(len(count))
@@ -131,3 +134,15 @@ def check_number_of_tables(context, expected=1):
     # check number of tables returned
     assert count == expected, \
         f"Wrong number of tables found in database: {count} instead of {expected}"
+
+
+def read_list_of_tables(context):
+    """Helper function to read list of tables from current database."""
+    query = "SELECT table_name FROM information_schema.tables where table_schema='public';"
+    cursor = context.connection.cursor()
+    cursor.execute(query)
+
+    # retrieve result from query
+    tables =  cursor.fetchone()
+    context.connection.commit()
+    return tables
