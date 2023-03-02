@@ -1,11 +1,13 @@
+drop table if exists migration_info;
 drop table if exists cluster_rule_toggle;
 drop table if exists cluster_rule_user_feedback;
 drop table if exists cluster_user_rule_disable_feedback;
 drop table if exists report;
+drop table if exists rule_error_key;
+drop table if exists rule;
 drop table if exists rule_hit;
 drop table if exists advisor_ratings;
 drop table if exists consumer_error;
-drop table if exists migration_info;
 drop table if exists recommendation;
 drop table if exists report_info;
 drop table if exists rule_disable;
