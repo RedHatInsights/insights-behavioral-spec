@@ -300,6 +300,16 @@ nav_order: 3
 * Check database migration from version #0 to version #8
 * Check database migration from version #0 to version #9
 * Check database migration from version #0 to version #10
+* Check database migration from version #0 to version #11
+* Check database migration from version #0 to version #12
+* Check database migration from version #0 to version #13
+* Check database migration from version #0 to version #14
+* Check database migration from version #0 to version #15
+* Check database migration from version #0 to version #16
+* Check database migration from version #0 to version #17
+* Check database migration from version #0 to version #18
+* Check database migration from version #0 to version #19
+* Check database migration from version #0 to version #20
 
 ## `insights-results-aggregator/smoketests.feature`
 
