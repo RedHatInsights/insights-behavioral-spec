@@ -147,7 +147,7 @@ def read_list_of_tables(context):
     context.connection.commit()
 
     # convert to flat list
-    return (table[0] for table in tables)
+    return list(table[0] for table in tables)
 
 
 @then("I should see these tables in the database")
