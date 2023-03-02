@@ -26,7 +26,7 @@ code-style:
 	python3 tools/run_pycodestyle.py
 
 update-scenarios:
-	python3 tools/gen_scenario_list.py > features/README.md
+	python3 tools/gen_scenario_list.py > docs/scenarios_list.md
 
 before_commit: code-style update-scenarios
 
