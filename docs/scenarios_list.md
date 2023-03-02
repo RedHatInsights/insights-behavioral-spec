@@ -629,7 +629,7 @@ nav_order: 3
 ## `ccx-notification-service/customer_notifications.feature`
 
 * Check that notification service does not need kafka if database has no new report
-* Check that notification service does not send messages to kafka if both broker is disabled and service log enabled
+* Check that notification service does not send messages to kafka if broker is disabled and service log enabled
 * Check that notification service produces instant notifications with the expected content if all dependencies are available
 * Check that notification service produces a single notification event for cluster with multiple new reports
 * Check that instant notification does not include the same reports as in previous notification
@@ -652,7 +652,7 @@ nav_order: 3
 
 * Check that notification service does not send messages to service log if it is disabled
 * Check that notification service sends messages to service log if it is enabled
-* Check that notification service doesn't send message to service log if it is not important
+* Check that notification service doesn't send message to service log if it is not moderate
 * Check that notification service doesn't send message that has been sent within cooldown
 * Check that notification service resends message after cooldown has passed
 * Check that notification service produces a single notification event for cluster with multiple new reports
@@ -663,7 +663,6 @@ nav_order: 3
 * Check if CCX Notification Service application is available
 * Check if kcat utility is available
 * Check if jps utility is available
-* Check if Postgres database is available
 * Check if CCX Notification database can be reached
 * Check if ZooKeeper is running locally
 * Check if Kafka broker is running locally
@@ -721,7 +720,6 @@ nav_order: 3
 * Check if CCX Notification Writer application is available
 * Check if kcat utility is available
 * Check if jps utility is available
-* Check if Postgres database is available
 * Check if CCX Notification Writer database can be reached
 * Check if ZooKeeper is running locally
 * Check if Kafka broker is running locally
