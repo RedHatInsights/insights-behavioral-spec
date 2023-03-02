@@ -16,9 +16,17 @@
 
 from behave import then, when
 import psycopg2
+from environment import prepare_db, CLEANUP_FILES, DB_INIT_FILES
 
 
 MIGRATION_INFO_TABLE = "migration_info"
+
+
+@given("aggregator database is in initial state")
+def ensure_aggregator_db_initial_state(context):
+    """Ensure that aggregator database is in initial state."""
+    prepare_db(context, CLEANUP_FILES)
+    prepare_db(context, DB_INIT_FILES)
 
 
 @when("I read current migration number from database")
@@ -37,5 +45,6 @@ def read_migration_number_from_database(context):
 
 @then("I should see that migration #{migration:n} is returned")
 def check_migration(context, migration):
+    """Check which migration number is stored in database."""
     assert migration == context.database_migration, \
         f"Expected database migration {migration} but migration #{context.database_migration} was found"  # noqa E501

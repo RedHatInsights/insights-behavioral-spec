@@ -291,6 +291,15 @@ nav_order: 3
 
 * Check that default migration is set to 0
 * Check database migration from version #0 to version #1
+* Check database migration from version #0 to version #2 and back to version #1
+* Check database migration from version #0 to version #3
+* Check database migration from version #0 to version #4
+* Check database migration from version #0 to version #5
+* Check database migration from version #0 to version #6
+* Check database migration from version #0 to version #7
+* Check database migration from version #0 to version #8
+* Check database migration from version #0 to version #9
+* Check database migration from version #0 to version #10
 
 ## `insights-results-aggregator/smoketests.feature`
 
