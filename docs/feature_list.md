@@ -91,6 +91,7 @@ nav_order: 2
 * [Basic set of smoke tests](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/smoketests.feature)
 * [Ability to access database](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/database_access.feature)
 * [Database migration tests](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/database_migration.feature)
+* [Database migration downgrades tests](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/database_migration_downgrades.feature)
 
 
 ## Insights Results Aggregator Cleaner service
