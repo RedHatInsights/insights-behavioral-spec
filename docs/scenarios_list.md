@@ -322,6 +322,39 @@ nav_order: 3
 * Check database migration from version #0 to version #30
 * Check database migration from version #0 to version #31
 
+## `insights-results-aggregator/database_migration_downgrades.feature`
+
+* Check database downgrade from version #2 to version #1
+* Check database downgrade from version #3 to version #2
+* Check database downgrade from version #4 to version #3
+* Check database downgrade from version #5 to version #4
+* Check database downgrade from version #6 to version #5
+* Check database downgrade from version #7 to version #6
+* Check database downgrade from version #8 to version #7
+* Check database downgrade from version #9 to version #8
+* Check database downgrade from version #10 to version #9
+* Check database downgrade from version #11 to version #10
+* Check database downgrade from version #12 to version #11
+* Check database downgrade from version #13 to version #12
+* Check database downgrade from version #14 to version #13
+* Check database downgrade from version #15 to version #14
+* Check database downgrade from version #16 to version #15
+* Check database downgrade from version #17 to version #16
+* Check database downgrade from version #18 to version #17
+* Check database downgrade from version #19 to version #18
+* Check database downgrade from version #20 to version #19
+* Check database downgrade from version #21 to version #20
+* Check database downgrade from version #22 to version #21
+* Check database downgrade from version #23 to version #22
+* Check database downgrade from version #24 to version #23
+* Check database downgrade from version #25 to version #24
+* Check database downgrade from version #26 to version #25
+* Check database downgrade from version #27 to version #26
+* Check database downgrade from version #28 to version #27
+* Check database downgrade from version #29 to version #28
+* Check database downgrade from version #30 to version #29
+* Check database downgrade from version #31 to version #30
+
 ## `insights-results-aggregator/smoketests.feature`
 
 * Check if Insights Results Aggregator application is available
