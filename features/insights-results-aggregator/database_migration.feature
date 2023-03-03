@@ -543,3 +543,331 @@ Feature: Database migration tests
           | recommendation                     |
           | rule_disable                       |
           | advisor_ratings                    |
+
+
+  @database
+  Scenario: Check database migration from version #0 to version #21
+     When database connection is established
+      And I look for the table migration_info in database
+     Then I should be able to find it
+     When I read current migration number from database
+     Then I should see that migration #0 is returned
+      And I should see 1 table in the database
+      And I should see these tables in the database
+          | Table name     |
+          | migration_info |
+     When I migrate aggregator database to version #21
+      And I read current migration number from database
+     Then I should see that migration #21 is returned
+      And I should see 10 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
+          | rule_hit                           |
+          | recommendation                     |
+          | rule_disable                       |
+          | advisor_ratings                    |
+
+
+  @database
+  Scenario: Check database migration from version #0 to version #22
+     When database connection is established
+      And I look for the table migration_info in database
+     Then I should be able to find it
+     When I read current migration number from database
+     Then I should see that migration #0 is returned
+      And I should see 1 table in the database
+      And I should see these tables in the database
+          | Table name     |
+          | migration_info |
+     When I migrate aggregator database to version #22
+      And I read current migration number from database
+     Then I should see that migration #22 is returned
+      And I should see 10 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
+          | rule_hit                           |
+          | recommendation                     |
+          | rule_disable                       |
+          | advisor_ratings                    |
+
+
+  @database
+  Scenario: Check database migration from version #0 to version #23
+     When database connection is established
+      And I look for the table migration_info in database
+     Then I should be able to find it
+     When I read current migration number from database
+     Then I should see that migration #0 is returned
+      And I should see 1 table in the database
+      And I should see these tables in the database
+          | Table name     |
+          | migration_info |
+     When I migrate aggregator database to version #23
+      And I read current migration number from database
+     Then I should see that migration #23 is returned
+      And I should see 11 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
+          | rule_hit                           |
+          | recommendation                     |
+          | rule_disable                       |
+          | advisor_ratings                    |
+          | report_info                        |
+
+
+  @database
+  Scenario: Check database migration from version #0 to version #24
+     When database connection is established
+      And I look for the table migration_info in database
+     Then I should be able to find it
+     When I read current migration number from database
+     Then I should see that migration #0 is returned
+      And I should see 1 table in the database
+      And I should see these tables in the database
+          | Table name     |
+          | migration_info |
+     When I migrate aggregator database to version #24
+      And I read current migration number from database
+     Then I should see that migration #24 is returned
+      And I should see 11 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
+          | rule_hit                           |
+          | recommendation                     |
+          | rule_disable                       |
+          | advisor_ratings                    |
+          | report_info                        |
+
+
+  @database
+  Scenario: Check database migration from version #0 to version #25
+     When database connection is established
+      And I look for the table migration_info in database
+     Then I should be able to find it
+     When I read current migration number from database
+     Then I should see that migration #0 is returned
+      And I should see 1 table in the database
+      And I should see these tables in the database
+          | Table name     |
+          | migration_info |
+     When I migrate aggregator database to version #25
+      And I read current migration number from database
+     Then I should see that migration #25 is returned
+      And I should see 11 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
+          | rule_hit                           |
+          | recommendation                     |
+          | rule_disable                       |
+          | advisor_ratings                    |
+          | report_info                        |
+
+
+  @database
+  Scenario: Check database migration from version #0 to version #26
+     When database connection is established
+      And I look for the table migration_info in database
+     Then I should be able to find it
+     When I read current migration number from database
+     Then I should see that migration #0 is returned
+      And I should see 1 table in the database
+      And I should see these tables in the database
+          | Table name     |
+          | migration_info |
+     When I migrate aggregator database to version #26
+      And I read current migration number from database
+     Then I should see that migration #26 is returned
+      And I should see 11 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
+          | rule_hit                           |
+          | recommendation                     |
+          | rule_disable                       |
+          | advisor_ratings                    |
+          | report_info                        |
+
+
+  @database
+  Scenario: Check database migration from version #0 to version #27
+     When database connection is established
+      And I look for the table migration_info in database
+     Then I should be able to find it
+     When I read current migration number from database
+     Then I should see that migration #0 is returned
+      And I should see 1 table in the database
+      And I should see these tables in the database
+          | Table name     |
+          | migration_info |
+     When I migrate aggregator database to version #27
+      And I read current migration number from database
+     Then I should see that migration #27 is returned
+      And I should see 11 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
+          | rule_hit                           |
+          | recommendation                     |
+          | rule_disable                       |
+          | advisor_ratings                    |
+          | report_info                        |
+
+
+  @database
+  Scenario: Check database migration from version #0 to version #28
+     When database connection is established
+      And I look for the table migration_info in database
+     Then I should be able to find it
+     When I read current migration number from database
+     Then I should see that migration #0 is returned
+      And I should see 1 table in the database
+      And I should see these tables in the database
+          | Table name     |
+          | migration_info |
+     When I migrate aggregator database to version #28
+      And I read current migration number from database
+     Then I should see that migration #28 is returned
+      And I should see 11 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
+          | rule_hit                           |
+          | recommendation                     |
+          | rule_disable                       |
+          | advisor_ratings                    |
+          | report_info                        |
+
+
+  @database
+  Scenario: Check database migration from version #0 to version #29
+     When database connection is established
+      And I look for the table migration_info in database
+     Then I should be able to find it
+     When I read current migration number from database
+     Then I should see that migration #0 is returned
+      And I should see 1 table in the database
+      And I should see these tables in the database
+          | Table name     |
+          | migration_info |
+     When I migrate aggregator database to version #29
+      And I read current migration number from database
+     Then I should see that migration #29 is returned
+      And I should see 11 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
+          | rule_hit                           |
+          | recommendation                     |
+          | rule_disable                       |
+          | advisor_ratings                    |
+          | report_info                        |
+
+
+  @database
+  Scenario: Check database migration from version #0 to version #30
+     When database connection is established
+      And I look for the table migration_info in database
+     Then I should be able to find it
+     When I read current migration number from database
+     Then I should see that migration #0 is returned
+      And I should see 1 table in the database
+      And I should see these tables in the database
+          | Table name     |
+          | migration_info |
+     When I migrate aggregator database to version #30
+      And I read current migration number from database
+     Then I should see that migration #30 is returned
+      And I should see 11 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
+          | rule_hit                           |
+          | recommendation                     |
+          | rule_disable                       |
+          | advisor_ratings                    |
+          | report_info                        |
+
+
+  @database
+  Scenario: Check database migration from version #0 to version #31
+     When database connection is established
+      And I look for the table migration_info in database
+     Then I should be able to find it
+     When I read current migration number from database
+     Then I should see that migration #0 is returned
+      And I should see 1 table in the database
+      And I should see these tables in the database
+          | Table name     |
+          | migration_info |
+     When I migrate aggregator database to version #31
+      And I read current migration number from database
+     Then I should see that migration #31 is returned
+      And I should see 11 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
+          | rule_hit                           |
+          | recommendation                     |
+          | rule_disable                       |
+          | advisor_ratings                    |
+          | report_info                        |
