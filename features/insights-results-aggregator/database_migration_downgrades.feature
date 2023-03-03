@@ -298,6 +298,14 @@ Feature: Database migration downgrades tests
      When I migrate aggregator database to version #11
       And I read current migration number from database
      Then I should see that migration #11 is returned
+      And I should see 5 tables in the database
+      And I should see these tables in the database
+          | Table name                 |
+          | migration_info             |
+          | report                     |
+          | cluster_rule_user_feedback |
+          | consumer_error             |
+          | cluster_rule_toggle        |
      When I migrate aggregator database to version #10
       And I read current migration number from database
      Then I should see that migration #10 is returned
@@ -322,9 +330,26 @@ Feature: Database migration downgrades tests
      When I migrate aggregator database to version #12
       And I read current migration number from database
      Then I should see that migration #12 is returned
+      And I should see 6 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
      When I migrate aggregator database to version #11
       And I read current migration number from database
      Then I should see that migration #11 is returned
+      And I should see 5 tables in the database
+      And I should see these tables in the database
+          | Table name                 |
+          | migration_info             |
+          | report                     |
+          | cluster_rule_user_feedback |
+          | consumer_error             |
+          | cluster_rule_toggle        |
 
 
 
@@ -336,9 +361,28 @@ Feature: Database migration downgrades tests
      When I migrate aggregator database to version #13
       And I read current migration number from database
      Then I should see that migration #13 is returned
+      And I should see 7 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
+          | rule_hit                           |
      When I migrate aggregator database to version #12
       And I read current migration number from database
      Then I should see that migration #12 is returned
+      And I should see 6 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
 
 
 
@@ -350,9 +394,29 @@ Feature: Database migration downgrades tests
      When I migrate aggregator database to version #14
       And I read current migration number from database
      Then I should see that migration #14 is returned
+      And I should see 7 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
+          | rule_hit                           |
      When I migrate aggregator database to version #13
       And I read current migration number from database
      Then I should see that migration #13 is returned
+      And I should see 7 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
+          | rule_hit                           |
 
 
 
@@ -364,9 +428,29 @@ Feature: Database migration downgrades tests
      When I migrate aggregator database to version #15
       And I read current migration number from database
      Then I should see that migration #15 is returned
+      And I should see 7 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
+          | rule_hit                           |
      When I migrate aggregator database to version #14
       And I read current migration number from database
      Then I should see that migration #14 is returned
+      And I should see 7 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
+          | rule_hit                           |
 
 
 
@@ -378,9 +462,30 @@ Feature: Database migration downgrades tests
      When I migrate aggregator database to version #16
       And I read current migration number from database
      Then I should see that migration #16 is returned
+      And I should see 8 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
+          | rule_hit                           |
+          | recommendation                     |
      When I migrate aggregator database to version #15
       And I read current migration number from database
      Then I should see that migration #15 is returned
+      And I should see 7 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
+          | rule_hit                           |
 
 
 
@@ -392,9 +497,32 @@ Feature: Database migration downgrades tests
      When I migrate aggregator database to version #17
       And I read current migration number from database
      Then I should see that migration #17 is returned
+      And I should see 9 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
+          | rule_hit                           |
+          | recommendation                     |
+          | rule_disable                       |
      When I migrate aggregator database to version #16
       And I read current migration number from database
      Then I should see that migration #16 is returned
+      And I should see 8 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
+          | rule_hit                           |
+          | recommendation                     |
 
 
 
@@ -406,9 +534,34 @@ Feature: Database migration downgrades tests
      When I migrate aggregator database to version #18
       And I read current migration number from database
      Then I should see that migration #18 is returned
+      And I should see 10 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
+          | rule_hit                           |
+          | recommendation                     |
+          | rule_disable                       |
+          | advisor_ratings                    |
      When I migrate aggregator database to version #17
       And I read current migration number from database
      Then I should see that migration #17 is returned
+      And I should see 9 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
+          | rule_hit                           |
+          | recommendation                     |
+          | rule_disable                       |
 
 
 
@@ -420,9 +573,35 @@ Feature: Database migration downgrades tests
      When I migrate aggregator database to version #19
       And I read current migration number from database
      Then I should see that migration #19 is returned
+      And I should see 10 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
+          | rule_hit                           |
+          | recommendation                     |
+          | rule_disable                       |
+          | advisor_ratings                    |
      When I migrate aggregator database to version #18
       And I read current migration number from database
      Then I should see that migration #18 is returned
+      And I should see 10 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
+          | rule_hit                           |
+          | recommendation                     |
+          | rule_disable                       |
+          | advisor_ratings                    |
 
 
 
@@ -434,9 +613,35 @@ Feature: Database migration downgrades tests
      When I migrate aggregator database to version #20
       And I read current migration number from database
      Then I should see that migration #20 is returned
+      And I should see 10 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
+          | rule_hit                           |
+          | recommendation                     |
+          | rule_disable                       |
+          | advisor_ratings                    |
      When I migrate aggregator database to version #19
       And I read current migration number from database
      Then I should see that migration #19 is returned
+      And I should see 10 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
+          | rule_hit                           |
+          | recommendation                     |
+          | rule_disable                       |
+          | advisor_ratings                    |
 
 
 
@@ -451,6 +656,19 @@ Feature: Database migration downgrades tests
      When I migrate aggregator database to version #20
       And I read current migration number from database
      Then I should see that migration #20 is returned
+      And I should see 10 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
+          | rule_hit                           |
+          | recommendation                     |
+          | rule_disable                       |
+          | advisor_ratings                    |
 
 
 
