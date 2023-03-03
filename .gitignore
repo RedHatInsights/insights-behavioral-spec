@@ -1,7 +1,9 @@
 venv/
+.venv/
 *.csv
 __pycache__/
 coverage/
 coverage.txt
 covcounters.*
 covmeta.*
+./insights-content-service/

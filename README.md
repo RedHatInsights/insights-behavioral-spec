@@ -13,7 +13,7 @@ Optional: Spin up the docker containers:
 ```
 POSTGRES_DB_NAME=test docker-compose up -d
 POSTGRES_DB_NAME=test docker-compose --profile test-exporter up -d
-POSTGRES_DB_NAME=notification docker-compose --profile test-notifiation-services up -d
+POSTGRES_DB_NAME=notification docker-compose --profile test-notification-services up -d
 ```
 
 The POSTGRES_DB_NAME environment variable is mandatory, as the different services expect different database names.
