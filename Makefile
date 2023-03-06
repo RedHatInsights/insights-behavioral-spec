@@ -7,6 +7,12 @@ tests:	cleaner-tests exporter-tests inference-service
 cleaner-tests:
 	./cleaner_tests.sh
 
+aggregator-tests:
+	./insights_results_aggregator_tests.sh
+
+aggregator-mock-tests:
+	./insights_results_aggregator_mock_tests.sh
+
 exporter-tests:
 	./exporter_tests.sh
 
