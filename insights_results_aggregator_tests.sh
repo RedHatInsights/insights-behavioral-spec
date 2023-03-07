@@ -44,16 +44,16 @@ function code_coverage_report() {
 EOF
 }
 
-codecov=${1:-""}
+flag=${1:-""}
 
-if [ ! -z "$codecov" ];
+if [[ "${flag}" = "coverage" ]]
 then
     prepare_code_coverage
 fi
 
 PYTHONDONTWRITEBYTECODE=1 python3 -m behave --tags=-skip -D dump_errors=true @test_list/insights_results_aggregator.txt "$@"
 
-if [ ! -z "$codecov" ];
+if [[ "${flag}" == "coverage" ]]
 then
     code_coverage_report
 fi
