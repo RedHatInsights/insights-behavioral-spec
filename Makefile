@@ -10,6 +10,9 @@ cleaner-tests:
 aggregator-tests:
 	./insights_results_aggregator_tests.sh
 
+aggregator-code-coverage:
+	./insights_results_aggregator_tests.sh coverage
+
 aggregator-mock-tests:
 	./insights_results_aggregator_mock_tests.sh
 
