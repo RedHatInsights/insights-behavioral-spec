@@ -30,6 +30,15 @@ def request_endpoint_with_body(context, endpoint, hostname, port, body):
     )
 
 
+@when("I request the {endpoint} endpoint in {hostname:w}:{port:d} with JSON")
+def request_endpoint_with_json(context, endpoint, hostname, port):
+    """Perform a request to the local server with a given JSON in the request."""
+    context.response = requests.get(
+        f"http://{hostname}:{port}/{endpoint}",
+        json=json.loads(context.text),
+    )
+
+
 @when(
     "I request the {endpoint} endpoint in {hostname:w}:{port:d} using the following data as {key}"
 )
