@@ -1,3 +1,7 @@
 venv/
 *.csv
 __pycache__/
+coverage/
+coverage.txt
+covcounters.*
+covmeta.*
