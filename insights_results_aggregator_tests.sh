@@ -48,6 +48,7 @@ flag=${1:-""}
 
 if [[ "${flag}" = "coverage" ]]
 then
+    shift
     prepare_code_coverage
 fi
 
