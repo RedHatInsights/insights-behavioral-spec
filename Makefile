@@ -31,6 +31,9 @@ inference-service:
 data-engineering-service:
 	./ccx_upgrade_risk_data_eng_tests.sh
 
+insights-content-service:
+	./insights_content_service_test.sh
+
 code-style:
 	python3 tools/run_pycodestyle.py
 
@@ -40,4 +43,4 @@ update-scenarios:
 before_commit: code-style update-scenarios
 
 docker-build:
-	docker build -t quay.io/ccxdev/insights-behavioral-spec:ci . && docker push quay.io/ccxdev/insights-behavioral-spec:ci
+	docker build -t insights-behavioral-spec:ci .

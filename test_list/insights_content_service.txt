@@ -1,0 +1,2 @@
+../features/insights-content-service/smoketests.feature
+../features/insights-content-service/endpoints.feature
