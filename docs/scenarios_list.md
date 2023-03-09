@@ -363,6 +363,10 @@ nav_order: 3
 * Check if Insights Results Aggregator displays version info
 * Check if Insights Results Aggregator displays actual configuration
 
+## `insights-results-aggregator/starting_service.feature`
+
+* Check how Insights Results Aggregator reacts to non existent configuration file
+
 ## `insights-results-aggregator-cleaner/cleanup_selected_records.feature`
 
 * Clean up one old cluster should be visible
@@ -785,7 +789,6 @@ nav_order: 3
 * Check Inference Service response with an invalid body is used in the request
 * Check Inference Service response with a valid body with invalid data is used in the request
 * Check Inference Service response with a valid body with valid data is used in the request
-* Check Inference Service response with a valid body with valid data is used in the request that returns a success prediction
 
 ## `ccx-upgrades-inference/smoketests.feature`
 
