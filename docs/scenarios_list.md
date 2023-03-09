@@ -362,6 +362,10 @@ nav_order: 3
 * Check if Insights Results Aggregator displays help message
 * Check if Insights Results Aggregator displays version info
 * Check if Insights Results Aggregator displays actual configuration
+* Check if jps utility is available
+* Check if ZooKeeper is running locally
+* Check if Kafka broker is running locally
+* Check if Kafka broker is running on expected port
 
 ## `insights-results-aggregator/starting_service.feature`
 
