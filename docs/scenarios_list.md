@@ -366,6 +366,8 @@ nav_order: 3
 ## `insights-results-aggregator/starting_service.feature`
 
 * Check how Insights Results Aggregator reacts to non existent configuration file
+* Check how Insights Results Aggregator reacts to broken database configuration
+* Check how Insights Results Aggregator reacts to situation when Kafka is not reachable
 
 ## `insights-results-aggregator-cleaner/cleanup_selected_records.feature`
 

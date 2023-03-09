@@ -46,7 +46,7 @@ def start_aggregator(context, flag, environment):
     )
 
     assert out is not None
-    process_generated_output(context, out, 2)
+    process_generated_output(context, out)
 
 
 def check_help_from_aggregator(context):

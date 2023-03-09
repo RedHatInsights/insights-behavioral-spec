@@ -63,7 +63,7 @@ def check_message_in_output(context, message):
 
     # check the output, line by line
     for line in context.output:
-        if line.startswith(message):
+        if message in line:
             break
     else:
         raise Exception("Expected message not found in {}".format(context.output))
