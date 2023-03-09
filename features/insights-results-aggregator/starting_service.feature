@@ -21,7 +21,7 @@ Feature: Checking Aggregator behaviour during starting the service
   @cli
   Scenario: Check how Insights Results Aggregator reacts to situation when Kafka is not reachable
     Given the system is in default state
-     When I run the Insights Results Aggregator with the start-service command line flag and config file name set to config/insights_results_aggregator.tom
+     When I run the Insights Results Aggregator with the start-service command line flag and config file name set to config/insights_results_aggregator_wrong_kafka.tom
      Then The process should finish with exit code 1
       And I should see following message in service output: "Failed to connect to broker"
       And I should see following message in service output: "kafka: client has run out of available brokers to talk to (Is your cluster reachable?)"

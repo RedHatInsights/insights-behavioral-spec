@@ -1,3 +1,4 @@
+@aggregator
 Feature: Basic set of smoke tests
 
 
@@ -38,3 +39,25 @@ Feature: Basic set of smoke tests
      Then I should see actual configuration displayed by Insights Results Aggregator on standard output
       And The process should finish with exit code 0
 
+
+  @managed @local
+  Scenario: Check if jps utility is available
+     When I look for executable file jps
+     Then I should find that file on PATH
+
+
+  @managed @local
+  Scenario: Check if ZooKeeper is running locally
+     When I retrieve a list of all applications running under JVM
+     Then I should find the following application org.apache.zookeeper.server.quorum.QuorumPeerMain
+
+
+  @managed @local
+  Scenario: Check if Kafka broker is running locally
+     When I retrieve a list of all applications running under JVM
+     Then I should find the following application kafka.Kafka
+
+
+  Scenario: Check if Kafka broker is running on expected port
+     When I retrieve metadata from Kafka broker
+     Then I should find at least one available broker
