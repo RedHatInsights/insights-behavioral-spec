@@ -4,7 +4,7 @@ import psycopg2
 
 FEATURES_CLEAN_DB = ("aggregator", "aggregator_cleaner", "aggregator_exporter")
 FEATURES_INIT_DB = ("aggregator", "notification_service")
-FEATURES_WITH_KAFKA = ("notification_writer", "notification_service")
+FEATURES_WITH_KAFKA = ("aggregator", "notification_writer", "notification_service")
 FEATURES_WITH_MINIO = ("aggregator_exporter",)
 FEATURES_NOTIFICATION = ("notification_writer", "notification_service", "service_log")
 
@@ -26,7 +26,7 @@ def before_all(context):
     context.database_name = os.getenv("DB_NAME", "test")
     context.database_user = os.getenv("DB_USER", "postgres")
     context.database_password = os.getenv("DB_PASS", "postgres")
-    context.local = os.getenv("ENV_DOCKER", False) == 1
+    context.local = os.getenv("ENV_DOCKER", False) == "1"
 
 
 def before_scenario(context, scenario):
