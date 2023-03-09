@@ -18,7 +18,7 @@ import requests
 import subprocess
 
 from behave import when, then
-from src.process_output import process_generated_output
+from src.process_output import process_generated_output, filter_coverage_message
 
 
 @when("I run the Insights Results Aggregator with the {flag} command line flag")
@@ -64,6 +64,9 @@ The commands are:
     # preliminary checks
     assert stdout is not None, "stdout object should exist"
     assert type(stdout) is str, "wrong type of stdout object"
+
+    # filter message that can be printed by GOCOVERAGE machinery
+    stdout = filter_coverage_message(stdout)
 
     # check the output
     assert stdout.strip() == expected_output.strip(), "{} != {}".format(
