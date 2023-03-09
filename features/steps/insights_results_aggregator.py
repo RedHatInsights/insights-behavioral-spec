@@ -103,20 +103,6 @@ def check_version_from_aggregator(context):
         raise Exception("Improper or missing version info in {}".format(context.output))
 
 
-@then('I should see following message in service output: "{message}"')
-def check_message_in_output(context, message):
-    # preliminary checks
-    assert context.output is not None
-    assert type(context.output) is list, "wrong type of output"
-
-    # check the output, line by line
-    for line in context.output:
-        if line.startswith(message):
-            break
-    else:
-        raise Exception("Expected message not found in {}".format(context.output))
-
-
 @then("I should see actual configuration displayed by Insights Results Aggregator on standard output")  # noqa E501
 def check_actual_configuration_for_aggregator(context):
     # preliminary checks

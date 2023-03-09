@@ -53,3 +53,17 @@ def check_process_exit_code(context, exit_code):
     ), "Unexpected exit code {}. Output:\n{}".format(
         context.return_code, context.output
     )
+
+
+@then('I should see following message in service output: "{message}"')
+def check_message_in_output(context, message):
+    # preliminary checks
+    assert context.output is not None
+    assert type(context.output) is list, "wrong type of output"
+
+    # check the output, line by line
+    for line in context.output:
+        if line.startswith(message):
+            break
+    else:
+        raise Exception("Expected message not found in {}".format(context.output))
