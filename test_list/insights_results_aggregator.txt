@@ -2,3 +2,4 @@
 ../features/insights-results-aggregator/database_access.feature
 ../features/insights-results-aggregator/database_migration.feature
 ../features/insights-results-aggregator/database_migration_downgrades.feature
+../features/insights-results-aggregator/starting_service.feature
