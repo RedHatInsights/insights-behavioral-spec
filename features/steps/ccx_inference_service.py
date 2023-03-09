@@ -17,6 +17,7 @@
 import os
 import subprocess
 import time
+from behave import given
 
 
 @given("The CCX Inference Service is running on port {port:d}")
@@ -25,8 +26,9 @@ def start_ccx_inference_service(context, port):
     params = ["uvicorn", "ccx_upgrades_inference.main:app", "--port", str(port)]
     env = os.environ.copy()
 
+    f = open(f"logs/ccx-upgrades-inference/{context.scenario}.log", "w")
     popen = subprocess.Popen(
-        params, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env
+        params, stdout=f, stderr=f, env=env
     )
     assert popen is not None
     time.sleep(0.5)
