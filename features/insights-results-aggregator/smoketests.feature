@@ -12,6 +12,7 @@ Feature: Basic set of smoke tests
     Given the system is in default state
      When I run the Insights Results Aggregator with the help command line flag
      Then I should see help messages displayed by Insights Results Aggregator on standard output
+      And The process should finish with exit code 0
 
 
   @cli
@@ -19,6 +20,7 @@ Feature: Basic set of smoke tests
     Given the system is in default state
      When I run the Insights Results Aggregator with the print-help command line flag
      Then I should see help messages displayed by Insights Results Aggregator on standard output
+      And The process should finish with exit code 0
 
 
   @cli
@@ -26,6 +28,7 @@ Feature: Basic set of smoke tests
     Given the system is in default state
      When I run the Insights Results Aggregator with the print-version-info command line flag
      Then I should see version info displayed by Insights Results Aggregator on standard output
+      And The process should finish with exit code 0
 
 
   @cli
@@ -33,4 +36,5 @@ Feature: Basic set of smoke tests
     Given the system is in default state
      When I run the Insights Results Aggregator with the print-config command line flag
      Then I should see actual configuration displayed by Insights Results Aggregator on standard output
+      And The process should finish with exit code 0
 

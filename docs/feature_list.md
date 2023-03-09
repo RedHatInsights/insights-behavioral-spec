@@ -92,6 +92,7 @@ nav_order: 2
 * [Ability to access database](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/database_access.feature)
 * [Database migration tests](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/database_migration.feature)
 * [Database migration downgrades tests](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/database_migration_downgrades.feature)
+* [Checking Aggregator behaviour during starting the service](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/starting_service.feature)
 
 
 ## Insights Results Aggregator Cleaner service

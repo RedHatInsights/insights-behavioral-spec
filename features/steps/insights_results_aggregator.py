@@ -16,6 +16,7 @@
 
 import requests
 import subprocess
+import os
 
 from behave import when, then
 from src.process_output import process_generated_output, filter_coverage_message
@@ -24,10 +25,24 @@ from src.process_output import process_generated_output, filter_coverage_message
 @when("I run the Insights Results Aggregator with the {flag} command line flag")
 def run_insights_results_aggregator_with_flag(context, flag):
     """Start the Insights Results Aggregator with given command-line flag."""
+    environment = os.environ.copy()
+    start_aggregator(context, flag, environment)
+
+
+@when("I run the Insights Results Aggregator with the {flag} command line flag and config file name set to {config}")  # noqa: E501
+def run_insights_results_aggregator_with_flag_and_config_file(context, flag, config):
+    environment = os.environ.copy()
+    environment["INSIGHTS_RESULTS_AGGREGATOR_CONFIG_FILE"] = config
+    start_aggregator(context, flag, environment)
+
+
+def start_aggregator(context, flag, environment):
+    """Start Insights Results Aggregator with set up command line flags and env. variables."""
     out = subprocess.Popen(
         ["insights-results-aggregator", flag],
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
+        env=environment
     )
 
     assert out is not None
