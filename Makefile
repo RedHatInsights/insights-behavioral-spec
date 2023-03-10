@@ -2,9 +2,9 @@
 
 default: tests
 
-tests:	cleaner-tests exporter-tests aggregator-test aggregator-mock-tests \
-	notification-service notification-writer insights-content-service \
-	inference-service data-engineering-service
+tests:	cleaner-tests exporter-tests aggregator-tests aggregator-mock-tests \
+	notification-service-tests notification-writer-tests insights-content-service-tests \
+	inference-service-tests data-engineering-service-tests
 
 cleaner-tests:
 	./cleaner_tests.sh
@@ -21,19 +21,19 @@ aggregator-mock-tests:
 exporter-tests:
 	./exporter_tests.sh
 
-notification-service:
+notification-service-tests:
 	./notification_service_tests.sh
 
-notification-writer:
+notification-writer-tests:
 	./notification_writer_tests.sh
 
-inference-service:
+inference-service-tests:
 	./ccx_upgrade_risk_inference_tests.sh
 
-data-engineering-service:
+data-engineering-service-tests:
 	./ccx_upgrade_risk_data_eng_tests.sh
 
-insights-content-service:
+insights-content-service-tests:
 	./insights_content_service_test.sh
 
 code-style:
