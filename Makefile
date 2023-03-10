@@ -2,7 +2,9 @@
 
 default: tests
 
-tests:	cleaner-tests exporter-tests inference-service
+tests:	cleaner-tests exporter-tests aggregator-test aggregator-mock-tests \
+	notification-service notification-writer insights-content-service \
+	inference-service data-engineering-service
 
 cleaner-tests:
 	./cleaner_tests.sh
