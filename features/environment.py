@@ -1,18 +1,46 @@
+# Copyright © 2023  Red Hat, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import os
 import psycopg2
 
 
+# Mappings between supported features (like consuming message from Kafka) and
+# tags specified in feature files
+
+# Clean database before the first scenario in feature file
 FEATURES_CLEAN_DB = ("aggregator", "aggregator_cleaner", "aggregator_exporter")
+
+# Initialize database before the first scenario in feature file
 FEATURES_INIT_DB = ("aggregator", "notification_service")
+
+# Setup all environment variables needed to work with Kafka (local or remote)
 FEATURES_WITH_KAFKA = ("aggregator", "notification_writer", "notification_service")
+
+# Setup all environment variables needed to work with Minio (local or remote)
 FEATURES_WITH_MINIO = ("aggregator_exporter",)
+
+# Setup for working with notifications
 FEATURES_NOTIFICATION = ("notification_writer", "notification_service", "service_log")
 
+# Mapping between database name and script to cleanup such database.
 CLEANUP_FILES = {
     "test": "setup/clean_aggregator_database.sql",
     "notification": "setup/clean_notification_database.sql",
 }
 
+# Mapping between database name and script to initialize such database.
 DB_INIT_FILES = {
     "test": "setup/prepare_aggregator_database.sql",
     "notification": "setup/prepare_notification_database.sql",
