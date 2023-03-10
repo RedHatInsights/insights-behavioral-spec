@@ -47,7 +47,23 @@ if __name__ == "__main__":
     # just check the function to construct INSERT statement
     print(construct_insert_statement("table1", ["foo", "bar", "baz"]))
     print(construct_insert_statement("table1", ["foo"]))
-    print(construct_insert_statement("table1", ["foo", "", "baz"]))
-    print(construct_insert_statement("table1", ["", "", ""]))
-    print(construct_insert_statement("table1", []))
-    print(construct_insert_statement("", ["foo", "bar", "baz"]))
+
+    try:
+        print(construct_insert_statement("table1", ["foo", "", "baz"]))
+    except AssertionError as e:
+        print(e)
+
+    try:
+        print(construct_insert_statement("table1", ["", "", ""]))
+    except AssertionError as e:
+        print(e)
+
+    try:
+        print(construct_insert_statement("table1", []))
+    except AssertionError as e:
+        print(e)
+
+    try:
+        print(construct_insert_statement("", ["foo", "bar", "baz"]))
+    except AssertionError as e:
+        print(e)
