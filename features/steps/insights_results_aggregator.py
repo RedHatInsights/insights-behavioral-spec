@@ -32,6 +32,7 @@ def run_insights_results_aggregator_with_flag(context, flag):
 @when("I run the Insights Results Aggregator with the {flag} command line flag and config file name set to {config}")  # noqa: E501
 def run_insights_results_aggregator_with_flag_and_config_file(context, flag, config):
     environment = os.environ.copy()
+    # add new environment variable into environments
     environment["INSIGHTS_RESULTS_AGGREGATOR_CONFIG_FILE"] = config
     start_aggregator(context, flag, environment)
 
@@ -45,7 +46,10 @@ def start_aggregator(context, flag, environment):
         env=environment
     )
 
+    # check if subprocess has been started and its output caught
     assert out is not None
+
+    # don't check exit code at this stage
     process_generated_output(context, out)
 
 
@@ -125,5 +129,8 @@ def perform_aggregator_database_migration(context, version):
         stderr=subprocess.STDOUT,
     )
 
+    # check if subprocess has been started and its output caught
     assert out is not None
+
+    # it is expected that exit code will be 0 or 2
     process_generated_output(context, out, 2)

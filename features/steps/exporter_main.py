@@ -1,4 +1,4 @@
-# Copyright © 2022 Pavel Tisnovsky, Red Hat, Inc.
+# Copyright © 2022, 2023 Pavel Tisnovsky, Red Hat, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,7 +28,10 @@ def run_exporter_with_flag(context, flag):
         stderr=subprocess.STDOUT,
     )
 
+    # check if subprocess has been started and its output caught
     assert out is not None
+
+    # it is expected that exit code will be 0 or 2
     process_generated_output(context, out, 2)
 
 
@@ -39,7 +42,10 @@ def run_exporter_with_flags(context, flags):
     cli = ["insights-results-aggregator-exporter"] + flags
     out = subprocess.Popen(cli, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
+    # check if subprocess has been started and its output caught
     assert out is not None
+
+    # it is expected that exit code will be 0 or 2
     process_generated_output(context, out, 2)
 
 
@@ -127,6 +133,8 @@ def check_configuration_info_from_exporter(context):
         "S3 configuration",
         "Storage configuration",
     )
+
+    # iterate through expected artefacts and check if its names are found in generated output
     for expected_artefact in expected_artefacts:
         assert expected_artefact in stdout, "{} not found in output".format(
             expected_artefact

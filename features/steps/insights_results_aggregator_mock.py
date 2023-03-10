@@ -36,7 +36,10 @@ def run_insights_results_aggregator_mock_with_flag(context, flag):
         stderr=subprocess.STDOUT,
     )
 
+    # check if subprocess has been started and its output caught
     assert out is not None
+
+    # it is expected that exit code will be 0 or 2
     process_generated_output(context, out, 2)
 
 
@@ -118,7 +121,9 @@ def request_list_of_organizations(context):
 
     # check the response
     assert context.response is not None
-    assert context.response.status_code == 200
+
+    # HTTP status code of response should be 200 OK
+    assert context.response.status_code == 200, context.response.status_code
 
 
 @then("I should retrieve following list of organizations")
@@ -144,6 +149,8 @@ def request_list_of_clusters(context, organization):
 
     # check the response
     assert context.response is not None
+
+    # HTTP status code of response should be 200 OK or 404 Not Found
     assert context.response.status_code in (200, 403)
 
 
@@ -171,7 +178,9 @@ def request_clusters_hitting_rule(context, rule_name, error_key):
 
     # check the response
     assert context.response is not None
-    assert context.response.status_code == 200
+
+    # HTTP status code of response should be 200 OK
+    assert context.response.status_code == 200, context.response.status_code
 
 
 @when("I request list of groups")
@@ -182,7 +191,9 @@ def request_list_of_groups(context):
 
     # check the response
     assert context.response is not None
-    assert context.response.status_code == 200
+
+    # HTTP status code of response should be 200 OK
+    assert context.response.status_code == 200, context.response.status_code
 
 
 @then("I should retrieve following list of groups")
@@ -229,7 +240,9 @@ def request_report_for_cluster(context, cluster):
 
     # check the response
     assert context.response is not None
-    assert context.response.status_code == 200
+
+    # HTTP status code of response should be 200 OK
+    assert context.response.status_code == 200, context.response.status_code
 
 
 @when("I request report for cluster {cluster:S} from organization {organization:d}")
@@ -240,7 +253,9 @@ def request_report_for_cluster_in_organization(context, cluster, organization):
 
     # check the response
     assert context.response is not None
-    assert context.response.status_code == 200
+
+    # HTTP status code of response should be 200 OK
+    assert context.response.status_code == 200, context.response.status_code
 
 
 @then("The report should contain {expected_count:d} rule hits")
@@ -351,7 +366,9 @@ def request_results_for_list_of_clusters(context):
 
     # check the response
     assert context.response is not None
-    assert context.response.status_code == 200
+
+    # HTTP status code of response should be 200 OK
+    assert context.response.status_code == 200, context.response.status_code
 
 
 @then("I should see empty list of reports")
@@ -433,7 +450,9 @@ def request_content_and_list_of_groups(context):
 
     # check the response
     assert context.response is not None
-    assert context.response.status_code == 200
+
+    # HTTP status code of response should be 200 OK
+    assert context.response.status_code == 200, context.response.status_code
 
 
 @then("I should retrieve empty content")
@@ -457,7 +476,9 @@ def request_list_of_all_acked_rules(context):
 
     # basic check if service responded with HTTP code 200 OK
     assert context.response is not None
-    assert context.response.status_code == 200
+
+    # HTTP status code of response should be 200 OK
+    assert context.response.status_code == 200, context.response.status_code
 
 
 @then("I should retrieve list of {length:n} acked rules")
@@ -531,6 +552,8 @@ def perform_rule_ack_without_justification(context, rule_id, error_key):
 
     # check the response
     assert context.response is not None
+
+    # HTTP status code of response should be 200 OK or 201 Created
     assert context.response.status_code in (200, 201)
 
 
@@ -551,6 +574,8 @@ def perform_rule_ack_with_justification(context, rule_id, error_key, justificati
 
     # check the response
     assert context.response is not None
+
+    # HTTP status code of response should be 200 OK or 201 Created
     assert context.response.status_code in (200, 201)
 
 
@@ -570,6 +595,8 @@ def change_justification_text(context, rule_id, error_key, justification):
 
     # check the response
     assert context.response is not None
+
+    # HTTP status code of response should be 200 OK
     assert context.response.status_code == 200, context.response.status_code
 
 
@@ -586,5 +613,7 @@ def delete_rule_ack(context, rule_id, error_key):
 
     # check the response
     assert context.response is not None
+
+    # HTTP status code of response should be 200 OK, 204 No Content, or 404 Not Found
     assert context.response.status_code in (200, 204, 404), \
         f"Status code is {context.response.status_code}"

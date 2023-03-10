@@ -1,4 +1,4 @@
-# Copyright © 2021, 2022 Pavel Tisnovsky, Red Hat, Inc.
+# Copyright © 2021, 2022, 2023 Pavel Tisnovsky, Red Hat, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -39,7 +39,10 @@ def run_cleaner_for_older_records(context, age):
         stderr=subprocess.STDOUT,
     )
 
+    # check if subprocess has been started and its output caught
     assert out is not None
+
+    # it is expected that exit code will be 0
     process_generated_output(context, out, 0)
 
 
@@ -52,7 +55,10 @@ def run_cleaner_with_flag(context, flag):
         stderr=subprocess.STDOUT,
     )
 
+    # check if subprocess has been started and its output caught
     assert out is not None
+
+    # it is expected that exit code will be 0 or 2
     process_generated_output(context, out, 2)
 
 
@@ -65,7 +71,10 @@ def run_cleaner_to_cleanup_cluster(context, cluster):
         stderr=subprocess.STDOUT,
     )
 
+    # check if subprocess has been started and its output caught
     assert out is not None
+
+    # it is expected that exit code will be 0
     process_generated_output(context, out, 0)
 
 
@@ -78,7 +87,10 @@ def start_db_vacuum(context):
         stderr=subprocess.STDOUT,
     )
 
+    # check if subprocess has been started and its output caught
     assert out is not None
+
+    # it is expected that exit code will be 0
     process_generated_output(context, out, 0)
 
 
@@ -96,6 +108,7 @@ def check_db_vacuuming(context):
             "Vacuuming started",
             "Vacuuming finished")
 
+    # iterate over all expected messages and try to find them in caught output
     for expected_message in expected_messages:
         for line in context.output:
             if expected_message in line:
@@ -181,6 +194,7 @@ def check_cleaner_configuration(context):
             "Logging configuration",
             "Cleaner configuration")
 
+    # iterate over all expected messages and try to find them in caught output
     for expected_message in expected_messages:
         for line in context.output:
             if f'"message":"{expected_message}"' in line:
@@ -206,6 +220,7 @@ def check_non_empty_list_of_records(context):
     # set of actually found clusters
     found_clusters = set()
 
+    # check content of file generated during testing by Cleaner tool
     with open(test_output, "r") as fin:
         assert fin is not None
         for line in fin:
