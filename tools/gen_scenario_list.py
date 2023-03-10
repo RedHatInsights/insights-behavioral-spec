@@ -17,17 +17,18 @@
 """Scenario list generator."""
 
 # Usage
-# python3 tools/gen_scenario_list.py > feature/new_README.md
+# python3 tools/gen_scenario_list.py > docs/scenarios_list.md
 
 import os
 
 # list of prefixes for scenarios or scenario outlines
 PREFIXES = ("Scenario: ", "Scenario Outline: ")
 
-# directory where feature files are stored
+# sub-directory where feature files are stored
 FEATURE_DIRECTORY = "features"
 
 # list of subdirectories with feature files with specified order
+# (order is important to make sure the resulting scenario list will have stable structure)
 SUBDIRECTORIES = (
     "OCM",
     "OCP_WebConsole",
@@ -45,7 +46,7 @@ SUBDIRECTORIES = (
     "ccx-upgrades-inference",
 )
 
-# page header
+# generate page header
 print("---")
 print("layout: page")
 print("nav_order: 3")
@@ -54,9 +55,11 @@ print()
 print("# List of scenarios")
 print()
 
-
+# generage list of scenarios
 for subdirectory in SUBDIRECTORIES:
     directory = os.path.join(FEATURE_DIRECTORY, subdirectory)
+    # files within one subdirectory needs to be sorted so the
+    # resulting scenario list will have stable structure across versions
     files = sorted(os.listdir(directory))
     for filename in files:
         # grep all .feature files
