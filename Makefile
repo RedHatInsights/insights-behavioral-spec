@@ -1,4 +1,4 @@
-.PHONY: default tests code-style update-scenarios before_commit cleaner-tests exporter-tests notification-service notification-writer inference-service
+.PHONY: default tests code-style update-scenarios before_commit cleaner-tests exporter-tests aggregator-tests aggregator-mock-tests notification-service-tests notification-writer-tests insights-content-service-tests inference-service-tests data-engineering-service-tests
 
 default: tests
 
