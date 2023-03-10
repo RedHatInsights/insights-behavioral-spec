@@ -1,4 +1,4 @@
-# Copyright © 2022 Pavel Tisnovsky, Red Hat, Inc.
+# Copyright © 2022, 2023 Pavel Tisnovsky, Red Hat, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,14 +17,16 @@
 import csv
 
 
-def check_table_content(context, buff, filename, column, column2=None):
+def check_table_content(context, buff, filename, column, column2=None, headers=True):
     """Check if CSV file or CSV object contains records specified in test context."""
     # CSV file object
     csvFile = csv.reader(buff)
 
-    # skip the first row of the CSV file.
-    next(csvFile)
+    # skip the first row of the CSV file when we know in advance it contains column headers
+    if headers:
+        next(csvFile)
 
+    # process rest of CSV file (without optinal header line)
     for line in csvFile:
         found = False
         # iterate over all records that needs to be stored in CSV
@@ -35,6 +37,7 @@ def check_table_content(context, buff, filename, column, column2=None):
 
                 # check if selected column contains the expected record
                 if line[column] == record:
+                    # we found the record -> we are done
                     found = True
                     break
             else:
@@ -44,6 +47,7 @@ def check_table_content(context, buff, filename, column, column2=None):
 
                 # check if selected column contains the expected record
                 if line[column] == record1 and line[column2] == record2:
+                    # we found the record -> we are done
                     found = True
                     break
 

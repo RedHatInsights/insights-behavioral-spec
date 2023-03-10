@@ -1,4 +1,4 @@
-# Copyright © 2022 Pavel Tisnovsky, Red Hat, Inc.
+# Copyright © 2022, 2023 Pavel Tisnovsky, Red Hat, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Minio/S3-related code."""
+"""Minio/S3-related functions that can be called from other sources and test step definitions."""
 
 from minio import Minio
 from io import StringIO
@@ -20,6 +20,7 @@ from io import StringIO
 
 def minio_client(context):
     """Construct new Minio client."""
+    # TODO: secure option might need to be specified via context attribute
     if not hasattr(context, "minio_client"):
         # brand new Minio client
         endpoint, port, access_key, secret_access_key = (
@@ -43,7 +44,7 @@ def bucket_check(context):
     """Check bucket existence."""
     bucket_name = context.S3_bucket_name
     found = context.minio_client.bucket_exists(bucket_name)
-    assert found, "Bucket can't be accessed"
+    assert found, f"Bucket {bucket_name} can't be accessed"
 
 
 def read_object_into_buffer(context, object_name):
