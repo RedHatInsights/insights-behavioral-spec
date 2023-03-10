@@ -6,6 +6,15 @@
 
 Behavioral specifications for Insights pipelines and its integration into OCM, OCP, and ACM
 
+<!-- vim-markdown-toc GFM -->
+
+* [How to run the scenarios](#how-to-run-the-scenarios)
+* [List of existing behavioral specifications (features)](#list-of-existing-behavioral-specifications-features)
+* [List of scenarios](#list-of-scenarios)
+* [Makefile targets](#makefile-targets)
+
+<!-- vim-markdown-toc -->
+
 ## How to run the scenarios
 
 Optional: Spin up the docker containers:
@@ -37,3 +46,7 @@ All features are listed [on this page](https://redhatinsights.github.io/insights
 ## List of scenarios
 
 List of scenarios can be seen [there](https://redhatinsights.github.io/insights-behavioral-spec/scenarios_list.html)
+
+## Makefile targets
+
+Please look at [this page](https://redhatinsights.github.io/insights-behavioral-spec/makefile_targets.html)
