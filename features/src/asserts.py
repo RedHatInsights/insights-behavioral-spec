@@ -12,11 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Custom asserts."""
+"""Custom asserts that can be imported into other source files and steps definitions."""
 
 
 def assert_sets_equality(what, expected, actual):
-    """Compare two sets of values."""
+    """Compare two sets of values, displays correct set difference when inequal."""
     assert expected == actual, "Difference found in sets of {}: {}".format(
         what, expected ^ actual
     )
