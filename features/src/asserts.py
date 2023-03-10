@@ -31,20 +31,20 @@ if __name__ == "__main__":
 
     try:
         assert_sets_equality("something", {1, 2}, {2})
-    except AssertionError:
-        pass
+    except AssertionError as e:
+        print(e)
 
     try:
         assert_sets_equality("something", {1, 2}, {2, 3})
-    except AssertionError:
-        pass
+    except AssertionError as e:
+        print(e)
 
     try:
         assert_sets_equality("something", set(), {1})
-    except AssertionError:
-        pass
+    except AssertionError as e:
+        print(e)
 
     try:
         assert_sets_equality("something", set(), {1, 2})
-    except AssertionError:
-        pass
+    except AssertionError as e:
+        print(e)
