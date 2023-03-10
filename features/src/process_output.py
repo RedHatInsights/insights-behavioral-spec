@@ -68,4 +68,4 @@ if __name__ == "__main__":
     # just check functions defined above
     print(filter_coverage_message("foo bar baz\n"))
     print(filter_coverage_message("foo\nbar\nbaz\n"))
-    print(filter_coverage_message("foo\nwarning: GOCOVERDIR not set, no coverage data emitted\nbaz\n"))
+    print(filter_coverage_message("foo\nwarning: GOCOVERDIR not set, no coverage data emitted\nbaz\n"))  # noqa E501
