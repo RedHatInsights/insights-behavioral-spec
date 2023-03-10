@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Unsorted utility functions."""
+"""Unsorted utility functions to be used from other sources and test step definitions."""
 
 
 def get_array_from_json(context, selector, subselector=None):
