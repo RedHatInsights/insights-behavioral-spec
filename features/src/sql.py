@@ -1,4 +1,4 @@
-# Copyright © 2022 Pavel Tisnovsky, Red Hat, Inc.
+# Copyright © 2022, 2023 Pavel Tisnovsky, Red Hat, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,8 +28,12 @@ def construct_insert_statement(table_name, headings):
 
     template = "INSERT into {table_name} ({column_names}) VALUES ({placeholders})"
 
+    # list of columns that will be put into parenthesis in resulting INSERT statement
+    # before VALUES clausule
     column_names = ", ".join(headings)
 
+    # list of placeholders that will be put into parenthesis in resulting INSERT statement
+    # after VALUES clausule
     placeholder_marks = ("%s",) * len(headings)
     placeholders = ", ".join(placeholder_marks)
 
@@ -40,7 +44,10 @@ def construct_insert_statement(table_name, headings):
 
 
 if __name__ == "__main__":
+    # just check the function to construct INSERT statement
     print(construct_insert_statement("table1", ["foo", "bar", "baz"]))
     print(construct_insert_statement("table1", ["foo"]))
     print(construct_insert_statement("table1", ["foo", "", "baz"]))
+    print(construct_insert_statement("table1", ["", "", ""]))
     print(construct_insert_statement("table1", []))
+    print(construct_insert_statement("", ["foo", "bar", "baz"]))
