@@ -109,3 +109,12 @@ services:
         --metrics-server-bindaddress "localhost:8080" \
         --enable-ocm-mock
       "
+
+  mock-oauth2-server:
+    profiles:
+      - test-upgrades-data-eng
+    image: ghcr.io/navikt/mock-oauth2-server:0.5.8
+    environment:
+      - LOG_LEVEL=DEBUG
+    ports:
+      - 8081:8080
