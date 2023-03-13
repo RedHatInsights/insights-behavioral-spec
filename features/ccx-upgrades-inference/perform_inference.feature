@@ -54,15 +54,10 @@ Feature: Upgrade Risks Prediction inference - test well known values
           """
             {
               "required": [
-                "upgrade_recommended",
                 "upgrade_risks_predictors"
               ],
               "type": "object",
               "properties": {
-                "upgrade_recommended": {
-                  "title": "Upgrade Recommended",
-                  "type": "boolean"
-                },
                 "upgrade_risks_predictors": {
                   "title": "Upgrade Risks Predictors",
                   "type": "object",
@@ -83,7 +78,6 @@ Feature: Upgrade Risks Prediction inference - test well known values
       And The body of the response is the following
           """
             {
-              "upgrade_recommended": false,
               "upgrade_risks_predictors": {
                 "alerts": [],
                 "operator_conditions": [

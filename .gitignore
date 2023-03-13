@@ -7,3 +7,4 @@ coverage.txt
 covcounters.*
 covmeta.*
 ./insights-content-service/
+logs/**/*.log
