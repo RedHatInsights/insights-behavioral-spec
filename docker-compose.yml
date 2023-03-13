@@ -64,7 +64,7 @@ services:
     entrypoint:
       - /bin/sh
       - -c
-      - 'export CCX_NOTIFICATION_WRITER__STORAGE__DB_DRIVER=postgres CCX_NOTIFICATION_WRITER__STORAGE__PG_PARAMS="sslmode=disable" CCX_NOTIFICATION_WRITER__STORAGE__PG_USERNAME=postgres CCX_NOTIFICATION_WRITER__STORAGE__PG_PASSWORD=postgres CCX_NOTIFICATION_WRITER__STORAGE__PG_HOST=database CCX_NOTIFICATION_WRITER__STORAGE__PG_PORT=5432 CCX_NOTIFICATION_WRITER__STORAGE__PG_DB_NAME=notification && ./ccx-notification-writer --db-init-migration && ./ccx-notification-writer --db-init && ./ccx-notification-writer --migrate latest'
+      - 'sleep 5 && export CCX_NOTIFICATION_WRITER__STORAGE__DB_DRIVER=postgres CCX_NOTIFICATION_WRITER__STORAGE__PG_PARAMS="sslmode=disable" CCX_NOTIFICATION_WRITER__STORAGE__PG_USERNAME=postgres CCX_NOTIFICATION_WRITER__STORAGE__PG_PASSWORD=postgres CCX_NOTIFICATION_WRITER__STORAGE__PG_HOST=database CCX_NOTIFICATION_WRITER__STORAGE__PG_PORT=5432 CCX_NOTIFICATION_WRITER__STORAGE__PG_DB_NAME=notification && ./ccx-notification-writer --db-init-migration && ./ccx-notification-writer --db-init && ./ccx-notification-writer --migrate latest'
 
   content-service:
     profiles:
