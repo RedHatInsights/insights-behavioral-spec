@@ -38,6 +38,16 @@ function install_data_eng_service() {
     add_exit_trap 'python3 "$(which pip3)" uninstall -y ccx-upgrades-data-eng'
 }
 
+function start_mocked_dependencies() {
+    python3 $(which pip3) install -r requirements/mocks.txt
+    pushd $dir_path/mocks/inference-service && uvicorn inference_service:app --port 8001 &
+    pushd $dir_path/mocks/rhobs && uvicorn rhobs_service:app --port 8002 &
+
+    add_exit_trap 'kill $(lsof -ti:8001); kill $(lsof -ti:8002);'
+    pushd $dir_path
+    sleep 2  # wait for the mocks to be up
+}
+
 # mechanism to chain more trap commands added in different parts of this script
 exit_trap_command=""
 function cleanup {
@@ -59,6 +69,8 @@ function add_exit_trap {
 
 # Copy the binary and configuration to this folder
 install_data_eng_service
+
+[ "$WITHMOCK" == "1" ] && start_mocked_dependencies
 
 # shellcheck disable=SC2068
 PYTHONDONTWRITEBYTECODE=1 python3 "$(which behave)" \
