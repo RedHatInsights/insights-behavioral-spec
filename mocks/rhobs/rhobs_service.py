@@ -14,10 +14,9 @@
 
 """Mock server that can be used instead of fully functional Observatorium."""
 
-import json
 import re
 
-from fastapi import FastAPI, Response
+from fastapi import FastAPI
 from pydantic import BaseModel
 
 app = FastAPI()
@@ -36,7 +35,7 @@ EXAMPLE_RESULT = [
         "metric": {
             "__name__": "cluster_operator_conditions",
             "name": "authentication",
-            "condition": "Failing",
+            "condition": "Degraded",
             "reason": "AsExpected",
         },
     },
@@ -50,18 +49,6 @@ class Query(BaseModel):
 
 
 @app.get("/api/metrics/v1/telemeter/api/v1/query")
-def get_random_results(query: Query):
+def get_random_results():
     """Request handler for REST API endpoint to return alerts and FOCs."""
-    match = re.match(
-        r"^alerts{{_id=(.+)}}\s+or\s+cluster_operator_conditions{{_id=(.+)}}",
-        query.query,
-    )
-
-    if not match:
-        return {}
-
-    cluster_id = match.group(1)
-    even = bool(int(cluster_id[-1], 16) % 2)
-
-    result = EXAMPLE_RESULT if even else list()
-    return {"data": {"result": result}}
+    return {"data": {"result": EXAMPLE_RESULT}}

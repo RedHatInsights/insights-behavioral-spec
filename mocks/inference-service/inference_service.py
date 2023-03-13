@@ -14,27 +14,26 @@
 
 """Mock server that can be used instead of fully functional Inference Service."""
 
-import json
-from typing import List
 
-from fastapi import FastAPI, Response
-from pydantic import BaseModel
+from fastapi import FastAPI
 
 
 app = FastAPI()
 
 
-class Risks(BaseModel):
-    """Simple model used to mock the requests that data-engineering service will perform."""
-
-    risks: List[str]
-
-
 @app.get("/upgrade-risks-prediction")
-def upgrade_risk_prediction_mock(risks: Risks):
+def upgrade_risk_prediction_mock():
     """Request handler for REST API endpoint to return upgrade prediction prediction."""
-    result = len(risks.risks) == 0
     return {
-        "upgrade_recommended": result,
-        "upgrade_risks_predictors": risks.risks,
+        "upgrade_recommended": False,
+        "upgrade_risks_predictors": {
+            "alerts": [],
+            "operator_conditions": [
+                {
+                    "name": "authentication",
+                    "condition": "Degraded",
+                    "reason": "AsExpected"
+                }
+            ]
+        }
     }
