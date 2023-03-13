@@ -20,7 +20,7 @@ function prepare_venv() {
     virtualenv -p python3 venv 
     source venv/bin/activate 
     python3 "$(which pip3)" install --no-cache -r requirements.in || exit 1
-    python3 "$(which pip3)" install --no-cache -r requirements/insights-content-service.txt || exit 1
+    python3 "$(which pip3)" install --no-cache -r requirements/insights_content_service.txt || exit 1
     echo "Environment ready"
 }
 
@@ -39,7 +39,7 @@ content_service_pid=$!
 
 sleep 2
 # shellcheck disable=SC2068
-PYTHONDONTWRITEBYTECODE=1 python3 -m behave \
+PYTHONDONTWRITEBYTECODE=1 python3 -m behave --no-capture \
     --format=progress2 \
     --tags=-skip --tags=-managed \
     -D dump_errors=true @test_list/insights_content_service.txt "$@"
