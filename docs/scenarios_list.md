@@ -801,3 +801,13 @@ nav_order: 3
 * Check if CCX Upgrade Risk Inference Service application is available
 * Check if CCX Upgrade Risk Inference Service can be run
 
+## `ccx-upgrades-data-eng/request_prediction.feature`
+
+* Check Data Engineering Service response with an invalid cluster ID in the request
+* Check Data Engineering Service response with a valid cluster ID
+
+## `ccx-upgrades-data-eng/smoketests.feature`
+
+* Check if CCX Upgrade Risk Data Engineering Service application is available
+* Check if CCX Upgrade Risk Data Engineering Service can be run
+
