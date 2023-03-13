@@ -21,15 +21,21 @@ import time
 from behave import given
 
 
-@given("The CCX Data Engineering Service is running on port {port:d}")
+@given("The CCX Data Engineering Service is running on port {port:d} with envs")
 def start_ccx_upgrades_data_eng(context, port):
     """Run ccx-upgrades-data-eng for a test and prepare its stop."""
-    params = ["uvicorn", "ccx_upgrades_data_eng.main:app", "--port", str(port)]
+    params = ["uvicorn", "ccx_upgrades_data_eng.main:app", "--port", str(port),
+              "--log-level", "debug"]
     env = os.environ.copy()
 
-    popen = subprocess.Popen(
-        params, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env
-    )
+    # Update the environment with variables configured by the test
+    for row in context.table:
+        var, val = row["variable"], row["value"]
+        env[var] = val
+
+    f = open(f"logs/ccx-upgrades-data-eng/{context.scenario}.log", "w")
+
+    popen = subprocess.Popen(params, stdout=f, stderr=f, env=env)
     assert popen is not None
     time.sleep(0.5)
     context.add_cleanup(popen.terminate)
