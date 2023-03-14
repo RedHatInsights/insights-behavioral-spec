@@ -21,12 +21,28 @@ function prepare_venv() {
     echo "Environment ready"
 }
 
+function set_env_vars(){
+    export INSIGHTS_RESULTS_CLEANER__STORAGE__PG_DB_NAME=test \
+	   INSIGHTS_RESULTS_CLEANER__STORAGE__PG_HOST=$DB_HOST \
+	   INSIGHTS_RESULTS_CLEANER__STORAGE__PG_PORT=$DB_PORT \
+	   INSIGHTS_RESULTS_CLEANER__STORAGE__PG_USERNAME=$DB_USER \
+	   INSIGHTS_RESULTS_CLEANER__STORAGE__PG_PASSWORD=$DB_PASS \
+	   INSIGHTS_RESULTS_CLEANER__STORAGE__DB_DRIVER=postgres \
+	   INSIGHTS_RESULTS_CLEANER__STORAGE__PG_PARAMS="sslmode=disable"
+}
+
 # prepare virtual environment if necessary
 [ "$VIRTUAL_ENV" != "" ] || NOVENV=1
 case "$NOVENV" in
     "") echo "using existing virtual env";;
     "1") prepare_venv;;
 esac
+
+if [[ ! -z $ENV_DOCKER ]]
+then
+    #set env vars
+    set_env_vars
+fi
 
 PYTHONDONTWRITEBYTECODE=1 python3 -m behave --tags=-skip -D dump_errors=true @test_list/cleaner.txt "$@"
 
