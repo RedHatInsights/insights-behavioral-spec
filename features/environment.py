@@ -54,7 +54,7 @@ def before_all(context):
     context.database_name = os.getenv("DB_NAME", "test")
     context.database_user = os.getenv("DB_USER", "postgres")
     context.database_password = os.getenv("DB_PASS", "postgres")
-    context.local = os.getenv("ENV_DOCKER", False) == "1"
+    context.local = os.getenv("ENV_DOCKER", False) not in ["0", False]
 
 
 def before_scenario(context, scenario):
