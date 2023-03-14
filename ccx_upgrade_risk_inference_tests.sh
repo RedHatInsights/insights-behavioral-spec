@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash -xe
 
 # Copyright 2022 Red Hat, Inc
 #
@@ -17,9 +17,9 @@
 
 dir_path=$(dirname $(realpath $0))
 export PATH=$PATH:$dir_path
-PATH_TO_LOCAL_INFERENCE_SERVICE=${PATH_TO_LOCAL_INFERENCE_SERVICE:="../ccx-inference-service"}
+PATH_TO_LOCAL_INFERENCE_SERVICE=${PATH_TO_LOCAL_INFERENCE_SERVICE:="../ccx-upgrades-inference/"}
 
-#set NOVENV is current environment is not a python virtual env
+#set NOVENV if current environment is not a python virtual env
 [ "$VIRTUAL_ENV" != "" ] || NOVENV=1
 
 function install_reqs() {
@@ -34,7 +34,8 @@ function prepare_venv() {
 }
 
 function install_inference_service() {
-    python3 "$(which pip3)" install $PATH_TO_LOCAL_INFERENCE_SERVICE
+    python3 "$(which pip3)" install -r $PATH_TO_LOCAL_INFERENCE_SERVICE/requirements.txt
+    python3 "$(which pip3)" install $PATH_TO_LOCAL_INFERENCE_SERVICE/.
     add_exit_trap 'python3 "$(which pip3)" uninstall -y ccx-upgrades-inference'
 }
 
