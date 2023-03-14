@@ -36,7 +36,7 @@ RUN curl -v -ksL https://password.corp.redhat.com/RH-IT-Root-CA.crt \
          -o /etc/pki/ca-trust/source/anchors/RH-IT-Root-CA.crt
 RUN update-ca-trust
 RUN pip install --no-cache-dir -U pip setuptools wheel
-RUN pip install --no-cache-dir -r requirements/.requirements_docker.txt
+RUN pip install --no-cache-dir -r requirements/requirements_docker.txt
 
 RUN dnf clean all
 RUN chmod -R g=u $HOME $VIRTUAL_ENV /etc/passwd
