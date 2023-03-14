@@ -28,16 +28,19 @@ COPY . $HOME
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 
-RUN dnf install --nodocs -y python3-pip unzip make lsof && \
-    python3 -m venv $VIRTUAL_ENV && \
-    curl -ksL https://password.corp.redhat.com/RH-IT-Root-CA.crt \
-         -o /etc/pki/ca-trust/source/anchors/RH-IT-Root-CA.crt && \
-    update-ca-trust && \
-    pip install --no-cache-dir -U pip setuptools wheel && \
-    pip install --no-cache-dir -r requirements/.requirements_docker && \
-    dnf clean all && \
-    chmod -R g=u $HOME $VIRTUAL_ENV /etc/passwd && \
-    chgrp -R 0 $HOME $VIRTUAL_ENV
+RUN dnf install --nodocs -y python39 python39-devel unzip make lsof git libpq-devel gcc
+
+RUN python3 -m venv $VIRTUAL_ENV
+
+RUN curl -v -ksL https://password.corp.redhat.com/RH-IT-Root-CA.crt \
+         -o /etc/pki/ca-trust/source/anchors/RH-IT-Root-CA.crt
+RUN update-ca-trust
+RUN pip install --no-cache-dir -U pip setuptools wheel
+RUN pip install --no-cache-dir -r requirements/.requirements_docker.txt
+
+RUN dnf clean all
+RUN chmod -R g=u $HOME $VIRTUAL_ENV /etc/passwd
+RUN chgrp -R 0 $HOME $VIRTUAL_ENV
 
 COPY --from=confluentinc/cp-kafkacat:7.1.5-1-ubi8 /usr/local/bin/kafkacat $VIRTUAL_ENV_BIN/kcat
 
