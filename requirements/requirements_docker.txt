@@ -1,0 +1,12 @@
+behave
+pytest
+psycopg2-binary
+fastapi
+uvicorn[standard]
+python-multipart
+requests
+minio
+jsonschema
+kafka-python
+
+virtualenv
