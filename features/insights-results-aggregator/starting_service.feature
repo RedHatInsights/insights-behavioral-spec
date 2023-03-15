@@ -23,7 +23,7 @@ Feature: Checking Aggregator behaviour during starting the service
   @cli
   Scenario: Check how Insights Results Aggregator reacts to situation when Kafka is not reachable
     Given the system is in default state
-     When I migrate aggregator database to version #latest
+     When I migrate aggregator database to latest version
       And I run the Insights Results Aggregator with the start-service command line flag and config file name set to config/insights_results_aggregator_wrong_kafka.tom
      Then The process should finish with exit code 1
       And I should see following message in service output: "Failed to connect to broker"

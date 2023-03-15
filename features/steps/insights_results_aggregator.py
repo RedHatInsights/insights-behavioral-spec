@@ -127,7 +127,7 @@ def check_actual_configuration_for_aggregator(context):
     assert "CertPath" in context.output[6], "Caught output: {}".format(context.output)
 
 
-@when("I migrate aggregator database to version #{version}")
+@when("I migrate aggregator database to version #{version:n}")
 def perform_aggregator_database_migration(context, version):
     """Perform aggregator database migration to selected version."""
     out = subprocess.Popen(
@@ -141,3 +141,9 @@ def perform_aggregator_database_migration(context, version):
 
     # it is expected that exit code will be 0 or 2
     process_generated_output(context, out, 2)
+
+
+@when("I migrate aggregator database to latest version")
+def perform_aggregator_database_migration_to_latest(context):
+    """Perform aggregator database migration to latest version."""
+    perform_aggregator_database_migration(context, "latest")
