@@ -21,6 +21,10 @@ function prepare_venv() {
     echo "Environment ready"
 }
 
+function set_env_vars(){
+    export INSIGHTS_RESULTS_AGGREGATOR__STORAGE__DB_DRIVER=postgres INSIGHTS_RESULTS_AGGREGATOR__STORAGE__PG_PARAMS="sslmode=disable" INSIGHTS_RESULTS_AGGREGATOR__STORAGE__LOG_SQL_QUERIES=true INSIGHTS_RESULTS_AGGREGATOR__STORAGE__PG_USERNAME=$DB_USER INSIGHTS_RESULTS_AGGREGATOR__STORAGE__PG_PASSWORD=$DB_PASS INSIGHTS_RESULTS_AGGREGATOR__STORAGE__PG_HOST=$DB_HOST INSIGHTS_RESULTS_AGGREGATOR__STORAGE__PG_PORT=$DB_PORT INSIGHTS_RESULTS_AGGREGATOR__STORAGE__PG_DB_NAME=$DB_NAME
+}
+
 function prepare_code_coverage() {
     echo "Preparing code coverage environment"
     rm -rf coverage
@@ -50,6 +54,12 @@ if [[ "${flag}" = "coverage" ]]
 then
     shift
     prepare_code_coverage
+fi
+
+if [[ ! -z $ENV_DOCKER ]]
+then
+    #set env vars
+    set_env_vars
 fi
 
 PYTHONDONTWRITEBYTECODE=1 python3 -m behave --tags=-skip -D dump_errors=true @test_list/insights_results_aggregator.txt "$@"
