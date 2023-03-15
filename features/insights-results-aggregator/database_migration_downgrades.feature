@@ -1,3 +1,4 @@
+@aggregator
 Feature: Database migration downgrades tests
 
 
