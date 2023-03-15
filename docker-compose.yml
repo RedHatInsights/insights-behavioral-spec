@@ -18,6 +18,7 @@ services:
   kafka:
     profiles:
       - test-notification-services
+      - test-aggregator
     image: quay.io/ccxdev/kafka-no-zk:latest
     ports:
       - 9092:9092
@@ -118,3 +119,4 @@ services:
       - LOG_LEVEL=DEBUG
     ports:
       - 8081:8080
+
