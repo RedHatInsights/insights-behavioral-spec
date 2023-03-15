@@ -56,6 +56,13 @@ then
     prepare_code_coverage
 fi
 
+# prepare virtual environment if necessary
+[ "$VIRTUAL_ENV" != "" ] || NOVENV=1
+case "$NOVENV" in
+    "") echo "using existing virtual env";;
+    "1") prepare_venv ;;
+esac
+
 if [[ ! -z $ENV_DOCKER ]]
 then
     #set env vars

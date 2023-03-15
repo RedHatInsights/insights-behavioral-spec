@@ -32,11 +32,13 @@ def run_insights_results_aggregator_with_flag(context, flag):
 @when("I store current environment without Insights Results Aggregator variables")
 def store_env_without_insights_results_aggregator_env_vars(context):
     context.no_IRA_environment = {key: value for (key, value) in os.environ.copy().items() if
-                   "INSIGHTS_RESULTS_AGGREGATOR__" not in key}
+                                  "INSIGHTS_RESULTS_AGGREGATOR__" not in key}
+
 
 @when("I run the Insights Results Aggregator with the {flag} command line flag and config file name set to {config}")  # noqa: E501
 def run_insights_results_aggregator_with_flag_and_config_file(context, flag, config):
-    environment = os.environ.copy() if not hasattr(context, 'no_IRA_environment') else context.no_IRA_environment
+    environment = os.environ.copy() if not hasattr(context, 'no_IRA_environment') \
+        else context.no_IRA_environment
     # add new environment variable into environments
     environment["INSIGHTS_RESULTS_AGGREGATOR_CONFIG_FILE"] = config
     start_aggregator(context, flag, environment)
