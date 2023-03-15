@@ -1,15 +1,18 @@
 Feature: Upgrade Risks Prediction Data Engineering - test well known values
 
+  # You have to add 127.0.0.1   localhost mock-oauth2-server
+  # to your /etc/hosts. This is needed to run these tests in Gitlab CI.
+
   Background: Data eng service is running and well configured to work
     Given The CCX Data Engineering Service is running on port 8000 with envs
-          | variable                    | value                         |
-          | CLIENT_ID                   | test-client-id                |
-          | CLIENT_SECRET               | test-client-secret            |
-          | INFERENCE_URL               | http://localhost:8001         |
-          | SSO_ISSUER                  | http://localhost:8081/default |
-          | ALLOW_INSECURE              | 1                             |
-          | RHOBS_URL                   | http://localhost:8002         |
-          | OAUTHLIB_INSECURE_TRANSPORT | 1                             |
+          | variable                    | value                                  |
+          | CLIENT_ID                   | test-client-id                         |
+          | CLIENT_SECRET               | test-client-secret                     |
+          | INFERENCE_URL               | http://localhost:8001                  |
+          | SSO_ISSUER                  | http://mock-oauth2-server:8081/default |
+          | ALLOW_INSECURE              | 1                                      |
+          | RHOBS_URL                   | http://localhost:8002                  |
+          | OAUTHLIB_INSECURE_TRANSPORT | 1                                      |
 
   Scenario: Check Data Engineering Service response with an invalid cluster ID in the request
      When I request the cluster endpoint in localhost:8000 with path not-an-uuid/upgrade-risks-prediction
