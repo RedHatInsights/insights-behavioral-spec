@@ -25,7 +25,7 @@ from behave import given
 def start_ccx_upgrades_data_eng(context, port):
     """Run ccx-upgrades-data-eng for a test and prepare its stop."""
     params = ["uvicorn", "ccx_upgrades_data_eng.main:app", "--port", str(port),
-              "--log-level", "debug"]
+              "--log-config", "config/ccx-upgrades-data-eng_logging.yaml"]
     env = os.environ.copy()
 
     # Update the environment with variables configured by the test
@@ -37,5 +37,5 @@ def start_ccx_upgrades_data_eng(context, port):
 
     popen = subprocess.Popen(params, stdout=f, stderr=f, env=env)
     assert popen is not None
-    time.sleep(0.5)
+    time.sleep(1)
     context.add_cleanup(popen.terminate)
