@@ -37,5 +37,5 @@ def start_ccx_upgrades_data_eng(context, port):
 
     popen = subprocess.Popen(params, stdout=f, stderr=f, env=env)
     assert popen is not None
-    time.sleep(1)
+    time.sleep(2)
     context.add_cleanup(popen.terminate)
