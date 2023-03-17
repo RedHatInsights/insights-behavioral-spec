@@ -1,29 +1,18 @@
 Feature: Upgrade Risks Prediction Data Engineering - test well known values
 
-  Scenario: Check Data Engineering Service response with no cluster id in the request
+  Scenario: Check Data Engineering Service response with wrong endpoint
     Given The CCX Data Engineering Service is running on port 8000
      When I request the upgrade-risks-prediction endpoint in localhost:8000
-     Then The status code of the response is 422
-
-  Scenario: Check Data Engineering Service response with an invalid parameter in the request
-    Given The CCX Data Engineering Service is running on port 8000
-     When I request the upgrade-risks-prediction endpoint in localhost:8000 with following parameters
-          | param  | value                                |
-          | XXXXX  | f93c5b78-0d38-40c0-9d12-37918752f80d |
-     Then The status code of the response is 422
+     Then The status code of the response is 404
 
   Scenario: Check Data Engineering Service response with a valid parameter, but with an invalid value
     Given The CCX Data Engineering Service is running on port 8000
-     When I request the upgrade-risks-prediction endpoint in localhost:8000 with following parameters
-          | param       | value                    |
-          | cluster_id  | this-is-not-a-cluster-id |
+     When I request the cluster endpoint in localhost:8000 with path this-is-not-a-cluster-id/upgrade-risks-prediction
      Then The status code of the response is 422
 
   Scenario: Check Data Engineering Service response with a valid parameter with a valid value
     Given The CCX Data Engineering Service is running on port 8000
-     When I request the upgrade-risks-prediction endpoint in localhost:8000 with following parameters
-          | param       | value                                |
-          | cluster_id  | f93c5b78-0d38-40c0-9d12-37918752f80d |
+     When I request the cluster endpoint in localhost:8000 with path f93c5b78-0d38-40c0-9d12-37918752f80d/upgrade-risks-prediction
      Then The status code of the response is 200
       And The body of the response has the following schema
           """
