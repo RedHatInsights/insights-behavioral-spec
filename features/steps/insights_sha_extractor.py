@@ -16,16 +16,16 @@
 
 import subprocess
 import yaml
+import os
 
+from steps import kafka_util
 from behave import given, when, then
-from kafka.admin import KafkaAdminClient, NewTopic
 from kafka.cluster import ClusterMetadata
-from kafka.errors import TopicAlreadyExistsError
 
 
 @given('SHA extractor service is not started')
 def sha_extractor_not_started(context):
-    assert not hasattr(context, 'sha_extractor_process')
+    assert not hasattr(context, 'sha_extractor')
 
 
 @given('Kafka broker is started on host and port specified in configuration')
@@ -37,6 +37,8 @@ def kafka_broker_running(context):
     hostname = \
         config['service']['consumer']['kwargs']['bootstrap_servers']
     context.hostname = hostname
+    context.kafka_hostname = hostname.split(":")[0]
+    context.kafka_port = hostname.split(":")[1]
 
     metadata = ClusterMetadata(bootstrap_servers=hostname)
     context.metadata = metadata
@@ -45,6 +47,9 @@ def kafka_broker_running(context):
 
 @given('Kafka topic specified in configuration variable "{topic_var}" is created')
 def check_topic_created(context, topic_var):
+    context.kafka_hostname = context.hostname.split(":")[0]
+    context.kafka_port = context.hostname.split(":")[1]
+
     visit = []
     visit.append(context.sha_config)
     while visit:
@@ -54,20 +59,59 @@ def check_topic_created(context, topic_var):
                 visit.append(v)
             else:
                 if k == topic_var:
-                    _create_topic(context.hostname, v)
+                    kafka_util.delete_kafka_topic(context, v)
+                    kafka_util.create_topic(context.hostname, v)
                     setattr(context, k, v)
 
 
 @when('SHA extractor service is started')
-def start_sha_extractor(context):
+@when('SHA extractor service is started in group "{group_id}"')
+@given('SHA extractor service is started')
+def start_sha_extractor(context, group_id=None):
+    if group_id:
+        os.environ['CDP_GROUP_ID'] = group_id
+
     sha_extractor = subprocess.Popen(
         ['insights-sha-extractor', 'config/insights_sha_extractor.yaml'],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         text=True,
         encoding='utf-8',
+        env=os.environ.copy()
     )
     context.sha_extractor = sha_extractor
+
+
+@when('an event is produced into "{topic_var}" topic')
+def produce_event(context, topic_var):
+    event_data = ''
+    with open('test_data/platform_upload_announce_correct.json', 'r') as f:
+        event_data = f.read()
+    topic_name = context.__dict__["_stack"][0][topic_var]
+
+    kafka_util.send_event(context.hostname, topic_name, event_data)
+
+
+@then('SHA extractor decode the b64_identity attribute')
+def check_b64_decode(context):
+    expected_msg = "Identity schema validated"
+
+    assert message_in_buffer(
+        expected_msg,
+        context.sha_extractor.stdout
+    ), "message was not consumed"
+
+
+@then('SHA extractor should consume message about this event')
+def check_message_consumed(context):
+    assert not context.sha_extractor.returncode, \
+        "sha extractor is not running"
+
+    expected_msg = "Deserializing incoming bytes"
+    assert message_in_buffer(
+        expected_msg,
+        context.sha_extractor.stdout
+    ), "message was not consumed"
 
 
 @then('SHA extractor service does not exit with an error code')
@@ -82,24 +126,34 @@ def topic_registered(context, topic):
     expected_msg = f"Consuming topic '{topic_name}' " + \
         f"from brokers ['{context.hostname}'] " + \
         "as group 'insights_sha_extractor_app'"
+    assert message_in_buffer(
+        expected_msg,
+        context.sha_extractor.stdout
+    ), "consumer topic not registered"
 
+    # kill the process so we have one consumer at a time
+    context.sha_extractor.terminate()
+
+
+@then('this message should contain following attributes')
+def check_message(context):
+    expected_msg = 'JSON schema validated'
+
+    assert message_in_buffer(
+        expected_msg,
+        context.sha_extractor.stdout
+    ), "can't parse message"
+
+
+def message_in_buffer(message, buffer):
     found = False
     while True:
         # readline can be blocking, run this
         # test with a timeout
-        message = context.sha_extractor.stdout.readline()
-        if expected_msg in message:
+        line = buffer.readline()
+        if message in line:
             found = True
             break
-
-    assert found, "consumer topic not registered"
-
-
-def _create_topic(hostname, topic_name):
-    topic = NewTopic(topic_name, 1, 1)
-    admin_client = KafkaAdminClient(bootstrap_servers=hostname)
-    try:
-        outcome = admin_client.create_topics([topic])
-        assert outcome.topic_errors[0][1] == 0, "Topic creation failure: {outcome}"
-    except TopicAlreadyExistsError:
-        pass
+        if not line:
+            break
+    return found

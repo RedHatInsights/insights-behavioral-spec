@@ -36,6 +36,9 @@ data-engineering-service-tests: ## Run BDD tests for the Data Engineering Servic
 insights-content-service-tests: ## Run BDD tests for the CCX Content Service
 	./insights_content_service_test.sh
 
+insights-sha-extractor-tests: ## Run BDD tests for the CCX SHA Extractor
+	./insights_sha_extractor_test.sh
+
 code-style: ## Check code style for all Python sources from this repository
 	python3 tools/run_pycodestyle.py
 

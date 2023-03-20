@@ -17,9 +17,18 @@
 
 import subprocess
 import json
+import socket
 from behave import given, then, when
 from kafka import KafkaAdminClient
-from kafka.errors import UnknownTopicOrPartitionError
+from kafka.admin import NewTopic
+from kafka.producer import KafkaProducer
+from confluent_kafka import Producer as ConfluentProducer
+from kafka.errors import UnknownTopicOrPartitionError, TopicAlreadyExistsError
+
+
+class SendEventException(Exception):
+    def __init__(self, message):
+        super().__init__(message)
 
 
 @when("I retrieve metadata from Kafka broker")
@@ -86,3 +95,28 @@ def delete_kafka_topic(context, topic):
         pass
     except Exception as e:
         print("Topic {} was not deleted. Error: {}".format(topic, e))
+
+
+def create_topic(hostname, topic_name):
+    topic = NewTopic(topic_name, 1, 1)
+    admin_client = KafkaAdminClient(bootstrap_servers=hostname)
+    try:
+        outcome = admin_client.create_topics([topic])
+        assert outcome.topic_errors[0][1] == 0, "Topic creation failure: {outcome}"
+    except TopicAlreadyExistsError:
+        print(f'{topic_name} topic already exists')
+
+
+def send_event(bootstrap, topic, payload):
+    conf = {'bootstrap.servers': bootstrap}
+    producer = ConfluentProducer(conf)
+    producer.produce(topic,
+                     value=payload,
+                     callback=acked,
+                     headers={'service': 'testareno'})
+    producer.flush()
+
+
+def acked(err, msg):
+    assert err is None, \
+        "Failed to deliver message: %s: %s" % (str(msg), str(err))

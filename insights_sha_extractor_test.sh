@@ -40,6 +40,7 @@ function run_kafka() {
         --name kafka \
         --rm \
         --publish 9092:9092 \
+        --add-host kafka:127.0.0.1 \
         quay.io/ccxdev/kafka-no-zk:latest)
     
     while true
@@ -67,3 +68,4 @@ PYTHONDONTWRITEBYTECODE=1 python3 -m behave --no-capture \
     -D dump_errors=true @test_list/insights_sha_extractor.txt "$@"
 
 docker kill $kafka_cid
+rm -rf ./ccx-sha-extractor

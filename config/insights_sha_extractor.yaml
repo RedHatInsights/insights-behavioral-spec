@@ -16,7 +16,7 @@ service:
     name: ccx_messaging.consumers.consumer.AnemicConsumer
     kwargs:
       incoming_topic: platform.upload.announce
-      group_id: insights_sha_extractor_app
+      group_id: ${CDP_GROUP_ID:insights_sha_extractor_app}
       bootstrap_servers: kafka:9092
       platform_service: testareno
       processing_timeout_s: 0
@@ -38,9 +38,7 @@ service:
     kwargs:
       outgoing_topic: archive-results
       bootstrap_servers: kafka:9092
-  watchers:
-    - name: ccx_messaging.watchers.cluster_id_watcher.ClusterIdWatcher
-
+  
   logging:
     version: 1
     disable_existing_loggers: false
