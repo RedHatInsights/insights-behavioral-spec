@@ -37,6 +37,7 @@ SUBDIRECTORIES = (
     "Notification_Service",
     "SHA_Extractor",
     "smart-proxy",
+    "insights-content-service",
     "insights-results-aggregator",
     "insights-results-aggregator-cleaner",
     "insights-results-aggregator-exporter",

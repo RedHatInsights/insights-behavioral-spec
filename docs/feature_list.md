@@ -86,6 +86,11 @@ nav_order: 2
 * [Basic set of smoke tests](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/smart-proxy/smoketests.feature)
 
 
+## Insights Content Service
+
+* [Basic set of smoke tests](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-content-service/smoketests.feature)
+* [Test the service endpoints](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-content-service/endpoints.feature)
+
 ## Insights Results Aggregator
 
 * [Basic set of smoke tests](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/smoketests.feature)
