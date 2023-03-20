@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Implementation of test steps for testing CCX Insights Content Service."""
+
 import re
 from behave import then
 
