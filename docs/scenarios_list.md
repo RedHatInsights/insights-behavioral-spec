@@ -283,6 +283,20 @@ nav_order: 3
 * Check if Smart Proxy displays help message
 * Check if Smart Proxy displays version info
 
+## `insights-content-service/endpoints.feature`
+
+* check /info endpoint response
+* check /groups endpoint response
+* check /status endpoint response
+
+## `insights-content-service/smoketests.feature`
+
+* Check if /groups endpoint is working
+* Check if /content endpoint is working
+* Check if /metrics endpoint is working
+* Check if /status endpoint is working
+* Check if /info endpoint is working
+
 ## `insights-results-aggregator/database_access.feature`
 
 * Check access to empty database
