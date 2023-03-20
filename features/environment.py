@@ -12,9 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Code to be called before and after certain events during testing.
+
+Currently four events have been registered:
+1. before_all
+2. before_feature
+3. before_scenario
+4. after_scenario
+"""
+
 import os
 import psycopg2
-
 
 # Mappings between supported features (like consuming message from Kafka) and
 # tags specified in feature files
