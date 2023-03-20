@@ -49,7 +49,6 @@ def request_endpoint_with_formatted_body(context, endpoint, hostname, port, key)
     Each row of the table will be converted into an element on an array
     in the request body.
     """
-
     values = list()
 
     for row in context.table:
@@ -96,6 +95,7 @@ def request_endpoint(context, endpoint, hostname, port):
 
 @then("The status code of the response is {status:d}")
 def check_status_code(context, status):
+    """Check the HTTP status code for latest response from tested service."""
     assert context.response.status_code == status, \
         f"Status code is {context.response.status_code}"
 

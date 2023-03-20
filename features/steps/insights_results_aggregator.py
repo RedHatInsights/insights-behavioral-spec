@@ -31,12 +31,14 @@ def run_insights_results_aggregator_with_flag(context, flag):
 
 @when("I store current environment without Insights Results Aggregator variables")
 def store_env_without_insights_results_aggregator_env_vars(context):
+    """Store environment variables without variables specific to Insights Results Aggregator."""
     context.no_IRA_environment = {key: value for (key, value) in os.environ.copy().items() if
                                   "INSIGHTS_RESULTS_AGGREGATOR__" not in key}
 
 
 @when("I run the Insights Results Aggregator with the {flag} command line flag and config file name set to {config}")  # noqa: E501
 def run_insights_results_aggregator_with_flag_and_config_file(context, flag, config):
+    """Start the Insights Results Aggregator using provided CLI flags and specified config file."""
     environment = os.environ.copy() if not hasattr(context, 'no_IRA_environment') \
         else context.no_IRA_environment
     # add new environment variable into environments
@@ -116,6 +118,7 @@ def check_version_from_aggregator(context):
 
 @then("I should see actual configuration displayed by Insights Results Aggregator on standard output")  # noqa E501
 def check_actual_configuration_for_aggregator(context):
+    """Check actual configuration printed to standard output by Insights Results Aggregator."""
     # preliminary checks
     assert context.output is not None
     assert type(context.output) is list, "wrong type of output"
