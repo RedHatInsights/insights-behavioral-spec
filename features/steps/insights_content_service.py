@@ -28,6 +28,7 @@ def check_build_commit(context):
 
 @then('BuildTime is a proper date')
 def check_build_time(context):
+    """Check build timestamp taken from service output."""
     pattern = re.compile(
         r'.{3} .{3}[ ]{1,2}[0-9]* [0-9]{2}:[0-9]{2}:[0-9]{2} [AP]M [A-Z]{3} [0-9]{4}')
     match = re.match(pattern, context.response.json()["info"]["BuildTime"])
