@@ -173,10 +173,10 @@ def start_insights_results_aggregator_in_background(context):
     time.sleep(BREATH_TIME)
 
     # check if process has been created
-    assert process is not None
+    assert process is not None, "Process was not created!"
 
     # check if process has been started
-    assert process.poll() is None
+    assert process.poll() is None, "Insights Results Aggregator immediatelly finished!"
 
     # store process instance for later use
     context.aggregator_process = process
