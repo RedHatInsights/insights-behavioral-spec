@@ -17,9 +17,13 @@
 import requests
 import subprocess
 import os
+import time
 
 from behave import when, then
 from src.process_output import process_generated_output, filter_coverage_message
+
+# time for newly started Insights Results Aggregator to setup connections and start HTTP server
+BREATH_TIME = 3
 
 
 @when("I run the Insights Results Aggregator with the {flag} command line flag")
@@ -150,3 +154,26 @@ def perform_aggregator_database_migration(context, version):
 def perform_aggregator_database_migration_to_latest(context):
     """Perform aggregator database migration to latest version."""
     perform_aggregator_database_migration(context, "latest")
+
+
+@given("Insights Results Aggregator service is started in background")
+def start_insights_results_aggregator_in_background(context):
+    """Start Insights Results Aggregator service in background."""
+    process = subprocess.Popen(
+        ["insights-results-aggregator"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
+    # background process -> we can't communicate() with it
+
+    # time to breath
+    time.sleep(BREATH_TIME)
+
+    # check if process has been created
+    assert process is not None
+
+    # check if process has been started
+    assert process.poll() is None
+
+    # store process instance for later use
+    context.aggregator_process = process
