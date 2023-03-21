@@ -27,7 +27,7 @@ from src.process_output import process_generated_output, filter_coverage_message
 INSIGHTS_RESULTS_AGGREGATOR_BINARY = "insights-results-aggregator"
 
 # time for newly started Insights Results Aggregator to setup connections and start HTTP server
-BREATH_TIME = 3
+BREATH_TIME = 2
 
 
 @when("I run the Insights Results Aggregator with the {flag} command line flag")
