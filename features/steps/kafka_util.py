@@ -27,7 +27,10 @@ from kafka.errors import UnknownTopicOrPartitionError, TopicAlreadyExistsError
 
 
 class SendEventException(Exception):
+    """Class representing an exception thrown when send event to Kafka fails."""
+
     def __init__(self, message):
+        """Construct an exception for send to Kafka failure."""
         super().__init__(message)
 
 
@@ -85,7 +88,7 @@ def find_available_brokers(context):
 
 @given('Kafka topic "{topic}" is empty')
 def delete_kafka_topic(context, topic):
-    """Delete a Kakfa topic."""
+    """Delete a Kafka topic."""
     admin_client = KafkaAdminClient(
         bootstrap_servers=[f"{context.kafka_hostname}:{context.kafka_port}"]
     )
@@ -98,6 +101,7 @@ def delete_kafka_topic(context, topic):
 
 
 def create_topic(hostname, topic_name):
+    """Create a new Kafka topic."""
     topic = NewTopic(topic_name, 1, 1)
     admin_client = KafkaAdminClient(bootstrap_servers=hostname)
     try:
@@ -108,6 +112,7 @@ def create_topic(hostname, topic_name):
 
 
 def send_event(bootstrap, topic, payload):
+    """Send an event to selected Kafka topic."""
     conf = {'bootstrap.servers': bootstrap}
     producer = ConfluentProducer(conf)
     producer.produce(topic,
@@ -118,5 +123,6 @@ def send_event(bootstrap, topic, payload):
 
 
 def acked(err, msg):
+    """Check if producing an event was successful."""
     assert err is None, \
         "Failed to deliver message: %s: %s" % (str(msg), str(err))
