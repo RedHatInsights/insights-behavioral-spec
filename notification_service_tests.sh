@@ -15,7 +15,7 @@
 # limitations under the License.
 
 
-dir_path=$(dirname $(realpath $0))
+dir_path=$(dirname "$(realpath $0)")
 export PATH=$PATH:$dir_path
 PATH_TO_LOCAL_NOTIFICATION_SERVICE="../ccx-notification-service"
 PATH_TO_LOCAL_NOTIFICATION_WRITER="../ccx-notification-writer"
@@ -24,7 +24,7 @@ PATH_TO_LOCAL_NOTIFICATION_WRITER="../ccx-notification-writer"
 [ "$VIRTUAL_ENV" != "" ] || NOVENV=1
 
 function install_reqs() {
-	python3 $(which pip3) install -r requirements.txt
+	python3 "$(which pip3)" install -r requirements.txt
 }
 
 function prepare_venv() {
@@ -35,7 +35,7 @@ function prepare_venv() {
 }
 
 function start_mocked_dependencies() {
-    python3 $(which pip3) install -r requirements/mocks.txt
+    python3 "$(which pip3)" install -r requirements/mocks.txt
     pushd $dir_path/mocks/insights-content-service && uvicorn content_server:app --port 8082 &
     pushd $dir_path/mocks/prometheus && uvicorn push_gateway:app --port 9091 &
     pushd $dir_path/mocks/service-log && uvicorn service_log:app --port 8000 &
