@@ -22,6 +22,9 @@ import time
 from behave import when, then
 from src.process_output import process_generated_output, filter_coverage_message
 
+# Insights Results Aggregator binary file name
+INSIGHTS_RESULTS_AGGREGATOR_BINARY = "insights-results-aggregator"
+
 # time for newly started Insights Results Aggregator to setup connections and start HTTP server
 BREATH_TIME = 3
 
@@ -53,7 +56,7 @@ def run_insights_results_aggregator_with_flag_and_config_file(context, flag, con
 def start_aggregator(context, flag, environment):
     """Start Insights Results Aggregator with set up command line flags and env. variables."""
     out = subprocess.Popen(
-        ["insights-results-aggregator", flag],
+        [INSIGHTS_RESULTS_AGGREGATOR_BINARY, flag],
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         env=environment
@@ -138,7 +141,7 @@ def check_actual_configuration_for_aggregator(context):
 def perform_aggregator_database_migration(context, version):
     """Perform aggregator database migration to selected version."""
     out = subprocess.Popen(
-        ["insights-results-aggregator", "migrate", str(version)],
+        [INSIGHTS_RESULTS_AGGREGATOR_BINARY, "migrate", str(version)],
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
     )
@@ -160,7 +163,7 @@ def perform_aggregator_database_migration_to_latest(context):
 def start_insights_results_aggregator_in_background(context):
     """Start Insights Results Aggregator service in background."""
     process = subprocess.Popen(
-        ["insights-results-aggregator"],
+        [INSIGHTS_RESULTS_AGGREGATOR_BINARY],
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
     )
