@@ -15,7 +15,7 @@
 # limitations under the License.
 
 
-dir_path=$(dirname $(realpath $0))
+dir_path=$(dirname "$(realpath $0)")
 export PATH=$PATH:$dir_path
 PATH_TO_LOCAL_DATA_ENG_SERVICE=${PATH_TO_LOCAL_DATA_ENG_SERVICE:="../ccx-upgrades-data-eng"}
 
@@ -23,7 +23,7 @@ PATH_TO_LOCAL_DATA_ENG_SERVICE=${PATH_TO_LOCAL_DATA_ENG_SERVICE:="../ccx-upgrade
 [ "$VIRTUAL_ENV" != "" ] || NOVENV=1
 
 function install_reqs() {
-    python3 $(which pip3) install -r requirements.txt
+    python3 "$(which pip3)" install -r requirements.txt
 }
 
 function prepare_venv() {
@@ -39,7 +39,7 @@ function install_data_eng_service() {
 }
 
 function start_mocked_dependencies() {
-    python3 $(which pip3) install -r requirements/mocks.txt
+    python3 "$(which pip3)" install -r requirements/mocks.txt
     pushd $dir_path/mocks/inference-service && uvicorn inference_service:app --port 8001 &
     pushd $dir_path/mocks/rhobs && uvicorn rhobs_service:app --port 8002 &
 
