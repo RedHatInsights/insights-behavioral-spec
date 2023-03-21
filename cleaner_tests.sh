@@ -17,7 +17,7 @@
 function prepare_venv() {
     echo "preparing virtual environment for tests execution"
     # shellcheck disable=SC1091
-    python3 -m venv venv && source venv/bin/activate && python3 "$(which pip3)" install -r requirements.txt || exit 1
+    python3 -m venv venv && source venv/bin/activate && python3 "$(which pip3)" install -r requirements.txt || exit 1
     echo "Environment ready"
 }
 
