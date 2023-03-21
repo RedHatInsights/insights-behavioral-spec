@@ -15,7 +15,7 @@
 # limitations under the License.
 
 
-dir_path=$(dirname $(realpath $0))
+dir_path=$(dirname "$(realpath $0)")
 export PATH=$PATH:$dir_path
 PATH_TO_LOCAL_INFERENCE_SERVICE=${PATH_TO_LOCAL_INFERENCE_SERVICE:="../ccx-upgrades-inference/"}
 
@@ -23,7 +23,7 @@ PATH_TO_LOCAL_INFERENCE_SERVICE=${PATH_TO_LOCAL_INFERENCE_SERVICE:="../ccx-upgra
 [ "$VIRTUAL_ENV" != "" ] || NOVENV=1
 
 function install_reqs() {
-    python3 $(which pip3) install -r requirements.txt
+    python3 "$(which pip3)" install -r requirements.txt
 }
 
 function prepare_venv() {
