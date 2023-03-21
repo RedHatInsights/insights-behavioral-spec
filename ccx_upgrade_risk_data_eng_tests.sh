@@ -35,6 +35,7 @@ function prepare_venv() {
 
 function install_data_eng_service() {
     python3 "$(which pip3)" install $PATH_TO_LOCAL_DATA_ENG_SERVICE
+    # shellcheck disable=SC2016
     add_exit_trap 'python3 "$(which pip3)" uninstall -y ccx-upgrades-data-eng'
 }
 
@@ -43,6 +44,7 @@ function start_mocked_dependencies() {
     pushd $dir_path/mocks/inference-service && uvicorn inference_service:app --port 8001 &
     pushd $dir_path/mocks/rhobs && uvicorn rhobs_service:app --port 8002 &
 
+    # shellcheck disable=SC2016
     add_exit_trap 'kill $(lsof -ti:8001); kill $(lsof -ti:8002);'
     pushd $dir_path || exit
     sleep 2  # wait for the mocks to be up
