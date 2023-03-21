@@ -98,6 +98,7 @@ nav_order: 2
 * [Database migration tests](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/database_migration.feature)
 * [Database migration downgrades tests](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/database_migration_downgrades.feature)
 * [Checking Aggregator behaviour during starting the service](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/starting_service.feature)
+* [Basic REST API endpoints provided by Insights Results Aggregator](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/basic_rest_api.feature)
 
 
 ## Insights Results Aggregator Cleaner service

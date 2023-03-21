@@ -297,6 +297,10 @@ nav_order: 3
 * Check if /status endpoint is working
 * Check if /info endpoint is working
 
+## `insights-results-aggregator/basic_rest_api.feature`
+
+* Check if the main endpoint is reachable (w/o using auth. token)
+
 ## `insights-results-aggregator/database_access.feature`
 
 * Check access to empty database

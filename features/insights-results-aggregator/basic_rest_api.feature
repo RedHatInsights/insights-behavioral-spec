@@ -1,4 +1,4 @@
-Feature: Basic REST API endpoints provided by Insights Results Aggregator Mock
+Feature: Basic REST API endpoints provided by Insights Results Aggregator
 
 
   Background:
