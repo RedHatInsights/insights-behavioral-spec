@@ -300,6 +300,7 @@ nav_order: 3
 ## `insights-results-aggregator/basic_rest_api.feature`
 
 * Check if the main endpoint is reachable (w/o using auth. token)
+* Check if the main endpoint is reachable (with proper auth. token)
 
 ## `insights-results-aggregator/database_access.feature`
 

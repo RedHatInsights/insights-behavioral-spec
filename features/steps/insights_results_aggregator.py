@@ -18,6 +18,7 @@ import requests
 import subprocess
 import os
 import time
+import base64
 
 from behave import when, then
 from src.process_output import process_generated_output, filter_coverage_message
@@ -26,7 +27,7 @@ from src.process_output import process_generated_output, filter_coverage_message
 INSIGHTS_RESULTS_AGGREGATOR_BINARY = "insights-results-aggregator"
 
 # time for newly started Insights Results Aggregator to setup connections and start HTTP server
-BREATH_TIME = 3
+BREATH_TIME = 2
 
 
 @when("I run the Insights Results Aggregator with the {flag} command line flag")
@@ -162,6 +163,10 @@ def perform_aggregator_database_migration_to_latest(context):
 @given("Insights Results Aggregator service is started in background")
 def start_insights_results_aggregator_in_background(context):
     """Start Insights Results Aggregator service in background."""
+    if hasattr(context, "aggregator_process"):
+        if context.aggregator_process.poll() is None:
+            return
+
     process = subprocess.Popen(
         [INSIGHTS_RESULTS_AGGREGATOR_BINARY],
         stdout=subprocess.PIPE,
@@ -180,3 +185,28 @@ def start_insights_results_aggregator_in_background(context):
 
     # store process instance for later use
     context.aggregator_process = process
+
+
+@when("I access endpoint {endpoint} using HTTP GET method using token for organization {org} account number {account}, and user {user}")  # noqa: E501
+def access_rest_api_endpoint_get_using_token(context, endpoint, org, account, user):
+    """Access Insights Results Aggregator service using token generated from provided IDs."""
+    url = f"http://{context.hostname}:{context.port}/{context.api_prefix}{endpoint}"
+
+    # text token
+    token = '''
+    {{
+        "identity": {{
+            "org_id": "{0}",
+            "account_number":"{1}",
+            "user": {{
+                "user_id":"{2}"
+            }}
+        }}
+    }}
+    '''.format(org, account, user)
+
+    # convert to base64 encoding
+    token_b64 = base64.b64encode(token.encode('ascii'))
+
+    # use the token
+    context.response = requests.get(url, headers={"x-rh-identity": token_b64})
