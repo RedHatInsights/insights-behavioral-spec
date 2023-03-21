@@ -6,5 +6,7 @@ coverage/
 coverage.txt
 covcounters.*
 covmeta.*
-./insights-content-service/
 logs/**/*.log
+insights-content-service/
+ccx-sha-extractor/
+kafka/

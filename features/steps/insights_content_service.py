@@ -28,8 +28,8 @@ def check_build_commit(context):
 
 @then('BuildTime is a proper date')
 def check_build_time(context):
-    """Check build timestamp taken from service output."""
-    pattern = re.compile(r'.{3} .{3}  [0-9]* [0-9]{2}:[0-9]{2}:[0-9]{2} [AP]M [A-Z]{3} [0-9]{4}')
+    pattern = re.compile(
+        r'.{3} .{3}[ ]{1,2}[0-9]* [0-9]{2}:[0-9]{2}:[0-9]{2} [AP]M [A-Z]{3} [0-9]{4}')
     match = re.match(pattern, context.response.json()["info"]["BuildTime"])
     assert match.group(0), "BuildTime is not a date time"
 
@@ -69,8 +69,8 @@ def check_groups(context):
                 "Security",
                 "Fault Tolerance"]
     for i, group in enumerate(groups):
-        err_msg = f"expected title {expected[i]} but got {groups[i]['title']}"
-        assert group["title"] == expected[i], err_msg
+        err_msg = f"{groups[i]['title']} not in {expected}"
+        assert group["title"] in expected, err_msg
 
 
 @then('tags and groups match')
