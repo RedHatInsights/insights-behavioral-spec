@@ -17,9 +17,16 @@
 import requests
 import subprocess
 import os
+import time
 
 from behave import when, then
 from src.process_output import process_generated_output, filter_coverage_message
+
+# Insights Results Aggregator binary file name
+INSIGHTS_RESULTS_AGGREGATOR_BINARY = "insights-results-aggregator"
+
+# time for newly started Insights Results Aggregator to setup connections and start HTTP server
+BREATH_TIME = 3
 
 
 @when("I run the Insights Results Aggregator with the {flag} command line flag")
@@ -49,7 +56,7 @@ def run_insights_results_aggregator_with_flag_and_config_file(context, flag, con
 def start_aggregator(context, flag, environment):
     """Start Insights Results Aggregator with set up command line flags and env. variables."""
     out = subprocess.Popen(
-        ["insights-results-aggregator", flag],
+        [INSIGHTS_RESULTS_AGGREGATOR_BINARY, flag],
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         env=environment
@@ -134,7 +141,7 @@ def check_actual_configuration_for_aggregator(context):
 def perform_aggregator_database_migration(context, version):
     """Perform aggregator database migration to selected version."""
     out = subprocess.Popen(
-        ["insights-results-aggregator", "migrate", str(version)],
+        [INSIGHTS_RESULTS_AGGREGATOR_BINARY, "migrate", str(version)],
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
     )
@@ -150,3 +157,26 @@ def perform_aggregator_database_migration(context, version):
 def perform_aggregator_database_migration_to_latest(context):
     """Perform aggregator database migration to latest version."""
     perform_aggregator_database_migration(context, "latest")
+
+
+@given("Insights Results Aggregator service is started in background")
+def start_insights_results_aggregator_in_background(context):
+    """Start Insights Results Aggregator service in background."""
+    process = subprocess.Popen(
+        [INSIGHTS_RESULTS_AGGREGATOR_BINARY],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
+    # background process -> we can't communicate() with it
+
+    # time to breath
+    time.sleep(BREATH_TIME)
+
+    # check if process has been created
+    assert process is not None, "Process was not created!"
+
+    # check if process has been started
+    assert process.poll() is None, "Insights Results Aggregator immediatelly finished!"
+
+    # store process instance for later use
+    context.aggregator_process = process

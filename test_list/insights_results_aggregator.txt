@@ -3,3 +3,4 @@
 ../features/insights-results-aggregator/database_migration.feature
 ../features/insights-results-aggregator/database_migration_downgrades.feature
 ../features/insights-results-aggregator/starting_service.feature
+../features/insights-results-aggregator/basic_rest_api.feature
