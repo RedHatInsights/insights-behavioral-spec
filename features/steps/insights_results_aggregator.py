@@ -204,9 +204,9 @@ def access_rest_api_endpoint_get_using_token(context, endpoint, org, account, us
         }}
     }}
     '''.format(org, account, user)
-    
+
     # convert to base64 encoding
     token_b64 = base64.b64encode(token.encode('ascii'))
 
     # use the token
-    context.response = requests.get(url, headers={"x-rh-identity":token_b64})
+    context.response = requests.get(url, headers={"x-rh-identity": token_b64})
