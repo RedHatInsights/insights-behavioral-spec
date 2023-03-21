@@ -42,6 +42,7 @@ function start_mocked_dependencies() {
     pushd $dir_path/mocks/content-template-renderer && uvicorn content_template_renderer:app --port 8083 &
     pushd $dir_path/mocks/token-refreshment && uvicorn token_refreshment:app --port 8001 &
 
+    # shellcheck disable=SC2016
     add_exit_trap 'kill $(lsof -ti:8082); kill $(lsof -ti:9091); kill $(lsof -ti:8000); kill $(lsof -ti:8083); kill $(lsof -ti:8001)'
     pushd $dir_path
     sleep 2  # wait for the mocks to be up
