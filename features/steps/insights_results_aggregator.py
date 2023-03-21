@@ -163,6 +163,10 @@ def perform_aggregator_database_migration_to_latest(context):
 @given("Insights Results Aggregator service is started in background")
 def start_insights_results_aggregator_in_background(context):
     """Start Insights Results Aggregator service in background."""
+    if hasattr(context, "aggregator_process"):
+        if context.aggregator_process.poll() is None:
+            return
+
     process = subprocess.Popen(
         [INSIGHTS_RESULTS_AGGREGATOR_BINARY],
         stdout=subprocess.PIPE,
