@@ -1,4 +1,4 @@
-.PHONY: default tests code-style update-scenarios before_commit cleaner-tests exporter-tests aggregator-tests aggregator-mock-tests notification-service-tests notification-writer-tests insights-content-service-tests inference-service-tests data-engineering-service-tests
+.PHONY: default tests style code-style update-scenarios before_commit cleaner-tests exporter-tests aggregator-tests aggregator-mock-tests notification-service-tests notification-writer-tests insights-content-service-tests inference-service-tests data-engineering-service-tests
 
 default: tests
 
@@ -39,8 +39,13 @@ insights-content-service-tests: ## Run BDD tests for the CCX Content Service
 insights-sha-extractor-tests: ## Run BDD tests for the CCX SHA Extractor
 	./insights_sha_extractor_test.sh
 
+style:	code-style docs-style shellcheck ## Perform all style checks
+
 code-style: ## Check code style for all Python sources from this repository
 	python3 tools/run_pycodestyle.py
+
+docs-style: ## Check documentation strings in all Python sources from this repository
+	pydocstyle .
 
 shellcheck: ## Run shellcheck
 	./shellcheck.sh

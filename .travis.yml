@@ -17,6 +17,4 @@ install:
   - pip install pydocstyle
   - pip install pytest-cov
 script:
-  - make code-style
-  - pydocstyle .
-  - make shellcheck
+  - make style
