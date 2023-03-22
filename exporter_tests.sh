@@ -46,7 +46,7 @@ case "$NOVENV" in
     "1") prepare_venv;;
 esac
 
-if [[ ! -z $ENV_DOCKER ]]
+if [[ -n $ENV_DOCKER ]]
 then
     # set env vars
     set_env_vars
@@ -55,9 +55,10 @@ fi
 PYTHONDONTWRITEBYTECODE=1 python3 -m behave --tags=-skip -D dump_errors=true @test_list/exporter.txt "$@"
 
 # post-run clean up
+# shellcheck disable=SC2181
 if [ $? -eq 0 ]
 then
-    rm *.csv
+    rm -- *.csv
     rm _logs.txt
 fi
 
