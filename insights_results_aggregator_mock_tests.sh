@@ -34,7 +34,7 @@ then
     echo "PATH_TO_MOCK_SERVER is not set!"
     echo "Make sure to start the insights-results-aggregator-mock application before running the tests"
 else
-    pushd $PATH_TO_MOCK_SERVER && insights-results-aggregator-mock &
+    pushd "$PATH_TO_MOCK_SERVER" && insights-results-aggregator-mock &
 fi
 
 PYTHONDONTWRITEBYTECODE=1 python3 -m behave --tags=-skip -D dump_errors=true @test_list/insights_results_aggregator_mock.txt "$@"
