@@ -19,3 +19,4 @@ install:
 script:
   - make code-style
   - pydocstyle .
+  - make shellcheck
