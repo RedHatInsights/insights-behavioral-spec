@@ -21,6 +21,7 @@ inference-service-tests        Run BDD tests for the Inference Service
 data-engineering-service-tests Run BDD tests for the Data Engineering Service
 insights-content-service-tests Run BDD tests for the CCX Content Service
 code-style                     Check code style for all Python sources from this repository
+shellcheck                     Run shellcheck
 update-scenarios               Update list of scenarios for GitHub pages
 docker-build                   Build Docker images that can be used for tests
 help                           Show this help screen
