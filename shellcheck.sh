@@ -19,5 +19,5 @@ if ! command -v shellcheck > /dev/null 2>&1; then
     shellcheck-stable/shellcheck --version
     shellcheck-stable/shellcheck -- *.sh
 else
-    shellcheck-stable/shellcheck -- *.sh
+    shellcheck -- *.sh
 fi
