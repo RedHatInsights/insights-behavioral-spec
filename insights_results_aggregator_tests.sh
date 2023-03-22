@@ -64,7 +64,7 @@ case "$NOVENV" in
 esac
 
 
-if [[ ! -z $ENV_DOCKER ]]
+if [[ -n $ENV_DOCKER ]]
 then
     #set env vars
     set_env_vars
