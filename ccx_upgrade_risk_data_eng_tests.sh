@@ -1,6 +1,6 @@
 #!/bin/bash -x
 
-# Copyright 2022 Red Hat, Inc
+# Copyright 2022, 2023 Red Hat, Inc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 # limitations under the License.
 
 
-dir_path=$(dirname "$(realpath $0)")
+dir_path=$(dirname "$(realpath "$0")")
 export PATH=$PATH:$dir_path
 PATH_TO_LOCAL_DATA_ENG_SERVICE=${PATH_TO_LOCAL_DATA_ENG_SERVICE:="../ccx-upgrades-data-eng"}
 
@@ -34,19 +34,19 @@ function prepare_venv() {
 }
 
 function install_data_eng_service() {
-    python3 "$(which pip3)" install $PATH_TO_LOCAL_DATA_ENG_SERVICE
+    python3 "$(which pip3)" install "$PATH_TO_LOCAL_DATA_ENG_SERVICE"
     # shellcheck disable=SC2016
     add_exit_trap 'python3 "$(which pip3)" uninstall -y ccx-upgrades-data-eng'
 }
 
 function start_mocked_dependencies() {
     python3 "$(which pip3)" install -r requirements/mocks.txt
-    pushd $dir_path/mocks/inference-service && uvicorn inference_service:app --port 8001 &
-    pushd $dir_path/mocks/rhobs && uvicorn rhobs_service:app --port 8002 &
+    pushd "$dir_path"/mocks/inference-service && uvicorn inference_service:app --port 8001 &
+    pushd "$dir_path"/mocks/rhobs && uvicorn rhobs_service:app --port 8002 &
 
     # shellcheck disable=SC2016
     add_exit_trap 'kill $(lsof -ti:8001); kill $(lsof -ti:8002);'
-    pushd $dir_path || exit
+    pushd "$dir_path" || exit
     sleep 2  # wait for the mocks to be up
 }
 
