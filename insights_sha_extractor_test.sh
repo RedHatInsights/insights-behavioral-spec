@@ -18,12 +18,13 @@ function prepare_venv() {
     echo "Preparing environment"
     # shellcheck disable=SC1091
     virtualenv -p python3 venv 
+    # shellcheck disable=SC1091
     source venv/bin/activate 
     python3 "$(which pip3)" install --no-cache -r requirements.in || exit 1
     python3 "$(which pip3)" install --no-cache -r requirements/insights_sha_extractor.txt || exit 1
 
     git clone --depth=1 git@gitlab.cee.redhat.com:ccx/ccx-sha-extractor.git
-    cd ccx-sha-extractor
+    cd ccx-sha-extractor || exit
     pip install --no-cache-dir -U pip setuptools wheel
     pip install --no-cache-dir -r requirements.txt
     pip install -e .
@@ -46,8 +47,8 @@ function run_kafka() {
     while true
     do
         echo "starting up kafka ..."
-        start_up_complete=`docker logs $kafka_cid | grep "Startup complete"`
-        if [ ! -n "$start_up_complete" ]; then
+        start_up_complete=$(docker logs "$kafka_cid" | grep "Startup complete")
+        if [ -z "$start_up_complete" ]; then
             echo "kafka ready"
             break
         fi
@@ -67,5 +68,5 @@ PYTHONDONTWRITEBYTECODE=1 python3 -m behave --no-capture \
     --tags=-skip --tags=-managed \
     -D dump_errors=true @test_list/insights_sha_extractor.txt "$@"
 
-docker kill $kafka_cid
+docker kill "$kafka_cid"
 rm -rf ./ccx-sha-extractor

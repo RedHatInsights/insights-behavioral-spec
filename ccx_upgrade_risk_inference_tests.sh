@@ -15,7 +15,7 @@
 # limitations under the License.
 
 
-dir_path=$(dirname "$(realpath $0)")
+dir_path=$(dirname "$(realpath "$0")")
 export PATH=$PATH:$dir_path
 PATH_TO_LOCAL_INFERENCE_SERVICE=${PATH_TO_LOCAL_INFERENCE_SERVICE:="../ccx-upgrades-inference/"}
 
@@ -34,8 +34,8 @@ function prepare_venv() {
 }
 
 function install_inference_service() {
-    python3 "$(which pip3)" install -r $PATH_TO_LOCAL_INFERENCE_SERVICE/requirements.txt
-    python3 "$(which pip3)" install $PATH_TO_LOCAL_INFERENCE_SERVICE/.
+    python3 "$(which pip3)" install -r "$PATH_TO_LOCAL_INFERENCE_SERVICE"/requirements.txt
+    python3 "$(which pip3)" install "$PATH_TO_LOCAL_INFERENCE_SERVICE"/.
     # shellcheck disable=SC2016
     add_exit_trap 'python3 "$(which pip3)" uninstall -y ccx-upgrades-inference'
 }

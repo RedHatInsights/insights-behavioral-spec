@@ -18,6 +18,7 @@ function prepare_venv() {
     echo "Preparing environment"
     # shellcheck disable=SC1091
     virtualenv -p python3 venv 
+    # shellcheck disable=SC1091
     source venv/bin/activate 
     python3 "$(which pip3)" install --no-cache -r requirements.in || exit 1
     python3 "$(which pip3)" install --no-cache -r requirements/insights_content_service.txt || exit 1
@@ -26,7 +27,7 @@ function prepare_venv() {
 
 function run_service() {
     git clone --depth=1 git@github.com:RedHatInsights/insights-content-service.git
-    cd insights-content-service
+    cd insights-content-service || exit
     ./update_rules_content.sh
     ./build.sh
     ./insights-content-service > /dev/null &
