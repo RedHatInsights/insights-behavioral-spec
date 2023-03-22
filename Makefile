@@ -42,6 +42,9 @@ insights-sha-extractor-tests: ## Run BDD tests for the CCX SHA Extractor
 code-style: ## Check code style for all Python sources from this repository
 	python3 tools/run_pycodestyle.py
 
+shellcheck: ## Run shellcheck
+	./shellcheck.sh
+
 update-scenarios: ## Update list of scenarios for GitHub pages
 	python3 tools/gen_scenario_list.py > docs/scenarios_list.md
 
