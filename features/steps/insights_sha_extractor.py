@@ -89,12 +89,11 @@ def start_sha_extractor(context, group_id=None):
 @when('an event is produced into "{topic_var}" topic')
 def produce_event(context, topic_var):
     """Produce an event into specified topic."""
-    event_data = ''
+    topic_name = context.__dict__["_stack"][0][topic_var]
     with open('test_data/platform_upload_announce_correct.json', 'r') as f:
         event_data = f.read()
-    topic_name = context.__dict__["_stack"][0][topic_var]
-
-    kafka_util.send_event(context.hostname, topic_name, event_data)
+        headers = [('service', b'testareno')]
+        kafka_util.send_event(context.hostname, topic_name, headers, event_data)
 
 
 @then('SHA extractor decode the b64_identity attribute')

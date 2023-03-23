@@ -1,3 +1,2 @@
-confluent_kafka
-kafka
+kafka-python
 minio
