@@ -5,7 +5,15 @@ Feature: Checks for cluster reports provided by Insights Results Aggregator
     Given REST API service hostname is localhost
       And REST API service port is 8080
       And REST API service prefix is api/v1
-      And Insights Results Aggregator service is started in background
+      And the database is named test
+      And database user is set to postgres
+      And database password is set to postgres
+      And aggregator database is in initial state
+     When database connection is established
+      And I migrate aggregator database to latest version
+      And I read current migration number from database
+     Then I should see that migration #31 is returned
+    Given Insights Results Aggregator service is started in background
 
 
   @rest-api @json-check
