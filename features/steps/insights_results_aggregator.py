@@ -202,6 +202,16 @@ def terminate_insights_results_aggregator(context):
     process.wait()
 
 
+@then("Insights Results Aggregator process should terminate")
+def check_insights_results_aggregator_termination(context):
+    """Check if Insights Results Aggregator has been terminated."""
+    assert hasattr(context, "aggregator_process")
+    process = context.aggregator_process
+
+    # check if process has been really terminated
+    assert process.poll() is not None, "Insights Results Aggregator should be terminated!"
+
+
 @when("I access endpoint {endpoint} using HTTP GET method using token for organization {org} account number {account}, and user {user}")  # noqa: E501
 def access_rest_api_endpoint_get_using_token(context, endpoint, org, account, user):
     """Access Insights Results Aggregator service using token generated from provided IDs."""
