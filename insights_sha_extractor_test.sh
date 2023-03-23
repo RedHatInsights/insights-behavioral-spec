@@ -58,7 +58,14 @@ function run_kafka() {
     export kafka_cid
 }
 
+function run_mock_s3(){
+    uvicorn mocks.s3.s3:app &
+    s3_pid=$!
+}
+
 run_kafka
+
+run_mock_s3
 
 prepare_venv
 
@@ -69,4 +76,5 @@ PYTHONDONTWRITEBYTECODE=1 python3 -m behave --no-capture \
     -D dump_errors=true @test_list/insights_sha_extractor.txt "$@"
 
 docker kill "$kafka_cid"
+kill -9 $s3_pid
 rm -rf ./ccx-sha-extractor

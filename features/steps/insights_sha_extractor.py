@@ -74,6 +74,7 @@ def start_sha_extractor(context, group_id=None):
     """Start SHA Extractor service."""
     if group_id:
         os.environ['CDP_GROUP_ID'] = group_id
+    os.environ['ALLOW_UNSAFE_LINKS'] = True
 
     sha_extractor = subprocess.Popen(
         ['insights-sha-extractor', 'config/insights_sha_extractor.yaml'],
@@ -104,7 +105,12 @@ def check_b64_decode(context):
     assert message_in_buffer(
         expected_msg,
         context.sha_extractor.stdout
-    ), "message was not consumed"
+    ), "b64_identity was not extracted"
+
+    # kill the process so we have one consumer at a time
+    context.sha_extractor.terminate()
+    context.sha_extractor.kill()
+    context.sha_extractor.wait()
 
 
 @then('SHA extractor should consume message about this event')
@@ -141,6 +147,8 @@ def topic_registered(context, topic):
 
     # kill the process so we have one consumer at a time
     context.sha_extractor.terminate()
+    context.sha_extractor.kill()
+    context.sha_extractor.wait()
 
 
 @then('this message should contain following attributes')
@@ -152,6 +160,26 @@ def check_message(context):
         expected_msg,
         context.sha_extractor.stdout
     ), "can't parse message"
+
+
+@then('SHA extractor retrieve the "url" attribute from the message')
+def check_url(context):
+    """Check that sha extractor is able to retrieve URL from incoming message."""
+    expected_msg = 'Extracted URL from input message'
+    assert message_in_buffer(
+        expected_msg,
+        context.sha_extractor.stdout
+    ), "can't parse url from message"
+
+
+@then('SHA extractor should start downloading tarball from address taken from "url" attribute')
+def check_start_download(context):
+    """Check that sha extractor is able to start download."""
+    expected_msg = 'Downloading http://localhost:8000/archive'
+    assert message_in_buffer(
+        expected_msg,
+        context.sha_extractor.stdout
+    ), "download not started"
 
 
 def message_in_buffer(message, buffer):

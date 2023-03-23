@@ -1,0 +1,16 @@
+{
+    "account": "12345678",
+    "category": "test",
+    "metadata": {
+      "reporter": "",
+      "stale_timestamp": "0001-01-01T00:00:00Z"
+    },
+    "request_id": "1234567890abcdef1234567890abcdef",
+    "principal": "87654321",
+    "service": "openshift",
+    "size": 123456,
+    "url": "http://localhost:8000/archive",
+    "b64_identity": "ewogICJpZGVudGl0eSI6IHsKICAgICJpbnRlcm5hbCI6IHsKICAgICAgIm9yZ19pZCI6ICIxMjM0NTYiLAogICAgICAiYXV0aF90aW1lIjogMAogICAgfSwKICAgICJhY2NvdW50X251bWJlciI6ICI3ODkwMDAiLAogICAgImF1dGhfdHlwZSI6ICJjZXJ0LWF1dGgiLAogICAgInN5c3RlbSI6IHsKICAgICAgImNuIjogIjEyMzQ1Njc4LWFhYWEtZWVlZS1mZmZmLTAwMDAwMDAwMDAwMCIsCiAgICAgICJjZXJ0X3R5cGUiOiAic3lzdGVtIgogICAgfSwKICAgICJ0eXBlIjogIlN5c3RlbSIKICB9LAogICJlbnRpdGxlbWVudHMiOiB7CiAgICAiaW5zaWdodHMiOiB7CiAgICAgICJpc19lbnRpdGxlZCI6IHRydWUsCiAgICAgICJpc190cmlhbCI6IGZhbHNlCiAgICB9LAogICAgImZvbyI6IHsKICAgICAgImlzX2VudGl0bGVkIjogdHJ1ZSwKICAgICAgImlzX3RyaWFsIjogdHJ1ZQogICAgfSwKICAgICJiYXIiOiB7CiAgICAgICJpc19lbnRpdGxlZCI6IGZhbHNlLAogICAgICAiaXNfdHJpYWwiOiBmYWxzZQogICAgfSwKICAgICJiYXoiOiB7CiAgICAgICJpc19lbnRpdGxlZCI6IHRydWUsCiAgICAgICJpc190cmlhbCI6IHRydWUKICAgIH0KICB9Cn0K",
+    "timestamp": "2020-12-09T16:17:42.822020204Z"
+  }
+  

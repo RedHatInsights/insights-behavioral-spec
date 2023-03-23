@@ -1,2 +1,4 @@
 kafka-python
 minio
+fastapi
+uvicorn
