@@ -25,6 +25,8 @@ Feature: Basic REST API endpoints provided by Insights Results Aggregator
           """
           {"status":"Missing auth token"}
           """
+     When I terminate Insights Results Aggregator
+     Then Insights Results Aggregator process should terminate
 
 
   @rest-api @json-check
@@ -44,3 +46,5 @@ Feature: Basic REST API endpoints provided by Insights Results Aggregator
           """
           {"status":"ok"}
           """
+     When I terminate Insights Results Aggregator
+     Then Insights Results Aggregator process should terminate
