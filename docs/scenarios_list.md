@@ -307,6 +307,8 @@ nav_order: 3
 * Check if the list of clusters for organization endpoint is reachable (w/o using auth. token)
 * Check if the list of clusters for known organization endpoint is reachable (with proper auth. token)
 * Check if the list of clusters for unknown organization endpoint is reachable (with proper auth. token)
+* Check if the list of clusters for known organization endpoint is reachable (with proper auth. token and one report)
+* Check if the list of clusters for known organization endpoint is reachable (with proper auth. token and two reports)
 * Check if the list of disabled rules for organization endpoint is reachable (w/o using auth. token)
 * Check if the list of disabled rules for known organization endpoint is reachable (with proper auth. token)
 * Check if the list of disabled rules for unknown organization endpoint is reachable (with proper auth. token)
