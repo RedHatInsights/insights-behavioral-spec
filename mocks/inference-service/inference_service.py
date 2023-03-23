@@ -39,12 +39,10 @@ async def upgrade_risk_prediction_mock(request: Request):
     }
 
     result = {
-        "upgrade_recommended": False,
         "upgrade_risks_predictors": {"alerts": [], "operator_conditions": []},
     }
     if data == expected_data:
         result = {
-            "upgrade_recommended": True,
             "upgrade_risks_predictors": {
                 "alerts": [],
                 "operator_conditions": [
