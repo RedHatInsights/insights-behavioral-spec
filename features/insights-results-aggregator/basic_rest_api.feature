@@ -310,6 +310,10 @@ Feature: Basic REST API endpoints provided by Insights Results Aggregator
               ]
           }
           """
+      And The body of the response is the following
+          """
+          {"clusters": [], "status": "ok"}
+          """
      When I terminate Insights Results Aggregator
      Then Insights Results Aggregator process should terminate
 
@@ -340,6 +344,76 @@ Feature: Basic REST API endpoints provided by Insights Results Aggregator
      When I terminate Insights Results Aggregator
      Then Insights Results Aggregator process should terminate
 
+
+  @rest-api @json-check
+  Scenario: Check if the list of clusters for known organization endpoint is reachable (with proper auth. token and one report)
+    Given the system is in default state
+      And empty reports are stored for following clusters
+        | organization | cluster ID                           |
+        | 123          | 01234567-89ab-cdef-0123-456789abcdef |
+     When I access endpoint /organizations/123/clusters using HTTP GET method using token for organization 123 account number 456, and user 789
+     Then The status code of the response is 200
+      And The body of the response has the following schema
+          """
+          {
+              "type": "object",
+              "properties": {
+                "clusters": {
+                  "type": "array",
+                  "items": {}
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "clusters",
+                "status"
+              ]
+          }
+          """
+      And The body of the response is the following
+          """
+          {"clusters": ["01234567-89ab-cdef-0123-456789abcdef"], "status": "ok"}
+          """
+     When I terminate Insights Results Aggregator
+     Then Insights Results Aggregator process should terminate
+
+
+  @rest-api @json-check
+  Scenario: Check if the list of clusters for known organization endpoint is reachable (with proper auth. token and two reports)
+    Given the system is in default state
+      And empty reports are stored for following clusters
+        | organization | cluster ID                           |
+        | 123          | 01234567-89ab-cdef-0123-456789abcdef |
+        | 123          | ffffffff-89ab-cdef-0123-456789abcdef |
+     When I access endpoint /organizations/123/clusters using HTTP GET method using token for organization 123 account number 456, and user 789
+     Then The status code of the response is 200
+      And The body of the response has the following schema
+          """
+          {
+              "type": "object",
+              "properties": {
+                "clusters": {
+                  "type": "array",
+                  "items": {}
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "clusters",
+                "status"
+              ]
+          }
+          """
+      And The body of the response is the following
+          """
+          {"clusters": ["01234567-89ab-cdef-0123-456789abcdef","ffffffff-89ab-cdef-0123-456789abcdef"], "status": "ok"}
+          """
+     When I terminate Insights Results Aggregator
+     Then Insights Results Aggregator process should terminate
 
   @rest-api @json-check
   Scenario: Check if the list of disabled rules for organization endpoint is reachable (w/o using auth. token)
