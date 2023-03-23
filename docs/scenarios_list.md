@@ -271,11 +271,8 @@ nav_order: 3
 
 ## `SHA_Extractor/sha_extractor.feature`
 
-* Check that SHA exctractor service has all the information and interfaces it needs to work properly
+* Check that SHA extractor service has all the information and interfaces it needs to work properly
 * Check if SHA extractor is able to consume messages from Kafka
-* Check if SHA extractor is able to consume messages from Kafka and then download tarball
-* Check if SHA extractor is able to consume messages from Kafka, download tarball, and take SHA images
-* Check if SHA extractor is able to finish the processing of SHA images
 
 ## `smart-proxy/smoketests.feature`
 
@@ -301,6 +298,7 @@ nav_order: 3
 
 * Check if the main endpoint is reachable (w/o using auth. token)
 * Check if the main endpoint is reachable (with proper auth. token)
+* Check if the info endpoint is reachable (with proper auth. token)
 
 ## `insights-results-aggregator/database_access.feature`
 
