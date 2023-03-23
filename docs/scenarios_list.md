@@ -309,6 +309,15 @@ nav_order: 3
 * Check if the list of disabled rules for known organization endpoint is reachable (with proper auth. token)
 * Check if the list of disabled rules for unknown organization endpoint is reachable (with proper auth. token)
 
+## `insights-results-aggregator/cluster_reports.feature`
+
+* Check if the cluster report endpoint is reachable (w/o using auth. token)
+* Check if the cluster report endpoint is reachable (w/o using auth. token) for different organization
+* Check if the cluster report endpoint is reachable for correct cluster ID (with using auth. token)
+* Check if the cluster report endpoint is reachable for correct cluster ID (with using auth. token) and different organization
+* Check if the cluster report endpoint is reachable for incorrect cluster ID (with using auth. token)
+* Check if the cluster report endpoint is reachable for two correct cluster IDs (with using auth. token)
+
 ## `insights-results-aggregator/database_access.feature`
 
 * Check access to empty database
