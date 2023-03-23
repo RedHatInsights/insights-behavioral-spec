@@ -302,6 +302,9 @@ nav_order: 3
 * Check if the info endpoint is reachable (with proper auth. token)
 * Check if the organizations endpoint is reachable (w/o using auth. token)
 * Check if the organizations endpoint is reachable (with proper auth. token)
+* Check if the list of clusters for organization endpoint is reachable (w/o using auth. token)
+* Check if the list of clusters for known organization endpoint is reachable (with proper auth. token)
+* Check if the list of clusters for unknown organization endpoint is reachable (with proper auth. token)
 
 ## `insights-results-aggregator/database_access.feature`
 
