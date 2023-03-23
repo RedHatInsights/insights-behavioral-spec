@@ -15,6 +15,7 @@
 """Implementation of common test steps."""
 
 from shutil import which
+from datetime import datetime
 
 
 from behave import given, then, when
@@ -60,3 +61,15 @@ def check_message_in_output(context, message):
             break
     else:
         raise Exception("Expected message not found in {}".format(context.output))
+
+
+@then('BuildTime is a proper datetime stamp')
+def check_build_datetime_stamp(context):
+    """Check build timestamp taken from service output."""
+    buildTime = context.response.json()["info"]["BuildTime"]
+
+    # an output example: 'Mon Mar 20 13:20:48 CET 2023'
+    timestampFormat = "%a %b %d %H:%M:%S %Z %Y"
+
+    # just try to parse datetime, if it fails, it fails
+    datetime.strptime(buildTime, timestampFormat)
