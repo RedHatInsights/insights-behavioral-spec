@@ -51,6 +51,27 @@ Feature: Basic REST API endpoints provided by Insights Results Aggregator
 
 
   @rest-api @json-check
+  Scenario: Check if the info endpoint is reachable (w/o using auth. token)
+    Given the system is in default state
+     When I access endpoint /info using HTTP GET method
+     Then The status code of the response is 401
+      And The body of the response has the following schema
+          """
+          {
+            "status": {
+              "type": "string"
+            }
+          }
+          """
+      And The body of the response is the following
+          """
+          {"status":"Missing auth token"}
+          """
+     When I terminate Insights Results Aggregator
+     Then Insights Results Aggregator process should terminate
+
+
+  @rest-api @json-check
   Scenario: Check if the info endpoint is reachable (with proper auth. token)
     Given the system is in default state
      When I access endpoint /info using HTTP GET method using token for organization 123 account number 456, and user 789
@@ -108,3 +129,54 @@ Feature: Basic REST API endpoints provided by Insights Results Aggregator
       And UtilsVersion is in the proper format
      When I terminate Insights Results Aggregator
      Then Insights Results Aggregator process should terminate
+
+
+  @rest-api @json-check
+  Scenario: Check if the organizations endpoint is reachable (w/o using auth. token)
+    Given the system is in default state
+     When I access endpoint /organizations using HTTP GET method
+     Then The status code of the response is 401
+      And The body of the response has the following schema
+          """
+          {
+            "status": {
+              "type": "string"
+            }
+          }
+          """
+      And The body of the response is the following
+          """
+          {"status":"Missing auth token"}
+          """
+     When I terminate Insights Results Aggregator
+     Then Insights Results Aggregator process should terminate
+
+
+  @rest-api @json-check
+  Scenario: Check if the organizations endpoint is reachable (with proper auth. token)
+    Given the system is in default state
+     When I access endpoint /organizations using HTTP GET method using token for organization 123 account number 456, and user 789
+     Then The status code of the response is 200
+      And The body of the response has the following schema
+          """
+          {
+              "type": "object",
+              "properties": {
+                "organizations": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "organizations",
+                "status"
+              ]
+          }
+          """
