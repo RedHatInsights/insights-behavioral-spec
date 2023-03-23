@@ -165,8 +165,9 @@ def check_tables_in_database(context):
 @given("empty reports are stored for following clusters")
 def store_empty_reports_into_database(context):
     """Store empty reports into database."""
-    insert_statement = "insert into report(org_id, cluster, report, last_checked_at) " + \
-        "values(%s, %s, '', now());"
+    insert_statement = \
+        "insert into report(org_id, cluster, report, reported_at, last_checked_at) " + \
+        "values (%s, %s, '', now(), now());"
 
     cursor = context.connection.cursor()
 
