@@ -21,8 +21,7 @@ import socket
 from behave import given, then, when
 from kafka import KafkaAdminClient
 from kafka.admin import NewTopic
-from kafka.producer import KafkaProducer
-from confluent_kafka import Producer as ConfluentProducer
+from kafka import KafkaProducer
 from kafka.errors import UnknownTopicOrPartitionError, TopicAlreadyExistsError
 
 
@@ -111,18 +110,20 @@ def create_topic(hostname, topic_name):
         print(f'{topic_name} topic already exists')
 
 
-def send_event(bootstrap, topic, payload):
+def send_event(bootstrap, topic, headers, payload):
     """Send an event to selected Kafka topic."""
-    conf = {'bootstrap.servers': bootstrap}
-    producer = ConfluentProducer(conf)
-    producer.produce(topic,
-                     value=payload,
-                     callback=acked,
-                     headers={'service': 'testareno'})
-    producer.flush()
-
-
-def acked(err, msg):
-    """Check if producing an event was successful."""
-    assert err is None, \
-        "Failed to deliver message: %s: %s" % (str(msg), str(err))
+    producer = KafkaProducer(
+        bootstrap_servers=bootstrap,
+        value_serializer=lambda v: json.dumps(v).encode('utf-8')
+    )
+    try:
+        res = producer.send(
+            topic,
+            value=payload,
+            headers=headers
+        )
+        producer.flush()
+        print("Result kafka send: ", res.get(timeout=10))
+    except Exception:
+        f"Failed to send message {payload} to topic {topic}"
+        raise
