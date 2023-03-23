@@ -298,7 +298,10 @@ nav_order: 3
 
 * Check if the main endpoint is reachable (w/o using auth. token)
 * Check if the main endpoint is reachable (with proper auth. token)
+* Check if the info endpoint is reachable (w/o using auth. token)
 * Check if the info endpoint is reachable (with proper auth. token)
+* Check if the organizations endpoint is reachable (w/o using auth. token)
+* Check if the organizations endpoint is reachable (with proper auth. token)
 
 ## `insights-results-aggregator/database_access.feature`
 
