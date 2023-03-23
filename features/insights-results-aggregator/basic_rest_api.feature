@@ -256,3 +256,83 @@ Feature: Basic REST API endpoints provided by Insights Results Aggregator
           """
      When I terminate Insights Results Aggregator
      Then Insights Results Aggregator process should terminate
+
+
+  @rest-api @json-check
+  Scenario: Check if the list of disabled rules for organization endpoint is reachable (w/o using auth. token)
+    Given the system is in default state
+     When I access endpoint /rules/organizations/123/disabled using HTTP GET method
+     Then The status code of the response is 401
+      And The body of the response has the following schema
+          """
+          {
+            "status": {
+              "type": "string"
+            }
+          }
+          """
+      And The body of the response is the following
+          """
+          {"status":"Missing auth token"}
+          """
+     When I terminate Insights Results Aggregator
+     Then Insights Results Aggregator process should terminate
+
+
+  @rest-api @json-check
+  Scenario: Check if the list of disabled rules for known organization endpoint is reachable (with proper auth. token)
+    Given the system is in default state
+     When I access endpoint /rules/organizations/123/disabled using HTTP GET method using token for organization 123 account number 456, and user 789
+     Then The status code of the response is 200
+      And The body of the response has the following schema
+          """
+          {
+              "type": "object",
+              "properties": {
+                "rules": {
+                  "type": "array",
+                  "items": {}
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "rules",
+                "status"
+              ]
+          }
+          """
+      And The body of the response is the following
+          """
+          {"rules": [], "status": "ok"}
+          """
+     When I terminate Insights Results Aggregator
+     Then Insights Results Aggregator process should terminate
+
+
+  @rest-api @json-check
+  Scenario: Check if the list of disabled rules for unknown organization endpoint is reachable (with proper auth. token)
+    Given the system is in default state
+     When I access endpoint /rules/organizations/999/disabled using HTTP GET method using token for organization 123 account number 456, and user 789
+     Then The status code of the response is 200
+      And The body of the response has the following schema
+          """
+          {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "status"
+              ]
+          }
+          """
+      And The body of the response is the following
+          """
+          {"rules": [], "status": "ok"}
+          """
+     When I terminate Insights Results Aggregator
+     Then Insights Results Aggregator process should terminate
