@@ -302,6 +302,8 @@ nav_order: 3
 * Check if the info endpoint is reachable (with proper auth. token)
 * Check if the organizations endpoint is reachable (w/o using auth. token)
 * Check if the organizations endpoint is reachable (with proper auth. token)
+* Check if the organizations endpoint is reachable (with proper auth. token and filled-in database with report for one org)
+* Check if the organizations endpoint is reachable (with proper auth. token and filled-in database with reports for two orgs)
 * Check if the list of clusters for organization endpoint is reachable (w/o using auth. token)
 * Check if the list of clusters for known organization endpoint is reachable (with proper auth. token)
 * Check if the list of clusters for unknown organization endpoint is reachable (with proper auth. token)
@@ -407,6 +409,11 @@ nav_order: 3
 * Check how Insights Results Aggregator reacts to non existent configuration file
 * Check how Insights Results Aggregator reacts to broken database configuration
 * Check how Insights Results Aggregator reacts to situation when Kafka is not reachable
+
+## `insights-results-aggregator/x.feature`
+
+* Check if the organizations endpoint is reachable (with proper auth. token and filled-in database with report for one org)
+* Check if the organizations endpoint is reachable (with proper auth. token and filled-in database with reports for two orgs)
 
 ## `insights-results-aggregator-cleaner/cleanup_selected_records.feature`
 
