@@ -5,7 +5,6 @@ Feature: Basic REST API endpoints provided by Insights Results Aggregator
     Given REST API service hostname is localhost
       And REST API service port is 8080
       And REST API service prefix is api/v1
-      And Insights Results Aggregator service is started in background
       And the database is named test
       And database user is set to postgres
       And database password is set to postgres
@@ -188,6 +187,81 @@ Feature: Basic REST API endpoints provided by Insights Results Aggregator
                 "status"
               ]
           }
+          """
+
+
+  @rest-api @json-check
+  Scenario: Check if the organizations endpoint is reachable (with proper auth. token and filled-in database with report for one org)
+    Given the system is in default state
+      And empty reports are stored for following clusters
+        | organization | cluster ID                           |
+        | 123          | 01234567-89ab-cdef-0123-456789abcdef |
+     When I access endpoint /organizations using HTTP GET method using token for organization 123 account number 456, and user 789
+     Then The status code of the response is 200
+      And The body of the response has the following schema
+          """
+          {
+              "type": "object",
+              "properties": {
+                "organizations": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "organizations",
+                "status"
+              ]
+          }
+          """
+      And The body of the response is the following
+          """
+          {"organizations":[123],"status":"ok"}
+          """
+
+
+  @rest-api @json-check
+  Scenario: Check if the organizations endpoint is reachable (with proper auth. token and filled-in database with reports for two orgs)
+    Given the system is in default state
+      And empty reports are stored for following clusters
+        | organization | cluster ID                           |
+        | 123          | 01234567-89ab-cdef-0123-456789abcdef |
+        | 456          | f1234567-89ab-cdef-0123-456789abcdef |
+     When I access endpoint /organizations using HTTP GET method using token for organization 123 account number 456, and user 789
+     Then The status code of the response is 200
+      And The body of the response has the following schema
+          """
+          {
+              "type": "object",
+              "properties": {
+                "organizations": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "organizations",
+                "status"
+              ]
+          }
+          """
+      And The body of the response is the following
+          """
+          {"organizations":[123,456],"status":"ok"}
           """
 
 
