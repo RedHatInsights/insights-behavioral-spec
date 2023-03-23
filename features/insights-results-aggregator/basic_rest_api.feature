@@ -180,3 +180,79 @@ Feature: Basic REST API endpoints provided by Insights Results Aggregator
               ]
           }
           """
+
+
+  @rest-api @json-check
+  Scenario: Check if the list of clusters for organization endpoint is reachable (w/o using auth. token)
+    Given the system is in default state
+     When I access endpoint /organizations/123/clusters using HTTP GET method
+     Then The status code of the response is 401
+      And The body of the response has the following schema
+          """
+          {
+            "status": {
+              "type": "string"
+            }
+          }
+          """
+      And The body of the response is the following
+          """
+          {"status":"Missing auth token"}
+          """
+     When I terminate Insights Results Aggregator
+     Then Insights Results Aggregator process should terminate
+
+
+  @rest-api @json-check
+  Scenario: Check if the list of clusters for known organization endpoint is reachable (with proper auth. token)
+    Given the system is in default state
+     When I access endpoint /organizations/123/clusters using HTTP GET method using token for organization 123 account number 456, and user 789
+     Then The status code of the response is 200
+      And The body of the response has the following schema
+          """
+          {
+              "type": "object",
+              "properties": {
+                "clusters": {
+                  "type": "array",
+                  "items": {}
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "clusters",
+                "status"
+              ]
+          }
+          """
+     When I terminate Insights Results Aggregator
+     Then Insights Results Aggregator process should terminate
+
+
+  @rest-api @json-check
+  Scenario: Check if the list of clusters for unknown organization endpoint is reachable (with proper auth. token)
+    Given the system is in default state
+     When I access endpoint /organizations/999/clusters using HTTP GET method using token for organization 123 account number 456, and user 789
+     Then The status code of the response is 403
+      And The body of the response has the following schema
+          """
+          {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "status"
+              ]
+          }
+          """
+      And The body of the response is the following
+          """
+          {"status": "you have no permissions to get or change info about the organization with ID 999; you can access info about organization with ID 123"}
+          """
+     When I terminate Insights Results Aggregator
+     Then Insights Results Aggregator process should terminate
