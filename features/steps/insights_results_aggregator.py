@@ -162,7 +162,7 @@ def perform_aggregator_database_migration_to_latest(context):
 
 @given("Insights Results Aggregator service is started in background")
 def start_insights_results_aggregator_in_background(context):
-    """Start Insights Results Aggregator service in background."""
+    """Start Insights Results Aggregator service in background if it is not started already."""
     if hasattr(context, "aggregator_process"):
         if context.aggregator_process.poll() is None:
             return
@@ -185,6 +185,31 @@ def start_insights_results_aggregator_in_background(context):
 
     # store process instance for later use
     context.aggregator_process = process
+
+
+@when("I terminate Insights Results Aggregator")
+def terminate_insights_results_aggregator(context):
+    """Try to terminate Insights Results Aggregator process."""
+    assert hasattr(context, "aggregator_process")
+    process = context.aggregator_process
+
+    # check if process runs
+    assert process.poll() is None, "Insights Results Aggregator does not run!"
+
+    # try to terminate it and wait for termination
+    process.terminate()
+    process.kill()
+    process.wait()
+
+
+@then("Insights Results Aggregator process should terminate")
+def check_insights_results_aggregator_termination(context):
+    """Check if Insights Results Aggregator has been terminated."""
+    assert hasattr(context, "aggregator_process")
+    process = context.aggregator_process
+
+    # check if process has been really terminated
+    assert process.poll() is not None, "Insights Results Aggregator should be terminated!"
 
 
 @when("I access endpoint {endpoint} using HTTP GET method using token for organization {org} account number {account}, and user {user}")  # noqa: E501
