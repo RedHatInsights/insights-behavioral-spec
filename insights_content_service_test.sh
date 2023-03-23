@@ -14,6 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+#set NOVENV is current environment is not a python virtual env
+[ "$VIRTUAL_ENV" != "" ] || NOVENV=1
+
 function prepare_venv() {
     echo "Preparing environment"
     # shellcheck disable=SC1091
@@ -25,16 +28,43 @@ function prepare_venv() {
     echo "Environment ready"
 }
 
-function run_service() {
-    git clone --depth=1 git@github.com:RedHatInsights/insights-content-service.git
+function clone_service() {
+    git clone --depth=1 https://github.com/RedHatInsights/insights-content-service.git
+}
+
+function install_service() {
     cd insights-content-service || exit
     ./update_rules_content.sh
     ./build.sh
+    cd ..
+}
+
+function run_service() {
+    cd insights-content-service || exit
     ./insights-content-service > /dev/null &
     cd ..
 }
 
-prepare_venv
+# prepare virtual environment if necessary
+case "$NOVENV" in
+    "") echo "using existing virtual env";;
+    "1") prepare_venv;;
+esac
+
+if [ ! -d "insights-content-service" ]; then
+    if [[ -z $ENV_DOCKER ]]
+    then
+        clone_service && \
+        install_service
+        REMOVE_CONTENT_SERVICE_DIRECTORY=1
+    else
+        echo "insights-content-service directory not found in working directory. Please add it (with the compiled executable)!"
+        exit 1
+    fi
+else
+    echo "insights-content-service directory found in working directory"
+fi
+
 run_service
 content_service_pid=$!
 
@@ -46,5 +76,5 @@ PYTHONDONTWRITEBYTECODE=1 python3 -m behave --no-capture \
     -D dump_errors=true @test_list/insights_content_service.txt "$@"
 
 kill -9 $content_service_pid
-rm -rf ./insights-content-service
+$REMOVE_CONTENT_SERVICE_DIRECTORY || rm -rf ./insights-content-service
 
