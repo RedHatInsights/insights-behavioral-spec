@@ -73,3 +73,14 @@ def check_build_datetime_stamp(context):
 
     # just try to parse datetime, if it fails, it fails
     datetime.strptime(buildTime, timestampFormat)
+
+
+@then('DBVersion is in the proper format')
+def check_db_version(context):
+    """Check database version taken from service output."""
+    dbVersion = context.response.json()["info"]["DB_version"]
+
+    # just try to parse the version, that's all
+    version = int(dbVersion)
+
+    assert version >= 1, "Improper DB version {}".format(version)
