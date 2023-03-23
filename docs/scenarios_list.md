@@ -302,6 +302,8 @@ nav_order: 3
 * Check if the info endpoint is reachable (with proper auth. token)
 * Check if the organizations endpoint is reachable (w/o using auth. token)
 * Check if the organizations endpoint is reachable (with proper auth. token)
+* Check if the organizations endpoint is reachable (with proper auth. token and filled-in database with report for one org)
+* Check if the organizations endpoint is reachable (with proper auth. token and filled-in database with reports for two orgs)
 * Check if the list of clusters for organization endpoint is reachable (w/o using auth. token)
 * Check if the list of clusters for known organization endpoint is reachable (with proper auth. token)
 * Check if the list of clusters for unknown organization endpoint is reachable (with proper auth. token)

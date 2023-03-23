@@ -160,3 +160,27 @@ def check_tables_in_database(context):
         expected_table = row["Table name"]
         assert expected_table in existing_tables, \
             f"Table {expected_table} does not exist in {existing_tables}"
+
+
+@given("empty reports are stored for following clusters")
+def store_empty_reports_into_database(context):
+    """Store empty reports into database."""
+    insert_statement = "insert into report(org_id, cluster, report, last_checked_at) " + \
+        "values(%s, %s, '', now());"
+
+    cursor = context.connection.cursor()
+
+    try:
+        # perform several INSERTs
+        for row in context.table:
+            organization = row["organization"]
+            clusterID = row["cluster ID"]
+
+            # try to perform INSERT statement
+            print(row)
+            cursor.execute(insert_statement, (organization, clusterID))
+
+        context.connection.commit()
+    except Exception:
+        context.connection.rollback()
+        raise
