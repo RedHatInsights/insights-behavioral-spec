@@ -20,15 +20,17 @@ service:
       bootstrap_servers: kafka:9092
       platform_service: testareno
       processing_timeout_s: 0
-      max_poll_records: 10
-      max_poll_interval_ms: 600000
-      heartbeat_interval_ms: 10000
-      session_timeout_ms: 20000
+      max_poll_records: 1
+      max_poll_interval_ms: 3000
+      heartbeat_interval_ms: 5000
+      session_timeout_ms: 10000
+      auto_offset_reset: latest
       dead_letter_queue_topic: dead.letter.queue
   downloader:
     name: ccx_messaging.downloaders.http_downloader.HTTPDownloader
     kwargs:
       max_archive_size: 100 MiB
+      allow_unsafe_links: true
   engine:
     name: ccx_messaging.engines.sha_extractor_engine.SHAExtractorEngine
     kwargs:

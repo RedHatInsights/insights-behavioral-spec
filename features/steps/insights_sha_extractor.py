@@ -86,14 +86,30 @@ def start_sha_extractor(context, group_id=None):
     context.sha_extractor = sha_extractor
 
 
-@when('an event is produced into "{topic_var}" topic')
-def produce_event(context, topic_var):
+@when('an archive {with_or_without} workload info is announced in "{topic_var}" topic')
+def produce_event(context, with_or_without, topic_var):
     """Produce an event into specified topic."""
     topic_name = context.__dict__["_stack"][0][topic_var]
-    with open('test_data/platform_upload_announce_correct.json', 'r') as f:
+    if with_or_without == 'with':
+        msg_path = 'test_data/upload_no_workloadinfo.json'
+    else:
+        msg_path = 'test_data/upload.json'
+
+    with open(msg_path, 'r') as f:
         event_data = f.read()
         headers = [('service', b'testareno')]
         kafka_util.send_event(context.hostname, topic_name, headers, event_data)
+
+
+@when('the file "config/workload_info.json" is not found')
+def check_archive_decompress(context):
+    """Step when workload_info.json is not in the archive."""
+    expected_msg = "archive does not contain workload info; skipping"
+
+    assert message_in_buffer(
+        expected_msg,
+        context.sha_extractor.stdout
+    ), "archive should not contain workload_info.json for this scenario"
 
 
 @then('SHA extractor decode the b64_identity attribute')
@@ -104,7 +120,7 @@ def check_b64_decode(context):
     assert message_in_buffer(
         expected_msg,
         context.sha_extractor.stdout
-    ), "message was not consumed"
+    ), "b64_identity was not extracted"
 
 
 @then('SHA extractor should consume message about this event')
@@ -132,15 +148,11 @@ def topic_registered(context, topic):
     """Check if SHA Extractor registered itself to consume given topic."""
     topic_name = context.__dict__["_stack"][0][topic]
     expected_msg = f"Consuming topic '{topic_name}' " + \
-        f"from brokers ['{context.hostname}'] " + \
-        "as group 'insights_sha_extractor_app'"
+        f"from brokers ['{context.hostname}']"
     assert message_in_buffer(
         expected_msg,
         context.sha_extractor.stdout
     ), "consumer topic not registered"
-
-    # kill the process so we have one consumer at a time
-    context.sha_extractor.terminate()
 
 
 @then('this message should contain following attributes')
@@ -154,6 +166,33 @@ def check_message(context):
     ), "can't parse message"
 
 
+@then('SHA extractor retrieve the "url" attribute from the message')
+def check_url(context):
+    """Check that sha extractor is able to retrieve URL from incoming message."""
+    expected_msg = 'Extracted URL from input message'
+    assert message_in_buffer(
+        expected_msg,
+        context.sha_extractor.stdout
+    ), "can't parse url from message"
+
+
+@then('SHA extractor should download tarball from given URL attribute')
+def check_start_download(context):
+    """Check that sha extractor is able to start download."""
+    expected_msg = 'Downloading http://localhost:8000/archive'
+    assert message_in_buffer(
+        expected_msg,
+        context.sha_extractor.stdout
+    ), "download not started"
+
+
+@then('the tarball is not further processed')
+def archive_not_precessed(context):
+    """Check that sha extractor did not process any event."""
+    consumed = kafka_util.consume_event(context.kafka_hostname, context.outgoing_topic)
+    assert not consumed, "message should not exist in outgoing topic"
+
+
 def message_in_buffer(message, buffer):
     """Check if SHA Extractor service prints given message on its output."""
     found = False
@@ -164,6 +203,5 @@ def message_in_buffer(message, buffer):
         if message in line:
             found = True
             break
-        if not line:
-            break
+
     return found

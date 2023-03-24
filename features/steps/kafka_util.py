@@ -21,7 +21,7 @@ import socket
 from behave import given, then, when
 from kafka import KafkaAdminClient
 from kafka.admin import NewTopic
-from kafka import KafkaProducer
+from kafka import KafkaProducer, KafkaConsumer
 from kafka.errors import UnknownTopicOrPartitionError, TopicAlreadyExistsError
 
 
@@ -124,6 +124,15 @@ def send_event(bootstrap, topic, headers, payload):
         )
         producer.flush()
         print("Result kafka send: ", res.get(timeout=10))
-    except Exception:
+    except Exception as e:
         f"Failed to send message {payload} to topic {topic}"
-        raise
+        raise SendEventException(e)
+
+
+def consume_event(bootstrap, topic):
+    """Consume events in the given topic."""
+    consumer = KafkaConsumer(
+            bootstrap_servers=bootstrap
+    )
+    consumer.subscribe(topics=topic)
+    return consumer.poll()
