@@ -195,4 +195,5 @@ def check_for_null_attribute(context, attribute):
     assert json is not None
 
     assert attribute in json, f"Attribute {attribute} is not returned by the service"
-    assert json[attribute] is None, f"Attribute {attribute} should be null"
+    value = json[attribute]
+    assert value is None, f"Attribute {attribute} should be null, but it contains {value}"
