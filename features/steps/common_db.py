@@ -162,13 +162,8 @@ def check_tables_in_database(context):
             f"Table {expected_table} does not exist in {existing_tables}"
 
 
-@given("empty reports are stored for following clusters")
-def store_empty_reports_into_database(context):
-    """Store empty reports into database."""
-    insert_statement = \
-        "insert into report(org_id, cluster, report, reported_at, last_checked_at) " + \
-        "values (%s, %s, '', now(), now());"
-
+def store_reports_into_database(context, insert_statement):
+    """Store reports into database."""
     cursor = context.connection.cursor()
 
     try:
@@ -185,3 +180,34 @@ def store_empty_reports_into_database(context):
     except Exception:
         context.connection.rollback()
         raise
+
+
+@given("empty reports are stored for following clusters")
+def store_empty_reports_into_database(context):
+    """Store empty reports into database."""
+    insert_statement = \
+        "insert into report(org_id, cluster, report, reported_at, last_checked_at) " + \
+        "values (%s, %s, '', now(), now());"
+
+    store_reports_into_database(context, insert_statement)
+
+
+@given("non empty reports are stored for following clusters")
+def store_non_empty_reports_into_database(context):
+    """Store non empty reports into database."""
+    report = """
+    {
+        "status": "ok",
+        "report": {
+            "data": {},
+            "meta": {
+                "count": 0
+            }
+        }
+    }
+    """
+    insert_statement = \
+        "insert into report(org_id, cluster, report, reported_at, last_checked_at) " + \
+        "values (%s, %s, '"+report+"', now(), now());"
+
+    store_reports_into_database(context, insert_statement)

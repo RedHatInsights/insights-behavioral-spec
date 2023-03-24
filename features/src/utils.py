@@ -14,6 +14,8 @@
 
 """Unsorted utility functions to be used from other sources and test step definitions."""
 
+import base64
+
 
 def get_array_from_json(context, selector, subselector=None):
     """Read all items from an array stored in JSON returned by service."""
@@ -31,3 +33,22 @@ def get_array_from_json(context, selector, subselector=None):
     # return just one attribute from objects stored in an array
     else:
         return (item[subselector] for item in json[selector])
+
+
+def construct_rh_token(org, account, user):
+    """Construct RH identity token for provided user info."""
+    # text token
+    token = '''
+    {{
+        "identity": {{
+            "org_id": "{0}",
+            "account_number":"{1}",
+            "user": {{
+                "user_id":"{2}"
+            }}
+        }}
+    }}
+    '''.format(org, account, user)
+
+    # convert to base64 encoding
+    return base64.b64encode(token.encode('ascii'))

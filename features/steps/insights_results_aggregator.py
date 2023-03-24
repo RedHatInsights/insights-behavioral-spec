@@ -18,11 +18,10 @@ import requests
 import subprocess
 import os
 import time
-import base64
 
 from behave import when, then
 from src.process_output import process_generated_output, filter_coverage_message
-from src.utils import get_array_from_json
+from src.utils import get_array_from_json, construct_rh_token
 
 # Insights Results Aggregator binary file name
 INSIGHTS_RESULTS_AGGREGATOR_BINARY = "insights-results-aggregator"
@@ -218,24 +217,11 @@ def access_rest_api_endpoint_get_using_token(context, endpoint, org, account, us
     """Access Insights Results Aggregator service using token generated from provided IDs."""
     url = f"http://{context.hostname}:{context.port}/{context.api_prefix}{endpoint}"
 
-    # text token
-    token = '''
-    {{
-        "identity": {{
-            "org_id": "{0}",
-            "account_number":"{1}",
-            "user": {{
-                "user_id":"{2}"
-            }}
-        }}
-    }}
-    '''.format(org, account, user)
-
-    # convert to base64 encoding
-    token_b64 = base64.b64encode(token.encode('ascii'))
+    # construct RH identity token for provided user info
+    token = construct_rh_token(org, account, user)
 
     # use the token
-    context.response = requests.get(url, headers={"x-rh-identity": token_b64})
+    context.response = requests.get(url, headers={"x-rh-identity": token})
 
 
 @then("I should retrieve empty list of organizations")

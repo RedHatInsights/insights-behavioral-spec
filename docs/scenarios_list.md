@@ -411,6 +411,12 @@ nav_order: 3
 * Check if list with two organizations is returned in case 'report' table contains reports for two organizations
 * Check if list with two organizations is returned in case 'report' table contains multiple reports for two organizations
 
+## `insights-results-aggregator/results_for_cluster_list.feature`
+
+* Check if Insights Results Aggregator Mock service returns results for empty list of clusters
+* Check if Insights Results Aggregator Mock service returns results for non empty list of clusters without proper report
+* Check if Insights Results Aggregator Mock service returns results for non empty list of clusters with proper report
+
 ## `insights-results-aggregator/smoketests.feature`
 
 * Check if Insights Results Aggregator application is available
