@@ -79,6 +79,12 @@ def after_scenario(context, scenario):
     """Run after each scenario is run."""
     if "@database" in scenario.effective_tags:
         prepare_db(context, CLEANUP_FILES, context.database_name)
+    if "@sha_extractor" in scenario.effective_tags:
+        # terminate the subprocess to have
+        # one kafka consumer at a time
+        context.sha_extractor.terminate()
+        context.sha_extractor.kill()
+        context.sha_extractor.wait()
 
 
 def prepare_db(context, setup_files=CLEANUP_FILES, database="test"):

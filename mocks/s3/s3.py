@@ -18,11 +18,24 @@
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
 
-file_path = "test_data/archive.tar.gz"
+without_workloadinfo_path = "test_data/archive_no_workloadinfo.tar.gz"
+with_workloadinfo_path = "test_data/archive.tar.gz"
 app = FastAPI()
 
 
+@app.get("/archive_no_workloadinfo")
+def archive_without_workloadinfo():
+    """Return a mocked archive for every request.
+
+    The archive returned does NOT contain workload_info.json file
+    """
+    return FileResponse(path=without_workloadinfo_path)
+
+
 @app.get("/archive")
-def main():
-    """Return a mocked archive for every request."""
-    return FileResponse(path=file_path)
+def archive_with_workloadinfo():
+    """Return a mocked archive for every request.
+
+    The archive contains workload_info.json file
+    """
+    return FileResponse(path=with_workloadinfo_path)
