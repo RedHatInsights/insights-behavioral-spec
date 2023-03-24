@@ -363,7 +363,7 @@ def request_results_for_list_of_clusters(context, org=None, account=None, user=N
     # use RH identity token if needed
     if org is not None and account is not None and user is not None:
         # URL for Insights Results Aggregator
-        url = f"http://{context.hostname}:{context.port}{context.api_prefix}/organizations/{org}/clusters/reports"
+        url = f"http://{context.hostname}:{context.port}{context.api_prefix}/organizations/{org}/clusters/reports"  # noqa: E501
         # construct RH identity token for provided user info
         token = construct_rh_token(org, account, user)
         # perform POST request
