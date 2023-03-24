@@ -273,6 +273,8 @@ nav_order: 3
 
 * Check that SHA extractor service has all the information and interfaces it needs to work properly
 * Check if SHA extractor is able to consume messages from Kafka
+* Check if SHA extractor is able to consume messages from Kafka and then download tarball
+* Check if SHA extractor is able to consume messages from Kafka, download tarball, and take SHA images
 
 ## `smart-proxy/smoketests.feature`
 
@@ -416,6 +418,9 @@ nav_order: 3
 * Check if Insights Results Aggregator Mock service returns results for empty list of clusters
 * Check if Insights Results Aggregator Mock service returns results for non empty list of clusters without proper report
 * Check if Insights Results Aggregator Mock service returns results for non empty list of clusters with proper report
+* Check if Insights Results Aggregator Mock service returns results for non empty list of clusters with proper report and one unknown cluster
+* Check if Insights Results Aggregator Mock service returns results for non empty list of clusters with proper report and two unknown clusters
+* Check if Insights Results Aggregator Mock service returns results for two unknown clusters
 
 ## `insights-results-aggregator/smoketests.feature`
 
