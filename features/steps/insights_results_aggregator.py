@@ -248,3 +248,15 @@ def check_empty_list_of_organizations(context):
     # check if the list is empty
     assert len(found_organizations) == 0, \
         "Expected no organizations but {} has been returned".format(found_organizations)
+
+
+@then("I should retrieve empty list of clusters")
+def check_empty_list_of_clusters(context):
+    """Check if Insights Results Aggregator service returned empty list of clusters."""
+    # construct set of actually found clusters
+    # from JSON payload returned by the service
+    found_clusters = set(get_array_from_json(context, "clusters"))
+
+    # check if the list is empty
+    assert len(found_clusters) == 0, \
+        "Expected no clusters but {} has been returned".format(found_clusters)
