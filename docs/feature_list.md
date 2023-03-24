@@ -101,6 +101,7 @@ nav_order: 2
 * [Basic REST API endpoints provided by Insights Results Aggregator](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/basic_rest_api.feature)
 * [Checking responses from Insights Results Aggregator service: "organizations" endpoint](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/list_of_organizations.feature)
 * [Checking responses from Insights Results Aggregator service: "{organization}/clusters" endpoint](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/list_of_clusters.feature)
+* [Checking REST API endpoint that returns results for provided list of clusters](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/results_for_cluster_list.feature)
 * [Checks for cluster reports provided by Insights Results Aggregator](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/cluster_reports.feature)
 
 
