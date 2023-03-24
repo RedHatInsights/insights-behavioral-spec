@@ -394,6 +394,15 @@ nav_order: 3
 * Check database downgrade from version #30 to version #29
 * Check database downgrade from version #31 to version #30
 
+## `insights-results-aggregator/list_of_clusters.feature`
+
+* Check if Insights Results Aggregator service returns correct list of clusters for known organization
+* Check if Insights Results Aggregator Mock service return correct list of clusters for organization w/o access rights
+* Check if Insights Results Aggregator service returns correct list of clusters for known organization and one report
+* Check if Insights Results Aggregator service returns correct list of clusters for known organization and several reports
+* Check if Insights Results Aggregator service returns correct list of clusters for known organization and several reports, some from different organization
+* Check if Insights Results Aggregator service returns correct list of clusters for known organization without any report (all reports belong to different organization)
+
 ## `insights-results-aggregator/list_of_organizations.feature`
 
 * Check if empty list of organizations is returned in case 'report' table is empty
