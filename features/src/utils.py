@@ -19,10 +19,11 @@ def get_array_from_json(context, selector, subselector=None):
     """Read all items from an array stored in JSON returned by service."""
     # try to parse response body
     json = context.response.json()
-    assert json is not None
+    assert json is not None, "JSON response is missing in context object"
 
     # try to retrieve content of given array
-    assert selector in json
+    assert selector in json, \
+        "attribute '{}' is not found in JSON response".format(selector)
 
     # return items from array is subselector is not specified
     if subselector is None:

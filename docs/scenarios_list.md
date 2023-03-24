@@ -394,6 +394,14 @@ nav_order: 3
 * Check database downgrade from version #30 to version #29
 * Check database downgrade from version #31 to version #30
 
+## `insights-results-aggregator/list_of_organizations.feature`
+
+* Check if empty list of organizations is returned in case 'report' table is empty
+* Check if list with one organization is returned in case 'report' table contains one report only
+* Check if list with one organization is returned in case 'report' table contains reports for one organization only
+* Check if list with two organizations is returned in case 'report' table contains reports for two organizations
+* Check if list with two organizations is returned in case 'report' table contains multiple reports for two organizations
+
 ## `insights-results-aggregator/smoketests.feature`
 
 * Check if Insights Results Aggregator application is available
