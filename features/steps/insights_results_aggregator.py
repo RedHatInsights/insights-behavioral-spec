@@ -22,12 +22,13 @@ import base64
 
 from behave import when, then
 from src.process_output import process_generated_output, filter_coverage_message
+from src.utils import get_array_from_json
 
 # Insights Results Aggregator binary file name
 INSIGHTS_RESULTS_AGGREGATOR_BINARY = "insights-results-aggregator"
 
 # time for newly started Insights Results Aggregator to setup connections and start HTTP server
-BREATH_TIME = 2
+BREATH_TIME = 1
 
 
 @when("I run the Insights Results Aggregator with the {flag} command line flag")
@@ -235,3 +236,15 @@ def access_rest_api_endpoint_get_using_token(context, endpoint, org, account, us
 
     # use the token
     context.response = requests.get(url, headers={"x-rh-identity": token_b64})
+
+
+@then("I should retrieve empty list of organizations")
+def check_empty_list_of_organizations(context):
+    """Check if Insights Results Aggregator service returned empty list of organizations."""
+    # construct set of actually found organizations
+    # from JSON payload returned by the service
+    found_organizations = get_array_from_json(context, "organizations")
+
+    # check if the list is empty
+    assert len(found_organizations) == 0, \
+        "Expected no organizations but {} has been returned".format(found_organizations)
