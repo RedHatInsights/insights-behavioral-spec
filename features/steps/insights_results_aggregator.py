@@ -284,7 +284,17 @@ def disable_rule_in_aggregator(context, rule_id, error_key, org, account, user, 
 @then("I should get empty list of disabled rules")
 def check_empty_list_of_disabled_rules(context):
     """Check if list of disabled rules is empty."""
-    found_rules = set(get_array_from_json(context, "disabledRules"))
+    found_rules = context.response.json()["disabledRules"]
 
     assert len(found_rules) == 0, \
         f"List of disabled rules should be empty but {found_rules} rules was found"
+
+
+@then("I should get one disabled rule")
+@then("I should get {n} disabled rules")
+def check_empty_list_of_disabled_rules(context, n=1):
+    """Check if list of disabled rules is not empty."""
+    found_rules = context.response.json()["disabledRules"]
+
+    assert len(found_rules) == n, \
+        f"List of disabled rules should contain {n} rules but {found_rules} rules was found"
