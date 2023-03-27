@@ -261,3 +261,12 @@ def request_list_of_disbled_acked_rules_from_aggregator(context, org, account, u
 
     # basic check if service responded with HTTP code 200 OK
     assert context.response is not None
+
+
+@then("I should get empty list of disabled rules")
+def check_empty_list_of_disabled_rules(context):
+    """Check if list of disabled rules is empty."""
+    found_rules = set(get_array_from_json(context, "disabledRules"))
+
+    assert len(found_rules) == 0, \
+        f"List of disabled rules should be empty but {found_rules} rules was found"
