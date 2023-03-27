@@ -110,7 +110,7 @@ def create_topic(hostname, topic_name):
         print(f'{topic_name} topic already exists')
 
 
-def send_event(bootstrap, topic, headers, payload):
+def send_event(bootstrap, topic, payload):
     """Send an event to selected Kafka topic."""
     producer = KafkaProducer(
         bootstrap_servers=bootstrap,
