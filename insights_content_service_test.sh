@@ -75,6 +75,8 @@ PYTHONDONTWRITEBYTECODE=1 python3 -m behave --no-capture \
     --tags=-skip --tags=-managed \
     -D dump_errors=true @test_list/insights_content_service.txt "$@"
 
+exitCode=$?
+
 kill -9 $content_service_pid
 $REMOVE_CONTENT_SERVICE_DIRECTORY || rm -rf ./insights-content-service
-
+exit $exitCode
