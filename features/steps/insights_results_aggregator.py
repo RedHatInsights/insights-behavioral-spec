@@ -306,7 +306,7 @@ def check_empty_list_of_disabled_rules(context):
 
 
 @then("I should get one disabled rule")
-@then("I should get {n} disabled rules")
+@then("I should get {n:n} disabled rules")
 def check_empty_list_of_disabled_rules(context, n=1):
     """Check if list of disabled rules is not empty."""
     found_rules = context.response.json()["disabledRules"]
