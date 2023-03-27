@@ -246,3 +246,27 @@ def check_empty_list_of_clusters(context):
     # check if the list is empty
     assert len(found_clusters) == 0, \
         "Expected no clusters but {} has been returned".format(found_clusters)
+
+
+@when("I ask for list of all disabled rules for organization {org} account number {account}, and user {user}")  # noqa E501
+def request_list_of_disbled_acked_rules_from_aggregator(context, org, account, user):
+    """Send request to tested service to return list of all disabled rules."""
+    url = f"http://{context.hostname}:{context.port}/{context.api_prefix}/rules/organizations/{org}/disabled_system_wide"  # noqa E501
+
+    # construct RH identity token for provided user info
+    token = construct_rh_token(org, account, user)
+
+    # use the token
+    context.response = requests.get(url, headers={"x-rh-identity": token})
+
+    # basic check if service responded with HTTP code 200 OK
+    assert context.response is not None
+
+
+@then("I should get empty list of disabled rules")
+def check_empty_list_of_disabled_rules(context):
+    """Check if list of disabled rules is empty."""
+    found_rules = set(get_array_from_json(context, "disabledRules"))
+
+    assert len(found_rules) == 0, \
+        f"List of disabled rules should be empty but {found_rules} rules was found"

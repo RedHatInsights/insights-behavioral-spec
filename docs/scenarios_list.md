@@ -422,6 +422,10 @@ nav_order: 3
 * Check if Insights Results Aggregator Mock service returns results for non empty list of clusters with proper report and two unknown clusters
 * Check if Insights Results Aggregator Mock service returns results for two unknown clusters
 
+## `insights-results-aggregator/rule_ack.feature`
+
+* Check if Insights Results Aggregator service returns list of acked rules
+
 ## `insights-results-aggregator/smoketests.feature`
 
 * Check if Insights Results Aggregator application is available
