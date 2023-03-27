@@ -298,3 +298,39 @@ def check_empty_list_of_disabled_rules(context, n=1):
 
     assert len(found_rules) == n, \
         f"List of disabled rules should contain {n} rules but {found_rules} rules was found"
+
+
+@then("List of returned rules should contain following rules")
+def check_disabled_rules_list(context):
+    """Check if returned list of disabled rules contains all required rules."""
+    # try to retrieve data to be checked from response payload
+    json = context.response.json()
+    assert json is not None
+
+    # JSON attribute with list of disabled rules
+    assert "disabledRules" in json, "disabledRules attribute is missing in report attribute"
+    disabled_rules = json["disabledRules"]
+
+    # check if all acked rules in scenario is found in returned structure
+    for expected_rule in context.table:
+        expected_org_id = int(expected_rule["Org ID"])
+        expected_rule_id = expected_rule["Rule ID"]
+        expected_error_key = expected_rule["Error key"]
+        expected_justification = expected_rule["Justification"]
+
+        # try to find the corresponding record in list returned by service
+        for disabled_rule in disabled_rules:
+            actual_org_id = disabled_rule["org_id"]
+            actual_rule_id = disabled_rule["rule_id"]
+            actual_error_key = disabled_rule["error_key"]
+            actual_justification = disabled_rule["justification"]
+
+            # exact match is required
+            if all((actual_org_id == expected_org_id,
+                    actual_rule_id == expected_rule_id,
+                    actual_error_key == expected_error_key,
+                    actual_justification == expected_justification)):
+                break
+        else:
+            # record was not found
+            raise KeyError(f"Rule {expected_rule} was not returned by the service")
