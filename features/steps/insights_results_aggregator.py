@@ -296,6 +296,24 @@ def disable_rule_in_aggregator(context, rule_id, error_key, org, account, user, 
     assert context.response is not None
 
 
+@when("I update rule {rule_id} with error key {error_key} for organization {org} account number {account} and user {user} with justification '{justification}'")  # noqa E501
+def update_rule_in_aggregator(context, rule_id, error_key, org, account, user, justification):
+    """Try to update rule in Insights Results Aggregator."""
+    url = f"http://{context.hostname}:{context.port}/{context.api_prefix}/rules/{rule_id}/error_key/{error_key}/organizations/{org}/update"  # noqa E501
+
+    # construct RH identity token for provided user info
+    token = construct_rh_token(org, account, user)
+
+    # construct object to be send to the service
+    json_request_body = {"justification": justification}
+
+    # use the token and request body
+    context.response = requests.post(url, headers={"x-rh-identity": token}, json=json_request_body)
+
+    # basic check if service responded
+    assert context.response is not None
+
+
 @then("I should get empty list of disabled rules")
 def check_empty_list_of_disabled_rules(context):
     """Check if list of disabled rules is empty."""
