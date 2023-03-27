@@ -429,6 +429,9 @@ nav_order: 3
 * Check if Insights Results Aggregator service is able to disable two specific rules
 * Check if Insights Results Aggregator service is able to enable already disabled one specific rule
 * Check if Insights Results Aggregator service is able to enable one already disabled specific rule from two rules
+* Check if Insights Results Aggregator service is able to update one specific rule
+* Check if Insights Results Aggregator service is able to update non disabled specific rule
+* Check if Insights Results Aggregator service is able to update one specific rule two times
 
 ## `insights-results-aggregator/smoketests.feature`
 
