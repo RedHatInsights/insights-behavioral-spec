@@ -91,6 +91,7 @@ nav_order: 2
 * [Basic set of smoke tests](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-content-service/smoketests.feature)
 * [Test the service endpoints](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-content-service/endpoints.feature)
 
+
 ## Insights Results Aggregator
 
 * [Basic set of smoke tests](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/smoketests.feature)
@@ -103,6 +104,7 @@ nav_order: 2
 * [Checking responses from Insights Results Aggregator service: "{organization}/clusters" endpoint](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/list_of_clusters.feature)
 * [Checking REST API endpoint that returns results for provided list of clusters](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/results_for_cluster_list.feature)
 * [Checks for cluster reports provided by Insights Results Aggregator](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/cluster_reports.feature)
+* [Reading acked rules, acking new rule and acking existing rule](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-mock/smoketests.featurehttps://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-mock/rule_ack.feature)
 
 
 ## Insights Results Aggregator Cleaner service
