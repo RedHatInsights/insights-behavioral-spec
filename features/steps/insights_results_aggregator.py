@@ -259,7 +259,25 @@ def request_list_of_disbled_acked_rules_from_aggregator(context, org, account, u
     # use the token
     context.response = requests.get(url, headers={"x-rh-identity": token})
 
-    # basic check if service responded with HTTP code 200 OK
+    # basic check if service responded
+    assert context.response is not None
+
+
+@when("I disable rule {rule_id} with error key {error_key} for organization {org} account number {account} and user {user} with justification '{justification}'")  # noqa E501
+def disable_rule_in_aggregator(context, rule_id, error_key, org, account, user, justification):
+    """Try to disable rule in Insights Results Aggregator."""
+    url = f"http://{context.hostname}:{context.port}/{context.api_prefix}/rules/{rule_id}/error_key/{error_key}/organizations/{org}/disable"  # noqa E501
+
+    # construct RH identity token for provided user info
+    token = construct_rh_token(org, account, user)
+
+    # construct object to be send to the service
+    json_request_body = {"justification": justification}
+
+    # use the token and request body
+    context.response = requests.put(url, headers={"x-rh-identity": token}, json=json_request_body)
+
+    # basic check if service responded
     assert context.response is not None
 
 
