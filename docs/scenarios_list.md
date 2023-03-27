@@ -425,7 +425,10 @@ nav_order: 3
 ## `insights-results-aggregator/rule_ack.feature`
 
 * Check if Insights Results Aggregator service returns list of acked rules
-* Check if Insights Results Aggregator service is able to disable one specific rules
+* Check if Insights Results Aggregator service is able to disable one specific rule
+* Check if Insights Results Aggregator service is able to disable two specific rules
+* Check if Insights Results Aggregator service is able to enable already disabled one specific rule
+* Check if Insights Results Aggregator service is able to enable one already disabled specific rule from two rules
 
 ## `insights-results-aggregator/smoketests.feature`
 
