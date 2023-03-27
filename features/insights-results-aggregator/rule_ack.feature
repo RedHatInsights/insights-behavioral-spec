@@ -23,3 +23,22 @@ Feature: Reading acked rules, acking new rule and acking existing rule
      Then The status code of the response is 200
       And The status message of the response is "ok"
       And I should get empty list of disabled rules
+
+
+  @rest-api
+  Scenario: Check if Insights Results Aggregator service is able to disable one specific rules
+    Given the system is in default state
+     When I ask for list of all disabled rules for organization 123 account number 456, and user 789
+     Then The status code of the response is 200
+      And The status message of the response is "ok"
+      And I should get empty list of disabled rules
+     When I disable rule foo with error key bar for organization 123 account number 456, and user 789 with justification 'anything'
+     Then The status code of the response is 200
+      And The status message of the response is "ok"
+     When I ask for list of all disabled rules for organization 123 account number 456, and user 789
+     Then The status code of the response is 200
+      And The status message of the response is "ok"
+      And I should get one disabled rule
+      And List of returned rules should contain following rules
+          | Org ID | Rule ID | Error key | Justification |
+          | 123    | foo     | bar       | anything      |

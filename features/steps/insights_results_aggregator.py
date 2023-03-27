@@ -259,14 +259,78 @@ def request_list_of_disbled_acked_rules_from_aggregator(context, org, account, u
     # use the token
     context.response = requests.get(url, headers={"x-rh-identity": token})
 
-    # basic check if service responded with HTTP code 200 OK
+    # basic check if service responded
+    assert context.response is not None
+
+
+@when("I disable rule {rule_id} with error key {error_key} for organization {org} account number {account} and user {user} with justification '{justification}'")  # noqa E501
+def disable_rule_in_aggregator(context, rule_id, error_key, org, account, user, justification):
+    """Try to disable rule in Insights Results Aggregator."""
+    url = f"http://{context.hostname}:{context.port}/{context.api_prefix}/rules/{rule_id}/error_key/{error_key}/organizations/{org}/disable"  # noqa E501
+
+    # construct RH identity token for provided user info
+    token = construct_rh_token(org, account, user)
+
+    # construct object to be send to the service
+    json_request_body = {"justification": justification}
+
+    # use the token and request body
+    context.response = requests.put(url, headers={"x-rh-identity": token}, json=json_request_body)
+
+    # basic check if service responded
     assert context.response is not None
 
 
 @then("I should get empty list of disabled rules")
 def check_empty_list_of_disabled_rules(context):
     """Check if list of disabled rules is empty."""
-    found_rules = set(get_array_from_json(context, "disabledRules"))
+    found_rules = context.response.json()["disabledRules"]
 
     assert len(found_rules) == 0, \
         f"List of disabled rules should be empty but {found_rules} rules was found"
+
+
+@then("I should get one disabled rule")
+@then("I should get {n} disabled rules")
+def check_empty_list_of_disabled_rules(context, n=1):
+    """Check if list of disabled rules is not empty."""
+    found_rules = context.response.json()["disabledRules"]
+
+    assert len(found_rules) == n, \
+        f"List of disabled rules should contain {n} rules but {found_rules} rules was found"
+
+
+@then("List of returned rules should contain following rules")
+def check_disabled_rules_list(context):
+    """Check if returned list of disabled rules contains all required rules."""
+    # try to retrieve data to be checked from response payload
+    json = context.response.json()
+    assert json is not None
+
+    # JSON attribute with list of disabled rules
+    assert "disabledRules" in json, "disabledRules attribute is missing in report attribute"
+    disabled_rules = json["disabledRules"]
+
+    # check if all acked rules in scenario is found in returned structure
+    for expected_rule in context.table:
+        expected_org_id = int(expected_rule["Org ID"])
+        expected_rule_id = expected_rule["Rule ID"]
+        expected_error_key = expected_rule["Error key"]
+        expected_justification = expected_rule["Justification"]
+
+        # try to find the corresponding record in list returned by service
+        for disabled_rule in disabled_rules:
+            actual_org_id = disabled_rule["org_id"]
+            actual_rule_id = disabled_rule["rule_id"]
+            actual_error_key = disabled_rule["error_key"]
+            actual_justification = disabled_rule["justification"]
+
+            # exact match is required
+            if all((actual_org_id == expected_org_id,
+                    actual_rule_id == expected_rule_id,
+                    actual_error_key == expected_error_key,
+                    actual_justification == expected_justification)):
+                break
+        else:
+            # record was not found
+            raise KeyError(f"Rule {expected_rule} was not returned by the service")
