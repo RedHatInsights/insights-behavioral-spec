@@ -98,7 +98,7 @@ def produce_event(context, with_or_without, topic_var):
     with open(msg_path, 'r') as f:
         event_data = f.read()
         headers = [('service', b'testareno')]
-        kafka_util.send_event(context.hostname, topic_name, headers, event_data)
+        kafka_util.send_event_with_header(context.hostname, topic_name, headers, event_data)
 
 
 @when('the file "config/workload_info.json" is not found')
