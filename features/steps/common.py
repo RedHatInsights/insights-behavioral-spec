@@ -16,6 +16,7 @@
 
 from shutil import which
 from datetime import datetime
+from time import sleep
 
 
 from behave import given, then, when
@@ -84,3 +85,9 @@ def check_db_version(context):
     version = int(dbVersion)
 
     assert version >= 1, "Improper DB version {}".format(version)
+
+
+@when('I wait {number:n} seconds')
+def wait_n_seconds(context, number):
+    """Wait for n seconds between test steps."""
+    sleep(number)
