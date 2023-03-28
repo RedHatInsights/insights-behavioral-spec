@@ -37,6 +37,7 @@ DATA_DIRECTORY = "test_data"
 # REST API access timeout
 TIMEOUT = 5000
 
+
 @when("I run the Insights Results Aggregator with the {flag} command line flag")
 def run_insights_results_aggregator_with_flag(context, flag):
     """Start the Insights Results Aggregator with given command-line flag."""
@@ -298,7 +299,7 @@ def disable_rule_in_aggregator(context, rule_id, error_key, org, account, user, 
 
     # use the token and request body
     context.response = requests.put(url, headers={"x-rh-identity": token},
-            json=json_request_body, timeout=TIMEOUT)
+                                    json=json_request_body, timeout=TIMEOUT)
 
     # basic check if service responded
     assert context.response is not None
@@ -317,7 +318,7 @@ def update_rule_in_aggregator(context, rule_id, error_key, org, account, user, j
 
     # use the token and request body
     context.response = requests.post(url, headers={"x-rh-identity": token},
-            json=json_request_body, timeout=TIMEOUT)
+                                     json=json_request_body, timeout=TIMEOUT)
 
     # basic check if service responded
     assert context.response is not None
