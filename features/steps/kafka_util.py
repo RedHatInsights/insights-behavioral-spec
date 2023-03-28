@@ -142,8 +142,10 @@ def send_json_event(bootstrap, topic, payload):
         )
         producer.flush()
         print("Result kafka send: ", res.get(timeout=10))
+        producer.close()
     except Exception as e:
         print(f"Failed to send message {payload} to topic {topic}")
+        producer.close()
         raise SendEventException(e)
 
 
@@ -161,8 +163,10 @@ def send_event_with_header(bootstrap, topic, headers, payload):
         )
         producer.flush()
         print("Result kafka send: ", res.get(timeout=10))
+        producer.close()
     except Exception as e:
         print(f"Failed to send message {payload} to topic {topic}")
+        producer.close()
         raise SendEventException(e)
 
 
