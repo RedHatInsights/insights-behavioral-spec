@@ -29,11 +29,13 @@ from src.utils import get_array_from_json, construct_rh_token
 INSIGHTS_RESULTS_AGGREGATOR_BINARY = "insights-results-aggregator"
 
 # time for newly started Insights Results Aggregator to setup connections and start HTTP server
-BREATH_TIME = 1
+BREATH_TIME = 2
 
 # path do directory with rules results to be send into Insights Results Aggregator
 DATA_DIRECTORY = "test_data"
 
+# REST API access timeout
+TIMEOUT = 5000
 
 @when("I run the Insights Results Aggregator with the {flag} command line flag")
 def run_insights_results_aggregator_with_flag(context, flag):
@@ -226,7 +228,7 @@ def access_rest_api_endpoint_get_using_token(context, endpoint, org, account, us
     token = construct_rh_token(org, account, user)
 
     # use the token
-    context.response = requests.get(url, headers={"x-rh-identity": token})
+    context.response = requests.get(url, headers={"x-rh-identity": token}, timeout=TIMEOUT)
 
 
 @then("I should retrieve empty list of organizations")
@@ -262,7 +264,7 @@ def request_list_of_disbled_acked_rules_from_aggregator(context, org, account, u
     token = construct_rh_token(org, account, user)
 
     # use the token
-    context.response = requests.get(url, headers={"x-rh-identity": token})
+    context.response = requests.get(url, headers={"x-rh-identity": token}, timeout=TIMEOUT)
 
     # basic check if service responded
     assert context.response is not None
@@ -277,7 +279,7 @@ def enable_rule_in_aggregator(context, rule_id, error_key, org, account, user):
     token = construct_rh_token(org, account, user)
 
     # use the token and request body
-    context.response = requests.put(url, headers={"x-rh-identity": token})
+    context.response = requests.put(url, headers={"x-rh-identity": token}, timeout=TIMEOUT)
 
     # basic check if service responded
     assert context.response is not None
@@ -295,7 +297,8 @@ def disable_rule_in_aggregator(context, rule_id, error_key, org, account, user, 
     json_request_body = {"justification": justification}
 
     # use the token and request body
-    context.response = requests.put(url, headers={"x-rh-identity": token}, json=json_request_body)
+    context.response = requests.put(url, headers={"x-rh-identity": token},
+            json=json_request_body, timeout=TIMEOUT)
 
     # basic check if service responded
     assert context.response is not None
@@ -313,7 +316,8 @@ def update_rule_in_aggregator(context, rule_id, error_key, org, account, user, j
     json_request_body = {"justification": justification}
 
     # use the token and request body
-    context.response = requests.post(url, headers={"x-rh-identity": token}, json=json_request_body)
+    context.response = requests.post(url, headers={"x-rh-identity": token},
+            json=json_request_body, timeout=TIMEOUT)
 
     # basic check if service responded
     assert context.response is not None
