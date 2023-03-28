@@ -13,19 +13,19 @@ service:
   format: insights.formats._json.JsonFormat
   target_components: []
   consumer:
-    name: ccx_messaging.consumers.consumer.AnemicConsumer
+    name: ccx_messaging.consumers.kafka_consumer.KafkaConsumer
     kwargs:
       incoming_topic: platform.upload.announce
-      group_id: ${CDP_GROUP_ID:insights_sha_extractor_app}
-      bootstrap_servers: kafka:9092
+      dead_letter_queue_topic: dead.letter.queue
       platform_service: testareno
       processing_timeout_s: 0
-      max_poll_records: 1
-      max_poll_interval_ms: 3000
-      heartbeat_interval_ms: 5000
-      session_timeout_ms: 10000
-      auto_offset_reset: latest
-      dead_letter_queue_topic: dead.letter.queue
+      group.id: ${CDP_GROUP_ID:insights_sha_extractor_app}
+      bootstrap.servers: kafka:9092
+      security.protocol: PLAINTEXT
+      max.poll.interval.ms: 30000
+      heartbeat.interval.ms: 50000
+      session.timeout.ms: 10000
+      auto.offset.reset: earliest
   downloader:
     name: ccx_messaging.downloaders.http_downloader.HTTPDownloader
     kwargs:
@@ -36,10 +36,10 @@ service:
     kwargs:
       extract_timeout: 10
   publisher:
-    name: ccx_messaging.publishers.sha_publisher.SHAPublisher
+    name: ccx_messaging.publishers.workloads_info_publisher.WorkloadInfoPublisher
     kwargs:
       outgoing_topic: archive-results
-      bootstrap_servers: kafka:9092
+      bootstrap.servers: kafka:9092
   
   logging:
     version: 1
@@ -52,12 +52,6 @@ service:
         formatter: json
         filters:
           - context_filter
-      logstash:
-        level: INFO
-        class: logstash.TCPLogstashHandler
-        host: "127.0.0.1"
-        port: 5000
-        version: 1
     formatters:
       brief:
         format: "%(message)s"
@@ -72,7 +66,6 @@ service:
     root:
       handlers:
         - default
-        - logstash
     loggers:
       insights_messaging:
         level: DEBUG
