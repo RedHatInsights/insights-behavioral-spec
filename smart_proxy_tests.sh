@@ -14,12 +14,36 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
+#set NOVENV is current environment is not a python virtual env
+[ "$VIRTUAL_ENV" != "" ] || NOVENV=1
+
+function install_reqs() {
+        python3 "$(which pip3)" install -r requirements.txt
+}
+
 function prepare_venv() {
     echo "Preparing environment"
     # shellcheck disable=SC1091
     virtualenv -p python3 venv && source venv/bin/activate && python3 "$(which pip3)" install -r requirements/insights_results_aggregator_mock.txt || exit 1
     echo "Environment ready"
 }
+
+function set_env_vars(){
+    :
+}
+
+# prepare virtual environment if necessary
+case "$NOVENV" in
+    "") echo "using existing virtual env";;
+    "1") install_reqs && prepare_venv ;;
+esac
+
+if [[ -n $ENV_DOCKER ]]
+then
+    # set environment variables
+    set_env_vars
+fi
 
 PYTHONDONTWRITEBYTECODE=1 python3 -m behave --tags=-skip -D dump_errors=true @test_list/smart_proxy.txt "$@"
 
