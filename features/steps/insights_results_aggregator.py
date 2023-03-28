@@ -19,6 +19,8 @@ import subprocess
 import os
 import time
 
+from steps import kafka_util
+
 from behave import when, then
 from src.process_output import process_generated_output, filter_coverage_message
 from src.utils import get_array_from_json, construct_rh_token
@@ -28,6 +30,9 @@ INSIGHTS_RESULTS_AGGREGATOR_BINARY = "insights-results-aggregator"
 
 # time for newly started Insights Results Aggregator to setup connections and start HTTP server
 BREATH_TIME = 1
+
+# path do directory with rules results to be send into Insights Results Aggregator
+DATA_DIRECTORY = "test_data"
 
 
 @when("I run the Insights Results Aggregator with the {flag} command line flag")
@@ -367,3 +372,13 @@ def check_disabled_rules_list(context):
         else:
             # record was not found
             raise KeyError(f"Rule {expected_rule} was not returned by the service")
+
+
+@when("I send rules results '{filename}' into topic '{topic}' to {broker_type} broker")
+def send_rules_results_to_kafka(context, filename, topic, broker_type):
+    """Send rule results into seleted topic on selected broker."""
+    full_path = f"{DATA_DIRECTORY}/{filename}"
+    with open(full_path, "r") as fin:
+        payload = fin.read().encode("utf-8")
+        if broker_type == "local":
+            kafka_util.send_event("localhost:9092", topic, payload)

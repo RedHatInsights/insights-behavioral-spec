@@ -324,6 +324,10 @@ nav_order: 3
 * Check if the cluster report endpoint is reachable for incorrect cluster ID (with using auth. token)
 * Check if the cluster report endpoint is reachable for two correct cluster IDs (with using auth. token)
 
+## `insights-results-aggregator/consumer.feature`
+
+* Check if Insights Results Aggregator is able to consume messages and store results into database
+
 ## `insights-results-aggregator/database_access.feature`
 
 * Check access to empty database

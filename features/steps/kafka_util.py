@@ -113,6 +113,23 @@ def create_topic(hostname, topic_name):
 def send_event(bootstrap, topic, payload):
     """Send an event to selected Kafka topic."""
     producer = KafkaProducer(
+        bootstrap_servers=bootstrap
+    )
+    try:
+        res = producer.send(
+            topic,
+            value=payload
+        )
+        producer.flush()
+        print("Result kafka send: ", res.get(timeout=10))
+    except Exception as e:
+        print(f"Failed to send message {payload} to topic {topic}")
+        raise SendEventException(e)
+
+
+def send_json_event(bootstrap, topic, payload):
+    """Send an event represented as JSON to selected Kafka topic."""
+    producer = KafkaProducer(
         bootstrap_servers=bootstrap,
         value_serializer=lambda v: json.dumps(v).encode('utf-8')
     )

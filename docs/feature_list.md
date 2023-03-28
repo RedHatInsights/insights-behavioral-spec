@@ -105,6 +105,7 @@ nav_order: 2
 * [Checking REST API endpoint that returns results for provided list of clusters](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/results_for_cluster_list.feature)
 * [Checks for cluster reports provided by Insights Results Aggregator](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/cluster_reports.feature)
 * [Reading acked rules, acking new rule and acking existing rule](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-mock/smoketests.featurehttps://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-mock/rule_ack.feature)
+* [Consuming and processing results from Kafka broker](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-mock/smoketests.featurehttps://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-mock/consumer.feature)
 
 
 ## Insights Results Aggregator Cleaner service

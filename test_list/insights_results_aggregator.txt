@@ -9,3 +9,4 @@
 ../features/insights-results-aggregator/list_of_clusters.feature
 ../features/insights-results-aggregator/results_for_cluster_list.feature
 ../features/insights-results-aggregator/rule_ack.feature
+../features/insights-results-aggregator/consumer.feature
