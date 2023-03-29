@@ -275,6 +275,7 @@ nav_order: 3
 * Check if SHA extractor is able to consume messages from Kafka
 * Check if SHA extractor is able to consume messages from Kafka and then download tarball
 * Check if SHA extractor is able to consume messages from Kafka, download tarball, and take SHA images
+* Check if SHA extractor is able to finish the processing of SHA images
 
 ## `smart-proxy/smoketests.feature`
 
