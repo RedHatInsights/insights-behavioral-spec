@@ -86,7 +86,7 @@ Feature: Consuming and processing results from Kafka broker
       And The status message of the response is "ok"
       And I should retrieve empty list of clusters
      When I send rules results 'tutorial_only.json' into topic 'ccx.ocp.results' to local broker
-      And I wait 3 seconds
+      And I wait 5 seconds
      When I access endpoint /organizations/123/clusters using HTTP GET method using token for organization 123 account number 456, and user 789
      Then The status code of the response is 200
       And The status message of the response is "ok"
