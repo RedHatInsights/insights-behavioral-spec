@@ -26,3 +26,15 @@ Feature: Customer Notifications configuration and exit codes
       And the logs should match
           | log                                              | contains   |
           | No known event destination configured. Aborting. | yes        |
+
+
+  Scenario: check that service exits with status 4 if rules content cannot be fetched
+    Given the service is expected to exit with code 4
+     When I start the CCX Notification Service with the --instant-reports command line flag
+          | val                                                    | var                        |
+          | CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ENABLED        | true                       |
+          | CCX_NOTIFICATION_SERVICE__SERVICE_LOG__ENABLED         | true                       |
+          | CCX_NOTIFICATION_SERVICE__DEPENDENCIES__CONTENT_SERVER | unresolved_url:8082/api/v1 |
+     Then it should have sent 0 notification events to Kafka
+      And it should have sent 0 notification events to Service Log
+      And the process should exit with status code set to 4
