@@ -56,7 +56,7 @@ def parse_max_age(max_age):
 register_type(Age=parse_max_age)
 
 
-def process_ccx_notification_service_output(context, out, return_codes):
+def process_ccx_notification_service_output(context, out, allowed_return_codes):
     """Process CCX Notification Service output."""
     assert out is not None
 
@@ -70,7 +70,7 @@ def process_ccx_notification_service_output(context, out, return_codes):
 
     # check the return code of a process
     assert (
-        out.returncode == 0 or out.returncode in return_codes
+        out.returncode == 0 or out.returncode in allowed_return_codes
     ), f"Return code is {out.returncode}. Check the logs:\nvvvvv\n{stdout.decode('utf-8')}\n^^^^^\n"
     # try to decode output
     output = stdout.decode("utf-8").split("\n")
@@ -82,8 +82,11 @@ def process_ccx_notification_service_output(context, out, return_codes):
     context.stdout = stdout
     context.stderr = stderr
     context.returncode = out.returncode
-    for line in output:
-        print(line)
+
+
+@given("the service is expected to exit with code {exit_code:d}")
+def store_exit_code(context, exit_code):
+    context.return_codes = [exit_code]
 
 
 @when("max-age {age:Age} command line flag is specified")
@@ -494,7 +497,7 @@ def remove_service_log_logs(context):
 
 @then("it should have sent {num_event:d} notification events to Service Log")
 def count_notification_events_service_log(context, num_event):
-    """Get events from kafka topic and count them to check if matches."""
+    """Get events from Service Log and count them to check if it matches."""
     events = get_events_service_log()
     assert (
         len(events) == num_event
@@ -503,7 +506,7 @@ def count_notification_events_service_log(context, num_event):
 
 @then("the logs should match")
 def check_logs(context):
-    """Check if the notification service logs logs given the context,table.
+    """Check if the notification service logs match.
 
     You can specify whether if the substring should be present or not.
     | log                      | contains |
