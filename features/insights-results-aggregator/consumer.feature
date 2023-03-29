@@ -160,3 +160,30 @@ Feature: Consuming and processing results from Kafka broker
      Then Insights Results Aggregator process should terminate
 
 
+  @managed @local
+  Scenario: Check rule hits after Insights Results Aggregator consumes two messages when the second is newer then the first one
+     When I access endpoint /organizations/123/clusters using HTTP GET method using token for organization 123 account number 456, and user 789
+     Then The status code of the response is 200
+      And The status message of the response is "ok"
+      And I should retrieve empty list of clusters
+     When I send rules results '05_rules_hits.json' into topic 'ccx.ocp.results' to local broker
+      And I wait 5 seconds
+     When I send rules results 'tutorial_only.json' into topic 'ccx.ocp.results' to local broker
+      And I wait 5 seconds
+     When I access endpoint /organizations/123/clusters using HTTP GET method using token for organization 123 account number 456, and user 789
+     Then The status code of the response is 200
+      And The status message of the response is "ok"
+      And I should retrieve following list of clusters
+        | Cluster name                         |
+        | 01234567-89ab-cdef-0123-456789abcdef |
+     When I access endpoint /organizations/123/clusters/01234567-89ab-cdef-0123-456789abcdef/reports using HTTP GET method using token for organization 123 account number 456, and user 789
+     Then The status code of the response is 200
+      And The status message of the response is "ok"
+      And The returned report should contain 1 rule hit for cluster 01234567-89ab-cdef-0123-456789abcdef
+      And I should find following rule hits in returned cluster report for cluster 01234567-89ab-cdef-0123-456789abcdef
+          | Type | Rule ID       | Error key      |
+          | rule | tutorial_rule | TUTORIAL_ERROR |
+     When I terminate Insights Results Aggregator
+     Then Insights Results Aggregator process should terminate
+ 
+ 
