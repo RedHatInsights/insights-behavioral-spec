@@ -17,7 +17,7 @@
 
 import subprocess
 import json
-import socket
+
 from behave import given, then, when
 from kafka import KafkaAdminClient
 from kafka.admin import NewTopic
@@ -110,7 +110,7 @@ def create_topic(hostname, topic_name):
         print(f'{topic_name} topic already exists')
 
 
-def send_event(bootstrap, topic, payload):
+def send_event(bootstrap, topic, payload, headers=None):
     """Send an event to selected Kafka topic."""
     producer = KafkaProducer(
         bootstrap_servers=bootstrap
@@ -118,48 +118,8 @@ def send_event(bootstrap, topic, payload):
     try:
         res = producer.send(
             topic,
-            value=payload
-        )
-        producer.flush()
-        print("Result kafka send: ", res.get(timeout=10))
-        producer.close()
-    except Exception as e:
-        print(f"Failed to send message {payload} to topic {topic}")
-        producer.close()
-        raise SendEventException(e)
-
-
-def send_json_event(bootstrap, topic, payload):
-    """Send an event represented as JSON to selected Kafka topic."""
-    producer = KafkaProducer(
-        bootstrap_servers=bootstrap,
-        value_serializer=lambda v: json.dumps(v).encode('utf-8')
-    )
-    try:
-        res = producer.send(
-            topic,
-            value=payload
-        )
-        producer.flush()
-        print("Result kafka send: ", res.get(timeout=10))
-        producer.close()
-    except Exception as e:
-        print(f"Failed to send message {payload} to topic {topic}")
-        producer.close()
-        raise SendEventException(e)
-
-
-def send_event_with_header(bootstrap, topic, headers, payload):
-    """Send an event with explicitly set header to selected Kafka topic."""
-    producer = KafkaProducer(
-        bootstrap_servers=bootstrap,
-        value_serializer=lambda v: json.dumps(v).encode('utf-8')
-    )
-    try:
-        res = producer.send(
-            topic,
             value=payload,
-            headers=headers
+            headers=headers,
         )
         producer.flush()
         print("Result kafka send: ", res.get(timeout=10))
@@ -170,10 +130,11 @@ def send_event_with_header(bootstrap, topic, headers, payload):
         raise SendEventException(e)
 
 
-def consume_event(bootstrap, topic):
+def consume_event(bootstrap, topic, group_id=None):
     """Consume events in the given topic."""
     consumer = KafkaConsumer(
-            bootstrap_servers=bootstrap
+            bootstrap_servers=bootstrap,
+            group_id=group_id,
     )
     consumer.subscribe(topics=topic)
     return consumer.poll()

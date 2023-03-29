@@ -1,4 +1,4 @@
 kafka-python
 minio
 fastapi
-uvicorn
+uvicorn[standard]
