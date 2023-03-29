@@ -1,5 +1,6 @@
 ../features/ccx-notification-service/smoketests.feature
 ../features/ccx-notification-service/cli_flags.feature
+../features/ccx-notification-service/configuration.feature
 ../features/ccx-notification-service/display_records.feature
 ../features/ccx-notification-service/cleanup_records.feature
 ../features/ccx-notification-service/customer_notifications.feature
