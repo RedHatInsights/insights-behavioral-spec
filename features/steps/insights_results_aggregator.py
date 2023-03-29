@@ -21,7 +21,7 @@ import time
 
 from steps import kafka_util
 
-from behave import when, then
+from behave import given, when, then
 from src.process_output import process_generated_output, filter_coverage_message
 from src.utils import get_array_from_json, construct_rh_token
 
