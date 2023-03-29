@@ -387,3 +387,64 @@ def send_rules_results_to_kafka(context, filename, topic, broker_type):
         payload = fin.read().encode("utf-8")
         if broker_type == "local":
             kafka_util.send_event("localhost:9092", topic, payload)
+
+
+def retrieve_reports(context, cluster):
+    """Retrieve actual reports from report structure returned by Insights Results Aggregator."""
+    json = context.response.json()
+    assert json is not None
+
+    assert "reports" in json, "Reports attribute is missing"
+    reports = json["reports"]
+
+    assert cluster in reports, "Cluster report can't be found"
+    cluster_data = reports[cluster]
+
+    assert "reports" in cluster_data, "Reports attribute is missing in cluster data"
+    return cluster_data["reports"]
+
+
+@then("The returned report should contain {expected_count:n} rule hits for cluster {cluster}")
+@then("The returned report should contain 1 rule hit for cluster {cluster}")
+@then("The returned report should contain one rule hit for cluster {cluster}")
+def check_rule_hits(context, expected_count=1, cluster="11111111-2222-3333-4444-555555555555"):
+    """Check number of rule hits in report returned from Insights Results Aggregator."""
+    # retrieve reports
+    reports = retrieve_reports(context, cluster)
+
+    # compute number of reports returned
+    actual_count = len(reports)
+
+    # compare actual count with expected count
+    assert actual_count == expected_count, \
+        f"Expected rule hits count: {expected_count}, actual count: {actual_count}"
+
+
+@then("I should find following rule hits in returned cluster report for cluster {cluster}")
+def check_returned_cluster_report_list(context, cluster):
+    """Check reported rules against table with expected rule results."""
+    reports = retrieve_reports(context, cluster)
+
+    # check if all rule hits defined in scenario is found in returned structure
+    for rule_hit in context.table:
+        expected_type = rule_hit["Type"]
+        expected_rule_id = rule_hit["Rule ID"]
+        expected_error_key = rule_hit["Error key"]
+
+        # construct full rule ID together with error key
+        expected_rule_id += "|" + expected_error_key
+
+        # try to find the corresponding record in rule hits returned by service
+        for record in reports:
+            actual_type = record["details"]["type"]
+            actual_rule_id = record["rule_id"]
+            actual_error_key = record["details"]["error_key"]
+
+            # exact match
+            if all((actual_type == expected_type,
+                    actual_rule_id == expected_rule_id,
+                    actual_error_key == expected_error_key)):
+                break
+        else:
+            # record was not found
+            raise KeyError(f"Rule hit {rule_hit} was not returned by the service")
