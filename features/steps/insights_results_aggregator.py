@@ -387,3 +387,34 @@ def send_rules_results_to_kafka(context, filename, topic, broker_type):
         payload = fin.read().encode("utf-8")
         if broker_type == "local":
             kafka_util.send_event("localhost:9092", topic, payload)
+
+
+def retrieve_reports(context, cluster):
+    """Retrieve actual reports from report structure returned by Insights Results Aggregator."""
+    json = context.response.json()
+    assert json is not None
+
+    assert "reports" in json, "Reports attribute is missing"
+    reports = json["reports"]
+
+    assert cluster in reports, "Cluster report can't be found"
+    cluster_data = reports[cluster]
+
+    assert "reports" in cluster_data, "Reports attribute is missing in cluster data"
+    return cluster_data["reports"]
+
+
+@then("The returned report should contain {expected_count:n} rule hits for cluster {cluster}")
+@then("The returned report should contain 1 rule hit for cluster {cluster}")
+@then("The returned report should contain one rule hit for cluster {cluster}")
+def check_rule_hits(context, expected_count=1, cluster="11111111-2222-3333-4444-555555555555"):
+    """Check number of rule hits in report returned from Insights Results Aggregator."""
+    # retrieve reports
+    reports = retrieve_reports(context, cluster)
+
+    # compute number of reports returned
+    actual_count = len(reports)
+
+    # compare actual count with expected count
+    assert actual_count == expected_count, \
+        f"Expected rule hits count: {expected_count}, actual count: {actual_count}"
