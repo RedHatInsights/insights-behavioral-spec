@@ -329,6 +329,8 @@ nav_order: 3
 * Check if Insights Results Aggregator is able to consume messages and store results into database
 * Check if Insights Results Aggregator is able to consume messages and store results into database for multiple results
 * Check if Insights Results Aggregator is able to consume messages and store results into database for multiple clusters
+* Check rule hits after Insights Results Aggregator consumes messages and stores results into database
+* Check rule hits after Insights Results Aggregator consumes message and stores results into database for multiple results
 
 ## `insights-results-aggregator/database_access.feature`
 
