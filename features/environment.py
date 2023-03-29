@@ -77,7 +77,7 @@ def before_scenario(context, scenario):
 
 def after_scenario(context, scenario):
     """Run after each scenario is run."""
-    if "@database" in scenario.effective_tags:
+    if "database" in scenario.effective_tags:
         prepare_db(context, CLEANUP_FILES, context.database_name)
     if "sha_extractor" in scenario.effective_tags:
         # terminate the subprocess to have
