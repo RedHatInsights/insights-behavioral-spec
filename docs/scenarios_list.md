@@ -772,6 +772,11 @@ nav_order: 3
 * Check the ability to display old reports for cleanup with max-age specified
 * Check the ability to perform database cleanup on startup
 
+## `ccx-notification-service/configuration.feature`
+
+* Check that notification service exits with exit code 1 if no destination is configured
+* check that service exits with status 4 if rules content cannot be fetched
+
 ## `ccx-notification-service/customer_notifications.feature`
 
 * Check that notification service does not need kafka if database has no new report
@@ -798,7 +803,10 @@ nav_order: 3
 
 * Check that notification service does not send messages to service log if it is disabled
 * Check that notification service sends messages to service log if it is enabled
+* Check that notification service includes correct service name if set
+* Check that notification service does not send messages to service log if it cannot be rendered
 * Check that notification service doesn't send message to service log if it is not moderate
+* Check that notification service sends log events for the configured total risk threshold
 * Check that notification service doesn't send message that has been sent within cooldown
 * Check that notification service resends message after cooldown has passed
 * Check that notification service produces a single notification event for cluster with multiple new reports
