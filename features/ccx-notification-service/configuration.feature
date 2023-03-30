@@ -19,7 +19,7 @@ Feature: Customer Notifications configuration and exit codes
      When I start the CCX Notification Service with the --instant-reports command line flag
           | val                                                   | var         |
           | CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ENABLED       | false       |
-          | CCX_NOTIFICATION_SERVICE__SERVICE_LOG__ENABLED        | false        |
+          | CCX_NOTIFICATION_SERVICE__SERVICE_LOG__ENABLED        | false       |
      Then it should have sent 0 notification events to Kafka
       And it should have sent 0 notification events to Service Log
       And the process should exit with status code set to 1
