@@ -18,7 +18,7 @@ import subprocess
 import yaml
 import os
 
-from steps import kafka_util
+from src import kafka_util
 from behave import given, when, then
 from kafka.cluster import ClusterMetadata
 
