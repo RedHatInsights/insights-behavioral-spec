@@ -206,6 +206,27 @@ def get_logs(request: Request):
     )
 
 
+@app.get("/api/service_logs/v1/clusters/{cluster}/cluster_logs")
+def get_logs_for_cluster(cluster: str, request: Request):
+    """Return all logs for given cluster."""
+    if request.headers.get("Authorization", None) is None:
+        return noAuthResponse
+    res = []
+    for log in log_storage:
+        if log.cluster_uuid == cluster:
+            res.append(log)
+    return JSONResponse(
+        {
+            "kind": "ClusterLogList",
+            "page": 1,
+            "size": len(res),
+            "total": len(res),
+            "items": [log.dict(exclude_none=True) for log in res],
+        },
+        status_code=200,
+    )
+
+
 # This one has not been properly tested against the real ocm
 @app.delete("/api/service_logs/v1/cluster_logs/{id}")
 def delete_logs(id: str, request: Request):
