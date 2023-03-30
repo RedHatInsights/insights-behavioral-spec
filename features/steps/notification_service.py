@@ -86,6 +86,7 @@ def process_ccx_notification_service_output(context, out, allowed_return_codes):
 
 @given("the service is expected to exit with code {exit_code:d}")
 def store_exit_code(context, exit_code):
+    """Store exit code that the service is allowed to return."""
     context.return_codes = [exit_code]
 
 
@@ -468,7 +469,7 @@ def retrieve_notification_events_kafka(context, num_event):
 
 
 def get_service_log_event_by_cluster(cluster_id):
-    """Retrieve the events from service log for a given cluster"""
+    """Retrieve the events from service log for a given cluster."""
     address = "http://localhost:8000"
     response = requests.get(
         address + f"/api/service_logs/v1/clusters/{cluster_id}/cluster_logs",
@@ -495,11 +496,13 @@ def get_events_service_log():
 
 @when("I retrieve the service log events")
 def get_service_log_logs(context):
+    """Retrieve all the events currently stored by the service log database."""
     context.service_logs = get_events_service_log
 
 
 @when("I retrieve the service log events for the following clusters")
 def get_service_log_logs_for_given_clusters(context):
+    """Retrieve all the events currently stored by the service log database for given cluster."""
     context.service_logs_by_cluster = {}
     for row in context.table:
         cluster = row["cluster name"]
@@ -509,6 +512,7 @@ def get_service_log_logs_for_given_clusters(context):
 
 @then("I should find the following log events for each cluster")
 def check_service_log_logs_for_given_clusters(context):
+    """Verify that (part of) the content of the log events for given cluster is the expected."""
     for row in context.table:
         log_event = context.service_logs_by_cluster[row["cluster name"]]
         assert (
