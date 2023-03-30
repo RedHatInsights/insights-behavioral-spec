@@ -29,7 +29,7 @@ from src.utils import get_array_from_json, construct_rh_token
 INSIGHTS_RESULTS_AGGREGATOR_BINARY = "insights-results-aggregator"
 
 # time for newly started Insights Results Aggregator to setup connections and start HTTP server
-BREATH_TIME = 2
+BREATH_TIME = 3
 
 # path do directory with rules results to be send into Insights Results Aggregator
 DATA_DIRECTORY = "test_data"
@@ -175,10 +175,21 @@ def start_insights_results_aggregator_in_background(context):
         if context.aggregator_process.poll() is None:
             return
 
+    # We don't need to communicate with background process and buffering
+    # stdout to PIPE will lead to deadlock. We also don't want to mess up
+    # Behave output with Aggregator's messages, so at this moment it is
+    # best to redirect logs to files for further investigation.
+    # Also it allow us to detect error output as well outside BDD framework.
+    filename = f"logs/{context.feature.name}_{context.scenario.name}"
+    stdout_file = open(filename + ".out", "w")
+    stderr_file = open(filename + ".err", "w")
+
     process = subprocess.Popen(
         [INSIGHTS_RESULTS_AGGREGATOR_BINARY],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
+        stdout=stdout_file,
+        stderr=stderr_file,
+        close_fds=True,
+        bufsize=0,
     )
     # background process -> we can't communicate() with it
 
