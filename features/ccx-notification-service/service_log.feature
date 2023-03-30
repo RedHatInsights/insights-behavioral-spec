@@ -23,9 +23,9 @@ Feature: Service Log
      Then it should have sent 0 notification events to Service Log
       And the process should exit with status code set to 0
       And the logs should match
-          | log                              | contains   |
-          | Report with high impact detected | yes        |
-          | No new issues to notify          | no         |
+          | log                              | contains |
+          | Report with high impact detected | yes      |
+          | No new issues to notify          | no       |
 
 
   @rest-api
@@ -43,8 +43,8 @@ Feature: Service Log
           | cluster name                         |
           | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa |
      Then I should find the following log events for each cluster
-          | cluster name                         | num logs | service name
-          | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 1        | CCX Notification Service
+          | cluster name                         | num logs | service name             |
+          | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 1        | CCX Notification Service |
 
 
   @rest-api
@@ -63,8 +63,8 @@ Feature: Service Log
           | cluster name                         |
           | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa |
      Then I should find the following log events for each cluster
-          | cluster name                         | num logs | service name
-          | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 1        | test
+          | cluster name                         | num logs | service name |
+          | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 1        | test         |
 
 
   @rest-api
@@ -73,14 +73,14 @@ Feature: Service Log
           | org id |  account number | cluster name                         |
           | 1      |  1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa |
       And I start the CCX Notification Service with the --instant-reports command line flag
-          | val                                             | var   |
-          | CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ENABLED | false |
-          | CCX_NOTIFICATION_SERVICE__SERVICE_LOG__ENABLED  | true  |
+          | val                                                               | var         |
+          | CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ENABLED                   | false       |
+          | CCX_NOTIFICATION_SERVICE__SERVICE_LOG__ENABLED                    | true        |
           | CCX_NOTIFICATION_SERVICE__DEPENDENCIES__TEMPLATE_RENDERER_SERVER  | unknown_url |
      Then it should have sent 0 notification events to Service Log
       And the logs should match
-          | log                                       | contains   |
-          | Rendering reports failed for this cluster | yes        |
+          | log                                       | contains |
+          | Rendering reports failed for this cluster | yes      |
       And the process should exit with status code set to 0
 
 
@@ -177,11 +177,11 @@ Feature: Service Log
   @rest-api
   Scenario: Check that notification service produces a single notification event for cluster with multiple new reports
      When I insert 1 report with important total risk for the following clusters
-          | org id |  account number | cluster name                         |
-          | 1      |  1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767   |
+          | org id |  account number | cluster name                       |
+          | 1      |  1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767 |
     When I insert 1 report with important total risk for the following clusters
-          | org id |  account number | cluster name                         |
-          | 1      |  1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767   |
+          | org id |  account number | cluster name                       |
+          | 1      |  1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767 |
       And I start the CCX Notification Service with the --instant-reports command line flag
           | val                                             | var   |
           | CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ENABLED | false |
