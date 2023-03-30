@@ -466,6 +466,7 @@ def retrieve_notification_events_kafka(context, num_event):
             total_risk == encoded["events"][0]["payload"]["total_risk"]
         ), f"Expected reported risk in event to be {total_risk}."
 
+
 def get_service_log_event_by_cluster(cluster_id):
     """Retrieve the events from service log for a given cluster"""
     address = "http://localhost:8000"
