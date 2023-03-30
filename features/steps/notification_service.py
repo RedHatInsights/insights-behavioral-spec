@@ -466,6 +466,18 @@ def retrieve_notification_events_kafka(context, num_event):
             total_risk == encoded["events"][0]["payload"]["total_risk"]
         ), f"Expected reported risk in event to be {total_risk}."
 
+def get_service_log_event_by_cluster(cluster_id):
+    """Retrieve the events from service log for a given cluster"""
+    address = "http://localhost:8000"
+    response = requests.get(
+        address + f"/api/service_logs/v1/clusters/{cluster_id}/cluster_logs",
+        headers={"Authorization": "TEST_TOKEN"},
+    )
+    assert (
+            response.status_code == 200
+    ), f'unexpected status code: got "{response.status_code}" want "200"'
+    return response.json()["items"]
+
 
 def get_events_service_log():
     """Retrieve the events from service log."""
@@ -478,6 +490,35 @@ def get_events_service_log():
         response.status_code == 200
     ), f'unexpected status code: got "{response.status_code}" want "200"'
     return response.json()["items"]
+
+
+@when("I retrieve the service log events")
+def get_service_log_logs(context):
+    context.service_logs = get_events_service_log
+
+
+@when("I retrieve the service log events for the following clusters")
+def get_service_log_logs_for_given_clusters(context):
+    context.service_logs_by_cluster = {}
+    for row in context.table:
+        cluster = row["cluster name"]
+        logs = get_service_log_event_by_cluster(row["cluster name"])
+        context.service_logs_by_cluster[cluster] = logs
+
+
+@then("I should find the following log events for each cluster")
+def check_service_log_logs_for_given_clusters(context):
+    for row in context.table:
+        log_event = context.service_logs_by_cluster[row["cluster name"]]
+        assert (
+            log_event is not None
+        ), f'log event not found for cluster {row["cluster_name"]}'
+        assert (
+            len(log_event) == int(row["num logs"])
+        ), f'unexpected number of logs: got {len(log_event)}, want {row["num logs"]}'
+        assert (
+            item["service_name"] == row["service name"] for item in log_event
+        )
 
 
 @given("service-log service is empty")
