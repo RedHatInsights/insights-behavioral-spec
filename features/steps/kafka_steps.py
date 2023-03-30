@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""An interface to Apache Kafka done using kcat utility and Python interface to Kafka."""
+"""Common test steps that use or check Apache Kafka broker."""
 
 
 import subprocess
@@ -20,17 +20,7 @@ import json
 
 from behave import given, then, when
 from kafka import KafkaAdminClient
-from kafka.admin import NewTopic
-from kafka import KafkaProducer, KafkaConsumer
-from kafka.errors import UnknownTopicOrPartitionError, TopicAlreadyExistsError
-
-
-class SendEventException(Exception):
-    """Class representing an exception thrown when send event to Kafka fails."""
-
-    def __init__(self, message):
-        """Construct an exception for send to Kafka failure."""
-        super().__init__(message)
+from kafka.errors import UnknownTopicOrPartitionError
 
 
 @when("I retrieve metadata from Kafka broker")
@@ -97,44 +87,3 @@ def delete_kafka_topic(context, topic):
         pass
     except Exception as e:
         print("Topic {} was not deleted. Error: {}".format(topic, e))
-
-
-def create_topic(hostname, topic_name):
-    """Create a new Kafka topic."""
-    topic = NewTopic(topic_name, 1, 1)
-    admin_client = KafkaAdminClient(bootstrap_servers=hostname)
-    try:
-        outcome = admin_client.create_topics([topic])
-        assert outcome.topic_errors[0][1] == 0, "Topic creation failure: {outcome}"
-    except TopicAlreadyExistsError:
-        print(f'{topic_name} topic already exists')
-
-
-def send_event(bootstrap, topic, payload, headers=None):
-    """Send an event to selected Kafka topic."""
-    producer = KafkaProducer(
-        bootstrap_servers=bootstrap
-    )
-    try:
-        res = producer.send(
-            topic,
-            value=payload,
-            headers=headers,
-        )
-        producer.flush()
-        print("Result kafka send: ", res.get(timeout=10))
-        producer.close()
-    except Exception as e:
-        print(f"Failed to send message {payload} to topic {topic}")
-        producer.close()
-        raise SendEventException(e)
-
-
-def consume_event(bootstrap, topic, group_id=None):
-    """Consume events in the given topic."""
-    consumer = KafkaConsumer(
-            bootstrap_servers=bootstrap,
-            group_id=group_id,
-    )
-    consumer.subscribe(topics=topic)
-    return consumer.poll()
