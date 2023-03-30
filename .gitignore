@@ -10,3 +10,5 @@ logs/**/*.log
 insights-content-service/
 ccx-sha-extractor/
 kafka/
+logs/*.out
+logs/*.err
