@@ -39,9 +39,6 @@ FEATURES_WITH_KAFKA = ("aggregator", "notification_writer", "notification_servic
 # Setup all environment variables needed to work with Minio (local or remote)
 FEATURES_WITH_MINIO = ("aggregator_exporter",)
 
-# Setup for working with notifications
-FEATURES_NOTIFICATION = ("notification_writer", "notification_service", "service_log")
-
 # Mapping between database name and script to cleanup such database.
 CLEANUP_FILES = {
     "test": "setup/clean_aggregator_database.sql",
