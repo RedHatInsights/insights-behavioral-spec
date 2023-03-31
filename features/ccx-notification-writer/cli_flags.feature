@@ -50,7 +50,11 @@ Feature: Check command line options provided by CCX Notification Writer
 
 
   @cli @database @database-write
-  Scenario: Check the ability to drop all database tables
+  Scenario: Check the ability to drop all database tables when database is migrated to initial version
+    Given CCX Notification database is migrated to version 0
      When I start the CCX Notification Writer with the --db-drop-tables command line flag
      Then the process should exit with status code set to 0
       And the database is empty
+     When I start the CCX Notification Writer with the --db-init command line flag
+     Then the process should exit with status code set to 0
+      And CCX Notification database is set up
