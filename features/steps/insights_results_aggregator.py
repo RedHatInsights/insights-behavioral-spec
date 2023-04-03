@@ -220,9 +220,14 @@ def terminate_insights_results_aggregator(context):
     assert process.poll() is None, "Insights Results Aggregator does not run!"
 
     # try to terminate it and wait for termination
-    process.terminate()
-    process.kill()
-    process.wait()
+    try:
+        # try to be nice to Aggregator
+        process.terminate()
+        process.wait(timeout=10)
+    except TimeoutExpired:
+        # ok we have to kill this beast
+        process.kill()
+        process.wait()
 
 
 @then("Insights Results Aggregator process should terminate")
