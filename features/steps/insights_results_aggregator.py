@@ -180,7 +180,11 @@ def start_insights_results_aggregator_in_background(context):
     # Behave output with Aggregator's messages, so at this moment it is
     # best to redirect logs to files for further investigation.
     # Also it allow us to detect error output as well outside BDD framework.
-    filename = f"logs/{context.feature.name}_{context.scenario.name}"
+    feature_name = context.feature.name.replace("/", "-")
+    scenario_name = context.scenario.name.replace("/", "-")
+    filename = f"logs/{feature_name}_{scenario_name}"
+    if len(filename) > 200:
+        filename = filename[:200]
     stdout_file = open(filename + ".out", "w")
     stderr_file = open(filename + ".err", "w")
 
@@ -216,9 +220,14 @@ def terminate_insights_results_aggregator(context):
     assert process.poll() is None, "Insights Results Aggregator does not run!"
 
     # try to terminate it and wait for termination
-    process.terminate()
-    process.kill()
-    process.wait()
+    try:
+        # try to be nice to Aggregator
+        process.terminate()
+        process.wait(timeout=10)
+    except TimeoutExpired:
+        # ok we have to kill this beast
+        process.kill()
+        process.wait()
 
 
 @then("Insights Results Aggregator process should terminate")
