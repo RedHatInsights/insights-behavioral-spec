@@ -43,6 +43,19 @@ def create_topic(hostname, topic_name):
         print(f'{topic_name} topic already exists')
 
 
+def delete_topic(context, topic):
+    """Delete a Kafka topic."""
+    admin_client = KafkaAdminClient(
+        bootstrap_servers=[f"{context.kafka_hostname}:{context.kafka_port}"]
+    )
+    try:
+        admin_client.delete_topics(topics=[topic])
+    except UnknownTopicOrPartitionError:
+        pass
+    except Exception as e:
+        print("Topic {} was not deleted. Error: {}".format(topic, e))
+
+
 def send_event(bootstrap, topic, payload, headers=None):
     """Send an event to selected Kafka topic."""
     producer = KafkaProducer(

@@ -62,7 +62,7 @@ def check_topic_created(context, topic_var):
                 visit.append(v)
             else:
                 if k == topic_var:
-                    kafka_util.delete_kafka_topic(context, v)
+                    kafka_util.delete_topic(context, v)
                     kafka_util.create_topic(context.hostname, v)
                     setattr(context, k, v)
 
