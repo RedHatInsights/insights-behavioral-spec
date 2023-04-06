@@ -30,6 +30,9 @@ notification-service-tests: ## Run BDD tests for the CCX Notification Service
 notification-writer-tests: ## Run BDD tests for the CCX Notification Writer
 	./notification_writer_tests.sh
 
+notification-writer-code-coverage: ## Compute code coverage for the CCX Notification Writer
+	./notification_writer_tests.sh coverage
+
 inference-service-tests: ## Run BDD tests for the Inference Service
 	./ccx_upgrade_risk_inference_tests.sh
 
@@ -70,5 +73,5 @@ help: ## Show this help screen
 	@echo 'Available targets are:'
 	@echo ''
 	@grep -E '^[ a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
-		awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+		awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-35s\033[0m %s\n", $$1, $$2}'
 	@echo ''
