@@ -1,6 +1,6 @@
 #!/bin/bash -x
 
-# Copyright 2022 Red Hat, Inc
+# Copyright 2023 Red Hat, Inc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -38,12 +38,44 @@ function set_env_vars(){
 	   CCX_NOTIFICATION_WRITER__METRICS__ADDRESS=:8080
 }
 
+function prepare_code_coverage() {
+    echo "Preparing code coverage environment"
+    rm -rf coverage
+    mkdir coverage
+    export GOCOVERDIR=coverage/
+}
+
+function code_coverage_report() {
+    echo "Preparing code coverage report"
+    go tool covdata merge -i=coverage/ -o=.
+    go tool covdata textfmt -i=. -o=coverage.txt
+    cat << EOF
+    +--------------------------------------------------------------+
+    | Coverage report is stored in file named 'coverage.txt'.      |
+    | Copy that file into Aggregator project directory and run the |
+    | following command to get report in readable form:            |
+    |                                                              |
+    | go tool cover -func=coverage.txt                             |
+    |                                                              |
+    +--------------------------------------------------------------+
+EOF
+}
+
+flag=${1:-""}
+
+if [[ "${flag}" = "coverage" ]]
+then
+    shift
+    prepare_code_coverage
+fi
+
 # prepare virtual environment if necessary
 [ "$VIRTUAL_ENV" != "" ] || NOVENV=1
 case "$NOVENV" in
     "") echo "using existing virtual env";;
-    "1") prepare_venv;;
+    "1") prepare_venv ;;
 esac
+
 
 if [[ -n $ENV_DOCKER ]]
 then
