@@ -27,7 +27,7 @@ aggregator-mock-code-coverage: ## Compute code coverage for Insights Results Agg
 exporter-tests: ## Run BDD tests for the CCX Exporter service
 	./exporter_tests.sh
 
-exporter-code-coverage: ## Compute code coverage for Insights Results exporter service
+exporter-code-coverage: ## Compute code coverage for Insights Results Exporter service
 	./insights_results_exporter_tests.sh coverage
 
 notification-service-tests: ## Run BDD tests for the CCX Notification Service
