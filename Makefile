@@ -30,6 +30,9 @@ exporter-tests: ## Run BDD tests for the CCX Exporter service
 notification-service-tests: ## Run BDD tests for the CCX Notification Service
 	./notification_service_tests.sh
 
+notification-service-code-coverage: ## Compute code coverage for the CCX Notification Service
+	./notification_service_tests.sh coverage
+
 notification-writer-tests: ## Run BDD tests for the CCX Notification Writer
 	./notification_writer_tests.sh
 

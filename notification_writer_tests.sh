@@ -52,8 +52,9 @@ function code_coverage_report() {
     cat << EOF
     +--------------------------------------------------------------+
     | Coverage report is stored in file named 'coverage.txt'.      |
-    | Copy that file into Aggregator project directory and run the |
-    | following command to get report in readable form:            |
+    | Copy that file into CCX Notification Writer project          |
+    | directory and run the following command to get report        |
+    | in readable form:                                            |
     |                                                              |
     | go tool cover -func=coverage.txt                             |
     |                                                              |
@@ -85,3 +86,8 @@ fi
 
 PYTHONDONTWRITEBYTECODE=1 python3 -m behave --tags=-skip -D dump_errors=true @test_list/notification_writer.txt "$@"
 
+
+if [[ "${flag}" == "coverage" ]]
+then
+    code_coverage_report
+fi

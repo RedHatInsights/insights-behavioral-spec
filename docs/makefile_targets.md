@@ -18,6 +18,7 @@ aggregator-mock-tests               Run BDD tests for Insights Results Aggregato
 aggregator-mock-code-coverage       Compute code coverage for Insights Results Aggregator Mock service
 exporter-tests                      Run BDD tests for the CCX Exporter service
 notification-service-tests          Run BDD tests for the CCX Notification Service
+notification-service-code-coverage  Compute code coverage for the CCX Notification Service
 notification-writer-tests           Run BDD tests for the CCX Notification Writer
 notification-writer-code-coverage   Compute code coverage for the CCX Notification Writer
 inference-service-tests             Run BDD tests for the Inference Service
