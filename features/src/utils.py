@@ -38,7 +38,7 @@ def get_array_from_json(context, selector, subselector=None):
 def construct_rh_token(org, account, user):
     """Construct RH identity token for provided user info."""
     # text token
-    token = '''
+    token = """
     {{
         "identity": {{
             "org_id": "{0}",
@@ -48,7 +48,9 @@ def construct_rh_token(org, account, user):
             }}
         }}
     }}
-    '''.format(org, account, user)
+    """.format(
+        org, account, user
+    )
 
     # convert to base64 encoding
-    return base64.b64encode(token.encode('ascii'))
+    return base64.b64encode(token.encode("ascii"))

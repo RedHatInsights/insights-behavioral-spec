@@ -40,7 +40,7 @@ def create_topic(hostname, topic_name):
         outcome = admin_client.create_topics([topic])
         assert outcome.topic_errors[0][1] == 0, "Topic creation failure: {outcome}"
     except TopicAlreadyExistsError:
-        print(f'{topic_name} topic already exists')
+        print(f"{topic_name} topic already exists")
 
 
 def delete_topic(context, topic):
@@ -58,9 +58,7 @@ def delete_topic(context, topic):
 
 def send_event(bootstrap, topic, payload, headers=None):
     """Send an event to selected Kafka topic."""
-    producer = KafkaProducer(
-        bootstrap_servers=bootstrap
-    )
+    producer = KafkaProducer(bootstrap_servers=bootstrap)
     try:
         res = producer.send(
             topic,
@@ -79,8 +77,8 @@ def send_event(bootstrap, topic, payload, headers=None):
 def consume_event(bootstrap, topic, group_id=None):
     """Consume events in the given topic."""
     consumer = KafkaConsumer(
-            bootstrap_servers=bootstrap,
-            group_id=group_id,
+        bootstrap_servers=bootstrap,
+        group_id=group_id,
     )
     consumer.subscribe(topics=topic)
     return consumer.poll()
