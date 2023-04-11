@@ -24,8 +24,14 @@ from behave import given
 @given("The CCX Data Engineering Service is running on port {port:d} with envs")
 def start_ccx_upgrades_data_eng(context, port):
     """Run ccx-upgrades-data-eng for a test and prepare its stop."""
-    params = ["uvicorn", "ccx_upgrades_data_eng.main:app", "--port", str(port),
-              "--log-config", "config/ccx-upgrades-data-eng_logging.yaml"]
+    params = [
+        "uvicorn",
+        "ccx_upgrades_data_eng.main:app",
+        "--port",
+        str(port),
+        "--log-config",
+        "config/ccx-upgrades-data-eng_logging.yaml",
+    ]
     env = os.environ.copy()
 
     # Update the environment with variables configured by the test

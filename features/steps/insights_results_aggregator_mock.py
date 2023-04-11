@@ -81,9 +81,7 @@ def check_version_from_mock(context):
     assert type(context.output) is list, "wrong type of output"
 
     # check the output
-    assert (
-        "Version:\t0.1" in context.output
-    ), "Caught output: {}".format(context.output)
+    assert "Version:\t0.1" in context.output, "Caught output: {}".format(context.output)
 
 
 def check_authors_info_from_mock(context):
@@ -367,8 +365,9 @@ def request_results_for_list_of_clusters(context, org=None, account=None, user=N
         # construct RH identity token for provided user info
         token = construct_rh_token(org, account, user)
         # perform POST request
-        context.response = requests.post(url, headers={"x-rh-identity": token},
-                                         json=json_request_body)
+        context.response = requests.post(
+            url, headers={"x-rh-identity": token}, json=json_request_body
+        )
     else:
         # URL for Smart Proxy and for Insights Results Aggregator Mock
         url = f"http://{context.hostname}:{context.port}{context.api_prefix}/clusters"
@@ -507,7 +506,7 @@ def check_list_of_acked_rules_length(context, length):
     assert len(data) == length, f"Unexpected list of acked rules size {len(data)}"
 
 
-@then(u'I should retrieve following list of acked rules')
+@then("I should retrieve following list of acked rules")
 def check_list_of_acked_rules(context):
     """Test if returned acked rules are expected."""
     # try to retrieve data to be checked from response payload
@@ -534,7 +533,7 @@ def check_list_of_acked_rules(context):
 
             # strip the ".report" suffix
             assert actual_rule_id.endswith(".report")
-            actual_rule_id = actual_rule_id[:-len(".report")]
+            actual_rule_id = actual_rule_id[: -len(".report")]
 
             actual_justification = record["justification"]
             actual_created_by = record["created_by"]
@@ -550,7 +549,7 @@ def check_list_of_acked_rules(context):
             raise KeyError(f"Rule {rule} was not returned by the service")
 
 
-@when(u'I ack rule with ID "{rule_id}" and error key "{error_key}" without justification')
+@when('I ack rule with ID "{rule_id}" and error key "{error_key}" without justification')
 def perform_rule_ack_without_justification(context, rule_id, error_key):
     """Ack the rule identified by rule ID and error key."""
     # construct full rule FQDN

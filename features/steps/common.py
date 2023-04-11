@@ -64,7 +64,7 @@ def check_message_in_output(context, message):
         raise Exception("Expected message not found in {}".format(context.output))
 
 
-@then('BuildTime is a proper datetime stamp')
+@then("BuildTime is a proper datetime stamp")
 def check_build_datetime_stamp(context):
     """Check build timestamp taken from service output."""
     buildTime = context.response.json()["info"]["BuildTime"]
@@ -76,7 +76,7 @@ def check_build_datetime_stamp(context):
     datetime.strptime(buildTime, timestampFormat)
 
 
-@then('DBVersion is in the proper format')
+@then("DBVersion is in the proper format")
 def check_db_version(context):
     """Check database version taken from service output."""
     dbVersion = context.response.json()["info"]["DB_version"]
@@ -87,7 +87,7 @@ def check_db_version(context):
     assert version >= 1, "Improper DB version {}".format(version)
 
 
-@when('I wait {number:n} seconds')
+@when("I wait {number:n} seconds")
 def wait_n_seconds(context, number):
     """Wait for n seconds between test steps."""
     sleep(number)

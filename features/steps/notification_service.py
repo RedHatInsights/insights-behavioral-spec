@@ -476,7 +476,7 @@ def get_service_log_event_by_cluster(cluster_id):
         headers={"Authorization": "TEST_TOKEN"},
     )
     assert (
-            response.status_code == 200
+        response.status_code == 200
     ), f'unexpected status code: got "{response.status_code}" want "200"'
     return response.json()["items"]
 
@@ -518,12 +518,10 @@ def check_service_log_logs_for_given_clusters(context):
         assert (
             log_event is not None
         ), f'log event not found for cluster {row["cluster_name"]}'
-        assert (
-            len(log_event) == int(row["num logs"])
+        assert len(log_event) == int(
+            row["num logs"]
         ), f'unexpected number of logs: got {len(log_event)}, want {row["num logs"]}'
-        assert (
-            item["service_name"] == row["service name"] for item in log_event
-        )
+        assert (item["service_name"] == row["service name"] for item in log_event)
 
 
 @given("service-log service is empty")

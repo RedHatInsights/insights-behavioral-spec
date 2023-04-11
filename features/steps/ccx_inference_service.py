@@ -27,9 +27,7 @@ def start_ccx_inference_service(context, port):
     env = os.environ.copy()
 
     f = open(f"logs/ccx-upgrades-inference/{context.scenario}.log", "w")
-    popen = subprocess.Popen(
-        params, stdout=f, stderr=f, env=env
-    )
+    popen = subprocess.Popen(params, stdout=f, stderr=f, env=env)
     assert popen is not None
     time.sleep(0.5)
     context.add_cleanup(popen.terminate)

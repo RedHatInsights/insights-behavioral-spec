@@ -23,21 +23,20 @@ from behave import given, when, then
 from kafka.cluster import ClusterMetadata
 
 
-@given('SHA extractor service is not started')
+@given("SHA extractor service is not started")
 def sha_extractor_not_started(context):
     """Check if SHA extractor service has been started."""
-    assert not hasattr(context, 'sha_extractor')
+    assert not hasattr(context, "sha_extractor")
 
 
-@given('Kafka broker is started on host and port specified in configuration')
+@given("Kafka broker is started on host and port specified in configuration")
 def kafka_broker_running(context):
     """Check if Kafka broker is running on specified address."""
     config = None
-    with open('config/insights_sha_extractor.yaml', 'r') as file:
+    with open("config/insights_sha_extractor.yaml", "r") as file:
         config = yaml.safe_load(file)
         context.sha_config = config
-    hostname = \
-        config['service']['consumer']['kwargs']['bootstrap.servers']
+    hostname = config["service"]["consumer"]["kwargs"]["bootstrap.servers"]
     context.hostname = hostname
     context.kafka_hostname = hostname.split(":")[0]
     context.kafka_port = hostname.split(":")[1]
@@ -67,21 +66,21 @@ def check_topic_created(context, topic_var):
                     setattr(context, k, v)
 
 
-@when('SHA extractor service is started')
+@when("SHA extractor service is started")
 @when('SHA extractor service is started in group "{group_id}"')
-@given('SHA extractor service is started')
+@given("SHA extractor service is started")
 def start_sha_extractor(context, group_id=None):
     """Start SHA Extractor service."""
     if group_id:
-        os.environ['CDP_GROUP_ID'] = group_id
+        os.environ["CDP_GROUP_ID"] = group_id
 
     sha_extractor = subprocess.Popen(
-        ['insights-sha-extractor', 'config/insights_sha_extractor.yaml'],
+        ["insights-sha-extractor", "config/insights_sha_extractor.yaml"],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         text=True,
-        encoding='utf-8',
-        env=os.environ.copy()
+        encoding="utf-8",
+        env=os.environ.copy(),
     )
     context.sha_extractor = sha_extractor
 
@@ -90,14 +89,14 @@ def start_sha_extractor(context, group_id=None):
 def produce_event(context, with_or_without, topic_var):
     """Produce an event into specified topic."""
     topic_name = context.__dict__["_stack"][0][topic_var]
-    if with_or_without == 'with':
-        msg_path = 'test_data/upload.json'
+    if with_or_without == "with":
+        msg_path = "test_data/upload.json"
     else:
-        msg_path = 'test_data/upload_no_workloadinfo.json'
+        msg_path = "test_data/upload_no_workloadinfo.json"
 
-    with open(msg_path, 'r') as f:
+    with open(msg_path, "r") as f:
         event_data = f.read().encode("utf-8")
-        headers = [('service', b'testareno')]
+        headers = [("service", b"testareno")]
         kafka_util.send_event(context.hostname, topic_name, event_data, headers)
 
 
@@ -107,8 +106,7 @@ def check_workload_info_not_present(context):
     expected_msg = "archive does not contain workload info; skipping"
 
     assert message_in_buffer(
-        expected_msg,
-        context.sha_extractor.stdout
+        expected_msg, context.sha_extractor.stdout
     ), "archive should not contain workload_info.json for this scenario"
 
 
@@ -118,87 +116,79 @@ def check_workload_info_present(context):
     expected_msg = "workload info found, starting publishing process"
 
     assert message_in_buffer(
-        expected_msg,
-        context.sha_extractor.stdout
+        expected_msg, context.sha_extractor.stdout
     ), "archive should contain workload_info.json for this scenario"
 
 
-@then('SHA extractor decode the b64_identity attribute')
+@then("SHA extractor decode the b64_identity attribute")
 def check_b64_decode(context):
     """Check if SHA extractor was able to decode b64_identity attribute from a message."""
     expected_msg = "'identity': {'identity':"
 
     assert message_in_buffer(
-        expected_msg,
-        context.sha_extractor.stdout
+        expected_msg, context.sha_extractor.stdout
     ), "b64_identity was not extracted"
 
 
-@then('SHA extractor should consume message about this event')
+@then("SHA extractor should consume message about this event")
 def check_message_consumed(context):
     """Check if message has been consumed by SHA extractor."""
-    assert not context.sha_extractor.returncode, \
-        "sha extractor is not running"
+    assert not context.sha_extractor.returncode, "sha extractor is not running"
 
     expected_msg = "Deserializing incoming message"
     assert message_in_buffer(
-        expected_msg,
-        context.sha_extractor.stdout
+        expected_msg, context.sha_extractor.stdout
     ), "message was not consumed"
 
 
-@then('SHA extractor service does not exit with an error code')
+@then("SHA extractor service does not exit with an error code")
 def sha_extractor_is_running(context):
     """Check if SHA Extractor service has been started."""
-    assert not context.sha_extractor.poll(), \
-        "sha extractor service was not started"
+    assert not context.sha_extractor.poll(), "sha extractor service was not started"
 
 
 @then('SHA extractor service should be registered to topic "{topic}"')
 def topic_registered(context, topic):
     """Check if SHA Extractor registered itself to consume given topic."""
     topic_name = context.__dict__["_stack"][0][topic]
-    expected_msg = f"Consuming topic '{topic_name}' " + \
-        f"from brokers {context.hostname}"
+    expected_msg = (
+        f"Consuming topic '{topic_name}' " + f"from brokers {context.hostname}"
+    )
 
     assert message_in_buffer(
-        expected_msg,
-        context.sha_extractor.stdout
+        expected_msg, context.sha_extractor.stdout
     ), "consumer topic not registered"
 
 
-@then('this message should contain following attributes')
+@then("this message should contain following attributes")
 def check_message(context):
     """Check if consumed message is represented in JSON."""
-    expected_msg = 'JSON schema validated'
+    expected_msg = "JSON schema validated"
 
     assert message_in_buffer(
-        expected_msg,
-        context.sha_extractor.stdout
+        expected_msg, context.sha_extractor.stdout
     ), "can't parse message"
 
 
 @then('SHA extractor retrieve the "url" attribute from the message')
 def check_url(context):
     """Check that sha extractor is able to retrieve URL from incoming message."""
-    expected_msg = 'Extracted URL from input message'
+    expected_msg = "Extracted URL from input message"
     assert message_in_buffer(
-        expected_msg,
-        context.sha_extractor.stdout
+        expected_msg, context.sha_extractor.stdout
     ), "can't parse url from message"
 
 
-@then('SHA extractor should download tarball from given URL attribute')
+@then("SHA extractor should download tarball from given URL attribute")
 def check_start_download(context):
     """Check that sha extractor is able to start download."""
-    expected_msg = 'Downloading http://localhost:8000/'
+    expected_msg = "Downloading http://localhost:8000/"
     assert message_in_buffer(
-        expected_msg,
-        context.sha_extractor.stdout
+        expected_msg, context.sha_extractor.stdout
     ), "download not started"
 
 
-@then('the tarball is not further processed')
+@then("the tarball is not further processed")
 def archive_not_precessed(context):
     """Check that sha extractor did not process any event."""
     consumed = kafka_util.consume_event(context.kafka_hostname, context.outgoing_topic)
@@ -211,8 +201,7 @@ def archive_processed(context):
     expected_msg = "Message has been sent successfully."
 
     assert message_in_buffer(
-        expected_msg,
-        context.sha_extractor.stdout
+        expected_msg, context.sha_extractor.stdout
     ), "sha extractor did not produce a result"
 
 
