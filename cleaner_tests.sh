@@ -31,12 +31,44 @@ function set_env_vars(){
 	   INSIGHTS_RESULTS_CLEANER__STORAGE__PG_PARAMS="sslmode=disable"
 }
 
+function prepare_code_coverage() {
+    echo "Preparing code coverage environment"
+    rm -rf coverage
+    mkdir coverage
+    export GOCOVERDIR=coverage/
+}
+
+function code_coverage_report() {
+    echo "Preparing code coverage report"
+    go tool covdata merge -i=coverage/ -o=.
+    go tool covdata textfmt -i=. -o=coverage.txt
+    cat << EOF
+    +--------------------------------------------------------------+
+    | Coverage report is stored in file named 'coverage.txt'.      |
+    | Copy that file into Clenaer project directory and run the    |
+    | following command to get report in readable form:            |
+    |                                                              |
+    | go tool cover -func=coverage.txt                             |
+    |                                                              |
+    +--------------------------------------------------------------+
+EOF
+}
+
+flag=${1:-""}
+
+if [[ "${flag}" = "coverage" ]]
+then
+    shift
+    prepare_code_coverage
+fi
+
 # prepare virtual environment if necessary
 [ "$VIRTUAL_ENV" != "" ] || NOVENV=1
 case "$NOVENV" in
     "") echo "using existing virtual env";;
     "1") prepare_venv;;
 esac
+
 
 if [[ -n $ENV_DOCKER ]]
 then
@@ -46,3 +78,7 @@ fi
 
 PYTHONDONTWRITEBYTECODE=1 python3 -m behave --tags=-skip -D dump_errors=true @test_list/cleaner.txt "$@"
 
+if [[ "${flag}" == "coverage" ]]
+then
+    code_coverage_report
+fi

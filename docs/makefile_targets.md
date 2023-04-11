@@ -11,6 +11,7 @@ Usage: make <OPTIONS> ... <TARGETS>
 Available targets are:
 
 cleaner-tests                       Run BDD tests for the CCX Cleaner service
+cleaner-code-coverage               Compute code coverage for Insights Results Cleaner service
 aggregator-tests                    Run BDD tests for Insights Results Aggregator service
 aggregator-code-coverage            Compute code coverage for Insights Results Aggregator service
 aggregator-mock-tests               Run BDD tests for Insights Results Aggregator Mock service

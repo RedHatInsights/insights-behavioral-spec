@@ -9,6 +9,9 @@ tests:	cleaner-tests exporter-tests aggregator-tests aggregator-mock-tests \
 cleaner-tests: ## Run BDD tests for the CCX Cleaner service
 	./cleaner_tests.sh
 
+cleaner-code-coverage: ## Compute code coverage for Insights Results Cleaner service
+	./insights_results_cleaner_tests.sh coverage
+
 aggregator-tests: ## Run BDD tests for Insights Results Aggregator service
 	./insights_results_aggregator_tests.sh
 
