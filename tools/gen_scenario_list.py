@@ -45,7 +45,7 @@ SUBDIRECTORIES = (
     "ccx-notification-service",
     "ccx-notification-writer",
     "ccx-upgrades-inference",
-    "ccx-upgrades-data-eng"
+    "ccx-upgrades-data-eng",
 )
 
 # generate page header
