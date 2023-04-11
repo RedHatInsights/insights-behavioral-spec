@@ -17,6 +17,7 @@ aggregator-code-coverage            Compute code coverage for Insights Results A
 aggregator-mock-tests               Run BDD tests for Insights Results Aggregator Mock service
 aggregator-mock-code-coverage       Compute code coverage for Insights Results Aggregator Mock service
 exporter-tests                      Run BDD tests for the CCX Exporter service
+exporter-code-coverage              Compute code coverage for Insights Results Exporter service
 notification-service-tests          Run BDD tests for the CCX Notification Service
 notification-service-code-coverage  Compute code coverage for the CCX Notification Service
 notification-writer-tests           Run BDD tests for the CCX Notification Writer
