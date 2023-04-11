@@ -88,8 +88,7 @@ def after_scenario(context, scenario):
             context.sha_extractor.kill()
             context.sha_extractor.wait()
 
-        assert context.sha_extractor.poll() is not None, \
-            f"sha extractor was not closed"
+        assert context.sha_extractor.poll() is not None, f"sha extractor was not closed"
 
 
 def prepare_db(context, setup_files=CLEANUP_FILES, database="test"):
