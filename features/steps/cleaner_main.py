@@ -102,11 +102,11 @@ def check_db_vacuuming(context):
     assert type(context.output) is list, "wrong type of output"
 
     expected_messages = (
-            "DB connection configuration",
-            "driverName",
-            "postgres",
-            "Vacuuming started",
-            "Vacuuming finished",
+        "DB connection configuration",
+        "driverName",
+        "postgres",
+        "Vacuuming started",
+        "Vacuuming finished",
     )
 
     # iterate over all expected messages and try to find them in caught output
@@ -190,10 +190,10 @@ def check_cleaner_configuration(context):
     assert type(context.output) is list, "wrong type of output"
 
     expected_messages = (
-            "DB connection configuration",
-            "Storage configuration",
-            "Logging configuration",
-            "Cleaner configuration",
+        "DB connection configuration",
+        "Storage configuration",
+        "Logging configuration",
+        "Cleaner configuration",
     )
 
     # iterate over all expected messages and try to find them in caught output
