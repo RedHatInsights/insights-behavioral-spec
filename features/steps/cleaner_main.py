@@ -24,7 +24,7 @@ from behave import then, when
 test_output = "test"
 
 
-@when(u"I run the cleaner to display all records older than {age}")
+@when("I run the cleaner to display all records older than {age}")
 def run_cleaner_for_older_records(context, age):
     """Start the cleaner to retrieve list of older records."""
     out = subprocess.Popen(
@@ -46,7 +46,7 @@ def run_cleaner_for_older_records(context, age):
     process_generated_output(context, out, 0)
 
 
-@when(u"I run the cleaner with the {flag} command line flag")
+@when("I run the cleaner with the {flag} command line flag")
 def run_cleaner_with_flag(context, flag):
     """Start the cleaner with given command-line flag."""
     out = subprocess.Popen(
@@ -62,7 +62,7 @@ def run_cleaner_with_flag(context, flag):
     process_generated_output(context, out, 2)
 
 
-@when(u"I run the cleaner with command to delete cluster {cluster}")
+@when("I run the cleaner with command to delete cluster {cluster}")
 def run_cleaner_to_cleanup_cluster(context, cluster):
     """Start the cleaner clean up given cluster."""
     out = subprocess.Popen(
@@ -106,7 +106,8 @@ def check_db_vacuuming(context):
             "driverName",
             "postgres",
             "Vacuuming started",
-            "Vacuuming finished")
+            "Vacuuming finished",
+    )
 
     # iterate over all expected messages and try to find them in caught output
     for expected_message in expected_messages:
@@ -192,7 +193,8 @@ def check_cleaner_configuration(context):
             "DB connection configuration",
             "Storage configuration",
             "Logging configuration",
-            "Cleaner configuration")
+            "Cleaner configuration",
+    )
 
     # iterate over all expected messages and try to find them in caught output
     for expected_message in expected_messages:
@@ -203,7 +205,7 @@ def check_cleaner_configuration(context):
             raise Exception(f"Message '{expected_message}' was not found in configuration")
 
 
-@then(u"I should see empty list of records")
+@then("I should see empty list of records")
 def check_empty_list_of_records(context):
     """Check if the cleaner displays empty list of records."""
     with open(test_output, "r") as fin:
@@ -211,7 +213,7 @@ def check_empty_list_of_records(context):
         assert content == "", "expecting empty list of clusters"
 
 
-@then(u"I should see the following clusters")
+@then("I should see the following clusters")
 def check_non_empty_list_of_records(context):
     """Check if the cleaner displays the suggested clusters."""
     # set of expected clusters
