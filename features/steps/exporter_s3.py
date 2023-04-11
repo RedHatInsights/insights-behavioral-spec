@@ -18,7 +18,12 @@
 import csv
 from behave import given, then
 from src.csv_checks import check_table_content
-from src.minio import minio_client, bucket_check, read_object_into_buffer, get_object_name
+from src.minio import (
+    minio_client,
+    bucket_check,
+    read_object_into_buffer,
+    get_object_name,
+)
 
 
 @given("S3 endpoint is set")
@@ -101,7 +106,7 @@ def check_objects_in_s3(context):
 
     # iterate over all items in feature table
     for row in context.table:
-        object_name = get_object_name(context, row['File name'])
+        object_name = get_object_name(context, row["File name"])
         assert object_name in names, "Can not find object {} in bucket {}".format(
             object_name, context.S3_bucket_name
         )
@@ -115,7 +120,7 @@ def check_csv_content_in_s3(context):
 
     # iterate over all items in feature table
     for row in context.table:
-        object_name = get_object_name(context, row['File name'])
+        object_name = get_object_name(context, row["File name"])
         expected_records = int(row["Records"])
 
         # read object content
