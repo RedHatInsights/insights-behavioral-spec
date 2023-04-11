@@ -48,15 +48,21 @@ def run_insights_results_aggregator_with_flag(context, flag):
 @when("I store current environment without Insights Results Aggregator variables")
 def store_env_without_insights_results_aggregator_env_vars(context):
     """Store environment variables without variables specific to Insights Results Aggregator."""
-    context.no_IRA_environment = {key: value for (key, value) in os.environ.copy().items() if
-                                  "INSIGHTS_RESULTS_AGGREGATOR__" not in key}
+    context.no_IRA_environment = {
+        key: value
+        for (key, value) in os.environ.copy().items()
+        if "INSIGHTS_RESULTS_AGGREGATOR__" not in key
+    }
 
 
 @when("I run the Insights Results Aggregator with the {flag} command line flag and config file name set to {config}")  # noqa: E501
 def run_insights_results_aggregator_with_flag_and_config_file(context, flag, config):
     """Start the Insights Results Aggregator using provided CLI flags and specified config file."""
-    environment = os.environ.copy() if not hasattr(context, 'no_IRA_environment') \
+    environment = (
+        os.environ.copy()
+        if not hasattr(context, "no_IRA_environment")
         else context.no_IRA_environment
+    )
     # add new environment variable into environments
     environment["INSIGHTS_RESULTS_AGGREGATOR_CONFIG_FILE"] = config
     start_aggregator(context, flag, environment)
@@ -68,7 +74,7 @@ def start_aggregator(context, flag, environment):
         [INSIGHTS_RESULTS_AGGREGATOR_BINARY, flag],
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
-        env=environment
+        env=environment,
     )
 
     # check if subprocess has been started and its output caught
@@ -249,7 +255,9 @@ def access_rest_api_endpoint_get_using_token(context, endpoint, org, account, us
     token = construct_rh_token(org, account, user)
 
     # use the token
-    context.response = requests.get(url, headers={"x-rh-identity": token}, timeout=TIMEOUT)
+    context.response = requests.get(
+        url, headers={"x-rh-identity": token}, timeout=TIMEOUT
+    )
 
 
 @then("I should retrieve empty list of organizations")
@@ -285,7 +293,9 @@ def request_list_of_disbled_acked_rules_from_aggregator(context, org, account, u
     token = construct_rh_token(org, account, user)
 
     # use the token
-    context.response = requests.get(url, headers={"x-rh-identity": token}, timeout=TIMEOUT)
+    context.response = requests.get(
+        url, headers={"x-rh-identity": token}, timeout=TIMEOUT
+    )
 
     # basic check if service responded
     assert context.response is not None
@@ -300,7 +310,9 @@ def enable_rule_in_aggregator(context, rule_id, error_key, org, account, user):
     token = construct_rh_token(org, account, user)
 
     # use the token and request body
-    context.response = requests.put(url, headers={"x-rh-identity": token}, timeout=TIMEOUT)
+    context.response = requests.put(
+        url, headers={"x-rh-identity": token}, timeout=TIMEOUT
+    )
 
     # basic check if service responded
     assert context.response is not None
@@ -318,8 +330,9 @@ def disable_rule_in_aggregator(context, rule_id, error_key, org, account, user, 
     json_request_body = {"justification": justification}
 
     # use the token and request body
-    context.response = requests.put(url, headers={"x-rh-identity": token},
-                                    json=json_request_body, timeout=TIMEOUT)
+    context.response = requests.put(
+        url, headers={"x-rh-identity": token}, json=json_request_body, timeout=TIMEOUT
+    )
 
     # basic check if service responded
     assert context.response is not None
@@ -337,8 +350,9 @@ def update_rule_in_aggregator(context, rule_id, error_key, org, account, user, j
     json_request_body = {"justification": justification}
 
     # use the token and request body
-    context.response = requests.post(url, headers={"x-rh-identity": token},
-                                     json=json_request_body, timeout=TIMEOUT)
+    context.response = requests.post(
+        url, headers={"x-rh-identity": token}, json=json_request_body, timeout=TIMEOUT
+    )
 
     # basic check if service responded
     assert context.response is not None
