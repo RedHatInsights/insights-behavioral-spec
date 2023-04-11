@@ -112,6 +112,29 @@ function set_env_vars() {
 	   CCX_NOTIFICATION_SERVICE__SERVICE_LOG__CLIENT_SECRET=CLIENT_SECRET
 }
 
+function prepare_code_coverage() {
+    echo "Preparing code coverage environment"
+    rm -rf coverage
+    mkdir coverage
+    export GOCOVERDIR=coverage/
+}
+
+function code_coverage_report() {
+    echo "Preparing code coverage report"
+    go tool covdata merge -i=coverage/ -o=.
+    go tool covdata textfmt -i=. -o=coverage.txt
+    cat << EOF
+    +--------------------------------------------------------------+
+    | Coverage report is stored in file named 'coverage.txt'.      |
+    | Copy that file into Aggregator project directory and run the |
+    | following command to get report in readable form:            |
+    |                                                              |
+    | go tool cover -func=coverage.txt                             |
+    |                                                              |
+    +--------------------------------------------------------------+
+EOF
+}
+
 # mechanism to chain more trap commands added in different parts of this script
 exit_trap_command=""
 function cleanup {
@@ -128,6 +151,14 @@ function add_exit_trap {
         exit_trap_command="$exit_trap_command; $to_add"
     fi
 }
+
+flag=${1:-""}
+
+if [[ "${flag}" = "coverage" ]]
+then
+    shift
+    prepare_code_coverage
+fi
 
 # prepare virtual environment if necessary
 case "$NOVENV" in
@@ -154,3 +185,8 @@ PYTHONDONTWRITEBYTECODE=1 python3 -m behave \
     --format=progress2 \
     --tags=-skip --tags=-managed \
     -D dump_errors=true @test_list/notification_service.txt "$@"
+
+if [[ "${flag}" == "coverage" ]]
+then
+    code_coverage_report
+fi
