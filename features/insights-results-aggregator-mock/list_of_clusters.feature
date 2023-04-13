@@ -5,7 +5,7 @@ Feature: Checking responses from Insights Results Aggregator Mock service: "{org
   Background:
     Given REST API service hostname is localhost
       And REST API service port is 8080
-      And REST API service prefix is /api/insights-results-aggregator/v1
+      And REST API service prefix is /api/insights-results-aggregator/v2
 
 
   @rest-api
