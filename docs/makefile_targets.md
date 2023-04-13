@@ -26,6 +26,8 @@ inference-service-tests             Run BDD tests for the Inference Service
 data-engineering-service-tests      Run BDD tests for the Data Engineering Service
 insights-content-service-tests      Run BDD tests for the CCX Content Service
 insights-sha-extractor-tests        Run BDD tests for the CCX SHA Extractor
+smart-proxy-tests                   Run BDD tests for the Insights Results Smart Proxy service
+smart-proxy-code-coverage           Compute code coverage for Smart Proxy service
 style                               Perform all style checks
 code-style                          Check code style for all Python sources from this repository
 docs-style                          Check documentation strings in all Python sources from this repository

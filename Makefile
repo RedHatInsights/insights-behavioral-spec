@@ -54,8 +54,11 @@ insights-content-service-tests: ## Run BDD tests for the CCX Content Service
 insights-sha-extractor-tests: ## Run BDD tests for the CCX SHA Extractor
 	./insights_sha_extractor_test.sh
 
-smart-proxy-tests: # Run BDD tests for the Insights Results Smart Proxy service
+smart-proxy-tests: ## Run BDD tests for the Insights Results Smart Proxy service
 	./smart_proxy_tests.sh
+
+smart-proxy-code-coverage: ## Compute code coverage for Smart Proxy service
+	./smart_proxy_tests.sh coverage
 
 style:	code-style docs-style shellcheck ## Perform all style checks
 
