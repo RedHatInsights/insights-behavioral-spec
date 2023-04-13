@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/license-Apache-blue)](https://github.com/RedHatInsights/insights-behavioral-spec/blob/master/LICENSE)
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 
-Behavioral specifications for Insights pipelines and its integration into OCM, OCP, and ACM
+Behavioral specifications for Insights pipelines and its integration into OCM, OCP, ACM, Notification Service, and ServiceLog. Specifications are written in [Gherkin language](https://cucumber.io/docs/guides/overview/).
 
 <!-- vim-markdown-toc GFM -->
 
