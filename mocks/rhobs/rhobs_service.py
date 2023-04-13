@@ -58,8 +58,7 @@ class Query(BaseModel):
 @app.get("/api/metrics/v1/telemeter/api/v1/query")
 def get_random_results(query: str):
     """Request handler for REST API endpoint to return alerts and FOCs."""
-    expected_query_format = \
-        r"""alerts\{_id=.*", namespace=~"openshift-\.\*", severity=~"warning\|critical"\}
+    expected_query_format = r"""alerts\{_id=.*", namespace=~"openshift-\.\*", severity=~"warning\|critical"\}
 or
 cluster_operator_conditions\{_id=.*, condition="Available"\} == 0
 or
