@@ -71,12 +71,15 @@ ANSWERS = {
     "00000000-1111-2222-3333-444444444444": NO_URL_RESULT
 }
 
+
 class Query(BaseModel):
     """Simple model used to mock the requests that data-engineering service will perform."""
 
     query: str
 
+
 UUID_REGEX = '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+
 
 @app.get("/api/metrics/v1/telemeter/api/v1/query")
 def get_random_results(query: str):

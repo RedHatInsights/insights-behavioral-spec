@@ -861,7 +861,7 @@ nav_order: 3
 * Check the ability to initialize migration info table
 * Check the ability to initialize all database tables
 * Check the ability to perform database cleanup
-* Check the ability to drop all database tables
+* Check the ability to drop all database tables when database is migrated to initial version
 
 ## `ccx-notification-writer/display_old_records.feature`
 
@@ -904,6 +904,7 @@ nav_order: 3
 
 * Check Data Engineering Service response with an invalid cluster ID in the request
 * Check Data Engineering Service response with a valid cluster ID
+* Check Data Engineering Service response with a valid cluster ID but no cluster version
 
 ## `ccx-upgrades-data-eng/smoketests.feature`
 
