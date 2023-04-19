@@ -68,6 +68,9 @@ Feature: Upgrade Risks Prediction Data Engineering - test well known values
                         },
                         "reason": {
                           "type": "string"
+                        },
+                        "url": {
+                          "type": "string"
                         }
                       }
                     }
@@ -79,17 +82,31 @@ Feature: Upgrade Risks Prediction Data Engineering - test well known values
           """
       And The body of the response is the following
           """
-            {
+          {
               "upgrade_recommended": false,
               "upgrade_risks_predictors": {
-                "alerts": [],
+                "alerts": [
+                    {
+                        "name": "APIRemovedInNextEUSReleaseInUse",
+                        "namespace": "openshift-kube-apiserver",
+                        "severity": "info",
+                        "url": "https://some_url.com/monitoring/alerts?orderBy=asc&sortBy=Severity&alert-name=APIRemovedInNextEUSReleaseInUse"
+                    },
+                    {
+                        "name": "SomeCriticalAlert",
+                        "namespace": "openshift-kube-apiserver",
+                        "severity": "critical",
+                        "url": "https://some_url.com/monitoring/alerts?orderBy=asc&sortBy=Severity&alert-name=SomeCriticalAlert"
+                    }
+                ],
                 "operator_conditions": [
-                  {
-                    "name": "authentication", 
-                    "condition": "Degraded", 
-                    "reason": "AsExpected"
-                  }
+                    {
+                        "name": "authentication",
+                        "condition": "Degraded",
+                        "reason": "AsExpected",
+                        "url": "https://some_url.com/k8s/cluster/config.openshift.io~v1~ClusterOperator/authentication"
+                    }
                 ]
               }
-            }
+          }
           """

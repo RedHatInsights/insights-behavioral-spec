@@ -21,13 +21,44 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-EXAMPLE_RESULT = [
+NON_FILTERED_RESULT = [
+    {
+        "metric": {
+            "__name__": "console_url",
+            "url": "https://some_url.com/",
+        },
+    },
     {
         "metric": {
             "__name__": "alerts",
             "alertname": "APIRemovedInNextEUSReleaseInUse",
             "namespace": "openshift-kube-apiserver",
             "severity": "info",
+        },
+    },
+    {
+        "metric": {
+            "__name__": "alerts",
+            "alertname": "SomeCriticalAlert",
+            "namespace": "openshift-kube-apiserver",
+            "severity": "critical",
+        },
+    },
+    {
+        "metric": {
+            "__name__": "cluster_operator_conditions",
+            "name": "authentication",
+            "condition": "Degraded",
+            "reason": "AsExpected",
+        },
+    },
+]
+
+FILTERED_RESULT = [
+    {
+        "metric": {
+            "__name__": "console_url",
+            "url": "https://some_url.com/",
         },
     },
     {
@@ -65,5 +96,5 @@ cluster_operator_conditions\{_id=.*, condition="Available"\} == 0
 or
 cluster_operator_conditions\{_id=.*, condition="Degraded"\} == 1"""
     if re.match(expected_query_format, query):
-        return {"data": {"result": EXAMPLE_RESULT[-2:]}}
-    return {"data": {"result": EXAMPLE_RESULT}}
+        return {"data": {"result": FILTERED_RESULT}}
+    return {"data": {"result": NON_FILTERED_RESULT}}

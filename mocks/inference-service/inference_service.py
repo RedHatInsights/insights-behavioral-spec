@@ -25,33 +25,8 @@ app = FastAPI()
 async def upgrade_risk_prediction_mock(request: Request):
     """Request handler for REST API endpoint to return upgrade prediction prediction."""
     data = await request.json()
-    expected_data = {
-        "alerts": [
-            {
-                "name": "SomeCriticalAlert",
-                "namespace": "openshift-kube-apiserver",
-                "severity": "critical",
-            }
-        ],
-        "operator_conditions": [
-            {"name": "authentication", "condition": "Degraded", "reason": "AsExpected"}
-        ],
-    }
 
     result = {
-        "upgrade_risks_predictors": {"alerts": [], "operator_conditions": []},
+        "upgrade_risks_predictors": data,
     }
-    if data == expected_data:
-        result = {
-            "upgrade_risks_predictors": {
-                "alerts": [],
-                "operator_conditions": [
-                    {
-                        "name": "authentication",
-                        "condition": "Degraded",
-                        "reason": "AsExpected",
-                    }
-                ],
-            },
-        }
     return result
