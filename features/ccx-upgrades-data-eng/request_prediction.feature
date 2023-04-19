@@ -19,7 +19,7 @@ Feature: Upgrade Risks Prediction Data Engineering - test well known values
      Then The status code of the response is 422
 
   Scenario: Check Data Engineering Service response with a valid cluster ID
-     When I request the cluster endpoint in localhost:8000 with path f93c5b78-0d38-40c0-9d12-37918752f80d/upgrade-risks-prediction
+     When I request the cluster endpoint in localhost:8000 with path aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/upgrade-risks-prediction
      Then The status code of the response is 200
       And The body of the response has the following schema
           """
@@ -87,12 +87,6 @@ Feature: Upgrade Risks Prediction Data Engineering - test well known values
               "upgrade_risks_predictors": {
                 "alerts": [
                     {
-                        "name": "APIRemovedInNextEUSReleaseInUse",
-                        "namespace": "openshift-kube-apiserver",
-                        "severity": "info",
-                        "url": "https://some_url.com/monitoring/alerts?orderBy=asc&sortBy=Severity&alert-name=APIRemovedInNextEUSReleaseInUse"
-                    },
-                    {
                         "name": "SomeCriticalAlert",
                         "namespace": "openshift-kube-apiserver",
                         "severity": "critical",
@@ -110,3 +104,7 @@ Feature: Upgrade Risks Prediction Data Engineering - test well known values
               }
           }
           """
+
+  Scenario: Check Data Engineering Service response with a valid cluster ID but no cluster version
+     When I request the cluster endpoint in localhost:8000 with path 00000000-1111-2222-3333-444444444444/upgrade-risks-prediction
+     Then The status code of the response is 404

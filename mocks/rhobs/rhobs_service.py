@@ -17,42 +17,10 @@
 import re
 
 from fastapi import FastAPI
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
 app = FastAPI()
-
-NON_FILTERED_RESULT = [
-    {
-        "metric": {
-            "__name__": "console_url",
-            "url": "https://some_url.com/",
-        },
-    },
-    {
-        "metric": {
-            "__name__": "alerts",
-            "alertname": "APIRemovedInNextEUSReleaseInUse",
-            "namespace": "openshift-kube-apiserver",
-            "severity": "info",
-        },
-    },
-    {
-        "metric": {
-            "__name__": "alerts",
-            "alertname": "SomeCriticalAlert",
-            "namespace": "openshift-kube-apiserver",
-            "severity": "critical",
-        },
-    },
-    {
-        "metric": {
-            "__name__": "cluster_operator_conditions",
-            "name": "authentication",
-            "condition": "Degraded",
-            "reason": "AsExpected",
-        },
-    },
-]
 
 FILTERED_RESULT = [
     {
@@ -79,22 +47,44 @@ FILTERED_RESULT = [
     },
 ]
 
+NO_URL_RESULT = [
+    {
+        "metric": {
+            "__name__": "alerts",
+            "alertname": "SomeCriticalAlert",
+            "namespace": "openshift-kube-apiserver",
+            "severity": "critical",
+        },
+    },
+    {
+        "metric": {
+            "__name__": "cluster_operator_conditions",
+            "name": "authentication",
+            "condition": "Degraded",
+            "reason": "AsExpected",
+        },
+    },
+]
+
+ANSWERS = {
+    "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee": FILTERED_RESULT,
+    "00000000-1111-2222-3333-444444444444": NO_URL_RESULT
+}
 
 class Query(BaseModel):
     """Simple model used to mock the requests that data-engineering service will perform."""
 
     query: str
 
+UUID_REGEX = '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
 
 @app.get("/api/metrics/v1/telemeter/api/v1/query")
 def get_random_results(query: str):
     """Request handler for REST API endpoint to return alerts and FOCs."""
-    expected_query_format = \
-        r"""alerts\{_id=.*", namespace=~"openshift-\.\*", severity=~"warning\|critical"\}
-or
-cluster_operator_conditions\{_id=.*, condition="Available"\} == 0
-or
-cluster_operator_conditions\{_id=.*, condition="Degraded"\} == 1"""
-    if re.match(expected_query_format, query):
-        return {"data": {"result": FILTERED_RESULT}}
-    return {"data": {"result": NON_FILTERED_RESULT}}
+    match = re.search(UUID_REGEX, query)
+    if not match:
+        return JSONResponse("couldn't find the cluster_id in ANSWERS", 500)
+    cluster_id = match.group()
+    if cluster_id not in ANSWERS:
+        return {"data": {"result": []}}
+    return {"data": {"result": ANSWERS[cluster_id]}}
