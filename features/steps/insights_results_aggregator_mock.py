@@ -252,8 +252,15 @@ def request_report_for_cluster_in_organization(context, cluster, organization):
     # check the response
     assert context.response is not None
 
-    # HTTP status code of response should be 200 OK
-    assert context.response.status_code == 200, context.response.status_code
+
+@when("I request upgrade risk for cluster {cluster:S}")
+def request_upgrade_for_cluster(context, cluster):
+    """Call Insights Results Aggregator Mock service and retrieve upgrade risk for given cluster."""
+    url = f"http://{context.hostname}:{context.port}/{context.api_prefix}/cluster/{cluster}/upgrade-risks-prediction"  # noqa E501
+    context.response = requests.get(url)
+
+    # check the response
+    assert context.response is not None
 
 
 @then("The report should contain {expected_count:d} rule hits")

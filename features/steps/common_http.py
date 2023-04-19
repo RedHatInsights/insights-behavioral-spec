@@ -123,7 +123,7 @@ def check_response_body_schema(context):
 def check_response_body_contains(context, substring):
     """Check that response body contains a substring."""
     assert substring in context.response.text, \
-        f"The response text doesn't contain {substring}"
+        f"The response text '{context.response.text}' doesn't contain '{substring}'"
 
 
 @then("The body of the response is the following")
