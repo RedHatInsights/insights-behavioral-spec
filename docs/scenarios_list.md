@@ -754,6 +754,15 @@ nav_order: 3
 * Check if Insights Results Aggregator Mock displays authors
 * Check if Insights Results Aggregator Mock displays actual configuration
 
+## `insights-results-aggregator-mock/upgrades.feature`
+
+* Check if Insights Results Aggregator Mock service return upgrade recommended for a cluster without risks
+* Check if Insights Results Aggregator Mock service return upgrade not recommended for a cluster with risks
+* Check if Insights Results Aggregator Mock service return 204 NoContent for a managed cluster
+* Check if Insights Results Aggregator Mock service return 503 if AMS is not available
+* Check if Insights Results Aggregator Mock service return 503 if Upgrade service is not available
+* Check if Insights Results Aggregator Mock service return 404 if the cluster has no data in RHOBS
+
 ## `ccx-notification-service/cleanup_records.feature`
 
 * Check the ability to clean up old records from `new_reports` table if the table is empty.
