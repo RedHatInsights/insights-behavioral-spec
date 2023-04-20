@@ -14,73 +14,73 @@ Feature: Checking responses from Insights Results Aggregator Mock service: endpo
       And The body of the response has the following schema
           """
             {
-            "required": [
-                "upgrade_recommendation",
-                "status",
-                "meta"
-            ],
-            "type": "object",
-            "properties": {
-                "upgrade_recommendation": {
+                "required": [
+                    "upgrade_recommendation",
+                    "status",
+                    "meta"
+                ],
                 "type": "object",
                 "properties": {
-                    "upgrade_risks_predictors": {
-                    "type": "object",
-                    "properties": {
-                        "alerts": {
-                        "type": "array",
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                            "name": {
-                                "type": "string"
-                            },
-                            "namespace": {
-                                "type": "string"
-                            },
-                            "severity": {
-                                "type": "string"
-                            }
+                    "upgrade_recommendation": {
+                        "type": "object",
+                        "properties": {
+                            "upgrade_risks_predictors": {
+                                "type": "object",
+                                "properties": {
+                                    "alerts": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "namespace": {
+                                                    "type": "string"
+                                                },
+                                                "severity": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "operator_conditions": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "condition": {
+                                                    "type": "string"
+                                                },
+                                                "reason": {
+                                                    "type": "string"
+                                                },
+                                                "url": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
-                        },
-                        "operator_conditions": {
-                        "type": "array",
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                            "name": {
-                                "type": "string"
-                            },
-                            "condition": {
-                                "type": "string"
-                            },
-                            "reason": {
-                                "type": "string"
-                            },
-                            "url": {
-                                "type": "string"
-                            }
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "meta": {
+                        "type": "object",
+                        "properties": {
+                            "last_checked_at": {
+                                "type": "string",
+                                "format": "date"
                             }
                         }
-                        }
-                    }
                     }
                 }
-                },
-                "status": {
-                "type": "string"
-                },
-                "meta": {
-                "type": "object",
-                "properties": {
-                    "last_checked_at": {
-                    "type": "string",
-                    "format": "date"
-                    }
-                }
-                }
-            }
             }
           """
 
@@ -92,73 +92,73 @@ Feature: Checking responses from Insights Results Aggregator Mock service: endpo
       And The body of the response has the following schema
           """
             {
-            "required": [
-                "upgrade_recommendation",
-                "status",
-                "meta"
-            ],
-            "type": "object",
-            "properties": {
-                "upgrade_recommendation": {
+                "required": [
+                    "upgrade_recommendation",
+                    "status",
+                    "meta"
+                ],
                 "type": "object",
                 "properties": {
-                    "upgrade_risks_predictors": {
-                    "type": "object",
-                    "properties": {
-                        "alerts": {
-                        "type": "array",
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                            "name": {
-                                "type": "string"
-                            },
-                            "namespace": {
-                                "type": "string"
-                            },
-                            "severity": {
-                                "type": "string"
-                            }
+                    "upgrade_recommendation": {
+                        "type": "object",
+                        "properties": {
+                            "upgrade_risks_predictors": {
+                                "type": "object",
+                                "properties": {
+                                    "alerts": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "namespace": {
+                                                    "type": "string"
+                                                },
+                                                "severity": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "operator_conditions": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "condition": {
+                                                    "type": "string"
+                                                },
+                                                "reason": {
+                                                    "type": "string"
+                                                },
+                                                "url": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
-                        },
-                        "operator_conditions": {
-                        "type": "array",
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                            "name": {
-                                "type": "string"
-                            },
-                            "condition": {
-                                "type": "string"
-                            },
-                            "reason": {
-                                "type": "string"
-                            },
-                            "url": {
-                                "type": "string"
-                            }
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "meta": {
+                        "type": "object",
+                        "properties": {
+                            "last_checked_at": {
+                                "type": "string",
+                                "format": "date"
                             }
                         }
-                        }
-                    }
                     }
                 }
-                },
-                "status": {
-                "type": "string"
-                },
-                "meta": {
-                "type": "object",
-                "properties": {
-                    "last_checked_at": {
-                    "type": "string",
-                    "format": "date"
-                    }
-                }
-                }
-            }
             }
           """
 
