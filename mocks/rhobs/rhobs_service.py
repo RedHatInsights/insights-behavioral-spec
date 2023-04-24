@@ -103,10 +103,37 @@ DUPLICATED_METRICS_RESULT = [
     },
 ]
 
+# Used to check the the condition is changed to 'Not Available'
+AVAILABLE_FOC = [
+    {
+        "metric": {
+            "__name__": "console_url",
+            "url": "https://some_url.com/",
+        },
+    },
+    {
+        "metric": {
+            "__name__": "alerts",
+            "alertname": "SomeCriticalAlert",
+            "namespace": "openshift-kube-apiserver",
+            "severity": "critical",
+        },
+    },
+    {
+        "metric": {
+            "__name__": "cluster_operator_conditions",
+            "name": "authentication",
+            "condition": "Available",
+            "reason": "AsExpected",
+        },
+    },
+]
+
 ANSWERS = {
     "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee": FILTERED_RESULT,
     "00000000-1111-2222-3333-444444444444": NO_URL_RESULT,
-    "44444444-3333-2222-1111-111111111111": DUPLICATED_METRICS_RESULT
+    "44444444-3333-2222-1111-111111111111": DUPLICATED_METRICS_RESULT,
+    "aaaaaaaa-bbbb-cccc-dddd-000000000000": AVAILABLE_FOC,
 }
 
 
