@@ -15,7 +15,7 @@
 
 set -exv
 
-IMAGE="quay.io/ccxdev/insights-behavioral-spec"
+IMAGE="quay.io/cloudservices/insights-behavioral-spec"
 IMAGE_TAG=$(git rev-parse --short=7 HEAD)
 
 if [[ -z "$QUAY_USER" || -z "$QUAY_TOKEN" ]]; then
