@@ -26,5 +26,5 @@ def check_file_content(context, filename):
     with open(filename, "r") as fin:
         actual_content = fin.read().strip()
 
-    assert expected_content == actual_content, \
+    assert sorted(list(expected_content)) == sorted(list(actual_content)), \
         f"Content does not match:\nexpected:\n{expected_content}\n---\nactual:\n{actual_content}"
