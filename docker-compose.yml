@@ -2,7 +2,7 @@ version: "3"
 services:
   # "pod" with the tests
   bddtests:
-    image: quay.io/ccxdev/insights-behavioral-spec:ci
+    image: quay.io/cloudservices/insights-behavioral-spec:latest
     entrypoint:
       - /bin/sh
       - -c
