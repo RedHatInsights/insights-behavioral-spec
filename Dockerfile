@@ -42,7 +42,7 @@ RUN dnf clean all
 RUN chmod -R g=u $HOME $VIRTUAL_ENV /etc/passwd
 RUN chgrp -R 0 $HOME $VIRTUAL_ENV
 
-COPY --from=confluentinc/cp-kafkacat:7.1.5-1-ubi8 /usr/local/bin/kafkacat $VIRTUAL_ENV_BIN/kcat
+COPY --from=quay.io/ccxdev/cp-kafkacat:7.1.7-1-ubi8 /usr/local/bin/kafkacat $VIRTUAL_ENV_BIN/kcat
 
 USER 1001
 
