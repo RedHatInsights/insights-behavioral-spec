@@ -25,8 +25,8 @@ from behave import given
 def start_template_renderer(context):
     """Run insights_content_template_renderer for a test and prepare its stop."""
     params = [
-        "uvicorn", 
-        "insights_content_template_renderer.endpoints:app", 
+        "uvicorn",
+        "insights_content_template_renderer.endpoints:app",
         "--log-config",
         "logging.yml",
     ]
@@ -34,18 +34,15 @@ def start_template_renderer(context):
     curpath = os.path.abspath(os.curdir)
     scenario = str(context.scenario).replace("/", "")
     f = open(
-            os.path.join(
-                curpath,
-                "logs",
-                "insights-content-template-renderer",
-                f"{scenario}.log"
-            ), "w")
+        os.path.join(
+            curpath, "logs", "insights-content-template-renderer", f"{scenario}.log"
+        ),
+        "w",
+    )
 
     template_renderer_path = os.getenv("PATH_TO_LOCAL_TEMPLATE_RENDERER")
 
-    popen = subprocess.Popen(
-        params, stdout=f, stderr=f, cwd=template_renderer_path
-    )
+    popen = subprocess.Popen(params, stdout=f, stderr=f, cwd=template_renderer_path)
     assert popen is not None
     time.sleep(1)
     context.add_cleanup(popen.terminate)
