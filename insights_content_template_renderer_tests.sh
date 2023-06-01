@@ -1,6 +1,6 @@
 #!/bin/bash -x
 
-# Copyright 2022, 2023 Red Hat, Inc
+# Copyright 2023 Red Hat, Inc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,6 +18,10 @@
 dir_path=$(dirname "$(realpath "$0")")
 export PATH=$PATH:$dir_path
 export PATH_TO_LOCAL_TEMPLATE_RENDERER=${PATH_TO_LOCAL_TEMPLATE_RENDERER:="../insights-content-template-renderer"}
+
+function clone_service() {
+    git clone --depth=1 https://github.com/RedHatInsights/insights-content-template-renderer.git
+}
 
 #set NOVENV is current environment is not a python virtual env
 [ "$VIRTUAL_ENV" != "" ] || NOVENV=1
@@ -39,6 +43,19 @@ function install_service() {
     python3 "$(which pip3)" install -r requirements.txt
     cd "$dir_path"
 }
+
+if [ ! -d "$PATH_TO_LOCAL_TEMPLATE_RENDERER" ]; then
+    if [[ -z $ENV_DOCKER ]]
+    then
+        clone_service && \
+        install_service
+    else
+        echo "insights-content-template-renderer directory '$PATH_TO_LOCAL_TEMPLATE_RENDERER' not found in working directory. Please add it."
+        exit 1
+    fi
+else
+    echo "insights-content-template-renderer directory found in working directory"
+fi
 
 [ "$NOVENV" != "1" ] || prepare_venv || exit 1
 install_reqs
