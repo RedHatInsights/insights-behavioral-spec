@@ -160,7 +160,9 @@ def set_rest_api_prefix(context, prefix):
 @when("I access endpoint {endpoint} using HTTP GET method")
 def access_rest_api_endpoint_get(context, endpoint):
     """Send GET HTTP request to tested service."""
-    url = f"http://{context.hostname}:{context.port}/{context.api_prefix}/{endpoint}"
+    base = f"http://{context.hostname}:{context.port}"
+    path = f"{context.api_prefix}/{endpoint}".replace("//", "/")
+    url = base + path
     context.response = requests.get(url)
 
 

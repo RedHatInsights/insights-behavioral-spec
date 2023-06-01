@@ -1,0 +1,1 @@
+../features/insights-content-template-renderer/smoketests.feature

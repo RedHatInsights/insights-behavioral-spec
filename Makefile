@@ -51,6 +51,9 @@ data-engineering-service-tests: ## Run BDD tests for the Data Engineering Servic
 insights-content-service-tests: ## Run BDD tests for the CCX Content Service
 	./insights_content_service_test.sh
 
+insights-content-template-renderer-tests: ## Run BDD tests for the CCX Template Renderer
+	./insights_content_template_renderer_tests.sh
+
 insights-sha-extractor-tests: ## Run BDD tests for the CCX SHA Extractor
 	./insights_sha_extractor_test.sh
 

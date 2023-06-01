@@ -756,12 +756,12 @@ nav_order: 3
 
 ## `insights-results-aggregator-mock/upgrades.feature`
 
-* Check if Insights Results Aggregator Mock service return upgrade recommended for a cluster without risks
-* Check if Insights Results Aggregator Mock service return upgrade not recommended for a cluster with risks
-* Check if Insights Results Aggregator Mock service return 204 NoContent for a managed cluster
-* Check if Insights Results Aggregator Mock service return 503 if AMS is not available
-* Check if Insights Results Aggregator Mock service return 503 if Upgrade service is not available
-* Check if Insights Results Aggregator Mock service return 404 if the cluster has no data in RHOBS
+* Check if Insights Results Aggregator Mock service returns upgrade recommended for a cluster without risks
+* Check if Insights Results Aggregator Mock service returns upgrade not recommended for a cluster with risks
+* Check if Insights Results Aggregator Mock service returns 204 NoContent for a managed cluster
+* Check if Insights Results Aggregator Mock service returns 503 if AMS is not available
+* Check if Insights Results Aggregator Mock service returns 503 if Upgrade service is not available
+* Check if Insights Results Aggregator Mock service returns 404 if the cluster has no data in RHOBS
 
 ## `ccx-notification-service/cleanup_records.feature`
 
@@ -913,6 +913,8 @@ nav_order: 3
 
 * Check Data Engineering Service response with an invalid cluster ID in the request
 * Check Data Engineering Service response with a valid cluster ID
+* Check Data Engineering Service removes duplicates from the response
+* Check Data Engineering Service maps the FOC condition correctly
 * Check Data Engineering Service response with a valid cluster ID but no cluster version
 
 ## `ccx-upgrades-data-eng/smoketests.feature`
