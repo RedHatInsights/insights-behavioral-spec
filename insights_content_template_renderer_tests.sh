@@ -39,9 +39,9 @@ function prepare_venv() {
 }
 
 function install_service() {
-    cd "$PATH_TO_LOCAL_TEMPLATE_RENDERER"
+    cd "$PATH_TO_LOCAL_TEMPLATE_RENDERER" || exit
     python3 "$(which pip3)" install -r requirements.txt
-    cd "$dir_path"
+    cd "$dir_path" || exit
 }
 
 if [ ! -d "$PATH_TO_LOCAL_TEMPLATE_RENDERER" ]; then
