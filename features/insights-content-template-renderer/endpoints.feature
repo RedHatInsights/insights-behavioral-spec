@@ -99,4 +99,4 @@ Feature: Test the service endpoints
         }
         """
         Then The status code of the response is 200
-        And The body of the response contains "Other option:\n\n More text"
+         And The body of the response contains "Other option:\n\n More text"
