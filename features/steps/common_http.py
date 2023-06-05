@@ -166,6 +166,17 @@ def access_rest_api_endpoint_get(context, endpoint):
     context.response = requests.get(url)
 
 
+@when("I access endpoint {endpoint} using HTTP POST method")
+def access_rest_api_endpoint_post(context, endpoint):
+    """Send GET HTTP request to tested service."""
+    base = f"http://{context.hostname}:{context.port}"
+    path = f"{context.api_prefix}/{endpoint}".replace("//", "/")
+    url = base + path
+
+    data = json.loads(context.text)
+    context.response = requests.post(url, json=data)
+
+
 @then("The status message of the response is \"{expected_message}\"")
 def check_status_of_response(context, expected_message):
     """Check the actual message/value in status attribute."""
