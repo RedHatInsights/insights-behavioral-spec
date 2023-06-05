@@ -297,6 +297,16 @@ nav_order: 3
 * Check if /status endpoint is working
 * Check if /info endpoint is working
 
+## `insights-content-template-renderer/endpoints.feature`
+
+* check /v1/rendered_reports endpoint response
+
+## `insights-content-template-renderer/smoketests.feature`
+
+* Check if /v1/rendered_reports endpoint is working
+* Check if /docs endpoint is working
+* Check if /metrics endpoint is working
+
 ## `insights-results-aggregator/basic_rest_api.feature`
 
 * Check if the main endpoint is reachable (w/o using auth. token)

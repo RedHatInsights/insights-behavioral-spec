@@ -33,9 +33,11 @@ def start_template_renderer(context):
 
     curpath = os.path.abspath(os.curdir)
     scenario = str(context.scenario).replace("/", "")
+    log_filename = f"{scenario.translate({ord(i): None for i in '<>/'})}.log"
+
     f = open(
         os.path.join(
-            curpath, "logs", "insights-content-template-renderer", f"{scenario}.log"
+            curpath, "logs", "insights-content-template-renderer", log_filename
         ),
         "w",
     )
