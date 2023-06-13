@@ -23,7 +23,7 @@ app = FastAPI()
 
 @app.get("/upgrade-risks-prediction")
 async def upgrade_risk_prediction_mock(request: Request):
-    """Request handler for REST API endpoint to return upgrade prediction prediction."""
+    """Request handler for REST API endpoint to return upgrade risk prediction."""
     data = await request.json()
 
     result = {
