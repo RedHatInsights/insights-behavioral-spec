@@ -210,3 +210,27 @@ def check_for_null_attribute(context, attribute):
     assert attribute in json, f"Attribute {attribute} is not returned by the service"
     value = json[attribute]
     assert value is None, f"Attribute {attribute} should be null, but it contains {value}"
+
+
+@when("I store the response for {key} for comparison")
+def store_response_for_comparison(context, key):
+    """Store the HTTP response of the last query for later comparison."""
+    if not hasattr(context, "previous_responses"):
+        context.previous_responses = {}
+    context.previous_responses[key] = context.response
+
+
+@then("The response is identical to the previous response for {key}")
+def assert_same_response(context, key):
+    """Assert that HTTP response of the last query is the same as the one stored previously."""
+    assert context.response is not None
+    assert context.previous_responses[key] is not None
+    assert context.previous_responses[key].content == context.response.content
+
+
+@then("The response is different from the previous response for {key}")
+def assert_different_response(context, key):
+    """Assert that HTTP response of the last query is different from the one stored previously."""
+    assert context.response is not None
+    if context.previous_responses[key] is not None:
+        assert context.previous_responses[key].content != context.response.content

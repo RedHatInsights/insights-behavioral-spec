@@ -1,2 +1,3 @@
 ../features/ccx-upgrades-data-eng/smoketests.feature
 ../features/ccx-upgrades-data-eng/request_prediction.feature
+../features/ccx-upgrades-data-eng/caching.feature

@@ -18,7 +18,7 @@
 import os
 import subprocess
 import time
-from behave import given
+from behave import given, when
 
 
 @given("The CCX Data Engineering Service is running on port {port:d} with envs")
@@ -45,3 +45,26 @@ def start_ccx_upgrades_data_eng(context, port):
     assert popen is not None
     time.sleep(2)
     context.add_cleanup(popen.terminate)
+
+
+@given("The mock RHOBS Service is running on port {port:d}")
+def start_RHOBS_mock_service(context, port):
+    """Run RHOBS service mock for a test and prepare its stop."""
+    params = ["uvicorn", "mocks.rhobs.rhobs_service:app", "--port", str(port)]
+
+    f = open(f"logs/ccx-upgrades-data-eng/{context.scenario}.log", "w")
+    popen = subprocess.Popen(params, stdout=f, stderr=f)
+    assert popen is not None
+    time.sleep(0.5)
+    context.add_cleanup(popen.terminate)
+    context.mock_rhobs = popen
+
+
+@when("I stop the mock RHOBS Service")
+def start_ccx_inference_mock_service(context):
+    """Stop mocked RHOBS service."""
+    context.mock_rhobs.terminate()
+    time.sleep(0.5)
+    poll = context.mock_rhobs.poll()
+    if poll is None:
+        raise Exception("mock inference subprocess is still alive!")
