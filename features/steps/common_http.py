@@ -136,6 +136,19 @@ def check_prediction_result(context):
     assert result == expected_body, f"got:\n{result}\nwant:\n{expected_body}"
 
 
+@then('The body of the response, ignoring the "{field}" is the following')
+def check_prediction_result_ignoring_field(context, field: str):
+    """Check the content of the response to be exactly the same."""
+    expected_body = json.loads(context.text).copy()
+    result = context.response.json().copy()
+
+    del expected_body[field]
+    del result[field]
+
+    # compare both JSONs and print actual result in case of any difference
+    assert result == expected_body, f"got:\n{result}\nwant:\n{expected_body}"
+
+
 @given("REST API service hostname is {hostname:w}")
 @when("REST API service hostname is {hostname:w}")
 def set_service_hostname(context, hostname):
