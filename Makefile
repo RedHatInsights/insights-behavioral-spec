@@ -82,6 +82,15 @@ before_commit: code-style update-scenarios
 docker-build: ## Build Docker images that can be used for tests
 	docker build -t insights-behavioral-spec:ci .
 
+type-checks: ## Perform type checks for all sources
+	MYPYPATH=features/: mypy --explicit-package-bases features
+
+strict-type-checks: ## Strict type checks for all sources
+	MYPYPATH=features/: mypy --strict --explicit-package-bases features
+
+missing-types: ## Find all missing types in Python sources
+	MYPYPATH=features/: mypy --explicit-package-bases --disallow-untyped-calls --disallow-untyped-defs --disallow-incomplete-defs features
+
 help: ## Show this help screen
 	@echo 'Usage: make <OPTIONS> ... <TARGETS>'
 	@echo ''
