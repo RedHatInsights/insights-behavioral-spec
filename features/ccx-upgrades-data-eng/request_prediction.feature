@@ -26,7 +26,8 @@ Feature: Upgrade Risks Prediction Data Engineering - test well known values
           {
             "required": [
               "upgrade_recommended",
-              "upgrade_risks_predictors"
+              "upgrade_risks_predictors",
+              "last_checked_at"
             ],
             "type": "object",
             "properties": {
@@ -76,11 +77,15 @@ Feature: Upgrade Risks Prediction Data Engineering - test well known values
                     }
                   }
                 }
+              },
+              "last_checked_at": {
+                "title": "Last checked at",
+                "type": "string"
               }
             }
           }
           """
-      And The body of the response is the following
+      And The body of the response, ignoring the "last_checked_at" field, is the following
           """
           {
               "upgrade_recommended": false,
@@ -114,7 +119,8 @@ Feature: Upgrade Risks Prediction Data Engineering - test well known values
           {
             "required": [
               "upgrade_recommended",
-              "upgrade_risks_predictors"
+              "upgrade_risks_predictors",
+              "last_checked_at"
             ],
             "type": "object",
             "properties": {
@@ -164,11 +170,15 @@ Feature: Upgrade Risks Prediction Data Engineering - test well known values
                     }
                   }
                 }
+              },
+              "last_checked_at": {
+                "title": "Last checked at",
+                "type": "string"
               }
             }
           }
           """
-      And The body of the response is the following
+      And The body of the response, ignoring the "last_checked_at" field, is the following
           """
           {
               "upgrade_recommended": false,
@@ -202,7 +212,8 @@ Feature: Upgrade Risks Prediction Data Engineering - test well known values
           {
             "required": [
               "upgrade_recommended",
-              "upgrade_risks_predictors"
+              "upgrade_risks_predictors",
+              "last_checked_at"
             ],
             "type": "object",
             "properties": {
@@ -252,11 +263,15 @@ Feature: Upgrade Risks Prediction Data Engineering - test well known values
                     }
                   }
                 }
+              },
+              "last_checked_at": {
+                "title": "Last checked at",
+                "type": "string"
               }
             }
           }
           """
-      And The body of the response is the following
+      And The body of the response, ignoring the "last_checked_at" field, is the following
           """
           {
               "upgrade_recommended": false,
