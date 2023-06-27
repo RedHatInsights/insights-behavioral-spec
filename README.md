@@ -11,7 +11,9 @@ Behavioral specifications for Insights pipelines and its integration into OCM, O
 * [How to run the scenarios](#how-to-run-the-scenarios)
 * [List of existing behavioral specifications (features)](#list-of-existing-behavioral-specifications-features)
 * [List of scenarios](#list-of-scenarios)
+* [List of tags](#list-of-tags)
 * [Makefile targets](#makefile-targets)
+* [Additional tools](#additional-tools)
 
 <!-- vim-markdown-toc -->
 
@@ -47,6 +49,14 @@ All features are listed [on this page](https://redhatinsights.github.io/insights
 
 List of scenarios can be seen [there](https://redhatinsights.github.io/insights-behavioral-spec/scenarios_list.html)
 
+## List of tags
+
+It is possible to filter test scenarios to be run not only by project name but also by using tag or tags. List of all tags used in test scenarios are listed on [this page](https://redhatinsights.github.io/insights-behavioral-spec/tags.html)
+
 ## Makefile targets
 
 Please look at [this page](https://redhatinsights.github.io/insights-behavioral-spec/makefile_targets.html)
+
+## Additional tools
+
+This repository contains additional tools and helpers. Description of such tools can be found on [this page](https://redhatinsights.github.io/insights-behavioral-spec/tools.html)

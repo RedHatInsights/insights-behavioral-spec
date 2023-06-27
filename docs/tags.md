@@ -5,6 +5,9 @@ nav_order: 4
 
 # List of tags used in scenarios
 
+It is possible to filter test scenarios to be run not only by project name but
+also by using tag or tags.
+
 ## Tags used across multiple tested services
 
 * `@cli` - scenarios that test CLI flags handling
