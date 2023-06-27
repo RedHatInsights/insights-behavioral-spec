@@ -14,8 +14,10 @@
 
 """SQL-related helper functions."""
 
+from typing import List
 
-def construct_insert_statement(table_name, headings):
+
+def construct_insert_statement(table_name: str, headings: List[str]) -> str:
     """Construct INSERT statement from specified table name and column headings."""
     # preliminary checks
     assert table_name, "Table name must be specified and should not be empty string"
