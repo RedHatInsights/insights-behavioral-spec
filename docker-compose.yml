@@ -1,4 +1,4 @@
-version: "3"
+version: "3.9"
 services:
   # "pod" with the tests
   bddtests:
@@ -15,6 +15,13 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=${POSTGRES_DB_NAME}
+    healthcheck:
+      test: ["CMD", "pg_isready"]
+      interval: 2s
+      timeout: 2s
+      retries: 4
+      start_period: 2s
+
   kafka:
     profiles:
       - test-notification-services
@@ -37,16 +44,24 @@ services:
     environment:
       - MINIO_ACCESS_KEY=test_access_key
       - MINIO_SECRET_KEY=test_secret_access_key
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:9000/minio/health/live"]
+      interval: 2s
+      timeout: 2s
+      retries: 4
+      start_period: 2s
+
   createbuckets:
     profiles:
       - test-exporter
     image: minio/mc
     depends_on:
-      - minio
+      minio:
+        condition: service_healthy
     entrypoint:
       - /bin/sh
       - -c
-      - "sleep 5;
+      - "
       /usr/bin/mc config host add myminio http://minio:9000 test_access_key test_secret_access_key;
       /usr/bin/mc mb myminio/test;"
   pushgateway:
@@ -62,10 +77,13 @@ services:
     profiles:
       - test-notification-services
     image: quay.io/cloudservices/ccx-notification-writer:latest
+    depends_on:
+      database:
+        condition: service_healthy
     entrypoint:
       - /bin/sh
       - -c
-      - 'sleep 5 && export CCX_NOTIFICATION_WRITER__STORAGE__DB_DRIVER=postgres CCX_NOTIFICATION_WRITER__STORAGE__PG_PARAMS="sslmode=disable" CCX_NOTIFICATION_WRITER__STORAGE__PG_USERNAME=postgres CCX_NOTIFICATION_WRITER__STORAGE__PG_PASSWORD=postgres CCX_NOTIFICATION_WRITER__STORAGE__PG_HOST=database CCX_NOTIFICATION_WRITER__STORAGE__PG_PORT=5432 CCX_NOTIFICATION_WRITER__STORAGE__PG_DB_NAME=notification && ./ccx-notification-writer --db-init-migration && ./ccx-notification-writer --db-init && ./ccx-notification-writer --migrate latest'
+      - 'export CCX_NOTIFICATION_WRITER__STORAGE__DB_DRIVER=postgres CCX_NOTIFICATION_WRITER__STORAGE__PG_PARAMS="sslmode=disable" CCX_NOTIFICATION_WRITER__STORAGE__PG_USERNAME=postgres CCX_NOTIFICATION_WRITER__STORAGE__PG_PASSWORD=postgres CCX_NOTIFICATION_WRITER__STORAGE__PG_HOST=database CCX_NOTIFICATION_WRITER__STORAGE__PG_PORT=5432 CCX_NOTIFICATION_WRITER__STORAGE__PG_DB_NAME=notification && ./ccx-notification-writer --db-init-migration && ./ccx-notification-writer --db-init && ./ccx-notification-writer --migrate latest'
 
   content-service:
     profiles:
@@ -84,17 +102,26 @@ services:
     image: postgres:13.9
     volumes:
       - ./setup/:/tmp/setup-scripts
-    entrypoint: sh
+    depends_on:
+      database:
+        condition: service_healthy
     environment:
       - PGPASSWORD=postgres
-    command: >
-      psql 
-        --username=postgres --host=db --port=5432 --dbname notification
+    entrypoint:
+      - /bin/sh
+      - -c
+      - "PGPASSWORD=postgres psql \
+        --username=postgres \
+        --host=database \
+        --port=5432 \
+        --dbname notification \
         -f /tmp/setup-scripts/ocm_service_log.sql
+        "
 
   service-log:
     depends_on:
-      - init-service-log-db
+      init-service-log-db:
+        condition: service_completed_successfully
     profiles:
       - no-mock
     image: quay.io/ccxdev/ocm-service-log
@@ -103,7 +130,7 @@ services:
       - 8083:8083 # Healthcheck
       - 8080:8080 # Metrics
     command: >
-      sh -c "echo db > secrets/db.host
+      sh -c "echo database > secrets/db.host
         ./ocm-service-log serve \
         --api-server-bindaddress "localhost:8000" \
         --health-check-server-bindaddress "localhost:8083" \
