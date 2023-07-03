@@ -25,7 +25,8 @@ from behave import given, then, when
 def check_service_started(context, hostname, port, attempts=5):
     """Try to query http://<hostname>:<port>/openapi.json.
 
-    Any response is valid as it means the service started"""
+    Any response is valid as it means the service started
+    """
     while attempts > 0:
         time.sleep(0.1)
         try:
