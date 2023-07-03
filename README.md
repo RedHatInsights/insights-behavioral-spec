@@ -27,13 +27,13 @@ POSTGRES_DB_NAME=test docker-compose --profile test-exporter up -d
 POSTGRES_DB_NAME=notification docker-compose --profile test-notification-services up -d
 ```
 
-The `POSTGRES_DB_NAME` environment variable is mandatory, as the different services expect different database names.
+The `POSTGRES_DB_NAME` environment variable is mandatory, as the different services expect different database names: `notification` is used by services related with notification service, and `test` for the rest.
 
 If you don't want to spin up the containers, you'll need to locally run the required services (database, Kafka, etc.). You may need to add or remove the `managed` tag in the `${SERVICE}_tests.sh`.
 
 > **_NOTE:_**  Don't forget to set up `PATH` environment variable correctly when tests are run outside containers. That environment variable needs to also contain directory with tested executable files (for example `insights-results-aggregator-cleaner` etc.)
 
-If you want to run the real dependencies (content-service and service log), run `POSTGRES_DB_NAME=notification docker-compose --profile no-mock up -d` instead and `export WITHMOCK=0`.
+If you want to run the real dependencies (content-service and service log), run `POSTGRES_DB_NAME=<test|notification> docker-compose --profile no-mock up -d` instead and `export WITHMOCK=0`.
 
 Run the tests for your repository, for example:
 
