@@ -19,6 +19,7 @@ import os
 import subprocess
 import time
 from behave import given, when
+from common_http import check_service_started
 
 
 @given("The CCX Data Engineering Service is running on port {port:d} with envs")
@@ -43,7 +44,7 @@ def start_ccx_upgrades_data_eng(context, port):
 
     popen = subprocess.Popen(params, stdout=f, stderr=f, env=env)
     assert popen is not None
-    time.sleep(2)
+    check_service_started(context, "localhost", port, attempts=10)
     context.add_cleanup(popen.terminate)
 
 
@@ -55,7 +56,8 @@ def start_RHOBS_mock_service(context, port):
     f = open(f"logs/ccx-upgrades-data-eng/{context.scenario}.log", "w")
     popen = subprocess.Popen(params, stdout=f, stderr=f)
     assert popen is not None
-    time.sleep(0.5)
+    # time.sleep(0.5)
+    check_service_started(context, "localhost", port)
     context.add_cleanup(popen.terminate)
     context.mock_rhobs = popen
 
