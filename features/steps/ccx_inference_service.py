@@ -48,7 +48,7 @@ def start_ccx_inference_mock_service(context, port):
 
 
 @when("I stop the mock CCX Inference Service")
-def start_ccx_inference_mock_service(context):
+def stop_ccx_inference_mock_service(context):
     """Stop mocked inference service."""
     context.mock_inference.terminate()
     time.sleep(0.5)

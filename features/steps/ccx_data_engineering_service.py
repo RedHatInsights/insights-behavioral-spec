@@ -61,10 +61,10 @@ def start_RHOBS_mock_service(context, port):
 
 
 @when("I stop the mock RHOBS Service")
-def start_ccx_inference_mock_service(context):
+def stop_RHOBS_mock_service(context):
     """Stop mocked RHOBS service."""
     context.mock_rhobs.terminate()
     time.sleep(0.5)
     poll = context.mock_rhobs.poll()
     if poll is None:
-        raise Exception("mock inference subprocess is still alive!")
+        raise Exception("mock RHOBS subprocess is still alive!")
