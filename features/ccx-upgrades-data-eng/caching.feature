@@ -68,13 +68,13 @@ Feature: Upgrade Risks Prediction Data Engineering - test correct behavior of th
       | CACHE_TTL                   | 10                                     |
       | CACHE_SIZE                  | 0                                      |
     When I request the cluster endpoint in localhost:8000 with path aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/upgrade-risks-prediction
-    And I store the response for aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee for comparison
+     And I store the response for aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee for comparison
     Then The status code of the response is 200
     When I stop the mock CCX Inference Service
-    And I stop the mock RHOBS Service
+     And I stop the mock RHOBS Service
     When I request the cluster endpoint in localhost:8000 with path aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/upgrade-risks-prediction
     Then The status code of the response is 500
-    And The response is different from the previous response for aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+     And The response is different from the previous response for aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
 
 
   Scenario: Check Data Engineering Service response with a valid cluster ID is properly cached
@@ -112,30 +112,18 @@ Feature: Upgrade Risks Prediction Data Engineering - test correct behavior of th
       | OAUTHLIB_INSECURE_TRANSPORT | 1                                      |
       | CACHE_ENABLED               | 1                                      |
       | CACHE_TTL                   | 60                                     |
-      | CACHE_SIZE                  | 3                                      |
+      | CACHE_SIZE                  | 1                                      |
     When I request the cluster endpoint in localhost:8000 with path aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/upgrade-risks-prediction
     And I store the response for aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee for comparison
     Then The status code of the response is 200
     When I request the cluster endpoint in localhost:8000 with path aaaaaaaa-bbbb-cccc-dddd-000000000000/upgrade-risks-prediction
     And I store the response for aaaaaaaa-bbbb-cccc-dddd-000000000000 for comparison
     Then The status code of the response is 200
-    When I request the cluster endpoint in localhost:8000 with path 44444444-3333-2222-1111-111111111111/upgrade-risks-prediction
-    And I store the response for 44444444-3333-2222-1111-111111111111 for comparison
-    Then The status code of the response is 200
-    When I request the cluster endpoint in localhost:8000 with path 00000000-1111-2222-3333-444444444444/upgrade-risks-prediction
-    And I store the response for 00000000-1111-2222-3333-444444444444 for comparison
-    Then The status code of the response is 404
     When I stop the mock CCX Inference Service
     And I stop the mock RHOBS Service
     And I request the cluster endpoint in localhost:8000 with path aaaaaaaa-bbbb-cccc-dddd-000000000000/upgrade-risks-prediction
     Then The status code of the response is 200
     And The response is identical to the previous response for aaaaaaaa-bbbb-cccc-dddd-000000000000
-    When I request the cluster endpoint in localhost:8000 with path 44444444-3333-2222-1111-111111111111/upgrade-risks-prediction
-    Then The status code of the response is 200
-    And The response is identical to the previous response for 44444444-3333-2222-1111-111111111111
-    When I request the cluster endpoint in localhost:8000 with path 00000000-1111-2222-3333-444444444444/upgrade-risks-prediction
-    Then The status code of the response is 404
-    And The response is identical to the previous response for 00000000-1111-2222-3333-444444444444
     # Item for aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee is not in the cache anymore, so this fails as RHOBS / inference are not available
     When I request the cluster endpoint in localhost:8000 with path aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/upgrade-risks-prediction
     Then The status code of the response is 500
@@ -154,31 +142,36 @@ Feature: Upgrade Risks Prediction Data Engineering - test correct behavior of th
       | OAUTHLIB_INSECURE_TRANSPORT | 1                                      |
       | CACHE_ENABLED               | 1                                      |
       | CACHE_TTL                   | 60                                     |
-      | CACHE_SIZE                  | 3                                      |
+      | CACHE_SIZE                  | 2                                      |
     When I request the cluster endpoint in localhost:8000 with path aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/upgrade-risks-prediction
     And I store the response for aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee for comparison
     Then The status code of the response is 200
     When I request the cluster endpoint in localhost:8000 with path aaaaaaaa-bbbb-cccc-dddd-000000000000/upgrade-risks-prediction
     And I store the response for aaaaaaaa-bbbb-cccc-dddd-000000000000 for comparison
     Then The status code of the response is 200
-    When I request the cluster endpoint in localhost:8000 with path 44444444-3333-2222-1111-111111111111/upgrade-risks-prediction
-    And I store the response for 44444444-3333-2222-1111-111111111111 for comparison
+    When I request the cluster endpoint in localhost:8000 with path 00000000-1111-2222-3333-444444444444/upgrade-risks-prediction
+     And I store the response for 00000000-1111-2222-3333-444444444444 for comparison
+    Then The status code of the response is 404
+    # repeat the requests so the cache is used and LRU item is evicted
+    When I request the cluster endpoint in localhost:8000 with path aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/upgrade-risks-prediction
+     And I store the response for aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee for comparison
+    Then The status code of the response is 200
+    When I request the cluster endpoint in localhost:8000 with path aaaaaaaa-bbbb-cccc-dddd-000000000000/upgrade-risks-prediction
+     And I store the response for aaaaaaaa-bbbb-cccc-dddd-000000000000 for comparison
     Then The status code of the response is 200
     When I request the cluster endpoint in localhost:8000 with path 00000000-1111-2222-3333-444444444444/upgrade-risks-prediction
-    And I store the response for 00000000-1111-2222-3333-444444444444 for comparison
+     And I store the response for 00000000-1111-2222-3333-444444444444 for comparison
     Then The status code of the response is 404
+    # stop the dependencies to only get responses from cache
     When I stop the mock CCX Inference Service
-    And I stop the mock RHOBS Service
-    And I request the cluster endpoint in localhost:8000 with path aaaaaaaa-bbbb-cccc-dddd-000000000000/upgrade-risks-prediction
+     And I stop the mock RHOBS Service
+     And I request the cluster endpoint in localhost:8000 with path aaaaaaaa-bbbb-cccc-dddd-000000000000/upgrade-risks-prediction
     Then The status code of the response is 200
     And The response is identical to the previous response for aaaaaaaa-bbbb-cccc-dddd-000000000000
-    When I request the cluster endpoint in localhost:8000 with path 44444444-3333-2222-1111-111111111111/upgrade-risks-prediction
-    Then The status code of the response is 200
-    And The response is identical to the previous response for 44444444-3333-2222-1111-111111111111
     When I request the cluster endpoint in localhost:8000 with path 00000000-1111-2222-3333-444444444444/upgrade-risks-prediction
     Then The status code of the response is 404
     And The response is identical to the previous response for 00000000-1111-2222-3333-444444444444
-    # Item for aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee is not in the cache anymore, so this fails as RHOBS / inference are not available
+    # Item for aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee has been evicted, so this fails as RHOBS / inference are not available
     When I request the cluster endpoint in localhost:8000 with path aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/upgrade-risks-prediction
     Then The status code of the response is 500
     And The response is different from the previous response for aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
@@ -195,25 +188,18 @@ Feature: Upgrade Risks Prediction Data Engineering - test correct behavior of th
       | RHOBS_URL                   | http://localhost:9091                  |
       | OAUTHLIB_INSECURE_TRANSPORT | 1                                      |
       | CACHE_ENABLED               | 1                                      |
-      | CACHE_TTL                   | 5                                      |
+      | CACHE_TTL                   | 3                                      |
       | CACHE_SIZE                  | 50                                     |
     When I request the cluster endpoint in localhost:8000 with path aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/upgrade-risks-prediction
-    And I store the response for aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee for comparison
-    When I wait 4 seconds
+     And I store the response for aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee for comparison
+    Then The status code of the response is 200
+    When I stop the mock CCX Inference Service
+     And I stop the mock RHOBS Service
      And I request the cluster endpoint in localhost:8000 with path aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/upgrade-risks-prediction
     Then The status code of the response is 200
-    And The response is identical to the previous response for aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
-    When I request the cluster endpoint in localhost:8000 with path 00000000-1111-2222-3333-444444444444/upgrade-risks-prediction
-    And I store the response for 00000000-1111-2222-3333-444444444444 for comparison
-    Then The status code of the response is 404
-    When I stop the mock CCX Inference Service
-    And I stop the mock RHOBS Service
-    And I wait 1 seconds
-    # cached results for 00000000-1111-2222-3333-444444444444 are still in the cache
-    When I request the cluster endpoint in localhost:8000 with path 00000000-1111-2222-3333-444444444444/upgrade-risks-prediction
-    Then The status code of the response is 404
-    And The response is identical to the previous response for 00000000-1111-2222-3333-444444444444
-    # cached results for aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee were evicted after 5 seconds
-    When I request the cluster endpoint in localhost:8000 with path aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/upgrade-risks-prediction
+     And The response is identical to the previous response for aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+    # cached results for aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee were evicted after 3 seconds
+    When I wait 3 seconds
+     And I request the cluster endpoint in localhost:8000 with path aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/upgrade-risks-prediction
     Then The status code of the response is 500
     And The response is different from the previous response for aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee

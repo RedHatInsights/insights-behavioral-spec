@@ -19,6 +19,7 @@ import subprocess
 import time
 
 from behave import given, when
+from common_http import check_service_started
 
 
 @given("The CCX Inference Service is running on port {port:d}")
@@ -30,7 +31,7 @@ def start_ccx_inference_service(context, port):
     f = open(f"logs/ccx-upgrades-inference/{context.scenario}.log", "w")
     popen = subprocess.Popen(params, stdout=f, stderr=f, env=env)
     assert popen is not None
-    time.sleep(0.5)
+    check_service_started(context, "localhost", port)
     context.add_cleanup(popen.terminate)
 
 
@@ -42,16 +43,16 @@ def start_ccx_inference_mock_service(context, port):
     f = open(f"logs/ccx-upgrades-inference/{context.scenario}.log", "w")
     popen = subprocess.Popen(params, stdout=f, stderr=f)
     assert popen is not None
-    time.sleep(0.5)
+    check_service_started(context, "localhost", port)
+
     context.add_cleanup(popen.terminate)
     context.mock_inference = popen
 
 
 @when("I stop the mock CCX Inference Service")
-def start_ccx_inference_mock_service(context):
+def stop_ccx_inference_mock_service(context):
     """Stop mocked inference service."""
     context.mock_inference.terminate()
-    time.sleep(0.5)
-    poll = context.mock_inference.poll()
-    if poll is None:
-        raise Exception("mock inference subprocess is still alive!")
+    while context.mock_inference.poll() is None:
+        # subprocess is still alive
+        time.sleep(0.1)

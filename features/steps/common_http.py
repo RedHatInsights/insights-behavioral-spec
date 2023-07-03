@@ -15,10 +15,30 @@
 """Common steps for HTTP related operations."""
 
 import json
+import time
 
 import jsonschema
 import requests
 from behave import given, then, when
+
+
+def check_service_started(context, hostname, port, attempts=5, seconds_between_attempts=0.1):
+    """Try to query http://<hostname>:<port>/openapi.json.
+
+    Any response is valid as it means the service started
+    """
+    while attempts > 0:
+        time.sleep(seconds_between_attempts)
+        try:
+            request_endpoint(context, "openapi.json", hostname, port)
+            if context.response is not None:
+                # service started
+                return
+            else:
+                attempts -= 1
+        except requests.ConnectionError:
+            attempts -= 1
+    raise Exception(f"No service seem to be available at http://{hostname}:{port}")
 
 
 @when("I request the {endpoint} endpoint in {hostname:w}:{port:d} with {body} in the body")

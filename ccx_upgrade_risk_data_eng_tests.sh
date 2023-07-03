@@ -45,7 +45,7 @@ function start_mocked_dependencies() {
     pushd "$dir_path"/mocks/rhobs && uvicorn rhobs_service:app --port 8002 &
 
     # shellcheck disable=SC2016
-    add_exit_trap 'kill $(lsof -ti:8001); kill $(lsof -ti:8002);'
+    add_exit_trap 'kill $(lsof -ti:8001); kill $(lsof -ti:8002); kill $(lsof -ti:9090); kill $(lsof -ti:9091);'
     pushd "$dir_path" || exit
     sleep 2  # wait for the mocks to be up
 }
