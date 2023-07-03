@@ -64,7 +64,6 @@ def start_RHOBS_mock_service(context, port):
 def stop_RHOBS_mock_service(context):
     """Stop mocked RHOBS service."""
     context.mock_rhobs.terminate()
-    time.sleep(0.5)
-    poll = context.mock_rhobs.poll()
-    if poll is None:
-        raise Exception("mock RHOBS subprocess is still alive!")
+    while context.mock_rhobs.poll() is None:
+        # subprocess is still alive
+        time.sleep(0.1)

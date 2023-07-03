@@ -51,7 +51,6 @@ def start_ccx_inference_mock_service(context, port):
 def stop_ccx_inference_mock_service(context):
     """Stop mocked inference service."""
     context.mock_inference.terminate()
-    time.sleep(0.5)
-    poll = context.mock_inference.poll()
-    if poll is None:
-        raise Exception("mock inference subprocess is still alive!")
+    while context.mock_inference.poll() is None:
+        # subprocess is still alive
+        time.sleep(0.1)
