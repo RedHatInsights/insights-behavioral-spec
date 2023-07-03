@@ -22,13 +22,13 @@ import requests
 from behave import given, then, when
 
 
-def check_service_started(context, hostname, port, attempts=5):
+def check_service_started(context, hostname, port, attempts=5, seconds_between_attempts=0.1):
     """Try to query http://<hostname>:<port>/openapi.json.
 
     Any response is valid as it means the service started
     """
     while attempts > 0:
-        time.sleep(0.1)
+        time.sleep(seconds_between_attempts)
         try:
             request_endpoint(context, "openapi.json", hostname, port)
             if context.response is not None:
