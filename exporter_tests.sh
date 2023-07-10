@@ -86,9 +86,11 @@ fi
 
 PYTHONDONTWRITEBYTECODE=1 python3 -m behave --tags=-skip -D dump_errors=true @test_list/exporter.txt "$@"
 
+bddExecutionExitCode=$?
+
 # post-run clean up
 # shellcheck disable=SC2181
-if [ $? -eq 0 ]
+if [ $bddExecutionExitCode -eq 0 ]
 then
     rm -- *.csv
     rm _logs.txt
@@ -98,3 +100,5 @@ if [[ "${flag}" == "coverage" ]]
 then
     code_coverage_report
 fi
+
+exit $bddExecutionExitCode

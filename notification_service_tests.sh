@@ -187,7 +187,11 @@ PYTHONDONTWRITEBYTECODE=1 python3 -m behave \
     --tags=-skip --tags=-managed \
     -D dump_errors=true @test_list/notification_service.txt "$@"
 
+bddExecutionExitCode=$?
+
 if [[ "${flag}" == "coverage" ]]
 then
     code_coverage_report
 fi
+
+exit $bddExecutionExitCode

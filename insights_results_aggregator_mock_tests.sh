@@ -70,6 +70,8 @@ fi
 
 PYTHONDONTWRITEBYTECODE=1 python3 -m behave --tags=-skip -D dump_errors=true @test_list/insights_results_aggregator_mock.txt "$@"
 
+bddExecutionExitCode=$?
+
 # stop the Insights Results Aggregator Mock
 killall insights-results-aggregator-mock
 
@@ -77,3 +79,5 @@ if [[ "${flag}" == "coverage" ]]
 then
     code_coverage_report
 fi
+
+exit $bddExecutionExitCode
