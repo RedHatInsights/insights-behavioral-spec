@@ -67,11 +67,14 @@ async def render_reports(request: Request):
     data = await request.json()
 
     reports = []
+
     for cluster_id, cluster_data in data["report_data"]["reports"].items():
         for report in cluster_data["reports"]:
+            if report["component"].endswith('.report'):
+                report["component"] = report["component"][:-7]
             reports.append(
                 {
-                    "rule_id": report["component"][0: report["component"].rfind(".")],
+                    "rule_id": report["component"],
                     "error_key": report["key"],
                     "description": "detailed description",
                     "reason": "detailed report",
