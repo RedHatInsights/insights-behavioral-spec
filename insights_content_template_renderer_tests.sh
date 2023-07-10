@@ -69,3 +69,7 @@ PYTHONDONTWRITEBYTECODE=1 python3 "$(which behave)" \
     --format=progress2 \
     --tags=-skip --tags=-managed \
     -D dump_errors=true @test_list/insights_content_template_renderer.txt "$@"
+
+bddExecutionExitCode=$?
+
+exit $bddExecutionExitCode

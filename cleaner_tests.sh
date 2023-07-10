@@ -78,7 +78,11 @@ fi
 
 PYTHONDONTWRITEBYTECODE=1 python3 -m behave --tags=-skip -D dump_errors=true @test_list/cleaner.txt "$@"
 
+bddExecutionExitCode=$?
+
 if [[ "${flag}" == "coverage" ]]
 then
     code_coverage_report
 fi
+
+exit $bddExecutionExitCode

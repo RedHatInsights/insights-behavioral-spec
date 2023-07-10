@@ -80,3 +80,7 @@ PYTHONDONTWRITEBYTECODE=1 python3 "$(which behave)" \
     --format=progress2 \
     --tags=-skip --tags=-managed \
     -D dump_errors=true @test_list/upgrades_data_eng_service.txt "$@"
+
+bddExecutionExitCode=$?
+
+exit $bddExecutionExitCode
