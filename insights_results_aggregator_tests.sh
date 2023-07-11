@@ -74,9 +74,6 @@ PYTHONDONTWRITEBYTECODE=1 python3 -m behave --tags=-skip -D dump_errors=true @te
 
 bddExecutionExitCode=$?
 
-# stop the Insights Results Aggregator
-killall insights-results-aggregator
-
 # time to disconnect from Kafka and from PostgreSQL
 sleep 2
 

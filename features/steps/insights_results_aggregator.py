@@ -79,6 +79,7 @@ def start_aggregator(context, flag, environment):
 
     # check if subprocess has been started and its output caught
     assert out is not None
+    context.add_cleanup(out.terminate)
 
     # don't check exit code at this stage
     process_generated_output(context, out)
