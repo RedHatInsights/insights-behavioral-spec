@@ -210,6 +210,8 @@ def start_insights_results_aggregator_in_background(context):
     # check if process has been created
     assert process is not None, "Process was not created!"
 
+    context.add_cleanup(process.terminate)
+
     # check if process has been started
     assert process.poll() is None, "Insights Results Aggregator immediatelly finished!"
 

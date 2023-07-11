@@ -135,6 +135,8 @@ def start_ccx_notification_service_with_flag(context, flag):
         params, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env
     )
     assert out is not None
+    context.add_cleanup(out.terminate)
+
     process_ccx_notification_service_output(context, out, context.return_codes)
 
 

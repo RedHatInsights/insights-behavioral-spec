@@ -82,6 +82,8 @@ def start_sha_extractor(context, group_id=None):
         encoding="utf-8",
         env=os.environ.copy(),
     )
+    assert sha_extractor is not None, "Process was not created"
+    context.add_cleanup(sha_extractor.terminate)
     context.sha_extractor = sha_extractor
 
 
