@@ -38,6 +38,7 @@ def run_insights_results_aggregator_mock_with_flag(context, flag):
 
     # check if subprocess has been started and its output caught
     assert out is not None
+    context.add_cleanup(out.terminate)
 
     # it is expected that exit code will be 0 or 2
     process_generated_output(context, out, 2)
@@ -389,7 +390,7 @@ def request_results_for_list_of_clusters(context, org=None, account=None, user=N
 
 
 @then("I should see empty list of reports")
-def step_impl(context):
+def check_list_of_reports_is_empty(context):
     """Check that list of reports returned from the service is empty."""
     json = context.response.json()
     assert json is not None
