@@ -47,7 +47,7 @@ def check_content_service_availability(context, host=None, port=None):
         host is not None and port is not None
     ), "host and port of content service has not been set"
 
-    check_service_started(context, host, port)
+    check_service_started(context, host, port, seconds_between_attempts=1)
 
 
 @given("service-log service is available on {host}:{port:d}")
@@ -62,7 +62,7 @@ def check_service_log_availability(context, host, port):
 @given("token refreshment server is available on {host}:{port:d}")
 def check_token_refreshment_availability(context, host, port):
     """Check if token refreshment server is available at given address."""
-    check_service_started(context, host, port)
+    check_service_started(context, host, port, seconds_between_attempts=1)
     url = create_url(host, port, TOKEN_REFRESHMENT_ENDPOINT)
     body = {
         "grant_type": "client_credentials",
@@ -89,7 +89,7 @@ def check_push_gateway_availability(context, host=None, port=None):
         host is not None and port is not None
     ), "host and port of gateway has not been set"
 
-    check_service_started(context, host, port)
+    check_service_started(context, host, port, seconds_between_attempts=1)
 
 
 def create_url(host, port, endpoint):
