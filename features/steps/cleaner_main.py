@@ -42,6 +42,8 @@ def run_cleaner_for_older_records(context, age):
     # check if subprocess has been started and its output caught
     assert out is not None
 
+    context.add_cleanup(out.terminate)
+
     # it is expected that exit code will be 0
     process_generated_output(context, out, 0)
 
@@ -57,6 +59,8 @@ def run_cleaner_with_flag(context, flag):
 
     # check if subprocess has been started and its output caught
     assert out is not None
+
+    context.add_cleanup(out.terminate)
 
     # it is expected that exit code will be 0 or 2
     process_generated_output(context, out, 2)
@@ -74,6 +78,8 @@ def run_cleaner_to_cleanup_cluster(context, cluster):
     # check if subprocess has been started and its output caught
     assert out is not None
 
+    context.add_cleanup(out.terminate)
+
     # it is expected that exit code will be 0
     process_generated_output(context, out, 0)
 
@@ -89,6 +95,8 @@ def start_db_vacuum(context):
 
     # check if subprocess has been started and its output caught
     assert out is not None
+
+    context.add_cleanup(out.terminate)
 
     # it is expected that exit code will be 0
     process_generated_output(context, out, 0)

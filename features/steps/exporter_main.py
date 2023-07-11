@@ -37,7 +37,6 @@ def run_exporter_with_flag(context, flag):
     process_generated_output(context, out, 2)
 
 
-
 @when(u"I run the exporter with the following command line flags: {flags}")
 def run_exporter_with_flags(context, flags):
     """Start the exporter with given command-line flags."""
@@ -47,6 +46,8 @@ def run_exporter_with_flags(context, flags):
 
     # check if subprocess has been started and its output caught
     assert out is not None
+
+    context.add_cleanup(out.terminate)
 
     # it is expected that exit code will be 0 or 2
     process_generated_output(context, out, 2)

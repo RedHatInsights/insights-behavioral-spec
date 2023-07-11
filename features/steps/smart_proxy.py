@@ -33,6 +33,8 @@ def run_insights_results_aggregator_with_flag(context, flag):
     # check if subprocess has been started and its output caught
     assert out is not None
 
+    context.add_cleanup(out.terminate)
+
     # it is expected that exit code will be 0 or 2
     process_generated_output(context, out, 2)
 

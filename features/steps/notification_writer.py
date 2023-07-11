@@ -60,6 +60,8 @@ def start_ccx_notification_writer_with_flag(context, flag):
     )
 
     assert out is not None
+    context.add_cleanup(out.terminate)
+
     process_ccx_notification_writer_output(context, out, 2)
 
 
@@ -153,11 +155,6 @@ def notification_writer_db_empty(context):
     # first step - drop all tables, together with theirs content
     # TODO: --drop-tables does not delete the tables created by migrations, so --migrate fails
 
-    # out = subprocess.Popen(
-    #    ["ccx-notification-writer", "--db-drop-tables"],
-    #    stdout=subprocess.PIPE,
-    #    stderr=subprocess.STDOUT,
-    # )
     from steps.notification_database import ensure_database_emptiness
 
     ensure_database_emptiness(context)
