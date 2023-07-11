@@ -20,6 +20,8 @@ import requests
 
 from behave import given, then, when
 
+from common_http import check_service_started
+
 CONTENT_SERVICE_OPENAPI_ENDPOINT = "/api/v1/openapi.json"
 SERVICE_LOG_CLUSTER_LOGS_ENDPOINT = "/api/service_logs/v1/cluster_logs"
 PUSH_GATEWAY_METRICS_ENDPOINT = "/metrics"
@@ -45,14 +47,13 @@ def check_content_service_availability(context, host=None, port=None):
         host is not None and port is not None
     ), "host and port of content service has not been set"
 
-    url = create_url(host, port, CONTENT_SERVICE_OPENAPI_ENDPOINT)
-    response = requests.get(url)
-    assert response.status_code == 200
+    check_service_started(context, host, port)
 
 
 @given("service-log service is available on {host}:{port:d}")
 def check_service_log_availability(context, host, port):
     """Check if service-log is available at given address."""
+    check_service_started(context, host, port)
     url = create_url(host, port, SERVICE_LOG_CLUSTER_LOGS_ENDPOINT)
     response = requests.get(url, headers={"Authorization": "TEST_TOKEN"})
     assert response.status_code == 200, "service log is not up"
@@ -61,6 +62,7 @@ def check_service_log_availability(context, host, port):
 @given("token refreshment server is available on {host}:{port:d}")
 def check_token_refreshment_availability(context, host, port):
     """Check if token refreshment server is available at given address."""
+    check_service_started(context, host, port)
     url = create_url(host, port, TOKEN_REFRESHMENT_ENDPOINT)
     body = {
         "grant_type": "client_credentials",
@@ -87,9 +89,7 @@ def check_push_gateway_availability(context, host=None, port=None):
         host is not None and port is not None
     ), "host and port of gateway has not been set"
 
-    url = create_url(host, port, PUSH_GATEWAY_METRICS_ENDPOINT)
-    response = requests.get(url)
-    assert response.status_code == 200
+    check_service_started(context, host, port)
 
 
 def create_url(host, port, endpoint):
