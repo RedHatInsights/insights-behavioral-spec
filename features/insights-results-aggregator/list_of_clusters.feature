@@ -5,7 +5,7 @@ Feature: Checking responses from Insights Results Aggregator service: "{organiza
   Background:
     Given REST API service hostname is localhost
       And REST API service port is 8080
-      And REST API service prefix is api/v1
+      And REST API service prefix is /api/v1
       And the database is named test
       And database user is set to postgres
       And database password is set to postgres
