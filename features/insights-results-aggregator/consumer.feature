@@ -5,7 +5,7 @@ Feature: Consuming and processing results from Kafka broker
   Background:
     Given REST API service hostname is localhost
       And REST API service port is 8080
-      And REST API service prefix is api/v1
+      And REST API service prefix is /api/v1
       And the database is named test
       And database user is set to postgres
       And database password is set to postgres
@@ -36,8 +36,8 @@ Feature: Consuming and processing results from Kafka broker
         | 01234567-89ab-cdef-0123-456789abcdef |
      When I terminate Insights Results Aggregator
      Then Insights Results Aggregator process should terminate
- 
- 
+
+
   @managed @local
   Scenario: Check if Insights Results Aggregator is able to consume messages and store results into database for multiple results
      When I access endpoint /organizations/123/clusters using HTTP GET method using token for organization 123 account number 456, and user 789
@@ -102,8 +102,8 @@ Feature: Consuming and processing results from Kafka broker
           | rule | tutorial_rule | TUTORIAL_ERROR |
      When I terminate Insights Results Aggregator
      Then Insights Results Aggregator process should terminate
- 
- 
+
+
   @managed @local
   Scenario: Check rule hits after Insights Results Aggregator consumes message and stores results into database for multiple results
      When I access endpoint /organizations/123/clusters using HTTP GET method using token for organization 123 account number 456, and user 789
@@ -185,8 +185,8 @@ Feature: Consuming and processing results from Kafka broker
           | rule | tutorial_rule | TUTORIAL_ERROR |
      When I terminate Insights Results Aggregator
      Then Insights Results Aggregator process should terminate
- 
- 
+
+
   @managed @local
   Scenario: Check rule hits after Insights Results Aggregator consumes message and stores results into database for multiple clusters
      When I access endpoint /organizations/123/clusters using HTTP GET method using token for organization 123 account number 456, and user 789

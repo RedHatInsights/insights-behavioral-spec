@@ -5,7 +5,7 @@ Feature: Checking responses from Insights Results Aggregator service: "organizat
   Background:
     Given REST API service hostname is localhost
       And REST API service port is 8080
-      And REST API service prefix is api/v1
+      And REST API service prefix is /api/v1
       And the database is named test
       And database user is set to postgres
       And database password is set to postgres
@@ -18,7 +18,7 @@ Feature: Checking responses from Insights Results Aggregator service: "organizat
 
 
   @rest-api @json-check
-  Scenario: Check if empty list of organizations is returned in case 'report' table is empty
+  Scenario: Check if empty list of organizations is returned when report table is empty
     Given the system is in default state
      When I access endpoint /organizations using HTTP GET method using token for organization 123 account number 456, and user 789
      Then The status code of the response is 200
@@ -29,7 +29,7 @@ Feature: Checking responses from Insights Results Aggregator service: "organizat
 
 
   @rest-api @json-check
-  Scenario: Check if list with one organization is returned in case 'report' table contains one report only
+  Scenario: Check if list with one organization is returned when report table contains one report only
     Given the system is in default state
       And empty reports are stored for following clusters
         | organization | cluster ID                           |
@@ -45,7 +45,7 @@ Feature: Checking responses from Insights Results Aggregator service: "organizat
 
 
   @rest-api @json-check
-  Scenario: Check if list with one organization is returned in case 'report' table contains reports for one organization only
+  Scenario: Check if list with one organization is returned when report table contains reports for one organization only
     Given the system is in default state
       And empty reports are stored for following clusters
         | organization | cluster ID                           |
@@ -62,7 +62,7 @@ Feature: Checking responses from Insights Results Aggregator service: "organizat
 
 
   @rest-api @json-check
-  Scenario: Check if list with two organizations is returned in case 'report' table contains reports for two organizations
+  Scenario: Check if list with two organizations is returned when report table contains reports for two organizations
     Given the system is in default state
       And empty reports are stored for following clusters
         | organization | cluster ID                           |
@@ -80,7 +80,7 @@ Feature: Checking responses from Insights Results Aggregator service: "organizat
 
 
   @rest-api @json-check
-  Scenario: Check if list with two organizations is returned in case 'report' table contains multiple reports for two organizations
+  Scenario: Check if list with two organizations is returned when report table contains multiple reports for two organizations
     Given the system is in default state
       And empty reports are stored for following clusters
         | organization | cluster ID                           |
