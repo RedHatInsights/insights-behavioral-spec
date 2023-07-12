@@ -34,6 +34,7 @@ pg_port = 5432
 pg_db_name = "wrong-one"
 pg_params = "sslmode=disable"
 log_sql_queries = true
+type = "sql"
 
 [content]
 path = "/rules-content"
