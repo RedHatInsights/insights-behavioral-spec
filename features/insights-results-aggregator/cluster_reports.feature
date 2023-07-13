@@ -73,7 +73,7 @@ Feature: Checks for cluster reports provided by Insights Results Aggregator
                 },
                 "errors": {
                   "type": "array",
-                  "items": [
+                  "prefixItems": [
                     {
                       "type": "string"
                     }
@@ -121,7 +121,7 @@ Feature: Checks for cluster reports provided by Insights Results Aggregator
                 },
                 "errors": {
                   "type": "array",
-                  "items": [
+                  "prefixItems": [
                     {
                       "type": "string"
                     }
@@ -192,7 +192,7 @@ Feature: Checks for cluster reports provided by Insights Results Aggregator
                 },
                 "errors": {
                   "type": "array",
-                  "items": [
+                  "prefixItems": [
                     {
                       "type": "string"
                     }
