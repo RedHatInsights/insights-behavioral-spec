@@ -260,15 +260,6 @@ nav_order: 3
 * Sorting by different columns at on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
 * Sorting by Risk of change on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
 
-## `Notification_Service/customer_notifications.feature`
-
-* Check that notification service has all the information it needs to work properly
-* Check that notification service produces instant notifications with the expected content
-* Check that notification service produces instant notifications with the expected content
-* Check that notification are sent to user when events are sent to the notification service's kafka topic
-* Check that instant notification does not include the same reports as in previous notification
-* Check that notification service does not flood custer with unnecessary instant emails
-
 ## `SHA_Extractor/sha_extractor.feature`
 
 * Check that SHA extractor service has all the information and interfaces it needs to work properly
@@ -430,11 +421,11 @@ nav_order: 3
 
 ## `insights-results-aggregator/list_of_organizations.feature`
 
-* Check if empty list of organizations is returned in case 'report' table is empty
-* Check if list with one organization is returned in case 'report' table contains one report only
-* Check if list with one organization is returned in case 'report' table contains reports for one organization only
-* Check if list with two organizations is returned in case 'report' table contains reports for two organizations
-* Check if list with two organizations is returned in case 'report' table contains multiple reports for two organizations
+* Check if empty list of organizations is returned when report table is empty
+* Check if list with one organization is returned when report table contains one report only
+* Check if list with one organization is returned when report table contains reports for one organization only
+* Check if list with two organizations is returned when report table contains reports for two organizations
+* Check if list with two organizations is returned when report table contains multiple reports for two organizations
 
 ## `insights-results-aggregator/results_for_cluster_list.feature`
 
@@ -918,6 +909,16 @@ nav_order: 3
 
 * Check if CCX Upgrade Risk Inference Service application is available
 * Check if CCX Upgrade Risk Inference Service can be run
+
+## `ccx-upgrades-data-eng/caching.feature`
+
+* Check that nothing is cached if CACHE_ENABLED is set to 0
+* Check that nothing is cached if CACHE_TTL is set to 0
+* Check that nothing is cached if CACHE_SIZE is set to 0
+* Check Data Engineering Service response with a valid cluster ID is properly cached
+* Check maximum size of cache
+* Check LRU eviction of items if maximum size is reached
+* Check that entries are evicted properly when TTL expires
 
 ## `ccx-upgrades-data-eng/request_prediction.feature`
 
