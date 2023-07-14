@@ -40,7 +40,7 @@ def check_build_time(context):
 @then("BuildVersion is in the proper format")
 def check_build_version(context):
     """Check build version taken from service output."""
-    pattern = re.compile(r"[0-9].[0-9]*")
+    pattern = re.compile(r"v[0-9].[0-9]*")
     match = re.match(pattern, context.response.json()["info"]["BuildVersion"])
     assert match.group(0), "BuildVersion is in the wrong format"
 
