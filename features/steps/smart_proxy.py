@@ -83,7 +83,7 @@ def check_version_from_smart_proxy(context):
 
     # check the output, line by line
     for line in context.output:
-        if "Version: v" in line:
+        if "Version:\tv" in line:
             break
     else:
         raise Exception("Improper or missing version info in {}".format(context.output))
