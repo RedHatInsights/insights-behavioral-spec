@@ -252,7 +252,7 @@ def check_insights_results_aggregator_termination(context):
 @when("I access endpoint {endpoint} using HTTP GET method using token for organization {org} account number {account}, and user {user}")  # noqa: E501
 def access_rest_api_endpoint_get_using_token(context, endpoint, org, account, user):
     """Access Insights Results Aggregator service using token generated from provided IDs."""
-    url = f"http://{context.hostname}:{context.port}/{context.api_prefix}{endpoint}"
+    url = f"http://{context.hostname}:{context.port}{context.api_prefix}{endpoint}"
 
     # construct RH identity token for provided user info
     token = construct_rh_token(org, account, user)
@@ -290,7 +290,7 @@ def check_empty_list_of_clusters(context):
 @when("I ask for list of all disabled rules for organization {org} account number {account}, and user {user}")  # noqa E501
 def request_list_of_disbled_acked_rules_from_aggregator(context, org, account, user):
     """Send request to tested service to return list of all disabled rules."""
-    url = f"http://{context.hostname}:{context.port}/{context.api_prefix}/rules/organizations/{org}/disabled_system_wide"  # noqa E501
+    url = f"http://{context.hostname}:{context.port}{context.api_prefix}/rules/organizations/{org}/disabled_system_wide"  # noqa E501
 
     # construct RH identity token for provided user info
     token = construct_rh_token(org, account, user)
@@ -307,7 +307,7 @@ def request_list_of_disbled_acked_rules_from_aggregator(context, org, account, u
 @when("I enable rule {rule_id} with error key {error_key} for organization {org} account number {account}, and user {user}")  # noqa E501
 def enable_rule_in_aggregator(context, rule_id, error_key, org, account, user):
     """Try to enable rule in Insights Results Aggregator."""
-    url = f"http://{context.hostname}:{context.port}/{context.api_prefix}/rules/{rule_id}/error_key/{error_key}/organizations/{org}/enable"  # noqa E501
+    url = f"http://{context.hostname}:{context.port}{context.api_prefix}/rules/{rule_id}/error_key/{error_key}/organizations/{org}/enable"  # noqa E501
 
     # construct RH identity token for provided user info
     token = construct_rh_token(org, account, user)
@@ -324,7 +324,7 @@ def enable_rule_in_aggregator(context, rule_id, error_key, org, account, user):
 @when("I disable rule {rule_id} with error key {error_key} for organization {org} account number {account} and user {user} with justification '{justification}'")  # noqa E501
 def disable_rule_in_aggregator(context, rule_id, error_key, org, account, user, justification):
     """Try to disable rule in Insights Results Aggregator."""
-    url = f"http://{context.hostname}:{context.port}/{context.api_prefix}/rules/{rule_id}/error_key/{error_key}/organizations/{org}/disable"  # noqa E501
+    url = f"http://{context.hostname}:{context.port}{context.api_prefix}/rules/{rule_id}/error_key/{error_key}/organizations/{org}/disable"  # noqa E501
 
     # construct RH identity token for provided user info
     token = construct_rh_token(org, account, user)
@@ -332,9 +332,11 @@ def disable_rule_in_aggregator(context, rule_id, error_key, org, account, user, 
     # construct object to be send to the service
     json_request_body = {"justification": justification}
 
+    headers = {"x-rh-identity": token, "Content-Type": "application/json"}
+
     # use the token and request body
     context.response = requests.put(
-        url, headers={"x-rh-identity": token}, json=json_request_body, timeout=TIMEOUT
+        url, headers=headers, json=json_request_body, timeout=TIMEOUT
     )
 
     # basic check if service responded
@@ -344,7 +346,7 @@ def disable_rule_in_aggregator(context, rule_id, error_key, org, account, user, 
 @when("I update rule {rule_id} with error key {error_key} for organization {org} account number {account} and user {user} with justification '{justification}'")  # noqa E501
 def update_rule_in_aggregator(context, rule_id, error_key, org, account, user, justification):
     """Try to update rule in Insights Results Aggregator."""
-    url = f"http://{context.hostname}:{context.port}/{context.api_prefix}/rules/{rule_id}/error_key/{error_key}/organizations/{org}/update"  # noqa E501
+    url = f"http://{context.hostname}:{context.port}{context.api_prefix}/rules/{rule_id}/error_key/{error_key}/organizations/{org}/update"  # noqa E501
 
     # construct RH identity token for provided user info
     token = construct_rh_token(org, account, user)
