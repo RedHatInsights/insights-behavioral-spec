@@ -22,6 +22,7 @@ from kafka.admin import NewTopic
 from kafka import KafkaProducer, KafkaConsumer
 from kafka import KafkaAdminClient
 from kafka.errors import UnknownTopicOrPartitionError, TopicAlreadyExistsError
+from behave.runner import Context
 
 
 class SendEventException(Exception):
@@ -43,7 +44,7 @@ def create_topic(hostname, topic_name):
         print(f"{topic_name} topic already exists")
 
 
-def delete_topic(context, topic):
+def delete_topic(context: Context, topic):
     """Delete a Kafka topic."""
     admin_client = KafkaAdminClient(
         bootstrap_servers=[f"{context.kafka_hostname}:{context.kafka_port}"]
