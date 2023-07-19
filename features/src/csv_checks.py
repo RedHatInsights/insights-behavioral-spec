@@ -15,9 +15,10 @@
 """CSV-related code."""
 
 import csv
+from behave.runner import Context
 
 
-def check_table_content(context, buff, filename, column, column2=None, headers=True):
+def check_table_content(context: Context, buff, filename, column, column2=None, headers=True):
     """Check if CSV file or CSV object contains records specified in test context."""
     # CSV file object
     csvFile = csv.reader(buff)
