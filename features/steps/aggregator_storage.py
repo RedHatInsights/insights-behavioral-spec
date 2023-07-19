@@ -14,7 +14,7 @@
 
 """Insights results aggregator database-related operations performed by BDD tests."""
 
-from behave import then, when
+from behave import given, then, when
 import psycopg2
 from environment import prepare_db, CLEANUP_FILES, DB_INIT_FILES
 

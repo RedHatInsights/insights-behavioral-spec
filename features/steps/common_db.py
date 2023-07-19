@@ -1,4 +1,4 @@
-# Copyright © 2022 Red Hat, Inc.
+# Copyright © 2022, 2023 Red Hat, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 
 
 import psycopg2
-from behave import when, then
+from behave import given, when, then
 
 
 @given(u"the database is named {name}")
