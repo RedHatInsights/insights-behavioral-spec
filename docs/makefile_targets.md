@@ -35,6 +35,7 @@ docs-style                          Check documentation strings in all Python so
 shellcheck                          Run shellcheck
 update-scenarios                    Update list of scenarios for GitHub pages
 docker-build                        Build Docker images that can be used for tests
+install-type-libraries              Install libraries with type definitions
 type-checks                         Perform type checks for all sources
 strict-type-checks                  Strict type checks for all sources
 missing-types                       Find all missing types in Python sources
