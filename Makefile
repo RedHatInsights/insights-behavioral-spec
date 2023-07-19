@@ -82,6 +82,9 @@ before_commit: code-style update-scenarios
 docker-build: ## Build Docker images that can be used for tests
 	docker build -t insights-behavioral-spec:ci .
 
+install-type-libraries: ## Install libraries with type definitions
+	pip3 install requirements/mypy.txt
+
 type-checks: ## Perform type checks for all sources
 	MYPYPATH=features/: mypy --explicit-package-bases features
 
