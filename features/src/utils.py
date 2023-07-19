@@ -15,9 +15,10 @@
 """Unsorted utility functions to be used from other sources and test step definitions."""
 
 import base64
+from behave.runner import Context
 
 
-def get_array_from_json(context, selector, subselector=None):
+def get_array_from_json(context: Context, selector, subselector=None):
     """Read all items from an array stored in JSON returned by service."""
     # try to parse response body
     json = context.response.json()
@@ -35,7 +36,7 @@ def get_array_from_json(context, selector, subselector=None):
         return (item[subselector] for item in json[selector])
 
 
-def construct_rh_token(org: int, account: str, user: str) -> str:
+def construct_rh_token(org: int, account: str, user: str) -> bytes:
     """Construct RH identity token for provided user info."""
     # text token
     token = """

@@ -16,9 +16,10 @@
 
 from minio import Minio
 from io import StringIO
+from behave.runner import Context
 
 
-def minio_client(context):
+def minio_client(context: Context):
     """Construct new Minio client."""
     # TODO: secure option might need to be specified via context attribute
     if not hasattr(context, "minio_client"):
@@ -40,14 +41,14 @@ def minio_client(context):
         context.minio_client = client
 
 
-def bucket_check(context):
+def bucket_check(context: Context):
     """Check bucket existence."""
     bucket_name = context.S3_bucket_name
     found = context.minio_client.bucket_exists(bucket_name)
     assert found, f"Bucket {bucket_name} can't be accessed"
 
 
-def read_object_into_buffer(context, object_name):
+def read_object_into_buffer(context: Context, object_name):
     """Read object from pre-selected bucket into a buffer."""
     # retrieve object
     bucket_name = context.S3_bucket_name
@@ -61,7 +62,7 @@ def read_object_into_buffer(context, object_name):
     return buff
 
 
-def get_object_name(context, filename):
+def get_object_name(context: Context, filename):
     """Retrieve object name compatible with S3 and Minio, including older versions."""
     if context.S3_old_minio_compatibility:
         return filename
