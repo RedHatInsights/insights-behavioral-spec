@@ -35,7 +35,7 @@ def get_array_from_json(context, selector, subselector=None):
         return (item[subselector] for item in json[selector])
 
 
-def construct_rh_token(org: int, account, user):
+def construct_rh_token(org: int, account: str, user: str) -> str:
     """Construct RH identity token for provided user info."""
     # text token
     token = """
