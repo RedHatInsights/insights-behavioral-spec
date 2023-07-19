@@ -322,7 +322,7 @@ def enable_rule_in_aggregator(context, rule_id, error_key, organization, account
 
 
 @when("I disable rule {rule_id} with error key {error_key} for organization {organization:d} account number {account} and user {user} with justification '{justification}'")  # noqa E501
-def disable_rule_in_aggregator(context, rule_id, error_key, organization, account, user, justification):
+def disable_rule_in_aggregator(context, rule_id, error_key, organization, account, user, justification):  # noqa E501
     """Try to disable rule in Insights Results Aggregator."""
     url = f"http://{context.hostname}:{context.port}{context.api_prefix}/rules/{rule_id}/error_key/{error_key}/organizations/{organization}/disable"  # noqa E501
 
@@ -344,7 +344,7 @@ def disable_rule_in_aggregator(context, rule_id, error_key, organization, accoun
 
 
 @when("I update rule {rule_id} with error key {error_key} for organization {organization:d} account number {account} and user {user} with justification '{justification}'")  # noqa E501
-def update_rule_in_aggregator(context, rule_id, error_key, organization, account, user, justification):
+def update_rule_in_aggregator(context, rule_id, error_key, organization, account, user, justification):  # noqa E501
     """Try to update rule in Insights Results Aggregator."""
     url = f"http://{context.hostname}:{context.port}{context.api_prefix}/rules/{rule_id}/error_key/{error_key}/organizations/{organization}/update"  # noqa E501
 
