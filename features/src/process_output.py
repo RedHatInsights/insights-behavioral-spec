@@ -59,7 +59,7 @@ def process_generated_output(context, out, return_code=None):
     context.return_code = out.returncode
 
 
-def filter_coverage_message(output):
+def filter_coverage_message(output: str) -> str:
     """Filter message about missing GOCOVERDIR etc."""
     return output.replace(COVERAGE_MESSAGE + "\n", "")
 
