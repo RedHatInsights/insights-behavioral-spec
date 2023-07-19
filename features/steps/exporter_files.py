@@ -1,4 +1,4 @@
-# Copyright © 2022 Pavel Tisnovsky, Red Hat, Inc.
+# Copyright © 2022, 2023 Pavel Tisnovsky, Red Hat, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
 """Implementation of test steps that run Insights Aggregator Exporter and check its output."""
 
 from os.path import exists
+from behave import then
 
 
 @then(u"I should see following files generated")
