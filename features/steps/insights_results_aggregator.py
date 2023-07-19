@@ -249,13 +249,13 @@ def check_insights_results_aggregator_termination(context):
     assert process.poll() is not None, "Insights Results Aggregator should be terminated!"
 
 
-@when("I access endpoint {endpoint} using HTTP GET method using token for organization {org} account number {account}, and user {user}")  # noqa: E501
-def access_rest_api_endpoint_get_using_token(context, endpoint, org, account, user):
+@when("I access endpoint {endpoint} using HTTP GET method using token for organization {organization:d} account number {account}, and user {user}")  # noqa: E501
+def access_rest_api_endpoint_get_using_token(context, endpoint, organization, account, user):
     """Access Insights Results Aggregator service using token generated from provided IDs."""
     url = f"http://{context.hostname}:{context.port}{context.api_prefix}{endpoint}"
 
     # construct RH identity token for provided user info
-    token = construct_rh_token(org, account, user)
+    token = construct_rh_token(organization, account, user)
 
     # use the token
     context.response = requests.get(
@@ -287,13 +287,13 @@ def check_empty_list_of_clusters(context):
         "Expected no clusters but {} has been returned".format(found_clusters)
 
 
-@when("I ask for list of all disabled rules for organization {org} account number {account}, and user {user}")  # noqa E501
-def request_list_of_disbled_acked_rules_from_aggregator(context, org, account, user):
+@when("I ask for list of all disabled rules for organization {organization:d} account number {account}, and user {user}")  # noqa E501
+def request_list_of_disbled_acked_rules_from_aggregator(context, organization, account, user):
     """Send request to tested service to return list of all disabled rules."""
-    url = f"http://{context.hostname}:{context.port}{context.api_prefix}/rules/organizations/{org}/disabled_system_wide"  # noqa E501
+    url = f"http://{context.hostname}:{context.port}{context.api_prefix}/rules/organizations/{organization}/disabled_system_wide"  # noqa E501
 
     # construct RH identity token for provided user info
-    token = construct_rh_token(org, account, user)
+    token = construct_rh_token(organization, account, user)
 
     # use the token
     context.response = requests.get(
@@ -304,13 +304,13 @@ def request_list_of_disbled_acked_rules_from_aggregator(context, org, account, u
     assert context.response is not None
 
 
-@when("I enable rule {rule_id} with error key {error_key} for organization {org} account number {account}, and user {user}")  # noqa E501
-def enable_rule_in_aggregator(context, rule_id, error_key, org, account, user):
+@when("I enable rule {rule_id} with error key {error_key} for organization {organization:d} account number {account}, and user {user}")  # noqa E501
+def enable_rule_in_aggregator(context, rule_id, error_key, organization, account, user):
     """Try to enable rule in Insights Results Aggregator."""
-    url = f"http://{context.hostname}:{context.port}{context.api_prefix}/rules/{rule_id}/error_key/{error_key}/organizations/{org}/enable"  # noqa E501
+    url = f"http://{context.hostname}:{context.port}{context.api_prefix}/rules/{rule_id}/error_key/{error_key}/organizations/{organization}/enable"  # noqa E501
 
     # construct RH identity token for provided user info
-    token = construct_rh_token(org, account, user)
+    token = construct_rh_token(organization, account, user)
 
     # use the token and request body
     context.response = requests.put(
@@ -321,13 +321,13 @@ def enable_rule_in_aggregator(context, rule_id, error_key, org, account, user):
     assert context.response is not None
 
 
-@when("I disable rule {rule_id} with error key {error_key} for organization {org} account number {account} and user {user} with justification '{justification}'")  # noqa E501
-def disable_rule_in_aggregator(context, rule_id, error_key, org, account, user, justification):
+@when("I disable rule {rule_id} with error key {error_key} for organization {organization:d} account number {account} and user {user} with justification '{justification}'")  # noqa E501
+def disable_rule_in_aggregator(context, rule_id, error_key, organization, account, user, justification):  # noqa E501
     """Try to disable rule in Insights Results Aggregator."""
-    url = f"http://{context.hostname}:{context.port}{context.api_prefix}/rules/{rule_id}/error_key/{error_key}/organizations/{org}/disable"  # noqa E501
+    url = f"http://{context.hostname}:{context.port}{context.api_prefix}/rules/{rule_id}/error_key/{error_key}/organizations/{organization}/disable"  # noqa E501
 
     # construct RH identity token for provided user info
-    token = construct_rh_token(org, account, user)
+    token = construct_rh_token(organization, account, user)
 
     # construct object to be send to the service
     json_request_body = {"justification": justification}
@@ -343,13 +343,13 @@ def disable_rule_in_aggregator(context, rule_id, error_key, org, account, user, 
     assert context.response is not None
 
 
-@when("I update rule {rule_id} with error key {error_key} for organization {org} account number {account} and user {user} with justification '{justification}'")  # noqa E501
-def update_rule_in_aggregator(context, rule_id, error_key, org, account, user, justification):
+@when("I update rule {rule_id} with error key {error_key} for organization {organization:d} account number {account} and user {user} with justification '{justification}'")  # noqa E501
+def update_rule_in_aggregator(context, rule_id, error_key, organization, account, user, justification):  # noqa E501
     """Try to update rule in Insights Results Aggregator."""
-    url = f"http://{context.hostname}:{context.port}{context.api_prefix}/rules/{rule_id}/error_key/{error_key}/organizations/{org}/update"  # noqa E501
+    url = f"http://{context.hostname}:{context.port}{context.api_prefix}/rules/{rule_id}/error_key/{error_key}/organizations/{organization}/update"  # noqa E501
 
     # construct RH identity token for provided user info
-    token = construct_rh_token(org, account, user)
+    token = construct_rh_token(organization, account, user)
 
     # construct object to be send to the service
     json_request_body = {"justification": justification}
