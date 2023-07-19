@@ -16,6 +16,9 @@
 
 from os.path import exists
 import csv
+
+from behave import when
+
 from src.csv_checks import check_table_content
 
 
