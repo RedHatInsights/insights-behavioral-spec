@@ -357,8 +357,8 @@ def check_metadata(context):
 
 
 @when("I request results for the following list of clusters")
-@when("I request results for the following list of clusters using token for organization {org} account number {account}, and user {user}")  # noqa: E501
-def request_results_for_list_of_clusters(context, org=None, account=None, user=None):
+@when("I request results for the following list of clusters using token for organization {organization:d} account number {account}, and user {user}")  # noqa: E501
+def request_results_for_list_of_clusters(context, organization=None, account=None, user=None):
     """Send list of clusters in JSON body of request into the service."""
     cluster_list = [item["Cluster name"] for item in context.table]
     assert cluster_list is not None, "Test step definition problem"
@@ -367,11 +367,11 @@ def request_results_for_list_of_clusters(context, org=None, account=None, user=N
     json_request_body = {"clusters": cluster_list}
 
     # use RH identity token if needed
-    if org is not None and account is not None and user is not None:
+    if organization is not None and account is not None and user is not None:
         # URL for Insights Results Aggregator
-        url = f"http://{context.hostname}:{context.port}{context.api_prefix}/organizations/{org}/clusters/reports"  # noqa: E501
+        url = f"http://{context.hostname}:{context.port}{context.api_prefix}/organizations/{organization}/clusters/reports"  # noqa: E501
         # construct RH identity token for provided user info
-        token = construct_rh_token(org, account, user)
+        token = construct_rh_token(organization, account, user)
         # perform POST request
         context.response = requests.post(
             url, headers={"x-rh-identity": token}, json=json_request_body
