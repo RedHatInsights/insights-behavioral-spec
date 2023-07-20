@@ -1,17 +1,17 @@
 Feature: Upgrade Risks Prediction inference - test well known values
 
-  Scenario: Check Inference Service response with no body is sent in the request
+  Background: Inference service is running and well configured to work
     Given The CCX Inference Service is running on port 8000
+
+  Scenario: Check Inference Service response with no body is sent in the request
      When I request the upgrade-risks-prediction endpoint in localhost:8000
      Then The status code of the response is 422
 
   Scenario: Check Inference Service response with an invalid body is used in the request
-    Given The CCX Inference Service is running on port 8000
      When I request the upgrade-risks-prediction endpoint in localhost:8000 with junk in the body
      Then The status code of the response is 422
     
   Scenario: Check Inference Service response with a valid body with invalid data is used in the request
-    Given The CCX Inference Service is running on port 8000
      When I request the upgrade-risks-prediction endpoint in localhost:8000 with JSON
       """
         {
@@ -29,7 +29,6 @@ Feature: Upgrade Risks Prediction inference - test well known values
      Then The status code of the response is 422
 
   Scenario: Check Inference Service predicts risk for degraded operator condition
-    Given The CCX Inference Service is running on port 8000
      When I request the upgrade-risks-prediction endpoint in localhost:8000 with JSON
           """
             {
@@ -92,7 +91,6 @@ Feature: Upgrade Risks Prediction inference - test well known values
           """
 
   Scenario: Check Inference Service does not predict risk for available operator conditions
-    Given The CCX Inference Service is running on port 8000
      When I request the upgrade-risks-prediction endpoint in localhost:8000 with JSON
           """
             {
@@ -143,7 +141,6 @@ Feature: Upgrade Risks Prediction inference - test well known values
           """
 
   Scenario: Check Inference Service predicts risk for 2 alerts with critical severity
-    Given The CCX Inference Service is running on port 8000
      When I request the upgrade-risks-prediction endpoint in localhost:8000 with JSON
           """
             {
@@ -210,7 +207,6 @@ Feature: Upgrade Risks Prediction inference - test well known values
           """
 
 Scenario: Check Inference Service does not predict risk for 2 alerts with info severity
-    Given The CCX Inference Service is running on port 8000
      When I request the upgrade-risks-prediction endpoint in localhost:8000 with JSON
           """
             {
@@ -266,7 +262,6 @@ Scenario: Check Inference Service does not predict risk for 2 alerts with info s
           """
 
   Scenario: Check Inference Service does not predict risk for 1 alert with critical severity
-    Given The CCX Inference Service is running on port 8000
      When I request the upgrade-risks-prediction endpoint in localhost:8000 with JSON
           """
             {
@@ -317,7 +312,6 @@ Scenario: Check Inference Service does not predict risk for 2 alerts with info s
           """
 
   Scenario: Check Inference Service predicts risk for not available operator condition
-    Given The CCX Inference Service is running on port 8000
      When I request the upgrade-risks-prediction endpoint in localhost:8000 with JSON
           """
             {
