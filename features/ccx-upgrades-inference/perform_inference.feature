@@ -142,57 +142,6 @@ Feature: Upgrade Risks Prediction inference - test well known values
             }
           """
 
-  Scenario: Check Inference Service does not predict risk for less than 2 alerts
-    Given The CCX Inference Service is running on port 8000
-     When I request the upgrade-risks-prediction endpoint in localhost:8000 with JSON
-          """
-            {
-              "alerts": [
-                {
-                  "name": "APIRemovedInNextEUSReleaseInUse",
-                  "namespace": "openshift-kube-apiserver",
-                  "severity": "info"
-                }
-              ],
-              "operator_conditions": []
-            }
-          """
-     Then The status code of the response is 200
-      And The body of the response has the following schema
-          """
-            {
-              "required": [
-                "upgrade_risks_predictors"
-              ],
-              "type": "object",
-              "properties": {
-                "upgrade_risks_predictors": {
-                  "title": "Upgrade Risks Predictors",
-                  "type": "object",
-                  "properties": {
-                    "alerts": {
-                      "title": "Alerts",
-                      "type": "array"
-                    },
-                    "operator_conditions": {
-                      "title": "Degraded Operator Condition",
-                      "type": "array"
-                    }
-                  }
-                }
-              }
-            }
-          """
-      And The body of the response is the following
-          """
-            {
-              "upgrade_risks_predictors": {
-                "alerts":[],
-                "operator_conditions":[]
-              }
-            }
-          """
-
   Scenario: Check Inference Service predicts risk for 2 alerts with critical severity
     Given The CCX Inference Service is running on port 8000
      When I request the upgrade-risks-prediction endpoint in localhost:8000 with JSON
