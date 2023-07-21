@@ -145,3 +145,7 @@ nav_order: 2
 * [Checking REST API endpoint that returns list of clusters hitting specified rule](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-mock/clusters_hitting_rule.feature)
 * [Checking REST API endpoint that returns results for provided list of clusters](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-mock/results_for_cluster_list.feature)
 
+
+## DVO recommendations result splitted per namespace
+
+* [Main feature](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/DVO_Recommendations/DVO_recommendations.feature)
