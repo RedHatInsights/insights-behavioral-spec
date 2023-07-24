@@ -149,3 +149,4 @@ nav_order: 2
 ## DVO recommendations result splitted per namespace
 
 * [Main feature](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/DVO_Recommendations/DVO_recommendations.feature)
+* [Ability to disable namespace on UI](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/DVO_Recommendations/namespace_disable.feature)]
