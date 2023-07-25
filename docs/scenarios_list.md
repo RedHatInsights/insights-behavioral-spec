@@ -903,7 +903,12 @@ nav_order: 3
 * Check Inference Service response with no body is sent in the request
 * Check Inference Service response with an invalid body is used in the request
 * Check Inference Service response with a valid body with invalid data is used in the request
-* Check Inference Service response with a valid body with valid data is used in the request
+* Check Inference Service predicts risk for degraded operator condition
+* Check Inference Service does not predict risk for available operator conditions
+* Check Inference Service predicts risk for 2 alerts with critical severity
+* Check Inference Service does not predict risk for 2 alerts with info severity
+* Check Inference Service does not predict risk for 1 alert with critical severity
+* Check Inference Service predicts risk for not available operator condition
 
 ## `ccx-upgrades-inference/smoketests.feature`
 
