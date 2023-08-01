@@ -6,7 +6,7 @@ python:
   - "3.9"
   - "3.10-dev"
   - "3.11-dev"
-  - "nightly"  # nightly build
+    # - "nightly"  # nightly build
 addons:
   apt:
     packages:
