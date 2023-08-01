@@ -260,6 +260,16 @@ nav_order: 3
 * Sorting by different columns at on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
 * Sorting by Risk of change on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
 
+## `DVO_Recommendations/DVO_recommendations.feature`
+
+* Existence of new tab named "Workloads" in Insights Advisor
+
+## `DVO_Recommendations/namespace_disable.feature`
+
+
+## `DVO_Recommendations/namespace_feedback.feature`
+
+
 ## `SHA_Extractor/sha_extractor.feature`
 
 * Check that SHA extractor service has all the information and interfaces it needs to work properly

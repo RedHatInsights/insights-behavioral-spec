@@ -34,6 +34,7 @@ SUBDIRECTORIES = (
     "OCP_WebConsole",
     "ACM",
     "Insights_Advisor",
+    "DVO_Recommendations",
     "SHA_Extractor",
     "smart-proxy",
     "insights-content-service",
