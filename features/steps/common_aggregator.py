@@ -14,10 +14,7 @@
 
 """Common steps for DB related operations."""
 
-from behave import then, when, given
-
-import subprocess
-import psycopg2
+from behave import when
 
 
 CREATE_TABLE_ADVISOR_RATINGS = """

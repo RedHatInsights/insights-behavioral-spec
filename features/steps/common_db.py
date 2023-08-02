@@ -16,6 +16,7 @@
 
 
 import psycopg2
+from psycopg2.errors import UndefinedTable
 from behave import given, when, then
 
 

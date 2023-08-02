@@ -14,7 +14,7 @@
 
 """Implementation of common test steps that handles file contents."""
 
-from behave import given, then, when
+from behave import then
 
 
 @then("I should see following messages written into file {filename}")

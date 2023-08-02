@@ -17,7 +17,7 @@
 import subprocess
 
 
-from behave import given, then, when
+from behave import then, when
 
 
 @when("I retrieve a list of all applications running under JVM")
