@@ -14,10 +14,9 @@
 
 """Implementation of test steps that run Smart Proxy and check its output."""
 
-import requests
 import subprocess
 
-from behave import when, then
+from behave import when
 from src.process_output import process_generated_output
 
 
