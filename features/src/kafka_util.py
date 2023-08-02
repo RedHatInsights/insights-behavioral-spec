@@ -15,9 +15,6 @@
 """An interface to Apache Kafka done using kcat utility and Python interface to Kafka."""
 
 
-import subprocess
-import json
-
 from kafka.admin import NewTopic
 from kafka import KafkaProducer, KafkaConsumer
 from kafka import KafkaAdminClient
