@@ -130,7 +130,7 @@ def check_list_of_organizations(context):
     """Check if Insights Results Aggregator Mock service returned expected list of organizations."""
     # construct set of expected organizations
     # from a table provided in feature file
-    expected_organizations = set(int(item["Organization"]) for item in context.table)
+    expected_organizations = {int(item["Organization"]) for item in context.table}
 
     # construct set of actually found organizations
     # from JSON payload returned by the service
@@ -159,7 +159,7 @@ def check_list_of_clusters(context, selector="clusters"):
     """Check if Insights Results Aggregator Mock service returned expected list of clusters."""
     # construct set of expected cluster names
     # from a table provided in feature file
-    expected_clusters = set(item["Cluster name"] for item in context.table)
+    expected_clusters = {item["Cluster name"] for item in context.table}
 
     # construct set of actually found clusters
     # from JSON payload returned by the service
@@ -200,7 +200,7 @@ def check_list_of_groups(context):
     """Check list of groups returned from the service."""
     # construct set of expected group names
     # from a table provided in feature file
-    expected_group_names = set(item["Title"] for item in context.table)
+    expected_group_names = {item["Title"] for item in context.table}
 
     # construct set of actually found group names
     # from JSON payload returned by the service
@@ -413,7 +413,7 @@ def check_reports_for_list_of_clusters(context):
     reports = json["reports"]
 
     # retrieve expected set of clusters
-    expected_clusters = set([item["Cluster name"] for item in context.table])
+    expected_clusters = {[item["Cluster name"] for item in context.table]}
     assert expected_clusters is not None, "Test step definition problem"
 
     # cluster reports found in response
@@ -449,7 +449,7 @@ def check_list_of_unknown_clusters(context):
     """Check if list of unknown clusters returned by service contains expected items."""
     # construct set of expected list of clusters
     # from a table provided in feature file
-    expected_clusters = set(item["Cluster name"] for item in context.table)
+    expected_clusters = {item["Cluster name"] for item in context.table}
     assert expected_clusters is not None, "Test step definition problem"
 
     # construct set of actually found list of clusters
