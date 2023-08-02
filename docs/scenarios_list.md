@@ -263,6 +263,7 @@ nav_order: 3
 ## `DVO_Recommendations/DVO_recommendations.feature`
 
 * Existence of new tab named "Workloads" in Insights Advisor
+* Content displyed on a new tab named "Workloads" in Insights Advisor if no DVO recommendations has been found
 
 ## `DVO_Recommendations/namespace_disable.feature`
 
