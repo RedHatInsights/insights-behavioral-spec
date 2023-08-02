@@ -13,7 +13,6 @@
 # limitations under the License.
 
 """Database-related operations performed by BDD tests."""
-import psycopg2
 from psycopg2.errors import UndefinedTable
 from src.sql import construct_insert_statement
 from behave import given, then, when
