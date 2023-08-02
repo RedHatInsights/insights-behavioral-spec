@@ -16,7 +16,6 @@
 
 
 import subprocess
-import psycopg2
 from behave import given, when, then, step
 from datetime import datetime, timedelta
 from psycopg2.errors import UndefinedTable
