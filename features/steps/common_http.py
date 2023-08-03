@@ -69,7 +69,7 @@ def request_endpoint_with_formatted_body(context, endpoint, hostname, port, key)
     Each row of the table will be converted into an element on an array
     in the request body.
     """
-    values = list()
+    values = []
 
     for row in context.table:
         kind = row["kind"]
@@ -86,7 +86,7 @@ def request_endpoint_with_formatted_body(context, endpoint, hostname, port, key)
 @when("I request the {endpoint} endpoint in {hostname:w}:{port:d} with following parameters")
 def request_endpoint_with_url_params(context, endpoint, hostname, port):
     """Perform a request to the server defined by URL to a given endpoint."""
-    params = dict()
+    params = {}
 
     for row in context.table:
         name = row["param"]
