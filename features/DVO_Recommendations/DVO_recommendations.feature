@@ -94,18 +94,16 @@ Feature: Current way of presenting workload related recommendations is not good
           | Recommendations | Section containing list of recommendations |
      When user look at "Recommendations" section
      Then following sections should be presented
-          | Section          | State                 | Comment                            |
-          | Filter list box  | Description           | first selected item                |
-          | Filter input box | Filter by description | popup help text                    |
-          | Counter          | 0 recommendations     | recommendation counter             |
-          | Recommendations  | empty table           | table with list of recommendations |
-          | 
+          | Section          | State                  | Comment                            |
+          | Filter list box  | Cluster name           | first selected item                |
+          | Filter input box | Filter by cluster name | popup help text                    |
+          | Counter          | 0 recommendations      | recommendation counter             |
+          | Recommendations  | empty table            | table with list of recommendations |
      When user look at "Recommendations table"
      Then that table should contain following five columns in that order
-          | Column         |
-          | Expand button  |
-          | Description    |
-          | Modified       |
-          | First impacted |
-          | Total risk     |
+          | Column         | Comment                                                  |
+          | Expand button  |                                                          |
+          | Cluster name   |                                                          |
+          | App name       | app real name or UID depending on anonymization settings |
+          | App UID        | app = namespace                                          |
       And the table content should be empty
