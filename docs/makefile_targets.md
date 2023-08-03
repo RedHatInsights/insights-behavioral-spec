@@ -31,6 +31,7 @@ smart-proxy-tests                   Run BDD tests for the Insights Results Smart
 smart-proxy-code-coverage           Compute code coverage for Smart Proxy service
 style                               Perform all style checks
 code-style                          Check code style for all Python sources from this repository
+ruff                                Run Ruff linter
 docs-style                          Check documentation strings in all Python sources from this repository
 shellcheck                          Run shellcheck
 update-scenarios                    Update list of scenarios for GitHub pages
