@@ -68,6 +68,9 @@ style:	code-style docs-style shellcheck ## Perform all style checks
 code-style: ## Check code style for all Python sources from this repository
 	python3 tools/run_pycodestyle.py
 
+ruff: ## Run Ruff linter
+	ruff .
+
 docs-style: ## Check documentation strings in all Python sources from this repository
 	pydocstyle .
 
@@ -81,7 +84,7 @@ shellcheck: ## Run shellcheck
 update-scenarios: ## Update list of scenarios for GitHub pages
 	python3 tools/gen_scenario_list.py > docs/scenarios_list.md
 
-before_commit: code-style update-scenarios
+before_commit: code-style update-scenarios ruff
 
 docker-build: ## Build Docker images that can be used for tests
 	docker build -t insights-behavioral-spec:ci .
