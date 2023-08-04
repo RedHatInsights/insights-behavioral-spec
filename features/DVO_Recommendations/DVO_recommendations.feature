@@ -22,7 +22,7 @@ Feature: Current way of presenting workload related recommendations is not good
           | Ansible Automation Platform   | no                         |
      When user selects "OpenShift" from the left side menu
      Then menu on the left side should be changed
-      And the left menu might contain these top level items
+      And the left menu might contain these top level items as can be seen on https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/ui/hcc_menu_advisor.png
           | Left menu item           | Required for this scenario |
           | Clusters                 | no                         |
           | Learning resources       | no                         |
@@ -40,7 +40,7 @@ Feature: Current way of presenting workload related recommendations is not good
           | Documentation            | no                         |
      When user expand "Advisor" top level item
      Then the menu should be expanded under "Advisor" top level item
-      And following new items should be displayed in the sub-menu on the left side
+      And following new items should be displayed in the sub-menu on the left side as can be seen on https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/ui/hcc_workloads_menu_item.png
           | Expanded menu item  | Required for this scenario |
           | Clusters            | no                         |
           | Recommendations     | no                         |
@@ -64,7 +64,7 @@ Feature: Current way of presenting workload related recommendations is not good
           | Ansible Automation Platform   | no                         |
      When user selects "OpenShift" from the left side menu
      Then menu on the left side should be changed
-      And the left menu might contain these top level items
+      And the left menu might contain these top level items as can be seen on https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/ui/hcc_menu_advisor.png
           | Left menu item           | Required for this scenario |
           | Clusters                 | no                         |
           | Learning resources       | no                         |
@@ -82,7 +82,7 @@ Feature: Current way of presenting workload related recommendations is not good
           | Documentation            | no                         |
      When user expand "Advisor" top level item
      Then the menu should be expanded under "Advisor" top level item
-      And following new items should be displayed in the sub-menu on the left side
+      And following new items should be displayed in the sub-menu on the left side as can be seen on https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/ui/hcc_workloads_menu_item.png
           | Expanded menu item  | Required for this scenario |
           | Clusters            | no                         |
           | Recommendations     | no                         |
@@ -125,7 +125,7 @@ Feature: Current way of presenting workload related recommendations is not good
           | Ansible Automation Platform   | no                         |
      When user selects "OpenShift" from the left side menu
      Then menu on the left side should be changed
-      And the left menu might contain these top level items
+      And the left menu might contain these top level items as can be seen on https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/ui/hcc_menu_advisor.png
           | Left menu item           | Required for this scenario |
           | Clusters                 | no                         |
           | Learning resources       | no                         |
@@ -143,7 +143,7 @@ Feature: Current way of presenting workload related recommendations is not good
           | Documentation            | no                         |
      When user expand "Advisor" top level item
      Then the menu should be expanded under "Advisor" top level item
-      And following new items should be displayed in the sub-menu on the left side
+      And following new items should be displayed in the sub-menu on the left side as can be seen on https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/ui/hcc_workloads_menu_item.png
           | Expanded menu item  | Required for this scenario |
           | Clusters            | no                         |
           | Recommendations     | no                         |
