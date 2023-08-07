@@ -37,7 +37,7 @@ Feature: it is expected that customers will see some false positives for
           | Cluster Manager Feedback | no                         |
           | Red Hat Marketplace      | no                         |
           | Documentation            | no                         |
-     When user expand "Advisor" top level item
+     When user expands "Advisor" top level item
      Then the menu should be expanded under "Advisor" top level item
       And following new items should be displayed in the sub-menu on the left side as can be seen on https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/ui/hcc_workloads_menu_item.png
           | Expanded menu item  | Required for this scenario |
@@ -45,7 +45,7 @@ Feature: it is expected that customers will see some false positives for
           | Recommendations     | no                         |
           | Workloads           | yes                        |
      When user select "Workloads" menu item from this sub-menu
-     Then an "Workloads" page should be displayed right of the left menu bar
+     Then a "Workloads" page should be displayed right of the left menu bar
       And that page should contain following controls and widgets
           | Control/widget  | Content                                    |
           | Recommendations | Section containing list of recommendations |
@@ -109,7 +109,7 @@ Feature: it is expected that customers will see some false positives for
           | Cluster Manager Feedback | no                         |
           | Red Hat Marketplace      | no                         |
           | Documentation            | no                         |
-     When user expand "Advisor" top level item
+     When user expands "Advisor" top level item
      Then the menu should be expanded under "Advisor" top level item
       And following new items should be displayed in the sub-menu on the left side as can be seen on https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/ui/hcc_workloads_menu_item.png
           | Expanded menu item  | Required for this scenario |
@@ -117,7 +117,7 @@ Feature: it is expected that customers will see some false positives for
           | Recommendations     | no                         |
           | Workloads           | yes                        |
      When user select "Workloads" menu item from this sub-menu
-     Then an "Workloads" page should be displayed right of the left menu bar
+     Then a "Workloads" page should be displayed right of the left menu bar
       And that page should contain following controls and widgets
           | Control/widget  | Content                                    |
           | Recommendations | Section containing list of recommendations |
