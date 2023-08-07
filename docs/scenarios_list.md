@@ -268,6 +268,8 @@ nav_order: 3
 
 ## `DVO_Recommendations/namespace_disable.feature`
 
+* Command to disable selected DVO recommendation on Insights Advisor
+* Dialog that allow user to disable selected DVO recommendation on Insights Advisor
 
 ## `DVO_Recommendations/namespace_feedback.feature`
 
