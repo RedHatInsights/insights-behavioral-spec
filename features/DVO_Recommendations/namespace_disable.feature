@@ -404,9 +404,9 @@ Feature: it is expected that customers will see some false positives for
           | Disable recommendation for this cluster |
      When user selects this menu item
      Then the dialog to disable recommendation and provide feedback should be displayed
-      And it's layout should be like  https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/ui/hcc_disable_recommendation_feedback.png
+      And it's layout should be like https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/ui/hcc_disable_recommendation_feedback.png
       And the checkbox "Disable only for this cluster" should be checked by default
-     When user fills-in the "Justification" input box
+     When user fills-in the "Justification" input box to look like https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/ui/hcc_disable_justification.png
       And user clicks on "Save" button
      Then the dialog should disappear
       And a "Workloads" page should be displayed
@@ -497,7 +497,7 @@ Feature: it is expected that customers will see some false positives for
       And it's layout should be like  https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/ui/hcc_disable_recommendation_feedback.png
       And the checkbox "Disable only for this cluster" should be checked by default
      When user de-select the checkbox
-      And user fills-in the "Justification" input box
+      And user fills-in the "Justification" input box to look like https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/ui/hcc_disable_justification.png
       And user clicks on "Save" button
      Then the dialog should disappear
       And a "Workloads" page should be displayed
