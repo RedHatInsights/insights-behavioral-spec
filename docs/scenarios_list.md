@@ -272,6 +272,8 @@ nav_order: 3
 * Dialog that allow user to disable selected DVO recommendation on Insights Advisor
 * Disable DVO recommendation for one actually selected cluster in Insights Advisor
 * Disable DVO recommendation for all clusters in Insights Advisor
+* Provide justification when disabling DVO recommendation for one selected cluster in Insights Advisor
+* Provide justification when disabling DVO recommendation for all clusters in Insights Advisor
 
 ## `DVO_Recommendations/namespace_feedback.feature`
 
