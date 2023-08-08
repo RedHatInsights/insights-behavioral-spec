@@ -225,7 +225,7 @@ def check_empty_list_of_records(context):
 def check_non_empty_list_of_records(context):
     """Check if the cleaner displays the suggested clusters."""
     # set of expected clusters
-    expected_clusters = {item["cluster"] for item in context.table}
+    expected_clusters = set(item["cluster"] for item in context.table)
 
     # set of actually found clusters
     found_clusters = set()
