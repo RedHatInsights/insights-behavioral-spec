@@ -35,10 +35,10 @@ Feature: Upgrade Risks Prediction Data Engineering - test well known values
                   {
                     "type": "object",
                     "required": [
-                      "cluster"
+                      "cluster_id"
                     ]
                     "properties": {
-                      "cluster": {
+                      "cluster_id": {
                         "type": "string"
                       },
                       "status": {
@@ -127,11 +127,11 @@ Feature: Upgrade Risks Prediction Data Engineering - test well known values
           {
               "predictions": [
                   {
-                      "cluster": "not-an-uuid",
+                      "cluster_id": "not-an-uuid",
                       "status": "invalid UUID"
                   },
                   {
-                      "cluster": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+                      "cluster_id": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
                       "status": "ok",
                       "upgrade_recommended": false,
                       "upgrade_risks_predictors": {
@@ -155,7 +155,7 @@ Feature: Upgrade Risks Prediction Data Engineering - test well known values
                       "last_checked_at": "2011-11-04T00:05:23Z"
                   },
                   {
-                      "cluster": "44444444-3333-2222-1111-111111111111",
+                      "cluster_id": "44444444-3333-2222-1111-111111111111",
                       "status": "ok",
                       "upgrade_recommended": false,
                       "upgrade_risks_predictors": {
