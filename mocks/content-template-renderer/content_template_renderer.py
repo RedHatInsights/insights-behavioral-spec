@@ -12,8 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Mock of the content-template-renderer service.
+"""Mock of the content-template-renderer service.
 
 The original service is used to interpolate rule templates from content-service
 with report details.

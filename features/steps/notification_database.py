@@ -42,6 +42,7 @@ DB_TABLES_LATEST = (
 
 
 class TableExistsException(Exception):
+
     """Specific exception thrown when tested table exists in database."""
 
     def __init__(self, table):

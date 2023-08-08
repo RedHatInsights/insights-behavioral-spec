@@ -22,6 +22,7 @@ app = FastAPI()
 
 
 class ReturnError(BaseModel):
+
     """Class describing error message returned by token refreshment API."""
 
     error: str

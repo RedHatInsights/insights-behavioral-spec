@@ -23,6 +23,7 @@ from behave.runner import Context
 
 
 class SendEventException(Exception):
+
     """Class representing an exception thrown when send event to Kafka fails."""
 
     def __init__(self, message):
