@@ -431,7 +431,7 @@ nav_order: 3
 ## [`insights-results-aggregator/list_of_clusters.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/list_of_clusters.feature)
 
 * Check if Insights Results Aggregator service returns correct list of clusters for known organization
-* Check if Insights Results Aggregator Mock service return correct list of clusters for organization w/o access rights
+* Check if Insights Results Aggregator service return correct list of clusters for organization w/o access rights
 * Check if Insights Results Aggregator service returns correct list of clusters for known organization and one report
 * Check if Insights Results Aggregator service returns correct list of clusters for known organization and several reports
 * Check if Insights Results Aggregator service returns correct list of clusters for known organization and several reports, some from different organization
@@ -447,12 +447,12 @@ nav_order: 3
 
 ## [`insights-results-aggregator/results_for_cluster_list.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/results_for_cluster_list.feature)
 
-* Check if Insights Results Aggregator Mock service returns results for empty list of clusters
-* Check if Insights Results Aggregator Mock service returns results for non empty list of clusters without proper report
-* Check if Insights Results Aggregator Mock service returns results for non empty list of clusters with proper report
-* Check if Insights Results Aggregator Mock service returns results for non empty list of clusters with proper report and one unknown cluster
-* Check if Insights Results Aggregator Mock service returns results for non empty list of clusters with proper report and two unknown clusters
-* Check if Insights Results Aggregator Mock service returns results for two unknown clusters
+* Check if Insights Results Aggregator service returns results for empty list of clusters
+* Check if Insights Results Aggregator service returns results for non empty list of clusters without proper report
+* Check if Insights Results Aggregator service returns results for non empty list of clusters with proper report
+* Check if Insights Results Aggregator service returns results for non empty list of clusters with proper report and one unknown cluster
+* Check if Insights Results Aggregator service returns results for non empty list of clusters with proper report and two unknown clusters
+* Check if Insights Results Aggregator service returns results for two unknown clusters
 
 ## [`insights-results-aggregator/rule_ack.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/rule_ack.feature)
 
