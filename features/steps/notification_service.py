@@ -27,8 +27,7 @@ TEST_OUTPUT = "test"
 
 
 def parse_max_age(max_age):
-    """
-    Parse max age string.
+    """Parse max age string.
 
     Return parsed text as str if it fits expected format (not really better than
     using {max_age:d} {age_unit:w}, but at least this way it is clear when it
@@ -106,8 +105,7 @@ def store_cleanup_flag(context):
 
 @when("I start the CCX Notification Service with the {flag} command line flag")
 def start_ccx_notification_service_with_flag(context, flag):
-    """
-    Start the CCX Notification Service with given command-line flag.
+    """Start the CCX Notification Service with given command-line flag.
 
     You can pass environment variables in a table with columns "val" and "var":
 
@@ -220,8 +218,7 @@ def check_configuration_info_from_ccx_notification_service(context):
     "than {max_age:Age} displayed on standard output"
 )
 def check_print_new_reports_for_cleanup(context, max_age):
-    """
-    Check message with list of new reports to be cleaned.
+    """Check message with list of new reports to be cleaned.
 
     Check if information about new reports for cleanup is displayed
     by CCX Notification Service.
@@ -244,8 +241,7 @@ def check_print_new_reports_for_cleanup(context, max_age):
     "older than {max_age:Age} displayed on standard output"
 )
 def check_new_reports_cleanup(context, max_age):
-    """
-    Check cleanup of new reports message.
+    """Check cleanup of new reports message.
 
     Check if information about not notified reports cleanup is
     displayed by CCX Notification Service.
@@ -295,8 +291,7 @@ def check_print_old_reports_for_cleanup(context, max_age, age_unit):
     "than {max_age:d} {age_unit:w} displayed on standard output"
 )
 def check_old_reports_cleanup(context, max_age, age_unit):
-    """
-    Check cleanup of old reports message.
+    """Check cleanup of old reports message.
 
     Check if information about notified reports for cleanup
     is displayed by CCX Notification Service.
