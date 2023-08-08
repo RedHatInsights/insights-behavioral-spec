@@ -24,20 +24,26 @@ Feature: Upgrade Risks Prediction Data Engineering - test well known values
       And The body of the response has the following schema
           """
           {
-            "required": [
-              "data"
-            ],
             "type": "object",
+            "required": [
+              "predictions"
+            ],
             "properties": {
-              "data": {
+              "predictions": {
                 "type": "array",
                 "items": [
                   {
                     "type": "object",
+                    "required": [
+                      "cluster"
+                    ]
                     "properties": {
                       "cluster": {
                         "type": "string"
                       },
+                      "status": {
+                        "type": "string",
+                      }
                       "upgrade_recommended": {
                         "type": "boolean"
                       },
@@ -109,10 +115,7 @@ Feature: Upgrade Risks Prediction Data Engineering - test well known values
                       "last_checked_at": {
                         "type": "string"
                       }
-                    },
-                    "required": [
-                      "cluster"
-                    ]
+                    }
                   }
                 ]
               }
@@ -122,12 +125,14 @@ Feature: Upgrade Risks Prediction Data Engineering - test well known values
       And The body of the response, ignoring the "last_checked_at" field, is the following
           """
           {
-              "data": [
+              "predictions": [
                   {
-                      "cluster": "not-an-uuid"
+                      "cluster": "not-an-uuid",
+                      "status": "invalid UUID"
                   },
                   {
                       "cluster": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+                      "status": "ok",
                       "upgrade_recommended": false,
                       "upgrade_risks_predictors": {
                       "alerts": [
@@ -151,6 +156,7 @@ Feature: Upgrade Risks Prediction Data Engineering - test well known values
                   },
                   {
                       "cluster": "44444444-3333-2222-1111-111111111111",
+                      "status": "ok",
                       "upgrade_recommended": false,
                       "upgrade_risks_predictors": {
                       "alerts": [
