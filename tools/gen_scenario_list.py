@@ -22,7 +22,7 @@
 import os
 
 # URL prefix to create links to feature files
-FEATURES_URL_PREFIX = "https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features"
+FEATURES_URL_PREFIX = "https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features"  # noqa E501
 
 # list of prefixes for scenarios or scenario outlines
 PREFIXES = ("Scenario: ", "Scenario Outline: ")
