@@ -138,6 +138,7 @@ ANSWERS = {
 
 
 class Query(BaseModel):
+
     """Simple model used to mock the requests that data-engineering service will perform."""
 
     query: str

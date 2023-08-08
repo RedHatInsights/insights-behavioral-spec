@@ -12,8 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-r"""
-Mock server that can be used instead of fully functional ServiceLog service.
+r"""Mock server that can be used instead of fully functional ServiceLog service.
 
 You can try this mock with:
 
@@ -111,6 +110,7 @@ app = FastAPI()
 
 
 class Log(BaseModel):
+
     """Model for log structure received by Service Log."""
 
     cluster_uuid: str
@@ -127,6 +127,7 @@ class Log(BaseModel):
 
 
 class ReturnLog(Log):
+
     """Log structure enriched by some fields added by Service Log."""
 
     id: str
@@ -138,6 +139,7 @@ class ReturnLog(Log):
 
 
 class ReturnError(BaseModel):
+
     """Structure returned by service when error occurs."""
 
     id: str
