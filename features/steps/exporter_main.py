@@ -86,7 +86,7 @@ Usage of insights-results-aggregator-exporter:
 
     # preliminary checks
     assert stdout is not None, "stdout object should exist"
-    assert type(stdout) is str, "wrong type of stdout object"
+    assert isinstance(stdout, str), "wrong type of stdout object"
 
     # check the output
     assert stdout.strip() == expected_output.strip(), "{} != {}".format(
