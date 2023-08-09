@@ -66,9 +66,11 @@ def retrieve_set_of_clusters_from_table(context: Context) -> Set[str]:
 if __name__ == "__main__":
     # just check the function to retrieve set of clusters from table
     class Context:
+
         """Mock for real context class from Behave."""
+
         def __init__(self, items):
-            """Initializes table attribute to be the same as in Behave.Context."""
+            """Initialize table attribute to be the same as in Behave.Context."""
             self.table = [{"Cluster name": item} for item in items]
 
 
