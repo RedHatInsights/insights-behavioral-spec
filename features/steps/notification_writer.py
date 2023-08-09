@@ -105,7 +105,7 @@ Usage of ccx-notification-writer:
 
     # preliminary checks
     assert stdout is not None, "stdout object should exist"
-    assert type(stdout) is str, "wrong type of stdout object"
+    assert isinstance(stdout, str), "wrong type of stdout object"
 
     # don't mess with silly tabs
 
