@@ -73,7 +73,6 @@ if __name__ == "__main__":
             """Initialize table attribute to be the same as in Behave.Context."""
             self.table = [{"Cluster name": item} for item in items]
 
-
     context = Context([])
     assert retrieve_set_of_clusters_from_table(context) == set()
 
