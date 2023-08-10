@@ -22,3 +22,5 @@ script:
   - make style
   - make doc-check
   - rm tmp.md
+  - make unit_tests
+  - make coverage

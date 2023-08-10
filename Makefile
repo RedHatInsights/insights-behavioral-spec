@@ -6,6 +6,15 @@ tests:	cleaner-tests exporter-tests aggregator-tests aggregator-mock-tests \
 	notification-service-tests notification-writer-tests insights-content-service-tests \
 	inference-service-tests data-engineering-service-tests
 
+unit_tests:
+	pytest -v -p no:cacheprovider
+
+coverage:
+	pytest -v -p no:cacheprovider --cov features/
+
+coverage-report:
+	pytest -v -p no:cacheprovider --cov features/ --cov-report=html
+
 cleaner-tests: ## Run BDD tests for the CCX Cleaner service
 	./cleaner_tests.sh
 
