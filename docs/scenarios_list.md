@@ -266,6 +266,9 @@ nav_order: 3
 * Content displyed on a new tab named "Workloads" in Insights Advisor if no DVO recommendations has been found
 * Content displyed on a new tab named "Workloads" in Insights Advisor if one DVO recommendation has been found
 
+## [`DVO_Recommendations/Smart_Proxy_REST_API.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/DVO_Recommendations/Smart_Proxy_REST_API.feature)
+
+
 ## [`DVO_Recommendations/namespace_disable.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/DVO_Recommendations/namespace_disable.feature)
 
 * Command to disable selected DVO recommendation on Insights Advisor
