@@ -22,7 +22,7 @@ from asserts import assert_sets_equality
 
 
 def test_asserts_sets_equality_equal_sets():
-    """Test the behaviour or assert_sets_equality function."""
+    """Test the behaviour or assert_sets_equality function for equal sets."""
     # equal sets
     assert_sets_equality("something", set(), set())
     assert_sets_equality("something", {1}, {1})
@@ -40,6 +40,7 @@ sets = (
 
 @pytest.mark.parametrize("second_set", sets)
 def test_asserts_sets_equality_inequal_sets(second_set):
+    """Test the behaviour or assert_sets_equality function for inequal sets."""
     # inequal sets
     # exception is expected in such cases
     with pytest.raises(AssertionError):
@@ -48,7 +49,8 @@ def test_asserts_sets_equality_inequal_sets(second_set):
 
 @pytest.mark.parametrize("second_set", sets)
 def test_asserts_sets_equality_empty_set(second_set):
-    # inequal sets
+    """Test the behaviour or assert_sets_equality function for inequal sets (one is empty)."""
+    # inequal sets - one is empty
     # exception is expected in such cases
     with pytest.raises(AssertionError):
         assert_sets_equality("something", set(), second_set)
