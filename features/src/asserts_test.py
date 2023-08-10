@@ -38,6 +38,7 @@ sets = (
         {1, 2, 3},
 )
 
+
 @pytest.mark.parametrize("second_set", sets)
 def test_asserts_sets_equality_inequal_sets(second_set):
     """Test the behaviour or assert_sets_equality function for inequal sets."""
