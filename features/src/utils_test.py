@@ -18,7 +18,7 @@
 """Unit tests for functions defined in utils.py source file."""
 
 import pytest
-from utils import get_array_from_json, construct_rh_token, retrieve_set_of_clusters_from_table
+from utils import retrieve_set_of_clusters_from_table
 
 inputs_and_outputs = (
         # input                        expected output           comment
@@ -33,7 +33,7 @@ inputs_and_outputs = (
 
 @pytest.mark.parametrize("inputs_and_outputs", inputs_and_outputs)
 def test_retrieve_list_of_clusters(inputs_and_outputs):
-    # just check the function to retrieve set of clusters from table
+    """Check the behaviour of function to retrieve set of clusters from context table."""
     class Context:
 
         """Mock for real context class from Behave."""
