@@ -46,7 +46,7 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
                            "name": "{namespace real name}", // optional, might be null
                        },
                        "reports": [
-                           "check": {for example deploment_validation_operator_no_anti_affinity"},
+                           "check": {for example no_anti_affinity"}, // taken from the original full name deploment_validation_operator_no_anti_affinity
                            "kind": "{kind attribute}",
                            "description": {description}",
                        ]
