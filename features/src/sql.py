@@ -43,29 +43,3 @@ def construct_insert_statement(table_name: str, headings: List[str]) -> str:
     return template.format(
         table_name=table_name, column_names=column_names, placeholders=placeholders
     )
-
-
-if __name__ == "__main__":
-    # just check the function to construct INSERT statement
-    print(construct_insert_statement("table1", ["foo", "bar", "baz"]))
-    print(construct_insert_statement("table1", ["foo"]))
-
-    try:
-        print(construct_insert_statement("table1", ["foo", "", "baz"]))
-    except AssertionError as e:
-        print(e)
-
-    try:
-        print(construct_insert_statement("table1", ["", "", ""]))
-    except AssertionError as e:
-        print(e)
-
-    try:
-        print(construct_insert_statement("table1", []))
-    except AssertionError as e:
-        print(e)
-
-    try:
-        print(construct_insert_statement("", ["foo", "bar", "baz"]))
-    except AssertionError as e:
-        print(e)
