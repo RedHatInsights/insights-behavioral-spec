@@ -18,6 +18,7 @@ install:
   - pip install pycodestyle
   - pip install pydocstyle
   - pip install pytest-cov
+  - pip install behave
 script:
   - make style
   - make doc-check

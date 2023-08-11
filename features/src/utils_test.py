@@ -21,13 +21,13 @@ import pytest
 from utils import retrieve_set_of_clusters_from_table
 
 inputs_and_outputs = (
-        # input                        expected output           comment
-        ([],                           set()),                 # empty set
-        (["foo"],                      {"foo"}),               # set with one item
-        (["foo", "bar", "baz"],        {"foo", "bar", "baz"}), # unique items
-        (["baz", "bar", "foo"],        {"foo", "bar", "baz"}), # order does not matter
-        (["foo", "bar", "baz", "foo"], {"foo", "bar", "baz"}), # non-unique items
-        (["foo", "foo", "foo", "foo"], {"foo"}),               # non-unique items
+        # input                        expected output            comment
+        ([],                           set()),                  # empty set
+        (["foo"],                      {"foo"}),                # set with one item
+        (["foo", "bar", "baz"],        {"foo", "bar", "baz"}),  # unique items
+        (["baz", "bar", "foo"],        {"foo", "bar", "baz"}),  # order does not matter
+        (["foo", "bar", "baz", "foo"], {"foo", "bar", "baz"}),  # non-unique items
+        (["foo", "foo", "foo", "foo"], {"foo"}),                # non-unique items
 )
 
 
