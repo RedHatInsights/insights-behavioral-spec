@@ -25,3 +25,31 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
         basically an array with objects meeting the
         https://github.com/RedHatInsights/insights-results-smart-proxy/blob/master/server/api/v2/openapi.json#L1537
         "interface"
+
+  Scenario: Accessing Smart Proxy REST API endpoint to retrieve list of all DVO namespaces for current organization
+    Given REST API for Smart Proxy is available
+      And REST API service prefix is /api/v2
+      And organization TEST_ORG is registered
+      And user TEST_USER is member of TEST_USER organization
+      And access token is generated to TEST_USER
+      When TEST_USER make HTTP GET request to REST API endpoint /api/v2/namespaces/dvo using his access token
+      Then The status of the response is 200
+       And The body of the response is the following
+           """
+           {
+               "status": "ok",
+               "workloads": [
+                   {
+                       "cluster_name": "{cluster UUID}",
+                       "namespace": {
+                           "uuid": "{namespace UUID}",
+                           "name": "{namespace real name}", // optional, might be null
+                       },
+                       "reports": [
+                           "check": {for example no_anti_affinity"}, // taken from the original full name deploment_validation_operator_no_anti_affinity
+                           "kind": "{kind attribute}",
+                           "description": {description}",
+                       ]
+               ]
+           }
+           """
