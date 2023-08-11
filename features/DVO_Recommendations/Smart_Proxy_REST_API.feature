@@ -33,7 +33,7 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
       And organization TEST_ORG is registered
       And user TEST_USER is member of TEST_USER organization
       And access token is generated to TEST_USER
-     When TEST_USER make HTTP GET request to REST API endpoint /api/v2/namespaces/dvo using his access token
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo using their access token
      Then The status of the response is 200
       And The body of the response is the following
           """
@@ -79,7 +79,7 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
           | TEST_ORG        | 00000005-0000-0000-0000-000000000000 |
           | TEST_ORG        | 00000006-0000-0000-0000-000000000000 |
           | TEST_ORG        | 00000007-0000-0000-0000-000000000000 |
-     When TEST_USER make HTTP GET request to REST API endpoint /api/v2/namespaces/dvo using his access token
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo using their access token
      Then The status of the response is 200
       And The workloads list should contain information just for following list of clusters
           | Cluster name                         |
