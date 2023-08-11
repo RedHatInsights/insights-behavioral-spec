@@ -20,4 +20,34 @@
 import pytest
 from utils import get_array_from_json, construct_rh_token, retrieve_set_of_clusters_from_table
 
+inputs_and_outputs = (
+        # input                        expected output           comment
+        ([],                           set()),                 # empty set
+        (["foo"],                      {"foo"}),               # set with one item
+        (["foo", "bar", "baz"],        {"foo", "bar", "baz"}), # unique items
+        (["baz", "bar", "foo"],        {"foo", "bar", "baz"}), # order does not matter
+        (["foo", "bar", "baz", "foo"], {"foo", "bar", "baz"}), # non-unique items
+        (["foo", "foo", "foo", "foo"], {"foo"}),               # non-unique items
+)
 
+
+@pytest.mark.parametrize("inputs_and_outputs", inputs_and_outputs)
+def test_retrieve_list_of_clusters(inputs_and_outputs):
+    # just check the function to retrieve set of clusters from table
+    class Context:
+
+        """Mock for real context class from Behave."""
+
+        def __init__(self, items):
+            """Initialize table attribute to be the same as in Behave.Context."""
+            self.table = [{"Cluster name": item} for item in items]
+
+    # retrieve test data from parametrized input
+    context_table_content = inputs_and_outputs[0]
+    expected_set = inputs_and_outputs[1]
+
+    # prepare mocked class
+    context = Context(context_table_content)
+
+    # and check the tested function behaviour
+    assert retrieve_set_of_clusters_from_table(context) == expected_set
