@@ -47,7 +47,14 @@ def test_construct_insert_statement_proper_input(inputs_and_outputs):
 
 @pytest.mark.parametrize("wrong_input", wrong_inputs)
 def test_construct_insert_statement_improper_input(wrong_input):
-    """Check the behaviour of construct_insert_statement function for correct input."""
+    """Check the behaviour of construct_insert_statement function for incorrect input."""
     # exception is expected in such cases
     with pytest.raises(AssertionError):
         construct_insert_statement("table1", wrong_input)
+
+
+def test_construct_insert_statement_improper_table_name():
+    """Check the behaviour of construct_insert_statement function for improper table name."""
+    # exception is expected in such cases
+    with pytest.raises(AssertionError):
+        construct_insert_statement("", ["foo", "bar", "baz"])
