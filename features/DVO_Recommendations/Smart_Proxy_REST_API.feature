@@ -26,30 +26,65 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
         https://github.com/RedHatInsights/insights-results-smart-proxy/blob/master/server/api/v2/openapi.json#L1537
         "interface"
 
+
   Scenario: Accessing Smart Proxy REST API endpoint to retrieve list of all DVO namespaces for current organization
     Given REST API for Smart Proxy is available
       And REST API service prefix is /api/v2
       And organization TEST_ORG is registered
       And user TEST_USER is member of TEST_USER organization
       And access token is generated to TEST_USER
-      When TEST_USER make HTTP GET request to REST API endpoint /api/v2/namespaces/dvo using his access token
-      Then The status of the response is 200
-       And The body of the response is the following
-           """
-           {
-               "status": "ok",
-               "workloads": [
-                   {
-                       "cluster_name": "{cluster UUID}",
-                       "namespace": {
-                           "uuid": "{namespace UUID}",
-                           "name": "{namespace real name}", // optional, might be null
-                       },
-                       "reports": [
-                           "check": {for example no_anti_affinity"}, // taken from the original full name deploment_validation_operator_no_anti_affinity
-                           "kind": "{kind attribute}",
-                           "description": {description}",
-                       ]
-               ]
-           }
-           """
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo using their access token
+     Then The status of the response is 200
+      And The body of the response is the following
+          """
+          {
+              "status": "ok",
+              "workloads": [
+                  {
+                      "cluster": {
+                          "uuid": "{cluster UUID}",
+                          "display_name": "{cluster UUID or displayable name}",
+                      },
+                      "namespace": {
+                          "uuid": "{namespace UUID}",
+                          "name": "{namespace real name}", // optional, might be null
+                      },
+                      "reports": [
+                          {
+                              "check": "{for example no_anti_affinity}", // taken from the original full name deploment_validation_operator_no_anti_affinity
+                              "kind": "{kind attribute}",
+                              "description": {description}",
+                          },
+                      ]
+              ]
+          }
+          """
+
+
+  Scenario: Returning just active clusters in Smart Proxy REST API endpoint to retrieve list of all DVO namespaces for current organization
+    Given REST API for Smart Proxy is available
+      And REST API service prefix is /api/v2
+      And organization TEST_ORG is registered
+      And user TEST_USER is member of TEST_USER organization
+      And access token is generated to TEST_USER
+      And CCX data pipeline has DVO results stored in its database for following clusters
+          | Organization ID | Cluster name                         |
+          | TEST_ORG        | 00000001-0000-0000-0000-000000000000 |
+          | TEST_ORG        | 00000002-0000-0000-0000-000000000000 |
+          | TEST_ORG        | 00000003-0000-0000-0000-000000000000 |
+          | TEST_ORG        | 00000004-0000-0000-0000-000000000000 |
+          | TEST_ORG        | 00000005-0000-0000-0000-000000000000 |
+      And AMS registers the following live clusters
+          | Organization ID | Cluster name                         |
+          | TEST_ORG        | 00000003-0000-0000-0000-000000000000 |
+          | TEST_ORG        | 00000004-0000-0000-0000-000000000000 |
+          | TEST_ORG        | 00000005-0000-0000-0000-000000000000 |
+          | TEST_ORG        | 00000006-0000-0000-0000-000000000000 |
+          | TEST_ORG        | 00000007-0000-0000-0000-000000000000 |
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo using their access token
+     Then The status of the response is 200
+      And The workloads list should contain information just for following list of clusters
+          | Cluster name                         |
+          | 00000003-0000-0000-0000-000000000000 |
+          | 00000004-0000-0000-0000-000000000000 |
+          | 00000005-0000-0000-0000-000000000000 |
