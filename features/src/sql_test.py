@@ -27,6 +27,12 @@ inputs_and_outputs = (
         (["foo", "bar", "baz"],  "INSERT into table1 (foo, bar, baz) VALUES (%s, %s, %s)"),
 )
 
+wrong_inputs = (
+        [""],
+        ["foo", "", "baz"],
+        ["", "", ""],
+)
+
 
 @pytest.mark.parametrize("inputs_and_outputs", inputs_and_outputs)
 def test_construct_insert_statement_proper_input(inputs_and_outputs):
@@ -37,3 +43,11 @@ def test_construct_insert_statement_proper_input(inputs_and_outputs):
 
     # check the tested function behaviour
     assert construct_insert_statement("table1", columns) == expected_statement
+
+
+@pytest.mark.parametrize("wrong_input", wrong_inputs)
+def test_construct_insert_statement_improper_input(wrong_input):
+    """Check the behaviour of construct_insert_statement function for correct input."""
+    # exception is expected in such cases
+    with pytest.raises(AssertionError):
+        construct_insert_statement("table1", wrong_input)
