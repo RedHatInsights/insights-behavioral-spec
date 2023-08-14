@@ -45,3 +45,19 @@ def test_find_jvm_application_positive_case():
 
     with pytest.raises(AssertionError):
         find_jvm_application(context, "this.does.not.run")
+
+
+def test_find_jvm_application_negative_case():
+    """Test for function find_jvm_application."""
+    class Context:
+        def __init__(self):
+            self.output = None
+            self.stdout = None
+            self.stderr = None
+
+    # mock the context
+    context = Context()
+    context.output = ["21088 sun.tools.jps.Jps"]
+
+    with pytest.raises(AssertionError):
+        find_jvm_application(context, "this.does.not.run")
