@@ -14,6 +14,7 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
         the namespace ID, the namespace display name if available, the cluster ID under
         which this namespace is created (repeated input), and the number of affecting
         recommendations for this namespace as well.
+        Both GETers have the same meaning, just the order of selectors is different.
 
         GET /namespace/dvo/{namespace_id}/info
         Returns information about the requested namespace. Contains the display name,
