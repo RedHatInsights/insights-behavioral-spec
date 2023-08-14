@@ -88,3 +88,19 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
           | 00000003-0000-0000-0000-000000000000 |
           | 00000004-0000-0000-0000-000000000000 |
           | 00000005-0000-0000-0000-000000000000 |
+
+
+  Scenario: Checking organization in Smart Proxy REST API endpoint to retrieve list of all DVO namespaces for current organization
+    Given REST API for Smart Proxy is available
+      And REST API service prefix is /api/v2
+      And organization TEST_ORG is NOT registered
+      And user TEST_USER is member of TEST_USER organization
+      And access token is generated to TEST_USER
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo using their access token
+     Then The status of the response is 403
+      And The body of the response is the following
+          """
+          {
+              "status": "forbidden"
+          }
+          """
