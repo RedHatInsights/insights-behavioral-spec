@@ -68,7 +68,6 @@ def find_jvm_application(context, application):
     # flag if JVM-based application name has been found in jps output
     found = find_application_in_process_output(context.output, application)
 
-
     # test if given JVM-based application has been found
     assert found, f"JVM-based application {application} does not run"
 

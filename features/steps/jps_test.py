@@ -19,14 +19,14 @@
 
 import pytest
 
+
 # this is ugly hack, but we need to update include/import path
 # we need to do this hack before importing jps
 import sys
 import os
 sys.path.append(os.path.realpath(os.path.dirname(__file__)))
 
-
-from jps import find_jvm_application
+from jps import find_jvm_application  # noqa E402
 
 
 def test_find_jvm_application_positive_case():
