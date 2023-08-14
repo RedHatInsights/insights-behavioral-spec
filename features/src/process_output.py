@@ -63,10 +63,3 @@ def process_generated_output(context: Context, out, return_code=None):
 def filter_coverage_message(output: str) -> str:
     """Filter message about missing GOCOVERDIR etc."""
     return output.replace(COVERAGE_MESSAGE + "\n", "")
-
-
-if __name__ == "__main__":
-    # just check functions defined above
-    print(filter_coverage_message("foo bar baz\n"))
-    print(filter_coverage_message("foo\nbar\nbaz\n"))
-    print(filter_coverage_message("foo\nwarning: GOCOVERDIR not set, no coverage data emitted\nbaz\n"))  # noqa E501
