@@ -200,3 +200,18 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
               "status": "forbidden"
           }
           """
+
+
+  Scenario: Accessing Smart Proxy REST API endpoint to retrieve DVO namespaces when cluster is not specified
+    Given REST API for Smart Proxy is available
+      And REST API service prefix is /api/v2
+      And organization TEST_ORG is registered
+      And user TEST_USER is member of TEST_USER organization
+      And access token is generated to TEST_USER
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/cluster using their access token
+     Then The status of the response is 400
+      And The body of the response is the following
+          """
+          {
+              "status": "cluster UUID is not provided"
+          }
