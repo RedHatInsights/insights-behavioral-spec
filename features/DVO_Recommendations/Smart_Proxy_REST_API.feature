@@ -149,3 +149,19 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
               "status": "cluster not found"
           }
           """
+
+
+  Scenario: Accessing Smart Proxy REST API endpoint to retrieve DVO namespaces for known cluster without DVO namespaces
+    Given REST API for Smart Proxy is available
+      And REST API service prefix is /api/v2
+      And organization TEST_ORG is registered
+      And user TEST_USER is member of TEST_USER organization
+      And access token is generated to TEST_USER
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/cluster/00000001-0000-0000-0000-000000000000 using their access token
+     Then The status of the response is 404
+      And The body of the response is the following
+          """
+          {
+              "status": "namespace not found"
+          }
+          """
