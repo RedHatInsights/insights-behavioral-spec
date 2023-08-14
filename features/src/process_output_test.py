@@ -27,13 +27,15 @@ inputs_and_outputs = (
        ("\n",                                                                "\n"),
        ("foo bar baz\n",                                                     "foo bar baz\n"),
        ("foo\nbar\nbaz\n",                                                   "foo\nbar\nbaz\n"),
-       ("nwarning: GOCOVERDIR not set, no coverage data emitted",            ""),
+       ("warning: GOCOVERDIR not set, no coverage data emitted\n",           ""),
        ("foo\nwarning: GOCOVERDIR not set, no coverage data emitted\nbaz\n", "foo\nbaz\n"),
 )
 
 
 @pytest.mark.parametrize("inputs_and_outputs", inputs_and_outputs)
 def test_filter_coverage_message(inputs_and_outputs):
+    """Test the behaviour of filter_coverage_message function."""
     # retrieve test data from parametrized input
     message = inputs_and_outputs[0]
     expected = inputs_and_outputs[1]
+    assert filter_coverage_message(message) == expected
