@@ -165,3 +165,22 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
               "status": "namespace not found"
           }
           """
+
+
+  Scenario: Accessing Smart Proxy REST API endpoint to retrieve DVO namespaces for improper cluster UUID
+    Given REST API for Smart Proxy is available
+      And REST API service prefix is /api/v2
+      And organization TEST_ORG is registered
+      And user TEST_USER is member of TEST_USER organization
+      And access token is generated to TEST_USER
+      And CCX data pipeline has DVO results stored in its database for following cluster
+          | Organization ID | Cluster name                         |
+          | TEST_ORG        | 00000001-0000-0000-0000-000000000000 |
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/cluster/foo-bar-baz using their access token
+     Then The status of the response is 400
+      And The body of the response is the following
+          """
+          {
+              "status": "improper cluster name"
+          }
+          """
