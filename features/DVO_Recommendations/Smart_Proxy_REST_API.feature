@@ -21,7 +21,7 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
         associated cluster ID. Probably, some other metadata like last seen (but not
         needed according to current UX pre-design).
 
-        GET /namespaces/dvo/{namespace_id}/rules
+        GET /namespaces/dvo/{namespace_id}/reports
         Returns the list of all recommendations affecting this namespace. It is
         basically an array with objects meeting the
         https://github.com/RedHatInsights/insights-results-smart-proxy/blob/master/server/api/v2/openapi.json#L1537
@@ -378,7 +378,7 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
       And access token is generated to TEST_USER
       And DVO namespace NAMESPACE_ID exists in the storage
       And the NO rules are hitting NAMESPACE_ID
-     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/{NAMESPACE_ID}/rules
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/{NAMESPACE_ID}/reports
      Then The status of the response is 200
       And The body of the response is the following
           """
@@ -400,7 +400,7 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
       And the following rules are hitting NAMESPACE_ID
           | Rule ID   |
           | rule_id_1 |
-     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/{NAMESPACE_ID}/rules
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/{NAMESPACE_ID}/reports
      Then The status of the response is 200
       And The body of the response is the following
           """
@@ -445,7 +445,7 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
           | Rule ID   |
           | rule_id_1 |
           | rule_id_2 |
-     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/{NAMESPACE_ID}/rules
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/{NAMESPACE_ID}/reports
      Then The status of the response is 200
       And The body of the response is the following
           """
@@ -508,7 +508,7 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
       And user TEST_USER is member of TEST_USER organization
       And access token is generated to TEST_USER
       And DVO namespace NAMESPACE_ID does not exist in the storage
-     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/{NAMESPACE_ID}/rules
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/{NAMESPACE_ID}/reports
      Then The status of the response is 404
       And The body of the response is the following
           """
@@ -525,7 +525,7 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
       And user TEST_USER is member of TEST_USER organization
       And access token is generated to TEST_USER
       And DVO namespace NAMESPACE_ID exists in the storage
-     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/{NAMESPACE_ID}/rules
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/{NAMESPACE_ID}/reports
      Then The status of the response is 403
       And The body of the response is the following
           """
@@ -542,7 +542,7 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
       And user TEST_USER is NOT member of TEST_USER organization
       And access token is generated to TEST_USER
       And DVO namespace NAMESPACE_ID exists in the storage
-     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/{NAMESPACE_ID}/rules
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/{NAMESPACE_ID}/reports
      Then The status of the response is 403
       And The body of the response is the following
           """
