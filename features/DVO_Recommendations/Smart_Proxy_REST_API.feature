@@ -21,7 +21,7 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
         associated cluster ID. Probably, some other metadata like last seen (but not
         needed according to current UX pre-design).
 
-        GET /namespaces/dvo/{namespace_id}/rules
+        GET /namespaces/dvo/{namespace_id}/reports
         Returns the list of all recommendations affecting this namespace. It is
         basically an array with objects meeting the
         https://github.com/RedHatInsights/insights-results-smart-proxy/blob/master/server/api/v2/openapi.json#L1537
@@ -342,7 +342,7 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
       And organization TEST_ORG is NOT registered
       And user TEST_USER is member of TEST_USER organization
       And access token is generated to TEST_USER
-      And DVO namespace NAMESPACE_ID does not exist in the storage
+      And DVO namespace NAMESPACE_ID exists in the storage
      When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/{NAMESPACE_ID}/info
      Then The status of the response is 403
       And The body of the response is the following
@@ -359,8 +359,208 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
       And organization TEST_ORG is registered
       And user TEST_USER is NOT member of TEST_USER organization
       And access token is generated to TEST_USER
-      And DVO namespace NAMESPACE_ID does not exist in the storage
+      And DVO namespace NAMESPACE_ID exists in the storage
      When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/{NAMESPACE_ID}/info
+     Then The status of the response is 403
+      And The body of the response is the following
+          """
+          {
+              "status": "forbidden"
+          }
+          """
+
+
+  Scenario: Accessing Smart Proxy REST API endpoint to retrieve list of all recommendations affecting the selected namespace when no rules are hitting
+    Given REST API for Smart Proxy is available
+      And REST API service prefix is /api/v2
+      And organization TEST_ORG is registered
+      And user TEST_USER is member of TEST_USER organization
+      And access token is generated to TEST_USER
+      And DVO namespace NAMESPACE_ID exists in the storage
+      And the NO rules are hitting NAMESPACE_ID
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/{NAMESPACE_ID}/reports
+     Then The status of the response is 200
+      And The body of the response is the following
+          """
+          {
+              "status": "ok"
+              "namespace": {
+                  "uuid": "{namespace UUID}",
+                  "name": "{namespace real name}", // optional, might be null
+              },
+              "rules": [
+              ],
+          }
+          """
+
+
+  Scenario: Accessing Smart Proxy REST API endpoint to retrieve list of all recommendations affecting the selected namespace when just one rule is hitting
+    Given REST API for Smart Proxy is available
+      And REST API service prefix is /api/v2
+      And organization TEST_ORG is registered
+      And user TEST_USER is member of TEST_USER organization
+      And access token is generated to TEST_USER
+      And DVO namespace NAMESPACE_ID exists in the storage
+      And the following rules are hitting NAMESPACE_ID
+          | Rule ID   |
+          | rule_id_1 |
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/{NAMESPACE_ID}/reports
+     Then The status of the response is 200
+      And The body of the response is the following
+          """
+          {
+              "status": "ok"
+              "namespace": {
+                  "uuid": "{namespace UUID}",
+                  "name": "{namespace real name}", // optional, might be null
+              },
+              "rules": [
+                  {
+                      "rule_id": "rule_id_1",
+                      "created_at": "{timestamp}",
+                      "description": "{rule description}",
+                      "kind": "{kind attribute}",
+                      "remediation": {remediation}",
+                      "details": "{detail about rule}",
+                      "reason": "",
+                      "resolution": "",
+                      "total_risk": 1,          // optional
+                      "disabled": false,        // optional
+                      "disable_feedback": "",   // optional
+                      "disabled_at": "",        // optional
+                      "internal": false,
+                      "user_vote": 0,           // optional
+                      "extra_data": {
+                        "error_key": "{error_key}",
+                        "type": "rule"
+                      },
+                      "tags": [
+                        "openshift",
+                        "service_availability"
+                      ]
+                  }
+              ],
+          }
+          """
+
+
+  Scenario: Accessing Smart Proxy REST API endpoint to retrieve list of all recommendations affecting the selected namespace when two rules are hitting
+    Given REST API for Smart Proxy is available
+      And REST API service prefix is /api/v2
+      And organization TEST_ORG is registered
+      And user TEST_USER is member of TEST_USER organization
+      And access token is generated to TEST_USER
+      And DVO namespace NAMESPACE_ID exists in the storage
+      And the following rules are hitting NAMESPACE_ID
+          | Rule ID   |
+          | rule_id_1 |
+          | rule_id_2 |
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/{NAMESPACE_ID}/reports
+     Then The status of the response is 200
+      And The body of the response is the following
+          """
+          {
+              "status": "ok"
+              "namespace": {
+                  "uuid": "{namespace UUID}",
+                  "name": "{namespace real name}", // optional, might be null
+              },
+              "rules": [
+                  {
+                      "rule_id": "rule_id_1",
+                      "created_at": "{timestamp}",
+                      "description": "{rule description}",
+                      "kind": "{kind attribute}",
+                      "remediation": {remediation}",
+                      "details": "{detail about rule}",
+                      "reason": "",
+                      "resolution": "",
+                      "total_risk": 1,          // optional
+                      "disabled": false,        // optional
+                      "disable_feedback": "",   // optional
+                      "disabled_at": "",        // optional
+                      "internal": false,
+                      "user_vote": 0,           // optional
+                      "extra_data": {
+                        "error_key": "{error_key}",
+                        "type": "rule"
+                      },
+                      "tags": [
+                        "openshift",
+                        "service_availability"
+                      ]
+                  },
+                  {
+                      "rule_id": "rule_id_2",
+                      "created_at": "{timestamp}",
+                      "description": "{rule description}",
+                      "kind": "{kind attribute}",
+                      "remediation": {remediation}",
+                      "details": "{detail about rule}",
+                      "reason": "",
+                      "resolution": "",
+                      "total_risk": 1,          // optional
+                      "disabled": false,        // optional
+                      "disable_feedback": "",   // optional
+                      "disabled_at": "",        // optional
+                      "internal": false,
+                      "user_vote": 0,           // optional
+                      "extra_data": {
+                        "error_key": "{error_key}",
+                        "type": "rule"
+                      },
+                      "tags": [
+                        "openshift",
+                        "service_availability"
+                      ]
+                  }
+              ],
+          }
+          """
+
+
+  Scenario: Accessing Smart Proxy REST API endpoint to retrieve list of all recommendations affecting the selected namespace when no such namespace exists
+    Given REST API for Smart Proxy is available
+      And REST API service prefix is /api/v2
+      And organization TEST_ORG is registered
+      And user TEST_USER is member of TEST_USER organization
+      And access token is generated to TEST_USER
+      And DVO namespace NAMESPACE_ID does not exist in the storage
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/{NAMESPACE_ID}/reports
+     Then The status of the response is 404
+      And The body of the response is the following
+          """
+          {
+              "status": "namespace not found"
+          }
+          """
+
+
+  Scenario: Accessing Smart Proxy REST API endpoint to retrieve list of all recommendations affecting the selected namespace for improper organization
+    Given REST API for Smart Proxy is available
+      And REST API service prefix is /api/v2
+      And organization TEST_ORG is NOT registered
+      And user TEST_USER is member of TEST_USER organization
+      And access token is generated to TEST_USER
+      And DVO namespace NAMESPACE_ID exists in the storage
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/{NAMESPACE_ID}/reports
+     Then The status of the response is 403
+      And The body of the response is the following
+          """
+          {
+              "status": "forbidden"
+          }
+          """
+
+
+  Scenario: Accessing Smart Proxy REST API endpoint to retrieve list of all recommendations affecting the selected namespace for improper user
+    Given REST API for Smart Proxy is available
+      And REST API service prefix is /api/v2
+      And organization TEST_ORG is registered
+      And user TEST_USER is NOT member of TEST_USER organization
+      And access token is generated to TEST_USER
+      And DVO namespace NAMESPACE_ID exists in the storage
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/{NAMESPACE_ID}/reports
      Then The status of the response is 403
       And The body of the response is the following
           """

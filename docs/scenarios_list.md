@@ -285,6 +285,12 @@ nav_order: 3
 * Accessing Smart Proxy REST API endpoint to retrieve information about selected DVO namespace when no such namespace exists
 * Accessing Smart Proxy REST API endpoint to retrieve information about selected DVO namespace for improper organization
 * Accessing Smart Proxy REST API endpoint to retrieve information about selected DVO namespace for improper user
+* Accessing Smart Proxy REST API endpoint to retrieve list of all recommendations affecting the selected namespace when no rules are hitting
+* Accessing Smart Proxy REST API endpoint to retrieve list of all recommendations affecting the selected namespace when just one rule is hitting
+* Accessing Smart Proxy REST API endpoint to retrieve list of all recommendations affecting the selected namespace when two rules are hitting
+* Accessing Smart Proxy REST API endpoint to retrieve list of all recommendations affecting the selected namespace when no such namespace exists
+* Accessing Smart Proxy REST API endpoint to retrieve list of all recommendations affecting the selected namespace for improper organization
+* Accessing Smart Proxy REST API endpoint to retrieve list of all recommendations affecting the selected namespace for improper user
 
 ## [`DVO_Recommendations/namespace_disable.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/DVO_Recommendations/namespace_disable.feature)
 
