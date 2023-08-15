@@ -16,7 +16,7 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
         recommendations for this namespace as well.
         Both GETers have the same meaning, just the order of selectors is different.
 
-        GET /namespace/dvo/{namespace_id}/info
+        GET /namespaces/dvo/{namespace_id}/info
         Returns information about the requested namespace. Contains the display name,
         associated cluster ID. Probably, some other metadata like last seen (but not
         needed according to current UX pre-design).
@@ -290,3 +290,81 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
           }
           """
 
+
+  Scenario: Accessing Smart Proxy REST API endpoint to retrieve information about selected DVO namespace
+    Given REST API for Smart Proxy is available
+      And REST API service prefix is /api/v2
+      And organization TEST_ORG is registered
+      And user TEST_USER is member of TEST_USER organization
+      And access token is generated to TEST_USER
+      And DVO namespace NAMESPACE_ID exists in the storage
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/{NAMESPACE_ID}/info
+     Then The status of the response is 200
+      And The body of the response is the following
+          """
+          {
+              "status": "ok"
+              "namespace": {
+                  "uuid": "{namespace UUID}",
+                  "name": "{namespace real name}", // optional, might be null
+              },
+              "cluster": {
+                  "uuid": "{cluster UUID}",
+                  "display_name": "{cluster UUID or displayable name}",
+              },
+              "metadata": {
+                  "last_seen": "{timestamp}", // optional ATM
+              },
+          }
+          """
+
+
+  Scenario: Accessing Smart Proxy REST API endpoint to retrieve information about selected DVO namespace when no such namespace exists
+    Given REST API for Smart Proxy is available
+      And REST API service prefix is /api/v2
+      And organization TEST_ORG is registered
+      And user TEST_USER is member of TEST_USER organization
+      And access token is generated to TEST_USER
+      And DVO namespace NAMESPACE_ID does not exist in the storage
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/{NAMESPACE_ID}/info
+     Then The status of the response is 404
+      And The body of the response is the following
+          """
+          {
+              "status": "namespace not found"
+          }
+          """
+
+
+  Scenario: Accessing Smart Proxy REST API endpoint to retrieve information about selected DVO namespace for improper organization
+    Given REST API for Smart Proxy is available
+      And REST API service prefix is /api/v2
+      And organization TEST_ORG is NOT registered
+      And user TEST_USER is member of TEST_USER organization
+      And access token is generated to TEST_USER
+      And DVO namespace NAMESPACE_ID does not exist in the storage
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/{NAMESPACE_ID}/info
+     Then The status of the response is 403
+      And The body of the response is the following
+          """
+          {
+              "status": "forbidden"
+          }
+          """
+
+
+  Scenario: Accessing Smart Proxy REST API endpoint to retrieve information about selected DVO namespace for improper user
+    Given REST API for Smart Proxy is available
+      And REST API service prefix is /api/v2
+      And organization TEST_ORG is registered
+      And user TEST_USER is NOT member of TEST_USER organization
+      And access token is generated to TEST_USER
+      And DVO namespace NAMESPACE_ID does not exist in the storage
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/{NAMESPACE_ID}/info
+     Then The status of the response is 403
+      And The body of the response is the following
+          """
+          {
+              "status": "forbidden"
+          }
+          """
