@@ -342,7 +342,7 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
       And organization TEST_ORG is NOT registered
       And user TEST_USER is member of TEST_USER organization
       And access token is generated to TEST_USER
-      And DVO namespace NAMESPACE_ID does not exist in the storage
+      And DVO namespace NAMESPACE_ID exists in the storage
      When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/{NAMESPACE_ID}/info
      Then The status of the response is 403
       And The body of the response is the following
@@ -359,7 +359,7 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
       And organization TEST_ORG is registered
       And user TEST_USER is NOT member of TEST_USER organization
       And access token is generated to TEST_USER
-      And DVO namespace NAMESPACE_ID does not exist in the storage
+      And DVO namespace NAMESPACE_ID exists in the storage
      When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/{NAMESPACE_ID}/info
      Then The status of the response is 403
       And The body of the response is the following
