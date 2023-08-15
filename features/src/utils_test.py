@@ -18,7 +18,8 @@
 """Unit tests for functions defined in utils.py source file."""
 
 import pytest
-from utils import retrieve_set_of_clusters_from_table
+import base64
+from utils import retrieve_set_of_clusters_from_table, construct_rh_token
 
 inputs_and_outputs = (
         # input                        expected output            comment
