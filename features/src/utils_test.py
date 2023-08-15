@@ -51,3 +51,32 @@ def test_retrieve_list_of_clusters(inputs_and_outputs):
 
     # and check the tested function behaviour
     assert retrieve_set_of_clusters_from_table(context) == expected_set
+
+
+def test_construct_rh_token_positive_test_case():
+    """Test the function construct_rh_token."""
+    token = construct_rh_token(42, "ACCOUNT", "USER")
+    assert token is not None
+
+    # try to decode token
+    decoded = base64.b64decode(token)
+    assert decoded is not None
+    assert isinstance(decoded, bytes)
+
+    # convert it from bytes to string
+    text = decoded.decode("ascii")
+    assert text is not None
+    assert isinstance(text, str)
+
+    # and check the actual token content
+    assert text == """
+    {
+        "identity": {
+            "org_id": "42",
+            "account_number":"ACCOUNT",
+            "user": {
+                "user_id":"USER"
+            }
+        }
+    }
+    """
