@@ -431,3 +431,20 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
           """
 
 
+  Scenario: Accessing Smart Proxy REST API endpoint to retrieve list of all recommendations affecting the selected namespace for improper organization
+    Given REST API for Smart Proxy is available
+      And REST API service prefix is /api/v2
+      And organization TEST_ORG is NOT registered
+      And user TEST_USER is member of TEST_USER organization
+      And access token is generated to TEST_USER
+      And DVO namespace NAMESPACE_ID exists in the storage
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/{NAMESPACE_ID}/rules
+     Then The status of the response is 403
+      And The body of the response is the following
+          """
+          {
+              "status": "forbidden"
+          }
+          """
+
+
