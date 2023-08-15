@@ -80,3 +80,21 @@ def test_construct_rh_token_positive_test_case():
         }
     }
     """
+
+
+def test_construct_rh_token_negative_org_id():
+    """Test the function construct_rh_token when negative organization ID is used."""
+    with pytest.raises(AssertionError):
+        construct_rh_token(-42, "ACCOUNT", "USER")
+
+
+def test_construct_rh_token_missing_account_number():
+    """Test the function construct_rh_token when no account number is provided."""
+    with pytest.raises(AssertionError):
+        construct_rh_token(42, "", "USER")
+
+
+def test_construct_rh_token_missing_user_id():
+    """Test the function construct_rh_token when no user ID is provided."""
+    with pytest.raises(AssertionError):
+        construct_rh_token(42, "ACCOUNT", "")
