@@ -6,13 +6,13 @@ tests:	cleaner-tests exporter-tests aggregator-tests aggregator-mock-tests \
 	notification-service-tests notification-writer-tests insights-content-service-tests \
 	inference-service-tests data-engineering-service-tests
 
-unit_tests:
+unit_tests: ## Run all unit tests defined in this project
 	pytest -v -p no:cacheprovider
 
-coverage:
+coverage: ## Calculate unit test code coverage for the whole repository
 	pytest -v -p no:cacheprovider --cov features/
 
-coverage-report:
+coverage-report: ## Generate HTML pages with unit test code coverage report
 	pytest -v -p no:cacheprovider --cov features/ --cov-report=html
 
 cleaner-tests: ## Run BDD tests for the CCX Cleaner service
