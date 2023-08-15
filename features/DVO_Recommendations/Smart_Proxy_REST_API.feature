@@ -55,6 +55,7 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
                               "check": "{for example no_anti_affinity}", // taken from the original full name deploment_validation_operator_no_anti_affinity
                               "kind": "{kind attribute}",
                               "description": {description}",
+                              "remediation": {remediation}",
                           },
                       ]
               ]
@@ -127,6 +128,7 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
                       "check": "{for example no_anti_affinity}", // taken from the original full name deploment_validation_operator_no_anti_affinity
                       "kind": "{kind attribute}",
                       "description": {description}",
+                      "remediation": {remediation}",
                   },
               ]
           }
