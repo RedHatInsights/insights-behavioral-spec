@@ -18,7 +18,8 @@
 """Unit tests for functions defined in utils.py source file."""
 
 import pytest
-from utils import retrieve_set_of_clusters_from_table
+import base64
+from utils import retrieve_set_of_clusters_from_table, construct_rh_token
 
 inputs_and_outputs = (
         # input                        expected output            comment
@@ -51,3 +52,50 @@ def test_retrieve_list_of_clusters(inputs_and_outputs):
 
     # and check the tested function behaviour
     assert retrieve_set_of_clusters_from_table(context) == expected_set
+
+
+def test_construct_rh_token_positive_test_case():
+    """Test the function construct_rh_token."""
+    token = construct_rh_token(42, "ACCOUNT", "USER")
+    assert token is not None
+
+    # try to decode token
+    decoded = base64.b64decode(token)
+    assert decoded is not None
+    assert isinstance(decoded, bytes)
+
+    # convert it from bytes to string
+    text = decoded.decode("ascii")
+    assert text is not None
+    assert isinstance(text, str)
+
+    # and check the actual token content
+    assert text == """
+    {
+        "identity": {
+            "org_id": "42",
+            "account_number":"ACCOUNT",
+            "user": {
+                "user_id":"USER"
+            }
+        }
+    }
+    """
+
+
+def test_construct_rh_token_negative_org_id():
+    """Test the function construct_rh_token when negative organization ID is used."""
+    with pytest.raises(AssertionError):
+        construct_rh_token(-42, "ACCOUNT", "USER")
+
+
+def test_construct_rh_token_missing_account_number():
+    """Test the function construct_rh_token when no account number is provided."""
+    with pytest.raises(AssertionError):
+        construct_rh_token(42, "", "USER")
+
+
+def test_construct_rh_token_missing_user_id():
+    """Test the function construct_rh_token when no user ID is provided."""
+    with pytest.raises(AssertionError):
+        construct_rh_token(42, "ACCOUNT", "")
