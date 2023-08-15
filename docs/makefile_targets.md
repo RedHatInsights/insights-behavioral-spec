@@ -10,6 +10,9 @@ Usage: make <OPTIONS> ... <TARGETS>
 
 Available targets are:
 
+unit_tests                          Run all unit tests defined in this project
+coverage                            Calculate unit test code coverage for the whole repository
+coverage-report                     Generate HTML pages with unit test code coverage report
 cleaner-tests                       Run BDD tests for the CCX Cleaner service
 cleaner-code-coverage               Compute code coverage for Insights Results Cleaner service
 aggregator-tests                    Run BDD tests for Insights Results Aggregator service
