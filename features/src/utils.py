@@ -39,6 +39,11 @@ def get_array_from_json(context: Context, selector, subselector=None):
 
 def construct_rh_token(org: int, account: str, user: str) -> bytes:
     """Construct RH identity token for provided user info."""
+    # check the input
+    assert org > 0, "Organization ID should be positive integer"
+    assert account, "Account number should not be empty"
+    assert user, "User ID should not be empty"
+
     # text token
     token = """
     {{
