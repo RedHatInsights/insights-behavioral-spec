@@ -384,6 +384,10 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
           """
           {
               "status": "ok"
+              "namespace": {
+                  "uuid": "{namespace UUID}",
+                  "name": "{namespace real name}", // optional, might be null
+              },
               "rules": [
               ],
           }
@@ -406,6 +410,10 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
           """
           {
               "status": "ok"
+              "namespace": {
+                  "uuid": "{namespace UUID}",
+                  "name": "{namespace real name}", // optional, might be null
+              },
               "rules": [
                   {
                       "rule_id": "rule_id_1",
@@ -453,6 +461,10 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
           """
           {
               "status": "ok"
+              "namespace": {
+                  "uuid": "{namespace UUID}",
+                  "name": "{namespace real name}", // optional, might be null
+              },
               "rules": [
                   {
                       "rule_id": "rule_id_1",
