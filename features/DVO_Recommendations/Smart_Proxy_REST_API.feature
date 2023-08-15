@@ -390,7 +390,7 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
           """
 
 
-  Scenario: Accessing Smart Proxy REST API endpoint to retrieve list of all recommendations affecting the selected namespace
+  Scenario: Accessing Smart Proxy REST API endpoint to retrieve list of all recommendations affecting the selected namespace when just one rule is hitting
     Given REST API for Smart Proxy is available
       And REST API service prefix is /api/v2
       And organization TEST_ORG is registered
@@ -409,6 +409,73 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
               "rules": [
                   {
                       "rule_id": "rule_id_1",
+                      "created_at": "{timestamp}",
+                      "description": "{rule description}",
+                      "details": "{detail about rule}",
+                      "reason": "",
+                      "resolution": "",
+                      "total_risk": 1,          // optional
+                      "disabled": false,        // optional
+                      "disable_feedback": "",   // optional
+                      "disabled_at": "",        // optional
+                      "internal": false,
+                      "user_vote": 0,           // optional
+                      "extra_data": {
+                        "error_key": "{error_key}",
+                        "type": "rule"
+                      },
+                      "tags": [
+                        "openshift",
+                        "service_availability"
+                      ]
+                  }
+              ],
+          }
+          """
+
+
+  Scenario: Accessing Smart Proxy REST API endpoint to retrieve list of all recommendations affecting the selected namespace when two rules are hitting
+    Given REST API for Smart Proxy is available
+      And REST API service prefix is /api/v2
+      And organization TEST_ORG is registered
+      And user TEST_USER is member of TEST_USER organization
+      And access token is generated to TEST_USER
+      And DVO namespace NAMESPACE_ID exists in the storage
+      And the following rules are hitting NAMESPACE_ID
+          | Rule ID   |
+          | rule_id_1 |
+          | rule_id_2 |
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/{NAMESPACE_ID}/rules
+     Then The status of the response is 200
+      And The body of the response is the following
+          """
+          {
+              "status": "ok"
+              "rules": [
+                  {
+                      "rule_id": "rule_id_1",
+                      "created_at": "{timestamp}",
+                      "description": "{rule description}",
+                      "details": "{detail about rule}",
+                      "reason": "",
+                      "resolution": "",
+                      "total_risk": 1,          // optional
+                      "disabled": false,        // optional
+                      "disable_feedback": "",   // optional
+                      "disabled_at": "",        // optional
+                      "internal": false,
+                      "user_vote": 0,           // optional
+                      "extra_data": {
+                        "error_key": "{error_key}",
+                        "type": "rule"
+                      },
+                      "tags": [
+                        "openshift",
+                        "service_availability"
+                      ]
+                  },
+                  {
+                      "rule_id": "rule_id_2",
                       "created_at": "{timestamp}",
                       "description": "{rule description}",
                       "details": "{detail about rule}",
