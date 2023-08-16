@@ -65,6 +65,7 @@ def test_get_array_from_json():
             class Response:
                 def __init__(self, items):
                     self._items = items
+
                 def json(self):
                     return {"foo": self._items}
 
