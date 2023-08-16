@@ -19,7 +19,7 @@
 
 import pytest
 import base64
-from utils import retrieve_set_of_clusters_from_table, construct_rh_token
+from utils import retrieve_set_of_clusters_from_table, construct_rh_token, get_array_from_json
 
 inputs_and_outputs = (
         # input                        expected output            comment
@@ -52,6 +52,40 @@ def test_retrieve_list_of_clusters(inputs_and_outputs):
 
     # and check the tested function behaviour
     assert retrieve_set_of_clusters_from_table(context) == expected_set
+
+
+def test_get_array_from_json():
+    """Test the function get_array_from_json."""
+    class Context:
+
+        """Mock for real context class from Behave."""
+
+        def __init__(self, items):
+            """Initialize response attribute to be the same as in Behave.Context."""
+            class Response:
+                def __init__(self, items):
+                    self._items = items
+
+                def json(self):
+                    return {"foo": self._items}
+
+            # dictionary having some array
+            self.response = Response(items)
+
+    # scenario without subselector
+    context = Context([1, 2, 3])
+    array = get_array_from_json(context, "foo", None)
+    assert array == [1, 2, 3]
+
+    # scenario with unknown subselector
+    with pytest.raises(AssertionError):
+        context = Context([1, 2, 3])
+        get_array_from_json(context, "this-does-not-exists", None)
+
+    # scenario with subselector
+    context = Context([{"bar": 1}, {"bar": 2}, {"bar": 3}])
+    array = get_array_from_json(context, "foo", "bar")
+    assert list(array) == [1, 2, 3]
 
 
 def test_construct_rh_token_positive_test_case():
