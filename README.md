@@ -31,7 +31,16 @@ The `POSTGRES_DB_NAME` environment variable is mandatory, as the different servi
 
 If you don't want to spin up the containers, you'll need to locally run the required services (database, Kafka, etc.). You may need to add or remove the `managed` tag in the `${SERVICE}_tests.sh`.
 
-> **_NOTE:_**  Don't forget to set up `PATH` environment variable correctly when tests are run outside containers. That environment variable needs to also contain directory with tested executable files (for example `insights-results-aggregator-cleaner` etc.)
+> **_NOTE:_**  Don't forget to set up `PATH` environment variable correctly when runnig tests both within and outside containers. That environment variable needs to contain the path with tested executable files (for example `insights-results-aggregator-cleaner` etc.).
+
+When running the tests within the docker containers, it is necessary to have said executable under the `$VIRTUAL_ENV_BIN` folder with the right permissions. For example, after compiling `insights-results-aggregator`:
+
+```
+docker cp insights-results-aggregator $cid:`docker exec $cid bash -c 'echo "$VIRTUAL_ENV_BIN"'`
+docker exec -u root $cid /bin/bash -c 'chmod +x $VIRTUAL_ENV_BIN/insights-results-aggregator'
+```
+
+The tests for our Python-based services need a similar setup, but the whole source code of the service would need to be copied inside the container. It is more useful to setup a volume that matches the path where the service is expected to be found.
 
 If you want to run the real dependencies (content-service and service log), run `POSTGRES_DB_NAME=<test|notification> docker-compose --profile no-mock up -d` instead and `export WITHMOCK=0`.
 
