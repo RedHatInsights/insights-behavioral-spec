@@ -20,7 +20,7 @@ Feature: Upgrade Risks Prediction Data Engineering - test well known values
           | not-an-uuid                          |
           | aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee |
           | 44444444-3333-2222-1111-111111111111 |
-     Then The status code of the response is 200
+     Then The prediction_status code of the response is 200
       And The body of the response has the following schema
           """
           {
@@ -41,7 +41,7 @@ Feature: Upgrade Risks Prediction Data Engineering - test well known values
                       "cluster_id": {
                         "type": "string"
                       },
-                      "status": {
+                      "prediction_status": {
                         "type": "string",
                       }
                       "upgrade_recommended": {
@@ -128,11 +128,11 @@ Feature: Upgrade Risks Prediction Data Engineering - test well known values
               "predictions": [
                   {
                       "cluster_id": "not-an-uuid",
-                      "status": "invalid UUID"
+                      "prediction_status": "invalid UUID"
                   },
                   {
                       "cluster_id": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
-                      "status": "ok",
+                      "prediction_status": "ok",
                       "upgrade_recommended": false,
                       "upgrade_risks_predictors": {
                       "alerts": [
@@ -156,7 +156,7 @@ Feature: Upgrade Risks Prediction Data Engineering - test well known values
                   },
                   {
                       "cluster_id": "44444444-3333-2222-1111-111111111111",
-                      "status": "ok",
+                      "prediction_status": "ok",
                       "upgrade_recommended": false,
                       "upgrade_risks_predictors": {
                       "alerts": [
