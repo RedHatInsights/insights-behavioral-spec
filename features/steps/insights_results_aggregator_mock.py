@@ -79,7 +79,7 @@ def check_version_from_mock(context):
     """Check if version info is displayed by Insights Results Aggregator Mock."""
     # preliminary checks
     assert context.output is not None
-    assert type(context.output) is list, "wrong type of output"
+    assert isinstance(context.output, list), "wrong type of output"
 
     # check the output
     assert "Version:\t0.1" in context.output, "Caught output: {}".format(context.output)
@@ -89,7 +89,7 @@ def check_authors_info_from_mock(context):
     """Check if information about authors is displayed by Insights Results Aggregator Mock."""
     # preliminary checks
     assert context.output is not None
-    assert type(context.output) is list, "wrong type of output"
+    assert isinstance(context.output, list), "wrong type of output"
 
     # check the output
     assert (
@@ -102,7 +102,7 @@ def check_actual_configuration(context):
     """Check if actual configuration is displayed by Insights Results Aggregator Mock."""
     # preliminary checks
     assert context.output is not None
-    assert type(context.output) is list, "wrong type of output"
+    assert isinstance(context.output, list), "wrong type of output"
 
     # check the output
     assert "Server" in context.output[1], "Caught output: {}".format(context.output)

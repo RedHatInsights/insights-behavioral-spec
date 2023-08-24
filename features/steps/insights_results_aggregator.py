@@ -130,7 +130,7 @@ def check_version_from_aggregator(context):
     """Check if version info is displayed by Insights Results Aggregator."""
     # preliminary checks
     assert context.output is not None
-    assert type(context.output) is list, "wrong type of output"
+    assert isinstance(context.output, list), "wrong type of output"
 
     # check the output, line by line
     for line in context.output:
@@ -145,7 +145,7 @@ def check_actual_configuration_for_aggregator(context):
     """Check actual configuration printed to standard output by Insights Results Aggregator."""
     # preliminary checks
     assert context.output is not None
-    assert type(context.output) is list, "wrong type of output"
+    assert isinstance(context.output, list), "wrong type of output"
 
     # check the output
     assert "Broker" in context.output[3], "Caught output: {}".format(context.output)

@@ -78,7 +78,7 @@ def check_version_from_smart_proxy(context):
     """Check if version info is displayed by Smart Proxy."""
     # preliminary checks
     assert context.output is not None
-    assert type(context.output) is list, "wrong type of output"
+    assert isinstance(context.output, list), "wrong type of output"
 
     # check the output, line by line
     for line in context.output:
