@@ -107,7 +107,7 @@ def check_db_vacuuming(context):
     """Check if DB vacuuming were started and finished."""
     # preliminary checks
     assert context.output is not None
-    assert type(context.output) is list, "wrong type of output"
+    assert isinstance(context.output) is list, "wrong type of output"
 
     expected_messages = (
         "DB connection configuration",
@@ -170,7 +170,7 @@ def check_version_from_cleaner(context):
     """Check if version info is displayed by cleaner."""
     # preliminary checks
     assert context.output is not None
-    assert type(context.output) is list, "wrong type of output"
+    assert isinstance(context.output) is list, "wrong type of output"
 
     # check the output
     assert (
@@ -182,7 +182,7 @@ def check_authors_info_from_cleaner(context):
     """Check if information about authors is displayed by cleaner."""
     # preliminary checks
     assert context.output is not None
-    assert type(context.output) is list, "wrong type of output"
+    assert isinstance(context.output) is list, "wrong type of output"
 
     # check the output
     assert (
@@ -195,7 +195,7 @@ def check_cleaner_configuration(context):
     """Check if information about actual configuration is displayed by cleaner."""
     # preliminary checks
     assert context.output is not None
-    assert type(context.output) is list, "wrong type of output"
+    assert isinstance(context.output) is list, "wrong type of output"
 
     expected_messages = (
         "DB connection configuration",
