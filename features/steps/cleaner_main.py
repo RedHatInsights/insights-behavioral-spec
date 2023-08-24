@@ -107,7 +107,7 @@ def check_db_vacuuming(context):
     """Check if DB vacuuming were started and finished."""
     # preliminary checks
     assert context.output is not None
-    assert isinstance(context.output) is list, "wrong type of output"
+    assert isinstance(context.output, list), "wrong type of output"
 
     expected_messages = (
         "DB connection configuration",
