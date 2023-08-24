@@ -151,7 +151,6 @@ def check_help_from_ccx_notification_service(context):
         "  -show-authors",
         "  -show-configuration",
         "  -show-version",
-        "  -weekly-reports",
     ]
 
     # preliminary checks
