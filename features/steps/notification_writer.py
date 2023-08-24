@@ -120,7 +120,7 @@ def check_version_from_ccx_notification_writer(context):
     """Check if version info is displayed by CCX Notification Writer."""
     # preliminary checks
     assert context.output is not None
-    assert isinstance(context.output) is list, "wrong type of output"
+    assert isinstance(context.output, list), "wrong type of output"
 
     # check the output
     assert (
@@ -132,7 +132,7 @@ def check_authors_info_from_ccx_notification_writer(context):
     """Check if information about authors is displayed by CCX Notification Writer."""
     # preliminary checks
     assert context.output is not None
-    assert isinstance(context.output) is list, "wrong type of output"
+    assert isinstance(context.output, list), "wrong type of output"
 
     # check the output
     assert (

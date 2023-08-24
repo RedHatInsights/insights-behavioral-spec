@@ -98,7 +98,7 @@ def check_version_from_exporter(context):
     """Check if version info is displayed by exporter."""
     # preliminary checks
     assert context.output is not None
-    assert isinstance(context.output) is list, "wrong type of output"
+    assert isinstance(context.output, list), "wrong type of output"
 
     # check the output
     assert (
@@ -110,7 +110,7 @@ def check_authors_info_from_exporter(context):
     """Check if information about authors is displayed by exporter."""
     # preliminary checks
     assert context.output is not None
-    assert isinstance(context.output) is list, "wrong type of output"
+    assert isinstance(context.output, list), "wrong type of output"
 
     # check the output
     assert (
@@ -123,7 +123,7 @@ def check_configuration_info_from_exporter(context):
     """Check if information about configuration is displayed by exporter."""
     # preliminary checks
     assert context.output is not None
-    assert isinstance(context.output) is list, "wrong type of output"
+    assert isinstance(context.output, list), "wrong type of output"
 
     stdout = context.stdout.decode("utf-8").replace("\t", "    ")
 
