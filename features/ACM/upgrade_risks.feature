@@ -35,23 +35,6 @@ Feature: Upgrade risks
      Then the browser displays the list of the N clusters
 
 
-  Scenario: Displaying the upgrade risk for multiple clusters
-    Given user USER1 owns one or more managed clusters
-      And the user USER1 is already logged in to Advanced Cluster Management
-     When user USER1 goes to Advanced Cluster Management / Infrastructure / Clusters
-      And user USER1 selects N (one or more) clusters
-      And user USER1 clicks Actions / Upgrade clusters 
-     Then the "Upgrade clusters" window appears
-      And the "Upgrade clusters" window displays the upgrade risk for each N cluster
-      And the "Upgrade clusters" window displays the last refresh date/time
-     When user USER1 clicks on the "Upgrade risk" for a cluster
-     Then the browser opens the details page on console.redhat.com (Advisor / Cluster / Upgrade risk)
-     When user USER1 clicks "Re-evaluate risk"
-     Then a new request is sent to console.redhat.com to get the updated values for the upgrade risks 
-      And the "Upgrade clusters" window displays the updated values
-      And the "Upgrade clusters" window displays the current date/time as the last refresh date/time
-
-
   Scenario: Displaying the upgrade risk for 100 clusters or less
     Given user USER1 owns a maximum of 100 managed clusters
      When the ACM control plane requests the upgrade risk from console.redhat.com  
