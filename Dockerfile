@@ -32,8 +32,8 @@ RUN dnf install --nodocs -y python39 python39-devel unzip make lsof git libpq-de
 
 RUN python3 -m venv $VIRTUAL_ENV
 
-RUN curl -v -ksL https://password.corp.redhat.com/RH-IT-Root-CA.crt \
-         -o /etc/pki/ca-trust/source/anchors/RH-IT-Root-CA.crt
+RUN curl -ksL https://certs.corp.redhat.com/certs/2015-IT-Root-CA.pem -o /etc/pki/ca-trust/source/anchors/RH-IT-Root-CA.crt
+RUN curl -ksL https://certs.corp.redhat.com/certs/2022-IT-Root-CA.pem -o /etc/pki/ca-trust/source/anchors/2022-IT-Root-CA.pem
 RUN update-ca-trust
 RUN pip install --no-cache-dir -U pip setuptools wheel
 RUN pip install --no-cache-dir -r requirements/requirements_docker.txt
