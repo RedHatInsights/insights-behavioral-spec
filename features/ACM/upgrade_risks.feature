@@ -37,13 +37,13 @@ Feature: Upgrade risks
 
   Scenario: Displaying the upgrade risk for 100 clusters or less
     Given user USER1 owns a maximum of 100 managed clusters
-     When the ACM control plane requests the upgrade risk from console.redhat.com  
+     When the ACM control plane requests the upgrade risk from console.redhat.com
       And all the clusters are requested in a single call
      Then console.redhat.com returns the upgrade risk for all the requested clusters
 
 
   Scenario: Displaying the upgrade risk for more than 100 clusters
     Given user USER1 owns 101 or more managed clusters
-     When the ACM control plane requests the upgrade risk from console.redhat.com 
+     When the ACM control plane requests the upgrade risk from console.redhat.com
       And all the clusters are requested in a single call
      Then console.redhat.com returns an error
