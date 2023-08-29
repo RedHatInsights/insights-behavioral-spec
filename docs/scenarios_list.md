@@ -160,6 +160,14 @@ nav_order: 3
 * Ability to search for issues on Advanced Cluster Management for one local cluster
 * Ability to search for issues on Advanced Cluster Management for one managed cluster
 
+## [`ACM/upgrade_risks.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/ACM/upgrade_risks.feature)
+
+* Displaying 1 cluster with high upgrade risk
+* Displaying 1 cluster with low upgrade risk
+* Displaying the overview of the clusters at risk
+* Displaying the upgrade risk for 100 clusters or less
+* Displaying the upgrade risk for more than 100 clusters
+
 ## [`Insights_Advisor/affected_clusters_filtering.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/Insights_Advisor/affected_clusters_filtering.feature)
 
 * Default filtering on Advisor's "Recommendations" page on Hybrid Cloud Console with five recommendations and four clusters
@@ -838,7 +846,8 @@ nav_order: 3
 ## [`ccx-notification-service/configuration.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/ccx-notification-service/configuration.feature)
 
 * Check that notification service exits with exit code 1 if no destination is configured
-* check that service exits with status 4 if rules content cannot be fetched
+* Check that notification-to-notification-backend is not started and exits with status 4 if rules cannot be fetched
+* Check that notification-to-service-log is not started and exits with status 4 if rules cannot be fetched
 
 ## [`ccx-notification-service/customer_notifications.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/ccx-notification-service/customer_notifications.feature)
 
