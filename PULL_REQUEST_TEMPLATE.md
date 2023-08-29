@@ -30,4 +30,5 @@ Please describe how the change was tested locally. If, for some reason, the test
 * [ ] Pylint passes for Python sources
 * [ ] sources has been pre-processed by Black
 * [ ] updated documentation wherever necessary
-* [ ] new tests can be executed both locally and within docker container 
+* [ ] new tests can be executed both locally and within docker container
+* [ ] new tests have been included in scenario list (make update-scenarios)
