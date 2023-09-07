@@ -42,3 +42,11 @@ class Context:
         def __init__(self):
             """Initialize table attribute to be the same as in Behave.Context."""
             self.table = Table()
+
+
+def test_check_table_context_none_buffer():
+    """Test if the function check_table_content checks if buffer is None."""
+    
+    context = Context()
+    with pytest.raises(AssertionError):
+        check_table_content(context, None, "filename", "column")
