@@ -57,9 +57,9 @@ def test_process_generated_output_positive_test_case():
             self.return_code = None
 
     out = subprocess.Popen(["ls", "-1"],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-    )
+                           stdout=subprocess.PIPE,
+                           stderr=subprocess.STDOUT,
+                           )
 
     context = Context()
     process_generated_output(context, out)
@@ -85,9 +85,9 @@ def test_process_generated_output_negative_test_case():
             self.return_code = None
 
     out = subprocess.Popen(["false"],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-    )
+                           stdout=subprocess.PIPE,
+                           stderr=subprocess.STDOUT,
+                           )
 
     context = Context()
     process_generated_output(context, out)
@@ -113,9 +113,9 @@ def test_process_generated_output_expected_return_code():
             self.return_code = None
 
     out = subprocess.Popen(["false"],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-    )
+                           stdout=subprocess.PIPE,
+                           stderr=subprocess.STDOUT,
+                           )
 
     context = Context()
     process_generated_output(context, out, return_code=1)
@@ -141,9 +141,9 @@ def test_process_generated_output_unexpected_return_code():
             self.return_code = None
 
     out = subprocess.Popen(["false"],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-    )
+                           stdout=subprocess.PIPE,
+                           stderr=subprocess.STDOUT,
+                           )
 
     context = Context()
 
