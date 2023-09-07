@@ -94,3 +94,15 @@ def test_setup_default_kafka_context_no_variables():
 
     assert context.kafka_hostname == "localhost"
     assert context.kafka_port == "9092"
+
+
+def test_setup_default_kafka_context_set_variables():
+    """Test the function setup_default_kafka_context."""
+    os.environ["KAFKA_HOST"] = "*host"
+    os.environ["KAFKA_PORT"] = "*port"
+
+    context = Context()
+    setup_default_kafka_context(context)
+
+    assert context.kafka_hostname == "*host"
+    assert context.kafka_port == "*port"
