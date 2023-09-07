@@ -43,3 +43,22 @@ class Context:
         self.kafka_hostname = None
         self.kafka_port = None
 
+
+def test_before_all_no_variables():
+    """Test the function before_all when no relevant environment variables are set."""
+    os.unsetenv("DB_HOST")
+    os.unsetenv("DB_PORT")
+    os.unsetenv("DB_NAME")
+    os.unsetenv("DB_USER")
+    os.unsetenv("DB_PASS")
+    os.unsetenv("ENV_DOCKER")
+
+    context = Context()
+    before_all(context)
+
+    assert context.database_host == "localhost"
+    assert context.database_port == 5432
+    assert context.database_name == "test"
+    assert context.database_user == "postgres"
+    assert context.database_password == "postgres"
+    assert context.local
