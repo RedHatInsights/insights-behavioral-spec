@@ -85,3 +85,13 @@ def test_check_table_context_csv_with_just_header():
     check_table_content(context, buff, "filename", "column")
 
 
+def test_check_table_context_csv_with_data():
+    """Test if the function check_table_content read and process CSV data."""
+    context = Context()
+
+    # simple CSV with just column headers
+    buff = iter(['"column1","column2"', '"column1 data","column2 data"'])
+
+    check_table_content(context, buff, "filename", 0)
+
+
