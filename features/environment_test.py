@@ -62,3 +62,23 @@ def test_before_all_no_variables():
     assert context.database_user == "postgres"
     assert context.database_password == "postgres"
     assert context.local
+
+
+def test_before_all_set_variables():
+    """Test the function before_all when all relevant environment variables are set."""
+    os.environ["DB_HOST"] = "*host"
+    os.environ["DB_PORT"] = "*port"
+    os.environ["DB_NAME"] = "*name"
+    os.environ["DB_USER"] = "*user"
+    os.environ["DB_PASS"] = "*pass"
+    os.environ["ENV_DOCKER"] = "0"
+
+    context = Context()
+    before_all(context)
+
+    assert context.database_host == "*host"
+    assert context.database_port == "*port"
+    assert context.database_name == "*name"
+    assert context.database_user == "*user"
+    assert context.database_password == "*pass"
+    assert context.local
