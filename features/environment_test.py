@@ -106,3 +106,47 @@ def test_setup_default_kafka_context_set_variables():
 
     assert context.kafka_hostname == "*host"
     assert context.kafka_port == "*port"
+
+
+def test_setup_default_S3_context_no_variables():
+    """Test the function setup_default_S3_context."""
+    os.unsetenv("S3_TYPE")
+    os.unsetenv("S3_HOST")
+    os.unsetenv("S3_PORT")
+    os.unsetenv("S3_ACCESS_KEY_ID")
+    os.unsetenv("S3_SECRET_ACCESS_KEY")
+    os.unsetenv("S3_BUCKET")
+    os.unsetenv("S3_OLDER_MINIO_COMPATIBILITY")
+
+    context = Context()
+    setup_default_S3_context(context)
+
+    assert context.S3_type == "minio"
+    assert context.S3_endpoint == "localhost"
+    assert context.S3_port == "9000"
+    assert context.S3_access_key == "test_access_key"
+    assert context.S3_secret_access_key == "test_secret_access_key"
+    assert context.S3_bucket_name == "test"
+    assert context.S3_old_minio_compatibility is None
+
+
+def test_setup_default_S3_context_set_variables():
+    """Test the function setup_default_S3_context."""
+    os.environ["S3_TYPE"] = "*type"
+    os.environ["S3_HOST"] = "*host"
+    os.environ["S3_PORT"] = "*port"
+    os.environ["S3_ACCESS_KEY_ID"] = "*access_key"
+    os.environ["S3_SECRET_ACCESS_KEY"] = "*secret_access_key"
+    os.environ["S3_BUCKET"] = "*bucket"
+    os.environ["S3_OLDER_MINIO_COMPATIBILITY"] = "true"
+
+    context = Context()
+    setup_default_S3_context(context)
+
+    assert context.S3_type == "*type"
+    assert context.S3_endpoint == "*host"
+    assert context.S3_port == "*port"
+    assert context.S3_access_key == "*access_key"
+    assert context.S3_secret_access_key == "*secret_access_key"
+    assert context.S3_bucket_name == "*bucket"
+    assert context.S3_old_minio_compatibility == "true"
