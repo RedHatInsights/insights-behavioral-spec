@@ -21,9 +21,13 @@ Currently four events have been registered:
 4. after_scenario
 """
 
-import os
-import psycopg2
-from subprocess import TimeoutExpired
+try:
+    import os
+    import psycopg2
+    from subprocess import TimeoutExpired
+except ImportError as e:
+    print("Warning: unable to import module:", e)
+
 
 # Mappings between supported features (like consuming message from Kafka) and
 # tags specified in feature files
