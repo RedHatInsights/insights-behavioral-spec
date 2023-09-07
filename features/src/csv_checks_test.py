@@ -50,3 +50,26 @@ def test_check_table_context_none_buffer():
     context = Context()
     with pytest.raises(AssertionError):
         check_table_content(context, None, "filename", "column")
+
+
+def test_check_table_context_empty_csv():
+    """Test if the function check_table_content checks if CSV is empty."""
+    context = Context()
+
+    # totally empty CSV
+    buff = iter([])
+
+    # it is expected that StopIteration will be raised because there's no header in CSV file
+    with pytest.raises(StopIteration):
+        check_table_content(context, buff, "filename", 0)
+
+
+def test_check_table_context_empty_csv_no_headers():
+    """Test if the function check_table_content checks if CSV is empty and header are disabled."""
+    context = Context()
+
+    # totally empty CSV
+    buff = iter([])
+
+    # it is NOT expected that StopIteration will be raised
+    check_table_content(context, buff, "filename", 0, headers=False)
