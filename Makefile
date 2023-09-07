@@ -7,13 +7,13 @@ tests:	cleaner-tests exporter-tests aggregator-tests aggregator-mock-tests \
 	inference-service-tests data-engineering-service-tests
 
 unit_tests: ## Run all unit tests defined in this project
-	export PYTHONDONTWRITEBYTECODE=1;pytest -v -p no:cacheprovider
+	export PATH=tools/:$$PATH;export PYTHONDONTWRITEBYTECODE=1;pytest -v -p no:cacheprovider
 
 coverage: ## Calculate unit test code coverage for the whole repository
-	export PYTHONDONTWRITEBYTECODE=1;pytest -v -p no:cacheprovider --cov features/
+	export PATH=tools/:$$PATH;export PYTHONDONTWRITEBYTECODE=1;pytest -v -p no:cacheprovider --cov features/
 
 coverage-report: ## Generate HTML pages with unit test code coverage report
-	export PYTHONDONTWRITEBYTECODE=1;pytest -v -p no:cacheprovider --cov features/ --cov-report=html
+	export PATH=tools/:$$PATH;export PYTHONDONTWRITEBYTECODE=1;pytest -v -p no:cacheprovider --cov features/ --cov-report=html
 
 cleaner-tests: ## Run BDD tests for the CCX Cleaner service
 	./cleaner_tests.sh
