@@ -73,3 +73,15 @@ def test_check_table_context_empty_csv_no_headers():
 
     # it is NOT expected that StopIteration will be raised
     check_table_content(context, buff, "filename", 0, headers=False)
+
+
+def test_check_table_context_csv_with_just_header():
+    """Test if the function check_table_content check if CSV contains just column headers."""
+    context = Context()
+
+    # simple CSV with just column headers
+    buff = iter(['"column1 header","column2 header"'])
+
+    check_table_content(context, buff, "filename", "column")
+
+
