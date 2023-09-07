@@ -82,3 +82,15 @@ def test_before_all_set_variables():
     assert context.database_user == "*user"
     assert context.database_password == "*pass"
     assert context.local
+
+
+def test_setup_default_kafka_context_no_variables():
+    """Test the function setup_default_kafka_context."""
+    os.unsetenv("KAFKA_HOST")
+    os.unsetenv("KAFKA_PORT")
+
+    context = Context()
+    setup_default_kafka_context(context)
+
+    assert context.kafka_hostname == "localhost"
+    assert context.kafka_port == "9092"
