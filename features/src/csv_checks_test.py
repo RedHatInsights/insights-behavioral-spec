@@ -21,32 +21,33 @@ import pytest
 
 from csv_checks import check_table_content
 
+
 class Table:
 
-        """Mock for real table class from Behave."""
+    """Mock for real table class from Behave."""
 
-        def __init__(self):
-            """Initialize Table instance."""
-            self.headings = ["column1", "column2"]
-            self.data = [{"column1": "column1 data",
-                          "column2": "column2 data"}]
+    def __init__(self):
+        """Initialize Table instance."""
+        self.headings = ["column1", "column2"]
+        self.data = [{"column1": "column1 data",
+                      "column2": "column2 data"}]
 
-        def __iter__(self):
-            return iter(self.data)
+    def __iter__(self):
+        """Return iterator that will be used to retrieve rows of data."""
+        return iter(self.data)
 
 
 class Context:
 
-        """Mock for real context class from Behave."""
+    """Mock for real context class from Behave."""
 
-        def __init__(self):
-            """Initialize table attribute to be the same as in Behave.Context."""
-            self.table = Table()
+    def __init__(self):
+        """Initialize table attribute to be the same as in Behave.Context."""
+        self.table = Table()
 
 
 def test_check_table_context_none_buffer():
     """Test if the function check_table_content checks if buffer is None."""
-    
     context = Context()
     with pytest.raises(AssertionError):
         check_table_content(context, None, "filename", "column")
