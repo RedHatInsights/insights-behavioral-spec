@@ -97,3 +97,31 @@ def test_process_generated_output_negative_test_case():
     assert context.output is not None
     assert context.stdout is not None
     assert context.stderr is None
+
+
+def test_process_generated_output_expected_return_code():
+    """Test the behaviour of process_generated_output function."""
+    class Context:
+
+        """Mock for real context class from Behave."""
+
+        def __init__(self):
+            """Initialize all required attributes."""
+            self.output = None
+            self.stdout = None
+            self.stderr = None
+            self.return_code = None
+
+    out = subprocess.Popen(["false"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
+
+    context = Context()
+    process_generated_output(context, out, return_code=1)
+
+    # check context after processing
+    assert context.return_code == 1
+    assert context.output is not None
+    assert context.stdout is not None
+    assert context.stderr is None
