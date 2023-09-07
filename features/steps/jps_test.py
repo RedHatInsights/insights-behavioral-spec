@@ -26,7 +26,7 @@ import sys
 import os
 sys.path.append(os.path.realpath(os.path.dirname(__file__)))
 
-from jps import find_jvm_application  # noqa E402
+from jps import find_jvm_application, get_all_jvm_based_applications  # noqa E402
 
 
 def test_find_jvm_application_positive_case():
@@ -62,3 +62,21 @@ def test_find_jvm_application_negative_case():
 
     with pytest.raises(AssertionError):
         find_jvm_application(context, "this.does.not.run")
+
+
+def test_get_all_jvm_based_application():
+    """Test for function get_all_jvm_based_applications."""
+    class Context:
+        def __init__(self):
+            self.output = None
+            self.stdout = None
+            self.stderr = None
+
+    context = Context()
+    get_all_jvm_based_applications(context)
+
+    assert context.output is not None
+    assert context.stdout is not None
+    assert context.stderr is None
+
+    find_jvm_application(context, "sun.tools.jps.Jps")
