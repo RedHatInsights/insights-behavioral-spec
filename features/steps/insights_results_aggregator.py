@@ -419,13 +419,16 @@ def check_disabled_rules_list(context):
             raise KeyError(f"Rule {expected_rule} was not returned by the service")
 
 
-@when("I send rules results '{filename}' into topic '{topic}' to {broker_type} broker")
-def send_rules_results_to_kafka(context, filename, topic, broker_type):
+@when("I send rules results '{filename}' into topic '{topic}'")
+def send_rules_results_to_kafka(context, filename, topic):
     """Send rule results into seleted topic on selected broker."""
     full_path = f"{DATA_DIRECTORY}/{filename}"
     with open(full_path, "r") as fin:
         payload = fin.read().encode("utf-8")
-        if broker_type == "local":
+        if hasattr(context, 'kafka_hostname') and hasattr(context, 'kafka_port'):
+            kafka_util.send_event(f"{context.kafka_hostname}:{context.kafka_port}", topic, payload)
+        else:
+            # try localhost or raise exception
             kafka_util.send_event("localhost:9092", topic, payload)
 
 

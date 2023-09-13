@@ -10,23 +10,23 @@ Feature: Consuming and processing results from Kafka broker
       And database user is set to postgres
       And database password is set to postgres
       And aggregator database is in initial state
+      And Kafka broker is available
+      And Kafka topic "ccx.ocp.results" is empty
      When database connection is established
       And I migrate aggregator database to latest version
       And I read current migration number from database
      Then I should see that migration #31 is returned
-     When I retrieve a list of all applications running under JVM
-     Then I should find the following application kafka.Kafka
     Given Insights Results Aggregator service is started in background
      When I wait 5 seconds
 
 
-  @managed @local
+  @managed
   Scenario: Check if Insights Results Aggregator is able to consume messages and store results into database
      When I access endpoint /organizations/123/clusters using HTTP GET method using token for organization 123 account number 456, and user 789
      Then The status code of the response is 200
       And The status message of the response is "ok"
       And I should retrieve empty list of clusters
-     When I send rules results 'tutorial_only.json' into topic 'ccx.ocp.results' to local broker
+     When I send rules results 'tutorial_only.json' into topic 'ccx.ocp.results'
       And I wait 5 seconds
      When I access endpoint /organizations/123/clusters using HTTP GET method using token for organization 123 account number 456, and user 789
      Then The status code of the response is 200
@@ -38,15 +38,15 @@ Feature: Consuming and processing results from Kafka broker
      Then Insights Results Aggregator process should terminate
 
 
-  @managed @local
+  @managed
   Scenario: Check if Insights Results Aggregator is able to consume messages and store results into database for multiple results
      When I access endpoint /organizations/123/clusters using HTTP GET method using token for organization 123 account number 456, and user 789
      Then The status code of the response is 200
       And The status message of the response is "ok"
       And I should retrieve empty list of clusters
-     When I send rules results 'tutorial_only.json' into topic 'ccx.ocp.results' to local broker
+     When I send rules results 'tutorial_only.json' into topic 'ccx.ocp.results'
       And I wait 5 seconds
-      And I send rules results '05_rules_hits.json' into topic 'ccx.ocp.results' to local broker
+      And I send rules results '05_rules_hits.json' into topic 'ccx.ocp.results'
       And I wait 5 seconds
      When I access endpoint /organizations/123/clusters using HTTP GET method using token for organization 123 account number 456, and user 789
      Then The status code of the response is 200
@@ -58,15 +58,15 @@ Feature: Consuming and processing results from Kafka broker
      Then Insights Results Aggregator process should terminate
 
 
-  @managed @local
+  @managed
   Scenario: Check if Insights Results Aggregator is able to consume messages and store results into database for multiple clusters
      When I access endpoint /organizations/123/clusters using HTTP GET method using token for organization 123 account number 456, and user 789
      Then The status code of the response is 200
       And The status message of the response is "ok"
       And I should retrieve empty list of clusters
-     When I send rules results '05_rules_hits.json' into topic 'ccx.ocp.results' to local broker
+     When I send rules results '05_rules_hits.json' into topic 'ccx.ocp.results'
       And I wait 5 seconds
-      And I send rules results '05_rules_hits_different_cluster.json' into topic 'ccx.ocp.results' to local broker
+      And I send rules results '05_rules_hits_different_cluster.json' into topic 'ccx.ocp.results'
       And I wait 5 seconds
      When I access endpoint /organizations/123/clusters using HTTP GET method using token for organization 123 account number 456, and user 789
      Then The status code of the response is 200
@@ -79,13 +79,13 @@ Feature: Consuming and processing results from Kafka broker
      Then Insights Results Aggregator process should terminate
 
 
-  @managed @local
+  @managed
   Scenario: Check rule hits after Insights Results Aggregator consumes messages and stores results into database
      When I access endpoint /organizations/123/clusters using HTTP GET method using token for organization 123 account number 456, and user 789
      Then The status code of the response is 200
       And The status message of the response is "ok"
       And I should retrieve empty list of clusters
-     When I send rules results 'tutorial_only.json' into topic 'ccx.ocp.results' to local broker
+     When I send rules results 'tutorial_only.json' into topic 'ccx.ocp.results'
       And I wait 5 seconds
      When I access endpoint /organizations/123/clusters using HTTP GET method using token for organization 123 account number 456, and user 789
      Then The status code of the response is 200
@@ -104,13 +104,13 @@ Feature: Consuming and processing results from Kafka broker
      Then Insights Results Aggregator process should terminate
 
 
-  @managed @local
+  @managed
   Scenario: Check rule hits after Insights Results Aggregator consumes message and stores results into database for multiple results
      When I access endpoint /organizations/123/clusters using HTTP GET method using token for organization 123 account number 456, and user 789
      Then The status code of the response is 200
       And The status message of the response is "ok"
       And I should retrieve empty list of clusters
-     When I send rules results '05_rules_hits.json' into topic 'ccx.ocp.results' to local broker
+     When I send rules results '05_rules_hits.json' into topic 'ccx.ocp.results'
       And I wait 5 seconds
      When I access endpoint /organizations/123/clusters using HTTP GET method using token for organization 123 account number 456, and user 789
      Then The status code of the response is 200
@@ -133,15 +133,15 @@ Feature: Consuming and processing results from Kafka broker
      Then Insights Results Aggregator process should terminate
 
 
-  @managed @local
+  @managed
   Scenario: Check rule hits after Insights Results Aggregator consumes two messages when the second is older then the first one
      When I access endpoint /organizations/123/clusters using HTTP GET method using token for organization 123 account number 456, and user 789
      Then The status code of the response is 200
       And The status message of the response is "ok"
       And I should retrieve empty list of clusters
-     When I send rules results 'tutorial_only.json' into topic 'ccx.ocp.results' to local broker
+     When I send rules results 'tutorial_only.json' into topic 'ccx.ocp.results'
       And I wait 5 seconds
-     When I send rules results '05_rules_hits.json' into topic 'ccx.ocp.results' to local broker
+     When I send rules results '05_rules_hits.json' into topic 'ccx.ocp.results'
       And I wait 5 seconds
      When I access endpoint /organizations/123/clusters using HTTP GET method using token for organization 123 account number 456, and user 789
      Then The status code of the response is 200
@@ -160,15 +160,15 @@ Feature: Consuming and processing results from Kafka broker
      Then Insights Results Aggregator process should terminate
 
 
-  @managed @local
+  @managed
   Scenario: Check rule hits after Insights Results Aggregator consumes two messages when the second is newer then the first one
      When I access endpoint /organizations/123/clusters using HTTP GET method using token for organization 123 account number 456, and user 789
      Then The status code of the response is 200
       And The status message of the response is "ok"
       And I should retrieve empty list of clusters
-     When I send rules results '05_rules_hits.json' into topic 'ccx.ocp.results' to local broker
+     When I send rules results '05_rules_hits.json' into topic 'ccx.ocp.results'
       And I wait 5 seconds
-     When I send rules results 'tutorial_only.json' into topic 'ccx.ocp.results' to local broker
+     When I send rules results 'tutorial_only.json' into topic 'ccx.ocp.results'
       And I wait 5 seconds
      When I access endpoint /organizations/123/clusters using HTTP GET method using token for organization 123 account number 456, and user 789
      Then The status code of the response is 200
@@ -187,15 +187,15 @@ Feature: Consuming and processing results from Kafka broker
      Then Insights Results Aggregator process should terminate
 
 
-  @managed @local
+  @managed
   Scenario: Check rule hits after Insights Results Aggregator consumes message and stores results into database for multiple clusters
      When I access endpoint /organizations/123/clusters using HTTP GET method using token for organization 123 account number 456, and user 789
      Then The status code of the response is 200
       And The status message of the response is "ok"
       And I should retrieve empty list of clusters
-     When I send rules results '05_rules_hits.json' into topic 'ccx.ocp.results' to local broker
+     When I send rules results '05_rules_hits.json' into topic 'ccx.ocp.results'
       And I wait 5 seconds
-     When I send rules results '05_rules_hits_different_cluster.json' into topic 'ccx.ocp.results' to local broker
+     When I send rules results '05_rules_hits_different_cluster.json' into topic 'ccx.ocp.results'
       And I wait 5 seconds
      When I access endpoint /organizations/123/clusters using HTTP GET method using token for organization 123 account number 456, and user 789
      Then The status code of the response is 200
@@ -230,13 +230,13 @@ Feature: Consuming and processing results from Kafka broker
      Then Insights Results Aggregator process should terminate
 
 
-  @managed @local
+  @managed
   Scenario: Check rule hits after Insights Results Aggregator consumes message with no results
      When I access endpoint /organizations/123/clusters using HTTP GET method using token for organization 123 account number 456, and user 789
      Then The status code of the response is 200
       And The status message of the response is "ok"
       And I should retrieve empty list of clusters
-     When I send rules results 'no_hits.json' into topic 'ccx.ocp.results' to local broker
+     When I send rules results 'no_hits.json' into topic 'ccx.ocp.results'
       And I wait 5 seconds
      When I access endpoint /organizations/123/clusters using HTTP GET method using token for organization 123 account number 456, and user 789
      Then The status code of the response is 200
