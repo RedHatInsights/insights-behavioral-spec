@@ -24,7 +24,8 @@ Feature: Basic set of smoke tests
       And The process should finish with exit code 0
 
 
-  @cli
+  # Marked as local as it cannot be run properly in Travis
+  @cli @local
   Scenario: Check if Insights Results Aggregator displays version info
     Given the system is in default state
      When I run the Insights Results Aggregator with the print-version-info command line flag
