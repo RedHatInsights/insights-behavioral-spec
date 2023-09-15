@@ -132,12 +132,27 @@ def check_version_from_aggregator(context):
     assert context.output is not None
     assert isinstance(context.output, list), "wrong type of output"
 
+    exceptionMessage = "Improper or missing version {} found in {}"
     # check the output, line by line
     for line in context.output:
-        if "Version: v" in line:
-            break
+        if '"Version:' in line:
+            version = line.split("Version: ")[-1][:-2]
+            if version.startswith('v'):
+                import semver
+                try:
+                    semver.parse(version[1:])
+                    print(f"{version} is a valid semantic version.")
+                    break
+                except ValueError:
+                    raise Exception(exceptionMessage.format(version, context.output))
+            else:
+                # version should be a commit SHA1
+                import re
+                if not re.match(r"[a-f0-9]{40}", version):
+                    raise Exception(exceptionMessage.format(version, context.output))
+                break
     else:
-        raise Exception("Improper or missing version info in {}".format(context.output))
+        raise Exception(exceptionMessage.format("", context.output))
 
 
 @then("I should see actual configuration displayed by Insights Results Aggregator on standard output")  # noqa E501

@@ -8,5 +8,5 @@ requests
 minio
 jsonschema
 kafka-python
-
 virtualenv
+semver
