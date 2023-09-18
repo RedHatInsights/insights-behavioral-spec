@@ -2,10 +2,12 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
 
         GET /namespaces/dvo
         Returns the list of all DVO namespaces (i.e. array of objects) to which this
-        particular account has access.  Each object contains the namespace ID, the
+        particular account has access. Each object contains the namespace ID, the
         namespace display name if available, the cluster ID under which this namespace
         is created, and the number of affecting recommendations for this namespace as
         well.
+        The UX design for page that use these information is available there:
+        https://www.sketch.com/s/46f6d8e3-a4d0-4249-9d57-e6a79b518a6d/a/y9y12qE
 
         GET /cluster/{cluster_name}/namespaces/dvo
         GET /namespaces/dvo/cluster/{cluster_name}
@@ -50,14 +52,14 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
                           "uuid": "{namespace UUID}",
                           "name": "{namespace real name}", // optional, might be null
                       },
-                      "reports": [
-                          {
-                              "check": "{for example no_anti_affinity}", // taken from the original full name deploment_validation_operator_no_anti_affinity
-                              "kind": "{kind attribute}",
-                              "description": {description}",
-                              "remediation": {remediation}",
-                          },
-                      ]
+                      metadata": {
+                          "recommendations": "{number of recommendations"}, // stored in DVO_REPORT table, computed as SELECT count(distinct(recommendation)) WHERE cluster="{cluster UUID}" and namespace="{namespace UUID}"
+                          "objects": "{number of objects}",                 // stored in DVO_REPORT table, computed as SELECT count(distinct(object)) WHERE cluster="{cluster UUID}" and namespace="{namespace UUID}"
+                          "reported_at": "{reported_at}",                   // stored in DVO_REPORT table
+                          "last_checked_at": "{last_checked_at}",           // stored in DVO_REPORT table
+                          "highest_severity": "{highest_severity}",         // computed with the help of Content Service
+                      },
+                  }
               ]
           }
           """
