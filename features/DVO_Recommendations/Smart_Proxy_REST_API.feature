@@ -65,7 +65,7 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
           """
 
 
-  Scenario: Returning just active clusters in Smart Proxy REST API endpoint to retrieve list of all DVO namespaces for current organization
+  Scenario: Returning just active clusters with DVO namespaces in Smart Proxy REST API endpoint to retrieve list of all DVO namespaces for current organization
     Given REST API for Smart Proxy is available
       And REST API service prefix is /api/v2
       And organization TEST_ORG is registered
@@ -85,6 +85,13 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
           | TEST_ORG        | 00000005-0000-0000-0000-000000000000 |
           | TEST_ORG        | 00000006-0000-0000-0000-000000000000 |
           | TEST_ORG        | 00000007-0000-0000-0000-000000000000 |
+      And The following DVO namespaces have been identified for clusters
+          | Cluster name                         | DVO namespace |
+          | 00000001-0000-0000-0000-000000000000 | namespace-1   |
+          | 00000002-0000-0000-0000-000000000000 | namespace-2   |
+          | 00000003-0000-0000-0000-000000000000 | namespace-3   |
+          | 00000004-0000-0000-0000-000000000000 | namespace-4   |
+          | 00000005-0000-0000-0000-000000000000 | namespace-5   |
      When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo using their access token
      Then The status of the response is 200
       And The workloads list should contain information just for following list of clusters
@@ -92,6 +99,63 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
           | 00000003-0000-0000-0000-000000000000 |
           | 00000004-0000-0000-0000-000000000000 |
           | 00000005-0000-0000-0000-000000000000 |
+
+
+  Scenario: Returning just active clusters with DVO namespaces in Smart Proxy REST API endpoint to retrieve list of all DVO namespaces for current organization - filtering by DVO namespace
+    Given REST API for Smart Proxy is available
+      And REST API service prefix is /api/v2
+      And organization TEST_ORG is registered
+      And user TEST_USER is member of TEST_USER organization
+      And access token is generated to TEST_USER
+      And CCX data pipeline has DVO results stored in its database for following clusters
+          | Organization ID | Cluster name                         |
+          | TEST_ORG        | 00000001-0000-0000-0000-000000000000 |
+          | TEST_ORG        | 00000002-0000-0000-0000-000000000000 |
+          | TEST_ORG        | 00000003-0000-0000-0000-000000000000 |
+          | TEST_ORG        | 00000004-0000-0000-0000-000000000000 |
+          | TEST_ORG        | 00000005-0000-0000-0000-000000000000 |
+      And AMS registers the following live clusters
+          | Organization ID | Cluster name                         |
+          | TEST_ORG        | 00000003-0000-0000-0000-000000000000 |
+          | TEST_ORG        | 00000004-0000-0000-0000-000000000000 |
+          | TEST_ORG        | 00000005-0000-0000-0000-000000000000 |
+          | TEST_ORG        | 00000006-0000-0000-0000-000000000000 |
+          | TEST_ORG        | 00000007-0000-0000-0000-000000000000 |
+      And The following DVO namespaces have been identified for clusters
+          | Cluster name                         | DVO namespace |
+          | 00000004-0000-0000-0000-000000000000 | namespace-4   |
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo using their access token
+     Then The status of the response is 200
+      And The workloads list should contain information just for following list of clusters
+          | Cluster name                         |
+          | 00000004-0000-0000-0000-000000000000 |
+
+
+  Scenario: Returning results when no DVO namespace have been identified
+    Given REST API for Smart Proxy is available
+      And REST API service prefix is /api/v2
+      And organization TEST_ORG is registered
+      And user TEST_USER is member of TEST_USER organization
+      And access token is generated to TEST_USER
+      And CCX data pipeline has DVO results stored in its database for following clusters
+          | Organization ID | Cluster name                         |
+          | TEST_ORG        | 00000001-0000-0000-0000-000000000000 |
+          | TEST_ORG        | 00000002-0000-0000-0000-000000000000 |
+          | TEST_ORG        | 00000003-0000-0000-0000-000000000000 |
+          | TEST_ORG        | 00000004-0000-0000-0000-000000000000 |
+          | TEST_ORG        | 00000005-0000-0000-0000-000000000000 |
+      And AMS registers the following live clusters
+          | Organization ID | Cluster name                         |
+          | TEST_ORG        | 00000003-0000-0000-0000-000000000000 |
+          | TEST_ORG        | 00000004-0000-0000-0000-000000000000 |
+          | TEST_ORG        | 00000005-0000-0000-0000-000000000000 |
+          | TEST_ORG        | 00000006-0000-0000-0000-000000000000 |
+          | TEST_ORG        | 00000007-0000-0000-0000-000000000000 |
+      And The following DVO namespaces have been identified for clusters
+          | Cluster name                         | DVO namespace |
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo using their access token
+     Then The status of the response is 200
+      And The workloads list should be empty
 
 
   Scenario: Checking organization in Smart Proxy REST API endpoint to retrieve list of all DVO namespaces for current organization

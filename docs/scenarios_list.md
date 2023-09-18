@@ -277,7 +277,9 @@ nav_order: 3
 ## [`DVO_Recommendations/Smart_Proxy_REST_API.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/DVO_Recommendations/Smart_Proxy_REST_API.feature)
 
 * Accessing Smart Proxy REST API endpoint to retrieve list of all DVO namespaces for current organization
-* Returning just active clusters in Smart Proxy REST API endpoint to retrieve list of all DVO namespaces for current organization
+* Returning just active clusters with DVO namespaces in Smart Proxy REST API endpoint to retrieve list of all DVO namespaces for current organization
+* Returning just active clusters with DVO namespaces in Smart Proxy REST API endpoint to retrieve list of all DVO namespaces for current organization - filtering by DVO namespace
+* Returning results when no DVO namespace have been identified
 * Checking organization in Smart Proxy REST API endpoint to retrieve list of all DVO namespaces for current organization
 * Accessing Smart Proxy REST API endpoint to retrieve DVO namespaces for selected existing cluster
 * Accessing Smart Proxy REST API endpoint to retrieve DVO namespaces for not known cluster
