@@ -280,12 +280,14 @@ nav_order: 3
 * Returning just active clusters with DVO namespaces in Smart Proxy REST API endpoint to retrieve list of all DVO namespaces for current organization
 * Returning just active clusters with DVO namespaces in Smart Proxy REST API endpoint to retrieve list of all DVO namespaces for current organization - filtering by DVO namespace
 * Returning results when no DVO namespace have been identified
-* Checking organization in Smart Proxy REST API endpoint to retrieve list of all DVO namespaces for current organization
+* Checking organization in Smart Proxy REST API endpoint to retrieve list of all DVO namespaces for non-registered organization
+* Checking organization in Smart Proxy REST API endpoint to retrieve list of all DVO namespaces for different organization
 * Accessing Smart Proxy REST API endpoint to retrieve DVO namespaces for selected existing cluster
 * Accessing Smart Proxy REST API endpoint to retrieve DVO namespaces for not known cluster
 * Accessing Smart Proxy REST API endpoint to retrieve DVO namespaces for known cluster without DVO namespaces
 * Accessing Smart Proxy REST API endpoint to retrieve DVO namespaces for improper cluster UUID
 * Accessing Smart Proxy REST API endpoint to retrieve DVO namespaces for improper organization
+* Accessing Smart Proxy REST API endpoint to retrieve DVO namespaces for user from different organization
 * Accessing Smart Proxy REST API endpoint to retrieve DVO namespaces when cluster is not specified
 * Accessing Smart Proxy REST API endpoint to retrieve DVO namespaces for not known cluster
 * Accessing Smart Proxy REST API endpoint to retrieve DVO namespaces for known cluster without DVO namespaces
