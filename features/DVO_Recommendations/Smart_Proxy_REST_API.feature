@@ -12,18 +12,20 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
         GET /cluster/{cluster_name}/namespaces/dvo
         GET /namespaces/dvo/cluster/{cluster_name}
         Returns the list of all namespaces (i.e. array of objects) to which this
-        particular account has access filtered by {cluster_name}.  Each object contains
+        particular account has access filtered by {cluster_name}. Each object contains
         the namespace ID, the namespace display name if available, the cluster ID under
         which this namespace is created (repeated input), and the number of affecting
         recommendations for this namespace as well.
         Both GETers have the same meaning, just the order of selectors is different.
+        The UX design for page that use these information is available there:
+        https://www.sketch.com/s/46f6d8e3-a4d0-4249-9d57-e6a79b518a6d/a/Go8ZWGw
 
-        GET /namespaces/dvo/{namespace_id}/info
+        GET /cluster/{cluster_name}/namespaces/dvo/{namespace_id}/info
         Returns information about the requested namespace. Contains the display name,
         associated cluster ID. Probably, some other metadata like last seen (but not
         needed according to current UX pre-design).
 
-        GET /namespaces/dvo/{namespace_id}/reports
+        GET /cluster/{cluster_name}/namespaces/dvo/{namespace_id}/reports
         Returns the list of all recommendations affecting this namespace. It is
         basically an array with objects meeting the
         https://github.com/RedHatInsights/insights-results-smart-proxy/blob/master/server/api/v2/openapi.json#L1537
@@ -158,11 +160,27 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
       And The workloads list should be empty
 
 
-  Scenario: Checking organization in Smart Proxy REST API endpoint to retrieve list of all DVO namespaces for current organization
+  Scenario: Checking organization in Smart Proxy REST API endpoint to retrieve list of all DVO namespaces for non-registered organization
     Given REST API for Smart Proxy is available
       And REST API service prefix is /api/v2
       And organization TEST_ORG is NOT registered
       And user TEST_USER is member of TEST_USER organization
+      And access token is generated to TEST_USER
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo using their access token
+     Then The status of the response is 403
+      And The body of the response is the following
+          """
+          {
+              "status": "forbidden"
+          }
+          """
+
+
+  Scenario: Checking organization in Smart Proxy REST API endpoint to retrieve list of all DVO namespaces for different organization
+    Given REST API for Smart Proxy is available
+      And REST API service prefix is /api/v2
+      And organization TEST_ORG is registered
+      And user TEST_USER is NOT member of TEST_USER organization
       And access token is generated to TEST_USER
      When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo using their access token
      Then The status of the response is 403
@@ -181,20 +199,51 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
       And user TEST_USER is member of TEST_USER organization
       And access token is generated to TEST_USER
       And CCX data pipeline has DVO results stored in its database for following cluster
-          | Organization ID | Cluster name                         |
-          | TEST_ORG        | 00000001-0000-0000-0000-000000000000 |
+          | Organization ID | Cluster name                         | Namespace   |
+          | TEST_ORG        | 00000001-0000-0000-0000-000000000000 | namespace-1 |
      When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/cluster/00000001-0000-0000-0000-000000000000 using their access token
      Then The status of the response is 200
       And The body of the response is the following
           """
           {
               "status": "ok",
-              "reports": [
+              "cluster": {
+                  "uuid": "{cluster UUID}",
+                  "display_name": "{cluster UUID or displayable name}",
+              },
+              "namespace": {
+                  "uuid": "{namespace UUID}",                       // in this case "namespace-1"
+                  "name": "{namespace real name}",                  // optional, might be null
+              },
+              metadata": {
+                  "recommendations": "{number of recommendations"}, // stored in DVO_REPORT table, computed as SELECT count(distinct(recommendation)) WHERE cluster="{cluster UUID}" and namespace="{namespace UUID}"
+                  "objects": "{number of objects}",                 // stored in DVO_REPORT table, computed as SELECT count(distinct(object)) WHERE cluster="{cluster UUID}" and namespace="{namespace UUID}"
+                  "reported_at": "{reported_at}",                   // stored in DVO_REPORT table
+                  "last_checked_at": "{last_checked_at}",           // stored in DVO_REPORT table
+                  "highest_severity": "{highest_severity}",         // computed with the help of Content Service
+              },
+              "recommendations": [                                  // list of recommendations for the namespace
                   {
-                      "check": "{for example no_anti_affinity}", // taken from the original full name deploment_validation_operator_no_anti_affinity
-                      "kind": "{kind attribute}",
-                      "description": {description}",
-                      "remediation": {remediation}",
+                      "check": "{for example no_anti_affinity}",    // taken from the original full name deploment_validation_operator_no_anti_affinity
+                      "description": {description}",                // taken from Content Service
+                      "remediation": {remediation}",                // taken from Content Service
+                      "objects": [
+                          {
+                              "kind": "{kind attribute}",           // taken from the original report, stored in JSON in DVO_REPORT_TABLE
+                              "uid":  "{UUID}",
+                          },
+                          {
+                              "kind": "{kind attribute}",           // taken from the original report, stored in JSON in DVO_REPORT_TABLE
+                              "uid":  "{UUID}",
+                          }
+                       ],
+                  },
+                  {
+                      "check": "{for unset_memory_requirements}",// taken from the original full name deploment_validation_operator_no_anti_affinity
+                      "description": {description}",             // taken from Content Service
+                      "remediation": {remediation}",             // taken from Content Service
+                      "objects": [
+                      ],
                   },
               ]
           }
@@ -260,6 +309,22 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
       And REST API service prefix is /api/v2
       And organization TEST_ORG is NOT registered
       And user TEST_USER is member of TEST_USER organization
+      And access token is generated to TEST_USER
+     When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/cluster/ffffffff-ffff-ffff-ffff-000000000000 using their access token
+     Then The status of the response is 403
+      And The body of the response is the following
+          """
+          {
+              "status": "forbidden"
+          }
+          """
+
+
+  Scenario: Accessing Smart Proxy REST API endpoint to retrieve DVO namespaces for user from different organization
+    Given REST API for Smart Proxy is available
+      And REST API service prefix is /api/v2
+      And organization TEST_ORG is registered
+      And user TEST_USER is NOT member of TEST_USER organization
       And access token is generated to TEST_USER
      When TEST_USER make HTTP GET request to REST API endpoint namespaces/dvo/cluster/ffffffff-ffff-ffff-ffff-000000000000 using their access token
      Then The status of the response is 403
@@ -370,16 +435,18 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
           """
           {
               "status": "ok"
-              "namespace": {
-                  "uuid": "{namespace UUID}",
-                  "name": "{namespace real name}", // optional, might be null
-              },
               "cluster": {
                   "uuid": "{cluster UUID}",
                   "display_name": "{cluster UUID or displayable name}",
               },
+              "namespace": {
+                  "uuid": "{namespace UUID}",                       // in this case "namespace-1"
+                  "name": "{namespace real name}",                  // optional, might be null
+              },
               "metadata": {
-                  "last_seen": "{timestamp}", // optional ATM
+                  "last_seen": "{timestamp}",                       // optional ATM
+                  "reported_at": "{reported_at}",                   // stored in DVO_REPORT table
+                  "last_checked_at": "{last_checked_at}",           // stored in DVO_REPORT table
               },
           }
           """
@@ -450,6 +517,10 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
           """
           {
               "status": "ok"
+              "cluster": {
+                  "uuid": "{cluster UUID}",
+                  "display_name": "{cluster UUID or displayable name}",
+              },
               "namespace": {
                   "uuid": "{namespace UUID}",
                   "name": "{namespace real name}", // optional, might be null
@@ -476,6 +547,10 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
           """
           {
               "status": "ok"
+              "cluster": {
+                  "uuid": "{cluster UUID}",
+                  "display_name": "{cluster UUID or displayable name}",
+              },
               "namespace": {
                   "uuid": "{namespace UUID}",
                   "name": "{namespace real name}", // optional, might be null
@@ -527,6 +602,10 @@ Feature: Behaviour specification for new REST API endpoints that will be impleme
           """
           {
               "status": "ok"
+              "cluster": {
+                  "uuid": "{cluster UUID}",
+                  "display_name": "{cluster UUID or displayable name}",
+              },
               "namespace": {
                   "uuid": "{namespace UUID}",
                   "name": "{namespace real name}", // optional, might be null
