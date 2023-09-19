@@ -20,7 +20,7 @@ import semver
 import re
 
 
-def version(output: List):
+def check(output: List):
     """Check the version in longer program output."""
     exceptionMessage = "Improper or missing version {} found in {}"
 
