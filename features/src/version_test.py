@@ -32,3 +32,14 @@ def test_missing_version():
     """Check how the version check function handles input without version."""
     with pytest.raises(Exception):
         check(["this", "is", "not", "version"])
+
+
+def test_correct_version():
+    """Check how version check function handled input with proper version."""
+    check(["this", "is", "correct", "version", "\"Version: v1.2.3\"}"])
+
+
+def test_correct_sha():
+    """Check how version check function handled input with proper commit SHA."""
+    check(["this", "is", "correct", "version",
+        "\"Version: abc00defabc00defabc00defabc00defabc00def\"}"])
