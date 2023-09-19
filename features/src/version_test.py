@@ -42,4 +42,4 @@ def test_correct_version():
 def test_correct_sha():
     """Check how version check function handled input with proper commit SHA."""
     check(["this", "is", "correct", "version",
-        "\"Version: abc00defabc00defabc00defabc00defabc00def\"}"])
+           "\"Version: abc00defabc00defabc00defabc00defabc00def\"}"])
