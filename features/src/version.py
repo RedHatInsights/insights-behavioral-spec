@@ -32,7 +32,7 @@ def check(output: List):
             # we need to distinguish between semantic version and commit SHA
             if version.startswith('v'):
                 try:
-                    semver.parse(version[1:])
+                    semver.Version.parse(version[1:])
                     print(f"{version} is a valid semantic version.")
                     break
                 except ValueError:
