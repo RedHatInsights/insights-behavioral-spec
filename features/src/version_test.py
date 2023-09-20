@@ -43,3 +43,39 @@ def test_correct_sha():
     """Check how version check function handled input with proper commit SHA."""
     check(["this", "is", "correct", "version",
            "\"Version: abc00defabc00defabc00defabc00defabc00def\"}"])
+
+
+improper_versions = (
+        "\"Version: v1\"}",
+        "\"Version: v1.2\"}",
+        "\"Version: v1.2.A\"}",
+        "\"Version: v1.A.3\"}",
+        "\"Version: vA.2.3\"}",
+        "\"Version: v1.2.3}",
+        "\"Version: v1.2.3",
+        "\"Version:  v1.2.3\"}",
+)
+
+
+@pytest.mark.parametrize("version", improper_versions)
+def test_incorrect_version(version):
+    """Check how version check function handled input with improper version."""
+    with pytest.raises(Exception):
+        check([version])
+
+
+improper_shas = (
+           "\"Version  abc00defabc00defabc00defabc00defabc00def\"}",
+           "\"Version:  abc00defabc00defabc00defabc00defabc00def\"}",
+           "\"Version: abc00defabc00defabc00defabc00defabc00de\"}",
+           "\"Version: abc00defabc00defabc00defabc00defabc00def}",
+           "\"Version: abc00defabc00defabc00defabc00defabc00def\"",
+           "\"Version: abc00defabc00defabc00defabc00defabc00def",
+)
+
+
+@pytest.mark.parametrize("sha", improper_shas)
+def test_incorrect_sha(sha):
+    """Check how version check function handled input with improper SHA."""
+    with pytest.raises(Exception):
+        check([sha])
