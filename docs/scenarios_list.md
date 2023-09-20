@@ -920,6 +920,12 @@ nav_order: 3
 * Check the ability to clean up old records from `reported` table if the table contains one old report.
 * Check the ability to clean up old records from `reported` table if the table contains two old reports.
 
+## [`ccx-notification-writer/cleanup_read_errors.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/ccx-notification-writer/cleanup_read_errors.feature)
+
+* Check the ability to clean up old records from `read_errors` table if the table is empty.
+* Check the ability to clean up old records from `read_errors` table if the table contains one old report.
+* Check the ability to clean up old records from `read_errors` table if the table contains two old reports.
+
 ## [`ccx-notification-writer/cli_flags.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/ccx-notification-writer/cli_flags.feature)
 
 * Check if CCX Notification Writer displays help message

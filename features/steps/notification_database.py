@@ -257,6 +257,42 @@ def insert_rows_into_reported_table(context, report="", default_notified_at=None
         raise e
 
 
+@when("I insert following row into table read_errors")
+@when("I insert following rows into table read_errors")
+def insert_rows_into_read_errors_table(context):
+    """Insert rows into table read_errors."""
+    cursor = context.connection.cursor()
+
+    try:
+        # retrieve table data from feature file
+        for row in context.table:
+            org_id = int(row["org id"])
+            cluster_name = row["cluster name"]
+            updated_at = row["updated at"]
+            error_text = row["error"]
+
+            # check the input table
+            assert org_id is not None, "Organization ID should be set"
+            assert cluster_name is not None, "Cluster name should be set"
+            assert updated_at is not None, "Timestamp updated_at should be set"
+            if not error_text:
+                error_text = "some default error text"
+
+            # try to perform insert statement
+            insertStatement = """INSERT INTO read_errors
+                                 (org_id, cluster, updated_at, created_at, error_text)
+                                 VALUES(%s, %s, %s, %s, %s);"""
+            cursor.execute(
+                insertStatement,
+                (org_id, cluster_name, updated_at, datetime.now(), error_text),
+            )
+
+        context.connection.commit()
+    except Exception as e:
+        context.connection.rollback()
+        raise e
+
+
 @when("I insert 1 report with {risk:w} total risk for the following clusters")
 def insert_report_with_risk_in_new_reports_table(context, risk, updated_at=None):
     """Insert rows into table new_reports."""

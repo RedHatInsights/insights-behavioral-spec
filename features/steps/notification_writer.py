@@ -95,6 +95,10 @@ Usage of ccx-notification-writer:
         print new reports to be cleaned up
   -print-old-reports-for-cleanup
         print old reports to be cleaned up
+  -print-read-errors-for-cleanup
+        print records from read_errors table to be cleaned up
+  -read-errors-cleanup
+        perform clean up of read_errors table
   -show-configuration
         show configuration
   -version
