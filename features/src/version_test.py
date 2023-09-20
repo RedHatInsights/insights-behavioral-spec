@@ -56,6 +56,7 @@ improper_versions = (
         "\"Version:  v1.2.3\"}",
 )
 
+
 @pytest.mark.parametrize("version", improper_versions)
 def test_incorrect_version(version):
     """Check how version check function handled input with improper version."""
@@ -71,6 +72,7 @@ improper_shas = (
            "\"Version: abc00defabc00defabc00defabc00defabc00def\"",
            "\"Version: abc00defabc00defabc00defabc00defabc00def",
 )
+
 
 @pytest.mark.parametrize("sha", improper_shas)
 def test_incorrect_sha(sha):
