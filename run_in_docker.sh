@@ -1,22 +1,6 @@
 #!/bin/bash -x
 
 # This script assumes that a Go service is already built, and the Python service can be interpreted without errors
-#
-# Step 1: Define a map of makefile targets to corresponding profiles and a map of files to copy in the DBB container for each target
-declare -A docker_compose_profiles
-
-docker_compose_profiles["aggregator-tests"]="test-aggregator"
-docker_compose_profiles["aggregator-mock-tests"]=""
-docker_compose_profiles["cleaner-tests"]=""
-docker_compose_profiles["data-engineering-service-tests"]="test-upgrades-data-eng"
-docker_compose_profiles["exporter-tests"]="test-exporter"
-docker_compose_profiles["inference-service-tests"]=""
-docker_compose_profiles["insights-content-service-tests"]=""
-docker_compose_profiles["insights-content-template-renderer-tests"]=""
-docker_compose_profiles["insights-sha-extractor-tests"]=""
-docker_compose_profiles["notification-service-tests"]="test-notification-services"
-docker_compose_profiles["notification-writer-tests"]="test-notification-services"
-docker_compose_profiles["smart-proxy-tests"]=""
 
 # Function to get docker compose profile to add based on service name specified by the user
 with_profile() {
@@ -48,9 +32,13 @@ copy_files() {
       docker cp "$path_to_service/$executable_name" "$cid:$(docker exec $cid bash -c 'echo "$VIRTUAL_ENV_BIN"')"
       docker exec -u root "$cid" /bin/bash -c "chmod +x \$VIRTUAL_ENV_BIN/$executable_name"
       ;;
-   "cleaner-tests")
-      # Copy files for other-target
+    "cleaner-tests")
       executable_name="insights-results-aggregator-cleaner"
+      docker cp "$path_to_service/$executable_name" "$cid:$(docker exec $cid bash -c 'echo "$VIRTUAL_ENV_BIN"')"
+      docker exec -u root "$cid" /bin/bash -c "chmod +x \$VIRTUAL_ENV_BIN/$executable_name"
+      ;;
+    "exporter-tests")
+      executable_name="insights-results-aggregator-exporter"
       docker cp "$path_to_service/$executable_name" "$cid:$(docker exec $cid bash -c 'echo "$VIRTUAL_ENV_BIN"')"
       docker exec -u root "$cid" /bin/bash -c "chmod +x \$VIRTUAL_ENV_BIN/$executable_name"
       ;;
@@ -59,6 +47,23 @@ copy_files() {
       ;;
   esac
 }
+
+# Step 1: Define a map of makefile targets to corresponding profiles and a map of files to copy in the DBB container for each target
+declare -A docker_compose_profiles
+
+docker_compose_profiles["aggregator-tests"]="test-aggregator"
+docker_compose_profiles["aggregator-mock-tests"]=""
+docker_compose_profiles["cleaner-tests"]=""
+docker_compose_profiles["data-engineering-service-tests"]="test-upgrades-data-eng"
+docker_compose_profiles["exporter-tests"]="test-exporter"
+docker_compose_profiles["inference-service-tests"]=""
+docker_compose_profiles["insights-content-service-tests"]=""
+docker_compose_profiles["insights-content-template-renderer-tests"]=""
+docker_compose_profiles["insights-sha-extractor-tests"]=""
+docker_compose_profiles["notification-service-tests"]="test-notification-services"
+docker_compose_profiles["notification-writer-tests"]="test-notification-services"
+docker_compose_profiles["smart-proxy-tests"]=""
+
 # Step 2: Specify the make target for tests to run
 tests_target="$1"
 
@@ -66,8 +71,6 @@ tests_target="$1"
 path_to_service=$(realpath "$2")
 
 # Step 4: Start the Docker containers with Docker Compose
-test_profile=$(with_profile "$1")
-echo "profile -- $test_profile"
 POSTGRES_DB_NAME=test docker-compose $(with_profile "$1") $(with_no_mock "$3") up -d
 
 # Step 5: Find the container ID of the insights-behavioral-spec container
