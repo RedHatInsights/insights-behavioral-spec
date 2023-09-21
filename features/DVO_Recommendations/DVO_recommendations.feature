@@ -9,14 +9,14 @@ Feature: Workloads page behavior in Insights Advisor menu on Hybrid Cloud Consol
         enable developers to gain access to results per namespace they own).
 
         Workload related recommendations should be displayed on page named
-        Workloads.  Entry point to this page is available through the Insights
+        Workloads.  Entry point to this page is available through the Advisor
         menu displayed in the left menu of Hybrid Cloud Console.
 
         The UX design for page that use these information is available there:
         https://www.sketch.com/s/46f6d8e3-a4d0-4249-9d57-e6a79b518a6d/a/y9y12qE
 
 
-  Scenario: Existence of new tab named "Workloads" in Insights Advisor
+  Scenario: Existence of new tab named "Workloads" in Insights Advisor that is accessible through Hybrid Cloud Console menu
     Given user USER1 is part of account (organization) ACCOUNT1
       And account (organization) ACCOUNT1 owns 1 cluster
       And the user USER1 is already logged in into Hybrid Cloud Console
@@ -54,7 +54,7 @@ Feature: Workloads page behavior in Insights Advisor menu on Hybrid Cloud Consol
           | Recommendations     | no                         |
           | Workloads           | yes                        |
      When user select "Workloads" menu item from this sub-menu
-     Then an "Workloads" page should be displayed right of the left menu bar
+     Then a "Workloads" page should be displayed right of the left menu bar
 
 
   Scenario: Content displyed on a new tab named "Workloads" in Insights Advisor if no DVO recommendations has been found
