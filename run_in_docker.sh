@@ -37,16 +37,16 @@ copy_files() {
 
   case "$target" in
     "aggregator-tests")
-      # Copy files for aggregator-tests
       executable_name="insights-results-aggregator"
       docker cp "$path_to_service/$executable_name" "$cid:$(docker exec $cid bash -c 'echo "$VIRTUAL_ENV_BIN"')"
       docker exec -u root "$cid" /bin/bash -c "chmod +x \$VIRTUAL_ENV_BIN/$executable_name"
       docker cp "$path_to_service/openapi.json" "$cid":$(docker exec "$cid" bash -c 'echo "$HOME"')
       ;;
-    "other-target")
+    "cleaner-tests")
       # Copy files for other-target
-      docker cp file3.txt "$cid:/path/in/container/"
-      docker cp file4.txt "$cid:/path/in/container/"
+      executable_name="insights-results-aggregator-cleaner"
+      docker cp "$path_to_service/$executable_name" "$cid:$(docker exec $cid bash -c 'echo "$VIRTUAL_ENV_BIN"')"
+      docker exec -u root "$cid" /bin/bash -c "chmod +x \$VIRTUAL_ENV_BIN/$executable_name"
       ;;
     *)
       echo "No specific files to copy for target: $target"
