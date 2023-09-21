@@ -1,11 +1,19 @@
-Feature: Current way of presenting workload related recommendations is not good
-    enough. As a customer using OCP Advisor I'd like to be able to consume
-    Workload related recommendations grouped by namespaces. This means that new
-    UX controls need to be added into Insights Advisor: it would split results
-    of DVO recommendations per namespace and display it to end users.
-    Notifications should also be sent per namespace (which would enable
-    developers to gain access to results per namespace they own).
+Feature: Workloads page behavior in Insights Advisor menu on Hybrid Cloud Console
 
+        Current way of presenting workload related recommendations is not good
+        enough. As a customer using OCP Advisor I'd like to be able to consume
+        Workload related recommendations grouped by namespaces. This means that
+        new UX controls need to be added into Insights Advisor: it would split
+        results of DVO recommendations per namespace and display it to end
+        users.  Notifications should also be sent per namespace (which would
+        enable developers to gain access to results per namespace they own).
+
+        Workload related recommendations should be displayed on page named
+        Workloads.  Entry point to this page is available through the Insights
+        menu displayed in the left menu of Hybrid Cloud Console.
+
+        The UX design for page that use these information is available there:
+        https://www.sketch.com/s/46f6d8e3-a4d0-4249-9d57-e6a79b518a6d/a/y9y12qE
 
 
   Scenario: Existence of new tab named "Workloads" in Insights Advisor
