@@ -317,10 +317,6 @@ nav_order: 3
 ## [`DVO_Recommendations/namespace_feedback.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/DVO_Recommendations/namespace_feedback.feature)
 
 
-## [`DVO_Recommendations/xxx.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/DVO_Recommendations/xxx.feature)
-
-* Ability to display real namespace name if provided
-
 ## [`SHA_Extractor/sha_extractor.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/SHA_Extractor/sha_extractor.feature)
 
 * Check that SHA extractor service has all the information and interfaces it needs to work properly
