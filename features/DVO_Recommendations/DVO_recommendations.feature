@@ -5,11 +5,11 @@ Feature: Workloads page behavior in Insights Advisor menu on Hybrid Cloud Consol
         Workload related recommendations grouped by namespaces. This means that
         new UX controls need to be added into Insights Advisor: it would split
         results of DVO recommendations per namespace and display it to end
-        users.  Notifications should also be sent per namespace (which would
+        users. Notifications should also be sent per namespace (which would
         enable developers to gain access to results per namespace they own).
 
         Workload related recommendations should be displayed on page named
-        Workloads.  Entry point to this page is available through the Advisor
+        Workloads. Entry point to this page is available through the Advisor
         menu displayed in the left menu of Hybrid Cloud Console.
 
         The UX design for page that use these information is available there:
@@ -96,7 +96,7 @@ Feature: Workloads page behavior in Insights Advisor menu on Hybrid Cloud Consol
           | Recommendations     | no                         |
           | Workloads           | yes                        |
      When user select "Workloads" menu item from this sub-menu
-     Then a "Workloads" page should be displayed right of the left menu bar
+     Then a "Advisor workloads" page should be displayed right of the left menu bar
       And that page should contain following controls and widgets
           | Control/widget    | Content                                                 |
           | Advisor workloads | Section containing list of cluster names and namespaces |
@@ -160,7 +160,7 @@ Feature: Workloads page behavior in Insights Advisor menu on Hybrid Cloud Consol
           | Recommendations     | no                         |
           | Workloads           | yes                        |
      When user select "Workloads" menu item from this sub-menu
-     Then a "Workloads" page should be displayed right of the left menu bar
+     Then a "Advisor workloads" page should be displayed right of the left menu bar
       And that page should contain following controls and widgets
           | Control/widget    | Content                                                 |
           | Advisor workloads | Section containing list of cluster names and namespaces |
@@ -231,7 +231,7 @@ Feature: Workloads page behavior in Insights Advisor menu on Hybrid Cloud Consol
           | Recommendations     | no                         |
           | Workloads           | yes                        |
      When user select "Workloads" menu item from this sub-menu
-     Then a "Workloads" page should be displayed right of the left menu bar
+     Then a "Advisor workloads" page should be displayed right of the left menu bar
       And that page should contain following controls and widgets
           | Control/widget    | Content                                                 |
           | Advisor workloads | Section containing list of cluster names and namespaces |
