@@ -270,9 +270,10 @@ nav_order: 3
 
 ## [`DVO_Recommendations/DVO_recommendations.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/DVO_Recommendations/DVO_recommendations.feature)
 
-* Existence of new tab named "Workloads" in Insights Advisor
+* Existence of new tab named "Workloads" in Insights Advisor that is accessible through Hybrid Cloud Console menu
 * Content displyed on a new tab named "Workloads" in Insights Advisor if no DVO recommendations has been found
 * Content displyed on a new tab named "Workloads" in Insights Advisor if one DVO recommendation has been found
+* Ability to display real namespace name if provided
 
 ## [`DVO_Recommendations/Smart_Proxy_REST_API.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/DVO_Recommendations/Smart_Proxy_REST_API.feature)
 
@@ -315,6 +316,10 @@ nav_order: 3
 
 ## [`DVO_Recommendations/namespace_feedback.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/DVO_Recommendations/namespace_feedback.feature)
 
+
+## [`DVO_Recommendations/xxx.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/DVO_Recommendations/xxx.feature)
+
+* Ability to display real namespace name if provided
 
 ## [`SHA_Extractor/sha_extractor.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/SHA_Extractor/sha_extractor.feature)
 
