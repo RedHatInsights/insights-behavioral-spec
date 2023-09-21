@@ -55,7 +55,18 @@ esac
 if [[ -z $PATH_TO_MOCK_SERVER ]]
 then
     echo "PATH_TO_MOCK_SERVER is not set!"
-    echo "Make sure to start the insights-results-aggregator-mock application before running the tests"
+    if [[ -n $ENV_DOCKER ]]
+    then
+        echo "Test in running in docker environment. Trying $HOME/mock_server path"
+	if [ -d "$HOME/mock_server" ]; then
+            PATH_TO_MOCK_SERVER="$HOME/mock_server"
+	    echo "mock_server directory found"
+	    pushd "$PATH_TO_MOCK_SERVER" && ./insights-results-aggregator-mock &
+        else
+            echo "Make sure to start the insights-results-aggregator-mock application before running the tests"
+            exit 1
+        fi
+    fi
 else
     pushd "$PATH_TO_MOCK_SERVER" && ./insights-results-aggregator-mock &
 fi
