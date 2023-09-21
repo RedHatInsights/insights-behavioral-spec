@@ -5,17 +5,17 @@
 # Step 1: Define a map of makefile targets to corresponding profiles and a map of files to copy in the DBB container for each target
 declare -A docker_compose_profiles
 
-docker_compose_profiles["cleaner-tests"]=""
 docker_compose_profiles["aggregator-tests"]="test-aggregator"
 docker_compose_profiles["aggregator-mock-tests"]=""
-docker_compose_profiles["exporter-tests"]="test-exporter"
-docker_compose_profiles["notification-service-tests"]="test-notification-services"
-docker_compose_profiles["notification-writer-tests"]="test-notification-services"
-docker_compose_profiles["inference-service-tests"]=""
+docker_compose_profiles["cleaner-tests"]=""
 docker_compose_profiles["data-engineering-service-tests"]="test-upgrades-data-eng"
+docker_compose_profiles["exporter-tests"]="test-exporter"
+docker_compose_profiles["inference-service-tests"]=""
 docker_compose_profiles["insights-content-service-tests"]=""
 docker_compose_profiles["insights-content-template-renderer-tests"]=""
 docker_compose_profiles["insights-sha-extractor-tests"]=""
+docker_compose_profiles["notification-service-tests"]="test-notification-services"
+docker_compose_profiles["notification-writer-tests"]="test-notification-services"
 docker_compose_profiles["smart-proxy-tests"]=""
 
 # Function to get docker compose profile to add based on service name specified by the user
@@ -42,7 +42,13 @@ copy_files() {
       docker exec -u root "$cid" /bin/bash -c "chmod +x \$VIRTUAL_ENV_BIN/$executable_name"
       docker cp "$path_to_service/openapi.json" "$cid":$(docker exec "$cid" bash -c 'echo "$HOME"')
       ;;
-    "cleaner-tests")
+    "aggregator-mock-tests")
+      executable_name="insights-results-aggregator-mock"
+      docker cp $path_to_service "$cid:$(docker exec $cid bash -c 'echo "$HOME"')/mock_server"
+      docker cp "$path_to_service/$executable_name" "$cid:$(docker exec $cid bash -c 'echo "$VIRTUAL_ENV_BIN"')"
+      docker exec -u root "$cid" /bin/bash -c "chmod +x \$VIRTUAL_ENV_BIN/$executable_name"
+      ;;
+   "cleaner-tests")
       # Copy files for other-target
       executable_name="insights-results-aggregator-cleaner"
       docker cp "$path_to_service/$executable_name" "$cid:$(docker exec $cid bash -c 'echo "$VIRTUAL_ENV_BIN"')"
