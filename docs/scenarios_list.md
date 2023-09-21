@@ -274,6 +274,8 @@ nav_order: 3
 * Content displyed on a new tab named "Workloads" in Insights Advisor if no DVO recommendations has been found
 * Content displyed on a new tab named "Workloads" in Insights Advisor if one DVO recommendation has been found
 * Ability to display real namespace name if provided
+* Displaying highest severity for multiple recommendations (Moderate and Low) on Workloads page
+* Displaying highest severity for multiple recommendations (Moderate and Critical) on Workloads page
 
 ## [`DVO_Recommendations/Smart_Proxy_REST_API.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/DVO_Recommendations/Smart_Proxy_REST_API.feature)
 
