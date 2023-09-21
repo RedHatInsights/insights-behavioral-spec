@@ -102,9 +102,9 @@ Feature: Workloads page behavior in Insights Advisor menu on Hybrid Cloud Consol
           | Advisor workloads | Section containing list of cluster names and namespaces |
      When user look at "Advisor workloads" section
      Then following sections should be presented
-          | Section          | State                  | Comment                                    |
-          | Filter list box  | Cluster name           | first selected item                        |
-          | Filter input box | Filter by cluster name | popup help text                            |
+          | Section          | State                  | Comment             |
+          | Filter list box  | Cluster name           | first selected item |
+          | Filter input box | Filter by cluster name | popup help text     |
           | Workloads        | empty table            | table with list of clusters and namespaces |
      When user look at "Recommendations table"
      Then that table should contain following six columns in that order
@@ -124,6 +124,8 @@ Feature: Workloads page behavior in Insights Advisor menu on Hybrid Cloud Consol
       And the cluster name is 11111111-2222-3333-4444-555555555555
       And the user USER1 is already logged in into Hybrid Cloud Console
       And one DVO recommendation with name Foo and ID 1234 has been found for that cluster
+      And this recommendation is part of namespace with UUID ffffffff-eeee-dddd-cccc-bbbbbbbbbbbb
+      And the severity of this recommendation is Moderate
      When user looks at Hybrid Cloud Console main page
      Then menu on the left side should be displayed
       And the left menu might contain these top level items
@@ -158,38 +160,30 @@ Feature: Workloads page behavior in Insights Advisor menu on Hybrid Cloud Consol
           | Recommendations     | no                         |
           | Workloads           | yes                        |
      When user select "Workloads" menu item from this sub-menu
-     Then an "Workloads" page should be displayed right of the left menu bar
+     Then a "Workloads" page should be displayed right of the left menu bar
       And that page should contain following controls and widgets
-          | Control/widget  | Content                                    |
-          | Recommendations | Section containing list of recommendations |
-     When user look at "Recommendations" section
+          | Control/widget    | Content                                                 |
+          | Advisor workloads | Section containing list of cluster names and namespaces |
+     When user look at "Advisor workloads" section
      Then following sections should be presented
-          | Section          | State                  | Comment                            |
-          | Filter list box  | Cluster name           | first selected item                |
-          | Filter input box | Filter by cluster name | popup help text                    |
-          | Counter          | 0 recommendations      | recommendation counter             |
-          | Recommendations  | empty table            | table with list of recommendations |
+          | Section          | State                  | Comment             |
+          | Filter list box  | Cluster name           | first selected item |
+          | Filter input box | Filter by cluster name | popup help text     |
+          | Workloads        | empty table            | table with list of clusters and namespaces |
      When user look at "Recommendations table"
-     Then that table should contain following five columns in that order
-          | Column         | Comment                                                  |
-          | Expand button  |                                                          |
-          | Cluster name   |                                                          |
-          | App name       | app real name or UID depending on anonymization settings |
-          | App UID        | app = namespace                                          |
+     Then that table should contain following six columns in that order
+          | Column           | Comment                                                         |
+          | Select button    | used to select one or more namespaces                           |
+          | Workload         | cluster name (or UUID) followed by namespace name (or UUID)     |
+          | Recommendations  | number of recommendations found for given cluster and namespace |
+          | Highest severity | highest severity selected from all recommendations              |
+          | Objects          | number of all objects found for given cluster and namespace     |
+          | Last seen        | relative time when the data was updated recently                |
       And the table content should contain exactly one row with the following content
-          | Column         | Comment                                                  |
-          | Expand button  | present, rendered as ">"                                 |
-          | Cluster name   | 11111111-2222-3333-4444-555555555555                     |
-          | App name       | Foo                                                      |
-          | App UID        | 1234                                                     |
-     When user clicks on expand button
-     Then the only one row in that table should change as follow
-          | Column         | Comment                                                  |
-          | Expand button  | present, rendered as "v"                                 |
-          | Cluster name   | 11111111-2222-3333-4444-555555555555                     |
-          | App name       | Foo                                                      |
-          | App UID        | 1234                                                     |
-       And new row in the table should be displayed
-       And the new row should contains recommendation details in same format as on Recommendation page
-     When user clicks on expand button
-     Then the only one row in table should shrink again
+          | Column           | Content                                                                     |
+          | Select button    | unselected                                                                  |
+          | Workload         | 11111111-2222-3333-4444-555555555555 / ffffffff-eeee-dddd-cccc-bbbbbbbbbbbb |
+          | Recommendations  | 1                                                                           |
+          | Highest severity | Moderate                                                                    |
+          | Objects          | 1                                                                           |
+          | Last seen        | relative time when the data was updated recently                            |
