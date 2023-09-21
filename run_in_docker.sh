@@ -37,10 +37,19 @@ copy_files() {
       docker cp "$path_to_service/$executable_name" "$cid:$(docker exec $cid bash -c 'echo "$VIRTUAL_ENV_BIN"')"
       docker exec -u root "$cid" /bin/bash -c "chmod +x \$VIRTUAL_ENV_BIN/$executable_name"
       ;;
+    "data-engineering-service-tests")
+      ;;
     "exporter-tests")
       executable_name="insights-results-aggregator-exporter"
       docker cp "$path_to_service/$executable_name" "$cid:$(docker exec $cid bash -c 'echo "$VIRTUAL_ENV_BIN"')"
       docker exec -u root "$cid" /bin/bash -c "chmod +x \$VIRTUAL_ENV_BIN/$executable_name"
+      ;;
+    "inference-service-tests")
+      ;;
+    "insights-content-service-tests")
+      echo -e "\033[33mWARNING! Content service should include test-rules for these tests to run properly.\033[0m"
+      echo -e "\033[33mPlease build using './build.sh --test-rules-only' or './build.sh --include-test-rules'\033[0m"
+      docker cp $path_to_service "$cid:$(docker exec $cid bash -c 'echo "$HOME"')"
       ;;
     *)
       echo "No specific files to copy for target: $target"
