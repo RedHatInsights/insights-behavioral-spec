@@ -187,6 +187,11 @@ Feature: Workloads page behavior in Insights Advisor menu on Hybrid Cloud Consol
           | Highest severity | Moderate                                                                    |
           | Objects          | 1                                                                           |
           | Last seen        | relative time when the data was updated recently                            |
+      And the cluster name and namespace UUID should be displayed as link
+     When user clicks on link with cluster name or namespace UUID
+     Then page named Recommendations should be displayed
+      And cluster UUID 11111111-2222-3333-4444-555555555555 should be displayed on top
+      And namespace UUID ffffffff-eeee-dddd-cccc-bbbbbbbbbbbb should be displayed below cluster name
 
 
   Scenario: Ability to display real namespace name if provided
@@ -258,6 +263,11 @@ Feature: Workloads page behavior in Insights Advisor menu on Hybrid Cloud Consol
           | Highest severity | Moderate                                           |
           | Objects          | 1                                                  |
           | Last seen        | relative time when the data was updated recently   |
+      And the cluster name and namespace name should be displayed as link
+     When user clicks on link with cluster name or namespace name
+     Then page named Recommendations should be displayed
+      And cluster name 11111111-2222-3333-4444-555555555555 should be displayed on top
+      And namespace name Namespace 1 should be displayed below cluster name
 
 
   Scenario: Displaying highest severity for multiple recommendations (Moderate and Low) on Workloads page
@@ -332,6 +342,11 @@ Feature: Workloads page behavior in Insights Advisor menu on Hybrid Cloud Consol
           | Highest severity | Moderate                                           |
           | Objects          | 2                                                  |
           | Last seen        | relative time when the data was updated recently   |
+      And the cluster name and namespace name should be displayed as link
+     When user clicks on link with cluster name or namespace name
+     Then page named Recommendations should be displayed
+      And cluster name 11111111-2222-3333-4444-555555555555 should be displayed on top
+      And namespace name Namespace 1 should be displayed below cluster name
 
 
   Scenario: Displaying highest severity for multiple recommendations (Moderate and Critical) on Workloads page
@@ -406,3 +421,8 @@ Feature: Workloads page behavior in Insights Advisor menu on Hybrid Cloud Consol
           | Highest severity | Critical                                           |
           | Objects          | 2                                                  |
           | Last seen        | relative time when the data was updated recently   |
+      And the cluster name and namespace name should be displayed as link
+     When user clicks on link with cluster name or namespace name
+     Then page named Recommendations should be displayed
+      And cluster name 11111111-2222-3333-4444-555555555555 should be displayed on top
+      And namespace name Namespace 1 should be displayed below cluster name
