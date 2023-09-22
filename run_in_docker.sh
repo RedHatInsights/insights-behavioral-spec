@@ -8,10 +8,17 @@ with_profile() {
   [[ -n "$profile" ]] && echo "--profile $profile" || echo ""
 }
 
+# Function to add the WITHMOCK=1 environment variable to the tests that span mocked dependencies
+# Some services depend on other services, so if no_mock profile is not used, we set WITHMOCK=1 by default
+with_mocked_dependencies() {
+  [[ -n "$1" ]] && echo "" || echo "WITHMOCK=1 "
+}
+
 # Function to add the no-mock profile if specified by the user
 with_no_mock() {
   [[ -n "$1" ]] && echo "--profile no-mock" || echo ""
 }
+
 
 # Function to copy files based on the make target
 copy_files() {
@@ -51,6 +58,11 @@ copy_files() {
       echo -e "\033[33mPlease build using './build.sh --test-rules-only' or './build.sh --include-test-rules'\033[0m"
       docker cp $path_to_service "$cid:$(docker exec $cid bash -c 'echo "$HOME"')"
       ;;
+    "notification-service-tests")
+      executable_name="ccx-notification-service"
+      docker cp "$path_to_service/$executable_name" "$cid:$(docker exec $cid bash -c 'echo "$VIRTUAL_ENV_BIN"')"
+      docker exec -u root "$cid" /bin/bash -c "chmod +x \$VIRTUAL_ENV_BIN/$executable_name"
+      ;;
     *)
       echo "No specific files to copy for target: $target"
       ;;
@@ -80,7 +92,13 @@ tests_target="$1"
 path_to_service=$(realpath "$2")
 
 # Step 4: Start the Docker containers with Docker Compose
-POSTGRES_DB_NAME=test docker-compose $(with_profile "$1") $(with_no_mock "$3") up -d
+if [[ $tests_target == *"notification"* ]]; then
+  db_name="notification"
+else
+  db_name="test"
+fi
+
+POSTGRES_DB_NAME=$db_name docker-compose $(with_profile "$1") $(with_no_mock "$3") up -d
 
 # Step 5: Find the container ID of the insights-behavioral-spec container
 cid=$(docker ps | grep 'insights-behavioral-spec:latest' | cut -d ' ' -f 1)
@@ -90,5 +108,7 @@ cid=$(docker ps | grep 'insights-behavioral-spec:latest' | cut -d ' ' -f 1)
 copy_files "$cid" "$tests_target" "$path_to_service"
 
 # Step 9: Execute the specified make target
-docker exec -it "$cid" /bin/bash -c "env && make $tests_target"
+
+
+docker exec -it "$cid" /bin/bash -c " env && $(with_mocked_dependencies "$3") make $tests_target"
 
