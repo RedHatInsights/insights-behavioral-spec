@@ -63,6 +63,11 @@ copy_files() {
       docker cp "$path_to_service/$executable_name" "$cid:$(docker exec $cid bash -c 'echo "$VIRTUAL_ENV_BIN"')"
       docker exec -u root "$cid" /bin/bash -c "chmod +x \$VIRTUAL_ENV_BIN/$executable_name"
       ;;
+    "notification-writer-tests")
+      executable_name="ccx-notification-writer"
+      docker cp "$path_to_service/$executable_name" "$cid:$(docker exec $cid bash -c 'echo "$VIRTUAL_ENV_BIN"')"
+      docker exec -u root "$cid" /bin/bash -c "chmod +x \$VIRTUAL_ENV_BIN/$executable_name"
+      ;;
     *)
       echo "No specific files to copy for target: $target"
       ;;
