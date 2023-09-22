@@ -19,6 +19,13 @@ with_no_mock() {
   [[ -n "$1" ]] && echo "--profile no-mock" || echo ""
 }
 
+copy_go_executable() {
+  local cid="$1"
+  local path_to_service="$2"
+  local executable_name="$3"
+  docker cp "$path_to_service/$executable_name" "$cid:$(docker exec $cid bash -c 'echo "$VIRTUAL_ENV_BIN"')"
+  docker exec -u root "$cid" /bin/bash -c "chmod +x \$VIRTUAL_ENV_BIN/$executable_name"
+}
 
 # Function to copy files based on the make target
 copy_files() {
@@ -28,28 +35,20 @@ copy_files() {
 
   case "$target" in
     "aggregator-tests")
-      executable_name="insights-results-aggregator"
-      docker cp "$path_to_service/$executable_name" "$cid:$(docker exec $cid bash -c 'echo "$VIRTUAL_ENV_BIN"')"
-      docker exec -u root "$cid" /bin/bash -c "chmod +x \$VIRTUAL_ENV_BIN/$executable_name"
+      copy_go_executable "$cid" "$path_to_service" "insights-results-aggregator"
       docker cp "$path_to_service/openapi.json" "$cid":$(docker exec "$cid" bash -c 'echo "$HOME"')
       ;;
     "aggregator-mock-tests")
-      executable_name="insights-results-aggregator-mock"
+      copy_go_executable "$cid" "$path_to_service" "insights-results-aggregator-mock"
       docker cp $path_to_service "$cid:$(docker exec $cid bash -c 'echo "$HOME"')/mock_server"
-      docker cp "$path_to_service/$executable_name" "$cid:$(docker exec $cid bash -c 'echo "$VIRTUAL_ENV_BIN"')"
-      docker exec -u root "$cid" /bin/bash -c "chmod +x \$VIRTUAL_ENV_BIN/$executable_name"
       ;;
     "cleaner-tests")
-      executable_name="insights-results-aggregator-cleaner"
-      docker cp "$path_to_service/$executable_name" "$cid:$(docker exec $cid bash -c 'echo "$VIRTUAL_ENV_BIN"')"
-      docker exec -u root "$cid" /bin/bash -c "chmod +x \$VIRTUAL_ENV_BIN/$executable_name"
+      copy_go_executable "$cid" "$path_to_service" "insights-results-aggregator-cleaner"
       ;;
     "data-engineering-service-tests")
       ;;
     "exporter-tests")
-      executable_name="insights-results-aggregator-exporter"
-      docker cp "$path_to_service/$executable_name" "$cid:$(docker exec $cid bash -c 'echo "$VIRTUAL_ENV_BIN"')"
-      docker exec -u root "$cid" /bin/bash -c "chmod +x \$VIRTUAL_ENV_BIN/$executable_name"
+      copy_go_executable "$cid" "$path_to_service" "insights-results-aggregator-exporter"
       ;;
     "inference-service-tests")
       ;;
@@ -59,22 +58,17 @@ copy_files() {
       docker cp $path_to_service "$cid:$(docker exec $cid bash -c 'echo "$HOME"')"
       ;;
     "notification-service-tests")
-      executable_name="ccx-notification-service"
-      docker cp "$path_to_service/$executable_name" "$cid:$(docker exec $cid bash -c 'echo "$VIRTUAL_ENV_BIN"')"
-      docker exec -u root "$cid" /bin/bash -c "chmod +x \$VIRTUAL_ENV_BIN/$executable_name"
+      copy_go_executable "$cid" "$path_to_service" "ccx-notification-service"
       ;;
     "notification-writer-tests")
-      executable_name="ccx-notification-writer"
-      docker cp "$path_to_service/$executable_name" "$cid:$(docker exec $cid bash -c 'echo "$VIRTUAL_ENV_BIN"')"
-      docker exec -u root "$cid" /bin/bash -c "chmod +x \$VIRTUAL_ENV_BIN/$executable_name"
+      copy_go_executable "$cid" "$path_to_service" "ccx-notification-writer"
       ;;
     "smart-proxy-tests")
-      executable_name="insights-results-smart-proxy"
-      docker cp "$path_to_service/$executable_name" "$cid:$(docker exec $cid bash -c 'echo "$VIRTUAL_ENV_BIN"')"
-      docker exec -u root "$cid" /bin/bash -c "chmod +x \$VIRTUAL_ENV_BIN/$executable_name"
+      copy_go_executable "$cid" "$path_to_service" "insights-results-smart-proxy"
       ;;
     *)
-      echo "No specific files to copy for target: $target"
+      echo "Unexpected target: $target. Does it exist in Makefile?"
+      exit 2
       ;;
   esac
 }
