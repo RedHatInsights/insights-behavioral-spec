@@ -34,8 +34,8 @@ function prepare_venv() {
 }
 
 function install_inference_service() {
-    python3 "$(which pip3)" install -r "$PATH_TO_LOCAL_INFERENCE_SERVICE"/requirements.txt
-    python3 "$(which pip3)" install "$PATH_TO_LOCAL_INFERENCE_SERVICE"/.
+    python3 "$(which pip3)" install -r "$PATH_TO_LOCAL_INFERENCE_SERVICE"/requirements.txt || exit 1
+    python3 "$(which pip3)" install "$PATH_TO_LOCAL_INFERENCE_SERVICE"/. || exit 1
     # shellcheck disable=SC2016
     add_exit_trap 'python3 "$(which pip3)" uninstall -y ccx-upgrades-inference'
 }
@@ -57,7 +57,11 @@ function add_exit_trap {
     fi
 }
 
-[ "$NOVENV" != "1" ] && install_reqs || prepare_venv || exit 1
+# prepare virtual environment if necessary
+case "$NOVENV" in
+    "") echo "using existing virtual env";;
+    "1") install_reqs && prepare_venv ;;
+esac
 
 # Copy the binary and configuration to this folder
 install_inference_service
