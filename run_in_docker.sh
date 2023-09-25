@@ -54,6 +54,8 @@ copy_files() {
       copy_go_executable "$cid" "$path_to_service" "insights-results-aggregator-exporter"
       ;;
     "inference-service-tests")
+      docker cp $path_to_service "$cid:/."
+      docker exec -u root "$cid" /bin/bash -c "chmod -R 777 /$(basename $path_to_service)"
       ;;
     "insights-content-service-tests")
       echo -e "\033[33mWARNING! Content service should include test-rules for these tests to run properly.\033[0m"
