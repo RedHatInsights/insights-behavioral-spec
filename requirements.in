@@ -1,5 +1,5 @@
 behave
 pytest
 requests
-psycopg2
+psycopg2-binary
 semver
