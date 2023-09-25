@@ -27,6 +27,14 @@ copy_go_executable() {
   docker exec -u root "$cid" /bin/bash -c "chmod +x \$VIRTUAL_ENV_BIN/$executable_name"
 }
 
+copy_python_project() {
+  local cid="$1"
+  local path_to_service="$2"
+  docker cp $path_to_service "$cid:/."
+  # service will be pip-installed and executed, so user will need write and exec permissions
+  docker exec -u root "$cid" /bin/bash -c "chmod -R 777 /$(basename $path_to_service)"
+}
+
 # Function to copy files based on the make target
 copy_files() {
   local cid="$1"
@@ -46,16 +54,13 @@ copy_files() {
       copy_go_executable "$cid" "$path_to_service" "insights-results-aggregator-cleaner"
       ;;
     "data-engineering-service-tests")
-      docker cp $path_to_service "$cid:/."
-      # service will be pip-installed so user will need write and exec permissions
-      docker exec -u root "$cid" /bin/bash -c "chmod -R 777 /$(basename $path_to_service)"
+      copy_python_project $cid $path_to_service
       ;;
     "exporter-tests")
       copy_go_executable "$cid" "$path_to_service" "insights-results-aggregator-exporter"
       ;;
     "inference-service-tests")
-      docker cp $path_to_service "$cid:/."
-      docker exec -u root "$cid" /bin/bash -c "chmod -R 777 /$(basename $path_to_service)"
+      copy_python_project $cid $path_to_service
       ;;
     "insights-content-service-tests")
       echo -e "\033[33mWARNING! Content service should include test-rules for these tests to run properly.\033[0m"
