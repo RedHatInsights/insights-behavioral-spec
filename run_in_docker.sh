@@ -46,6 +46,9 @@ copy_files() {
       copy_go_executable "$cid" "$path_to_service" "insights-results-aggregator-cleaner"
       ;;
     "data-engineering-service-tests")
+      docker cp $path_to_service "$cid:/."
+      # service will be pip-installed so user will need write and exec permissions
+      docker exec -u root "$cid" /bin/bash -c "chmod -R 777 /$(basename $path_to_service)"
       ;;
     "exporter-tests")
       copy_go_executable "$cid" "$path_to_service" "insights-results-aggregator-exporter"
@@ -114,5 +117,5 @@ copy_files "$cid" "$tests_target" "$path_to_service"
 # Step 9: Execute the specified make target
 
 
-docker exec -it "$cid" /bin/bash -c " env && $(with_mocked_dependencies "$3") make $tests_target"
+docker exec -it "$cid" /bin/bash -c "source \$VIRTUAL_ENV/bin/activate && env && $(with_mocked_dependencies "$3") make $tests_target"
 

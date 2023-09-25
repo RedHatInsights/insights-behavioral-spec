@@ -149,6 +149,7 @@ services:
     image: ghcr.io/navikt/mock-oauth2-server:0.5.8
     environment:
       - LOG_LEVEL=DEBUG
+      - SERVER_PORT=8081
     ports:
-      - 8081:8080
+      - 8081:8081
 
