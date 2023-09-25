@@ -23,16 +23,16 @@ copy_go_executable() {
   local cid="$1"
   local path_to_service="$2"
   local executable_name="$3"
-  docker cp "$path_to_service/$executable_name" "$cid:$(docker exec $cid bash -c 'echo "$VIRTUAL_ENV_BIN"')"
+  docker cp "$path_to_service/$executable_name" "$cid:$(docker exec "$cid" bash -c 'echo "$VIRTUAL_ENV_BIN"')"
   docker exec -u root "$cid" /bin/bash -c "chmod +x \$VIRTUAL_ENV_BIN/$executable_name"
 }
 
 copy_python_project() {
   local cid="$1"
   local path_to_service="$2"
-  docker cp $path_to_service "$cid:/."
+  docker cp "$path_to_service" "$cid:/."
   # service will be pip-installed and executed, so user will need write and exec permissions
-  docker exec -u root "$cid" /bin/bash -c "chmod -R 777 /$(basename $path_to_service)"
+  docker exec -u root "$cid" /bin/bash -c "chmod -R 777 /$(basename "$path_to_service")"
 }
 
 # Function to copy files based on the make target
@@ -44,31 +44,31 @@ copy_files() {
   case "$target" in
     "aggregator-tests")
       copy_go_executable "$cid" "$path_to_service" "insights-results-aggregator"
-      docker cp "$path_to_service/openapi.json" "$cid":$(docker exec "$cid" bash -c 'echo "$HOME"')
+      docker cp "$path_to_service/openapi.json" "$cid":"$(docker exec "$cid" bash -c 'echo "$HOME"')"
       ;;
     "aggregator-mock-tests")
       copy_go_executable "$cid" "$path_to_service" "insights-results-aggregator-mock"
-      docker cp $path_to_service "$cid:$(docker exec $cid bash -c 'echo "$HOME"')/mock_server"
+      docker cp "$path_to_service" "$cid:$(docker exec "$cid" bash -c 'echo "$HOME"')/mock_server"
       ;;
     "cleaner-tests")
       copy_go_executable "$cid" "$path_to_service" "insights-results-aggregator-cleaner"
       ;;
     "data-engineering-service-tests")
-      copy_python_project $cid $path_to_service
+      copy_python_project "$cid" "$path_to_service"
       ;;
     "exporter-tests")
       copy_go_executable "$cid" "$path_to_service" "insights-results-aggregator-exporter"
       ;;
     "inference-service-tests")
-      copy_python_project $cid $path_to_service
+      copy_python_project "$cid" "$path_to_service"
       ;;
     "insights-content-service-tests")
       echo -e "\033[33mWARNING! Content service should include test-rules for these tests to run properly.\033[0m"
       echo -e "\033[33mPlease build using './build.sh --test-rules-only' or './build.sh --include-test-rules'\033[0m"
-      docker cp $path_to_service "$cid:$(docker exec $cid bash -c 'echo "$HOME"')"
+      docker cp "$path_to_service" "$cid":"$(docker exec "$cid" bash -c 'echo "$HOME"')"
       ;;
     "insights-content-template-renderer-tests")
-      copy_python_project $cid $path_to_service
+      copy_python_project "$cid" "$path_to_service"
       ;;
     "insights-sha-extractor-tests")
       echo -e "\033[0;31mThese tests are not ready to be run. Aborting!\033[0m"
@@ -115,13 +115,13 @@ tests_target="$1"
 path_to_service=$(realpath "$2")
 
 # Step 4: Start the Docker containers with Docker Compose
-if [[ $tests_target == *"notification"* ]]; then
+if [[ "$tests_target" == *"notification"* ]]; then
   db_name="notification"
 else
   db_name="test"
 fi
 
-POSTGRES_DB_NAME=$db_name docker-compose $(with_profile "$1") $(with_no_mock "$3") up -d
+POSTGRES_DB_NAME="$db_name" docker-compose "$(with_profile "$1")" "$(with_no_mock "$3")" up -d
 
 # Step 5: Find the container ID of the insights-behavioral-spec container
 cid=$(docker ps | grep 'insights-behavioral-spec:latest' | cut -d ' ' -f 1)

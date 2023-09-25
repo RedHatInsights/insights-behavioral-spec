@@ -34,7 +34,7 @@ function prepare_venv() {
 }
 
 function install_data_eng_service() {
-    python3 "$(which pip3)" install "$PATH_TO_LOCAL_DATA_ENG_SERVICE" || exit 1
+    python3 "$(which pip3)" install "$PATH_TO_LOCAL_DATA_ENG_SERVICE" || exit 1
     # shellcheck disable=SC2016
     add_exit_trap 'python3 "$(which pip3)" uninstall -y ccx-upgrades-data-eng'
 }
