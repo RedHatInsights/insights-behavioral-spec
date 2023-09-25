@@ -1,4 +1,4 @@
 behave
 pytest
 minio
-psycopg2
+psycopg2-binary
