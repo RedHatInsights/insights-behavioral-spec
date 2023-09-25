@@ -67,6 +67,9 @@ copy_files() {
       echo -e "\033[33mPlease build using './build.sh --test-rules-only' or './build.sh --include-test-rules'\033[0m"
       docker cp $path_to_service "$cid:$(docker exec $cid bash -c 'echo "$HOME"')"
       ;;
+    "insights-content-template-renderer-tests")
+      copy_python_project $cid $path_to_service
+      ;;
     "notification-service-tests")
       copy_go_executable "$cid" "$path_to_service" "ccx-notification-service"
       ;;
