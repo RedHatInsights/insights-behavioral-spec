@@ -34,7 +34,7 @@ function prepare_venv() {
 }
 
 function install_data_eng_service() {
-    python3 "$(which pip3)" install "$PATH_TO_LOCAL_DATA_ENG_SERVICE"
+    python3 "$(which pip3)" install "$PATH_TO_LOCAL_DATA_ENG_SERVICE" || exit 1
     # shellcheck disable=SC2016
     add_exit_trap 'python3 "$(which pip3)" uninstall -y ccx-upgrades-data-eng'
 }
@@ -67,7 +67,11 @@ function add_exit_trap {
     fi
 }
 
-[ "$NOVENV" != "1" ] && install_reqs || prepare_venv || exit 1
+# prepare virtual environment if necessary
+case "$NOVENV" in
+    "") echo "using existing virtual env";;
+    "1") install_reqs && prepare_venv ;;
+esac
 
 # Copy the binary and configuration to this folder
 install_data_eng_service

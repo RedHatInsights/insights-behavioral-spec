@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi8/ubi:latest
+FROM registry.access.redhat.com/ubi9/ubi:latest
 
 ENV VIRTUAL_ENV=/insights-behavioral-spec-venv \
     VIRTUAL_ENV_BIN=/insights-behavioral-spec-venv/bin \
@@ -27,10 +27,9 @@ COPY . $HOME
 
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
+RUN dnf install --nodocs -y unzip make lsof git libpq-devel gcc
 
-RUN dnf install --nodocs -y python39 python39-devel unzip make lsof git libpq-devel gcc
-
-RUN python3 -m venv $VIRTUAL_ENV
+RUN python3 -m venv $VIRTUAL_ENV && source $VIRTUAL_ENV/bin/activate
 
 RUN curl -ksL https://certs.corp.redhat.com/certs/2015-IT-Root-CA.pem -o /etc/pki/ca-trust/source/anchors/RH-IT-Root-CA.crt
 RUN curl -ksL https://certs.corp.redhat.com/certs/2022-IT-Root-CA.pem -o /etc/pki/ca-trust/source/anchors/2022-IT-Root-CA.pem
