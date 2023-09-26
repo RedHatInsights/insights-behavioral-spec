@@ -26,12 +26,13 @@ Optional: Use the `run_in_docker.sh` script explained in the [additional tools d
 ### Spin up the docker containers
 
 ```
-POSTGRES_DB_NAME=test docker-compose up -d
-POSTGRES_DB_NAME=test docker-compose --profile test-exporter up -d
+docker-compose up -d
+docker-compose --profile test-exporter up -d
 POSTGRES_DB_NAME=notification docker-compose --profile test-notification-services up -d
 ```
 
-The `POSTGRES_DB_NAME` environment variable is mandatory, as the different services expect different database names: `notification` is used by services related with notification service, and `test` for the rest.
+The `POSTGRES_DB_NAME` environment variable, which defaults to the value `test`, is mandatory when starting tests related to the notification services.
+This is because the different services expect different database names: `notification` is used by services related with notification service, and `test` for the rest.
 
 If you don't want to spin up the containers, you'll need to locally run the required services (database, Kafka, etc.). You may need to add or remove the `managed` tag in the `${SERVICE}_tests.sh`.
 
