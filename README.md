@@ -9,6 +9,8 @@ Behavioral specifications for Insights pipelines and its integration into OCM, O
 <!-- vim-markdown-toc GFM -->
 
 * [How to run the scenarios](#how-to-run-the-scenarios)
+    * [Spin up the docker containers](#spin-up-the-docker-containers)
+    * [Run the tests using the Makefile targets](#run-the-tests-using-the-makefile-targets)
 * [List of existing behavioral specifications (features)](#list-of-existing-behavioral-specifications-features)
 * [List of scenarios](#list-of-scenarios)
 * [List of tags](#list-of-tags)
@@ -19,7 +21,9 @@ Behavioral specifications for Insights pipelines and its integration into OCM, O
 
 ## How to run the scenarios
 
-Optional: Spin up the docker containers:
+Optional: Use the `run_in_docker.sh` script explained in the [additional tools documentation](https://redhatinsights.github.io/insights-behavioral-spec/tools.html#script-to-run-bdd-tests-in-docker-environment).
+
+### Spin up the docker containers
 
 ```
 POSTGRES_DB_NAME=test docker-compose up -d
@@ -31,7 +35,7 @@ The `POSTGRES_DB_NAME` environment variable is mandatory, as the different servi
 
 If you don't want to spin up the containers, you'll need to locally run the required services (database, Kafka, etc.). You may need to add or remove the `managed` tag in the `${SERVICE}_tests.sh`.
 
-> **_NOTE:_**  Don't forget to set up `PATH` environment variable correctly when runnig tests both within and outside containers. That environment variable needs to contain the path with tested executable files (for example `insights-results-aggregator-cleaner` etc.).
+> **_NOTE:_**  Don't forget to set up `PATH` environment variable correctly when running tests both within and outside containers. That environment variable needs to contain the path with tested executable files (for example `insights-results-aggregator-cleaner` etc.).
 
 When running the tests within the docker containers, it is necessary to have said executable under the `$VIRTUAL_ENV_BIN` folder with the right permissions. For example, after compiling `insights-results-aggregator`:
 
@@ -44,11 +48,15 @@ The tests for our Python-based services need a similar setup, but the whole sour
 
 If you want to run the real dependencies (content-service and service log), run `POSTGRES_DB_NAME=<test|notification> docker-compose --profile no-mock up -d` instead and `export WITHMOCK=0`.
 
-Run the tests for your repository, for example:
+### Run the tests using the Makefile targets
+
+A simple example:
 
 ```
 make notification-service
 ```
+
+The targets that can be used are listed in the [makefile targets documentation](https://redhatinsights.github.io/insights-behavioral-spec/makefile_targets.html)
 
 ## List of existing behavioral specifications (features)
 
