@@ -14,7 +14,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=${POSTGRES_DB_NAME}
+      - POSTGRES_DB=${POSTGRES_DB_NAME:-test}
     healthcheck:
       test: ["CMD", "pg_isready"]
       interval: 2s
