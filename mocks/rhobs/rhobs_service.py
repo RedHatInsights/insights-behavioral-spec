@@ -78,14 +78,18 @@ DUPLICATED_METRICS_RESULT = [
             "__name__": "alerts",
             "alertname": "SomeCriticalAlert",
             "namespace": "openshift-kube-apiserver",
-            "severity": "critical",
+            "severity": "critical"
         },
+    },
+    {
         "metric": {
             "__name__": "alerts",
             "alertname": "SomeCriticalAlert",
             "namespace": "openshift-kube-apiserver",
             "severity": "critical",
         },
+    },
+    {
         "metric": {
             "__name__": "alerts",
             "alertname": "SomeCriticalAlert",
