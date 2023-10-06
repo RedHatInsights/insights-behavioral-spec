@@ -88,9 +88,8 @@ def start_aggregator(context, flag, environment):
 
 def check_help_from_aggregator(context):
     """Check if help is displayed by Insights Results Aggregator."""
-    # please take into account that the first line is added onto output by app-common-go
-    # library. We can't control the output and it have changed already. It means this
-    # test might be unstable in the future!
+    # please take into account that some lines can be (and are) added into output by
+    # app-common-go library. We can't control the output and it have changed already.
     expected_output = """
 Clowder is disabled
 
@@ -122,8 +121,9 @@ The commands are:
     # filter message that can be printed by GOCOVERAGE machinery
     stdout = filter_coverage_message(stdout)
 
-    # check the output
-    assert stdout.strip() == expected_output.strip(), "{} != {}".format(
+    # check if the output contains expected help message
+    # any optional garbage above and below help message is ignored
+    assert expected_output.strip() in stdout.strip(), "{} != {}".format(
         stdout, expected_output
     )
 
