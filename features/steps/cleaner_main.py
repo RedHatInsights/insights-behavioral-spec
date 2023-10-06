@@ -130,8 +130,7 @@ def check_help_from_cleaner(context):
     """Check if help is displayed by cleaner."""
     # please take into account that some lines can be (and are) added into output by
     # app-common-go library. We can't control the output and it have changed already.
-    expected_output = """Clowder is not enabled, skipping init...
-Usage of insights-results-aggregator-cleaner:
+    expected_output = """Usage of insights-results-aggregator-cleaner:
   -authors
         show authors
   -cleanup
