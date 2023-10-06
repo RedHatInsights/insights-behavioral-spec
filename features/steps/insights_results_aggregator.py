@@ -24,7 +24,7 @@ from src import kafka_util, version
 
 from behave import given, when, then
 from src.process_output import process_generated_output, filter_coverage_message
-from src.utils import get_array_from_json, construct_rh_token
+from src.utils import get_array_from_json, construct_rh_token, find_block
 
 # Insights Results Aggregator binary file name
 INSIGHTS_RESULTS_AGGREGATOR_BINARY = "insights-results-aggregator"
@@ -143,11 +143,14 @@ def check_actual_configuration_for_aggregator(context):
     assert context.output is not None
     assert isinstance(context.output, list), "wrong type of output"
 
+    # try to find beginning of configuration option in output
+    i = find_block(context.output, "{")
+
     # check the output
-    assert "Broker" in context.output[3], "Caught output: {}".format(context.output)
-    assert "Address" in context.output[4], "Caught output: {}".format(context.output)
-    assert "SecurityProtocol" in context.output[5], "Caught output: {}".format(context.output)
-    assert "CertPath" in context.output[6], "Caught output: {}".format(context.output)
+    assert "Broker" in context.output[i+1], "Caught output: {}".format(context.output)
+    assert "Address" in context.output[i+2], "Caught output: {}".format(context.output)
+    assert "SecurityProtocol" in context.output[i+3], "Caught output: {}".format(context.output)
+    assert "CertPath" in context.output[i+4], "Caught output: {}".format(context.output)
 
 
 @when("I migrate aggregator database to version #{version:n}")
