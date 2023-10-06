@@ -88,8 +88,10 @@ def start_aggregator(context, flag, environment):
 
 def check_help_from_aggregator(context):
     """Check if help is displayed by Insights Results Aggregator."""
+    # please take into account that the first line is added onto output by app-common-go
+    # library. We can't control the output and it have changed already. It means this
+    # test might be unstable in the future!
     expected_output = """
-Clowder is not enabled, skipping init...
 Clowder is disabled
 
 Aggregator service for insights results
