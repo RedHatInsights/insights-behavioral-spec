@@ -66,3 +66,11 @@ def construct_rh_token(org: int, account: str, user: str) -> bytes:
 def retrieve_set_of_clusters_from_table(context: Context) -> Set[str]:
     """Retrieve set of clusters from table specified in scenario or scenario outline."""
     return set(item["Cluster name"] for item in context.table)
+
+
+def find_block(output, block_delimiter):
+    """Try to find start of block in process output."""
+    for i, line in enumerate(output):
+        if line == block_delimiter:
+            return i
+    raise Exception("Block was not found")
