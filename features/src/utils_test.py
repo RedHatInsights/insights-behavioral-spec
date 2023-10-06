@@ -148,4 +148,4 @@ def test_find_block_positive_cases():
 def test_find_block_negative_case():
     """Test the function find_block."""
     with pytest.raises(Exception):
-        i = find_block(["foo", "bar", "baz"], "dunno")
+        find_block(["foo", "bar", "baz"], "dunno")
