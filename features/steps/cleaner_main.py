@@ -128,6 +128,8 @@ def check_db_vacuuming(context):
 
 def check_help_from_cleaner(context):
     """Check if help is displayed by cleaner."""
+    # please take into account that some lines can be (and are) added into output by
+    # app-common-go library. We can't control the output and it have changed already.
     expected_output = """Clowder is not enabled, skipping init...
 Usage of insights-results-aggregator-cleaner:
   -authors
@@ -160,8 +162,9 @@ Usage of insights-results-aggregator-cleaner:
     assert stdout is not None, "stdout object should exist"
     assert isinstance(stdout, str), "wrong type of stdout object"
 
-    # check the output
-    assert stdout.strip() == expected_output.strip(), "{} != {}".format(
+    # check if the output contains expected help message
+    # any optional garbage above and below help message is ignored
+    assert expected_output.strip() in stdout.strip(), "{} != {}".format(
         stdout, expected_output
     )
 
