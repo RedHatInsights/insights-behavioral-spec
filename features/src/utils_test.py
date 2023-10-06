@@ -20,6 +20,7 @@
 import pytest
 import base64
 from utils import retrieve_set_of_clusters_from_table, construct_rh_token, get_array_from_json
+from utils import find_block
 
 inputs_and_outputs = (
         # input                        expected output            comment
@@ -133,3 +134,18 @@ def test_construct_rh_token_missing_user_id():
     """Test the function construct_rh_token when no user ID is provided."""
     with pytest.raises(AssertionError):
         construct_rh_token(42, "ACCOUNT", "")
+
+
+def test_find_block_positive_cases():
+    """Test the function find_block."""
+    i = find_block(["foo", "bar", "baz"], "foo")
+    assert i == 0
+
+    i = find_block(["foo", "bar", "baz"], "bar")
+    assert i == 1
+
+
+def test_find_block_negative_case():
+    """Test the function find_block."""
+    with pytest.raises(Exception):
+        i = find_block(["foo", "bar", "baz"], "dunno")
