@@ -1,0 +1,38 @@
+name: Pytest
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  pytest:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        python-version:
+          - "3.7"
+          - "3.8"
+          - "3.9"
+          - "3.10"
+          - "3.11"
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: pip install --upgrade setuptools
+      - run: pip install --upgrade wheel
+      - run: pip install pycodestyle
+      - run: pip install pydocstyle
+      - run: pip install pytest-cov
+      - run: pip install --upgrade importlib-metadata
+      - run: pip install behave
+      - run: pip install semver
+      - name: Style checks
+        run: make style
+      - name: Docstrings checks
+        run: make doc-check
+      - name: Unit tests
+        run: make unit_tests
+      - name: Unit tests coverage
+        run: make coverage
