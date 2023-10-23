@@ -26,6 +26,7 @@ services:
     profiles:
       - test-notification-services
       - test-aggregator
+      - test-parquet-factory
     image: quay.io/ccxdev/kafka-no-zk:latest
     ports:
       - 9092:9092
@@ -36,6 +37,7 @@ services:
   minio:
     profiles:
       - test-exporter
+      - test-parquet-factory
     image: minio/minio
     command:
       - server
@@ -55,6 +57,7 @@ services:
   createbuckets:
     profiles:
       - test-exporter
+      - test-parquet-factory
     image: minio/mc
     depends_on:
       minio:
@@ -152,4 +155,3 @@ services:
       - SERVER_PORT=8081
     ports:
       - 8081:8081
-

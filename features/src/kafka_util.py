@@ -31,9 +31,9 @@ class SendEventException(Exception):
         super().__init__(message)
 
 
-def create_topic(hostname, topic_name):
+def create_topic(hostname, topic_name, partitions=1):
     """Create a new Kafka topic."""
-    topic = NewTopic(topic_name, 1, 1)
+    topic = NewTopic(topic_name, partitions, 1)
     admin_client = KafkaAdminClient(bootstrap_servers=hostname)
     try:
         outcome = admin_client.create_topics([topic])
@@ -42,7 +42,7 @@ def create_topic(hostname, topic_name):
         print(f"{topic_name} topic already exists")
 
 
-def delete_topic(context: Context, topic):
+def delete_topic(context: Context, topic: str):
     """Delete a Kafka topic."""
     admin_client = KafkaAdminClient(
         bootstrap_servers=[f"{context.kafka_hostname}:{context.kafka_port}"]
@@ -55,14 +55,19 @@ def delete_topic(context: Context, topic):
         print("Topic {} was not deleted. Error: {}".format(topic, e))
 
 
-def send_event(bootstrap, topic, payload, headers=None):
+def send_event(bootstrap, topic, payload, headers=None, partition=None, timestamp=None):
     """Send an event to selected Kafka topic."""
     producer = KafkaProducer(bootstrap_servers=bootstrap)
+
+    timestamp_ms = int(timestamp * 1000) if timestamp else None
+
     try:
         res = producer.send(
             topic,
+            partition=partition,
             value=payload,
             headers=headers,
+            timestamp_ms=timestamp_ms,
         )
         producer.flush()
         print("Result kafka send: ", res.get(timeout=10))
