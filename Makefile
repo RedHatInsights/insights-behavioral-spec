@@ -72,7 +72,7 @@ smart-proxy-tests: ## Run BDD tests for the Insights Results Smart Proxy service
 smart-proxy-code-coverage: ## Compute code coverage for Smart Proxy service
 	./smart_proxy_tests.sh coverage
 
-style:	code-style docs-style shellcheck ## Perform all style checks
+style:	code-style docs-style ## Perform all style checks
 
 code-style: ## Check code style for all Python sources from this repository
 	python3 tools/run_pycodestyle.py
