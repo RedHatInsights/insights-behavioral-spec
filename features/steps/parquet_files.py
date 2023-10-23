@@ -1,3 +1,5 @@
+"""Steps implementation for parquet-factory features, related to parquet files."""
+
 from behave import then
 
 import pandas as pd
@@ -36,10 +38,10 @@ def decode_df(df):
 def gherkin_table_to_df(table):
     """Convert a Gherkin table into a Pandas Dataframe.
 
-    Args:
+    _Args:
         table (behave.model.Table): the Gherkin table.
 
-    Returns:
+    _Returns:
         pandas.DataFrame: the table as a Dataframe
     """
     return pd.DataFrame(table, columns=table.headings)

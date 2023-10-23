@@ -1,3 +1,5 @@
+"""Module with steps implementation related to parquet-factory tests."""
+
 import json
 import logging
 import os
@@ -5,6 +7,8 @@ import subprocess
 import tempfile
 import time
 from threading import Timer
+
+from behave import then, when
 
 from src import kafka_util
 
@@ -18,8 +22,7 @@ DATA_DIRECTORY = "test_data"
 
 @when('I run Parquet Factory with a timeout of "{timeout_sec:d}" seconds')
 def run_parquet_factory(context, timeout_sec: int) -> str:
-    """
-    Run Parquet Factory.
+    """Run Parquet Factory.
 
     This function waits for {timeout_sec} to save its result in context.
     """
@@ -127,8 +130,7 @@ def check_logs_table(context):
 
 def check_logs(logs: str, topic: str, partition: int,
                offset: int, message: str):
-    """
-    Make sure that a messaging log exists in Parquet Factory logs.
+    """Make sure that a messaging log exists in Parquet Factory logs.
 
     The log is build from the topic, partition, offset and
     message arguments.

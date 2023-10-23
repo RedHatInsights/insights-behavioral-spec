@@ -83,7 +83,7 @@ def delete_kafka_topic(context, topic):
 
 @given('Kafka topic "{topic}" is empty and has {partitions} partition')
 @given('Kafka topic "{topic}" is empty and has {partitions} partitions')
-def delete_kafka_topic(context, topic, partitions):
+def delete_kafka_topic_with_partition(context, topic, partitions):
     """Delete a Kafka topic."""
     delete_topic(context, topic)
     bootstrap_server = f"{context.kafka_hostname}:{context.kafka_port}"
