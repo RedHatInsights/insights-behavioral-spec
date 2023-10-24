@@ -134,5 +134,5 @@ copy_files "$cid" "$tests_target" "$path_to_service"
 # Step 9: Execute the specified make target
 
 
-docker exec -it "$cid" /bin/bash -c "source \$VIRTUAL_ENV/bin/activate && env && $(with_mocked_dependencies "$3") make $tests_target"
+docker exec "$cid" /bin/bash -c "source \$VIRTUAL_ENV/bin/activate && env && $(with_mocked_dependencies "$3") make $tests_target"
 
