@@ -1,1 +1,2 @@
 ../features/parquet-factory/parquet_files.feature
+../features/parquet-factory/indexes.feature
