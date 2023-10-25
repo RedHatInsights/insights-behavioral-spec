@@ -31,9 +31,9 @@ Feature: Customer Notifications
      Then it should have sent 0 notification events to Kafka
       And the process should exit with status code set to 0
       And the logs should match
-          | log                              | contains   |
-          | Report with high impact detected | yes        |
-          | No new issues to notify          | no         |
+          | log                                                          | contains   |
+          | Report with impact higher than configured threshold detected | yes        |
+          | No new issues to notify                                      | no         |
      When I select all rows from table reported
      Then I should get 1 rows
 
