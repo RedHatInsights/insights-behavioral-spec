@@ -26,6 +26,7 @@ services:
     profiles:
       - test-notification-services
       - test-aggregator
+      - test-sha-extractor
     image: quay.io/ccxdev/kafka-no-zk:latest
     ports:
       - 9092:9092
