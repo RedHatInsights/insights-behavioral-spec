@@ -28,7 +28,7 @@ function prepare_venv() {
 
     if [[ ! -d $PATH_TO_LOCAL_SHA_EXTRACTOR ]] ; then
     	git clone --depth=1 git@gitlab.cee.redhat.com:ccx/ccx-sha-extractor.git $PATH_TO_LOCAL_SHA_EXTRACTOR
-	    add_trap "rm -rf ./ccx-sha-extractor"
+	add_trap "rm -rf ./ccx-sha-extractor"
     fi
     cwd=$(pwd)
     cd $PATH_TO_LOCAL_SHA_EXTRACTOR || exit
@@ -88,9 +88,9 @@ function add_trap() {
 
 if ! [ "$ENV_DOCKER" ] ; then
     run_kafka
+    run_mock_s3
 fi
 
-run_mock_s3
 prepare_venv
 
 # shellcheck disable=SC2068
