@@ -17,7 +17,7 @@ def reset_metrics(pushgateway_url: str) -> None:
     print(f"Metrics after reseting the pushgateway:\n{metrics}")
 
 
-def get_metrics(pushgateway_url) -> str | Dict[str,List]:
+def get_metrics(pushgateway_url) -> str | Dict[str, List]:
     """Download the metrics from {pushgateway_url} and store as Dict."""
     ans = requests.get(f"http://{pushgateway_url}/metrics")
     if ans.status_code != 200:
@@ -26,7 +26,7 @@ def get_metrics(pushgateway_url) -> str | Dict[str,List]:
         return parse_metrics(ans.text)
 
 
-def parse_metrics(metrics: str) -> Dict[str,List]:
+def parse_metrics(metrics: str) -> Dict[str, List]:
     """Convert the raw string of metrics into a dictionary.
 
     {
