@@ -73,6 +73,7 @@ services:
     profiles:
       - no-mock
       - test-notification-services
+      - test-parquet-factory
     image: quay.io/prometheus/pushgateway:latest
     ports:
       - 9091:9091

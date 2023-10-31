@@ -7,6 +7,7 @@ import subprocess
 import tempfile
 import time
 from threading import Timer
+from typing import Dict
 
 from behave import then, when
 
@@ -20,24 +21,41 @@ PARQUET_FACTORY_BINARY = "parquet-factory"
 DATA_DIRECTORY = "test_data"
 
 
+@when('I set the environment variable "{env_name}" to "{env_value}"')
+def set_environment(context, env_name: str, env_value: str) -> None:
+    """Set an environment variable for next executions."""
+    if not hasattr(context, "parquet_environment"):
+        context.parquet_environment = {}
+
+    context.parquet_environment[env_name] = env_value
+
+
 @when('I run Parquet Factory with a timeout of "{timeout_sec:d}" seconds')
-def run_parquet_factory(context, timeout_sec: int) -> str:
+def run_parquet_factory(context, timeout_sec: int) -> None:
     """Run Parquet Factory.
 
     This function waits for {timeout_sec} to save its result in context.
     """
     context.parquet_factory_timed_out = False
 
-    os.environ["PARQUET_FACTORY__LOGGING__DEBUG"] = "false"
+    environ = os.environ.copy()
+    if hasattr(context, "parquet_environment"):
+        environ.update(context.parquet_environment)
+    environ["PARQUET_FACTORY__LOGGING__DEBUG"] = "false"
+
     proc = subprocess.Popen(
         [PARQUET_FACTORY_BINARY],
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
+        env=environ
     )
 
+    print(f"timer will run for {timeout_sec}")
     timer = Timer(timeout_sec, proc.kill)
     try:
         timer.start()
+        stdout, stderr = proc.communicate()
+
     finally:
         if timer.is_alive():
             print("Timer was still alive")
@@ -47,7 +65,6 @@ def run_parquet_factory(context, timeout_sec: int) -> str:
             timed_out = True
         timer.cancel()
 
-    stdout, stderr = proc.communicate()
     output = f"""----------------- STDOUT -----------------
 {stdout.decode("utf-8")}
 ----------------- STDERR -----------------
@@ -66,6 +83,12 @@ def run_parquet_factory(context, timeout_sec: int) -> str:
 def check_has_finished(context):
     """Make sure Parquet Factory finished gracefully."""
     assert not context.parquet_factory_timed_out, "PF was still running"
+
+
+@then("Parquet Factory shouldn't have finish")
+def check_hasnt_finished(context):
+    """Make sure Parquet Factory was still running when quited."""
+    assert context.parquet_factory_timed_out, "PF already finished"
 
 
 @when("I fill the topics with messages of the {moment} hour")
@@ -126,6 +149,33 @@ def check_logs_table(context):
             f'topic {row["topic"]}, partition {row["partition"]}, ' + \
             f'offset {row["offset"]}, message {row["message"]}, ' + \
             'not found'
+
+
+@then('The logs should contain "{log_message}"')
+def check_logs_message(context, log_message):
+    """Make sure the log message is in the Parquet Factory logs."""
+    for log in context.parquet_factory_logs.split("\n"):
+        if log_message in log:
+            return True
+
+    return False
+
+
+@then("The logs shouldn't contain")
+def check_no_logs_table(context):
+    """Make sure the messaging log isn't in Parquet Factory logs."""
+    for row in context.table:
+        ok = check_logs(
+            context.parquet_factory_logs,
+            row["topic"],
+            row["partition"],
+            row["offset"],
+            row["message"],
+        )
+        assert not ok, \
+            f'topic {row["topic"]}, partition {row["partition"]}, ' + \
+            f'offset {row["offset"]}, message {row["message"]}, ' + \
+            'found'
 
 
 def check_logs(logs: str, topic: str, partition: int,

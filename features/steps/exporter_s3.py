@@ -115,6 +115,26 @@ def ensure_s3_bucket_is_empty(context):
     clean_bucket(context)
 
 
+@then("The S3 bucket is empty")
+def check_bucket_is_empty(context):
+    """Check if the bucket is empty."""
+    bucket_check(context)
+    # retrieve all objects stored in bucket
+    objects = context.minio_client.list_objects(context.S3_bucket_name, recursive=True)
+    names = [o.object_name for o in objects]
+    assert len(names) == 0
+
+
+@then("The S3 bucket is not empty")
+def check_bucket_contains_files(context):
+    """Check that the S3 bucket has, at least, 1 file."""
+    bucket_check(context)
+    # retrieve all objects stored in bucket
+    objects = context.minio_client.list_objects(context.S3_bucket_name, recursive=True)
+    names = [o.object_name for o in objects]
+    assert len(names) > 0
+
+
 @then("I should see following objects generated in S3")
 def check_objects_in_s3(context):
     """Check that all specified objects was generated."""

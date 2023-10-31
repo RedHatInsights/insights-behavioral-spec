@@ -1,2 +1,5 @@
+../features/parquet-factory/kafka_messages.feature
 ../features/parquet-factory/parquet_files.feature
 ../features/parquet-factory/indexes.feature
+../features/parquet-factory/metrics.feature
+../features/parquet-factory/s3.feature
