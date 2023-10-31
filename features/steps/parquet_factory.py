@@ -7,7 +7,6 @@ import subprocess
 import tempfile
 import time
 from threading import Timer
-from typing import Dict
 
 from behave import then, when
 

@@ -1,3 +1,6 @@
+"""Contains different Pushgateway utilities."""
+
+from pprint import pformat
 from typing import Dict, List
 
 import requests
@@ -91,8 +94,7 @@ def extract_labels(metric: str) -> (str, Dict):
 
 
 def compare(operation, a, b):
-    """
-    Compare {a} and {b} with {operation}.
+    """Compare {a} and {b} with {operation}.
 
     Valid operations:
         - lower than: "<"
@@ -112,8 +114,7 @@ def compare(operation, a, b):
 
 
 def assert_metric_with_label(context, metric, operation, value, label, label_value):
-    """
-    Check a metric in the Pushgateway taking in account the label.
+    """Check a metric in the Pushgateway taking in account the label.
 
     Make sure a metric {metric} has value {value} in {context.metrics}
     dictionary for the given {label} and {label_value}. The value is compared

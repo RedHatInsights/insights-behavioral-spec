@@ -1,4 +1,8 @@
-from behave import when
+"""Implementation for metrics push gateway steps."""
+
+from pprint import pformat
+
+from behave import given, then, when
 
 from pushgateway import (
     assert_metric_with_label,
@@ -45,8 +49,7 @@ def assert_metrics_table(context):
 
 @then('Metric "{metric}" has value "{operation}" "{value}"')
 def assert_metric(context, metric, operation, value):
-    """
-    Check a metric in the Pushgateway.
+    """Check a metric in the Pushgateway.
 
     Make sure a metric {metric} has value {value} in {context.metrics}
     dictionary.
