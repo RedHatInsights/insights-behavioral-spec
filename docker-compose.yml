@@ -57,7 +57,6 @@ services:
   createbuckets:
     profiles:
       - test-exporter
-      - test-parquet-factory
     image: minio/mc
     depends_on:
       minio:

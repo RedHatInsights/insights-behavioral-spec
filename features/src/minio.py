@@ -43,6 +43,18 @@ def minio_client(context: Context):
         context.minio_client = client
 
 
+def create_bucket(context: Context):
+    """Remove the bucket if exists and re-create again."""
+    bucket_name = context.S3_bucket_name
+    found = context.minio_client.bucket_exists(bucket_name)
+
+    if found:
+        clean_bucket(context)
+        context.minio_client.remove_bucket(bucket_name)
+
+    context.minio_client.make_bucket(bucket_name)
+
+
 def bucket_check(context: Context):
     """Check bucket existence."""
     bucket_name = context.S3_bucket_name

@@ -21,6 +21,7 @@ from src.csv_checks import check_table_content
 from src.minio import (
     bucket_check,
     clean_bucket,
+    create_bucket,
     get_object_name,
     minio_client,
     read_object_into_buffer,
@@ -111,8 +112,7 @@ def assert_s3_bucket_is_empty(context):
 @given("The S3 bucket is empty")
 def ensure_s3_bucket_is_empty(context):
     """Ensure that the bucket is empty."""
-    bucket_check(context)
-    clean_bucket(context)
+    create_bucket(context)
 
 
 @then("The S3 bucket is empty")
