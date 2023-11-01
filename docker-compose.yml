@@ -2,7 +2,6 @@ version: "3.9"
 services:
   # "pod" with the tests
   bddtests:
-    build: .
     image: quay.io/cloudservices/insights-behavioral-spec:latest
     entrypoint:
       - /bin/sh
