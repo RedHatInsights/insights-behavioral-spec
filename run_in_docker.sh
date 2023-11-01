@@ -71,10 +71,7 @@ copy_files() {
       copy_python_project "$cid" "$path_to_service"
       ;;
     "insights-sha-extractor-tests")
-      echo -e "\033[0;31mThese tests are not ready to be run. Aborting!\033[0m"
-      echo "This option will be enabled after https://issues.redhat.com/browse/CCXDEV-11895 is done."
-      exit 0
-      # copy_python_project $cid $path_to_service
+      copy_python_project "$cid" "$path_to_service"
       ;;
     "notification-service-tests")
       copy_go_executable "$cid" "$path_to_service" "ccx-notification-service"
@@ -103,7 +100,7 @@ docker_compose_profiles["exporter-tests"]="test-exporter"
 docker_compose_profiles["inference-service-tests"]=""
 docker_compose_profiles["insights-content-service-tests"]=""
 docker_compose_profiles["insights-content-template-renderer-tests"]=""
-docker_compose_profiles["insights-sha-extractor-tests"]="text-sha-extractor"
+docker_compose_profiles["insights-sha-extractor-tests"]="test-sha-extractor"
 docker_compose_profiles["notification-service-tests"]="test-notification-services"
 docker_compose_profiles["notification-writer-tests"]="test-notification-services"
 docker_compose_profiles["smart-proxy-tests"]=""

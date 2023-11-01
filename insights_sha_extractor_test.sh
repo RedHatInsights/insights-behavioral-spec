@@ -14,6 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+export PATH_TO_LOCAL_SHA_EXTRACTOR=${PATH_TO_LOCAL_SHA_EXTRACTOR:="../ccx-sha-extractor"}
+exit_trap_command=""
+
 function prepare_venv() {
     echo "Preparing environment"
     # shellcheck disable=SC1091
@@ -23,12 +26,16 @@ function prepare_venv() {
     python3 "$(which pip3)" install --no-cache -r requirements.in || exit 1
     python3 "$(which pip3)" install --no-cache -r requirements/insights_sha_extractor.txt || exit 1
 
-    git clone --depth=1 git@gitlab.cee.redhat.com:ccx/ccx-sha-extractor.git
-    cd ccx-sha-extractor || exit
+    if [[ ! -d $PATH_TO_LOCAL_SHA_EXTRACTOR ]] ; then
+    	git clone --depth=1 git@gitlab.cee.redhat.com:ccx/ccx-sha-extractor.git $PATH_TO_LOCAL_SHA_EXTRACTOR
+	add_trap "rm -rf ./ccx-sha-extractor"
+    fi
+    cwd=$(pwd)
+    cd $PATH_TO_LOCAL_SHA_EXTRACTOR || exit
     pip install --no-cache-dir -U pip setuptools wheel
     pip install --no-cache-dir -r requirements.txt
     pip install -e .
-    cd ..
+    cd "$cwd" || exit 1
 
     echo "Environment ready"
 }
@@ -56,16 +63,33 @@ function run_kafka() {
     done
 
     export kafka_cid
+    add_trap "docker kill ${kafka_cid}"
 }
 
-function run_mock_s3(){
+function run_mock_s3() {
     uvicorn mocks.s3.s3:app &
     s3_pid=$!
+    add_trap "kill -9 $s3_pid"
 }
 
-run_kafka
+function cleanup {
+    eval "$exit_trap_command"
+}
 
-run_mock_s3
+function add_trap() {
+    local to_add=$1
+    if [ -z $exit_trap_command ] ; then
+        exit_trap_command="$to_add"
+    else
+        exit_trap_command="$exit_trap_command; $to_add"
+    fi
+    trap cleanup EXIT   
+}
+
+if ! [ "$ENV_DOCKER" ] ; then
+    run_kafka
+    run_mock_s3
+fi
 
 prepare_venv
 
@@ -74,7 +98,3 @@ PYTHONDONTWRITEBYTECODE=1 python3 -m behave --no-capture \
     --format=progress2 \
     --tags=-skip --tags=-managed \
     -D dump_errors=true @test_list/insights_sha_extractor.txt "$@"
-
-docker kill "$kafka_cid"
-kill -9 $s3_pid
-rm -rf ./ccx-sha-extractor

@@ -2,6 +2,7 @@ version: "3.9"
 services:
   # "pod" with the tests
   bddtests:
+    build: .
     image: quay.io/cloudservices/insights-behavioral-spec:latest
     entrypoint:
       - /bin/sh
@@ -26,6 +27,7 @@ services:
     profiles:
       - test-notification-services
       - test-aggregator
+      - test-sha-extractor
     image: quay.io/ccxdev/kafka-no-zk:latest
     ports:
       - 9092:9092
@@ -36,6 +38,7 @@ services:
   minio:
     profiles:
       - test-exporter
+      - test-sha-extractor
     image: minio/minio
     command:
       - server

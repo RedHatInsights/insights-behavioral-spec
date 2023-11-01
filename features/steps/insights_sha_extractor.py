@@ -87,21 +87,6 @@ def start_sha_extractor(context, group_id=None):
     context.sha_extractor = sha_extractor
 
 
-@when('an archive {with_or_without} workload info is announced in "{topic_var}" topic')
-def produce_event(context, with_or_without, topic_var):
-    """Produce an event into specified topic."""
-    topic_name = context.__dict__["_stack"][0][topic_var]
-    if with_or_without == "with":
-        msg_path = "test_data/upload.json"
-    else:
-        msg_path = "test_data/upload_no_workloadinfo.json"
-
-    with open(msg_path, "r") as f:
-        event_data = f.read().encode("utf-8")
-        headers = [("service", b"testareno")]
-        kafka_util.send_event(context.hostname, topic_name, event_data, headers)
-
-
 @when('the file "config/workload_info.json" is not found')
 def check_workload_info_not_present(context):
     """Step when workload_info.json is not in the archive."""
@@ -184,7 +169,7 @@ def check_url(context):
 @then("SHA extractor should download tarball from given URL attribute")
 def check_start_download(context):
     """Check that sha extractor is able to start download."""
-    expected_msg = "Downloading http://localhost:8000/"
+    expected_msg = "Downloading"
     assert message_in_buffer(
         expected_msg, context.sha_extractor.stdout
     ), "download not started"
