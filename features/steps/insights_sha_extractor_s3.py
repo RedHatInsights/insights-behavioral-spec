@@ -14,13 +14,18 @@
 
 """Implementation of logic behind usage of S3 and Kafka in SHA extractor tests."""
 
-import boto3
-import json
 import logging
 import os
+
+import json
 from behave import when
-from botocore.exceptions import ClientError
 from src import kafka_util
+
+try:
+    import boto3
+    from botocore.exceptions import ClientError
+except ImportError as e:
+    print("Warning: unable to import module:", e)
 
 
 def create_presigned_url(s3_client, bucket_name, object_name, expiration=3600):
