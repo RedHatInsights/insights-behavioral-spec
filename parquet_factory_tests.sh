@@ -44,7 +44,7 @@ function get_binary() {
 
 function set_env_vars(){
     export S3_OLDER_MINIO_COMPATIBILITY=1 \
-        PARQUET_FACTORY__S3__ENDPOINT=localhost:9000 \
+        PARQUET_FACTORY__S3__ENDPOINT=minio:9000 \
         PARQUET_FACTORY__S3__BUCKET=test \
         PARQUET_FACTORY__S3__ACCESS_KEY=test_access_key \
         PARQUET_FACTORY__S3__SECRET_KEY=test_secret_access_key
