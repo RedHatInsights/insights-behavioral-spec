@@ -28,7 +28,7 @@ function install_reqs() {
 function prepare_venv() {
     echo "Preparing environment"
     # shellcheck disable=SC1091
-    virtualenv -p python3 venv && source venv/bin/activate && python3 "$(which pip3)" install -r requirements/insights_results_aggregator_mock.txt || exit 1
+    virtualenv -p python3 venv && source venv/bin/activate && python3 "$(which pip3)" install -r requirements/parquet-factory.txt || exit 1
     echo "Environment ready"
 }
 
