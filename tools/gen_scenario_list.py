@@ -50,6 +50,7 @@ SUBDIRECTORIES = (
     "ccx-notification-writer",
     "ccx-upgrades-inference",
     "ccx-upgrades-data-eng",
+    "parquet-factory",
 )
 
 # generate page header
