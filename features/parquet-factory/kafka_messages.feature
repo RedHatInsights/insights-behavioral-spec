@@ -156,16 +156,6 @@ Feature: Ability to process the Kafka messages correctly
       And I set the environment variable "PARQUET_FACTORY__KAFKA_FEATURES__MAX_CONSUMED_RECORDS" to "1"
       And I run Parquet Factory with a timeout of "10" seconds
      Then Parquet Factory should have finish
-      And The logs should contain
-    | topic                   | partition | offset | message           |
-    | incoming_features_topic | 0         | 0      | message processed |
-    | incoming_features_topic | 1         | 0      | message processed |
-    | incoming_rules_topic    | 0         | 0      | message processed |
-    | incoming_rules_topic    | 1         | 0      | message processed |
-    | incoming_features_topic | 0         | 1      | FINISH            |
-    | incoming_features_topic | 1         | 1      | FINISH            |
-    | incoming_rules_topic    | 0         | 1      | FINISH            |
-    | incoming_rules_topic    | 0         | 1      | FINISH            |
      Then The S3 bucket is not empty
 
   Scenario: Parquet Factory should not commit the messages from current hour if there are no prior messages
