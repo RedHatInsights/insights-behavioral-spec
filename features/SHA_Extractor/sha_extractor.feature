@@ -19,7 +19,7 @@ Feature: SHA Extractor
 
 
   Scenario: Check if SHA extractor is able to consume messages from Kafka
-     When an archive without workload info is announced in "incoming_topic" topic
+     When S3 and Kafka are populated with an archive without workload_info
       And SHA extractor service is started in group "check"
      Then SHA extractor should consume message about this event
       And this message should contain following attributes
@@ -35,7 +35,7 @@ Feature: SHA Extractor
 
   Scenario: Check if SHA extractor is able to consume messages from Kafka and then download tarball
     Given SHA extractor service is started
-     When an archive without workload info is announced in "incoming_topic" topic
+     When S3 and Kafka are populated with an archive without workload_info
      Then SHA extractor should consume message about this event
       And this message should contain following attributes
           | Attribute    | Description                | Type         |
@@ -51,7 +51,7 @@ Feature: SHA Extractor
 
   Scenario: Check if SHA extractor is able to consume messages from Kafka, download tarball, and take SHA images
     Given SHA extractor service is started
-     When an archive without workload info is announced in "incoming_topic" topic
+     When S3 and Kafka are populated with an archive without workload_info
      Then SHA extractor should consume message about this event
       And this message should contain following attributes
           | Attribute    | Description                | Type         |
@@ -69,7 +69,7 @@ Feature: SHA Extractor
 
   Scenario: Check if SHA extractor is able to finish the processing of SHA images
     Given SHA extractor service is started
-     When an archive with workload info is announced in "incoming_topic" topic
+     When S3 and Kafka are populated with an archive with workload_info
      Then SHA extractor should consume message about this event
       And this message should contain following attributes
           | Attribute    | Description                | Type         |
