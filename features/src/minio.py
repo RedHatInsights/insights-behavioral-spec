@@ -14,9 +14,11 @@
 
 """Minio/S3-related functions that can be called from other sources and test step definitions."""
 
-from minio import Minio
-from io import StringIO
+from io import BytesIO, StringIO
+from typing import List
+
 from behave.runner import Context
+from minio import Minio
 
 
 def minio_client(context: Context):
@@ -41,6 +43,18 @@ def minio_client(context: Context):
         context.minio_client = client
 
 
+def create_bucket(context: Context):
+    """Remove the bucket if exists and re-create again."""
+    bucket_name = context.S3_bucket_name
+    found = context.minio_client.bucket_exists(bucket_name)
+
+    if found:
+        clean_bucket(context)
+        context.minio_client.remove_bucket(bucket_name)
+
+    context.minio_client.make_bucket(bucket_name)
+
+
 def bucket_check(context: Context):
     """Check bucket existence."""
     bucket_name = context.S3_bucket_name
@@ -62,9 +76,35 @@ def read_object_into_buffer(context: Context, object_name):
     return buff
 
 
+def read_object_into_bytes_buffer(context: Context, object_name: str) -> BytesIO:
+    """Retrieve ibject from pre-selected bucket into a bytes buffer."""
+    bucket_name = context.S3_bucket_name
+    response = context.minio_client.get_object(bucket_name, object_name)
+    assert response is not None, "No response from storage."
+
+    # convert into buffer
+    buff = BytesIO(response.read())
+    assert buff is not None, "Read error"
+
+    return buff
+
+
 def get_object_name(context: Context, filename):
     """Retrieve object name compatible with S3 and Minio, including older versions."""
     if context.S3_old_minio_compatibility:
         return filename
     else:
         return f"{context.S3_bucket_name}/{filename}"
+
+
+def clean_bucket(context: Context):
+    """Remove all the objects from the bucket."""
+    objects = context.minio_client.list_objects(context.S3_bucket_name, recursive=True)
+    object_names = [o.object_name for o in objects]
+    remove_objects_by_name(context, object_names)
+
+
+def remove_objects_by_name(context: Context, object_names: List[str]):
+    """Remove the objects from the list in the configured bucket."""
+    for object_name in object_names:
+        context.minio_client.remove_object(context.S3_bucket_name, object_name)

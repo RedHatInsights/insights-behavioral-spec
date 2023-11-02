@@ -39,10 +39,12 @@ FEATURES_CLEAN_DB = ("aggregator", "aggregator_cleaner", "aggregator_exporter")
 FEATURES_INIT_DB = ("aggregator", "notification_service")
 
 # Setup all environment variables needed to work with Kafka (local or remote)
-FEATURES_WITH_KAFKA = ("aggregator", "notification_writer", "notification_service")
+FEATURES_WITH_KAFKA = (
+    "aggregator", "notification_writer", "notification_service", "parquet_service",
+)
 
 # Setup all environment variables needed to work with Minio (local or remote)
-FEATURES_WITH_MINIO = ("aggregator_exporter",)
+FEATURES_WITH_MINIO = ("aggregator_exporter", "parquet_service")
 
 # Mapping between database name and script to cleanup such database.
 CLEANUP_FILES = {

@@ -18,9 +18,9 @@
 import subprocess
 import json
 
+from src.kafka_util import create_topic, delete_topic
+
 from behave import given, then, when
-from kafka import KafkaAdminClient
-from kafka.errors import UnknownTopicOrPartitionError
 
 
 @when("I retrieve metadata from Kafka broker")
@@ -78,12 +78,17 @@ def find_available_brokers(context):
 @given('Kafka topic "{topic}" is empty')
 def delete_kafka_topic(context, topic):
     """Delete a Kafka topic."""
-    admin_client = KafkaAdminClient(
-        bootstrap_servers=[f"{context.kafka_hostname}:{context.kafka_port}"]
+    delete_topic(context, topic)
+
+
+@given('Kafka topic "{topic}" is empty and has {partitions} partition')
+@given('Kafka topic "{topic}" is empty and has {partitions} partitions')
+def delete_kafka_topic_with_partition(context, topic, partitions):
+    """Delete a Kafka topic."""
+    delete_topic(context, topic)
+    bootstrap_server = f"{context.kafka_hostname}:{context.kafka_port}"
+    create_topic(
+        bootstrap_server,
+        topic,
+        int(partitions),
     )
-    try:
-        admin_client.delete_topics(topics=[topic])
-    except UnknownTopicOrPartitionError:
-        pass
-    except Exception as e:
-        print("Topic {} was not deleted. Error: {}".format(topic, e))

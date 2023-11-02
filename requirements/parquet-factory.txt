@@ -1,0 +1,6 @@
+behave
+kafka-python
+minio
+pandas
+pyarrow
+numpy

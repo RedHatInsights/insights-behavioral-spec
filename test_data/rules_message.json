@@ -1,0 +1,1732 @@
+{
+    "path": "archives/compressed/ef/CLUSTER_ID_TO_BE_REPLACED/201306/17/233359.tar.gz",
+    "metadata": {
+        "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+        "external_organization": "ef"
+    },
+    "report": {
+        "system": {
+            "metadata": {},
+            "hostname": null
+        },
+        "reports": [
+            {
+                "rule_id": "machine_pool_check|MACHINE_POOL_NOT_OK",
+                "component": "ccx_rules_ocp.internal.rules.machine_pool_check.report",
+                "type": "rule",
+                "key": "MACHINE_POOL_NOT_OK",
+                "details": {
+                    "machines": [
+                        {
+                            "degraded": {
+                                "status": false,
+                                "last_trans_time": "2021-10-08T08:10:33Z",
+                                "reason": "",
+                                "message": ""
+                            },
+                            "name": "master",
+                            "node_degraded": {
+                                "status": false,
+                                "last_trans_time": "2021-10-08T08:10:33Z",
+                                "reason": "",
+                                "message": ""
+                            },
+                            "render_degraded": {
+                                "status": false,
+                                "last_trans_time": "2021-10-08T08:09:38Z",
+                                "reason": "",
+                                "message": ""
+                            },
+                            "updated": {
+                                "status": false,
+                                "last_trans_time": "2021-10-08T09:44:15Z",
+                                "reason": "",
+                                "message": ""
+                            },
+                            "updating": {
+                                "status": true,
+                                "last_trans_time": "2021-10-08T09:44:15Z",
+                                "reason": "",
+                                "message": "All nodes are updating to rendered-master-a40f9eb37039e079676527fd41bbef52"
+                            }
+                        },
+                        {
+                            "degraded": {
+                                "status": false,
+                                "last_trans_time": "2021-10-08T08:09:41Z",
+                                "reason": "",
+                                "message": ""
+                            },
+                            "name": "worker",
+                            "node_degraded": {
+                                "status": false,
+                                "last_trans_time": "2021-10-08T08:09:41Z",
+                                "reason": "",
+                                "message": ""
+                            },
+                            "render_degraded": {
+                                "status": false,
+                                "last_trans_time": "2021-10-08T08:09:38Z",
+                                "reason": "",
+                                "message": ""
+                            },
+                            "updated": {
+                                "status": false,
+                                "last_trans_time": "2021-10-08T09:44:15Z",
+                                "reason": "",
+                                "message": ""
+                            },
+                            "updating": {
+                                "status": true,
+                                "last_trans_time": "2021-10-08T09:44:15Z",
+                                "reason": "",
+                                "message": "All nodes are updating to rendered-worker-3c096f9626f3d5efb9113e1056ab71fa"
+                            }
+                        }
+                    ],
+                    "type": "rule",
+                    "error_key": "MACHINE_POOL_NOT_OK"
+                },
+                "tags": [],
+                "links": {}
+            },
+            {
+                "rule_id": "operators_check|OPERATOR_ISSUE",
+                "component": "ccx_rules_ocp.internal.rules.operators_check.report",
+                "type": "rule",
+                "key": "OPERATOR_ISSUE",
+                "details": {
+                    "operators": [
+                        {
+                            "operator": {
+                                "available": {
+                                    "status": true,
+                                    "last_trans_time": "2021-10-08T08:16:58Z",
+                                    "reason": "",
+                                    "message": "Cluster has deployed 4.8.12"
+                                },
+                                "degraded": {
+                                    "status": false,
+                                    "last_trans_time": "2021-10-08T08:16:56Z",
+                                    "reason": "",
+                                    "message": ""
+                                },
+                                "name": "machine-config",
+                                "progressing": {
+                                    "status": true,
+                                    "last_trans_time": "2021-10-08T09:40:54Z",
+                                    "reason": "",
+                                    "message": "Working towards 4.8.13"
+                                },
+                                "upgradeable": {
+                                    "status": true,
+                                    "last_trans_time": "2021-10-08T08:14:53Z",
+                                    "reason": "AsExpected",
+                                    "message": ""
+                                },
+                                "version": "4.8.12"
+                            },
+                            "issues": [
+                                [
+                                    "Progressing",
+                                    {
+                                        "status": true,
+                                        "last_trans_time": "2021-10-08T09:40:54Z",
+                                        "reason": "",
+                                        "message": "Working towards 4.8.13"
+                                    }
+                                ]
+                            ]
+                        },
+                        {
+                            "operator": {
+                                "available": {
+                                    "status": true,
+                                    "last_trans_time": "2021-10-08T08:08:27Z",
+                                    "reason": "AsExpected",
+                                    "message": "All is well"
+                                },
+                                "degraded": {
+                                    "status": false,
+                                    "last_trans_time": "2021-10-08T08:08:24Z",
+                                    "reason": "AsExpected",
+                                    "message": "All is well"
+                                },
+                                "name": "service-ca",
+                                "progressing": {
+                                    "status": true,
+                                    "last_trans_time": "2021-10-08T09:44:19Z",
+                                    "reason": "_ManagedDeploymentsAvailable",
+                                    "message": "Progressing: \nProgressing: service-ca does not have available replicas"
+                                },
+                                "upgradeable": {
+                                    "status": true,
+                                    "last_trans_time": "2021-10-08T08:08:27Z",
+                                    "reason": "AsExpected",
+                                    "message": "All is well"
+                                },
+                                "version": "4.8.13"
+                            },
+                            "issues": [
+                                [
+                                    "Progressing",
+                                    {
+                                        "status": true,
+                                        "last_trans_time": "2021-10-08T09:44:19Z",
+                                        "reason": "_ManagedDeploymentsAvailable",
+                                        "message": "Progressing: \nProgressing: service-ca does not have available replicas"
+                                    }
+                                ]
+                            ]
+                        }
+                    ],
+                    "type": "rule",
+                    "error_key": "OPERATOR_ISSUE"
+                },
+                "tags": [],
+                "links": {}
+            },
+            {
+                "rule_id": "version_check|CLUSTER_VERSION_WORKING_TOWARDS",
+                "component": "ccx_rules_ocp.internal.rules.version_check.report",
+                "type": "rule",
+                "key": "CLUSTER_VERSION_WORKING_TOWARDS",
+                "details": {
+                    "current": "4.8.12",
+                    "desired": "4.8.13",
+                    "available": {
+                        "status": true,
+                        "last_trans_time": "2021-10-08T08:35:15Z",
+                        "reason": "",
+                        "message": "Done applying 4.8.12"
+                    },
+                    "progressing": {
+                        "status": true,
+                        "last_trans_time": "2021-10-08T08:52:20Z",
+                        "reason": "ClusterOperatorUpdating",
+                        "message": "Working towards 4.8.13: 570 of 678 done (84% complete), waiting on machine-config"
+                    },
+                    "failing": {
+                        "status": false,
+                        "last_trans_time": "2021-10-08T09:31:14Z",
+                        "reason": "",
+                        "message": ""
+                    },
+                    "history_count": 2,
+                    "phased_gates_checks": [
+                        "3.1"
+                    ],
+                    "type": "rule",
+                    "error_key": "CLUSTER_VERSION_WORKING_TOWARDS"
+                },
+                "tags": [
+                    "phased_gates"
+                ],
+                "links": {
+                    "kcs": [
+                        "https://access.redhat.com/solutions/3799561"
+                    ],
+                    "jira": [
+                        "https://issues.redhat.com/browse/INSIGHTOCP-455"
+                    ]
+                }
+            },
+            {
+                "rule_id": "empty_prometheus_db_volume|PROMETHEUS_DB_VOLUME_IS_EMPTY",
+                "component": "ccx_rules_ocp.external.rules.empty_prometheus_db_volume.report",
+                "type": "rule",
+                "key": "PROMETHEUS_DB_VOLUME_IS_EMPTY",
+                "details": {
+                    "ocp_branch": "4.8",
+                    "type": "rule",
+                    "error_key": "PROMETHEUS_DB_VOLUME_IS_EMPTY"
+                },
+                "tags": [],
+                "links": {
+                    "jira": [
+                        "https://issues.redhat.com/browse/INSIGHTOCP-51",
+                        "https://issues.redhat.com/browse/INSIGHTOCP-258",
+                        "https://issues.redhat.com/browse/INSIGHTOCP-439"
+                    ]
+                }
+            }
+        ],
+        "fingerprints": [],
+        "skips": [
+            {
+                "rule_fqdn": "ccx_rules_ocp.ocs.check_storageclassname_storagecluster.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.specs.must_gather_ocs.StorageCluster'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.ocs.check_pods_scc.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.specs.must_gather_ocs.PodsMGOCS'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rhcos.rhcos_wrong_selinux_context.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rhcos.rhcos_wrong_selinux_context.check_rhcos_host', 'ccx_rules_ocp.internal.rhcos.rhcos_wrong_selinux_context.check_journal_since_boot_error_log_3', 'ccx_rules_ocp.internal.rhcos.rhcos_wrong_selinux_context.is_ovs_vswitchd_failed'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.ocs.check_noobaa_disabled.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.specs.must_gather_ocs.StorageCluster'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.ocs.ocs_check_if_monitoring_enabled.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.specs.must_gather_ocs.OpenshiftStorageNamespace'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.ocs.ceph_cluster_health.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.specs.must_gather_ocs.CephHealthDetail'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.ocs.ceph_cluster_noout_flag_set.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.specs.must_gather_ocs.CephHealthDetail'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.ocs.check_ocs_version.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.specs.must_gather_ocs.OperatorsMGOCS'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.ocs.operator_phase_check.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.specs.must_gather_ocs.OperatorsMGOCS'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.ocs.check_noobaa_sts_replicas.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.specs.must_gather_ocs.OCSStatefulSets'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.ocs.pvc_phase_check.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.specs.must_gather_ocs.PersistentVolumeClaimsMGOCS'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.ocs.ceph_check_large_omap_object_in_cephfs_metadata_pool.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.specs.must_gather_ocs.RookCephMonCurrentLog'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.image_registry_failed_to_claim_nfs_volume.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.models.events.Events'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.machine_update_stuck.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.specs.must_gather.OCVersionCurrentLogs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.ocs.noobaa_db_pod_crashloopbackoff.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.ocs.noobaa_db_pod_crashloopbackoff.affected_ocs_version', 'ccx_rules_ocp.ocs.noobaa_db_pod_crashloopbackoff.check_noobaa_db_log'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.ocs.ocs_check_noobaa_operator_leader_mismatch.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.ocs.ocs_check_noobaa_operator_leader_mismatch.check_the_running_noobaa_operator_pod', 'ccx_rules_ocp.ocs.ocs_check_noobaa_operator_leader_mismatch.check_the_noobaa_operator_pod_in_config_map'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.ocs.ocs_mon_pod_stuck.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.ocs.ocs_mon_pod_stuck.check_rook_mon_log', 'ccx_rules_ocp.ocs.ocs_mon_pod_stuck.check_rook_operator_log'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.failed_to_create_scope_for_machine.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.failed_to_create_scope_for_machine.check_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.image_registry_failed_to_push_image.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.image_registry_failed_to_push_image.check_logs_failed_to_push_image'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.bug_rules.log_spam_after_applying_scheduler_policy_file.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.bug_rules.log_spam_after_applying_scheduler_policy_file.check_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.ocs.ocs_mds_cache_too_large.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.ocs.ocs_mds_cache_too_large.get_mds_reporting_cache_oversized'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.prometheus_duplicate_timestamps.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.prometheus_duplicate_timestamps.check_logs_duplicate_timestamps'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.external.rules.container_max_root_partition_size.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.external.rules.container_max_root_partition_size.check_container_runtime_config'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.bug_rules.upgrade_fails_due_to_packageserver_cert.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.bug_rules.upgrade_fails_due_to_packageserver_cert.check_cluster_version_logs', 'ccx_rules_ocp.internal.bug_rules.upgrade_fails_due_to_packageserver_cert.check_packageserver_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.api_server_miss_call_alert.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.api_server_miss_call_alert.check_api_miss_call'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.service_mesh_op_forever_updating.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.service_mesh_op_forever_updating.check_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.volume_attach_failed.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.volume_attach_failed.check_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.certificates_not_approved.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.models.certificates.Certificates'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.auth_invalid_name_contain_slash.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.auth_invalid_name_contain_slash.check_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.auth_operator_unhonoring_oauth_configuration.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.auth_operator_unhonoring_oauth_configuration.check_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.openshift_samples_has_not_yet_rolled_out.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.openshift_samples_has_not_yet_rolled_out.config_message_check', 'ccx_rules_ocp.internal.rules.openshift_samples_has_not_yet_rolled_out.check_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.ocs.ceph_check_mon_clock_skew.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.ocs.ceph_check_mon_clock_skew.get_mon_reporting_clock_skew'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.image_registry_unable_to_sync_object_modified.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.image_registry_unable_to_sync_object_modified.check_logs_unable_to_sync', 'ccx_rules_ocp.internal.rules.image_registry_unable_to_sync_object_modified.check_status_section_for_defined_storage'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.openshift_sdn_cannot_access_kube_apiserver.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.openshift_sdn_cannot_access_kube_apiserver.check_openshift_sdn_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.ocs.ceph_check_osd_auth_rotating_clock_skew.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.ocs.ceph_check_osd_auth_rotating_clock_skew.check_osd_log'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.etcd_low_backend_performance.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.etcd_low_backend_performance.check_etcd_low_performance_log'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.ocs.ocs_cephcluster_with_5_mons.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.ocs.ocs_cephcluster_with_5_mons.check_num_mons_configured', 'ccx_rules_ocp.ocs.ocs_cephcluster_with_5_mons.check_ocs_version'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.install_gather.kubelet_hostname_bad_format.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.install_gather.kubelet_hostname_bad_format.check_control_plane_kubelet_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.hpa_fails_getting_cpu_metrics.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.hpa_fails_getting_cpu_metrics.check_error_log'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.mc_degraded_wrong_osimageurl.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.mc_degraded_wrong_osimageurl.get_target_osimageurl_log'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.openshift_sdn_node_offline.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.openshift_sdn_node_offline.check_openshift_sdn_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.provision_volume_storageclass_thin_permission.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.provision_volume_storageclass_thin_permission.check_error_log'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.ocs.ocs_check_for_mixed_size_osd.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.ocs.ocs_check_for_mixed_size_osd.get_osd_sizes'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.mcd_logs_no_such_host_for_localhost.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.mcd_logs_no_such_host_for_localhost.check_no_such_host_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.pods_pending_for_pvc_cannot_be_bound.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.pods_pending_for_pvc_cannot_be_bound.check_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.bug_rules.bug_1852545.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.bug_rules.bug_1852545.check_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.image_push_fails_unknown_blob.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.image_push_fails_unknown_blob.is_nfs', 'ccx_rules_ocp.internal.rules.image_push_fails_unknown_blob.check_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.cmo_pod_rollout_stuck.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.cmo_pod_rollout_stuck.check_error'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.build_slowness_due_to_dynatrace_oneagent.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.build_slowness_due_to_dynatrace_oneagent.check_dynatrace_oneagent_operators'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.check_crio_ephemeral_storage.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.check_crio_ephemeral_storage.check_events'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.high_severity_alerts.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: [] Any: ['ccx_rules_ocp.internal.rules.high_severity_alerts.get_key_alerts_io', 'ccx_rules_ocp.internal.rules.high_severity_alerts.get_key_alerts_mg']",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.invalid_url_scheme_for_ignition_config.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.invalid_url_scheme_for_ignition_config.error_msg'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.auth_operator_unknown_state_due_to_route.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.auth_operator_unknown_state_due_to_route.check_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.machine_config_controller_degraded_during_upgrade.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.machine_config_controller_degraded_during_upgrade.check_mcc_pod_log'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.azure_service_principals_keys_expired.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.azure_service_principals_keys_expired.check_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.external.rules.check_sdi_preload_kernel_modules.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.external.rules.check_sdi_preload_kernel_modules.check_license_manager_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.insights_operator_degraded_UHC_authentication_failed.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.insights_operator_degraded_UHC_authentication_failed.check_insights_operator_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.machine_config_controller_streams_line_too_long.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.machine_config_controller_streams_line_too_long.check_log'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.node_degraded_due_to_deleted_rendered_config.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.node_degraded_due_to_deleted_rendered_config.check_machine_degraded_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.external.rules.image_registry_storage.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.external.rules.image_registry_storage.image_registry_bad_storage'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.node_ip_does_not_match_machine_network.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.node_ip_does_not_match_machine_network.check_nodes'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.mco_degraded_due_to_invalid_character_J.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.mco_degraded_due_to_invalid_character_J.check_invalid_character_J_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.nvidia_gpu_operator_sro_check.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.nvidia_gpu_operator_sro_check.check_nvidia_current_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.external.bug_rules.bug_1821905.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.bug_rules.kube_scheduler_certs_not_renewed.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.bug_rules.kube_scheduler_certs_not_renewed.check_logs', 'ccx_rules_ocp.internal.bug_rules.kube_scheduler_certs_not_renewed.check_certs_content', 'ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.external.rules.cmo_container_run_as_non_root.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.high_core_dns_errors_high_alerts.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.high_core_dns_errors_high_alerts.check_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.invalid_ca_cert_causing_install_failure.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.invalid_ca_cert_causing_install_failure.log_check'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.portworx_unlinkat_private_json.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.portworx_unlinkat_private_json.check_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.high_disc_usage.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.invalid_image_reference.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.invalid_image_reference.check_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.upgrade_failed_for_network_operator.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.upgrade_failed_for_network_operator.is_ocp_on_azure', 'ccx_rules_ocp.internal.rules.upgrade_failed_for_network_operator.check_version', 'ccx_rules_ocp.internal.rules.upgrade_failed_for_network_operator.network_co_degrade', 'ccx_rules_ocp.internal.rules.upgrade_failed_for_network_operator.check_log'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.prometheus_invalid_syntax.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.prometheus_invalid_syntax.check_invalid_syntax_log', 'ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.cluster_unstable_due_to_prometheus_operator_bug.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.cluster_unstable_due_to_prometheus_operator_bug.check_error_log', 'ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.prometheus_too_old_resource_version.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.prometheus_too_old_resource_version.check_error_log', 'ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.external.bug_rules.bug_1893386.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.kube_api_too_large_resource_version.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.kube_api_too_large_resource_version.check_error_log', 'ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.ingress_controller_node_placement.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.ingress_controller_node_placement.check_ingress_controllers'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.external.rules.sap_data_intelligence_permissions.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.external.rules.sap_data_intelligence_permissions.get_sdi_namespaces', 'ccx_rules_ocp.external.rules.sap_data_intelligence_permissions.check_security_context_constraint', 'ccx_rules_ocp.external.rules.sap_data_intelligence_permissions.check_cluster_role_bindings'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.external.rules.azure_ssh_not_work.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.cluster_version_operator_hung_during_shutdown.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition', 'ccx_rules_ocp.internal.rules.cluster_version_operator_hung_during_shutdown.check_openshift_cluster_version_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.external.rules.subnets_migration_failure_massive_egressip.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.pruner_degrades_image_registry_operator_if_registry_removed.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.ingress_op_degraded_unmatched_hosted_zone.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.ingress_op_degraded_unmatched_hosted_zone.check_ingress_dnsrecord_yaml'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.external.rules.check_sap_sdi_observer_pods.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.external.rules.check_sap_sdi_observer_pods.get_sdi_namespaces'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.bug_rules.monitoring_updating_openshift_state_metrics_failed.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.bug_rules.monitoring_updating_openshift_state_metrics_failed.check_logs', 'ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.CSI_resultServer_pods_schedule_issue.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.CSI_resultServer_pods_schedule_issue.check_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.kube_rbac_proxy_crashloop_during_authentication.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition', 'ccx_rules_ocp.internal.rules.kube_rbac_proxy_crashloop_during_authentication.check_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.authentication_operator_memory_leak.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.external.rules.tls_handshake_fails_in_azure.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.bug_rules.apiserver_degraded_not_available.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.bug_rules.apiserver_degraded_not_available.check_kube_apiserver_logs', 'ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.bug_rules.networkpolicy_flows_for_non_pod_network_pods.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.bug_rules.networkpolicy_flows_for_non_pod_network_pods.check_openshift_sdn_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.failed_to_set_up_mount_unit_for_garbage_collect_mode.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition', 'ccx_rules_ocp.internal.rules.failed_to_set_up_mount_unit_for_garbage_collect_mode.check_events'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.bug_rules.apiserver_down_on_vsphere_48.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.bug_rules.apiserver_down_on_vsphere_48.on_vsphere'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.bug_rules.node_exporter_fails_parsing_mountstat_with_invalid_nfs_operation_stats.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.bug_rules.node_exporter_fails_parsing_mountstat_with_invalid_nfs_operation_stats.check_node_exporter_failed_to_parse_logs', 'ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.fluentd_buffer_queue_length_burst.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.bug_rules.bug_1801300.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.specs.must_gather.DeploymentsMG', 'ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.ocs.ocs_not_find_attached_vmdk.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.ocs.ocs_not_find_attached_vmdk.check_event_message'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.helm_chart_proxy_connection_timed_out.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.helm_chart_proxy_connection_timed_out.check_error_log', 'ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.external.bug_rules.bug_1798049.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.bug_rules.bug_1802248.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.specs.must_gather.DeploymentsMG', 'ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.bug_rules.node_ip_changes_to_api_vip.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.bug_rules.node_ip_changes_to_api_vip.api_vip_check', 'ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.external.rules.prometheus_rule_evaluation_fail.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.external.rules.prometheus_rule_evaluation_fail.check_found_duplicate_logs', 'ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.canary_check_repeat_fail.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.canary_check_repeat_fail.degraded_operator', 'ccx_rules_ocp.internal.rules.canary_check_repeat_fail.check_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.mcp_unexpected_on_disk_state_mode_mismatch.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.common.mcp_unexpected_on_disk_state.pods_with_mode_mismatch'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.openshift_route_annotations.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition', 'ccx_rules_ocp.internal.rules.openshift_route_annotations.check_route_annotations'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.ocs.pod_stuck_for_whereabouts_ip_assigned.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.ocs.pod_stuck_for_whereabouts_ip_assigned.check_pods_in_events'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.certificates_expiring_soon_info.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.models.certificates.Certificates'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.certificates_expired.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.models.certificates.Certificates'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.openshift_router_duplicate_targetports.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.openshift_router_duplicate_targetports.check_error_log', 'ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.bug_rules.catalog_operator_index_out_of_range_with_length_0.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.bug_rules.catalog_operator_index_out_of_range_with_length_0.check_index_index_out_of_range_logs', 'ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.bug_rules.openshift_apiserver_pnf_featuregates.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.bug_rules.openshift_apiserver_pnf_featuregates.check_pnf_featuregates', 'ccx_rules_ocp.internal.bug_rules.openshift_apiserver_pnf_featuregates.check_openshift_apiserver_operator_logs', 'ccx_rules_ocp.internal.bug_rules.openshift_apiserver_pnf_featuregates.check_kube_apiserver_logs', 'ccx_rules_ocp.internal.bug_rules.openshift_apiserver_pnf_featuregates.check_openshift_apiserver_logs', 'ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.nil_pointer_dereference_panic_in_mcc_or_mco.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.nil_pointer_dereference_panic_in_mcc_or_mco.check_nil_pointer_dereference_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.master_mcp_degraded_due_to_etcd_manifest_validation.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.master_mcp_degraded_due_to_etcd_manifest_validation.check_etcd_member_yaml_validation_logs', 'ccx_rules_ocp.internal.rules.master_mcp_degraded_due_to_etcd_manifest_validation.check_master_mcp_dgr'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.bug_rules.check_pods_stuck_in_NodeAffinity_state.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.bug_rules.vsphere_reconnects_an_updated_secret.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.bug_rules.vsphere_reconnects_an_updated_secret.is_vsphere', 'ccx_rules_ocp.internal.bug_rules.vsphere_reconnects_an_updated_secret.check_pods_logs', 'ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.bug_rules.openshift_cluster_csi_drivers_pods_pending_during_upgrade.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.bug_rules.cloud_credential_operator_s3_not_found.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.bug_rules.cloud_credential_operator_s3_not_found.check_cco_logs', 'ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.check_machine_config_ignition_version.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.check_machine_config_ignition_version.check_machine_config_ign'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.external.rules.lib_bucket_provisioner_check.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition', 'ccx_rules_ocp.external.rules.lib_bucket_provisioner_check.check_install_plans'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.bug_rules.continous_reconciling_op_messages.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.bug_rules.continous_reconciling_op_messages.check_logs', 'ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.ovnkube_master_stuck_in_crashloopbackoff.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.ovnkube_master_stuck_in_crashloopbackoff.check_op_status', 'ccx_rules_ocp.internal.rules.ovnkube_master_stuck_in_crashloopbackoff.check_pod_status'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.bug_rules.coredns_panic_without_probe_failures.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.bug_rules.coredns_panic_without_probe_failures.check_logs', 'ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.bug_rules.prometheus_load_too_many_samples_into_memory.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.bug_rules.prometheus_load_too_many_samples_into_memory.check_load_too_many_samples_into_memory_logs', 'ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.mcp_degraded_due_to_osimage_newer_version.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.mcp_degraded_due_to_osimage_newer_version.mcp_status', 'ccx_rules_ocp.internal.rules.mcp_degraded_due_to_osimage_newer_version.check_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.bug_rules.etcd_operator_tries_connecting_to_defunct_bootstrap_etcd_member.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.bug_rules.etcd_operator_tries_connecting_to_defunct_bootstrap_etcd_member.is_etcd_operator_connecting_to_bootstrap', 'ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.bug_rules.prometheus_mount_nfs_volumes_permission_denied.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.bug_rules.prometheus_mount_nfs_volumes_permission_denied.check_openshift_monitoring_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.mcp_unexpected_on_disk_state_content_mismatch.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.common.mcp_unexpected_on_disk_state.pods_with_content_mismatch'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.pod_thanos_ruler_user_workload_failed.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_ocp_core.utils.affected_version.ensure_is_affected_condition.<locals>.version_condition'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.mcp_unexpected_on_disk_state_content_mismatch_chrony_conf.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.common.mcp_unexpected_on_disk_state.pods_with_content_mismatch'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.mcp_unexpected_on_disk_state_content_mismatch_kubelet_ca_cert.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.common.mcp_unexpected_on_disk_state.pods_with_content_mismatch'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.bug_rules.prometheus_operator_deployment_misses_part_of_labels.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.bug_rules.prometheus_operator_deployment_misses_part_of_labels.check_openshift_monitoring_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.bug_rules.mco_controller_version_mismatch.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.bug_rules.mco_controller_version_mismatch.check_logs', 'ccx_rules_ocp.internal.bug_rules.mco_controller_version_mismatch.check_multiple_mc'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.bug_rules.route_resolves_to_localhost.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.bug_rules.route_resolves_to_localhost.check_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.bug_rules.image_registry_removed_state_reports_degraded.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.bug_rules.image_registry_removed_state_reports_degraded.check_op_status'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.external.rules.prometheus_backed_by_pvc.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.external.rules.prometheus_backed_by_pvc.check_desired_version', 'ccx_rules_ocp.external.rules.prometheus_backed_by_pvc.check_cluster_monitoring_config_map'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.rules.mcp_unexpected_on_disk_state_content_mismatch_resolv_conf.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.rules.mcp_unexpected_on_disk_state_content_mismatch_resolv_conf.affected_pods'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.bug_rules.marketplace_operatorexited_while_upgrade.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.bug_rules.marketplace_operatorexited_while_upgrade.check_logs'] Any: ",
+                "type": "skip"
+            },
+            {
+                "rule_fqdn": "ccx_rules_ocp.internal.bug_rules.pod_creation_failures_due_to_sdn_segfaults.report",
+                "reason": "MISSING_REQUIREMENTS",
+                "details": "All: ['ccx_rules_ocp.internal.bug_rules.pod_creation_failures_due_to_sdn_segfaults.check_logs'] Any: ",
+                "type": "skip"
+            }
+        ],
+        "info": [
+            {
+                "info_id": "machine_pool_info|MACHINE_POOL_INFO",
+                "component": "ccx_rules_ocp.internal.rules.machine_pool_info.report",
+                "type": "info",
+                "key": "MACHINE_POOL_INFO",
+                "details": {
+                    "machines": [
+                        {
+                            "degraded": {
+                                "status": false,
+                                "last_trans_time": "2021-10-08T08:10:33Z",
+                                "reason": "",
+                                "message": ""
+                            },
+                            "name": "master",
+                            "node_degraded": {
+                                "status": false,
+                                "last_trans_time": "2021-10-08T08:10:33Z",
+                                "reason": "",
+                                "message": ""
+                            },
+                            "render_degraded": {
+                                "status": false,
+                                "last_trans_time": "2021-10-08T08:09:38Z",
+                                "reason": "",
+                                "message": ""
+                            },
+                            "updated": {
+                                "status": false,
+                                "last_trans_time": "2021-10-08T09:44:15Z",
+                                "reason": "",
+                                "message": ""
+                            },
+                            "updating": {
+                                "status": true,
+                                "last_trans_time": "2021-10-08T09:44:15Z",
+                                "reason": "",
+                                "message": "All nodes are updating to rendered-master-a40f9eb37039e079676527fd41bbef52"
+                            }
+                        },
+                        {
+                            "degraded": {
+                                "status": false,
+                                "last_trans_time": "2021-10-08T08:09:41Z",
+                                "reason": "",
+                                "message": ""
+                            },
+                            "name": "worker",
+                            "node_degraded": {
+                                "status": false,
+                                "last_trans_time": "2021-10-08T08:09:41Z",
+                                "reason": "",
+                                "message": ""
+                            },
+                            "render_degraded": {
+                                "status": false,
+                                "last_trans_time": "2021-10-08T08:09:38Z",
+                                "reason": "",
+                                "message": ""
+                            },
+                            "updated": {
+                                "status": false,
+                                "last_trans_time": "2021-10-08T09:44:15Z",
+                                "reason": "",
+                                "message": ""
+                            },
+                            "updating": {
+                                "status": true,
+                                "last_trans_time": "2021-10-08T09:44:15Z",
+                                "reason": "",
+                                "message": "All nodes are updating to rendered-worker-3c096f9626f3d5efb9113e1056ab71fa"
+                            }
+                        }
+                    ],
+                    "type": "info",
+                    "info_key": "MACHINE_POOL_INFO"
+                },
+                "tags": [],
+                "links": {}
+            },
+            {
+                "info_id": "version_info|CLUSTER_VERSION_INFO",
+                "component": "ccx_rules_ocp.internal.rules.version_info.report",
+                "type": "info",
+                "key": "CLUSTER_VERSION_INFO",
+                "details": {
+                    "desired": "4.8.13",
+                    "current": "4.8.12",
+                    "aborted_updates": 0,
+                    "last_update_start": "2021-10-08T08:52:20Z",
+                    "last_update_start_delta": "66 days 6 hours 58 minutes 43 seconds",
+                    "type": "info",
+                    "info_key": "CLUSTER_VERSION_INFO"
+                },
+                "tags": [],
+                "links": {}
+            },
+            {
+                "info_id": "cluster_id|GRAFANA_LINK",
+                "component": "ccx_rules_ocp.external.rules.cluster_id.report",
+                "type": "info",
+                "key": "GRAFANA_LINK",
+                "details": {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "grafana_link": "https://telemeter-lts-dashboards.datahub.redhat.com/d/kSomLV7Wk/pre-production-cluster-by-id?orgId=1&var-_id=CLUSTER_ID_TO_BE_REPLACED",
+                    "type": "info",
+                    "info_key": "GRAFANA_LINK"
+                },
+                "tags": [],
+                "links": {}
+            },
+            {
+                "info_id": "cluster_status_overview|CLUSTER_STATUS_OVERVIEW",
+                "component": "ccx_rules_ocp.internal.rules.cluster_status_overview.report",
+                "type": "info",
+                "key": "CLUSTER_STATUS_OVERVIEW",
+                "details": {
+                    "phased_gates_checks": [
+                        "2.3.1",
+                        "2.3.2"
+                    ],
+                    "node_status": [
+                        {
+                            "name": "ip-10-0-134-149.us-east-2.compute.internal",
+                            "ready": true,
+                            "roles": "master",
+                            "created_on": "2021-10-08T08:07:08Z",
+                            "version": "v1.21.1+d8043e1",
+                            "os": "Red Hat Enterprise Linux CoreOS 48.84.202109100857-0 (Ootpa)"
+                        },
+                        {
+                            "name": "ip-10-0-141-55.us-east-2.compute.internal",
+                            "ready": true,
+                            "roles": "worker",
+                            "created_on": "2021-10-08T08:13:05Z",
+                            "version": "v1.21.1+d8043e1",
+                            "os": "Red Hat Enterprise Linux CoreOS 48.84.202109100857-0 (Ootpa)"
+                        },
+                        {
+                            "name": "ip-10-0-166-189.us-east-2.compute.internal",
+                            "ready": true,
+                            "roles": "master",
+                            "created_on": "2021-10-08T08:07:32Z",
+                            "version": "v1.21.1+d8043e1",
+                            "os": "Red Hat Enterprise Linux CoreOS 48.84.202109100857-0 (Ootpa)"
+                        },
+                        {
+                            "name": "ip-10-0-169-10.us-east-2.compute.internal",
+                            "ready": true,
+                            "roles": "worker",
+                            "created_on": "2021-10-08T08:13:02Z",
+                            "version": "v1.21.1+d8043e1",
+                            "os": "Red Hat Enterprise Linux CoreOS 48.84.202109100857-0 (Ootpa)"
+                        },
+                        {
+                            "name": "ip-10-0-204-77.us-east-2.compute.internal",
+                            "ready": true,
+                            "roles": "worker",
+                            "created_on": "2021-10-08T08:12:48Z",
+                            "version": "v1.21.1+d8043e1",
+                            "os": "Red Hat Enterprise Linux CoreOS 48.84.202109100857-0 (Ootpa)"
+                        },
+                        {
+                            "name": "ip-10-0-220-70.us-east-2.compute.internal",
+                            "ready": true,
+                            "roles": "master",
+                            "created_on": "2021-10-08T08:07:33Z",
+                            "version": "v1.21.1+d8043e1",
+                            "os": "Red Hat Enterprise Linux CoreOS 48.84.202109100857-0 (Ootpa)"
+                        }
+                    ],
+                    "node_command_show": 0,
+                    "nd_column_length": [
+                        44,
+                        6,
+                        8,
+                        22,
+                        17,
+                        62
+                    ],
+                    "cluster_version": {
+                        "Cluster ID": "CLUSTER_ID_TO_BE_REPLACED",
+                        "Cluster Version": "4.8.12",
+                        "Desired Version": "4.8.13",
+                        "Channel": "stable-4.8",
+                        "Previous Version(s)": "4.8.12"
+                    },
+                    "clusteroperators": [
+                        {
+                            "name": "authentication",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "False",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "baremetal",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "False",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "cloud-credential",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "False",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "cluster-autoscaler",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "False",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "config-operator",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "False",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "console",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "False",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "csi-snapshot-controller",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "False",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "dns",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "False",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "etcd",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "False",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "image-registry",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "False",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "ingress",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "False",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "insights",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "False",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "kube-apiserver",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "False",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "kube-controller-manager",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "False",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "kube-scheduler",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "False",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "kube-storage-version-migrator",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "False",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "machine-api",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "False",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "machine-approver",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "False",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "machine-config",
+                            "version": "4.8.12",
+                            "available": "True",
+                            "progressing": "True",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "marketplace",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "False",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "monitoring",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "False",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "network",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "False",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "node-tuning",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "False",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "openshift-apiserver",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "False",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "openshift-controller-manager",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "False",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "openshift-samples",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "False",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "operator-lifecycle-manager",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "False",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "operator-lifecycle-manager-catalog",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "False",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "operator-lifecycle-manager-packageserver",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "False",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "service-ca",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "True",
+                            "degraded": "False"
+                        },
+                        {
+                            "name": "storage",
+                            "version": "4.8.13",
+                            "available": "True",
+                            "progressing": "False",
+                            "degraded": "False"
+                        }
+                    ],
+                    "op_column_length": [
+                        42,
+                        8,
+                        6,
+                        7,
+                        7
+                    ],
+                    "machineconfigpools": [
+                        {
+                            "name": "master",
+                            "config": "rendered-master-a40f9eb37039e079676527fd41bbef52",
+                            "paused": false,
+                            "updated": "False",
+                            "updating": "True",
+                            "degraded": "False",
+                            "machine_count": 3,
+                            "ready_machine_count": 0,
+                            "updated_machine_count": 0,
+                            "degraded_machine_count": 0
+                        },
+                        {
+                            "name": "worker",
+                            "config": "rendered-worker-3c096f9626f3d5efb9113e1056ab71fa",
+                            "paused": false,
+                            "updated": "False",
+                            "updating": "True",
+                            "degraded": "False",
+                            "machine_count": 3,
+                            "ready_machine_count": 0,
+                            "updated_machine_count": 0,
+                            "degraded_machine_count": 0
+                        }
+                    ],
+                    "mcp_column_length": [
+                        8,
+                        50,
+                        7,
+                        7,
+                        6,
+                        7,
+                        3,
+                        3,
+                        3,
+                        3
+                    ],
+                    "machinesets": [
+                        {
+                            "name": "rvokal-insights-notif-n8wkl-worker-us-east-2a",
+                            "desired": 1,
+                            "current": 1,
+                            "ready": 1,
+                            "available": 1
+                        },
+                        {
+                            "name": "rvokal-insights-notif-n8wkl-worker-us-east-2b",
+                            "desired": 1,
+                            "current": 1,
+                            "ready": 1,
+                            "available": 1
+                        },
+                        {
+                            "name": "rvokal-insights-notif-n8wkl-worker-us-east-2c",
+                            "desired": 1,
+                            "current": 1,
+                            "ready": 1,
+                            "available": 1
+                        }
+                    ],
+                    "ms_column_length": [
+                        47,
+                        3,
+                        3,
+                        3,
+                        3
+                    ],
+                    "infrastructure": {
+                        "Platform": "AWS",
+                        "Install Type": "IPI",
+                        "region": "us-east-2"
+                    },
+                    "network_info": {
+                        "Network Type": "OpenShiftSDN",
+                        "httpProxy": null,
+                        "httpsProxy": null,
+                        "Cluster network": "10.128.0.0/14",
+                        "Host prefix": 23,
+                        "Max nodes": 512,
+                        "Max pods per node": 510
+                    },
+                    "type": "info",
+                    "info_key": "CLUSTER_STATUS_OVERVIEW"
+                },
+                "tags": [
+                    "phased_gates"
+                ],
+                "links": {
+                    "jira": [
+                        "https://issues.redhat.com/browse/INSIGHTOCP-347",
+                        "https://issues.redhat.com/browse/INSIGHTOCP-406",
+                        "https://issues.redhat.com/browse/INSIGHTOCP-407"
+                    ]
+                }
+            }
+        ],
+        "pass": [
+            {
+                "pass_id": "pods_check|POD_HEALTHY",
+                "component": "ccx_rules_ocp.internal.rules.pods_check.report",
+                "type": "pass",
+                "key": "POD_HEALTHY",
+                "details": {
+                    "type": "pass",
+                    "pass_key": "POD_HEALTHY"
+                },
+                "tags": [],
+                "links": {}
+            },
+            {
+                "pass_id": "master_nodes_are_schedulable|MASTER_NODES_ARE_SCHEDULABLE_PASS",
+                "component": "ccx_rules_ocp.internal.rules.master_nodes_are_schedulable.report",
+                "type": "pass",
+                "key": "MASTER_NODES_ARE_SCHEDULABLE_PASS",
+                "details": {
+                    "phased_gates_checks": [
+                        "1.3.1.5"
+                    ],
+                    "nodes": [
+                        {
+                            "name": "ip-10-0-134-149.us-east-2.compute.internal",
+                            "schedulable": false,
+                            "other_roles": []
+                        },
+                        {
+                            "name": "ip-10-0-166-189.us-east-2.compute.internal",
+                            "schedulable": false,
+                            "other_roles": []
+                        },
+                        {
+                            "name": "ip-10-0-220-70.us-east-2.compute.internal",
+                            "schedulable": false,
+                            "other_roles": []
+                        }
+                    ],
+                    "schedulable_count": 0,
+                    "other_roles": false,
+                    "type": "pass",
+                    "pass_key": "MASTER_NODES_ARE_SCHEDULABLE_PASS"
+                },
+                "tags": [
+                    "phased_gates"
+                ],
+                "links": {
+                    "jira": [
+                        "https://issues.redhat.com/browse/INSIGHTOCP-408"
+                    ]
+                }
+            },
+            {
+                "pass_id": "nodes_not_ready|ALL_NODES_READY",
+                "component": "ccx_rules_ocp.internal.rules.nodes_not_ready.report",
+                "type": "pass",
+                "key": "ALL_NODES_READY",
+                "details": {
+                    "nodes": [
+                        {
+                            "name": "ip-10-0-134-149.us-east-2.compute.internal",
+                            "ready": true,
+                            "roles": "master",
+                            "message": ""
+                        },
+                        {
+                            "name": "ip-10-0-166-189.us-east-2.compute.internal",
+                            "ready": true,
+                            "roles": "master",
+                            "message": ""
+                        },
+                        {
+                            "name": "ip-10-0-220-70.us-east-2.compute.internal",
+                            "ready": true,
+                            "roles": "master",
+                            "message": ""
+                        },
+                        {
+                            "name": "ip-10-0-141-55.us-east-2.compute.internal",
+                            "ready": true,
+                            "roles": "worker",
+                            "message": ""
+                        },
+                        {
+                            "name": "ip-10-0-169-10.us-east-2.compute.internal",
+                            "ready": true,
+                            "roles": "worker",
+                            "message": ""
+                        },
+                        {
+                            "name": "ip-10-0-204-77.us-east-2.compute.internal",
+                            "ready": true,
+                            "roles": "worker",
+                            "message": ""
+                        }
+                    ],
+                    "not_ready_count": 0,
+                    "phased_gates_checks": [
+                        "1.4.4"
+                    ],
+                    "type": "pass",
+                    "pass_key": "ALL_NODES_READY"
+                },
+                "tags": [
+                    "phased_gates"
+                ],
+                "links": {}
+            }
+        ],
+        "analysis_metadata": {
+            "start": "2021-12-13T15:51:02.895120+00:00",
+            "finish": "2021-12-13T15:51:03.187495+00:00",
+            "execution_context": "ccx_ocp_core.context.InsightsOperatorContext",
+            "plugin_sets": {
+                "insights-core": {
+                    "version": "insights-core-3.0.202-1",
+                    "commit": "placeholder"
+                },
+                "ccx_rules_ocp": {
+                    "version": "ccx_rules_ocp-2021.10.4-1",
+                    "commit": null
+                },
+                "ccx_ocp_core": {
+                    "version": "ccx_ocp_core-2021.10.7-1",
+                    "commit": null
+                }
+            }
+        }
+    }
+}

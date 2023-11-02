@@ -19,10 +19,11 @@ import csv
 from behave import given, then
 from src.csv_checks import check_table_content
 from src.minio import (
-    minio_client,
     bucket_check,
-    read_object_into_buffer,
+    create_bucket,
     get_object_name,
+    minio_client,
+    read_object_into_buffer,
 )
 
 
@@ -92,6 +93,47 @@ def establish_s3_connection(context):
     minio_client(context)
 
 
+@given("I should see no objects in S3")
+@then("I should see no objects in S3")
+def assert_s3_bucket_is_empty(context):
+    """Check that the bucket is empty."""
+    bucket_check(context)
+
+    # retrieve all objects stored in bucket
+    objects = context.minio_client.list_objects(context.S3_bucket_name, recursive=True)
+    # retrieve object names only
+    names = [o.object_name for o in objects]
+    print("S3 objects: ", names)
+
+    assert len(names) == 0
+
+
+@given("The S3 bucket is empty")
+def ensure_s3_bucket_is_empty(context):
+    """Ensure that the bucket is empty."""
+    create_bucket(context)
+
+
+@then("The S3 bucket is empty")
+def check_bucket_is_empty(context):
+    """Check if the bucket is empty."""
+    bucket_check(context)
+    # retrieve all objects stored in bucket
+    objects = context.minio_client.list_objects(context.S3_bucket_name, recursive=True)
+    names = [o.object_name for o in objects]
+    assert len(names) == 0
+
+
+@then("The S3 bucket is not empty")
+def check_bucket_contains_files(context):
+    """Check that the S3 bucket has, at least, 1 file."""
+    bucket_check(context)
+    # retrieve all objects stored in bucket
+    objects = context.minio_client.list_objects(context.S3_bucket_name, recursive=True)
+    names = [o.object_name for o in objects]
+    assert len(names) > 0
+
+
 @then("I should see following objects generated in S3")
 def check_objects_in_s3(context):
     """Check that all specified objects was generated."""
@@ -107,7 +149,27 @@ def check_objects_in_s3(context):
     # iterate over all items in feature table
     for row in context.table:
         object_name = get_object_name(context, row["File name"])
+        print(object_name)
         assert object_name in names, "Can not find object {} in bucket {}".format(
+            object_name, context.S3_bucket_name
+        )
+
+
+@then("I should not see following objects generated in S3")
+def check_objects_not_in_s3(context):
+    """Check that all specified objects were not generated."""
+    bucket_check(context)
+
+    # retrieve all objects stored in bucket
+    objects = context.minio_client.list_objects(context.S3_bucket_name, recursive=True)
+    # retrieve object names only
+    names = [o.object_name for o in objects]
+    print("S3 objects: ", names)
+
+    # iterate over all items in feature table
+    for row in context.table:
+        object_name = get_object_name(context, row["File name"])
+        assert object_name not in names, "object {} found in bucket {}".format(
             object_name, context.S3_bucket_name
         )
 

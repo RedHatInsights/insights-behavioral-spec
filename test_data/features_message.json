@@ -1,0 +1,802 @@
+{
+    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz",
+    "metadata": {
+        "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+        "external_organization": "35"
+    },
+    "report": [
+        {
+            "metadata": {
+                "feature_id": "foc",
+                "component": "fe.features.foc.feature"
+            },
+            "schema": {
+                "version": "1.0",
+                "fields": [
+                    {
+                        "name": "cluster_id",
+                        "type": "String"
+                    },
+                    {
+                        "name": "operator",
+                        "type": "String"
+                    },
+                    {
+                        "name": "type",
+                        "type": "String"
+                    },
+                    {
+                        "name": "status",
+                        "type": "Boolean"
+                    },
+                    {
+                        "name": "last_transition_time",
+                        "type": "DateTime"
+                    },
+                    {
+                        "name": "reason",
+                        "type": "String"
+                    },
+                    {
+                        "name": "message",
+                        "type": "String"
+                    },
+                    {
+                        "name": "analysis_time",
+                        "type": "DateTime"
+                    },
+                    {
+                        "name": "path",
+                        "type": "String"
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "operator": "machine-config",
+                    "type": "Progressing",
+                    "status": true,
+                    "last_transition_time": "2021-10-08T09:40:54",
+                    "reason": null,
+                    "message": "Working towards 4.8.13",
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "operator": "service-ca",
+                    "type": "Progressing",
+                    "status": true,
+                    "last_transition_time": "2021-10-08T09:44:19",
+                    "reason": "_ManagedDeploymentsAvailable",
+                    "message": "Progressing: \nProgressing: service-ca does not have available replicas",
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                }
+            ]
+        },
+        {
+            "metadata": {
+                "feature_id": "cluster_info",
+                "component": "fe.features.cluster_info.feature"
+            },
+            "schema": {
+                "version": "1.0",
+                "fields": [
+                    {
+                        "name": "cluster_id",
+                        "type": "String"
+                    },
+                    {
+                        "name": "platform",
+                        "type": "String"
+                    },
+                    {
+                        "name": "network_type",
+                        "type": "String"
+                    },
+                    {
+                        "name": "network_mtu",
+                        "type": "Integer"
+                    },
+                    {
+                        "name": "channel",
+                        "type": "String"
+                    },
+                    {
+                        "name": "initial_version",
+                        "type": "String"
+                    },
+                    {
+                        "name": "current_version",
+                        "type": "String"
+                    },
+                    {
+                        "name": "desired_version",
+                        "type": "String"
+                    },
+                    {
+                        "name": "installed_at",
+                        "type": "DateTime"
+                    },
+                    {
+                        "name": "failing_since",
+                        "type": "DateTime"
+                    },
+                    {
+                        "name": "upgrading_since",
+                        "type": "DateTime"
+                    },
+                    {
+                        "name": "last_y_upgrade_at",
+                        "type": "DateTime"
+                    },
+                    {
+                        "name": "last_z_upgrade_at",
+                        "type": "DateTime"
+                    },
+                    {
+                        "name": "analysis_time",
+                        "type": "DateTime"
+                    },
+                    {
+                        "name": "path",
+                        "type": "String"
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "platform": "AWS",
+                    "network_type": "OpenShiftSDN",
+                    "network_mtu": 1450,
+                    "networks": [
+                        {
+                            "kind": "service",
+                            "size": "/16",
+                            "host_prefix": null
+                        },
+                        {
+                            "kind": "cluster",
+                            "size": "/14",
+                            "host_prefix": 23
+                        }
+                    ],
+                    "channel": "stable-4.8",
+                    "initial_version": "4.8.12",
+                    "current_version": "4.8.12",
+                    "desired_version": "4.8.13",
+                    "installed_at": "2021-10-08T08:00:00+00:00",
+                    "failing_since": null,
+                    "upgrading_since": "2021-10-08T08:52:20+00:00",
+                    "last_y_upgrade_at": null,
+                    "last_z_upgrade_at": "2021-10-08T08:52:20+00:00",
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                }
+            ]
+        },
+        {
+            "metadata": {
+                "feature_id": "gatherers",
+                "component": "fe.features.gatherer_info.feature"
+            },
+            "schema": {
+                "version": "1.0",
+                "fields": [
+                    {
+                        "name": "cluster_id",
+                        "type": "String"
+                    },
+                    {
+                        "name": "name",
+                        "type": "String"
+                    },
+                    {
+                        "name": "duration_in_ms",
+                        "type": "Integer"
+                    },
+                    {
+                        "name": "analysis_time",
+                        "type": "DateTime"
+                    },
+                    {
+                        "name": "path",
+                        "type": "String"
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/image_pruners",
+                    "duration_in_ms": 19,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/sap_datahubs",
+                    "duration_in_ms": 33,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/ingress",
+                    "duration_in_ms": 83,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/pdbs",
+                    "duration_in_ms": 29,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/crds",
+                    "duration_in_ms": 113,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/metrics",
+                    "duration_in_ms": 144,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/sap_config",
+                    "duration_in_ms": 16,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/certificate_signing_requests",
+                    "duration_in_ms": 127,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/container_images",
+                    "duration_in_ms": 396,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "workloads/workload_info",
+                    "duration_in_ms": 7410,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/infrastructures",
+                    "duration_in_ms": 85,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/machine_configs",
+                    "duration_in_ms": 219,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/sap_pods",
+                    "duration_in_ms": 29,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/machine_autoscalers",
+                    "duration_in_ms": 52,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/machine_sets",
+                    "duration_in_ms": 54,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/authentication",
+                    "duration_in_ms": 96,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/openshift_sdn_logs",
+                    "duration_in_ms": 1189,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/version",
+                    "duration_in_ms": 153,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/openshift_authentication_logs",
+                    "duration_in_ms": 448,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/operators",
+                    "duration_in_ms": 2419,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/container_runtime_configs",
+                    "duration_in_ms": 41,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/sap_license_management_logs",
+                    "duration_in_ms": 37,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/networks",
+                    "duration_in_ms": 62,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/image_registries",
+                    "duration_in_ms": 52,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/feature_gates",
+                    "duration_in_ms": 42,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/operators_pods_and_events",
+                    "duration_in_ms": 204,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/openshift_sdn_controller_logs",
+                    "duration_in_ms": 253,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/netnamespaces",
+                    "duration_in_ms": 154,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/config_maps",
+                    "duration_in_ms": 113,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/host_subnets",
+                    "duration_in_ms": 129,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/install_plans",
+                    "duration_in_ms": 9874,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/olm_operators",
+                    "duration_in_ms": 17,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/nodes",
+                    "duration_in_ms": 94,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/oauths",
+                    "duration_in_ms": 150,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/openshift_apiserver_operator_logs",
+                    "duration_in_ms": 360,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/proxies",
+                    "duration_in_ms": 29,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/service_accounts",
+                    "duration_in_ms": 10618,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/pod_network_connectivity_checks",
+                    "duration_in_ms": 198,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/psps",
+                    "duration_in_ms": 85,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/machine_healthchecks",
+                    "duration_in_ms": 126,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "clusterconfig/machine_config_pools",
+                    "duration_in_ms": 89,
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                }
+            ]
+        },
+        {
+            "metadata": {
+                "feature_id": "alerts",
+                "component": "fe.features.alerts.feature"
+            },
+            "schema": {
+                "version": "1.0",
+                "fields": [
+                    {
+                        "name": "cluster_id",
+                        "type": "String"
+                    },
+                    {
+                        "name": "name",
+                        "type": "String"
+                    },
+                    {
+                        "name": "state",
+                        "type": "String"
+                    },
+                    {
+                        "name": "severity",
+                        "type": "String"
+                    },
+                    {
+                        "name": "labels",
+                        "type": "Object"
+                    },
+                    {
+                        "name": "value",
+                        "type": "Float"
+                    },
+                    {
+                        "name": "last_transition_time",
+                        "type": "DateTime"
+                    },
+                    {
+                        "name": "analysis_time",
+                        "type": "DateTime"
+                    },
+                    {
+                        "name": "path",
+                        "type": "String"
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "Watchdog",
+                    "state": "firing",
+                    "severity": "none",
+                    "labels": {
+                        "instance": "",
+                        "prometheus": "openshift-monitoring/k8s",
+                        "prometheus_replica": "prometheus-k8s-1"
+                    },
+                    "value": 1.0,
+                    "last_transition_time": "2021-10-08T11:44:16",
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "name": "AlertmanagerReceiversNotConfigured",
+                    "state": "firing",
+                    "severity": "warning",
+                    "labels": {
+                        "instance": "",
+                        "prometheus": "openshift-monitoring/k8s",
+                        "prometheus_replica": "prometheus-k8s-1"
+                    },
+                    "value": 1.0,
+                    "last_transition_time": "2021-10-08T11:44:22",
+                    "analysis_time": "2021-12-13T14:36:18",
+                    "path": "archives/compressed/35/CLUSTER_ID_TO_BE_REPLACED/201602/02/050522.tar.gz"
+                }
+            ]
+        },
+        {
+            "metadata": {
+                "feature_id": "workload_info_namespaces",
+                "component": "fe.features.workload_info_namespaces.feature"
+            },
+            "schema": {
+                "version": "1.0",
+                "fields": [
+                    {
+                        "name": "cluster_id",
+                        "type": "String"
+                    },
+                    {
+                        "name": "namespace",
+                        "type": "String"
+                    },
+                    {
+                        "name": "shapes",
+                        "type": "List"
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "cluster_id": "cluster_id",
+                    "namespace": "namespace",
+                    "shapes": [
+                        {
+                            "containers": [
+                                {
+                                    "imageID": "imageID",
+                                    "firstArg": "firstArg",
+                                    "firstCommand": "firstCommand"
+                                }
+                            ],
+                            "initContainers": [
+                                {
+                                    "imageID": "imageID",
+                                    "firstArg": "firstArg",
+                                    "firstCommand": "firstCommand"
+                                }
+                            ],
+                            "shapeInstances": 1,
+                            "restartAlways": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "metadata": {
+                "feature_id": "workload_info_images",
+                "component": "fe.features.workload_info_images.feature"
+            },
+            "schema": {
+                "version": "1.0",
+                "fields": [
+                    {
+                        "name": "cluster_id",
+                        "type": "String"
+                    },
+                    {
+                        "name": "image_id",
+                        "type": "String"
+                    },
+                    {
+                        "name": "layers",
+                        "type": "List"
+                    },
+                    {
+                        "name": "first_command",
+                        "type": "String"
+                    },
+                    {
+                        "name": "first_arg",
+                        "type": "String"
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "cluster_id": "cluster_id",
+                    "image_id": "image_id",
+                    "layers": [
+                        "layer1",
+                        "layer2"
+                    ],
+                    "first_command": "first_command",
+                    "first_arg": "first_arg"
+                }
+            ]
+        },
+        {
+            "metadata": {
+                "feature_id": "available_updates",
+                "component": "fe.features.available_updates.feature"
+            },
+            "schema": {
+                "version": "1.0",
+                "fields": [
+                    {
+                        "name": "cluster_id",
+                        "type": "String"
+                    },
+                    {
+                        "name": "cluster_version",
+                        "type": "String"
+                    },
+                    {
+                        "name": "release",
+                        "type": "String"
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "cluster_version": "4.8.12",
+                    "release": "4.10.0-fc.4"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "cluster_version": "4.8.12",
+                    "release": "4.10.0-fc.4"
+                }
+            ]
+        },
+        {
+            "metadata": {
+                "feature_id": "conditional_update_conditions",
+                "component": "fe.features.conditional_update_conditions.feature"
+            },
+            "schema": {
+                "version": "1.0",
+                "fields": [
+                    {
+                        "name": "cluster_id",
+                        "type": "String"
+                    },
+                    {
+                        "name": "cluster_version",
+                        "type": "String"
+                    },
+                    {
+                        "name": "release",
+                        "type": "String"
+                    },
+                    {
+                        "name": "recommended",
+                        "type": "String"
+                    },
+                    {
+                        "name": "reason",
+                        "type": "String"
+                    },
+                    {
+                        "name": "message",
+                        "type": "String"
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "cluster_version": "4.8.12",
+                    "release": "4.10.0-fc.4",
+                    "recommended": "True",
+                    "reason": "AsExpected",
+                    "message": "The update is recommended, because none of the conditional update risks apply to this cluster."
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "cluster_version": "4.8.12",
+                    "release": "4.10.0-fc.4",
+                    "recommended": "Unknown",
+                    "reason": "AsExpected",
+                    "message": "The update is recommended, because none of the conditional update risks apply to this cluster."
+                }
+            ]
+        },
+        {
+            "metadata": {
+                "feature_id": "conditional_update_risks",
+                "component": "fe.features.conditional_update_risks.feature"
+            },
+            "schema": {
+                "version": "1.0",
+                "fields": [
+                    {
+                        "name": "cluster_id",
+                        "type": "String"
+                    },
+                    {
+                        "name": "cluster_version",
+                        "type": "String"
+                    },
+                    {
+                        "name": "release",
+                        "type": "String"
+                    },
+                    {
+                        "name": "risk",
+                        "type": "String"
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "cluster_version": "4.8.12",
+                    "release": "4.10.0-fc.4",
+                    "risk": "AlibabaStorageDriverDemo"
+                },
+                {
+                    "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+                    "cluster_version": "4.8.12",
+                    "release": "4.10.0-fc.4",
+                    "risk": "AlibabaStorageDriverDemo"
+                }
+            ]
+        }
+    ]
+}

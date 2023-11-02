@@ -27,6 +27,7 @@ services:
       - test-notification-services
       - test-aggregator
       - test-sha-extractor
+      - test-parquet-factory
     image: quay.io/ccxdev/kafka-no-zk:latest
     ports:
       - 9092:9092
@@ -38,6 +39,7 @@ services:
     profiles:
       - test-exporter
       - test-sha-extractor
+      - test-parquet-factory
     image: minio/minio
     command:
       - server
@@ -72,6 +74,7 @@ services:
     profiles:
       - no-mock
       - test-notification-services
+      - test-parquet-factory
     image: quay.io/prometheus/pushgateway:latest
     ports:
       - 9091:9091
@@ -154,4 +157,3 @@ services:
       - SERVER_PORT=8081
     ports:
       - 8081:8081
-
