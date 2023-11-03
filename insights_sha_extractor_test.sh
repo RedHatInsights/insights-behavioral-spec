@@ -15,6 +15,9 @@
 # limitations under the License.
 
 export PATH_TO_LOCAL_SHA_EXTRACTOR=${PATH_TO_LOCAL_SHA_EXTRACTOR:="../ccx-sha-extractor"}
+#set NOVENV is current environment is not a python virtual env
+[ "$VIRTUAL_ENV" != "" ] || NOVENV=1
+
 exit_trap_command=""
 
 function prepare_venv() {
@@ -25,7 +28,10 @@ function prepare_venv() {
     source venv/bin/activate 
     python3 "$(which pip3)" install --no-cache -r requirements.in || exit 1
     python3 "$(which pip3)" install --no-cache -r requirements/insights_sha_extractor.txt || exit 1
+    echo "Environment ready"
+}
 
+function install_extractor() {
     if [[ ! -d $PATH_TO_LOCAL_SHA_EXTRACTOR ]] ; then
     	git clone --depth=1 git@gitlab.cee.redhat.com:ccx/ccx-sha-extractor.git $PATH_TO_LOCAL_SHA_EXTRACTOR
 	add_trap "rm -rf ./ccx-sha-extractor"
@@ -36,8 +42,6 @@ function prepare_venv() {
     pip install --no-cache-dir -r requirements.txt
     pip install -e .
     cd "$cwd" || exit 1
-
-    echo "Environment ready"
 }
 
 function run_kafka() {
@@ -91,7 +95,11 @@ if ! [ "$ENV_DOCKER" ] ; then
     run_mock_s3
 fi
 
-prepare_venv
+if [ "$NOVENV" ] ; then
+    prepare_venv
+fi
+
+install_extractor
 
 # shellcheck disable=SC2068
 PYTHONDONTWRITEBYTECODE=1 python3 -m behave --no-capture \
