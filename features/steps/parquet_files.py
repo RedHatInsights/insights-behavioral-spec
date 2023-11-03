@@ -2,9 +2,12 @@
 
 from behave import then
 
-import pandas as pd
-
 from src.minio import read_object_into_bytes_buffer
+
+try:
+    import pandas as pd
+except ImportError as e:
+    print("Warning: unable to import module:", e)
 
 
 @then("The parquet file {object_name} is exactly this one")
