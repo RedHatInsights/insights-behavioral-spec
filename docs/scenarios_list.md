@@ -1004,3 +1004,39 @@ nav_order: 3
 * Check if CCX Upgrade Risk Data Engineering Service application is available
 * Check if CCX Upgrade Risk Data Engineering Service can be run
 
+## [`parquet-factory/indexes.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/parquet-factory/indexes.feature)
+
+* If Parquet file already exists, the index of the new one should be 1
+
+## [`parquet-factory/kafka_messages.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/parquet-factory/kafka_messages.feature)
+
+* Parquet Factory should fail if it cannot read from Kafka
+* Parquet Factory shouldn't finish if only messages from the previous hour arrived
+* Parquet Factory shouldn't finish if not all the topics and partitions are filled with current hour messages
+* Parquet Factory should finish if all the topics and partitions are filled with current hour messages
+* After aggregating messages from previous hour, the first messages from current hour has to be processed first
+* Parquet Factory should finish if the limit of kafka messages is exceeded even if no messages from current hour arrived
+* Parquet Factory should not commit the messages from current hour if there are no prior messages
+* Parquet Factory shouldn't send duplicate rows
+
+## [`parquet-factory/metrics.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/parquet-factory/metrics.feature)
+
+* If the Pushgateway is not accessible, Parquet Factory should run successfully
+* If the Pushgateway is accessible, Parquet Factory should run successfully and send the metrics to the Pushgateway
+* If the Pushgateway is accessible and I run Parquet Factory with messages from the previous hour, the "files_generated" and "inserted_rows" metrics should be 1 for all the tables
+* If the Pushgateway is accessible and Parquet Factory errors, the "error_count" metric should increase
+
+## [`parquet-factory/parquet_files.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/parquet-factory/parquet_files.feature)
+
+* Table generation: cluster_info
+* Table generation: available_updates
+* Table generation: conditional_update_conditions
+* Table generation: conditional_update_risks
+* Table generation: cluster_thanos_info
+
+## [`parquet-factory/s3.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/parquet-factory/s3.feature)
+
+* Parquet Factory should fail if it cannot connect with S3. When I rerun it, it should re-process the messages from the beginning
+* Parquet Factory should fail if it cannot find the bucket
+* Parquet Factory shouldn't fail if it cannot find the folder/prefix where the files are stored
+

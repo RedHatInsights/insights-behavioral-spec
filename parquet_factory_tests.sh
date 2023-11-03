@@ -75,6 +75,16 @@ function code_coverage_report() {
 EOF
 }
 
+function add_exit_trap {
+    local to_add=$1
+    if [[ -z "$exit_trap_command" ]]
+    then
+        exit_trap_command="$to_add"
+    else
+        exit_trap_command="$exit_trap_command; $to_add"
+    fi
+}
+
 flag=${1:-""}
 
 if [[ "${flag}" = "coverage" ]]
