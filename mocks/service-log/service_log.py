@@ -118,7 +118,7 @@ class Log(BaseModel):
     subscription_id: Optional[str] = None
     summary: str
     description: Optional[str] = None
-    internal_only: Union[bool, None] = None
+    internal_only: Optional[bool] = None
     service_name: str
     severity: Optional[str] = "Info"
     timestamp: Optional[str] = None  # default will be current time
