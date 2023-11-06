@@ -80,7 +80,7 @@ import random
 import string
 
 from datetime import datetime
-from typing import Union
+from typing import Optional
 
 from fastapi import FastAPI, Request, Response, status
 from fastapi.exceptions import RequestValidationError
@@ -114,16 +114,16 @@ class Log(BaseModel):
     """Model for log structure received by Service Log."""
 
     cluster_uuid: str
-    cluster_id: Union[str, None] = None
-    subscription_id: Union[str, None] = None
+    cluster_id: Optional[str] = None
+    subscription_id: Optional[str] = None
     summary: str
-    description: Union[str, None] = None
-    internal_only: Union[bool, None] = None
+    description: Optional[str] = None
+    internal_only: Optional[bool] = None
     service_name: str
-    severity: Union[str, None] = "Info"
-    timestamp: Union[str, None] = None  # default will be current time
-    username: Union[str, None] = None
-    event_stream_id: Union[str, None] = None  # default will be a random ksuid
+    severity: Optional[str] = "Info"
+    timestamp: Optional[str] = None  # default will be current time
+    username: Optional[str] = None
+    event_stream_id: Optional[str] = None  # default will be a random ksuid
 
 
 class ReturnLog(Log):
