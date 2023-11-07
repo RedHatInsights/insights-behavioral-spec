@@ -21,7 +21,7 @@ from behave import then
 from src.csv_checks import check_table_content
 
 
-@then(u"I should see following number of records stored in CSV files")
+@then("I should see following number of records stored in CSV files")
 def number_of_records_in_csv(context):
     """Check if number of records stored in CSV files match expected number."""
     # iterate over all items in feature table
@@ -48,10 +48,10 @@ def number_of_records_in_csv(context):
 
 
 @then(
-    u"I should see following records in exported file {filename} placed in column {column:d}"
+    "I should see following records in exported file {filename} placed in column {column:d}"
 )
 @then(
-    u"I should see following records in exported file {filename} placed in columns "
+    "I should see following records in exported file {filename} placed in columns "
     "{column:d} and {column2:d}"
 )  # noqa: E501
 def check_records_in_csv(context, filename, column, column2=None):
