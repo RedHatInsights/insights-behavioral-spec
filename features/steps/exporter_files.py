@@ -18,7 +18,7 @@ from os.path import exists
 from behave import then
 
 
-@then(u"I should see following files generated")
+@then("I should see following files generated")
 def check_generated_files(context):
     """Check that all specified files was generated."""
     # iterate over all items in feature table

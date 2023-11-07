@@ -19,7 +19,7 @@ from src.process_output import process_generated_output
 from behave import when, then
 
 
-@when(u"I run the exporter with the {flag} command line flag")
+@when("I run the exporter with the {flag} command line flag")
 def run_exporter_with_flag(context, flag):
     """Start the exporter with given command-line flag."""
     out = subprocess.Popen(
@@ -37,7 +37,7 @@ def run_exporter_with_flag(context, flag):
     process_generated_output(context, out, 2)
 
 
-@when(u"I run the exporter with the following command line flags: {flags}")
+@when("I run the exporter with the following command line flags: {flags}")
 def run_exporter_with_flags(context, flags):
     """Start the exporter with given command-line flags."""
     flags = flags.split(" ")
@@ -118,7 +118,7 @@ def check_authors_info_from_exporter(context):
     ), "Caught output: {}".format(context.output)
 
 
-@then(u"I should see info about configuration displayed by exporter on standard output")
+@then("I should see info about configuration displayed by exporter on standard output")
 def check_configuration_info_from_exporter(context):
     """Check if information about configuration is displayed by exporter."""
     # preliminary checks

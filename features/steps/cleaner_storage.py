@@ -19,9 +19,9 @@ from behave import given, then, when
 from common_aggregator import DB_TABLES
 
 
-@given(u"the database is empty")
-@then(u"the database is empty")
-@then(u"I should find that the database is empty")
+@given("the database is empty")
+@then("the database is empty")
+@then("I should find that the database is empty")
 def ensure_database_emptiness(context):
     """Perform check if the database is empty."""
     cursor = context.connection.cursor()
@@ -37,7 +37,7 @@ def ensure_database_emptiness(context):
             context.connection.rollback()
 
 
-@then(u"I should find that all tables are empty")
+@then("I should find that all tables are empty")
 def ensure_data_tables_emptiness(context):
     """Perform check if data tables are empty."""
     for table in DB_TABLES:
@@ -53,7 +53,7 @@ def ensure_data_tables_emptiness(context):
             raise
 
 
-@when(u"I delete all tables from database")
+@when("I delete all tables from database")
 def delete_all_tables(context):
     """Delete all relevant tables from database."""
     for table in DB_TABLES:
@@ -66,7 +66,7 @@ def delete_all_tables(context):
             raise
 
 
-@when(u"I insert following records into {table} table")
+@when("I insert following records into {table} table")
 def insert_records_into_selected_table(context, table):
     """Insert provided records into specified table."""
     cursor = context.connection.cursor()

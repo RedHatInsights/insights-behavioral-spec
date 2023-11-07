@@ -50,7 +50,7 @@ def process_ccx_notification_writer_output(context, out, return_code):
     context.returncode = out.returncode
 
 
-@when(u"I start the CCX Notification Writer with the {flag} command line flag")
+@when("I start the CCX Notification Writer with the {flag} command line flag")
 def start_ccx_notification_writer_with_flag(context, flag):
     """Start the CCX Notification Writer with given command-line flag."""
     out = subprocess.Popen(
@@ -144,7 +144,7 @@ def check_authors_info_from_ccx_notification_writer(context):
     ), "Caught output: {}".format(context.output)
 
 
-@then(u"the process should exit with status code set to {expected_code:d}")
+@then("the process should exit with status code set to {expected_code:d}")
 def check_status_code(context, expected_code):
     """Check the status code of the last started process."""
     # check the return code of a process
@@ -153,7 +153,7 @@ def check_status_code(context, expected_code):
     ), "Return code is {}, but {} is expected".format(context.returncode, expected_code)
 
 
-@given(u"CCX Notification database is empty")
+@given("CCX Notification database is empty")
 def notification_writer_db_empty(context):
     """Ensure that the CCX Notification database is empty, but with all tables."""
     # first step - drop all tables, together with theirs content
