@@ -41,7 +41,7 @@ def process_generated_output(context: Context, out, return_code=None):
     if return_code:
         assert (
             out.returncode == 0 or out.returncode == return_code
-        ), "Return code is {}".format(out.returncode)
+        ), f"Return code is {out.returncode}"
 
     # try to decode output as flow of text lines
     output = stdout.decode("utf-8").split("\n")

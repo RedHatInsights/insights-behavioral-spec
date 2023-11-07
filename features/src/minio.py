@@ -33,7 +33,7 @@ def minio_client(context: Context):
             context.S3_secret_access_key,
         )
         client = Minio(
-            "{}:{}".format(endpoint, port),
+            f"{endpoint}:{port}",
             access_key,
             secret_access_key,
             secure=False,

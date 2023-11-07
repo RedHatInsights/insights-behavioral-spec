@@ -19,6 +19,4 @@ from typing import Set, Any
 
 def assert_sets_equality(what: str, expected: Set[Any], actual: Set[Any]) -> None:
     """Compare two sets of values, displays correct set difference when inequal."""
-    assert expected == actual, "Difference found in sets of {}: {}".format(
-        what, expected ^ actual
-    )
+    assert expected == actual, f"Difference found in sets of {what}: {expected ^ actual}"
