@@ -48,10 +48,10 @@ def construct_rh_token(org: int, account: str, user: str) -> bytes:
     token = """
     {{
         "identity": {{
-            "org_id": "{0}",
-            "account_number":"{1}",
+            "org_id": "{}",
+            "account_number":"{}",
             "user": {{
-                "user_id":"{2}"
+                "user_id":"{}"
             }}
         }}
     }}
