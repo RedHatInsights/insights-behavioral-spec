@@ -27,7 +27,7 @@ def get_array_from_json(context: Context, selector, subselector=None):
 
     # try to retrieve content of given array
     assert selector in json, \
-        "attribute '{}' is not found in JSON response".format(selector)
+        f"attribute '{selector}' is not found in JSON response"
 
     # return items from array is subselector is not specified
     if subselector is None:
@@ -45,19 +45,17 @@ def construct_rh_token(org: int, account: str, user: str) -> bytes:
     assert user, "User ID should not be empty"
 
     # text token
-    token = """
+    token = f"""
     {{
         "identity": {{
-            "org_id": "{}",
-            "account_number":"{}",
+            "org_id": "{org}",
+            "account_number":"{account}",
             "user": {{
-                "user_id":"{}"
+                "user_id":"{user}"
             }}
         }}
     }}
-    """.format(
-        org, account, user
-    )
+    """
 
     # convert to base64 encoding
     return base64.b64encode(token.encode("ascii"))
