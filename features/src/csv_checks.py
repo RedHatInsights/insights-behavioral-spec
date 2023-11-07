@@ -56,8 +56,6 @@ def check_table_content(context: Context, buff, filename, column, column2=None, 
                     break
 
         if column2 is None:
-            assert found, "Record {} not found in CSV file {}".format(record, filename)
+            assert found, f"Record {record} not found in CSV file {filename}"
         else:
-            assert found, "Record {} not found in CSV file {}".format(
-                [record1, record2], line
-            )
+            assert found, f"Record {[record1, record2]} not found in CSV file {line}"
