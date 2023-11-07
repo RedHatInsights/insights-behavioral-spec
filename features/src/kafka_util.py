@@ -52,7 +52,7 @@ def delete_topic(context: Context, topic: str):
     except UnknownTopicOrPartitionError:
         pass
     except Exception as e:
-        print("Topic {} was not deleted. Error: {}".format(topic, e))
+        print(f"Topic {topic} was not deleted. Error: {e}")
 
 
 def send_event(bootstrap, topic, payload, headers=None, partition=None, timestamp=None):
