@@ -123,9 +123,7 @@ The commands are:
 
     # check if the output contains expected help message
     # any optional garbage above and below help message is ignored
-    assert expected_output.strip() in stdout.strip(), "{} != {}".format(
-        stdout, expected_output
-    )
+    assert expected_output.strip() in stdout.strip(), f"{stdout} != {expected_output}"
 
 
 def check_version_from_aggregator(context):
@@ -147,10 +145,10 @@ def check_actual_configuration_for_aggregator(context):
     i = find_block(context.output, "{")
 
     # check the output
-    assert "Broker" in context.output[i+1], "Caught output: {}".format(context.output)
-    assert "Address" in context.output[i+2], "Caught output: {}".format(context.output)
-    assert "SecurityProtocol" in context.output[i+3], "Caught output: {}".format(context.output)
-    assert "CertPath" in context.output[i+4], "Caught output: {}".format(context.output)
+    assert "Broker" in context.output[i+1], f"Caught output: {context.output}"
+    assert "Address" in context.output[i+2], f"Caught output: {context.output}"
+    assert "SecurityProtocol" in context.output[i+3], f"Caught output: {context.output}"
+    assert "CertPath" in context.output[i+4], f"Caught output: {context.output}"
 
 
 @when("I migrate aggregator database to version #{version:n}")
@@ -272,7 +270,7 @@ def check_empty_list_of_organizations(context):
 
     # check if the list is empty
     assert len(found_organizations) == 0, \
-        "Expected no organizations but {} has been returned".format(found_organizations)
+        f"Expected no organizations but {found_organizations} has been returned"
 
 
 @then("I should retrieve empty list of clusters")
@@ -284,7 +282,7 @@ def check_empty_list_of_clusters(context):
 
     # check if the list is empty
     assert len(found_clusters) == 0, \
-        "Expected no clusters but {} has been returned".format(found_clusters)
+        f"Expected no clusters but {found_clusters} has been returned"
 
 
 @when("I ask for list of all disabled rules for organization {organization:d} account number {account}, and user {user}")  # noqa E501
