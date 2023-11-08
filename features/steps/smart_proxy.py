@@ -71,9 +71,7 @@ The commands are:
 
     # check if the output contains expected help message
     # any optional garbage above and below help message is ignored
-    assert expected_output.strip() in stdout.strip(), "{} != {}".format(
-        stdout, expected_output
-    )
+    assert expected_output.strip() in stdout.strip(), f"{stdout} != {expected_output}"
 
 
 def check_version_from_smart_proxy(context):
@@ -87,4 +85,4 @@ def check_version_from_smart_proxy(context):
         if "Version:\tv" in line:
             break
     else:
-        raise Exception("Improper or missing version info in {}".format(context.output))
+        raise Exception(f"Improper or missing version info in {context.output}")
