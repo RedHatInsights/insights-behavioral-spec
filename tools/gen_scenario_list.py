@@ -81,6 +81,6 @@ for subdirectory in SUBDIRECTORIES:
                     for prefix in PREFIXES:
                         if line.startswith(prefix):
                             line = line[len(prefix):]
-                            print("* {}".format(line))
+                            print(f"* {line}")
             # vertical space between subsections in generated file
             print()
