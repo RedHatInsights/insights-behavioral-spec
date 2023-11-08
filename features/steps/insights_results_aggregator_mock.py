@@ -70,9 +70,7 @@ The commands are:
     assert isinstance(stdout, str), "wrong type of stdout object"
 
     # check the output
-    assert stdout.strip() == expected_output.strip(), "{} != {}".format(
-        stdout, expected_output
-    )
+    assert stdout.strip() == expected_output.strip(), f"{stdout} != {expected_output}"
 
 
 def check_version_from_mock(context):
@@ -82,7 +80,7 @@ def check_version_from_mock(context):
     assert isinstance(context.output, list), "wrong type of output"
 
     # check the output
-    assert "Version:\t0.1" in context.output, "Caught output: {}".format(context.output)
+    assert "Version:\t0.1" in context.output, f"Caught output: {context.output}"
 
 
 def check_authors_info_from_mock(context):
@@ -94,7 +92,7 @@ def check_authors_info_from_mock(context):
     # check the output
     assert (
         "Pavel Tisnovsky <ptisnovs@redhat.com>" in context.output
-    ), "Caught output: {}".format(context.output)
+    ), f"Caught output: {context.output}"
 
 
 @then("I should see actual configuration displayed by Insights Results Aggregator Mock on standard output")  # noqa E501
@@ -105,11 +103,11 @@ def check_actual_configuration(context):
     assert isinstance(context.output, list), "wrong type of output"
 
     # check the output
-    assert "Server" in context.output[1], "Caught output: {}".format(context.output)
-    assert "Address" in context.output[2], "Caught output: {}".format(context.output)
-    assert "APIPrefix" in context.output[3], "Caught output: {}".format(context.output)
-    assert "APISpecFile" in context.output[4], "Caught output: {}".format(context.output)
-    assert "Content" in context.output[7], "Caught output: {}".format(context.output)
+    assert "Server" in context.output[1], f"Caught output: {context.output}"
+    assert "Address" in context.output[2], f"Caught output: {context.output}"
+    assert "APIPrefix" in context.output[3], f"Caught output: {context.output}"
+    assert "APISpecFile" in context.output[4], f"Caught output: {context.output}"
+    assert "Content" in context.output[7], f"Caught output: {context.output}"
 
 
 @when("I request list of organizations")

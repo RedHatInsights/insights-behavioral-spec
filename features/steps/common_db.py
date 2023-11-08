@@ -94,7 +94,7 @@ def look_for_table(context, table):
     """Try to find a table in database."""
     cursor = context.connection.cursor()
     try:
-        cursor.execute("SELECT 1 from {}".format(table))
+        cursor.execute(f"SELECT 1 from {table}")
         _ = cursor.fetchone()
         context.table_found = True
     except UndefinedTable:
@@ -129,7 +129,7 @@ def check_number_of_tables(context, expected=1):
     context.connection.commit()
 
     # result is returned as tuple -> we need to get the 1st item from that tuple
-    assert len(count) == 1, "Wrong number of records returned: {}".format(len(count))
+    assert len(count) == 1, f"Wrong number of records returned: {len(count)}"
     count = count[0]
 
     # check number of tables returned

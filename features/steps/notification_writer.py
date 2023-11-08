@@ -36,7 +36,7 @@ def process_ccx_notification_writer_output(context, out, return_code):
     # check the return code of a process
     assert (
         out.returncode == 0 or out.returncode == return_code
-    ), "Return code is {}".format(out.returncode)
+    ), f"Return code is {out.returncode}"
 
     # try to decode output
     output = stdout.decode("utf-8").split("\n")
@@ -115,9 +115,7 @@ Usage of ccx-notification-writer:
 
     updated_output = stdout.replace("\t", " ").strip()
     # check the output
-    assert updated_output == expected_output.strip(), "{} != {}".format(
-        stdout, expected_output
-    )
+    assert updated_output == expected_output.strip(), f"{stdout} != {expected_output}"
 
 
 def check_version_from_ccx_notification_writer(context):
@@ -129,7 +127,7 @@ def check_version_from_ccx_notification_writer(context):
     # check the output
     assert (
         "CCX Notification Writer version 1.0" in context.output
-    ), "Caught output: {}".format(context.output)
+    ), f"Caught output: {context.output}"
 
 
 def check_authors_info_from_ccx_notification_writer(context):
@@ -141,7 +139,7 @@ def check_authors_info_from_ccx_notification_writer(context):
     # check the output
     assert (
         "Pavel Tisnovsky, Red Hat Inc." in context.output
-    ), "Caught output: {}".format(context.output)
+    ), f"Caught output: {context.output}"
 
 
 @then("the process should exit with status code set to {expected_code:d}")
@@ -150,7 +148,7 @@ def check_status_code(context, expected_code):
     # check the return code of a process
     assert (
         context.returncode == expected_code
-    ), "Return code is {}, but {} is expected".format(context.returncode, expected_code)
+    ), f"Return code is {context.returncode}, but {expected_code} is expected"
 
 
 @given("CCX Notification database is empty")

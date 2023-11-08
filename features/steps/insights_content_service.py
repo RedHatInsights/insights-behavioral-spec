@@ -34,7 +34,7 @@ def check_build_time(context):
         r".{3} .{3}[ ]{1,2}[0-9]{1,2} [0-9]{2}:[0-9]{2}:[0-9]{2} ([AP]M )?[A-Z]{1,5} [0-9]{4}"
     )
     match = re.match(pattern, buildTime)
-    assert match.group(0), "BuildTime is not a date time: {}".format(buildTime)
+    assert match.group(0), f"BuildTime is not a date time: {buildTime}"
 
 
 @then("BuildVersion is in the proper format")

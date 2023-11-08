@@ -34,7 +34,7 @@ def retrieve_broker_metadata(context, hostname=None, port=None):
     if hostname is None or port is None:
         hostname = context.kafka_hostname
         port = context.kafka_port
-    address = "{}:{}".format(hostname, port)
+    address = f"{hostname}:{port}"
 
     out = subprocess.Popen(
         ["kcat", "-b", address, "-L", "-J"],

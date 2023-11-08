@@ -93,7 +93,7 @@ def ensure_database_contains_all_tables(context):
     cursor = context.connection.cursor()
     for table in DB_TABLES:
         try:
-            cursor.execute("SELECT 1 from {}".format(table))
+            cursor.execute(f"SELECT 1 from {table}")
             _ = cursor.fetchone()
             cursor.execute(f"TRUNCATE TABLE {table} CASCADE")
             context.connection.commit()
@@ -108,7 +108,7 @@ def database_contains_all_tables(context):
     cursor = context.connection.cursor()
     for table in DB_TABLES:
         try:
-            cursor.execute("SELECT 1 from {}".format(table))
+            cursor.execute(f"SELECT 1 from {table}")
             _ = cursor.fetchone()
             context.connection.commit()
         except UndefinedTable as e:
@@ -122,7 +122,7 @@ def ensure_database_emptiness(context):
     cursor = context.connection.cursor()
     for table in DB_TABLES_LATEST:
         try:
-            cursor.execute("SELECT 1 from {}".format(table))
+            cursor.execute(f"SELECT 1 from {table}")
             _ = cursor.fetchone()
             raise TableExistsException(table)
         except UndefinedTable:
@@ -140,11 +140,9 @@ def select_all_rows_from_table(context, table):
     """Select number of all rows from given table."""
     cursor = context.connection.cursor()
     try:
-        cursor.execute("SELECT count(*) as cnt from {}".format(table))
+        cursor.execute(f"SELECT count(*) as cnt from {table}")
         results = cursor.fetchone()
-        assert len(results) == 1, "Wrong number of records returned: {}".format(
-            len(results)
-        )
+        assert len(results) == 1, f"Wrong number of records returned: {len(results)}"
         context.query_count = results[0]
     except Exception as e:
         raise e
@@ -156,9 +154,7 @@ def check_rows_count(context, expected_count):
     """Check if expected number of rows were returned."""
     assert (
         context.query_count == expected_count
-    ), "Wrong number of rows returned: {} instead of {}".format(
-        context.query_count, expected_count
-    )
+    ), f"Wrong number of rows returned: {context.query_count} instead of {expected_count}"
 
 
 @when("I insert following row into table new_reports")

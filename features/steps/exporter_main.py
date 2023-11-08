@@ -89,9 +89,7 @@ Usage of insights-results-aggregator-exporter:
     assert isinstance(stdout, str), "wrong type of stdout object"
 
     # check the output
-    assert stdout.strip() == expected_output.strip(), "{} != {}".format(
-        stdout, expected_output
-    )
+    assert stdout.strip() == expected_output.strip(), f"{stdout} != {expected_output}"
 
 
 def check_version_from_exporter(context):
@@ -103,7 +101,7 @@ def check_version_from_exporter(context):
     # check the output
     assert (
         "Insights Results Aggregator Exporter version 1.0" in context.output
-    ), "Caught output: {}".format(context.output)
+    ), f"Caught output: {context.output}"
 
 
 def check_authors_info_from_exporter(context):
@@ -115,7 +113,7 @@ def check_authors_info_from_exporter(context):
     # check the output
     assert (
         "Pavel Tisnovsky, Red Hat Inc." in context.output
-    ), "Caught output: {}".format(context.output)
+    ), f"Caught output: {context.output}"
 
 
 @then("I should see info about configuration displayed by exporter on standard output")
@@ -140,6 +138,4 @@ def check_configuration_info_from_exporter(context):
 
     # iterate through expected artefacts and check if its names are found in generated output
     for expected_artefact in expected_artefacts:
-        assert expected_artefact in stdout, "{} not found in output".format(
-            expected_artefact
-        )
+        assert expected_artefact in stdout, f"{expected_artefact} not found in output"

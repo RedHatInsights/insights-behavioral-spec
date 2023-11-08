@@ -39,14 +39,14 @@ def look_for_executable_file(context, filename):
 def file_was_found(context):
     """Check if the file was found on PATH."""
     assert context.found is not None, \
-        "executable filaname '{}' is not on PATH".format(context.filename)
+        f"executable filaname '{context.filename}' is not on PATH"
 
 
 @then("The process should finish with exit code {exit_code:d}")
 def check_process_exit_code(context, exit_code):
     """Check exit code of process."""
     assert context.return_code == exit_code, \
-        "Unexpected exit code {}. Output:\n{}".format(context.return_code, context.output)
+        f"Unexpected exit code {context.return_code}. Output:\n{context.output}"
 
 
 @then('I should see following message in service output: "{message}"')
@@ -61,7 +61,7 @@ def check_message_in_output(context, message):
         if message in line:
             break
     else:
-        raise Exception("Expected message not found in {}".format(context.output))
+        raise Exception(f"Expected message not found in {context.output}")
 
 
 @then("BuildTime is a proper datetime stamp")
@@ -84,7 +84,7 @@ def check_db_version(context):
     # just try to parse the version, that's all
     version = int(dbVersion)
 
-    assert version >= 1, "Improper DB version {}".format(version)
+    assert version >= 1, f"Improper DB version {version}"
 
 
 @when("I wait {number:n} seconds")

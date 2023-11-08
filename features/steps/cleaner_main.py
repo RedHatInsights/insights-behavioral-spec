@@ -163,9 +163,7 @@ def check_help_from_cleaner(context):
 
     # check if the output contains expected help message
     # any optional garbage above and below help message is ignored
-    assert expected_output.strip() in stdout.strip(), "{} != {}".format(
-        stdout, expected_output
-    )
+    assert expected_output.strip() in stdout.strip(), f"{stdout} != {expected_output}"
 
 
 def check_version_from_cleaner(context):
@@ -177,7 +175,7 @@ def check_version_from_cleaner(context):
     # check the output
     assert (
         "Insights Results Aggregator Cleaner version 1.0" in context.output
-    ), "Caught output: {}".format(context.output)
+    ), f"Caught output: {context.output}"
 
 
 def check_authors_info_from_cleaner(context):
@@ -189,7 +187,7 @@ def check_authors_info_from_cleaner(context):
     # check the output
     assert (
         "Pavel Tisnovsky, Red Hat Inc." in context.output
-    ), "Caught output: {}".format(context.output)
+    ), f"Caught output: {context.output}"
 
 
 @then("I should see info about configuration displayed by cleaner on standard output")
@@ -242,6 +240,4 @@ def check_non_empty_list_of_records(context):
             found_clusters.add(cluster_name)
 
     # compare both sets
-    assert expected_clusters == found_clusters, "Difference: {}".format(
-        expected_clusters ^ found_clusters
-    )
+    assert expected_clusters == found_clusters, f"Difference: {expected_clusters ^ found_clusters}"

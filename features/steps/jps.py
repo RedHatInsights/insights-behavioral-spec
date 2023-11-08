@@ -42,9 +42,7 @@ def get_all_jvm_based_applications(context):
     assert stdout is not None, "No output from application"
 
     # check the return code of a process
-    assert out.returncode == 0, "Return code is {}, but 0 is expected".format(
-        out.returncode
-    )
+    assert out.returncode == 0, f"Return code is {out.returncode}, but 0 is expected"
 
     # try to decode output
     output = stdout.decode("utf-8").split("\n")
