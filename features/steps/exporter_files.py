@@ -24,4 +24,4 @@ def check_generated_files(context):
     # iterate over all items in feature table
     for row in context.table:
         filename = row["File name"]
-        assert exists(filename), "File {} does not exist".format(filename)
+        assert exists(filename), f"File {filename} does not exist"
