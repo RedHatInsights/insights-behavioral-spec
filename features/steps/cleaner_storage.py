@@ -27,11 +27,11 @@ def ensure_database_emptiness(context):
     cursor = context.connection.cursor()
     for table in DB_TABLES:
         try:
-            cursor.execute("SELECT 1 from {}".format(table))
+            cursor.execute(f"SELECT 1 from {table}")
             _ = cursor.fetchone()
             context.connection.commit()
             print("DB name: ", context.connection.info.dsn_parameters)
-            raise Exception("Table '{}' exists".format(table))
+            raise Exception(f"Table '{table}' exists")
         except UndefinedTable:
             # exception means that the table does not exists
             context.connection.rollback()
@@ -43,12 +43,10 @@ def ensure_data_tables_emptiness(context):
     for table in DB_TABLES:
         cursor = context.connection.cursor()
         try:
-            cursor.execute("SELECT count(*) as cnt from {}".format(table))
+            cursor.execute(f"SELECT count(*) as cnt from {table}")
             results = cursor.fetchone()
-            assert len(results) == 1, "Wrong number of records returned: {}".format(
-                len(results)
-            )
-            assert results[0] == 0, "Table '{}' is not empty as expected".format(table)
+            assert len(results) == 1, f"Wrong number of records returned: {len(results)}"
+            assert results[0] == 0, f"Table '{table}' is not empty as expected"
         except Exception:
             raise
 
@@ -59,7 +57,7 @@ def delete_all_tables(context):
     for table in DB_TABLES:
         cursor = context.connection.cursor()
         try:
-            cursor.execute("DROP TABLE {}".format(table))
+            cursor.execute(f"DROP TABLE {table}")
             context.connection.commit()
         except Exception:
             context.connection.rollback()
