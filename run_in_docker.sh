@@ -82,6 +82,10 @@ copy_files() {
     "smart-proxy-tests")
       copy_go_executable "$cid" "$path_to_service" "insights-results-smart-proxy"
       ;;
+    "parquet-factory-tests")
+      copy_go_executable "$cid" "$path_to_service" "parquet-factory"
+      docker cp "$path_to_service"/config.toml "$cid":"$(docker exec "$cid" bash -c 'echo "$HOME"')"
+      ;;
     *)
       echo "Unexpected target: $target. Does it exist in Makefile?"
       exit 2
@@ -104,6 +108,7 @@ docker_compose_profiles["insights-sha-extractor-tests"]="test-sha-extractor"
 docker_compose_profiles["notification-service-tests"]="test-notification-services"
 docker_compose_profiles["notification-writer-tests"]="test-notification-services"
 docker_compose_profiles["smart-proxy-tests"]=""
+docker_compose_profiles["parquet-factory-tests"]="test-parquet-factory"
 
 # Step 2: Specify the make target for tests to run
 tests_target="$1"
@@ -132,4 +137,3 @@ copy_files "$cid" "$tests_target" "$path_to_service"
 
 
 docker exec "$cid" /bin/bash -c "source \$VIRTUAL_ENV/bin/activate && env && $(with_mocked_dependencies "$3") make $tests_target"
-

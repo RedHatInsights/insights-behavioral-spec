@@ -29,8 +29,8 @@ also by using tag or tags.
 ## Custom tags
 
 * `@aggregator_cleaner` - scenario related to Insights Results Aggregator Cleaner service
-* `@aggregator_exporter` - scenario related to Insights Results Aggregator Exporter service 
+* `@aggregator_exporter` - scenario related to Insights Results Aggregator Exporter service
 * `@notification_writer` - scenario related to CCX Notification Writer service
 * `@notification_db_initialized` - scenario based on initialized CCX Notification service database
 * `@sha-extractor` - scenario related to CCX SHA Extractor service
-
+* `@parquet_service` - scenario related to Parquet Factory

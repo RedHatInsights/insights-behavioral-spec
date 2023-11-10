@@ -152,3 +152,11 @@ nav_order: 2
 * [Ability to disable namespace on UI](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/DVO_Recommendations/namespace_disable.feature)]
 * [Ability to provide feedback for namespace on UI](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/DVO_Recommendations/namespace_feedback.feature)]
 * [Behaviour specification for new REST API endpoints that will be implemented in Smart Proxy](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/DVO_Recommendations/Smart_Proxy_REST_API.feature)]
+
+## Parquet Factory
+
+* [Ability to set the indexes in the generated tables correctly](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/parquet-factory/indexes.feature)
+* [Ability to process the Kafka messages correctly](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/parquet-factory/kafka_messages.feature)
+* [Ability to send metrics correctly](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/parquet-factory/metrics.feature)
+* [Ability to generate parquet files correctly](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/parquet-factory/parquet_files.feature)
+* [Ability to handle the S3 connection correctly](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/parquet-factory/s3.feature)
