@@ -1,0 +1,275 @@
+{
+    "path": "archives/compressed/ef/CLUSTER_ID_TO_BE_REPLACED/201306/17/233359.tar.gz",
+    "metadata": {
+        "cluster_id": "CLUSTER_ID_TO_BE_REPLACED",
+        "external_organization": "ef"
+    },
+    "report": {
+        "system": {},
+        "reports": [
+            {
+                "rule_id": "machine_pool_check|MACHINE_POOL_NOT_OK",
+                "component": "ccx_rules_ocp.internal.rules.machine_pool_check.report",
+                "type": "rule",
+                "key": "MACHINE_POOL_NOT_OK",
+                "details": {
+                    "machines": [
+                        {
+                            "degraded": {
+                                "status": false,
+                                "last_trans_time": "2021-10-08T08:10:33Z",
+                                "reason": "",
+                                "message": ""
+                            },
+                            "name": "master",
+                            "node_degraded": {
+                                "status": false,
+                                "last_trans_time": "2021-10-08T08:10:33Z",
+                                "reason": "",
+                                "message": ""
+                            },
+                            "render_degraded": {
+                                "status": false,
+                                "last_trans_time": "2021-10-08T08:09:38Z",
+                                "reason": "",
+                                "message": ""
+                            },
+                            "updated": {
+                                "status": false,
+                                "last_trans_time": "2021-10-08T09:44:15Z",
+                                "reason": "",
+                                "message": ""
+                            },
+                            "updating": {
+                                "status": true,
+                                "last_trans_time": "2021-10-08T09:44:15Z",
+                                "reason": "",
+                                "message": "All nodes are updating to rendered-master-a40f9eb37039e079676527fd41bbef52"
+                            }
+                        },
+                        {
+                            "degraded": {
+                                "status": false,
+                                "last_trans_time": "2021-10-08T08:09:41Z",
+                                "reason": "",
+                                "message": ""
+                            },
+                            "name": "worker",
+                            "node_degraded": {
+                                "status": false,
+                                "last_trans_time": "2021-10-08T08:09:41Z",
+                                "reason": "",
+                                "message": ""
+                            },
+                            "render_degraded": {
+                                "status": false,
+                                "last_trans_time": "2021-10-08T08:09:38Z",
+                                "reason": "",
+                                "message": ""
+                            },
+                            "updated": {
+                                "status": false,
+                                "last_trans_time": "2021-10-08T09:44:15Z",
+                                "reason": "",
+                                "message": ""
+                            },
+                            "updating": {
+                                "status": true,
+                                "last_trans_time": "2021-10-08T09:44:15Z",
+                                "reason": "",
+                                "message": "All nodes are updating to rendered-worker-3c096f9626f3d5efb9113e1056ab71fa"
+                            }
+                        }
+                    ],
+                    "type": "rule",
+                    "error_key": "MACHINE_POOL_NOT_OK"
+                },
+                "tags": [],
+                "links": {}
+            },
+            {
+                "rule_id": "operators_check|OPERATOR_ISSUE",
+                "component": "ccx_rules_ocp.internal.rules.operators_check.report",
+                "type": "rule",
+                "key": "OPERATOR_ISSUE",
+                "details": {
+                    "operators": [
+                        {
+                            "operator": {
+                                "available": {
+                                    "status": true,
+                                    "last_trans_time": "2021-10-08T08:16:58Z",
+                                    "reason": "",
+                                    "message": "Cluster has deployed 4.8.12"
+                                },
+                                "degraded": {
+                                    "status": false,
+                                    "last_trans_time": "2021-10-08T08:16:56Z",
+                                    "reason": "",
+                                    "message": ""
+                                },
+                                "name": "machine-config",
+                                "progressing": {
+                                    "status": true,
+                                    "last_trans_time": "2021-10-08T09:40:54Z",
+                                    "reason": "",
+                                    "message": "Working towards 4.8.13"
+                                },
+                                "upgradeable": {
+                                    "status": true,
+                                    "last_trans_time": "2021-10-08T08:14:53Z",
+                                    "reason": "AsExpected",
+                                    "message": ""
+                                },
+                                "version": "4.8.12"
+                            },
+                            "issues": [
+                                [
+                                    "Progressing",
+                                    {
+                                        "status": true,
+                                        "last_trans_time": "2021-10-08T09:40:54Z",
+                                        "reason": "",
+                                        "message": "Working towards 4.8.13"
+                                    }
+                                ]
+                            ]
+                        },
+                        {
+                            "operator": {
+                                "available": {
+                                    "status": true,
+                                    "last_trans_time": "2021-10-08T08:08:27Z",
+                                    "reason": "AsExpected",
+                                    "message": "All is well"
+                                },
+                                "degraded": {
+                                    "status": false,
+                                    "last_trans_time": "2021-10-08T08:08:24Z",
+                                    "reason": "AsExpected",
+                                    "message": "All is well"
+                                },
+                                "name": "service-ca",
+                                "progressing": {
+                                    "status": true,
+                                    "last_trans_time": "2021-10-08T09:44:19Z",
+                                    "reason": "_ManagedDeploymentsAvailable",
+                                    "message": "Progressing: \nProgressing: service-ca does not have available replicas"
+                                },
+                                "upgradeable": {
+                                    "status": true,
+                                    "last_trans_time": "2021-10-08T08:08:27Z",
+                                    "reason": "AsExpected",
+                                    "message": "All is well"
+                                },
+                                "version": "4.8.13"
+                            },
+                            "issues": [
+                                [
+                                    "Progressing",
+                                    {
+                                        "status": true,
+                                        "last_trans_time": "2021-10-08T09:44:19Z",
+                                        "reason": "_ManagedDeploymentsAvailable",
+                                        "message": "Progressing: \nProgressing: service-ca does not have available replicas"
+                                    }
+                                ]
+                            ]
+                        }
+                    ],
+                    "type": "rule",
+                    "error_key": "OPERATOR_ISSUE"
+                },
+                "tags": [],
+                "links": {}
+            },
+            {
+                "rule_id": "version_check|CLUSTER_VERSION_WORKING_TOWARDS",
+                "component": "ccx_rules_ocp.internal.rules.version_check.report",
+                "type": "rule",
+                "key": "CLUSTER_VERSION_WORKING_TOWARDS",
+                "details": {
+                    "current": "4.8.12",
+                    "desired": "4.8.13",
+                    "available": {
+                        "status": true,
+                        "last_trans_time": "2021-10-08T08:35:15Z",
+                        "reason": "",
+                        "message": "Done applying 4.8.12"
+                    },
+                    "progressing": {
+                        "status": true,
+                        "last_trans_time": "2021-10-08T08:52:20Z",
+                        "reason": "ClusterOperatorUpdating",
+                        "message": "Working towards 4.8.13: 570 of 678 done (84% complete), waiting on machine-config"
+                    },
+                    "failing": {
+                        "status": false,
+                        "last_trans_time": "2021-10-08T09:31:14Z",
+                        "reason": "",
+                        "message": ""
+                    },
+                    "history_count": 2,
+                    "phased_gates_checks": [
+                        "3.1"
+                    ],
+                    "type": "rule",
+                    "error_key": "CLUSTER_VERSION_WORKING_TOWARDS"
+                },
+                "tags": [
+                    "phased_gates"
+                ],
+                "links": {
+                    "kcs": [
+                        "https://access.redhat.com/solutions/3799561"
+                    ],
+                    "jira": [
+                        "https://issues.redhat.com/browse/INSIGHTOCP-455"
+                    ]
+                }
+            },
+            {
+                "rule_id": "empty_prometheus_db_volume|PROMETHEUS_DB_VOLUME_IS_EMPTY",
+                "component": "ccx_rules_ocp.external.rules.empty_prometheus_db_volume.report",
+                "type": "rule",
+                "key": "PROMETHEUS_DB_VOLUME_IS_EMPTY",
+                "details": {
+                    "ocp_branch": "4.8",
+                    "type": "rule",
+                    "error_key": "PROMETHEUS_DB_VOLUME_IS_EMPTY"
+                },
+                "tags": [],
+                "links": {
+                    "jira": [
+                        "https://issues.redhat.com/browse/INSIGHTOCP-51",
+                        "https://issues.redhat.com/browse/INSIGHTOCP-258",
+                        "https://issues.redhat.com/browse/INSIGHTOCP-439"
+                    ]
+                }
+            }
+        ],
+        "fingerprints": [],
+        "skips": [],
+        "info": [],
+        "pass": [],
+        "analysis_metadata": {
+            "start": "2021-12-13T15:51:02.895120+00:00",
+            "finish": "2021-12-13T15:51:03.187495+00:00",
+            "execution_context": "ccx_ocp_core.context.InsightsOperatorContext",
+            "plugin_sets": {
+                "insights-core": {
+                    "version": "insights-core-3.0.202-1",
+                    "commit": "placeholder"
+                },
+                "ccx_rules_ocp": {
+                    "version": "ccx_rules_ocp-2021.10.4-1",
+                    "commit": null
+                },
+                "ccx_ocp_core": {
+                    "version": "ccx_ocp_core-2021.10.7-1",
+                    "commit": null
+                }
+            }
+        }
+    }
+}

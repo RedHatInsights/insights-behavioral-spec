@@ -396,6 +396,8 @@ nav_order: 3
 * Check rule hits after Insights Results Aggregator consumes two messages when the second is newer then the first one
 * Check rule hits after Insights Results Aggregator consumes message and stores results into database for multiple clusters
 * Check rule hits after Insights Results Aggregator consumes message with no results
+* Check additions into the database when a message with empty fields is received
+* Check no additions into the database when an incomplete message is received
 
 ## [`insights-results-aggregator/database_access.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/database_access.feature)
 

@@ -460,6 +460,19 @@ def check_rule_hits(context, expected_count=1, cluster="11111111-2222-3333-4444-
         f"Expected rule hits count: {expected_count}, actual count: {actual_count}"
 
 
+@then("The returned report should not contain report for cluster {cluster}")
+def check_no_report_for_cluster(context, cluster):
+    """Check that cluster is not cinluded in the report returned from Aggregator."""
+    # retrieve reports
+    json = context.response.json()
+    assert json is not None
+
+    assert "reports" in json, "Reports attribute is missing"
+    reports = json["reports"]
+
+    assert cluster not in reports, "Cluster report found"
+
+
 @then("I should find following rule hits in returned cluster report for cluster {cluster}")
 def check_returned_cluster_report_list(context, cluster):
     """Check reported rules against table with expected rule results."""
