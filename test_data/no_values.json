@@ -1,0 +1,14 @@
+{
+    "OrgID": 123,
+    "AccountNumber": 456,
+    "ClusterName": "01234567-89ab-cdef-0123-456789abcdef",
+    "LastChecked": "2020-04-02T09:00:05.268294Z",
+    "Version": 2,
+    "Report": {
+        "system": {},
+        "reports": [],
+        "info": [],
+        "fingerprints": [],
+        "analysis_metadata": null
+    }
+}
