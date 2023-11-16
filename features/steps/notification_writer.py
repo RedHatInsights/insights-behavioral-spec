@@ -67,7 +67,9 @@ def start_ccx_notification_writer_with_flag(context, flag):
 
 def check_help_from_ccx_notification_writer(context):
     """Check if help is displayed by CCX Notification Writer."""
-    expected_output = """Clowder is not enabled, skipping init...
+    # please take into account that some lines can be (and are) added into output by
+    # app-common-go library. We can't control the output and it have changed already.
+    expected_output = """
 Usage of ccx-notification-writer:
   -authors
         show authors
@@ -112,10 +114,11 @@ Usage of ccx-notification-writer:
     assert isinstance(stdout, str), "wrong type of stdout object"
 
     # don't mess with silly tabs
-
     updated_output = stdout.replace("\t", " ").strip()
-    # check the output
-    assert updated_output == expected_output.strip(), f"{stdout} != {expected_output}"
+
+    # check if the output contains expected help message
+    # any optional garbage above and below help message is ignored
+    assert expected_output.strip() in updated_output == , f"{updated_output} != \n{expected_output}"
 
 
 def check_version_from_ccx_notification_writer(context):
