@@ -118,7 +118,7 @@ Usage of ccx-notification-writer:
 
     # check if the output contains expected help message
     # any optional garbage above and below help message is ignored
-    assert expected_output.strip() in updated_output == , f"{updated_output} != \n{expected_output}"
+    assert expected_output.strip() in updated_output, f"{updated_output} != \n{expected_output}"
 
 
 def check_version_from_ccx_notification_writer(context):
