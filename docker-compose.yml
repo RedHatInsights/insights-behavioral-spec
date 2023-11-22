@@ -9,7 +9,7 @@ services:
       - "sleep infinity"
   database:
     ports:
-      - 5432:5432
+      - 25432:5432
     image: postgres:13.9
     environment:
       - POSTGRES_USER=postgres
