@@ -27,7 +27,7 @@ COPY . $HOME
 
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
-RUN dnf install --nodocs -y python3.11 unzip make lsof git libpq-devel gcc
+RUN dnf install --nodocs -y python3.11 unzip make lsof git libpq-devel
 
 RUN python3.11  -m venv $VIRTUAL_ENV && source $VIRTUAL_ENV/bin/activate
 
