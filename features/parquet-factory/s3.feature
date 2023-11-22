@@ -5,7 +5,6 @@ Feature: Ability to handle the S3 connection correctly
     Background: Initial state is ready
       Given the system is in default state
         And Kafka broker is available
-        And Kafka topic "incoming_features_topic" is empty and has 2 partitions
         And Kafka topic "incoming_rules_topic" is empty and has 2 partitions
         And S3 endpoint is set
         And S3 port is set
@@ -19,14 +18,10 @@ Feature: Ability to handle the S3 connection correctly
      When I set the environment variable "PARQUET_FACTORY__S3__ENDPOINT" to "non-existent-url"
       And I fill the topics with messages of the previous hour
         | topic                   | partition | type             | cluster                              |
-        | incoming_features_topic | 0         | features message | 11111111-1111-1111-1111-111111111111 |
-        | incoming_features_topic | 1         | features message | 22222222-2222-2222-2222-222222222222 |
         | incoming_rules_topic    | 0         | rules message    | 33333333-3333-3333-3333-333333333333 |
         | incoming_rules_topic    | 1         | rules message    | 44444444-4444-4444-4444-444444444444 |
       And I fill the topics with messages of the current hour
         | topic                   | partition | type             | cluster                              |
-        | incoming_features_topic | 0         | features message | 55555555-5555-5555-5555-555555555555 |
-        | incoming_features_topic | 1         | features message | 66666666-6666-6666-6666-666666666666 |
         | incoming_rules_topic    | 0         | rules message    | 77777777-7777-7777-7777-777777777777 |
         | incoming_rules_topic    | 1         | rules message    | 88888888-8888-8888-8888-888888888888 |
       And I run Parquet Factory with a timeout of "20" seconds
@@ -35,12 +30,8 @@ Feature: Ability to handle the S3 connection correctly
      Then The S3 bucket is empty
       And The logs should contain
         | topic                   | partition | offset | message           |
-        | incoming_features_topic | 0         | 0      | message processed |
-        | incoming_features_topic | 1         | 0      | message processed |
         | incoming_rules_topic    | 0         | 0      | message processed |
         | incoming_rules_topic    | 1         | 0      | message processed |
-        | incoming_features_topic | 0         | 1      | FINISH            |
-        | incoming_features_topic | 1         | 1      | FINISH            |
         | incoming_rules_topic    | 0         | 1      | FINISH            |
         | incoming_rules_topic    | 1         | 1      | FINISH            |
       And The logs should contain "Unable to retrieve the indexes from S3 bucket"
@@ -48,12 +39,8 @@ Feature: Ability to handle the S3 connection correctly
      When I run Parquet Factory with a timeout of "20" seconds
      Then The logs should contain
         | topic                   | partition | offset | message           |
-        | incoming_features_topic | 0         | 0      | message processed |
-        | incoming_features_topic | 1         | 0      | message processed |
         | incoming_rules_topic    | 0         | 0      | message processed |
         | incoming_rules_topic    | 1         | 0      | message processed |
-        | incoming_features_topic | 0         | 1      | FINISH            |
-        | incoming_features_topic | 1         | 1      | FINISH            |
         | incoming_rules_topic    | 0         | 1      | FINISH            |
         | incoming_rules_topic    | 1         | 1      | FINISH            |
 
@@ -61,14 +48,10 @@ Feature: Ability to handle the S3 connection correctly
      When I set the environment variable "PARQUET_FACTORY__S3__BUCKET" to "non_existent_bucket"
       And I fill the topics with messages of the previous hour
         | topic                   | partition | type             | cluster                              |
-        | incoming_features_topic | 0         | features message | 11111111-1111-1111-1111-111111111111 |
-        | incoming_features_topic | 1         | features message | 22222222-2222-2222-2222-222222222222 |
         | incoming_rules_topic    | 0         | rules message    | 33333333-3333-3333-3333-333333333333 |
         | incoming_rules_topic    | 1         | rules message    | 44444444-4444-4444-4444-444444444444 |
       And I fill the topics with messages of the current hour
         | topic                   | partition | type             | cluster                              |
-        | incoming_features_topic | 0         | features message | 55555555-5555-5555-5555-555555555555 |
-        | incoming_features_topic | 1         | features message | 66666666-6666-6666-6666-666666666666 |
         | incoming_rules_topic    | 0         | rules message    | 77777777-7777-7777-7777-777777777777 |
         | incoming_rules_topic    | 1         | rules message    | 88888888-8888-8888-8888-888888888888 |
       And I run Parquet Factory with a timeout of "10" seconds
@@ -76,12 +59,8 @@ Feature: Ability to handle the S3 connection correctly
      Then The S3 bucket is empty
       And The logs should contain
         | topic                   | partition | offset | message           |
-        | incoming_features_topic | 0         | 0      | message processed |
-        | incoming_features_topic | 1         | 0      | message processed |
         | incoming_rules_topic    | 0         | 0      | message processed |
         | incoming_rules_topic    | 1         | 0      | message processed |
-        | incoming_features_topic | 0         | 1      | FINISH            |
-        | incoming_features_topic | 1         | 1      | FINISH            |
         | incoming_rules_topic    | 0         | 1      | FINISH            |
         | incoming_rules_topic    | 1         | 1      | FINISH            |
       And The logs should contain "NoSuchBucket"
@@ -90,12 +69,8 @@ Feature: Ability to handle the S3 connection correctly
      # FIXME: PF doesn't start from the beginning in case of the bucket not existing
      Then The logs should contain
         | topic                   | partition | offset | message           |
-        | incoming_features_topic | 0         | 0      | message processed |
-        | incoming_features_topic | 1         | 0      | message processed |
         | incoming_rules_topic    | 0         | 0      | message processed |
         | incoming_rules_topic    | 1         | 0      | message processed |
-        | incoming_features_topic | 0         | 1      | FINISH            |
-        | incoming_features_topic | 1         | 1      | FINISH            |
         | incoming_rules_topic    | 0         | 1      | FINISH            |
         | incoming_rules_topic    | 1         | 1      | FINISH            |
       And The logs should contain "NoSuchBucket"
@@ -104,14 +79,10 @@ Feature: Ability to handle the S3 connection correctly
      When I set the environment variable "PARQUET_FACTORY__S3__PREFIX" to "non_existing_folder"
       And I fill the topics with messages of the previous hour
         | topic                   | partition | type             | cluster                              |
-        | incoming_features_topic | 0         | features message | 11111111-1111-1111-1111-111111111111 |
-        | incoming_features_topic | 1         | features message | 22222222-2222-2222-2222-222222222222 |
         | incoming_rules_topic    | 0         | rules message    | 33333333-3333-3333-3333-333333333333 |
         | incoming_rules_topic    | 1         | rules message    | 44444444-4444-4444-4444-444444444444 |
       And I fill the topics with messages of the current hour
         | topic                   | partition | type             | cluster                              |
-        | incoming_features_topic | 0         | features message | 55555555-5555-5555-5555-555555555555 |
-        | incoming_features_topic | 1         | features message | 66666666-6666-6666-6666-666666666666 |
         | incoming_rules_topic    | 0         | rules message    | 77777777-7777-7777-7777-777777777777 |
         | incoming_rules_topic    | 1         | rules message    | 88888888-8888-8888-8888-888888888888 |
       And I run Parquet Factory with a timeout of "10" seconds
@@ -119,12 +90,8 @@ Feature: Ability to handle the S3 connection correctly
       And The S3 bucket is not empty
       And The logs should contain
         | topic                   | partition | offset | message           |
-        | incoming_features_topic | 0         | 0      | message processed |
-        | incoming_features_topic | 1         | 0      | message processed |
         | incoming_rules_topic    | 0         | 0      | message processed |
         | incoming_rules_topic    | 1         | 0      | message processed |
-        | incoming_features_topic | 0         | 1      | FINISH            |
-        | incoming_features_topic | 1         | 1      | FINISH            |
         | incoming_rules_topic    | 0         | 1      | FINISH            |
         | incoming_rules_topic    | 1         | 1      | FINISH            |
       And The logs should contain "File will be stored in non_existing_folder/"

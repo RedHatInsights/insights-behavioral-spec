@@ -1014,7 +1014,6 @@ nav_order: 3
 
 * Parquet Factory should fail if it cannot read from Kafka
 * Parquet Factory shouldn't finish if only messages from the previous hour arrived
-* Parquet Factory shouldn't finish if not all the topics and partitions are filled with current hour messages
 * Parquet Factory should finish if all the topics and partitions are filled with current hour messages
 * After aggregating messages from previous hour, the first messages from current hour has to be processed first
 * Parquet Factory should finish if the limit of kafka messages is exceeded even if no messages from current hour arrived
@@ -1030,10 +1029,6 @@ nav_order: 3
 
 ## [`parquet-factory/parquet_files.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/parquet-factory/parquet_files.feature)
 
-* Table generation: cluster_info
-* Table generation: available_updates
-* Table generation: conditional_update_conditions
-* Table generation: conditional_update_risks
 * Table generation: cluster_thanos_info
 
 ## [`parquet-factory/s3.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/parquet-factory/s3.feature)

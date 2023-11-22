@@ -5,7 +5,6 @@ Feature: Ability to process the Kafka messages correctly
     Background: Initial state is ready
       Given the system is in default state
         And Kafka broker is available
-        And Kafka topic "incoming_features_topic" is empty and has 2 partitions
         And Kafka topic "incoming_rules_topic" is empty and has 2 partitions
         And S3 endpoint is set
         And S3 port is set
@@ -16,8 +15,7 @@ Feature: Ability to process the Kafka messages correctly
         And The S3 bucket is empty
 
     Scenario: Parquet Factory should fail if it cannot read from Kafka
-       When I set the environment variable "PARQUET_FACTORY__KAFKA_FEATURES__ADDRESS" to "non-existent-url"
-        And I set the environment variable "PARQUET_FACTORY__KAFKA_RULES__ADDRESS" to "non-existent-url"
+       When I set the environment variable "PARQUET_FACTORY__KAFKA_RULES__ADDRESS" to "non-existent-url"
         And I run Parquet Factory with a timeout of "10" seconds
        Then Parquet Factory should have finish
         And The logs should contain "Unable to create the Kafka consumer"
@@ -26,78 +24,36 @@ Feature: Ability to process the Kafka messages correctly
     Scenario: Parquet Factory shouldn't finish if only messages from the previous hour arrived
        When I fill the topics with messages of the previous hour
       | topic                   | partition | type             | cluster                              |
-      | incoming_features_topic | 0         | features message | 11111111-1111-1111-1111-111111111111 |
-      | incoming_features_topic | 1         | features message | 22222222-2222-2222-2222-222222222222 |
       | incoming_rules_topic    | 0         | rules message    | 33333333-3333-3333-3333-333333333333 |
       | incoming_rules_topic    | 1         | rules message    | 44444444-4444-4444-4444-444444444444 |
-       When I set the environment variable "PARQUET_FACTORY__KAFKA_FEATURES__CONSUMER_TIMEOUT" to "20"
-        And I set the environment variable "PARQUET_FACTORY__KAFKA_RULES__CONSUMER_TIMEOUT" to "20"
+       When I set the environment variable "PARQUET_FACTORY__KAFKA_RULES__CONSUMER_TIMEOUT" to "20"
         And I run Parquet Factory with a timeout of "10" seconds
        Then Parquet Factory shouldn't have finish
         And The logs should contain
       | topic                   | partition | offset | message           |
-      | incoming_features_topic | 0         | 0      | message processed |
-      | incoming_features_topic | 1         | 0      | message processed |
       | incoming_rules_topic    | 0         | 0      | message processed |
       | incoming_rules_topic    | 1         | 0      | message processed |
         And The logs shouldn't contain
       | topic                   | partition | offset | message |
-      | incoming_features_topic | 0         | 1      | FINISH  |
-      | incoming_features_topic | 1         | 1      | FINISH  |
       | incoming_rules_topic    | 0         | 1      | FINISH  |
       | incoming_rules_topic    | 0         | 1      | FINISH  |
         And The S3 bucket is empty
 
-  Scenario: Parquet Factory shouldn't finish if not all the topics and partitions are filled with current hour messages
-     When I fill the topics with messages of the previous hour
-    | topic                   | partition | type             | cluster                              |
-    | incoming_features_topic | 0         | features message | 11111111-1111-1111-1111-111111111111 |
-    | incoming_features_topic | 1         | features message | 22222222-2222-2222-2222-222222222222 |
-    | incoming_rules_topic    | 0         | rules message    | 33333333-3333-3333-3333-333333333333 |
-    | incoming_rules_topic    | 1         | rules message    | 44444444-4444-4444-4444-444444444444 |
-      And I fill the topics with messages of the current hour
-    | topic                   | partition | type             | cluster                              |
-    | incoming_features_topic | 0         | features message | 55555555-5555-5555-5555-555555555555 |
-    # | incoming_features_topic | 1         | features message | 66666666-6666-6666-6666-666666666666 |
-    | incoming_rules_topic    | 0         | rules message    | 77777777-7777-7777-7777-777777777777 |
-    | incoming_rules_topic    | 1         | rules message    | 88888888-8888-8888-8888-888888888888 |
-     When I run Parquet Factory with a timeout of "10" seconds
-     Then Parquet Factory shouldn't have finish
-      And The logs should contain
-    | topic                   | partition | offset | message           |
-    | incoming_features_topic | 0         | 0      | message processed |
-    | incoming_features_topic | 1         | 0      | message processed |
-    | incoming_rules_topic    | 0         | 0      | message processed |
-    | incoming_rules_topic    | 1         | 0      | message processed |
-    | incoming_features_topic | 0         | 1      | FINISH            |
-    # | incoming_features_topic | 1         | 1      | FINISH            |
-    | incoming_rules_topic    | 0         | 1      | FINISH            |
-    | incoming_rules_topic    | 0         | 1      | FINISH            |
-      And The S3 bucket is empty
-
   Scenario: Parquet Factory should finish if all the topics and partitions are filled with current hour messages
      When I fill the topics with messages of the previous hour
     | topic                   | partition | type             | cluster                              |
-    | incoming_features_topic | 0         | features message | 11111111-1111-1111-1111-111111111111 |
-    | incoming_features_topic | 1         | features message | 22222222-2222-2222-2222-222222222222 |
     | incoming_rules_topic    | 0         | rules message    | 33333333-3333-3333-3333-333333333333 |
     | incoming_rules_topic    | 1         | rules message    | 44444444-4444-4444-4444-444444444444 |
       And I fill the topics with messages of the current hour
     | topic                   | partition | type             | cluster                              |
-    | incoming_features_topic | 0         | features message | 55555555-5555-5555-5555-555555555555 |
-    | incoming_features_topic | 1         | features message | 66666666-6666-6666-6666-666666666666 |
     | incoming_rules_topic    | 0         | rules message    | 77777777-7777-7777-7777-777777777777 |
     | incoming_rules_topic    | 1         | rules message    | 88888888-8888-8888-8888-888888888888 |
      When I run Parquet Factory with a timeout of "10" seconds
      Then Parquet Factory should have finish
       And The logs should contain
     | topic                   | partition | offset | message           |
-    | incoming_features_topic | 0         | 0      | message processed |
-    | incoming_features_topic | 1         | 0      | message processed |
     | incoming_rules_topic    | 0         | 0      | message processed |
     | incoming_rules_topic    | 1         | 0      | message processed |
-    | incoming_features_topic | 0         | 1      | FINISH            |
-    | incoming_features_topic | 1         | 1      | FINISH            |
     | incoming_rules_topic    | 0         | 1      | FINISH            |
     | incoming_rules_topic    | 0         | 1      | FINISH            |
       And The S3 bucket is not empty
@@ -105,26 +61,18 @@ Feature: Ability to process the Kafka messages correctly
   Scenario: After aggregating messages from previous hour, the first messages from current hour has to be processed first
      When I fill the topics with messages of the previous hour
     | topic                   | partition | type             | cluster                              |
-    | incoming_features_topic | 0         | features message | 11111111-1111-1111-1111-111111111111 |
-    | incoming_features_topic | 1         | features message | 22222222-2222-2222-2222-222222222222 |
     | incoming_rules_topic    | 0         | rules message    | 33333333-3333-3333-3333-333333333333 |
     | incoming_rules_topic    | 1         | rules message    | 44444444-4444-4444-4444-444444444444 |
       And I fill the topics with messages of the current hour
     | topic                   | partition | type             | cluster                              |
-    | incoming_features_topic | 0         | features message | 55555555-5555-5555-5555-555555555555 |
-    | incoming_features_topic | 1         | features message | 66666666-6666-6666-6666-666666666666 |
     | incoming_rules_topic    | 0         | rules message    | 77777777-7777-7777-7777-777777777777 |
     | incoming_rules_topic    | 1         | rules message    | 88888888-8888-8888-8888-888888888888 |
      When I run Parquet Factory with a timeout of "10" seconds
      Then Parquet Factory should have finish
       And The logs should contain
     | topic                   | partition | offset | message           |
-    | incoming_features_topic | 0         | 0      | message processed |
-    | incoming_features_topic | 1         | 0      | message processed |
     | incoming_rules_topic    | 0         | 0      | message processed |
     | incoming_rules_topic    | 1         | 0      | message processed |
-    | incoming_features_topic | 0         | 1      | FINISH            |
-    | incoming_features_topic | 1         | 1      | FINISH            |
     | incoming_rules_topic    | 0         | 1      | FINISH            |
     | incoming_rules_topic    | 0         | 1      | FINISH            |
      Then The S3 bucket is not empty
@@ -132,28 +80,19 @@ Feature: Ability to process the Kafka messages correctly
      Then Parquet Factory should have finish
       And The logs should contain
     | topic                   | partition | offset | message |
-    | incoming_features_topic | 0         | 1      | FINISH  |
-    | incoming_features_topic | 1         | 1      | FINISH  |
     | incoming_rules_topic    | 0         | 1      | FINISH  |
     | incoming_rules_topic    | 1         | 1      | FINISH  |
 
   Scenario: Parquet Factory should finish if the limit of kafka messages is exceeded even if no messages from current hour arrived
      When I fill the topics with messages of the previous hour
     | topic                   | partition | type             | cluster                              |
-    | incoming_features_topic | 0         | features message | 11111111-1111-1111-1111-111111111111 |
-    | incoming_features_topic | 1         | features message | 22222222-2222-2222-2222-222222222222 |
     | incoming_rules_topic    | 0         | rules message    | 33333333-3333-3333-3333-333333333333 |
     | incoming_rules_topic    | 1         | rules message    | 44444444-4444-4444-4444-444444444444 |
-    | incoming_features_topic | 0         | features message | 55555555-5555-5555-5555-555555555555 |
-    | incoming_features_topic | 1         | features message | 66666666-6666-6666-6666-666666666666 |
     | incoming_rules_topic    | 0         | rules message    | 77777777-7777-7777-7777-777777777777 |
     | incoming_rules_topic    | 1         | rules message    | 88888888-8888-8888-8888-888888888888 |
-    | incoming_features_topic | 0         | features message | 99999999-9999-9999-9999-999999999999 |
-    | incoming_features_topic | 1         | features message | aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa |
     | incoming_rules_topic    | 0         | rules message    | bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb |
     | incoming_rules_topic    | 1         | rules message    | cccccccc-cccc-cccc-cccc-cccccccccccc |
       And I set the environment variable "PARQUET_FACTORY__KAFKA_RULES__MAX_CONSUMED_RECORDS" to "1"
-      And I set the environment variable "PARQUET_FACTORY__KAFKA_FEATURES__MAX_CONSUMED_RECORDS" to "1"
       And I run Parquet Factory with a timeout of "10" seconds
      Then Parquet Factory should have finish
      Then The S3 bucket is not empty
@@ -161,16 +100,12 @@ Feature: Ability to process the Kafka messages correctly
   Scenario: Parquet Factory should not commit the messages from current hour if there are no prior messages
      When I fill the topics with messages of the current hour
     | topic                   | partition | type             | cluster                              |
-    | incoming_features_topic | 0         | features message | 11111111-1111-1111-1111-111111111111 |
-    | incoming_features_topic | 1         | features message | 22222222-2222-2222-2222-222222222222 |
     | incoming_rules_topic    | 0         | rules message    | 33333333-3333-3333-3333-333333333333 |
     | incoming_rules_topic    | 1         | rules message    | 44444444-4444-4444-4444-444444444444 |
      When I run Parquet Factory with a timeout of "10" seconds
      Then Parquet Factory should have finish
       And The logs should contain
     | topic                   | partition | offset | message |
-    | incoming_features_topic | 0         | 0      | FINISH  |
-    | incoming_features_topic | 1         | 0      | FINISH  |
     | incoming_rules_topic    | 0         | 0      | FINISH  |
     | incoming_rules_topic    | 0         | 0      | FINISH  |
      Then The S3 bucket is empty
@@ -179,8 +114,6 @@ Feature: Ability to process the Kafka messages correctly
      Then Parquet Factory should have finish
       And The logs should contain
     | topic                   | partition | offset | message |
-    | incoming_features_topic | 0         | 0      | FINISH  |
-    | incoming_features_topic | 1         | 0      | FINISH  |
     | incoming_rules_topic    | 0         | 0      | FINISH  |
     | incoming_rules_topic    | 0         | 0      | FINISH  |
     Then The S3 bucket is empty
@@ -188,8 +121,6 @@ Feature: Ability to process the Kafka messages correctly
 Scenario: Parquet Factory shouldn't send duplicate rows
      When I fill the topics with messages of the previous hour
     | topic                   | partition | type             | cluster                              |
-    | incoming_features_topic | 0         | features message | 11111111-1111-1111-1111-111111111111 |
-    | incoming_features_topic | 1         | features message | 11111111-1111-1111-1111-111111111111 |
     | incoming_rules_topic    | 0         | rules message    | 33333333-3333-3333-3333-333333333333 |
     | incoming_rules_topic    | 1         | rules message    | 44444444-4444-4444-4444-444444444444 |
      When I run Parquet Factory with a timeout of "10" seconds
