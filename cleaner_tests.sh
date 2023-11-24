@@ -29,6 +29,7 @@ function set_env_vars(){
 	   INSIGHTS_RESULTS_CLEANER__STORAGE__PG_PASSWORD=$DB_PASS \
 	   INSIGHTS_RESULTS_CLEANER__STORAGE__DB_DRIVER=postgres \
 	   INSIGHTS_RESULTS_CLEANER__STORAGE__PG_PARAMS="sslmode=disable"
+	   INSIGHTS_RESULTS_CLEANER__STORAGE__SCHEMA="ocp_recommendations"
 }
 
 function prepare_code_coverage() {
