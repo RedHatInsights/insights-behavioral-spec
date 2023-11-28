@@ -36,6 +36,17 @@ pg_params = "sslmode=disable"
 log_sql_queries = true
 type = "sql"
 
+[ocp_recommendations_storage]
+db_driver = "postgres"
+pg_username = "wrong-one"
+pg_password = "wrong-one"
+pg_host = "wrong-one"
+pg_port = 5432
+pg_db_name = "wrong-one"
+pg_params = "sslmode=disable"
+log_sql_queries = true
+type = "sql"
+
 [content]
 path = "/rules-content"
 

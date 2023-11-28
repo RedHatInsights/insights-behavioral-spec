@@ -36,6 +36,17 @@ pg_params = "sslmode=disable"
 log_sql_queries = true
 type = "sql"
 
+[ocp_recommendations_storage]
+db_driver = "postgres"
+pg_username = "postgres"
+pg_password = "postgres"
+pg_host = "database"
+pg_port = 5432
+pg_db_name = "test"
+pg_params = "sslmode=disable"
+log_sql_queries = true
+type = "sql"
+
 [redis]
 database = 0
 endpoint = "redis:6379"
