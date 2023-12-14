@@ -71,9 +71,16 @@ telling you the field that you are missing.
 
 However, I don't consider it necessary for this use case.
 
-You can also query using:
-- GET: return the logs sent to this service
+You can also query this endpoint using:
 - DELETE: delete the logs stored given an ID
+
+For getting a log from the service log API, you need to use the
+'/api/service_logs/v1/clusters/cluster_logs' endpoint with the 'cluster_id'
+and/or 'cluster_uuid' query parameters:
+
+curl -H "Authorization: Bearer $ACCESS_TOKEN" \
+localhost:8000/api/service_logs/v1/clusters/cluster_logs?cluster_id=<id>&cluster_uuid=<uuid>
+
 """
 
 import random
@@ -191,18 +198,35 @@ def publish_log(log: Log, request: Request):
     return JSONResponse(log.dict(exclude_none=True), status_code=201)
 
 
-@app.get("/api/service_logs/v1/cluster_logs")
-def get_logs(request: Request):
-    """Retrieve stored logs and return them in JSON format."""
+@app.get("/api/service_logs/v1/clusters/cluster_logs")
+def get_logs(request: Request, cluster_id: str = None, cluster_uuid: str = None):
+    """Return stored logs for given cluster_id and/or cluster_uuid in JSON format."""
     if request.headers.get("Authorization", None) is None:
         return noAuthResponse
+
+    if cluster_id is None and cluster_uuid is None:
+        return JSONResponse(
+            {
+                "kind": "ClusterLogList",
+                "page": 1,
+                "size": 0,
+                "total": 0,
+                "items": [],
+            },
+            status_code=200,
+        )
+
+    res = []
+    for log in log_storage:
+        if log.cluster_id == cluster_id or log.cluster_uuid == cluster_uuid:
+            res.append(log)
     return JSONResponse(
         {
             "kind": "ClusterLogList",
             "page": 1,
-            "size": len(log_storage),
-            "total": len(log_storage),
-            "items": [log.dict(exclude_none=True) for log in log_storage],
+            "size": len(res),
+            "total": len(res),
+            "items": [log.dict(exclude_none=True) for log in res],
         },
         status_code=200,
     )
