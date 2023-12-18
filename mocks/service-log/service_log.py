@@ -213,7 +213,7 @@ def get_logs(request: Request, cluster_id: str = None, cluster_uuid: str = None)
                 "total": 0,
                 "items": [],
             },
-            status_code=200,
+            status_code=400,
         )
 
     res = []
