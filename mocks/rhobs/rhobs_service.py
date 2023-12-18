@@ -148,7 +148,7 @@ class Query(BaseModel):
     query: str
 
 
-UUID_REGEX = '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+UUID_REGEX = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
 
 
 @app.get("/api/metrics/v1/telemeter/api/v1/query")

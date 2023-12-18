@@ -30,7 +30,7 @@ def check(output: List):
         if '"Version:' in line:
             version = line.split("Version: ")[-1][:-2]
             # we need to distinguish between semantic version and commit SHA
-            if version.startswith('v'):
+            if version.startswith("v"):
                 try:
                     semver.Version.parse(version[1:])
                     print(f"{version} is a valid semantic version.")

@@ -147,7 +147,7 @@ def check_logs_table(context):
         assert ok, \
             f'topic {row["topic"]}, partition {row["partition"]}, ' + \
             f'offset {row["offset"]}, message {row["message"]}, ' + \
-            'not found'
+            "not found"
 
 
 @then('The logs should contain "{log_message}"')
@@ -174,7 +174,7 @@ def check_no_logs_table(context):
         assert not ok, \
             f'topic {row["topic"]}, partition {row["partition"]}, ' + \
             f'offset {row["offset"]}, message {row["message"]}, ' + \
-            'found'
+            "found"
 
 
 def check_logs(logs: str, topic: str, partition: int,

@@ -36,24 +36,24 @@ def test_missing_version():
 
 def test_correct_version():
     """Check how version check function handled input with proper version."""
-    check(["this", "is", "correct", "version", "\"Version: v1.2.3\"}"])
+    check(["this", "is", "correct", "version", '"Version: v1.2.3"}'])
 
 
 def test_correct_sha():
     """Check how version check function handled input with proper commit SHA."""
     check(["this", "is", "correct", "version",
-           "\"Version: abc00defabc00defabc00defabc00defabc00def\"}"])
+           '"Version: abc00defabc00defabc00defabc00defabc00def"}'])
 
 
 improper_versions = (
-        "\"Version: v1\"}",
-        "\"Version: v1.2\"}",
-        "\"Version: v1.2.A\"}",
-        "\"Version: v1.A.3\"}",
-        "\"Version: vA.2.3\"}",
-        "\"Version: v1.2.3}",
-        "\"Version: v1.2.3",
-        "\"Version:  v1.2.3\"}",
+        '"Version: v1"}',
+        '"Version: v1.2"}',
+        '"Version: v1.2.A"}',
+        '"Version: v1.A.3"}',
+        '"Version: vA.2.3"}',
+        '"Version: v1.2.3}',
+        '"Version: v1.2.3',
+        '"Version:  v1.2.3"}',
 )
 
 
@@ -65,12 +65,12 @@ def test_incorrect_version(version):
 
 
 improper_shas = (
-           "\"Version  abc00defabc00defabc00defabc00defabc00def\"}",
-           "\"Version:  abc00defabc00defabc00defabc00defabc00def\"}",
-           "\"Version: abc00defabc00defabc00defabc00defabc00de\"}",
-           "\"Version: abc00defabc00defabc00defabc00defabc00def}",
-           "\"Version: abc00defabc00defabc00defabc00defabc00def\"",
-           "\"Version: abc00defabc00defabc00defabc00defabc00def",
+           '"Version  abc00defabc00defabc00defabc00defabc00def"}',
+           '"Version:  abc00defabc00defabc00defabc00defabc00def"}',
+           '"Version: abc00defabc00defabc00defabc00defabc00de"}',
+           '"Version: abc00defabc00defabc00defabc00defabc00def}',
+           '"Version: abc00defabc00defabc00defabc00defabc00def"',
+           '"Version: abc00defabc00defabc00defabc00defabc00def',
 )
 
 

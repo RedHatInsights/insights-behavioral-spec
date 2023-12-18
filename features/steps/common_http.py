@@ -210,7 +210,7 @@ def access_rest_api_endpoint_post(context, endpoint):
     context.response = requests.post(url, json=data)
 
 
-@then("The status message of the response is \"{expected_message}\"")
+@then('The status message of the response is "{expected_message}"')
 def check_status_of_response(context, expected_message):
     """Check the actual message/value in status attribute."""
     assert context.response is not None, "Send request to service first"

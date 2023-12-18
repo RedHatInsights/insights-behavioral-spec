@@ -83,7 +83,7 @@ def extract_labels(metric: str) -> (str, Dict):
         out = {}
         for pair_of_key_var in labels.split(","):
             pair_of_key_var = pair_of_key_var.replace(
-                '"', '')  # Remove additional captions
+                '"', "")  # Remove additional captions
             key, val = pair_of_key_var.split("=")
             out[key] = val
         return metric_name, out
