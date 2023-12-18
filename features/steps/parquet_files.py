@@ -18,9 +18,9 @@ def check_parquet_table_is(context, object_name):
     got_df = got_df.astype(str)  # in order to have same format as in want_df
 
     want_df = want_df.sort_values(
-        by=['archive_path'], ascending=False).reset_index(drop=True)
+        by=["archive_path"], ascending=False).reset_index(drop=True)
     got_df = got_df.sort_values(
-        by=['archive_path'], ascending=False).reset_index(drop=True)
+        by=["archive_path"], ascending=False).reset_index(drop=True)
 
     assert want_df.equals(got_df), f"Got:\n{got_df}\nwant:\n{want_df}"
 

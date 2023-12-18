@@ -422,7 +422,7 @@ def send_rules_results_to_kafka(context, filename, topic):
     full_path = f"{DATA_DIRECTORY}/{filename}"
     with open(full_path, "r") as fin:
         payload = fin.read().encode("utf-8")
-        if hasattr(context, 'kafka_hostname') and hasattr(context, 'kafka_port'):
+        if hasattr(context, "kafka_hostname") and hasattr(context, "kafka_port"):
             kafka_util.send_event(f"{context.kafka_hostname}:{context.kafka_port}", topic, payload)
         else:
             # try localhost or raise exception
