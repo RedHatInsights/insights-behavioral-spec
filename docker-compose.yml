@@ -126,28 +126,6 @@ services:
         -f /tmp/setup-scripts/ocm_service_log.sql
         "
 
-  service-log:
-    depends_on:
-      init-service-log-db:
-        condition: service_completed_successfully
-    profiles:
-      - no-mock
-    image: quay.io/ccxdev/ocm-service-log
-    ports:
-      - 8000:8000 # API server
-      - 8083:8083 # Healthcheck
-      - 8080:8080 # Metrics
-    entrypoint:
-      - /bin/sh
-      - -c
-      - "echo database > secrets/db.host
-        ./ocm-service-log serve \
-        --api-server-bindaddress 'localhost:8000' \
-        --health-check-server-bindaddress 'localhost:8083' \
-        --metrics-server-bindaddress 'localhost:8080' \
-        --enable-ocm-mock
-        "
-
   mock-oauth2-server:
     profiles:
       - test-upgrades-data-eng
