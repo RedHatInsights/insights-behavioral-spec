@@ -14,10 +14,10 @@
 
 """Implementation of logic behind usage of S3 and Kafka in SHA extractor tests."""
 
+import json
 import logging
 import os
 
-import json
 from behave import when
 from src import kafka_util
 

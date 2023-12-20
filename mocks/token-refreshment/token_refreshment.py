@@ -15,8 +15,8 @@
 """Mock service that can be used to simulate access token gathering."""
 
 from fastapi import FastAPI, Form
-from starlette.responses import JSONResponse
 from pydantic import BaseModel
+from starlette.responses import JSONResponse
 
 app = FastAPI()
 

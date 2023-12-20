@@ -9,9 +9,7 @@ import time
 from threading import Timer
 
 from behave import then, when
-
 from src import kafka_util
-
 
 # parquet-factory binary file name
 PARQUET_FACTORY_BINARY = "parquet-factory"

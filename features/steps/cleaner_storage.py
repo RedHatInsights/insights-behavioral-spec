@@ -13,10 +13,10 @@
 # limitations under the License.
 
 """Database-related operations performed by BDD tests."""
-from psycopg2.errors import UndefinedTable
-from src.sql import construct_insert_statement
 from behave import given, then, when
 from common_aggregator import DB_TABLES
+from psycopg2.errors import UndefinedTable
+from src.sql import construct_insert_statement
 
 
 @given("the database is empty")

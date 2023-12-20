@@ -17,6 +17,7 @@
 """Unit tests for functions defined in environment.py source file."""
 
 import os
+
 from environment import before_all, setup_default_kafka_context, setup_default_S3_context
 
 

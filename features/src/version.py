@@ -14,10 +14,10 @@
 
 """Version checks."""
 
+import re
 from typing import List
 
 import semver
-import re
 
 
 def check(output: List):

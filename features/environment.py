@@ -23,8 +23,9 @@ Currently four events have been registered:
 
 try:
     import os
-    import psycopg2
     from subprocess import TimeoutExpired
+
+    import psycopg2
 except ImportError as e:
     print("Warning: unable to import module:", e)
 

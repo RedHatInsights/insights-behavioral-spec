@@ -85,15 +85,13 @@ localhost:8000/api/service_logs/v1/clusters/cluster_logs?cluster_id=<id>&cluster
 
 import random
 import string
-
 from datetime import datetime
 from typing import Optional
 
 from fastapi import FastAPI, Request, Response, status
 from fastapi.exceptions import RequestValidationError
-from starlette.responses import JSONResponse
 from pydantic import BaseModel
-
+from starlette.responses import JSONResponse
 
 KSUID_LENGTH = 40
 ID_LENGTH = 27

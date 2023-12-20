@@ -15,8 +15,7 @@
 """Insights results aggregator database-related operations performed by BDD tests."""
 
 from behave import given, then, when
-from environment import prepare_db, CLEANUP_FILES, DB_INIT_FILES
-
+from environment import CLEANUP_FILES, DB_INIT_FILES, prepare_db
 
 MIGRATION_INFO_TABLE = "migration_info"
 

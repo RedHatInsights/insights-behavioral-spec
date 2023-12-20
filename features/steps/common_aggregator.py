@@ -16,7 +16,6 @@
 
 from behave import when
 
-
 CREATE_TABLE_ADVISOR_RATINGS = """
 CREATE TABLE advisor_ratings (
                                 user_id         VARCHAR NOT NULL,

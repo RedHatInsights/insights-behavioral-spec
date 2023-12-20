@@ -14,17 +14,16 @@
 
 """Implementation of test steps that run Insights Results Aggregator and check its output."""
 
-import requests
-import subprocess
 import os
+import subprocess
 import time
 from subprocess import TimeoutExpired
 
+import requests
+from behave import given, then, when
 from src import kafka_util, version
-
-from behave import given, when, then
-from src.process_output import process_generated_output, filter_coverage_message
-from src.utils import get_array_from_json, construct_rh_token, find_block
+from src.process_output import filter_coverage_message, process_generated_output
+from src.utils import construct_rh_token, find_block, get_array_from_json
 
 # Insights Results Aggregator binary file name
 INSIGHTS_RESULTS_AGGREGATOR_BINARY = "insights-results-aggregator"

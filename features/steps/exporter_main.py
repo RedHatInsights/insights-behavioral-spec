@@ -15,8 +15,9 @@
 """Implementation of test steps that run Insights Aggregator Exporter and check its output."""
 
 import subprocess
+
+from behave import then, when
 from src.process_output import process_generated_output
-from behave import when, then
 
 
 @when("I run the exporter with the {flag} command line flag")

@@ -15,12 +15,11 @@
 """Common test steps that use or check Apache Kafka broker."""
 
 
-import subprocess
 import json
-
-from src.kafka_util import create_topic, delete_topic
+import subprocess
 
 from behave import given, then, when
+from src.kafka_util import create_topic, delete_topic
 
 
 @when("I retrieve metadata from Kafka broker")

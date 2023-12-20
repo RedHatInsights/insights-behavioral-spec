@@ -17,9 +17,7 @@
 from urllib import parse
 
 import requests
-
 from behave import given, then, when
-
 from common_http import check_service_started
 
 CONTENT_SERVICE_OPENAPI_ENDPOINT = "/api/v1/openapi.json"

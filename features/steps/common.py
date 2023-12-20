@@ -14,10 +14,9 @@
 
 """Implementation of common test steps."""
 
-from shutil import which
 from datetime import datetime
+from shutil import which
 from time import sleep
-
 
 from behave import given, then, when
 

@@ -18,7 +18,6 @@
 """Unit tests for functions defined in asserts.py source file."""
 
 import pytest
-
 from csv_checks import check_table_content
 
 

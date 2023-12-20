@@ -16,10 +16,10 @@
 
 
 import subprocess
-from behave import given, when, then, step
 from datetime import datetime, timedelta
-from psycopg2.errors import UndefinedTable
 
+from behave import given, step, then, when
+from psycopg2.errors import UndefinedTable
 
 MIGRATION_INFO_TABLE = "migration_info"
 

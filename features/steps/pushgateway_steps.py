@@ -3,7 +3,6 @@
 from pprint import pformat
 
 from behave import given, then, when
-
 from pushgateway import (
     assert_metric_with_label,
     compare,

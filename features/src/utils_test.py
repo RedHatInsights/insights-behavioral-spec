@@ -17,10 +17,15 @@
 
 """Unit tests for functions defined in utils.py source file."""
 
-import pytest
 import base64
-from utils import retrieve_set_of_clusters_from_table, construct_rh_token, get_array_from_json
-from utils import find_block
+
+import pytest
+from utils import (
+    construct_rh_token,
+    find_block,
+    get_array_from_json,
+    retrieve_set_of_clusters_from_table,
+)
 
 inputs_and_outputs = (
         # input                        expected output            comment
