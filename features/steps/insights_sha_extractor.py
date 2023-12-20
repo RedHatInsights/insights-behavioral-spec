@@ -59,11 +59,10 @@ def check_topic_created(context, topic_var):
         for k, v in conf_branch.items():
             if isinstance(v, dict):
                 visit.append(v)
-            else:
-                if k == topic_var:
-                    kafka_util.delete_topic(context, v)
-                    kafka_util.create_topic(context.hostname, v)
-                    setattr(context, k, v)
+            elif k == topic_var:
+                kafka_util.delete_topic(context, v)
+                kafka_util.create_topic(context.hostname, v)
+                setattr(context, k, v)
 
 
 @when("SHA extractor service is started")
