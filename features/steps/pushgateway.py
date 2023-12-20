@@ -10,7 +10,7 @@ def reset_metrics(pushgateway_url: str) -> None:
     """Delete all metrics in {PUSHGATEWAY_URL}."""
     url = f"http://{pushgateway_url}/api/v1/admin/wipe"
     resp = requests.put(url)
-    assert resp.status_code == 202, \
+    assert resp.status_code == requests.codes.accepted, \
         f"Got error code {resp.status_code} while deleting the metrics " + \
         f"from {url}"
     metrics = list(get_metrics(pushgateway_url).keys())
@@ -20,7 +20,7 @@ def reset_metrics(pushgateway_url: str) -> None:
 def get_metrics(pushgateway_url) -> str | Dict[str, List]:
     """Download the metrics from {pushgateway_url} and store as Dict."""
     ans = requests.get(f"http://{pushgateway_url}/metrics")
-    if ans.status_code != 200:
+    if ans.status_code != requests.codes.ok:
         return ""
     else:
         return parse_metrics(ans.text)

@@ -56,7 +56,7 @@ def check_service_log_availability(context, host, port):
     check_service_started(context, host, port)
     url = create_url(host, port, SERVICE_LOG_CLUSTER_LOGS_ENDPOINT)
     response = requests.get(url, headers={"Authorization": "TEST_TOKEN"})
-    assert response.status_code == 200, "service log is not up"
+    assert response.status_code == requests.codes.ok, "service log is not up"
 
 
 @given("token refreshment server is available on {host}:{port:d}")
@@ -70,7 +70,7 @@ def check_token_refreshment_availability(context, host, port):
         "scope": "openid",
     }
     response = requests.post(url, data=body)
-    assert response.status_code == 200, "token refreshment server is not up"
+    assert response.status_code == requests.codes.ok, "token refreshment server is not up"
 
 
 @when("I retrieve metrics from the gateway on {host}:{port:d}")
