@@ -120,7 +120,7 @@ def request_list_of_organizations(context):
     assert context.response is not None
 
     # HTTP status code of response should be 200 OK
-    assert context.response.status_code == 200, context.response.status_code
+    assert context.response.status_code == requests.codes.ok, context.response.status_code
 
 
 @then("I should retrieve following list of organizations")
@@ -177,7 +177,7 @@ def request_clusters_hitting_rule(context, rule_name, error_key):
     assert context.response is not None
 
     # HTTP status code of response should be 200 OK
-    assert context.response.status_code == 200, context.response.status_code
+    assert context.response.status_code == requests.codes.ok, context.response.status_code
 
 
 @when("I request list of groups")
@@ -190,7 +190,7 @@ def request_list_of_groups(context):
     assert context.response is not None
 
     # HTTP status code of response should be 200 OK
-    assert context.response.status_code == 200, context.response.status_code
+    assert context.response.status_code == requests.codes.ok, context.response.status_code
 
 
 @then("I should retrieve following list of groups")
@@ -239,7 +239,7 @@ def request_report_for_cluster(context, cluster):
     assert context.response is not None
 
     # HTTP status code of response should be 200 OK
-    assert context.response.status_code == 200, context.response.status_code
+    assert context.response.status_code == requests.codes.ok, context.response.status_code
 
 
 @when("I request report for cluster {cluster:S} from organization {organization:d}")
@@ -384,7 +384,7 @@ def request_results_for_list_of_clusters(context, organization=None, account=Non
     assert context.response is not None
 
     # HTTP status code of response should be 200 OK
-    assert context.response.status_code == 200, context.response.status_code
+    assert context.response.status_code == requests.codes.ok, context.response.status_code
 
 
 @then("I should see empty list of reports")
@@ -468,7 +468,7 @@ def request_content_and_list_of_groups(context):
     assert context.response is not None
 
     # HTTP status code of response should be 200 OK
-    assert context.response.status_code == 200, context.response.status_code
+    assert context.response.status_code == requests.codes.ok, context.response.status_code
 
 
 @then("I should retrieve empty content")
@@ -494,7 +494,7 @@ def request_list_of_all_acked_rules(context):
     assert context.response is not None
 
     # HTTP status code of response should be 200 OK
-    assert context.response.status_code == 200, context.response.status_code
+    assert context.response.status_code == requests.codes.ok, context.response.status_code
 
 
 @then("I should retrieve list of {length:n} acked rules")
@@ -613,7 +613,7 @@ def change_justification_text(context, rule_id, error_key, justification):
     assert context.response is not None
 
     # HTTP status code of response should be 200 OK
-    assert context.response.status_code == 200, context.response.status_code
+    assert context.response.status_code == requests.codes.ok, context.response.status_code
 
 
 @when('I delete ack for rule with ID "{rule_id}" and error key "{error_key}"')
