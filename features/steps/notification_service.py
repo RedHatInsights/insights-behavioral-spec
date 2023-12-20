@@ -472,7 +472,7 @@ def get_service_log_event_by_cluster(cluster_id):
         headers={"Authorization": "TEST_TOKEN"},
     )
     assert (
-        response.status_code == 200
+        response.status_code == response.codes.ok
     ), f'unexpected status code: got "{response.status_code}" want "200"'
     return response.json()["items"]
 
@@ -485,7 +485,7 @@ def get_events_service_log():
         headers={"Authorization": "TEST_TOKEN"},
     )
     assert (
-        response.status_code == 200
+        response.status_code == response.codes.ok
     ), f'unexpected status code: got "{response.status_code}" want "200"'
     return response.json()["items"]
 
@@ -531,7 +531,7 @@ def remove_service_log_logs(context):
             headers={"Authorization": "TEST_TOKEN"},
         )
         assert (
-            response.status_code == 204
+            response.status_code == requests.codes.no_content
         ), f'unexpected status code: got "{response.status_code}" want "204"'
 
 
