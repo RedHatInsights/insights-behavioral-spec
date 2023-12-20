@@ -62,7 +62,7 @@ DB_INIT_FILES = {
 def before_all(context):
     """Run before and after the whole shooting match."""
     context.database_host = os.getenv("DB_HOST", "localhost")
-    context.database_port = os.getenv("DB_PORT", 5432)
+    context.database_port = int(os.getenv("DB_PORT", 5432))
     context.database_name = os.getenv("DB_NAME", "test")
     context.database_user = os.getenv("DB_USER", "postgres")
     context.database_password = os.getenv("DB_PASS", "postgres")
