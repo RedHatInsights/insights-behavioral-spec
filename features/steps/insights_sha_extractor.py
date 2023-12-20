@@ -14,13 +14,13 @@
 
 """Implementation of test steps that run Insights SHA Extractor and check its output."""
 
-import subprocess
-import yaml
 import os
+import subprocess
 
-from src import kafka_util
-from behave import given, when, then
+import yaml
+from behave import given, then, when
 from kafka.cluster import ClusterMetadata
+from src import kafka_util
 
 
 @given("SHA extractor service is not started")

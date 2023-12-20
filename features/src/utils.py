@@ -15,8 +15,9 @@
 """Unsorted utility functions to be used from other sources and test step definitions."""
 
 import base64
-from behave.runner import Context
 from typing import Set
+
+from behave.runner import Context
 
 
 def get_array_from_json(context: Context, selector, subselector=None):

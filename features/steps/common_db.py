@@ -16,8 +16,8 @@
 
 
 import psycopg2
+from behave import given, then, when
 from psycopg2.errors import UndefinedTable
-from behave import given, when, then
 
 
 @given("the database is named {name}")

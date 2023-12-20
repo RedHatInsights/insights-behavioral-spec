@@ -15,6 +15,7 @@
 """Implementation of test steps that run Insights Aggregator Exporter and check its output."""
 
 from os.path import exists
+
 from behave import then
 
 

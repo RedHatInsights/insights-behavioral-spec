@@ -15,6 +15,7 @@
 """Implementation of test steps for testing CCX Insights Content Service."""
 
 import re
+
 from behave import then
 
 

@@ -15,11 +15,10 @@
 """An interface to Apache Kafka done using kcat utility and Python interface to Kafka."""
 
 
-from kafka.admin import NewTopic
-from kafka import KafkaProducer, KafkaConsumer
-from kafka import KafkaAdminClient
-from kafka.errors import UnknownTopicOrPartitionError, TopicAlreadyExistsError
 from behave.runner import Context
+from kafka import KafkaAdminClient, KafkaConsumer, KafkaProducer
+from kafka.admin import NewTopic
+from kafka.errors import TopicAlreadyExistsError, UnknownTopicOrPartitionError
 
 
 class SendEventException(Exception):

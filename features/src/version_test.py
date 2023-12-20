@@ -18,7 +18,6 @@
 """Unit tests for functions defined in version.py source file."""
 
 import pytest
-
 from version import check
 
 

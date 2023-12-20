@@ -17,13 +17,14 @@
 
 """Unit tests for functions defined in jps.py source file."""
 
-import pytest
-
+import os
 
 # this is ugly hack, but we need to update include/import path
 # we need to do this hack before importing jps
 import sys
-import os
+
+import pytest
+
 sys.path.append(os.path.realpath(os.path.dirname(__file__)))
 
 from jps import find_jvm_application, get_all_jvm_based_applications  # noqa E402

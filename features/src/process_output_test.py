@@ -17,11 +17,10 @@
 
 """Unit tests for functions defined in utils.py source file."""
 
-import pytest
 import subprocess
 
+import pytest
 from process_output import filter_coverage_message, process_generated_output
-
 
 inputs_and_outputs = (
        # input                                                               expected output

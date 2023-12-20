@@ -14,7 +14,7 @@
 
 """Custom asserts that can be imported into other source files and steps definitions."""
 
-from typing import Set, Any
+from typing import Any, Set
 
 
 def assert_sets_equality(what: str, expected: Set[Any], actual: Set[Any]) -> None:

@@ -1,9 +1,7 @@
 """Steps implementation for parquet-factory features, related to parquet files."""
 
-from behave import then
-
 import pandas as pd
-
+from behave import then
 from src.minio import read_object_into_bytes_buffer
 
 
