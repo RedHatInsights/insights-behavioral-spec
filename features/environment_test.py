@@ -66,7 +66,7 @@ def test_before_all_no_variables():
 def test_before_all_set_variables():
     """Test the function before_all when all relevant environment variables are set."""
     os.environ["DB_HOST"] = "*host"
-    os.environ["DB_PORT"] = "*port"
+    os.environ["DB_PORT"] = "1234"
     os.environ["DB_NAME"] = "*name"
     os.environ["DB_USER"] = "*user"
     os.environ["DB_PASS"] = "*pass"
@@ -76,7 +76,7 @@ def test_before_all_set_variables():
     before_all(context)
 
     assert context.database_host == "*host"
-    assert context.database_port == "*port"
+    assert context.database_port == 1234
     assert context.database_name == "*name"
     assert context.database_user == "*user"
     assert context.database_password == "*pass"
