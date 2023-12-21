@@ -318,13 +318,13 @@ def insert_report_with_risk_in_new_reports_table(context, risk, updated_at=None)
 
 
 @when(
-    "I insert 1 report with {risk:w} total risk after cooldown for the following clusters"
+    "I insert 1 report with {risk:w} total risk after cooldown for the following clusters",
 )  # noqa E501
 def insert_report_with_risk_and_cooldown_in_new_reports_table(context, risk):
     """Insert rows into table new_reports after the cooldown has passed."""
     timestamp_after_cooldown = datetime.now() + timedelta(minutes=1)
     insert_report_with_risk_in_new_reports_table(
-        context, risk, updated_at=timestamp_after_cooldown
+        context, risk, updated_at=timestamp_after_cooldown,
     )
 
 
@@ -336,7 +336,7 @@ def insert_report_into_reported_table(context, risk, timestamp=None):
 
 
 @given(
-    "I insert 1 previously reported report with {risk:w} total risk notified within cooldown"
+    "I insert 1 previously reported report with {risk:w} total risk notified within cooldown",
 )
 def insert_report_within_cooldown_in_reported_table(context, risk):
     """Insert rows into reported table within cooldown."""

@@ -256,7 +256,7 @@ def access_rest_api_endpoint_get_using_token(context, endpoint, organization, ac
 
     # use the token
     context.response = requests.get(
-        url, headers={"x-rh-identity": token}, timeout=TIMEOUT
+        url, headers={"x-rh-identity": token}, timeout=TIMEOUT,
     )
 
 
@@ -294,7 +294,7 @@ def request_list_of_disbled_acked_rules_from_aggregator(context, organization, a
 
     # use the token
     context.response = requests.get(
-        url, headers={"x-rh-identity": token}, timeout=TIMEOUT
+        url, headers={"x-rh-identity": token}, timeout=TIMEOUT,
     )
 
     # basic check if service responded
@@ -311,7 +311,7 @@ def enable_rule_in_aggregator(context, rule_id, error_key, organization, account
 
     # use the token and request body
     context.response = requests.put(
-        url, headers={"x-rh-identity": token}, timeout=TIMEOUT
+        url, headers={"x-rh-identity": token}, timeout=TIMEOUT,
     )
 
     # basic check if service responded
@@ -333,7 +333,7 @@ def disable_rule_in_aggregator(context, rule_id, error_key, organization, accoun
 
     # use the token and request body
     context.response = requests.put(
-        url, headers=headers, json=json_request_body, timeout=TIMEOUT
+        url, headers=headers, json=json_request_body, timeout=TIMEOUT,
     )
 
     # basic check if service responded
@@ -353,7 +353,7 @@ def update_rule_in_aggregator(context, rule_id, error_key, organization, account
 
     # use the token and request body
     context.response = requests.post(
-        url, headers={"x-rh-identity": token}, json=json_request_body, timeout=TIMEOUT
+        url, headers={"x-rh-identity": token}, json=json_request_body, timeout=TIMEOUT,
     )
 
     # basic check if service responded

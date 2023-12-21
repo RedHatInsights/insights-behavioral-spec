@@ -53,7 +53,7 @@ def parse_metrics(metrics: str) -> Dict[str, List]:
         parsed_metrics[metric_name].append(
             {
                 "value": val,
-                "labels": metric_labels
+                "labels": metric_labels,
             })
 
     return parsed_metrics

@@ -132,7 +132,7 @@ def setup_default_S3_context(context):
     context.S3_port = os.getenv("S3_PORT", "9000")
     context.S3_access_key = os.getenv("S3_ACCESS_KEY_ID", "test_access_key")
     context.S3_secret_access_key = os.getenv(
-        "S3_SECRET_ACCESS_KEY", "test_secret_access_key"
+        "S3_SECRET_ACCESS_KEY", "test_secret_access_key",
     )
     context.S3_bucket_name = os.getenv("S3_BUCKET", "test")
     context.S3_old_minio_compatibility = os.getenv("S3_OLDER_MINIO_COMPATIBILITY", None)

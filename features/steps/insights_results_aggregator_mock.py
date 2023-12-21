@@ -371,7 +371,7 @@ def request_results_for_list_of_clusters(context, organization=None, account=Non
         token = construct_rh_token(organization, account, user)
         # perform POST request
         context.response = requests.post(
-            url, headers={"x-rh-identity": token}, json=json_request_body
+            url, headers={"x-rh-identity": token}, json=json_request_body,
         )
     else:
         # URL for Smart Proxy and for Insights Results Aggregator Mock

@@ -26,7 +26,7 @@ def get_all_jvm_based_applications(context):
     out = subprocess.Popen(
         ["jps", "-l"],
         stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT
+        stderr=subprocess.STDOUT,
     )
 
     # check if subprocess has been started and its output caught

@@ -44,7 +44,7 @@ def create_topic(hostname, topic_name, partitions=1):
 def delete_topic(context: Context, topic: str):
     """Delete a Kafka topic."""
     admin_client = KafkaAdminClient(
-        bootstrap_servers=[f"{context.kafka_hostname}:{context.kafka_port}"]
+        bootstrap_servers=[f"{context.kafka_hostname}:{context.kafka_port}"],
     )
     try:
         admin_client.delete_topics(topics=[topic])

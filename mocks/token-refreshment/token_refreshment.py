@@ -43,7 +43,7 @@ def get_access_token(grant_type: str = Form(), client_id: str = Form(), scope: s
     if client_id != "CLIENT_ID":
         return JSONResponse(
             ReturnError(
-                error="invalid grant", error_description="Invalid refresh token"
+                error="invalid grant", error_description="Invalid refresh token",
             ).dict(),
             status_code=401,
         )
@@ -67,5 +67,5 @@ def get_access_token(grant_type: str = Form(), client_id: str = Form(), scope: s
         "access_token": "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiU2VydmljZSIsIklzc3VlciI6Ik1vY2sgVG9r"
         "ZW4gUmVmcmVzaG1lbnQiLCJVc2VybmFtZSI6IkNDWCBOb3RpZmljYXRpb24gU2VydmljZ"
         "SIsImlhdCI6MTY2NTM5OTY0OH0.LcHHN1KSA0W4FllEZT3X5t0i0AjOU6aFWc00vjV-8g"
-        "w"
+        "w",
     }

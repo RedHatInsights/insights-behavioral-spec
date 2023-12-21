@@ -45,7 +45,7 @@ def given_database_password(context, password):
 def connect_to_database(context, database, user, password):
     """Perform connection to selected database."""
     connection_string = "dbname={} user={} password={} host={} port={}".format(
-        database, user, password, context.database_host, context.database_port
+        database, user, password, context.database_host, context.database_port,
     )
     context.connection = psycopg2.connect(connection_string)
 

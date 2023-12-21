@@ -41,5 +41,5 @@ def construct_insert_statement(table_name: str, headings: List[str]) -> str:
 
     # apply template
     return template.format(
-        table_name=table_name, column_names=column_names, placeholders=placeholders
+        table_name=table_name, column_names=column_names, placeholders=placeholders,
     )
