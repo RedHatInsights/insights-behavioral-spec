@@ -92,7 +92,7 @@ def check_workload_info_not_present(context):
     expected_msg = "archive does not contain workload info; skipping"
 
     assert message_in_buffer(
-        expected_msg, context.sha_extractor.stdout
+        expected_msg, context.sha_extractor.stdout,
     ), "archive should not contain workload_info.json for this scenario"
 
 
@@ -102,7 +102,7 @@ def check_workload_info_present(context):
     expected_msg = "workload info found, starting publishing process"
 
     assert message_in_buffer(
-        expected_msg, context.sha_extractor.stdout
+        expected_msg, context.sha_extractor.stdout,
     ), "archive should contain workload_info.json for this scenario"
 
 
@@ -112,7 +112,7 @@ def check_b64_decode(context):
     expected_msg = "'identity': {'identity':"
 
     assert message_in_buffer(
-        expected_msg, context.sha_extractor.stdout
+        expected_msg, context.sha_extractor.stdout,
     ), "b64_identity was not extracted"
 
 
@@ -123,7 +123,7 @@ def check_message_consumed(context):
 
     expected_msg = "Deserializing incoming message"
     assert message_in_buffer(
-        expected_msg, context.sha_extractor.stdout
+        expected_msg, context.sha_extractor.stdout,
     ), "message was not consumed"
 
 
@@ -142,7 +142,7 @@ def topic_registered(context, topic):
     )
 
     assert message_in_buffer(
-        expected_msg, context.sha_extractor.stdout
+        expected_msg, context.sha_extractor.stdout,
     ), "consumer topic not registered"
 
 
@@ -152,7 +152,7 @@ def check_message(context):
     expected_msg = "JSON schema validated"
 
     assert message_in_buffer(
-        expected_msg, context.sha_extractor.stdout
+        expected_msg, context.sha_extractor.stdout,
     ), "can't parse message"
 
 
@@ -161,7 +161,7 @@ def check_url(context):
     """Check that sha extractor is able to retrieve URL from incoming message."""
     expected_msg = "Extracted URL from input message"
     assert message_in_buffer(
-        expected_msg, context.sha_extractor.stdout
+        expected_msg, context.sha_extractor.stdout,
     ), "can't parse url from message"
 
 
@@ -170,7 +170,7 @@ def check_start_download(context):
     """Check that sha extractor is able to start download."""
     expected_msg = "Downloading"
     assert message_in_buffer(
-        expected_msg, context.sha_extractor.stdout
+        expected_msg, context.sha_extractor.stdout,
     ), "download not started"
 
 
@@ -187,7 +187,7 @@ def archive_processed(context):
     expected_msg = "Message has been sent successfully."
 
     assert message_in_buffer(
-        expected_msg, context.sha_extractor.stdout
+        expected_msg, context.sha_extractor.stdout,
     ), "sha extractor did not produce a result"
 
 

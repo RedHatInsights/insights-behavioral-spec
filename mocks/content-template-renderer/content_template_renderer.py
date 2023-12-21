@@ -78,7 +78,7 @@ async def render_reports(request: Request):
                     "description": "detailed description",
                     "reason": "detailed report",
                     "resolution": "detailed resolution",
-                }
+                },
             )
 
     return {

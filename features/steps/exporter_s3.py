@@ -152,7 +152,7 @@ def check_objects_in_s3(context):
         object_name = get_object_name(context, row["File name"])
         print(object_name)
         assert object_name in names, "Can not find object {} in bucket {}".format(
-            object_name, context.S3_bucket_name
+            object_name, context.S3_bucket_name,
         )
 
 
@@ -171,7 +171,7 @@ def check_objects_not_in_s3(context):
     for row in context.table:
         object_name = get_object_name(context, row["File name"])
         assert object_name not in names, "object {} found in bucket {}".format(
-            object_name, context.S3_bucket_name
+            object_name, context.S3_bucket_name,
         )
 
 
@@ -198,16 +198,16 @@ def check_csv_content_in_s3(context):
         assert (
             expected_records == stored_records
         ), "Expected number records in object {} is {} but {} was read".format(
-            object_name, expected_records, stored_records
+            object_name, expected_records, stored_records,
         )
 
 
 @then(
-    "I should see following records in exported object {object_name} placed in column {column:d}"
+    "I should see following records in exported object {object_name} placed in column {column:d}",
 )  # noqa: E501
 @then(
     "I should see following records in exported object {object_name} "
-    "placed in columns {column:d} and {column2:d}"
+    "placed in columns {column:d} and {column2:d}",
 )  # noqa: E501
 def check_records_in_csv_object(context, object_name, column, column2=None):
     """Check if all records are really stored in given CSV file/object in S3/S3."""

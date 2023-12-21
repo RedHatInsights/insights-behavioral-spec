@@ -44,7 +44,7 @@ def run_parquet_factory(context, timeout_sec: int) -> None:
         [PARQUET_FACTORY_BINARY],
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
-        env=environ
+        env=environ,
     )
 
     print(f"timer will run for {timeout_sec}")
@@ -119,7 +119,7 @@ def send_rules_results_to_kafka(context, moment):
         kafka_util.send_event(
             f"{context.kafka_hostname}:{context.kafka_port}",
             topic, payload.encode("utf-8"), partition=partition,
-            timestamp=time.time() + shift
+            timestamp=time.time() + shift,
         )
 
 

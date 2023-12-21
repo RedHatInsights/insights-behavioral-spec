@@ -38,7 +38,7 @@ def start_template_renderer(context):
 
     f = open(
         os.path.join(
-            curpath, "logs", "insights-content-template-renderer", log_filename
+            curpath, "logs", "insights-content-template-renderer", log_filename,
         ),
         "w",
     )

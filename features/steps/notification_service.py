@@ -129,7 +129,7 @@ def start_ccx_notification_service_with_flag(context, flag):
             env[row["val"]] = row["var"]
 
     out = subprocess.Popen(
-        params, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env
+        params, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env,
     )
     assert out is not None
     context.add_cleanup(out.terminate)
@@ -213,7 +213,7 @@ def check_configuration_info_from_ccx_notification_service(context):
 
 @then(
     "I should see info about not notified reports older "
-    "than {max_age:Age} displayed on standard output"
+    "than {max_age:Age} displayed on standard output",
 )
 def check_print_new_reports_for_cleanup(context, max_age):
     """Check message with list of new reports to be cleaned.
@@ -236,7 +236,7 @@ def check_print_new_reports_for_cleanup(context, max_age):
 
 @then(
     "I should see info about cleaned up not notified reports "
-    "older than {max_age:Age} displayed on standard output"
+    "older than {max_age:Age} displayed on standard output",
 )
 def check_new_reports_cleanup(context, max_age):
     """Check cleanup of new reports message.
@@ -262,7 +262,7 @@ def check_new_reports_cleanup(context, max_age):
 
 @then(
     "I should see info about notified reports older "
-    "than {max_age:d} {age_unit:w} displayed on standard output"
+    "than {max_age:d} {age_unit:w} displayed on standard output",
 )  # noqa E501
 def check_print_old_reports_for_cleanup(context, max_age, age_unit):
     """
@@ -286,7 +286,7 @@ def check_print_old_reports_for_cleanup(context, max_age, age_unit):
 
 @then(
     "I should see info about cleaned up notified reports older "
-    "than {max_age:d} {age_unit:w} displayed on standard output"
+    "than {max_age:d} {age_unit:w} displayed on standard output",
 )
 def check_old_reports_cleanup(context, max_age, age_unit):
     """Check cleanup of old reports message.
@@ -514,7 +514,7 @@ def check_service_log_logs_for_given_clusters(context):
             log_event is not None
         ), f'log event not found for cluster {row["cluster_name"]}'
         assert len(log_event) == int(
-            row["num logs"]
+            row["num logs"],
         ), f'unexpected number of logs: got {len(log_event)}, want {row["num logs"]}'
         assert (item["service_name"] == row["service name"] for item in log_event)
 
