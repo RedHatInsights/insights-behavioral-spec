@@ -40,7 +40,7 @@ service:
     kwargs:
       outgoing_topic: archive-results
       bootstrap.servers: kafka:9092
-  
+
   logging:
     version: 1
     disable_existing_loggers: false
@@ -50,8 +50,6 @@ service:
         class: logging.StreamHandler
         stream: ext://sys.stdout
         formatter: json
-        filters:
-          - context_filter
     formatters:
       brief:
         format: "%(message)s"
@@ -60,9 +58,6 @@ service:
         format: "%(filename)s %(lineno)d %(process)d %(levelname)s %(asctime)s %(name)s %(message)s"
       cloudwatch:
         format: "%(filename)s %(levelname)s %(asctime)s %(name)s %(hostname)s %(mac_address)s %(message)s"
-    filters:
-      context_filter:
-        (): "insights_sha_extractor.log_filter.LogFilter"
     root:
       handlers:
         - default
