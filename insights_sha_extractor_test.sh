@@ -23,9 +23,9 @@ exit_trap_command=""
 function prepare_venv() {
     echo "Preparing environment"
     # shellcheck disable=SC1091
-    virtualenv -p python3 venv 
+    virtualenv -p python3 venv
     # shellcheck disable=SC1091
-    source venv/bin/activate 
+    source venv/bin/activate
     python3 "$(which pip3)" install --no-cache -r requirements.in || exit 1
     python3 "$(which pip3)" install --no-cache -r requirements/insights_sha_extractor.txt || exit 1
     echo "Environment ready"
@@ -54,7 +54,7 @@ function run_kafka() {
         --publish 9092:9092 \
         --add-host kafka:127.0.0.1 \
         quay.io/ccxdev/kafka-no-zk:latest)
-    
+
     while true
     do
         echo "starting up kafka ..."
@@ -87,7 +87,7 @@ function add_trap() {
     else
         exit_trap_command="$exit_trap_command; $to_add"
     fi
-    trap cleanup EXIT   
+    trap cleanup EXIT
 }
 
 if ! [ "$ENV_DOCKER" ] ; then
@@ -102,7 +102,7 @@ fi
 install_extractor
 
 # shellcheck disable=SC2068
-PYTHONDONTWRITEBYTECODE=1 python3 -m behave --no-capture \
+PYTHONDONTWRITEBYTECODE=1 python3 -m behave \
     --format=progress2 \
     --tags=-skip --tags=-managed \
     -D dump_errors=true @test_list/insights_sha_extractor.txt "$@"
