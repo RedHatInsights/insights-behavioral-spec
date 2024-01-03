@@ -102,7 +102,7 @@ fi
 install_extractor
 
 # shellcheck disable=SC2068
-PYTHONDONTWRITEBYTECODE=1 python3 -m behave -k \
+PYTHONDONTWRITEBYTECODE=1 python3 -m behave \
     --format=progress2 \
     --tags=-skip --tags=-managed \
     -D dump_errors=true @test_list/insights_sha_extractor.txt "$@"
