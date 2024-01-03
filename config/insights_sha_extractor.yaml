@@ -1,7 +1,6 @@
 plugins:
   packages:
     - insights.specs.default
-    - insights_sha_extractor
     - pythonjsonlogger
     - pythonjsonlogger.jsonlogger
   configs:
