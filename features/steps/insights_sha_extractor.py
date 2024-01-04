@@ -74,7 +74,7 @@ def start_sha_extractor(context, group_id=None):
         os.environ["CDP_GROUP_ID"] = group_id
 
     sha_extractor = subprocess.Popen(
-        ["insights-sha-extractor", "config/insights_sha_extractor.yaml"],
+        ["ccx-messaging", "config/insights_sha_extractor.yaml"],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         text=True,
