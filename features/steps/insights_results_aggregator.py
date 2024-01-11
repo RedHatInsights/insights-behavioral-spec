@@ -22,7 +22,11 @@ from subprocess import TimeoutExpired
 import requests
 from behave import given, then, when
 from src import kafka_util, version
-from src.process_output import filter_coverage_message, process_generated_output
+from src.process_output import (
+    filepath_from_context,
+    filter_coverage_message,
+    process_generated_output,
+)
 from src.utils import construct_rh_token, find_block, get_array_from_json
 
 # Insights Results Aggregator binary file name
@@ -82,7 +86,9 @@ def start_aggregator(context, flag, environment):
     context.add_cleanup(out.terminate)
 
     # don't check exit code at this stage
-    process_generated_output(context, out)
+    stdout_file = filepath_from_context(context, "logs/insights-results-aggregator", "_stdout")
+    stderr_file = filepath_from_context(context, "logs/insights-results-aggregator", "_stderr")
+    process_generated_output(context, out, stdout_file=stdout_file, stderr_file=stderr_file)
 
 
 def check_help_from_aggregator(context):
@@ -163,7 +169,9 @@ def perform_aggregator_database_migration(context, version):
     assert out is not None
 
     # it is expected that exit code will be 0 or 2
-    process_generated_output(context, out, 2)
+    stdout_file = filepath_from_context(context, "logs/insights-results-aggregator", "_stdout")
+    stderr_file = filepath_from_context(context, "logs/insights-results-aggregator", "_stderr")
+    process_generated_output(context, out, 2, stdout_file=stdout_file, stderr_file=stderr_file)
 
 
 @when("I migrate aggregator database to latest version")
@@ -184,18 +192,12 @@ def start_insights_results_aggregator_in_background(context):
     # Behave output with Aggregator's messages, so at this moment it is
     # best to redirect logs to files for further investigation.
     # Also it allow us to detect error output as well outside BDD framework.
-    feature_name = context.feature.name.replace("/", "-")
-    scenario_name = context.scenario.name.replace("/", "-")
-    filename = f"logs/{feature_name}_{scenario_name}"
-    if len(filename) > 200:
-        filename = filename[:200]
-    stdout_file = open(filename + ".out", "w")
-    stderr_file = open(filename + ".err", "w")
-
+    stdout_file = filepath_from_context(context, "logs/insights-results-aggregator", "_stdout")
+    stderr_file = filepath_from_context(context, "logs/insights-results-aggregator", "_stderr")
     process = subprocess.Popen(
         [INSIGHTS_RESULTS_AGGREGATOR_BINARY],
-        stdout=stdout_file,
-        stderr=stderr_file,
+        stdout=open(stdout_file, "w"),
+        stderr=open(stderr_file, "w"),
         close_fds=True,
         bufsize=0,
     )
