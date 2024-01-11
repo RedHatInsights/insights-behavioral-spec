@@ -86,8 +86,8 @@ def start_aggregator(context, flag, environment):
     context.add_cleanup(out.terminate)
 
     # don't check exit code at this stage
-    stdout_file = filepath_from_context(context, "logs/insights-results-aggregator", "_stdout")
-    stderr_file = filepath_from_context(context, "logs/insights-results-aggregator", "_stderr")
+    stdout_file = filepath_from_context(context, "logs/insights-results-aggregator/", "_stdout")
+    stderr_file = filepath_from_context(context, "logs/insights-results-aggregator/", "_stderr")
     process_generated_output(context, out, stdout_file=stdout_file, stderr_file=stderr_file)
 
 
@@ -169,8 +169,8 @@ def perform_aggregator_database_migration(context, version):
     assert out is not None
 
     # it is expected that exit code will be 0 or 2
-    stdout_file = filepath_from_context(context, "logs/insights-results-aggregator", "_stdout")
-    stderr_file = filepath_from_context(context, "logs/insights-results-aggregator", "_stderr")
+    stdout_file = filepath_from_context(context, "logs/insights-results-aggregator/", "_stdout")
+    stderr_file = filepath_from_context(context, "logs/insights-results-aggregator/", "_stderr")
     process_generated_output(context, out, 2, stdout_file=stdout_file, stderr_file=stderr_file)
 
 
@@ -192,8 +192,8 @@ def start_insights_results_aggregator_in_background(context):
     # Behave output with Aggregator's messages, so at this moment it is
     # best to redirect logs to files for further investigation.
     # Also it allow us to detect error output as well outside BDD framework.
-    stdout_file = filepath_from_context(context, "logs/insights-results-aggregator", "_stdout")
-    stderr_file = filepath_from_context(context, "logs/insights-results-aggregator", "_stderr")
+    stdout_file = filepath_from_context(context, "logs/insights-results-aggregator/", "_stdout")
+    stderr_file = filepath_from_context(context, "logs/insights-results-aggregator/", "_stderr")
     process = subprocess.Popen(
         [INSIGHTS_RESULTS_AGGREGATOR_BINARY],
         stdout=open(stdout_file, "w"),
