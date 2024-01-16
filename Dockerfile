@@ -38,6 +38,7 @@ RUN pip install --no-cache-dir -U pip setuptools wheel
 RUN pip install --no-cache-dir -r requirements/requirements_docker.txt
 
 RUN dnf clean all
+RUN rpm -e --nodeps krb5-libs
 RUN chmod -R g=u $HOME $VIRTUAL_ENV /etc/passwd
 RUN chgrp -R 0 $HOME $VIRTUAL_ENV
 
