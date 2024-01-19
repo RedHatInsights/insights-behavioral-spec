@@ -471,28 +471,15 @@ def get_service_log_event_by_cluster(cluster_id):
         headers={"Authorization": "TEST_TOKEN"},
     )
     assert (
-        response.status_code == response.codes.ok
+        response.status_code == requests.codes.ok
     ), f'unexpected status code: got "{response.status_code}" want "200"'
     return response.json()["items"]
 
 
-def get_events_service_log():
-    """Retrieve the events from service log."""
-    address = "http://localhost:8000"
-    response = requests.get(
-        address + "/api/service_logs/v1/cluster_logs",
-        headers={"Authorization": "TEST_TOKEN"},
-    )
-    assert (
-        response.status_code == response.codes.ok
-    ), f'unexpected status code: got "{response.status_code}" want "200"'
-    return response.json()["items"]
-
-
-@when("I retrieve the service log events")
-def get_service_log_logs(context):
+@when("I retrieve the service log events for cluster {cluster_id}")
+def get_service_log_logs(context, cluster_id):
     """Retrieve all the events currently stored by the service log database."""
-    context.service_logs = get_events_service_log
+    context.service_logs = get_service_log_event_by_cluster(cluster_id)
 
 
 @when("I retrieve the service log events for the following clusters")
@@ -519,11 +506,11 @@ def check_service_log_logs_for_given_clusters(context):
         assert (item["service_name"] == row["service name"] for item in log_event)
 
 
-@given("service-log service is empty")
-def remove_service_log_logs(context):
+@given("service-log service has no records for cluster {cluster_id}")
+def remove_service_log_logs(context, cluster_id):
     """Delete all the logs from service log."""
     address = "http://localhost:8000"
-    logs = get_events_service_log()
+    logs = get_service_log_event_by_cluster(cluster_id)
     for log in logs:
         response = requests.delete(
             address + "/api/service_logs/v1/cluster_logs/" + log["id"],
@@ -534,10 +521,10 @@ def remove_service_log_logs(context):
         ), f'unexpected status code: got "{response.status_code}" want "204"'
 
 
-@then("it should have sent {num_event:d} notification events to Service Log")
-def count_notification_events_service_log(context, num_event):
+@then("it should have sent {num_event:d} notification events to Service Log for cluster {cluster_id}")
+def count_notification_events_service_log(context, num_event, cluster_id):
     """Get events from Service Log and count them to check if it matches."""
-    events = get_events_service_log()
+    events = get_service_log_event_by_cluster(cluster_id)
     assert (
         len(events) == num_event
     ), f"Retrieved {len(events)} events when {num_event} was expected"
