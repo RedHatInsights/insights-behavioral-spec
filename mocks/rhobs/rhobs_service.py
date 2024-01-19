@@ -107,7 +107,7 @@ DUPLICATED_METRICS_RESULT = [
     },
 ]
 
-# Used to check the the condition is changed to 'Not Available'
+# Used to check the condition is changed to 'Not Available'
 AVAILABLE_FOC = [
     {
         "metric": {
@@ -160,4 +160,7 @@ def get_random_results(query: str):
     cluster_id = match.group()
     if cluster_id not in ANSWERS:
         return {"data": {"result": []}}
-    return {"data": {"result": ANSWERS[cluster_id]}}
+    res = {"data": {"result": ANSWERS[cluster_id]}}
+    for item in res["data"]["result"]:
+        item["metric"]["_id"] = cluster_id
+    return res
