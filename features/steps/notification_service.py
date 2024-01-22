@@ -129,7 +129,10 @@ def start_ccx_notification_service_with_flag(context, flag):
             env[row["val"]] = row["var"]
 
     out = subprocess.Popen(
-        params, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env,
+        params,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        env=env,
     )
     assert out is not None
     context.add_cleanup(out.terminate)
@@ -521,7 +524,9 @@ def remove_service_log_logs(context, cluster_id):
         ), f'unexpected status code: got "{response.status_code}" want "204"'
 
 
-@then("it should have sent {num_event:d} notification events to Service Log for cluster {cluster_id}")
+@then(
+    "it should have sent {num_event:d} notification events to Service Log for cluster {cluster_id}",
+)
 def count_notification_events_service_log(context, num_event, cluster_id):
     """Get events from Service Log and count them to check if it matches."""
     events = get_service_log_event_by_cluster(cluster_id)
