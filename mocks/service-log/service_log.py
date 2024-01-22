@@ -271,6 +271,12 @@ def delete_logs(id: str, request: Request):
     )
 
 
+@app.get("/api/service_logs/v1/openapi")
+def get_openapi():
+    """Get mock response from openapi endpoint."""
+    return JSONResponse({}, status_code=200)
+
+
 def fill_default_fields(log: Log) -> Log:
     """Add timestamp and event ID fields to the received log."""
     if log.timestamp is None:

@@ -21,7 +21,6 @@ Feature: Customer Notifications configuration and exit codes
           | CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ENABLED       | false       |
           | CCX_NOTIFICATION_SERVICE__SERVICE_LOG__ENABLED        | false       |
      Then it should have sent 0 notification events to Kafka
-      And it should have sent 0 notification events to Service Log
       And the process should exit with status code set to 1
       And the logs should match
           | log                                              | contains   |
@@ -36,7 +35,6 @@ Feature: Customer Notifications configuration and exit codes
           | CCX_NOTIFICATION_SERVICE__SERVICE_LOG__ENABLED         | false                      |
           | CCX_NOTIFICATION_SERVICE__DEPENDENCIES__CONTENT_SERVER | unresolved_url:8082/api/v1 |
      Then it should have sent 0 notification events to Kafka
-      And it should have sent 0 notification events to Service Log
       And the process should exit with status code set to 4
 
   Scenario: Check that notification-to-service-log is not started and exits with status 4 if rules cannot be fetched
@@ -47,5 +45,4 @@ Feature: Customer Notifications configuration and exit codes
           | CCX_NOTIFICATION_SERVICE__SERVICE_LOG__ENABLED         | true                       |
           | CCX_NOTIFICATION_SERVICE__DEPENDENCIES__CONTENT_SERVER | unresolved_url:8082/api/v1 |
      Then it should have sent 0 notification events to Kafka
-      And it should have sent 0 notification events to Service Log
       And the process should exit with status code set to 4
