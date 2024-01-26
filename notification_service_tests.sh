@@ -52,7 +52,7 @@ function get_binary() {
     (
         cd "$PATH_TO_LOCAL_NOTIFICATION_SERVICE" || exit
         make build
-    )
+    ) 
     cp "$PATH_TO_LOCAL_NOTIFICATION_SERVICE/ccx-notification-service" .
     # cp "$PATH_TO_LOCAL_NOTIFICATION_SERVICE/config.toml" .
     cp config/notification_service.toml config.toml
@@ -63,13 +63,13 @@ function init_db() {
     (
         cd "$PATH_TO_LOCAL_NOTIFICATION_WRITER" || exit
         make build
-    )
+    ) 
     cp "$PATH_TO_LOCAL_NOTIFICATION_WRITER/ccx-notification-writer" .
     cp "$PATH_TO_LOCAL_NOTIFICATION_WRITER/config.toml" .
     ./ccx-notification-writer -db-init
     ./ccx-notification-writer -db-init-migration
     ./ccx-notification-writer -migrate latest
-    rm ccx-notification-writer
+    rm ccx-notification-writer 
     rm config.toml
 }
 
@@ -82,7 +82,7 @@ function set_env_vars() {
 	   CCX_NOTIFICATION_SERVICE__STORAGE__PG_HOST=$DB_HOST \
 	   CCX_NOTIFICATION_SERVICE__STORAGE__PG_PORT=$DB_PORT \
 	   CCX_NOTIFICATION_SERVICE__STORAGE__PG_DB_NAME=notification \
-	   CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ADDRESSES="[$KAFKA_HOST:$KAFKA_PORT]" \
+	   CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ADDRESS="$KAFKA_HOST:$KAFKA_PORT" \
 	   CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__TOPIC=platform.notifications.ingress \
 	   CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ENABLED=true \
 	   CCX_NOTIFICATION_SERVICE__SERVICE_LOG__ENABLED=false \

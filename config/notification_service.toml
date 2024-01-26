@@ -4,7 +4,7 @@ log_level = "info"
 
 [kafka_broker]
 enabled = true
-addresses = ["kafka:9092"]
+address = "kafka:9092"
 topic = "platform.notifications.ingress"
 timeout = "60s"
 likelihood_threshold = 0
