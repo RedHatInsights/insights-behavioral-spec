@@ -1,5 +1,5 @@
 [broker]
-address = "localhost:9092"
+addresses = ["localhost:9092"]
 topic = "ccx.ocp.results"
 group = "test-consumer-group"
 enabled = true
