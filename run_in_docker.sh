@@ -4,8 +4,26 @@
 
 # Function to get docker compose profile to add based on service name specified by the user
 with_profile() {
-  local profile="${docker_compose_profiles[$1]}"
-  [[ -n "$profile" ]] && echo "--profile $profile" || echo ""
+  local target="$1"
+  case "$target" in
+    "aggregator-tests") echo "--profile test-aggregator" ;;
+    "aggregator-mock-tests") echo "" ;;
+    "cleaner-tests") echo "" ;;
+    "data-engineering-service-tests") echo "--profile test-upgrades-data-eng" ;;
+    "exporter-tests") echo "--profile test-exporter" ;;
+    "inference-service-tests") echo "" ;;
+    "insights-content-service-tests") echo "" ;;
+    "insights-content-template-renderer-tests") echo "" ;;
+    "insights-sha-extractor-tests") echo "--profile test-sha-extractor" ;;
+    "notification-service-tests") echo "--profile test-notification-services" ;;
+    "notification-writer-tests") echo "--profile test-notification-services" ;;
+    "smart-proxy-tests") echo "" ;;
+    "parquet-factory-tests") echo "--profile test-parquet-factory" ;;
+    *)
+      echo "Unexpected target: $target. Does it exist in Makefile?"
+      exit 2
+      ;;
+  esac
 }
 
 # Function to add the WITHMOCK=1 environment variable to the tests that span mocked dependencies
@@ -93,36 +111,20 @@ copy_files() {
   esac
 }
 
-# Step 1: Define a map of makefile targets to corresponding profiles and a map of files to copy in the DBB container for each target
-declare -A docker_compose_profiles
-
-docker_compose_profiles["aggregator-tests"]="test-aggregator"
-docker_compose_profiles["aggregator-mock-tests"]=""
-docker_compose_profiles["cleaner-tests"]=""
-docker_compose_profiles["data-engineering-service-tests"]="test-upgrades-data-eng"
-docker_compose_profiles["exporter-tests"]="test-exporter"
-docker_compose_profiles["inference-service-tests"]=""
-docker_compose_profiles["insights-content-service-tests"]=""
-docker_compose_profiles["insights-content-template-renderer-tests"]=""
-docker_compose_profiles["insights-sha-extractor-tests"]="test-sha-extractor"
-docker_compose_profiles["notification-service-tests"]="test-notification-services"
-docker_compose_profiles["notification-writer-tests"]="test-notification-services"
-docker_compose_profiles["smart-proxy-tests"]=""
-docker_compose_profiles["parquet-factory-tests"]="test-parquet-factory"
-
-# Step 2: Specify the make target for tests to run
+# Step 1: Specify the make target for tests to run
 tests_target="$1"
 
-# Step 3: Specify the path to the compiled executable or or Python service
+# Step 2: Specify the path to the compiled executable or or Python service
 path_to_service=$(realpath "$2")
 
-# Step 4: Start the Docker containers with Docker Compose
+# Step 3: Start the Docker containers with Docker Compose
 if [[ "$tests_target" == *"notification"* ]]; then
   db_name="notification"
 else
   db_name="test"
 fi
 
+# Step 4: Launch containers
 # shellcheck disable=SC2046
 POSTGRES_DB_NAME="$db_name" docker-compose $(with_profile "$1") $(with_no_mock "$3") up -d
 
