@@ -119,7 +119,8 @@ Feature: Basic REST API endpoints provided by Insights Results Aggregator
                    "BuildCommit",
                    "BuildTime",
                    "BuildVersion",
-                   "DB_version",
+                   "OCP_DB_version",
+                   "DVO_DB_version"
                    "UtilsVersion"
                  ]
                },
