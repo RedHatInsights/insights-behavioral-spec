@@ -104,7 +104,10 @@ Feature: Basic REST API endpoints provided by Insights Results Aggregator
                    "BuildVersion": {
                      "type": "string"
                    },
-                   "DB_version": {
+                   "OCP_DB_version": {
+                     "type": "string"
+                   },
+                   "DVO_DB_version": {
                      "type": "string"
                    },
                    "UtilsVersion": {
