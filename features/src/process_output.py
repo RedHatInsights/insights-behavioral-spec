@@ -49,13 +49,6 @@ def process_generated_output(context: Context, out, return_code=None,
     assert stderr is None, "Error during check"
     assert stdout is not None, "No output from process"
 
-    # check the return code of a process
-    # TODO: we will need to support more return codes later
-    if return_code:
-        assert (
-            out.returncode == 0 or out.returncode == return_code
-        ), f"Return code is {out.returncode}"
-
     # try to decode output as flow of text lines
     output = stdout.decode("utf-8").split("\n")
 
@@ -72,6 +65,13 @@ def process_generated_output(context: Context, out, return_code=None,
 
     # check again, just for sure
     assert output is not None
+
+    # check the return code of a process
+    # TODO: we will need to support more return codes later
+    if return_code:
+        assert (
+            out.returncode == 0 or out.returncode == return_code
+        ), f"Return code is {out.returncode}"
 
     # update testing context
     context.output = output

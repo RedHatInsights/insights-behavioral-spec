@@ -75,14 +75,21 @@ def check_build_datetime_stamp(context):
     datetime.strptime(buildTime, timestampFormat)
 
 
-@then("DBVersion is in the proper format")
-def check_db_version(context):
-    """Check database version taken from service output."""
-    dbVersion = context.response.json()["info"]["DB_version"]
+@then("OCPDBVersion is in the proper format")
+def check_ocp_db_version(context):
+    """Check OCP database version taken from service output."""
+    check_db_version(context.response.json()["info"]["OCP_DB_version"])
 
-    # just try to parse the version, that's all
-    version = int(dbVersion)
 
+@then("DVODBVersion is in the proper format")
+def check_dvo_db_version(context):
+    """Check DVO database version taken from service output."""
+    check_db_version(context.response.json()["info"]["DVO_DB_version"])
+
+
+def check_db_version(db_version):
+    """Just try to parse the version as int, that's all"""
+    version = int(db_version)
     assert version >= 1, f"Improper DB version {version}"
 
 
