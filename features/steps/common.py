@@ -88,7 +88,7 @@ def check_dvo_db_version(context):
 
 
 def check_db_version(db_version):
-    """Just try to parse the version as int, that's all"""
+    """Just try to parse the version as int, that's all."""
     version = int(db_version)
     assert version >= 1, f"Improper DB version {version}"
 
