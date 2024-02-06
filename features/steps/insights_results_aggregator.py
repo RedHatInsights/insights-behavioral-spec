@@ -159,13 +159,26 @@ def check_actual_configuration_for_aggregator(context):
 @when("I migrate aggregator database to version #{version:n}")
 def perform_aggregator_database_migration(context, version):
     """Perform aggregator database migration to selected version."""
+    environ = os.environ.copy()
+    environ["INSIGHTS_RESULTS_AGGREGATOR__STORAGE_BACKEND__USE"] = "dvo_recommendations"
+    # run DVO migrations first to not mess with the OCP migrations output we're checking later
+    out = subprocess.Popen(
+        [INSIGHTS_RESULTS_AGGREGATOR_BINARY, "migrate", str(version)],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        env=environ,
+    )
+
+    # check if subprocess has been started and its output caught
+    assert out is not None
+
+    # run OCP migrations
     out = subprocess.Popen(
         [INSIGHTS_RESULTS_AGGREGATOR_BINARY, "migrate", str(version)],
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
     )
 
-    # check if subprocess has been started and its output caught
     assert out is not None
 
     # it is expected that exit code will be 0 or 2
