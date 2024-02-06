@@ -49,11 +49,11 @@ type = "sql"
 
 [dvo_recommendations_storage]
 db_driver = "postgres"
-pg_username = "postgres"
-pg_password = "postgres"
-pg_host = "database"
+pg_username = "wrong-one"
+pg_password = "wrong-one"
+pg_host = "wrong-one"
 pg_port = 5432
-pg_db_name = "test"
+pg_db_name = "wrong-one"
 pg_params = "sslmode=disable"
 log_sql_queries = true
 type = "sql"

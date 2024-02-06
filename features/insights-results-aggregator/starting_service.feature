@@ -16,7 +16,7 @@ Feature: Checking Aggregator behaviour during starting the service
      When I store current environment without Insights Results Aggregator variables
       And I run the Insights Results Aggregator with the start-service command line flag and config file name set to config/insights_results_aggregator_wrong_db.toml
      Then The process should finish with exit code 2
-      And I should see following message in service output: "Unable to initialize DB schema"
+      And I should see following message in service output: "dial tcp: lookup wrong-one: no such host"
       And I should see following message in service output: "database preparation exited with error code 2"
 
 
