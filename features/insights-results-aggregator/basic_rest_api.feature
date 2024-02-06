@@ -137,7 +137,8 @@ Feature: Basic REST API endpoints provided by Insights Results Aggregator
       And BuildCommit is a proper sha1
       And BuildTime is a proper datetime stamp
       #And BuildVersion is in the proper format
-      And DBVersion is in the proper format
+      And OCPDBVersion is in the proper format
+      And DVODBVersion is in the proper format
       And UtilsVersion is in the proper format
      When I terminate Insights Results Aggregator
      Then Insights Results Aggregator process should terminate
