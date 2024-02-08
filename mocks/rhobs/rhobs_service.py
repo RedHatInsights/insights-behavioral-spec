@@ -163,6 +163,6 @@ def get_random_results(query: str):
         cluster_data = copy.deepcopy(ANSWERS[cluster_id])
         for item in cluster_data:
             item["metric"]["_id"] = cluster_id
-        res["data"]["result"].append(cluster_data)
+        res["data"]["result"].extend(cluster_data)
 
     return res
