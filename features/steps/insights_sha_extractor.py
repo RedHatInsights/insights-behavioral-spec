@@ -17,6 +17,7 @@
 import gzip
 import os
 import subprocess
+import ccx_messaging
 
 import yaml
 from behave import given, then, when
@@ -27,7 +28,7 @@ from src import kafka_util
 @given("SHA extractor service is not started")
 def sha_extractor_not_started(context):
     """Check if SHA extractor service has been started."""
-    assert not hasattr(context, "sha_extractor")
+    assert not hasattr(context, "service") or context.service_name != "sha_extractor"
 
 
 @given('Kafka broker is started on host and port specified in configuration "{compression_var}')
@@ -89,7 +90,8 @@ def start_sha_extractor(context, group_id=None):
     )
     assert sha_extractor is not None, "Process was not created"
     context.add_cleanup(sha_extractor.terminate)
-    context.sha_extractor = sha_extractor
+    context.service = sha_extractor
+    context.service_name = "sha_extractor"
 
 
 @when('the file "config/workload_info.json" is not found')
@@ -117,42 +119,33 @@ def check_workload_info_present(context):
 @then("SHA extractor decode the b64_identity attribute")
 def check_b64_decode(context):
     """Check if SHA extractor was able to decode b64_identity attribute from a message."""
-    expected_msg = "'identity': {'identity':"
 
-    assert message_in_buffer(
-        expected_msg,
-        context.sha_extractor.stdout,
-    ), "b64_identity was not extracted"
+    assert ccx_messaging.check_b64_decode(context), "b64_identity was not extracted"
 
 
 @then("SHA extractor should consume message about this event")
 def check_message_consumed(context):
     """Check if message has been consumed by SHA extractor."""
-    assert not context.sha_extractor.returncode, "sha extractor is not running"
+    assert not context.service.returncode, "sha extractor is not running"
 
     expected_msg = "Deserializing incoming message"
-    assert message_in_buffer(
-        expected_msg,
-        context.sha_extractor.stdout,
+
+    assert ccx_messaging.message_in_buffer(
+        expected_msg, context.service.stdout,
     ), "message was not consumed"
 
 
 @then("SHA extractor service does not exit with an error code")
 def sha_extractor_is_running(context):
     """Check if SHA Extractor service has been started."""
-    assert not context.sha_extractor.poll(), "sha extractor service was not started"
+    assert ccx_messaging.service_is_running(context), "SHA extractor is not started"
+    assert context.service_name == "sha_extractor", "Different service is running"
 
 
 @then('SHA extractor service should be registered to topic "{topic}"')
-def topic_registered(context, topic):
+def sha_extractor_topic_registered(context, topic):
     """Check if SHA Extractor registered itself to consume given topic."""
-    topic_name = context.__dict__["_stack"][0][topic]
-    expected_msg = f"Consuming topic '{topic_name}' " + f"from brokers {context.hostname}"
-
-    assert message_in_buffer(
-        expected_msg,
-        context.sha_extractor.stdout,
-    ), "consumer topic not registered"
+    assert ccx_messaging.topic_registered(context, topic), "consumer topic not registered"
 
 
 @then("this message should contain following attributes")
@@ -160,7 +153,7 @@ def check_message(context):
     """Check if consumed message is represented in JSON."""
     expected_msg = "JSON schema validated"
 
-    assert message_in_buffer(
+    assert ccx_messaging.message_in_buffer(
         expected_msg,
         context.sha_extractor.stdout,
     ), "can't parse message"
@@ -170,9 +163,9 @@ def check_message(context):
 def check_url(context):
     """Check that sha extractor is able to retrieve URL from incoming message."""
     expected_msg = "Extracted URL from input message"
-    assert message_in_buffer(
-        expected_msg,
-        context.sha_extractor.stdout,
+
+    assert ccx_messaging.message_in_buffer(
+        expected_msg, context.service.stdout,
     ), "can't parse url from message"
 
 
@@ -180,9 +173,8 @@ def check_url(context):
 def check_start_download(context):
     """Check that sha extractor is able to start download."""
     expected_msg = "Downloading"
-    assert message_in_buffer(
-        expected_msg,
-        context.sha_extractor.stdout,
+    assert ccx_messaging.message_in_buffer(
+        expected_msg, context.service.stdout,
     ), "download not started"
 
 
@@ -193,29 +185,15 @@ def archive_not_precessed(context):
     assert not consumed, "message should not exist in outgoing topic"
 
 
-@then('the content of this file needs to be sent into topic "archive_results"')
+@then('the content of this file needs to be sent into topic "archive-results"')
 def archive_processed(context):
     """Check that sha extractor did process the event."""
     expected_msg = "Message has been sent successfully."
 
-    assert message_in_buffer(
+    assert ccx_messaging.message_in_buffer(
         expected_msg,
-        context.sha_extractor.stdout,
+        context.service.stdout,
     ), "sha extractor did not produce a result"
-
-
-def message_in_buffer(message, buffer):
-    """Check if SHA Extractor service prints given message on its output."""
-    found = False
-    while True:
-        # readline can be blocking, run this
-        # test with a timeout
-        line = buffer.readline()
-        if message in line:
-            found = True
-            break
-
-    return found
 
 
 @given("SHA extractor service is started with compression")

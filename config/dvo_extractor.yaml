@@ -1,0 +1,71 @@
+plugins:
+  packages:
+    - ccx_rules_ocp.external.dvo
+    - dvo_extractor
+    - insights.specs.default
+    - pythonjsonlogger
+    - pythonjsonlogger.jsonlogger
+service:
+  extract_timeout:
+  extract_tmp_dir:
+  format: ccx_ocp_core.core.formats.json.OCPRecommendationsJsonFormat
+  target_components: []
+  consumer:
+    name: ccx_messaging.consumers.kafka_consumer.KafkaConsumer
+    kwargs:
+      incoming_topic: platform.upload.announce
+      dead_letter_queue_topic: dead.letter.queue
+      platform_service: testareno
+      processing_timeout_s: 0
+      group.id: ${CDP_GROUP_ID:dvo_extractor_app}
+      bootstrap.servers: kafka:9092
+      security.protocol: PLAINTEXT
+      max.poll.interval.ms: 30000
+      heartbeat.interval.ms: 50000
+      session.timeout.ms: 10000
+      auto.offset.reset: earliest
+  downloader:
+    name: ccx_messaging.downloaders.http_downloader.HTTPDownloader
+    kwargs:
+      max_archive_size: 100MiB
+      allow_unsafe_links: true
+  publisher:
+    name: ccx_messaging.publishers.dvo_metrics_publisher.DVOMetricsPublisher
+    kwargs:
+      outgoing_topic: archive-results
+      bootstrap.servers: kafka:9092
+
+  logging:
+    version: 1
+    disable_existing_loggers: false
+    handlers:
+      default:
+        level: DEBUG
+        class: logging.StreamHandler
+        stream: ext://sys.stdout
+        formatter: json
+        filters:
+          - context_filter
+    formatters:
+      brief:
+        format: "%(message)s"
+      json:
+        (): "pythonjsonlogger.jsonlogger.JsonFormatter"
+        format: "%(filename)s %(lineno)d %(process)d %(levelname)s %(asctime)s %(name)s %(message)s"
+      cloudwatch:
+        format: "%(filename)s %(levelname)s %(asctime)s %(name)s %(hostname)s %(mac_address)s %(message)s"
+    filters:
+      context_filter:
+        (): "dvo_extractor.log_filter.LogFilter"
+    root:
+      handlers:
+        - default
+    loggers:
+      insights_messaging:
+        level: DEBUG
+      ccx_messaging:
+        level: DEBUG
+      insights:
+        level: WARNING
+      dvo_extractor:
+        level: DEBUG

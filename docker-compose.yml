@@ -28,6 +28,7 @@ services:
       - test-notification-services
       - test-aggregator
       - test-sha-extractor
+      - test-dvo-extractor
       - test-parquet-factory
     image: quay.io/ccxdev/kafka-no-zk:latest
     ports:
@@ -40,6 +41,7 @@ services:
     profiles:
       - test-exporter
       - test-sha-extractor
+      - test-dvo-extractor
       - test-parquet-factory
     image: minio/minio
     command:
