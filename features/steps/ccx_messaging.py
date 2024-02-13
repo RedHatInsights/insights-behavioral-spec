@@ -12,41 +12,270 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from behave import given, when, then
+"""Implementation of common steps for all services using ccx-messaging module."""
+
 import os
 import subprocess
 
+import yaml
+from behave import given, when, then
+from kafka.cluster import ClusterMetadata
+from src import kafka_util
 
-def service_is_running(context):
-    """Check if service has been started."""
-    return not context.service.poll()
+
+SERVICES = {
+    "SHA extractor": "insights_sha_extractor",
+    "DVO extractor": "dvo_extractor"
+}
 
 
-def topic_registered(context, topic):
-    """Check if service registered itself to consume given topic."""
+def transform_service_name(service_name):
+    return SERVICES[service_name]
+
+
+@given("{service} service is not started")
+def service_not_started(context, service):
+    """Check if SHA extractor service has been started."""
+    service_name = transform_service_name(service)
+    assert not hasattr(context, "services") or service_name not in context.services.keys()
+
+
+@given('Kafka broker is started on host and port specified in {service} configuration "{compression_var}"')
+def kafka_broker_running(context, service, compression_var):
+    """Check if Kafka broker is running on specified address."""
+    config = None
+    service_name = transform_service_name(service)
+
+    if compression_var != "compressed":
+        with open("config/{service_name}.yaml", "r") as file:
+            config = yaml.safe_load(file)
+            context.service_config = config
+    else:
+        with open("config/{service_name}_compressed.yaml", "r") as file:
+            config = yaml.safe_load(file)
+            context.service_config = config
+
+    hostname = config["service"]["consumer"]["kwargs"]["bootstrap.servers"]
+    context.hostname = hostname
+    context.kafka_hostname = hostname.split(":")[0]
+    context.kafka_port = hostname.split(":")[1]
+
+    metadata = ClusterMetadata(bootstrap_servers=hostname)
+    context.metadata = metadata
+    assert len(metadata.brokers()) > 0
+
+
+@given('Kafka topic specified in configuration variable "{topic_var}" is created')
+def check_topic_created(context, topic_var):
+    """Check if specified Kafka topic has been created."""
+    context.kafka_hostname = context.hostname.split(":")[0]
+    context.kafka_port = context.hostname.split(":")[1]
+
+    visit = []
+    visit.append(context.service_config)
+    while visit:
+        conf_branch = visit.pop()
+        for k, v in conf_branch.items():
+            if isinstance(v, dict):
+                visit.append(v)
+            elif k == topic_var:
+                kafka_util.delete_topic(context, v)
+                kafka_util.create_topic(context.hostname, v)
+                setattr(context, k, v)
+
+
+@when("{service} service is started")
+@when('{service} service is started in group "{group_id}"')
+@given("{service} service is started")
+def start_ccx_messaging_service(context, service, group_id=None):
+    """Start service using ccx-messaging module."""
+    if group_id:
+        os.environ["CDP_GROUP_ID"] = group_id
+
+    service_name = transform_service_name(service)
+
+    process = subprocess.Popen(
+        ["ccx-messaging", f"config/{service_name}.yaml"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        encoding="utf-8",
+        env=os.environ.copy(),
+    )
+    assert process is not None, "Process was not created"
+    context.add_cleanup(process.terminate)
+
+    if not hasattr(context, "services"):
+        context.services = {}
+
+    context.services[service_name] = process
+
+
+@then("the message received by {service} should contain following attributes")
+def check_message(context, service):
+    """Check if consumed message is represented in JSON."""
+    expected_msg = "JSON schema validated"
+    service_name = transform_service_name(service)
+
+    assert message_in_buffer(
+        expected_msg, context.services[service_name].stdout,
+    ), "can't parse message"
+
+
+@when('the file "config/workload_info.json" is not found by {service}')
+def check_workload_info_not_present(context, service):
+    """Step when workload_info.json is not in the archive."""
+    expected_msg = "archive does not contain workload info; skipping"
+    service_name = transform_service_name(service)
+
+    assert message_in_buffer(
+        expected_msg, context.services[service_name].stdout,
+    ), "archive should not contain workload_info.json for this scenario"
+
+
+@when('the file "config/workload_info.json" is found by {service}')
+def check_workload_info_present(context, service):
+    """Step when workload_info.json is present in the archive."""
+    expected_msg = "workload info found, starting publishing process"
+    service_name = transform_service_name(service)
+
+    assert message_in_buffer(
+        expected_msg, context.services[service_name].stdout,
+    ), "archive should contain workload_info.json for this scenario"
+
+
+@then("{service} decode the b64_identity attribute")
+def check_b64_decode(context, service):
+    """Check if ccx-messaging service was able to decode b64_identity attribute from a message."""
+    service_name = transform_service_name(service)
+    expected_msg = "'identity': {'identity':"
+
+    assert message_in_buffer(
+        expected_msg, context.services[service_name].stdout
+    ), "b64_identity was not extracted"
+
+
+@then("{service} should consume message about this event")
+def check_message_consumed(context, service):
+    """Check if message has been consumed by ccx-messaging service."""
+    service_name = transform_service_name(service)
+    assert not context.services[service_name].returncode, f"{service} is not running"
+
+    expected_msg = "Deserializing incoming message"
+    assert message_in_buffer(
+        expected_msg, context.services[service_name].stdout,
+    ), "message was not consumed"
+
+
+@then("{service} service does not exit with an error code")
+def service_is_running(context, service):
+    """Check if ccx-messaging service has been started."""
+    service_name = transform_service_name(service)
+    assert not context.services[service_name].poll(), f"{service} is not started"
+
+
+@then('{service} service should be registered to topic "{topic}"')
+def topic_registered(context, service, topic):
+    """Check if ccx-messaging service registered itself to consume given topic."""
+    service_name = transform_service_name(service)
     topic_name = context.__dict__["_stack"][0][topic]
     expected_msg = (
         f"Consuming topic '{topic_name}' " + f"from brokers {context.hostname}"
     )
     
-    return message_in_buffer(expected_msg, context.service.stdout)
+    assert message_in_buffer(
+        expected_msg, context.services[service_name].stdout
+    ), "consumer topic not registered"
 
 
-@then("this message should contain following attributes")
-def check_message(context):
-    """Check if consumed message is represented in JSON."""
-    expected_msg = "JSON schema validated"
+@then('{service} retrieves the "url" attribute from the message')
+def check_url(context, service):
+    """Check that ccx-messaging service is able to retrieve URL from incoming message."""
+    expected_msg = "Extracted URL from input message"
+    service_name = transform_service_name(service)
 
     assert message_in_buffer(
-        expected_msg, context.service.stdout,
-    ), "can't parse message"
+        expected_msg, context.services[service_name].stdout,
+    ), "can't parse url from message"
 
 
-def check_b64_decode(context):
-    """Check if service was able to decode b64_identity attribute from a message."""
-    expected_msg = "'identity': {'identity':"
+@then("{service} should download tarball from given URL attribute")
+def check_start_download(context, service):
+    """Check that ccx-messaging service is able to start download."""
+    expected_msg = "Downloading"
+    service_name = transform_service_name(service)
 
-    return message_in_buffer(expected_msg, context.service.stdout)
+    assert message_in_buffer(
+        expected_msg, context.services[service_name].stdout,
+    ), "download not started"
+
+
+@then("the tarball is not further processed")
+def archive_not_processed(context):
+    """Check that ccx-messaging service did not process any event."""
+    consumed = kafka_util.consume_event(context.kafka_hostname, context.outgoing_topic)
+    assert not consumed, "message should not exist in outgoing topic"
+
+
+@then('message has been sent by {service} into topic "archive-results"')
+def archive_processed(context, service):
+    """Check that ccx-messaging service did process the event."""
+    expected_msg = "Message has been sent successfully."
+    service_name = transform_service_name(service)
+
+    assert message_in_buffer(
+        expected_msg, context.services[service_name].stdout,
+    ), "{service} did not produce a result"
+
+
+@given("{service} service is started with compression")
+def start_service_compressed(context, service, group_id=None):
+    """Start ccx-messaging service with compressed messages."""
+    if group_id:
+        os.environ["CDP_GROUP_ID"] = group_id
+
+    service_name = transform_service_name(service)
+    process = subprocess.Popen(
+        ["ccx-messaging", f"config/{service_name}_compressed.yaml"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        encoding="utf-8",
+        env=os.environ.copy(),
+    )
+    assert process is not None, "Process was not created"
+    context.add_cleanup(process.terminate)
+
+    if not hasattr(context, "services"):
+        context.services = {}
+    
+    context.services[service_name] = process
+
+
+@then("Published message have to be compressed")
+def compressed_archive_sent_to_topic(context):
+    """Check that sha extractor publishes compressed messages to outgoing topic."""
+    decoded = None
+    error = None
+    message = kafka_util.consume_message_from_topic(context.kafka_hostname, context.outgoing_topic)
+    try:
+        decoded = gzip.decompress(message.value)
+    except Exception as err:
+        error = err
+    assert decoded is not None and error is None
+
+
+@then("Published message should not be compressed")
+def no_compressed_archive_sent_to_topic(context):
+    """Check that sha extractor does not publish compressed messages to topic."""
+    decoded = None
+    error = None
+    message = kafka_util.consume_message_from_topic(context.kafka_hostname, context.outgoing_topic)
+    try:
+        decoded = gzip.decompress(message.value)
+    except Exception as err:
+        error = err
+    assert decoded is None and error is not None
 
 
 def message_in_buffer(message, buffer):

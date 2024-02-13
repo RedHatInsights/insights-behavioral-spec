@@ -5,7 +5,7 @@ Feature: SHA Extractor
 
 
   Background:
-    Given Kafka broker is started on host and port specified in configuration "no-compression"
+    Given Kafka broker is started on host and port specified in SHA extractor configuration "no-compression"
       And Kafka topic specified in configuration variable "incoming_topic" is created
       And Kafka topic specified in configuration variable "dead_letter_queue_topic" is created
       And Kafka topic specified in configuration variable "outgoing_topic" is created
@@ -22,7 +22,7 @@ Feature: SHA Extractor
      When S3 and Kafka are populated with an archive without workload_info
       And SHA extractor service is started in group "check"
      Then SHA extractor should consume message about this event
-      And this message should contain following attributes
+      And the message received by SHA extractor should contain following attributes
           | Attribute    | Description                | Type         |
           | account      | account ID                 | unsigned int |
           | principal    | principal ID               | unsigned int |
@@ -37,7 +37,7 @@ Feature: SHA Extractor
     Given SHA extractor service is started
      When S3 and Kafka are populated with an archive without workload_info
      Then SHA extractor should consume message about this event
-      And this message should contain following attributes
+      And the message received by SHA extractor should contain following attributes
           | Attribute    | Description                | Type         |
           | account      | account ID                 | unsigned int |
           | principal    | principal ID               | unsigned int |
@@ -45,7 +45,7 @@ Feature: SHA Extractor
           | url          | URL to S3                  | string       |
           | b64_identity | identity encoded by BASE64 | string       |
           | timestamp    | timestamp of event         | string       |
-      And SHA extractor retrieve the "url" attribute from the message
+      And SHA extractor retrieves the "url" attribute from the message
       And SHA extractor should download tarball from given URL attribute
 
 
@@ -53,7 +53,7 @@ Feature: SHA Extractor
     Given SHA extractor service is started
      When S3 and Kafka are populated with an archive without workload_info
      Then SHA extractor should consume message about this event
-      And this message should contain following attributes
+      And the message received by SHA extractor should contain following attributes
           | Attribute    | Description                | Type         |
           | account      | account ID                 | unsigned int |
           | principal    | principal ID               | unsigned int |
@@ -61,9 +61,9 @@ Feature: SHA Extractor
           | url          | URL to S3                  | string       |
           | b64_identity | identity encoded by BASE64 | string       |
           | timestamp    | timestamp of event         | string       |
-     Then SHA extractor retrieve the "url" attribute from the message
+     Then SHA extractor retrieves the "url" attribute from the message
       And SHA extractor should download tarball from given URL attribute
-     When the file "config/workload_info.json" is not found
+     When the file "config/workload_info.json" is not found by SHA extractor
      Then the tarball is not further processed
 
 
@@ -71,7 +71,7 @@ Feature: SHA Extractor
     Given SHA extractor service is started
      When S3 and Kafka are populated with an archive with workload_info
      Then SHA extractor should consume message about this event
-      And this message should contain following attributes
+      And the message received by SHA extractor should contain following attributes
           | Attribute    | Description                | Type         |
           | account      | account ID                 | unsigned int |
           | principal    | principal ID               | unsigned int |
@@ -79,7 +79,7 @@ Feature: SHA Extractor
           | url          | URL to S3                  | string       |
           | b64_identity | identity encoded by BASE64 | string       |
           | timestamp    | timestamp of event         | string       |
-     Then SHA extractor retrieve the "url" attribute from the message
+     Then SHA extractor retrieves the "url" attribute from the message
       And SHA extractor should download tarball from given URL attribute
      When the file "config/workload_info.json" is found
      Then the content of this file needs to be sent into topic "archive_results"

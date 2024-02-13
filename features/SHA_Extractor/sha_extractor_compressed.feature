@@ -21,7 +21,7 @@ Feature: SHA Extractor
     Given SHA extractor service is started with compression
       When S3 and Kafka are populated with an archive with workload_info
       Then SHA extractor should consume message about this event
-      And this message should contain following attributes
+      And the message received by SHA extractor should contain following attributes
           | Attribute    | Description                | Type         |
           | account      | account ID                 | unsigned int |
           | principal    | principal ID               | unsigned int |
