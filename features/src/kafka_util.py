@@ -14,12 +14,10 @@
 
 """An interface to Apache Kafka done using kcat utility and Python interface to Kafka."""
 
-
 from behave.runner import Context
 from kafka import KafkaAdminClient, KafkaConsumer, KafkaProducer
 from kafka.admin import NewTopic
 from kafka.errors import TopicAlreadyExistsError, UnknownTopicOrPartitionError
-import gzip
 
 
 class SendEventException(Exception):
@@ -90,12 +88,12 @@ def consume_event(bootstrap, topic, group_id=None):
     return consumer.poll()
 
 def consume_one_message_from_topic(bootsrap, topic):
-    """Consume one messages in given topic"""
+    """Consume one messages in given topic."""
     f = open("/home/jdrobena/work9.2/insights-behavioral-spec/demofile3.txt", "a")
     consumer = KafkaConsumer(
         topic,
         bootstrap_servers=bootsrap,
-        auto_offset_reset='earliest'
+        auto_offset_reset="earliest",
 
     )
     return next(consumer)

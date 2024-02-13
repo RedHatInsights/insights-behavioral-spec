@@ -14,6 +14,7 @@
 
 """Implementation of test steps that run Insights SHA Extractor and check its output."""
 
+import gzip
 import os
 import subprocess
 
@@ -21,7 +22,6 @@ import yaml
 from behave import given, then, when
 from kafka.cluster import ClusterMetadata
 from src import kafka_util
-import gzip
 
 
 @given("SHA extractor service is not started")
@@ -240,7 +240,7 @@ def compressed_archive_sent_to_topic(context):
     except Exception as err:
         error=err
     assert decoded is not None and error is None
-            
+
 
 
 @when("compresion is disabled")
@@ -255,4 +255,4 @@ def no_compressed_archive_sent_to_topic(context):
     except Exception as err:
         error=err
     assert decoded is None and error is not None
-            
+
