@@ -31,7 +31,7 @@ def sha_extractor_not_started(context):
 
 
 @given('Kafka broker is started on host and port specified in configuration "{compression_var}')
-def kafka_broker_running(context,compression_var):
+def kafka_broker_running(context, compression_var):
     """Check if Kafka broker is running on specified address."""
     config = None
     if compression_var != "compressed":
@@ -210,6 +210,7 @@ def message_in_buffer(message, buffer):
 
     return found
 
+
 @given("SHA extractor service is started with compresion")
 def start_sha_extractor_compressed(context, group_id=None):
     """Start SHA Extractor service."""
@@ -227,6 +228,7 @@ def start_sha_extractor_compressed(context, group_id=None):
     assert sha_extractor is not None, "Process was not created"
     context.add_cleanup(sha_extractor.terminate)
     context.sha_extractor = sha_extractor
+
 
 @when("compresion is enabled")
 @then("Published message have to be compressed")
@@ -255,4 +257,3 @@ def no_compressed_archive_sent_to_topic(context):
     except Exception as err:
         error=err
     assert decoded is None and error is not None
-
