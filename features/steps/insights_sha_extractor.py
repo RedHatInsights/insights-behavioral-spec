@@ -218,7 +218,7 @@ def message_in_buffer(message, buffer):
     return found
 
 
-@given("SHA extractor service is started with compresion")
+@given("SHA extractor service is started with compression")
 def start_sha_extractor_compressed(context, group_id=None):
     """Start SHA Extractor service."""
     if group_id:
@@ -237,7 +237,7 @@ def start_sha_extractor_compressed(context, group_id=None):
     context.sha_extractor = sha_extractor
 
 
-@when("compresion is enabled")
+@when("compression is enabled")
 @then("Published message have to be compressed")
 def compressed_archive_sent_to_topic(context):
     """Check that sha extractor did not process any event."""
@@ -251,7 +251,7 @@ def compressed_archive_sent_to_topic(context):
     assert decoded is not None and error is None
 
 
-@when("compresion is disabled")
+@when("compression is disabled")
 @then("Published message should not be compressed")
 def no_compressed_archive_sent_to_topic(context):
     """Check that sha extractor did not process any event."""

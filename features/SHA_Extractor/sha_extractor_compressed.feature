@@ -17,8 +17,8 @@ Feature: SHA Extractor
      Then SHA extractor service does not exit with an error code
       And SHA extractor service should be registered to topic "incoming_topic"
 
-  Scenario: Check if SHA extractor compresion works properly
-    Given SHA extractor service is started with compresion
+  Scenario: Check if SHA extractor compression works properly
+    Given SHA extractor service is started with compression
       When S3 and Kafka are populated with an archive with workload_info
       Then SHA extractor should consume message about this event
       And this message should contain following attributes
@@ -33,5 +33,5 @@ Feature: SHA Extractor
       And SHA extractor should download tarball from given URL attribute
      When the file "config/workload_info.json" is found
      Then the content of this file needs to be sent into topic "archive_results"
-     When compresion is enabled
+     When compression is enabled
      Then Published message have to be compressed
