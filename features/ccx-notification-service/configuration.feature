@@ -46,3 +46,12 @@ Feature: Customer Notifications configuration and exit codes
           | CCX_NOTIFICATION_SERVICE__DEPENDENCIES__CONTENT_SERVER | unresolved_url:8082/api/v1 |
      Then it should have sent 0 notification events to Kafka
       And the process should exit with status code set to 4
+
+  Scenario: Check that notification-to-notification backend can be configured to use two Kafka brokers
+    Given the service is expected to exit with code 0
+     When I start the CCX Notification Service with the --instant-reports command line flag
+          | val                                                    | var                        |
+          | CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ENABLED        | true                       |
+          | CCX_NOTIFICATION_SERVICE__SERVICE_LOG__ENABLED         | false                      |
+          | CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ADDRESSES      | kakfa:9093,kafka:9092      |
+     Then the process should exit with status code set to 0
