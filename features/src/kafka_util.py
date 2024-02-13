@@ -85,12 +85,12 @@ def consume_event(bootstrap, topic, group_id=None):
     consumer.subscribe(topics=topic)
     return consumer.poll()
 
+
 def consume_message_from_topic(bootsrap, topic):
     """Consume one messages in given topic."""
     consumer = KafkaConsumer(
         topic,
         bootstrap_servers=bootsrap,
         auto_offset_reset="earliest",
-
     )
     return next(consumer)
