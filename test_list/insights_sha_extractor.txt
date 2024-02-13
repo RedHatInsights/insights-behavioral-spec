@@ -1,1 +1,2 @@
 ../features/SHA_Extractor/sha_extractor.feature
+../features/SHA_Extractor/sha_extractor_compresed.feature

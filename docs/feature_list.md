@@ -79,6 +79,7 @@ nav_order: 2
 ## SHA Extractor
 
 * [SHA Extractor](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/SHA_Extractor/sha_extractor.feature)
+* [SHA Extractor Compresed](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/SHA_Extractor/sha_extractor_compresed.feature)
 
 
 ## Smart Proxy
