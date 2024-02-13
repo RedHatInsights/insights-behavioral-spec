@@ -862,6 +862,7 @@ nav_order: 3
 * Check that notification service exits with exit code 1 if no destination is configured
 * Check that notification-to-notification-backend is not started and exits with status 4 if rules cannot be fetched
 * Check that notification-to-service-log is not started and exits with status 4 if rules cannot be fetched
+* Check that notification-to-notification backend can be configured to use two Kafka brokers
 
 ## [`ccx-notification-service/customer_notifications.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/ccx-notification-service/customer_notifications.feature)
 
