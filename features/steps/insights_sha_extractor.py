@@ -234,9 +234,9 @@ def compressed_archive_sent_to_topic(context):
     """Check that sha extractor did not process any event."""
     decoded = None
     error= None
-    consumed_message = kafka_util.consume_one_message_from_topic(context.kafka_hostname, context.outgoing_topic)
+    message = kafka_util.consume_one_message_from_topic(context.kafka_hostname, context.outgoing_topic)
     try:
-        decoded = gzip.decompress(consumed_message.value)
+        decoded = gzip.decompress(message.value)
     except Exception as err:
         error=err
     assert decoded is not None and error is None
@@ -249,9 +249,9 @@ def no_compressed_archive_sent_to_topic(context):
     """Check that sha extractor did not process any event."""
     decoded = None
     error= None
-    consumed_message = kafka_util.consume_one_message_from_topic(context.kafka_hostname, context.outgoing_topic)
+    message = kafka_util.consume_one_message_from_topic(context.kafka_hostname, context.outgoing_topic)
     try:
-        decoded = gzip.decompress(consumed_message.value)
+        decoded = gzip.decompress(message.value)
     except Exception as err:
         error=err
     assert decoded is None and error is not None

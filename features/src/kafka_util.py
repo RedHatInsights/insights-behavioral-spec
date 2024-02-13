@@ -78,8 +78,6 @@ def send_event(bootstrap, topic, payload, headers=None, partition=None, timestam
 
 def consume_event(bootstrap, topic, group_id=None):
     """Consume events in the given topic."""
-    f = open("/home/jdrobena/work9.2/insights-behavioral-spec/demofile3.txt", "a")
-    f.write(bootstrap+" "+topic)
     consumer = KafkaConsumer(
         bootstrap_servers=bootstrap,
         group_id=group_id,
@@ -89,7 +87,6 @@ def consume_event(bootstrap, topic, group_id=None):
 
 def consume_one_message_from_topic(bootsrap, topic):
     """Consume one messages in given topic."""
-    f = open("/home/jdrobena/work9.2/insights-behavioral-spec/demofile3.txt", "a")
     consumer = KafkaConsumer(
         topic,
         bootstrap_servers=bootsrap,
