@@ -14,7 +14,6 @@
 
 """An interface to Apache Kafka done using kcat utility and Python interface to Kafka."""
 
-
 from behave.runner import Context
 from kafka import KafkaAdminClient, KafkaConsumer, KafkaProducer
 from kafka.admin import NewTopic
@@ -85,3 +84,13 @@ def consume_event(bootstrap, topic, group_id=None):
     )
     consumer.subscribe(topics=topic)
     return consumer.poll()
+
+
+def consume_message_from_topic(bootsrap, topic):
+    """Consume one messages in given topic."""
+    consumer = KafkaConsumer(
+        topic,
+        bootstrap_servers=bootsrap,
+        auto_offset_reset="earliest",
+    )
+    return next(consumer)

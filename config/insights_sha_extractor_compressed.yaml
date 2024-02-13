@@ -1,0 +1,72 @@
+plugins:
+  packages:
+    - insights.specs.default
+    - pythonjsonlogger
+    - pythonjsonlogger.jsonlogger
+  configs:
+    - name: ccx_ocp_core.config.telemeter.TelemeterServiceConfig
+      enabled: false
+service:
+  extract_timeout:
+  extract_tmp_dir:
+  format: insights.formats._json.JsonFormat
+  target_components: []
+  consumer:
+    name: ccx_messaging.consumers.kafka_consumer.KafkaConsumer
+    kwargs:
+      incoming_topic: platform.upload.announce
+      dead_letter_queue_topic: dead.letter.queue
+      platform_service: testareno
+      processing_timeout_s: 0
+      group.id: ${CDP_GROUP_ID:insights_sha_extractor_app}
+      bootstrap.servers: kafka:9092
+      security.protocol: PLAINTEXT
+      max.poll.interval.ms: 30000
+      heartbeat.interval.ms: 50000
+      session.timeout.ms: 10000
+      auto.offset.reset: earliest
+  downloader:
+    name: ccx_messaging.downloaders.http_downloader.HTTPDownloader
+    kwargs:
+      max_archive_size: 100 MiB
+      allow_unsafe_links: true
+  engine:
+    name: ccx_messaging.engines.sha_extractor_engine.SHAExtractorEngine
+    kwargs:
+      extract_timeout: 10
+  publisher:
+    name: ccx_messaging.publishers.workloads_info_publisher.WorkloadInfoPublisher
+    kwargs:
+      outgoing_topic: archive-results
+      bootstrap.servers: kafka:9092
+      compression: gzip
+
+  logging:
+    version: 1
+    disable_existing_loggers: false
+    handlers:
+      default:
+        level: DEBUG
+        class: logging.StreamHandler
+        stream: ext://sys.stdout
+        formatter: json
+    formatters:
+      brief:
+        format: "%(message)s"
+      json:
+        (): "pythonjsonlogger.jsonlogger.JsonFormatter"
+        format: "%(filename)s %(lineno)d %(process)d %(levelname)s %(asctime)s %(name)s %(message)s"
+      cloudwatch:
+        format: "%(filename)s %(levelname)s %(asctime)s %(name)s %(hostname)s %(mac_address)s %(message)s"
+    root:
+      handlers:
+        - default
+    loggers:
+      insights_messaging:
+        level: DEBUG
+      ccx_messaging:
+        level: DEBUG
+      insights:
+        level: WARNING
+      insights_sha_extractor:
+        level: DEBUG

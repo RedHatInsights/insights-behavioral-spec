@@ -327,6 +327,11 @@ nav_order: 3
 * Check if SHA extractor is able to consume messages from Kafka, download tarball, and take SHA images
 * Check if SHA extractor is able to finish the processing of SHA images
 
+## [`SHA_Extractor/sha_extractor_compressed.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/SHA_Extractor/sha_extractor_compressed.feature)
+
+* Check that SHA extractor service has all the information and interfaces it needs to work properly
+* Check if SHA extractor compression works properly
+
 ## [`smart-proxy/smoketests.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/smart-proxy/smoketests.feature)
 
 * Check if Smart Proxy application is available
