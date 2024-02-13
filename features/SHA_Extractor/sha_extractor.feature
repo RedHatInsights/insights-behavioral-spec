@@ -5,7 +5,7 @@ Feature: SHA Extractor
 
 
   Background:
-    Given Kafka broker is started on host and port specified in configuration
+    Given Kafka broker is started on host and port specified in configuration "no-compression"
       And Kafka topic specified in configuration variable "incoming_topic" is created
       And Kafka topic specified in configuration variable "dead_letter_queue_topic" is created
       And Kafka topic specified in configuration variable "outgoing_topic" is created
@@ -83,3 +83,5 @@ Feature: SHA Extractor
       And SHA extractor should download tarball from given URL attribute
      When the file "config/workload_info.json" is found
      Then the content of this file needs to be sent into topic "archive_results"
+     When compresion is disabled
+     Then Published message should not be compressed

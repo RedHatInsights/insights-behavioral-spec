@@ -21,6 +21,7 @@ import yaml
 from behave import given, then, when
 from kafka.cluster import ClusterMetadata
 from src import kafka_util
+import gzip
 
 
 @given("SHA extractor service is not started")
@@ -29,13 +30,18 @@ def sha_extractor_not_started(context):
     assert not hasattr(context, "sha_extractor")
 
 
-@given("Kafka broker is started on host and port specified in configuration")
-def kafka_broker_running(context):
+@given('Kafka broker is started on host and port specified in configuration "{compression_var}')
+def kafka_broker_running(context,compression_var):
     """Check if Kafka broker is running on specified address."""
     config = None
-    with open("config/insights_sha_extractor.yaml", "r") as file:
-        config = yaml.safe_load(file)
-        context.sha_config = config
+    if compression_var != "compressed":
+        with open("config/insights_sha_extractor.yaml", "r") as file:
+            config = yaml.safe_load(file)
+            context.sha_config = config
+    else:
+        with open("config/insights_sha_extractor_compressed.yaml", "r") as file:
+            config = yaml.safe_load(file)
+            context.sha_config = config
     hostname = config["service"]["consumer"]["kwargs"]["bootstrap.servers"]
     context.hostname = hostname
     context.kafka_hostname = hostname.split(":")[0]
@@ -203,3 +209,50 @@ def message_in_buffer(message, buffer):
             break
 
     return found
+
+@given("SHA extractor service is started with compresion")
+def start_sha_extractor_compressed(context, group_id=None):
+    """Start SHA Extractor service."""
+    if group_id:
+        os.environ["CDP_GROUP_ID"] = group_id
+
+    sha_extractor = subprocess.Popen(
+        ["ccx-messaging", "config/insights_sha_extractor_compressed.yaml"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        encoding="utf-8",
+        env=os.environ.copy(),
+    )
+    assert sha_extractor is not None, "Process was not created"
+    context.add_cleanup(sha_extractor.terminate)
+    context.sha_extractor = sha_extractor
+
+@when("compresion is enabled")
+@then("Published message have to be compressed")
+def compressed_archive_sent_to_topic(context):
+    """Check that sha extractor did not process any event."""
+    decoded = None
+    error= None
+    consumed_message = kafka_util.consume_one_message_from_topic(context.kafka_hostname, context.outgoing_topic)
+    try:
+        decoded = gzip.decompress(consumed_message.value)
+    except Exception as err:
+        error=err
+    assert decoded is not None and error is None
+            
+
+
+@when("compresion is disabled")
+@then("Published message should not be compressed")
+def no_compressed_archive_sent_to_topic(context):
+    """Check that sha extractor did not process any event."""
+    decoded = None
+    error= None
+    consumed_message = kafka_util.consume_one_message_from_topic(context.kafka_hostname, context.outgoing_topic)
+    try:
+        decoded = gzip.decompress(consumed_message.value)
+    except Exception as err:
+        error=err
+    assert decoded is None and error is not None
+            

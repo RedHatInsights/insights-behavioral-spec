@@ -19,6 +19,7 @@ from behave.runner import Context
 from kafka import KafkaAdminClient, KafkaConsumer, KafkaProducer
 from kafka.admin import NewTopic
 from kafka.errors import TopicAlreadyExistsError, UnknownTopicOrPartitionError
+import gzip
 
 
 class SendEventException(Exception):
@@ -79,9 +80,22 @@ def send_event(bootstrap, topic, payload, headers=None, partition=None, timestam
 
 def consume_event(bootstrap, topic, group_id=None):
     """Consume events in the given topic."""
+    f = open("/home/jdrobena/work9.2/insights-behavioral-spec/demofile3.txt", "a")
+    f.write(bootstrap+" "+topic)
     consumer = KafkaConsumer(
         bootstrap_servers=bootstrap,
         group_id=group_id,
     )
     consumer.subscribe(topics=topic)
     return consumer.poll()
+
+def consume_one_message_from_topic(bootsrap, topic):
+    """Consume one messages in given topic"""
+    f = open("/home/jdrobena/work9.2/insights-behavioral-spec/demofile3.txt", "a")
+    consumer = KafkaConsumer(
+        topic,
+        bootstrap_servers=bootsrap,
+        auto_offset_reset='earliest'
+
+    )
+    return next(consumer)
