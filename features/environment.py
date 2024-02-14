@@ -87,17 +87,18 @@ def after_scenario(context, scenario):
     if "sha_extractor" or "dvo_extractor" in scenario.effective_tags:
         # terminate the subprocess to have
         # one kafka consumer at a time
-        for service in context.services.keys():
-            try:
-                # try to close nicely
-                context.services[service].terminate()
-                context.services[service].wait(timeout=10)
-            except TimeoutExpired:
-                # ok we have to kill the process
-                context.services[service].kill()
-                context.services[service].wait()
+        if hasattr(context, "services"):
+            for service in context.services.keys():
+                try:
+                    # try to close nicely
+                    context.services[service].terminate()
+                    context.services[service].wait(timeout=10)
+                except TimeoutExpired:
+                    # ok we have to kill the process
+                    context.services[service].kill()
+                    context.services[service].wait()
 
-            assert context.services[service].poll() is not None, f"{service} was not closed"
+                assert context.services[service].poll() is not None, f"{service} was not closed"
 
 
 def prepare_db(context, setup_files=CLEANUP_FILES, database="test"):

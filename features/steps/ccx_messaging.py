@@ -14,6 +14,7 @@
 
 """Implementation of common steps for all services using ccx-messaging module."""
 
+import gzip
 import os
 import subprocess
 
@@ -41,17 +42,18 @@ def service_not_started(context, service):
 
 
 @given('Kafka broker is started on host and port specified in {service} configuration "{compression_var}"')
-def kafka_broker_running(context, service, compression_var):
+@given("Kafka broker is started on host and port specified in {service} configuration")
+def kafka_broker_running(context, service, compression_var=None):
     """Check if Kafka broker is running on specified address."""
     config = None
     service_name = transform_service_name(service)
 
     if compression_var != "compressed":
-        with open("config/{service_name}.yaml", "r") as file:
+        with open(f"config/{service_name}.yaml", "r") as file:
             config = yaml.safe_load(file)
             context.service_config = config
     else:
-        with open("config/{service_name}_compressed.yaml", "r") as file:
+        with open(f"config/{service_name}_compressed.yaml", "r") as file:
             config = yaml.safe_load(file)
             context.service_config = config
 

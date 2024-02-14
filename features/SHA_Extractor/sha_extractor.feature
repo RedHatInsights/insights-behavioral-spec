@@ -81,6 +81,6 @@ Feature: SHA Extractor
           | timestamp    | timestamp of event         | string       |
      Then SHA extractor retrieves the "url" attribute from the message
       And SHA extractor should download tarball from given URL attribute
-     When the file "config/workload_info.json" is found
-     Then the content of this file needs to be sent into topic "archive_results"
+     When the file "config/workload_info.json" is found by SHA extractor
+     Then message has been sent by SHA extractor into topic "archive_results"
       And Published message should not be compressed
