@@ -19,18 +19,15 @@ import os
 import subprocess
 
 import yaml
-from behave import given, when, then
+from behave import given, then, when
 from kafka.cluster import ClusterMetadata
 from src import kafka_util
 
-
-SERVICES = {
-    "SHA extractor": "insights_sha_extractor",
-    "DVO extractor": "dvo_extractor"
-}
+SERVICES = {"SHA extractor": "insights_sha_extractor", "DVO extractor": "dvo_extractor"}
 
 
 def transform_service_name(service_name):
+    """Transform service name used in test steps to name used in dictionaries and config names."""
     return SERVICES[service_name]
 
 
@@ -38,10 +35,15 @@ def transform_service_name(service_name):
 def service_not_started(context, service):
     """Check if SHA extractor service has been started."""
     service_name = transform_service_name(service)
-    assert not hasattr(context, "services") or service_name not in context.services.keys()
+    assert (
+        not hasattr(context, "services") or service_name not in context.services.keys()
+    )
 
 
-@given('Kafka broker is started on host and port specified in {service} configuration "{compression_var}"')
+@given(
+    'Kafka broker is started on host and port specified '
+    'in {service} configuration "{compression_var}"',
+)
 @given("Kafka broker is started on host and port specified in {service} configuration")
 def kafka_broker_running(context, service, compression_var=None):
     """Check if Kafka broker is running on specified address."""
@@ -120,7 +122,8 @@ def check_message(context, service):
     service_name = transform_service_name(service)
 
     assert message_in_buffer(
-        expected_msg, context.services[service_name].stdout,
+        expected_msg,
+        context.services[service_name].stdout,
     ), "can't parse message"
 
 
@@ -131,7 +134,8 @@ def check_workload_info_not_present(context, service):
     service_name = transform_service_name(service)
 
     assert message_in_buffer(
-        expected_msg, context.services[service_name].stdout,
+        expected_msg,
+        context.services[service_name].stdout,
     ), "archive should not contain workload_info.json for this scenario"
 
 
@@ -142,7 +146,8 @@ def check_workload_info_present(context, service):
     service_name = transform_service_name(service)
 
     assert message_in_buffer(
-        expected_msg, context.services[service_name].stdout,
+        expected_msg,
+        context.services[service_name].stdout,
     ), "archive should contain workload_info.json for this scenario"
 
 
@@ -153,7 +158,7 @@ def check_b64_decode(context, service):
     expected_msg = "'identity': {'identity':"
 
     assert message_in_buffer(
-        expected_msg, context.services[service_name].stdout
+        expected_msg, context.services[service_name].stdout,
     ), "b64_identity was not extracted"
 
 
@@ -165,7 +170,8 @@ def check_message_consumed(context, service):
 
     expected_msg = "Deserializing incoming message"
     assert message_in_buffer(
-        expected_msg, context.services[service_name].stdout,
+        expected_msg,
+        context.services[service_name].stdout,
     ), "message was not consumed"
 
 
@@ -184,9 +190,9 @@ def topic_registered(context, service, topic):
     expected_msg = (
         f"Consuming topic '{topic_name}' " + f"from brokers {context.hostname}"
     )
-    
+
     assert message_in_buffer(
-        expected_msg, context.services[service_name].stdout
+        expected_msg, context.services[service_name].stdout,
     ), "consumer topic not registered"
 
 
@@ -197,7 +203,8 @@ def check_url(context, service):
     service_name = transform_service_name(service)
 
     assert message_in_buffer(
-        expected_msg, context.services[service_name].stdout,
+        expected_msg,
+        context.services[service_name].stdout,
     ), "can't parse url from message"
 
 
@@ -208,7 +215,8 @@ def check_start_download(context, service):
     service_name = transform_service_name(service)
 
     assert message_in_buffer(
-        expected_msg, context.services[service_name].stdout,
+        expected_msg,
+        context.services[service_name].stdout,
     ), "download not started"
 
 
@@ -226,7 +234,8 @@ def archive_processed(context, service):
     service_name = transform_service_name(service)
 
     assert message_in_buffer(
-        expected_msg, context.services[service_name].stdout,
+        expected_msg,
+        context.services[service_name].stdout,
     ), "{service} did not produce a result"
 
 
@@ -250,7 +259,7 @@ def start_service_compressed(context, service, group_id=None):
 
     if not hasattr(context, "services"):
         context.services = {}
-    
+
     context.services[service_name] = process
 
 
@@ -259,7 +268,9 @@ def compressed_archive_sent_to_topic(context):
     """Check that sha extractor publishes compressed messages to outgoing topic."""
     decoded = None
     error = None
-    message = kafka_util.consume_message_from_topic(context.kafka_hostname, context.outgoing_topic)
+    message = kafka_util.consume_message_from_topic(
+        context.kafka_hostname, context.outgoing_topic,
+    )
     try:
         decoded = gzip.decompress(message.value)
     except Exception as err:
@@ -272,7 +283,9 @@ def no_compressed_archive_sent_to_topic(context):
     """Check that sha extractor does not publish compressed messages to topic."""
     decoded = None
     error = None
-    message = kafka_util.consume_message_from_topic(context.kafka_hostname, context.outgoing_topic)
+    message = kafka_util.consume_message_from_topic(
+        context.kafka_hostname, context.outgoing_topic,
+    )
     try:
         decoded = gzip.decompress(message.value)
     except Exception as err:

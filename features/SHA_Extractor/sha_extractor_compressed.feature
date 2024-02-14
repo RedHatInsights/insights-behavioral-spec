@@ -17,6 +17,7 @@ Feature: SHA Extractor
      Then SHA extractor service does not exit with an error code
       And SHA extractor service should be registered to topic "incoming_topic"
 
+
   Scenario: Check if SHA extractor compression works properly
     Given SHA extractor service is started with compression
       When S3 and Kafka are populated with an archive with workload_info
