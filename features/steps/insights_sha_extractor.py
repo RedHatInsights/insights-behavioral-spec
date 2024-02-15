@@ -237,10 +237,9 @@ def start_sha_extractor_compressed(context, group_id=None):
     context.sha_extractor = sha_extractor
 
 
-@when("compression is enabled")
 @then("Published message have to be compressed")
 def compressed_archive_sent_to_topic(context):
-    """Check that sha extractor did not process any event."""
+    """Check that sha extractor publish compressed messages to outgoing topic."""
     decoded = None
     error = None
     message = kafka_util.consume_message_from_topic(context.kafka_hostname, context.outgoing_topic)
@@ -251,10 +250,9 @@ def compressed_archive_sent_to_topic(context):
     assert decoded is not None and error is None
 
 
-@when("compression is disabled")
 @then("Published message should not be compressed")
 def no_compressed_archive_sent_to_topic(context):
-    """Check that sha extractor did not process any event."""
+    """Check that sha extractor does not publish compressed messages to topic."""
     decoded = None
     error = None
     message = kafka_util.consume_message_from_topic(context.kafka_hostname, context.outgoing_topic)

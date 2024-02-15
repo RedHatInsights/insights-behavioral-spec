@@ -33,5 +33,4 @@ Feature: SHA Extractor
       And SHA extractor should download tarball from given URL attribute
      When the file "config/workload_info.json" is found
      Then the content of this file needs to be sent into topic "archive_results"
-     When compression is enabled
-     Then Published message have to be compressed
+      And Published message have to be compressed
