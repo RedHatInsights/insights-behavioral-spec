@@ -246,7 +246,7 @@ def archive_processed(context, service):
 def valid_message(context, field):
     """Check that the produced message is valid."""
     msg = kafka_util.consume_message_from_topic(context.kafka_hostname, context.outgoing_topic)
-    assert field not in msg, f"message does not contain \"{field}\" field"
+    assert field not in msg, f'message does not contain "{field}" field'
 
 
 @given("{service} service is started with compression")
