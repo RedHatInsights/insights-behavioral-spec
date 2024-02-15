@@ -1,5 +1,5 @@
 [broker]
-address = "kafka:9092"
+addresses = "kafka:9092"
 security_protocol = ""
 sasl_mechanism = "PLAIN"
 sasl_username = "username"

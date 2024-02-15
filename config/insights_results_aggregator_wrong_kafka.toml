@@ -1,5 +1,5 @@
 [broker]
-address = "this-is-not-reachable"
+addresses = "this-is-not-reachable"
 security_protocol = ""
 sasl_mechanism = "PLAIN"
 sasl_username = "username"
