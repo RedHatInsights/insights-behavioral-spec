@@ -20,18 +20,11 @@ Feature: SHA Extractor
 
   Scenario: Check if SHA extractor compression works properly
     Given SHA extractor service is started with compression
-      When S3 and Kafka are populated with an archive with workload_info
-      Then SHA extractor should consume message about this event
-      And the message received by SHA extractor should contain following attributes
-          | Attribute    | Description                | Type         |
-          | account      | account ID                 | unsigned int |
-          | principal    | principal ID               | unsigned int |
-          | size         | tarball size               | unsigned int |
-          | url          | URL to S3                  | string       |
-          | b64_identity | identity encoded by BASE64 | string       |
-          | timestamp    | timestamp of event         | string       |
-     Then SHA extractor retrieves the "url" attribute from the message
+     When S3 and Kafka are populated with an archive with workload_info
+     Then SHA extractor should consume message about this event
+      And SHA extractor validates the message format
+      And SHA extractor retrieves the "url" attribute from the message
       And SHA extractor should download tarball from given URL attribute
      When the file "config/workload_info.json" is found by SHA extractor
-     Then message has been sent by SHA extractor into topic "archive_results"
-      And Published message have to be compressed
+     Then message has been sent by SHA extractor into topic "archive-results"
+      And published message has to be compressed

@@ -22,14 +22,7 @@ Feature: DVO extractor
      When S3 and Kafka are populated with an archive without workload_info
       And DVO extractor service is started in group "check"
      Then DVO extractor should consume message about this event
-      And the message received by DVO extractor should contain following attributes
-          | Attribute    | Description                | Type         |
-          | account      | account ID                 | unsigned int |
-          | principal    | principal ID               | unsigned int |
-          | size         | tarball size               | unsigned int |
-          | url          | URL to S3                  | string       |
-          | b64_identity | identity encoded by BASE64 | string       |
-          | timestamp    | timestamp of event         | string       |
+      And DVO extractor validates the message format
       And DVO extractor decode the b64_identity attribute
 
 
@@ -37,14 +30,7 @@ Feature: DVO extractor
     Given DVO extractor service is started
      When S3 and Kafka are populated with an archive without workload_info
      Then DVO extractor should consume message about this event
-      And the message received by DVO extractor should contain following attributes
-          | Attribute    | Description                | Type         |
-          | account      | account ID                 | unsigned int |
-          | principal    | principal ID               | unsigned int |
-          | size         | tarball size               | unsigned int |
-          | url          | URL to S3                  | string       |
-          | b64_identity | identity encoded by BASE64 | string       |
-          | timestamp    | timestamp of event         | string       |
+      And DVO extractor validates the message format
       And DVO extractor retrieves the "url" attribute from the message
       And DVO extractor should download tarball from given URL attribute
 
@@ -53,14 +39,8 @@ Feature: DVO extractor
     Given DVO extractor service is started
      When S3 and Kafka are populated with an archive with workload_info
      Then DVO extractor should consume message about this event
-      And the message received by DVO extractor should contain following attributes
-          | Attribute    | Description                | Type         |
-          | account      | account ID                 | unsigned int |
-          | principal    | principal ID               | unsigned int |
-          | size         | tarball size               | unsigned int |
-          | url          | URL to S3                  | string       |
-          | b64_identity | identity encoded by BASE64 | string       |
-          | timestamp    | timestamp of event         | string       |
-     Then DVO extractor retrieves the "url" attribute from the message
+      And DVO extractor validates the message format
+      And DVO extractor retrieves the "url" attribute from the message
       And DVO extractor should download tarball from given URL attribute
       And message has been sent by DVO extractor into topic "archive-results"
+      And produced message contains "workload_recommendations" field

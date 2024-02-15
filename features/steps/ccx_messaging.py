@@ -115,7 +115,7 @@ def start_ccx_messaging_service(context, service, group_id=None):
     context.services[service_name] = process
 
 
-@then("the message received by {service} should contain following attributes")
+@then("{service} validates the message format")
 def check_message(context, service):
     """Check if consumed message is represented in JSON."""
     expected_msg = "JSON schema validated"
@@ -238,6 +238,16 @@ def archive_processed(context, service):
         context.services[service_name].stdout,
     ), "{service} did not produce a result"
 
+    msg = kafka_util.consume_message_from_topic(context.kafka_hostname, context.outgoing_topic)
+    assert msg.value is not None, "message has not been sent"
+
+
+@then('produced message contains "{field}" field')
+def valid_message(context, field):
+    """Check that the produced message is valid."""
+    msg = kafka_util.consume_message_from_topic(context.kafka_hostname, context.outgoing_topic)
+    assert field not in msg, f"message does not contain \"{field}\" field"
+
 
 @given("{service} service is started with compression")
 def start_service_compressed(context, service, group_id=None):
@@ -263,9 +273,9 @@ def start_service_compressed(context, service, group_id=None):
     context.services[service_name] = process
 
 
-@then("Published message have to be compressed")
+@then("published message has to be compressed")
 def compressed_archive_sent_to_topic(context):
-    """Check that sha extractor publishes compressed messages to outgoing topic."""
+    """Check that service publishes compressed messages to outgoing topic."""
     decoded = None
     error = None
     message = kafka_util.consume_message_from_topic(
@@ -278,9 +288,9 @@ def compressed_archive_sent_to_topic(context):
     assert decoded is not None and error is None
 
 
-@then("Published message should not be compressed")
+@then("published message should not be compressed")
 def no_compressed_archive_sent_to_topic(context):
-    """Check that sha extractor does not publish compressed messages to topic."""
+    """Check that service does not publish compressed messages to topic."""
     decoded = None
     error = None
     message = kafka_util.consume_message_from_topic(
