@@ -239,7 +239,7 @@ def start_sha_extractor_compressed(context, group_id=None):
 
 @then("Published message have to be compressed")
 def compressed_archive_sent_to_topic(context):
-    """Check that sha extractor publish compressed messages to outgoing topic."""
+    """Check that sha extractor publishes compressed messages to outgoing topic."""
     decoded = None
     error = None
     message = kafka_util.consume_message_from_topic(context.kafka_hostname, context.outgoing_topic)
