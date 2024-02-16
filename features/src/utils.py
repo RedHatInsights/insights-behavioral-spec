@@ -17,6 +17,7 @@
 import base64
 from typing import Set
 
+import jsonschema
 from behave.runner import Context
 
 
@@ -73,3 +74,18 @@ def find_block(output, block_delimiter):
         if line == block_delimiter:
             return i
     raise Exception("Block was not found")
+
+
+def validate_json(message, schema):
+    """Check the JSON message with the given schema."""
+    try:
+        jsonschema.validate(
+            instance=message,
+            schema=schema,
+        )
+
+    except jsonschema.ValidationError as e:
+        assert False, "The message doesn't fit the expected schema:" + str(e)
+
+    except jsonschema.SchemaError as e:
+        assert False, "The provided schema is faulty:" + str(e)

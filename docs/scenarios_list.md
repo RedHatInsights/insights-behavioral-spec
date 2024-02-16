@@ -830,6 +830,13 @@ nav_order: 3
 * Check if Insights Results Aggregator Mock service returns 503 if Upgrade service is not available
 * Check if Insights Results Aggregator Mock service returns 404 if the cluster has no data in RHOBS
 
+## [`dvo-extractor/dvo_extractor.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/dvo-extractor/dvo_extractor.feature)
+
+* Check that DVO extractor service has all the information and interfaces it needs to work properly
+* Check if DVO extractor is able to consume messages from Kafka
+* Check if DVO extractor is able to consume messages from Kafka and then download tarball
+* Check if DVO extractor is able to produce workload recommendations
+
 ## [`ccx-notification-service/cleanup_records.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/ccx-notification-service/cleanup_records.feature)
 
 * Check the ability to clean up old records from `new_reports` table if the table is empty.

@@ -28,6 +28,7 @@ jobs:
       - run: pip install --upgrade importlib-metadata
       - run: pip install behave
       - run: pip install semver
+      - run: pip install jsonschema
       - name: Style checks
         run: make style
       - name: Docstrings checks

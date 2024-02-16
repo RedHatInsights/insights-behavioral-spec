@@ -10,6 +10,7 @@ with_profile() {
     "aggregator-mock-tests") echo "" ;;
     "cleaner-tests") echo "" ;;
     "data-engineering-service-tests") echo "--profile test-upgrades-data-eng" ;;
+    "dvo-extractor-tests") echo "--profile test-dvo-extractor" ;;
     "exporter-tests") echo "--profile test-exporter" ;;
     "inference-service-tests") echo "" ;;
     "insights-content-service-tests") echo "" ;;
@@ -72,6 +73,9 @@ copy_files() {
       copy_go_executable "$cid" "$path_to_service" "insights-results-aggregator-cleaner"
       ;;
     "data-engineering-service-tests")
+      copy_python_project "$cid" "$path_to_service"
+      ;;
+    "dvo-extractor-tests")
       copy_python_project "$cid" "$path_to_service"
       ;;
     "exporter-tests")

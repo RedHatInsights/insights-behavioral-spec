@@ -57,6 +57,9 @@ inference-service-tests: ## Run BDD tests for the Inference Service
 data-engineering-service-tests: ## Run BDD tests for the Data Engineering Service
 	./ccx_upgrade_risk_data_eng_tests.sh
 
+dvo-extractor-tests: # Run BDD tests for the DVO Extractor
+	./dvo_extractor_tests.sh
+
 insights-content-service-tests: ## Run BDD tests for the CCX Content Service
 	./insights_content_service_test.sh
 
