@@ -247,11 +247,15 @@
       },
       "RequestId": {
         "type": "string"
-      }
+      },
+      "LastChecked": {
+        "type": "string"
+      }  
     },
     "required": [
       "AccountNumber",
       "ClusterName",
+      "LastChecked",
       "Metrics",
       "OrgID",
       "RequestId"
