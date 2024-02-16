@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi8/ubi:latest
+FROM registry.access.redhat.com/ubi9/ubi:latest
 
 ENV VIRTUAL_ENV=/insights-behavioral-spec-venv \
     VIRTUAL_ENV_BIN=/insights-behavioral-spec-venv/bin \
@@ -42,7 +42,7 @@ RUN chmod -R g=u $HOME $VIRTUAL_ENV /etc/passwd
 RUN chgrp -R 0 $HOME $VIRTUAL_ENV
 
 
-COPY --from=quay.io/ccxdev/cp-kafkacat:7.0.10-1-ubi8 /usr/local/bin/kafkacat $VIRTUAL_ENV_BIN/kcat
+COPY --from=quay.io/ccxdev/ccx-kcat:1.7.1 /usr/local/bin/kcat $VIRTUAL_ENV_BIN/kcat
 
 USER 1001
 
