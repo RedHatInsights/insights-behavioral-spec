@@ -15,6 +15,7 @@
 """Implementation of common steps for all services using ccx-messaging module."""
 
 import gzip
+import json
 import os
 import subprocess
 
@@ -22,6 +23,7 @@ import yaml
 from behave import given, then, when
 from kafka.cluster import ClusterMetadata
 from src import kafka_util
+from src.utils import validate_json
 
 SERVICES = {"SHA extractor": "insights_sha_extractor", "DVO extractor": "dvo_extractor"}
 
@@ -247,6 +249,17 @@ def valid_message(context, field):
     """Check that the produced message is valid."""
     msg = kafka_util.consume_message_from_topic(context.kafka_hostname, context.outgoing_topic)
     assert field not in msg, f'message does not contain "{field}" field'
+
+
+@then("message sent by {service} has expected format")
+def check_message_schema(context, service):
+    """Check the schema of the message produced by the service."""
+    msg = kafka_util.consume_message_from_topic(context.kafka_hostname, context.outgoing_topic)
+    service_name = transform_service_name(service)
+
+    with open(f"test_data/{service_name}_schema.json") as file:
+        schema = json.load(file)
+        validate_json(json.loads(msg.value), schema)
 
 
 @given("{service} service is started with compression")

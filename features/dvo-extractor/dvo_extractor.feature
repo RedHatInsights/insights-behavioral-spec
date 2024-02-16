@@ -44,3 +44,4 @@ Feature: DVO extractor
       And DVO extractor should download tarball from given URL attribute
       And message has been sent by DVO extractor into topic "archive-results"
       And produced message contains "workload_recommendations" field
+      And message sent by DVO extractor has expected format
