@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi9/ubi:latest
+FROM registry.access.redhat.com/ubi9-minimal:latest
 
 ENV VIRTUAL_ENV=/insights-behavioral-spec-venv \
     VIRTUAL_ENV_BIN=/insights-behavioral-spec-venv/bin \
@@ -27,7 +27,7 @@ COPY . $HOME
 
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
-RUN dnf install --nodocs -y python3.11 unzip make lsof git libpq-devel
+RUN microdnf install --nodocs -y python3.11 unzip make lsof git libpq-devel
 
 RUN python3.11  -m venv $VIRTUAL_ENV && source $VIRTUAL_ENV/bin/activate
 
@@ -37,7 +37,7 @@ RUN update-ca-trust
 RUN pip install --no-cache-dir -U pip setuptools wheel
 RUN pip install --no-cache-dir -r requirements/requirements_docker.txt
 
-RUN dnf clean all
+RUN microdnf clean all
 RUN chmod -R g=u $HOME $VIRTUAL_ENV /etc/passwd
 RUN chgrp -R 0 $HOME $VIRTUAL_ENV
 

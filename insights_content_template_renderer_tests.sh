@@ -27,8 +27,8 @@ function clone_service() {
 [ "$VIRTUAL_ENV" != "" ] || NOVENV=1
 
 function install_reqs() {
-    python3 "$(which pip3)" install -r requirements.txt
-    python3 "$(which pip3)" install -r requirements/insights_content_template_renderer.txt
+    pip install -r requirements.txt
+    pip install -r requirements/insights_content_template_renderer.txt
 }
 
 function prepare_venv() {
@@ -40,7 +40,7 @@ function prepare_venv() {
 
 function install_service() {
     cd "$PATH_TO_LOCAL_TEMPLATE_RENDERER" || exit
-    python3 "$(which pip3)" install -r requirements.txt
+    pip install -r requirements.txt
     cd "$dir_path" || exit
 }
 
@@ -64,7 +64,7 @@ install_reqs
 install_service
 
 # shellcheck disable=SC2068
-PYTHONDONTWRITEBYTECODE=1 python3 "$(which behave)" \
+PYTHONDONTWRITEBYTECODE=1 behave \
     --no-capture \
     --format=progress2 \
     --tags=-skip --tags=-managed \

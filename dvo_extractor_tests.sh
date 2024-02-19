@@ -26,8 +26,8 @@ function prepare_venv() {
     virtualenv -p python3 venv
     # shellcheck disable=SC1091
     source venv/bin/activate
-    python3 "$(which pip3)" install --no-cache -r requirements.in || exit 1
-    python3 "$(which pip3)" install --no-cache -r requirements/dvo_extractor.txt || exit 1
+    pip install --no-cache -r requirements.in || exit 1
+    pip install --no-cache -r requirements/dvo_extractor.txt || exit 1
     echo "Environment ready"
 }
 

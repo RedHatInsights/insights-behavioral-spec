@@ -23,21 +23,21 @@ PATH_TO_LOCAL_INFERENCE_SERVICE=${PATH_TO_LOCAL_INFERENCE_SERVICE:="../ccx-upgra
 [ "$VIRTUAL_ENV" != "" ] || NOVENV=1
 
 function install_reqs() {
-    python3 "$(which pip3)" install -r requirements.txt
+    pip install -r requirements.txt
 }
 
 function prepare_venv() {
     echo "Preparing environment"
     # shellcheck disable=SC1091
-    virtualenv -p python3 venv && source venv/bin/activate && python3 "$(which pip3)" install -r requirements/upgrades_inference_service.txt
+    virtualenv -p python3 venv && source venv/bin/activate && pip install -r requirements/upgrades_inference_service.txt
     echo "Environment ready"
 }
 
 function install_inference_service() {
-    python3 "$(which pip3)" install -r "$PATH_TO_LOCAL_INFERENCE_SERVICE"/requirements.txt || exit 1
-    python3 "$(which pip3)" install "$PATH_TO_LOCAL_INFERENCE_SERVICE"/. || exit 1
+    pip install -r "$PATH_TO_LOCAL_INFERENCE_SERVICE"/requirements.txt || exit 1
+    pip install "$PATH_TO_LOCAL_INFERENCE_SERVICE"/. || exit 1
     # shellcheck disable=SC2016
-    add_exit_trap 'python3 "$(which pip3)" uninstall -y ccx-upgrades-inference'
+    add_exit_trap 'pip uninstall -y ccx-upgrades-inference'
 }
 
 # mechanism to chain more trap commands added in different parts of this script
@@ -67,7 +67,7 @@ esac
 install_inference_service
 
 # shellcheck disable=SC2068
-PYTHONDONTWRITEBYTECODE=1 python3 "$(which behave)" \
+PYTHONDONTWRITEBYTECODE=1 behave \
     --no-capture \
     --format=progress2 \
     --tags=-skip --tags=-managed \

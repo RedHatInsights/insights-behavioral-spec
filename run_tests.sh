@@ -3,9 +3,9 @@
 function prepare_venv() {
     # shellcheck disable=SC1091
     virtualenv -p python3 venv && source venv/bin/activate
-    python3 "$(which pip3)" install -r requirements.txt
+    pip install -r requirements.txt
     for f in requirements/*.txt; do
-        echo "File -> $f" && python3 "$(which pip3)" install -r "$f" || exit 1
+        echo "File -> $f" && pip install -r "$f" || exit 1
     done
 }
 
@@ -19,4 +19,3 @@ esac
 for f in test_list/*.txt; do
     PYTHONDONTWRITEBYTECODE=1 python3 -m behave --tags=-skip -D dump_errors=true @"$f" "$@" || { echo "Tests in $f failed."; }
 done
-
