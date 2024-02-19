@@ -20,11 +20,11 @@
 function prepare_venv() {
     echo "Preparing environment"
     # shellcheck disable=SC1091
-    virtualenv -p python3 venv 
+    virtualenv -p python3 venv
     # shellcheck disable=SC1091
-    source venv/bin/activate 
-    python3 "$(which pip3)" install --no-cache -r requirements.in || exit 1
-    python3 "$(which pip3)" install --no-cache -r requirements/insights_content_service.txt || exit 1
+    source venv/bin/activate
+    pip install --no-cache -r requirements.in || exit 1
+    pip install --no-cache -r requirements/insights_content_service.txt || exit 1
     echo "Environment ready"
 }
 

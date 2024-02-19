@@ -22,13 +22,13 @@ PATH_TO_LOCAL_PARQUET_FACTORY=${PATH_TO_LOCAL_PARQUET_FACTORY:="../parquet-facto
 [ "$VIRTUAL_ENV" != "" ] || NOVENV=1
 
 function install_reqs() {
-        python3 "$(which pip3)" install -r requirements.txt
+        pip install -r requirements.txt
 }
 
 function prepare_venv() {
     echo "Preparing environment"
     # shellcheck disable=SC1091
-    virtualenv -p python3 venv && source venv/bin/activate && python3 "$(which pip3)" install -r requirements/parquet-factory.txt || exit 1
+    virtualenv -p python3 venv && source venv/bin/activate && pip install -r requirements/parquet-factory.txt || exit 1
     echo "Environment ready"
 }
 
