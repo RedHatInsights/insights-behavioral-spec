@@ -41,24 +41,29 @@ def retrieve_broker_metadata(context, hostname=None, port=None):
     out = subprocess.Popen(
         ["kcat", "-b", address, "-L", "-J"],
         stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
+        stderr=subprocess.PIPE,
     )
 
     stdout_file = filepath_from_context(context, "logs/insights-results-aggregator/", "_stdout")
+    stderr_file = filepath_from_context(context, "logs/insights-results-aggregator/", "_stderr")
 
     # interact with the process:
     # read data from stdout and stderr, until end-of-file is reached
     stdout, stderr = out.communicate()
 
-    assert stderr is None, "Error during check"
     assert stdout is not None, "No output from process"
 
     # try to decode output
     output = stdout.decode("utf-8")
+    error = stderr.decode("utf-8")
 
     if stdout_file is not None and stdout is not None:
         with open(stdout_file, "w") as f:
             f.write(output)
+
+    if stderr_file is not None and stderr is not None:
+        with open(stderr_file, "w") as f:
+            f.write(error)
 
     assert output is not None, "The output shouldn't be empty"
     # JSON format is expected
