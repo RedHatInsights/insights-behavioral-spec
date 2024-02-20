@@ -20,6 +20,11 @@ import subprocess
 
 from behave import given, then, when
 from src.kafka_util import create_topic, delete_topic
+from src.process_output import (
+    filepath_from_context,
+    process_generated_output,
+)
+
 
 
 @when("I retrieve metadata from Kafka broker")
@@ -41,16 +46,25 @@ def retrieve_broker_metadata(context, hostname=None, port=None):
         stderr=subprocess.STDOUT,
     )
 
-    # check if call was correct
-    assert out is not None
+    stdout_file = filepath_from_context(context, "logs/insights-results-aggregator/", "_stdout")
+    stderr_file = filepath_from_context(context, "logs/insights-results-aggregator/", "_stderr")
+    # process_generated_output(context, out, stdout_file=stdout_file, stderr_file=stderr_file)
 
     # interact with the process:
     # read data from stdout and stderr, until end-of-file is reached
     stdout, stderr = out.communicate()
 
+    assert stderr is None, "Error during check"
+    assert stdout is not None, "No output from process"
+
     # try to decode output
     output = stdout.decode("utf-8")
 
+    if stdout_file is not None and stdout is not None:
+        with open(stdout_file, "w") as f:
+            f.write(output)
+
+    assert output is not None, f"The output shouldn't be empty:\nOut: {output}\nErr: {error}"
     # JSON format is expected
     encoded = json.loads(output)
 
