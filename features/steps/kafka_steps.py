@@ -60,7 +60,7 @@ def retrieve_broker_metadata(context, hostname=None, port=None):
         with open(stdout_file, "w") as f:
             f.write(output)
 
-    assert output is not None, f"The output shouldn't be empty:\nOut: {output}"
+    assert output is not None, "The output shouldn't be empty"
     # JSON format is expected
     encoded = json.loads(output)
 
