@@ -23,8 +23,6 @@ ENV VIRTUAL_ENV=/insights-behavioral-spec-venv \
 
 WORKDIR $HOME
 
-COPY . $HOME
-
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 RUN microdnf install --nodocs -y python3.11 unzip make lsof git libpq-devel
@@ -35,12 +33,16 @@ RUN curl -ksL https://certs.corp.redhat.com/certs/2015-IT-Root-CA.pem -o /etc/pk
 RUN curl -ksL https://certs.corp.redhat.com/certs/2022-IT-Root-CA.pem -o /etc/pki/ca-trust/source/anchors/2022-IT-Root-CA.pem
 RUN update-ca-trust
 RUN pip install --no-cache-dir -U pip setuptools wheel
+
+COPY requirements/requirements_docker.txt $HOME/requirements/
+
 RUN pip install --no-cache-dir -r requirements/requirements_docker.txt
+
+COPY . $HOME
 
 RUN microdnf clean all
 RUN chmod -R g=u $HOME $VIRTUAL_ENV /etc/passwd
 RUN chgrp -R 0 $HOME $VIRTUAL_ENV
-
 
 COPY --from=quay.io/ccxdev/ccx-kcat:1.7.1 /usr/local/bin/kcat $VIRTUAL_ENV_BIN/kcat
 
