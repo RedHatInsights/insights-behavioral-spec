@@ -19,9 +19,7 @@ import json
 import os
 import subprocess
 
-import yaml
 from behave import given, then, when
-from kafka.cluster import ClusterMetadata
 from src import kafka_util
 from src.utils import validate_json
 
@@ -40,35 +38,6 @@ def service_not_started(context, service):
     assert (
         not hasattr(context, "services") or service_name not in context.services.keys()
     )
-
-
-@given(
-    'Kafka broker is started on host and port specified '
-    'in {service} configuration "{compression_var}"',
-)
-@given("Kafka broker is started on host and port specified in {service} configuration")
-def kafka_broker_running(context, service, compression_var=None):
-    """Check if Kafka broker is running on specified address."""
-    config = None
-    service_name = transform_service_name(service)
-
-    if compression_var != "compressed":
-        with open(f"config/{service_name}.yaml", "r") as file:
-            config = yaml.safe_load(file)
-            context.service_config = config
-    else:
-        with open(f"config/{service_name}_compressed.yaml", "r") as file:
-            config = yaml.safe_load(file)
-            context.service_config = config
-
-    hostname = config["service"]["consumer"]["kwargs"]["bootstrap.servers"]
-    context.hostname = hostname
-    context.kafka_hostname = hostname.split(":")[0]
-    context.kafka_port = hostname.split(":")[1]
-
-    metadata = ClusterMetadata(bootstrap_servers=hostname)
-    context.metadata = metadata
-    assert len(metadata.brokers()) > 0
 
 
 @given('Kafka topic specified in configuration variable "{topic_var}" is created')

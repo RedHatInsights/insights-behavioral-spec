@@ -47,6 +47,7 @@ SUBDIRECTORIES = (
     "insights-results-aggregator-exporter",
     "insights-results-aggregator-mock",
     "dvo-extractor",
+    "dvo-writer",
     "ccx-notification-service",
     "ccx-notification-writer",
     "ccx-upgrades-inference",

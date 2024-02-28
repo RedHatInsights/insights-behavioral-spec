@@ -11,6 +11,7 @@ with_profile() {
     "cleaner-tests") echo "" ;;
     "data-engineering-service-tests") echo "--profile test-upgrades-data-eng" ;;
     "dvo-extractor-tests") echo "--profile test-dvo-extractor" ;;
+    "dvo-writer-tests") echo "--profile test-dvo-writer" ;;
     "exporter-tests") echo "--profile test-exporter" ;;
     "inference-service-tests") echo "" ;;
     "insights-content-service-tests") echo "" ;;
@@ -54,6 +55,12 @@ copy_python_project() {
   docker exec -u root "$cid" /bin/bash -c "chmod -R 777 /$(basename "$path_to_service")"
 }
 
+copy_openapi_spec() {
+  local cid="$1"
+  local path_to_service="$2"
+  docker cp "$path_to_service/openapi.json" "$cid:$(docker exec "$cid" bash -c 'echo "$HOME"')"
+}
+
 # Function to copy files based on the make target
 copy_files() {
   local cid="$1"
@@ -77,6 +84,10 @@ copy_files() {
       ;;
     "dvo-extractor-tests")
       copy_python_project "$cid" "$path_to_service"
+      ;;
+    "dvo-writer-tests")
+      copy_go_executable "$cid" "$path_to_service" "insights-results-aggregator"
+      copy_openapi_spec "$cid" "$path_to_service"
       ;;
     "exporter-tests")
       copy_go_executable "$cid" "$path_to_service" "insights-results-aggregator-exporter"
