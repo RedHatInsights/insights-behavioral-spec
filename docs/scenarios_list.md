@@ -837,6 +837,12 @@ nav_order: 3
 * Check if DVO extractor is able to consume messages from Kafka and then download tarball
 * Check if DVO extractor is able to produce workload recommendations
 
+## [`dvo-writer/dvo_writer.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/dvo-writer/dvo_writer.feature)
+
+* DVO writer does not process invalid message
+* DVO writer processes incoming data correctly
+* DVO writer deletes namespaces not present in the report for given cluster
+
 ## [`ccx-notification-service/cleanup_records.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/ccx-notification-service/cleanup_records.feature)
 
 * Check the ability to clean up old records from `new_reports` table if the table is empty.

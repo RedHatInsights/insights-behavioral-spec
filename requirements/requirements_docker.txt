@@ -14,3 +14,4 @@ pandas
 pyarrow
 numpy
 boto3
+toml

@@ -19,7 +19,7 @@ import json
 import subprocess
 
 from behave import given, then, when
-from src.kafka_util import create_topic, delete_topic
+from src.kafka_util import create_topic, delete_topic, send_event
 from src.process_output import (
     filepath_from_context,
 )
@@ -106,3 +106,10 @@ def delete_kafka_topic_with_partition(context, topic, partitions):
         topic,
         int(partitions),
     )
+
+
+@when('I send the following message into Kafka topic "{topic}"')
+def send_kafka_message(context, topic):
+    """Send message to the given topic."""
+    bootstrap_server = f"{context.kafka_hostname}:{context.kafka_port}"
+    send_event(bootstrap_server, topic, context.text.encode("utf-8"))

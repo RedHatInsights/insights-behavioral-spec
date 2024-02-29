@@ -41,6 +41,20 @@ def read_migration_number_from_database(context):
         raise e
 
 
+@when("I read current migration number for DVO from database")
+def read_dvo_migration_number_from_database(context):
+    """Test step to read current migration number for DVO schema from database."""
+    cursor = context.connection.cursor()
+    try:
+        cursor.execute(f"SELECT version from dvo.{MIGRATION_INFO_TABLE} limit 1")
+        context.database_migration = cursor.fetchone()[0]
+        assert isinstance(context.database_migration, int)
+        context.connection.commit()
+    except Exception as e:
+        context.connection.rollback()
+        raise e
+
+
 @then("I should see that migration #{migration:n} is returned")
 def check_migration(context, migration):
     """Check which migration number is stored in database."""

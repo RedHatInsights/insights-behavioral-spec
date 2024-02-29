@@ -172,11 +172,14 @@ def perform_aggregator_database_migration(context, version):
     # check if subprocess has been started and its output caught
     assert out is not None
 
+    environ["INSIGHTS_RESULTS_AGGREGATOR__STORAGE_BACKEND__USE"] = "ocp_recommendations"
+
     # run OCP migrations
     out = subprocess.Popen(
         [INSIGHTS_RESULTS_AGGREGATOR_BINARY, "migrate", str(version)],
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
+        env=environ,
     )
 
     assert out is not None

@@ -5,7 +5,7 @@ Feature: SHA Extractor
 
 
   Background:
-    Given Kafka broker is started on host and port specified in SHA extractor configuration "no-compression"
+    Given Kafka broker is started on host and port specified in SHA extractor configuration
       And Kafka topic specified in configuration variable "incoming_topic" is created
       And Kafka topic specified in configuration variable "dead_letter_queue_topic" is created
       And Kafka topic specified in configuration variable "outgoing_topic" is created

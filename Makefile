@@ -60,6 +60,9 @@ data-engineering-service-tests: ## Run BDD tests for the Data Engineering Servic
 dvo-extractor-tests: # Run BDD tests for the DVO Extractor
 	./dvo_extractor_tests.sh
 
+dvo-writer-tests:
+	./dvo_writer_tests.sh
+
 insights-content-service-tests: ## Run BDD tests for the CCX Content Service
 	./insights_content_service_test.sh
 
