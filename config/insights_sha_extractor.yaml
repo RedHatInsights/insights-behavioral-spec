@@ -49,6 +49,11 @@ service:
         class: logging.StreamHandler
         stream: ext://sys.stdout
         formatter: json
+      logfile:
+        level: DEBUG
+        class: logging.FileHandler
+        filename: logs/insights_sha_extractor.log
+        formatter: json
     formatters:
       brief:
         format: "%(message)s"
@@ -60,6 +65,7 @@ service:
     root:
       handlers:
         - default
+        - logfile
     loggers:
       insights_messaging:
         level: DEBUG

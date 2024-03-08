@@ -54,5 +54,5 @@ Feature: SHA Extractor
       And SHA extractor retrieves the "url" attribute from the message
       And SHA extractor should download tarball from given URL attribute
      When the file "config/workload_info.json" is found by SHA extractor
-     Then message has been sent by SHA extractor into topic "archive_results"
+     Then message has been sent by SHA extractor into topic "archive-results"
       And published message should not be compressed
