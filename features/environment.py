@@ -41,7 +41,10 @@ FEATURES_INIT_DB = ("aggregator", "notification_service")
 
 # Setup all environment variables needed to work with Kafka (local or remote)
 FEATURES_WITH_KAFKA = (
-    "aggregator", "notification_writer", "notification_service", "parquet_service",
+    "aggregator",
+    "notification_writer",
+    "notification_service",
+    "parquet_service",
 )
 
 # Setup all environment variables needed to work with Minio (local or remote)
@@ -98,17 +101,16 @@ def after_scenario(context, scenario):
                     context.services[service].kill()
                     context.services[service].wait()
 
-                assert context.services[service].poll() is not None, f"{service} was not closed"
+                assert (
+                    context.services[service].poll() is not None
+                ), f"{service} was not closed"
 
 
 def prepare_db(context, setup_files=CLEANUP_FILES, database="test"):
     """Prepare database, including all default objects in DB."""
-    connection_string = "host={} port={} dbname={} user={} password={}".format(
-        context.database_host,
-        context.database_port,
-        database,
-        context.database_user,
-        context.database_password,
+    connection_string = (
+        f"host={context.database_host} port={context.database_port} dbname={database} "
+        f"user={context.database_user} password={context.database_password}"
     )
 
     connection = psycopg2.connect(connection_string)
@@ -134,7 +136,8 @@ def setup_default_S3_context(context):
     context.S3_port = os.getenv("S3_PORT", "9000")
     context.S3_access_key = os.getenv("S3_ACCESS_KEY_ID", "test_access_key")
     context.S3_secret_access_key = os.getenv(
-        "S3_SECRET_ACCESS_KEY", "test_secret_access_key",
+        "S3_SECRET_ACCESS_KEY",
+        "test_secret_access_key",
     )
     context.S3_bucket_name = os.getenv("S3_BUCKET", "test")
     context.S3_old_minio_compatibility = os.getenv("S3_OLDER_MINIO_COMPATIBILITY", None)
