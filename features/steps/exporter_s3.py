@@ -155,6 +155,7 @@ def check_objects_in_s3(context):
             f"Can not find object {object_name} in bucket {context.S3_bucket_name}"
         )
 
+
 @then("I should not see following objects generated in S3")
 def check_objects_not_in_s3(context):
     """Check that all specified objects were not generated."""
