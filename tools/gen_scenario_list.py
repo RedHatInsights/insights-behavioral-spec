@@ -74,8 +74,10 @@ for subdirectory in SUBDIRECTORIES:
         # grep all .feature files
         if filename.endswith(".feature"):
             # feature file header
-            print("## [`{}/{}`]({}/{}/{})\n".format(
-                subdirectory, filename, FEATURES_URL_PREFIX, subdirectory, filename))
+            print(
+                "## "
+                f"[`{subdirectory}/{filename}`]({FEATURES_URL_PREFIX}/{subdirectory}/{filename})\n",
+            )
             with open(os.path.join(directory, filename), "r") as fin:
                 for line in fin.readlines():
                     line = line.strip()

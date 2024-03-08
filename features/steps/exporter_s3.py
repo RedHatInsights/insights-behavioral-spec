@@ -151,8 +151,8 @@ def check_objects_in_s3(context):
     for row in context.table:
         object_name = get_object_name(context, row["File name"])
         print(object_name)
-        assert object_name in names, "Can not find object {} in bucket {}".format(
-            object_name, context.S3_bucket_name,
+        assert object_name in names, (
+            f"Can not find object {object_name} in bucket {context.S3_bucket_name}"
         )
 
 
@@ -170,8 +170,8 @@ def check_objects_not_in_s3(context):
     # iterate over all items in feature table
     for row in context.table:
         object_name = get_object_name(context, row["File name"])
-        assert object_name not in names, "object {} found in bucket {}".format(
-            object_name, context.S3_bucket_name,
+        assert object_name not in names, (
+            f"object {object_name} found in bucket {context.S3_bucket_name}"
         )
 
 
@@ -197,8 +197,9 @@ def check_csv_content_in_s3(context):
         # now check numbers
         assert (
             expected_records == stored_records
-        ), "Expected number records in object {} is {} but {} was read".format(
-            object_name, expected_records, stored_records,
+        ), (
+            f"Expected number records in object {object_name} is {expected_records} "
+            f"but {stored_records} was read"
         )
 
 

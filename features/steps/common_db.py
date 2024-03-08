@@ -44,8 +44,9 @@ def given_database_password(context, password):
 @when("I connect to database named {database} as user {user} with password {password}")
 def connect_to_database(context, database, user, password):
     """Perform connection to selected database."""
-    connection_string = "dbname={} user={} password={} host={} port={}".format(
-        database, user, password, context.database_host, context.database_port,
+    connection_string = (
+        f"dbname={database} user={user} password={password} host={context.database_host} "
+        f"port={context.database_port}"
     )
     context.connection = psycopg2.connect(connection_string)
 
@@ -78,12 +79,9 @@ def establish_connection_to_database(context):
     assert context.database_password is not None
     assert context.database_host is not None
     assert context.database_port is not None
-    connection_string = "host={} port={} dbname={} user={} password={}".format(
-        context.database_host,
-        context.database_port,
-        context.database_name,
-        context.database_user,
-        context.database_password,
+    connection_string = (
+        f"host={context.database_host} port={context.database_port} dbname={context.database_name} "
+        f"user={context.database_user} password={context.database_password}"
     )
     context.connection = psycopg2.connect(connection_string)
     assert context.connection is not None, "connection should be established"
