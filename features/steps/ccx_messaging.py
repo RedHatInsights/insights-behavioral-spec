@@ -17,6 +17,7 @@
 import gzip
 import json
 import os
+import select
 import subprocess
 
 from behave import given, then, when
@@ -285,15 +286,20 @@ def no_compressed_archive_sent_to_topic(context):
     assert decoded is None and error is not None
 
 
-def message_in_buffer(message, buffer):
+def message_in_buffer(message, buffer, timeout=60.0):
     """Check if service prints given message on its output."""
-    found = False
     while True:
-        # readline can be blocking, run this
-        # test with a timeout
-        line = buffer.readline()
-        if message in line:
-            found = True
-            break
+        ready = select.select([buffer], [], [], timeout)[0]
+        if ready:
+            line = buffer.readline()
 
-    return found
+            if not line:
+                # empty readline means EOF
+                return False
+
+            if message in line:
+                return True
+
+        else:
+            # Timeout!
+            return False
