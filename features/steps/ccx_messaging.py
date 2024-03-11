@@ -303,5 +303,3 @@ def message_in_buffer(message, buffer, timeout=60.0):
         else:
             # Timeout!
             return False
-
-    return found
