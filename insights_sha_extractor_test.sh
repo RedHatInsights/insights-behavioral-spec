@@ -33,8 +33,8 @@ function prepare_venv() {
 
 function install_extractor() {
     if [[ ! -d $PATH_TO_LOCAL_SHA_EXTRACTOR ]] ; then
-    	git clone --depth=1 git@gitlab.cee.redhat.com:ccx/ccx-sha-extractor.git $PATH_TO_LOCAL_SHA_EXTRACTOR
-	add_trap "rm -rf ./ccx-sha-extractor"
+       git clone --depth=1 git@github.com:RedHatInsights/insights-sha-extractor.git $PATH_TO_LOCAL_SHA_EXTRACTOR
+       add_trap "rm -rf ./ccx-sha-extractor"
     fi
     cwd=$(pwd)
     cd $PATH_TO_LOCAL_SHA_EXTRACTOR || exit
