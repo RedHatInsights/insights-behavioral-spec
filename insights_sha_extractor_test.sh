@@ -32,7 +32,7 @@ function clone_service() {
 
 function install_reqs() {
     pip install -r requirements.txt
-    pip install -r requirements/insights_content_template_renderer.txt
+    pip install -r requirements/insights_sha_extractor.txt
 }
 
 function prepare_venv() {
