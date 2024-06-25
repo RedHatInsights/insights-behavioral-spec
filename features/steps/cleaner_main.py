@@ -203,7 +203,7 @@ def check_help_from_cleaner(context):
   -vacuum
         vacuum database
   -version
-        show cleaner version"""
+        show cleaner version"""  # noqa: E501
 
     assert context.stdout is not None
     stdout = context.stdout.decode("utf-8").replace("\t", "    ")
