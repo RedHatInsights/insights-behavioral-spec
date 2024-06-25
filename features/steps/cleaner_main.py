@@ -134,8 +134,10 @@ def check_help_from_cleaner(context):
         show authors
   -cleanup
         perform database cleanup
+  -cleanup-all
+        perform database cleanup for all old clusters
   -clusters string
-        list of clusters to cleanup
+        list of clusters to cleanup. Ignored when cleanup-all is selected
   -fill-in-db
         fill-in database by test data
   -max-age string
