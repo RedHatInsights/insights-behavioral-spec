@@ -531,6 +531,11 @@ nav_order: 3
 * Check how Insights Results Aggregator reacts to broken database configuration
 * Check how Insights Results Aggregator reacts to situation when Kafka is not reachable
 
+## [`insights-results-aggregator-cleaner/cleanup_all.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-cleaner/cleanup_all.feature)
+
+* Clean up old records
+* Clean up old records with dry-run
+
 ## [`insights-results-aggregator-cleaner/cleanup_selected_records.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-cleaner/cleanup_selected_records.feature)
 
 * Clean up one old cluster should be visible
