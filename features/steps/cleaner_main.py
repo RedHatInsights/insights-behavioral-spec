@@ -57,19 +57,28 @@ def run_cleaner_for_older_records(context, age):
                              stderr_file=stderr_file)
 
 
-@when("I run the cleaner to cleanup all records older than {age}")
-def run_cleanup_all(context, age):
+@when("I run the cleaner without dry-run to cleanup all records older than {age}")
+def run_cleanup_all_no_dry_run(context, age):
+    run_cleanup_all(context, age, dry_run=False)
+
+@when("I run the cleaner with dry-run to cleanup all records older than {age}")
+def run_cleanup_all_with_dry_run(context, age):
+    run_cleanup_all(context, age, dry_run=True)
+
+def run_cleanup_all(context, age, dry_run=False):
     """Start the cleaner to retrieve list of older records."""
-    out = subprocess.Popen(
-        [
+    command = [
             "insights-results-aggregator-cleaner",
             "--cleanup-all",
             "--max-age",
-            age,
-        ],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-    )
+            age
+        ]
+    if dry_run:
+        command.append("-dry-run")
+    else:
+        command.append("-dry-run=false")
+    out = subprocess.Popen(command, stdout=subprocess.PIPE,
+                           stderr=subprocess.STDOUT)
 
     # check if subprocess has been started and its output caught
     assert out is not None
