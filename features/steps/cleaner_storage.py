@@ -85,3 +85,14 @@ def insert_records_into_selected_table(context, table):
     except Exception:
         context.connection.rollback()
         raise
+
+
+@then("I should find that table {table} is empty")
+def ensure_data_table_emptiness(context, table):
+    """Perform check if a data table is empty."""
+    cursor = context.connection.cursor()
+
+    cursor.execute(f"SELECT count(*) AS cnt FROM {table}")
+    results = cursor.fetchone()
+    assert len(results) == 1, f"Wrong number of records returned: {len(results)}"
+    assert results[0] == 0, f"Table '{table}' is not empty as expected"
