@@ -534,6 +534,7 @@ nav_order: 3
 ## [`insights-results-aggregator-cleaner/cleanup_all.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-cleaner/cleanup_all.feature)
 
 * Clean up old records
+* Clean up orphan records
 * Clean up old records with dry-run
 
 ## [`insights-results-aggregator-cleaner/cleanup_selected_records.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-cleaner/cleanup_selected_records.feature)
