@@ -96,3 +96,30 @@ def ensure_data_table_emptiness(context, table):
     results = cursor.fetchone()
     assert len(results) == 1, f"Wrong number of records returned: {len(results)}"
     assert results[0] == 0, f"Table '{table}' is not empty as expected"
+
+
+@then("I should see the following rule_hit")
+def check_non_empty_list_of_rule_hit_records(context):
+    """Check if the cleaner displays the suggested clusters."""
+    # set of expected clusters
+    expected_rule_hits = set()
+
+    for row in context.table:
+        typed_row = [int(row.cells[0]), *row.cells[1:]]
+        rule_hit = tuple(typed_row)
+        expected_rule_hits.add(rule_hit)
+
+    # check the database content
+    cursor = context.connection.cursor()
+
+    cursor.execute(
+        "SELECT org_id, cluster_id, rule_fqdn, error_key, template_data "
+        "FROM rule_hit"
+    )
+    results = cursor.fetchall()
+
+    # set of actually found clusters
+    found_rule_hits = {row for row in results}
+
+    # compare both sets
+    assert expected_rule_hits == found_rule_hits, f"Difference: {expected_rule_hits ^ found_rule_hits}"
