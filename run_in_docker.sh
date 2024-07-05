@@ -2,7 +2,23 @@
 
 # This script assumes that a Go service is already built, and the Python service can be interpreted without errors
 
-# Function to get docker compose profile to add based on service name specified by the user
+# Function to check if a command exists
+command_exists() {
+  command -v "$1" &> /dev/null
+}
+
+# Check if Podman is installed
+if command_exists podman; then
+  CONTAINER_TOOL="podman"
+# Check if Docker is installed
+elif command_exists docker; then
+  CONTAINER_TOOL="docker"
+else
+  echo "Neither Docker nor Podman is installed on this system."
+  exit 1
+fi
+
+# Function to get the correct profile to add based on service name specified by the user
 with_profile() {
   local target="$1"
   case "$target" in
@@ -43,22 +59,22 @@ copy_go_executable() {
   local cid="$1"
   local path_to_service="$2"
   local executable_name="$3"
-  docker cp "$path_to_service/$executable_name" "$cid:$(docker exec "$cid" bash -c 'echo "$VIRTUAL_ENV_BIN"')"
-  docker exec -u root "$cid" /bin/bash -c "chmod +x \$VIRTUAL_ENV_BIN/$executable_name"
+  "$CONTAINER_TOOL" cp "$path_to_service/$executable_name" "$cid:$("$CONTAINER_TOOL" exec "$cid" bash -c 'echo "$VIRTUAL_ENV_BIN"')"
+  "$CONTAINER_TOOL" exec -u root "$cid" /bin/bash -c "chmod +x \$VIRTUAL_ENV_BIN/$executable_name"
 }
 
 copy_python_project() {
   local cid="$1"
   local path_to_service="$2"
-  docker cp "$path_to_service" "$cid:/."
+  "$CONTAINER_TOOL" cp "$path_to_service" "$cid:/."
   # service will be pip-installed and executed, so user will need write and exec permissions
-  docker exec -u root "$cid" /bin/bash -c "chmod -R 777 /$(basename "$path_to_service")"
+  "$CONTAINER_TOOL" exec -u root "$cid" /bin/bash -c "chmod -R 777 /$(basename "$path_to_service")"
 }
 
 copy_openapi_spec() {
   local cid="$1"
   local path_to_service="$2"
-  docker cp "$path_to_service/openapi.json" "$cid:$(docker exec "$cid" bash -c 'echo "$HOME"')"
+  "$CONTAINER_TOOL" cp "$path_to_service/openapi.json" "$cid:$("$CONTAINER_TOOL" exec "$cid" bash -c 'echo "$HOME"')"
 }
 
 # Function to copy files based on the make target
@@ -70,11 +86,11 @@ copy_files() {
   case "$target" in
     "aggregator-tests")
       copy_go_executable "$cid" "$path_to_service" "insights-results-aggregator"
-      docker cp "$path_to_service/openapi.json" "$cid":"$(docker exec "$cid" bash -c 'echo "$HOME"')"
+      "$CONTAINER_TOOL" cp "$path_to_service/openapi.json" "$cid":"$("$CONTAINER_TOOL" exec "$cid" bash -c 'echo "$HOME"')"
       ;;
     "aggregator-mock-tests")
       copy_go_executable "$cid" "$path_to_service" "insights-results-aggregator-mock"
-      docker cp "$path_to_service" "$cid:$(docker exec "$cid" bash -c 'echo "$HOME"')/mock_server"
+      "$CONTAINER_TOOL" cp "$path_to_service" "$cid:$("$CONTAINER_TOOL" exec "$cid" bash -c 'echo "$HOME"')/mock_server"
       ;;
     "cleaner-tests")
       copy_go_executable "$cid" "$path_to_service" "insights-results-aggregator-cleaner"
@@ -98,7 +114,7 @@ copy_files() {
     "insights-content-service-tests")
       echo -e "\033[33mWARNING! Content service should include test-rules for these tests to run properly.\033[0m"
       echo -e "\033[33mPlease build using './build.sh --test-rules-only' or './build.sh --include-test-rules'\033[0m"
-      docker cp "$path_to_service" "$cid":"$(docker exec "$cid" bash -c 'echo "$HOME"')"
+      "$CONTAINER_TOOL" cp "$path_to_service" "$cid":"$("$CONTAINER_TOOL" exec "$cid" bash -c 'echo "$HOME"')"
       ;;
     "insights-content-template-renderer-tests")
       copy_python_project "$cid" "$path_to_service"
@@ -117,7 +133,7 @@ copy_files() {
       ;;
     "parquet-factory-tests")
       copy_go_executable "$cid" "$path_to_service" "parquet-factory"
-      docker cp "$path_to_service"/config.toml "$cid":"$(docker exec "$cid" bash -c 'echo "$HOME"')"
+      "$CONTAINER_TOOL" cp "$path_to_service"/config.toml "$cid":"$("$CONTAINER_TOOL" exec "$cid" bash -c 'echo "$HOME"')"
       ;;
     *)
       echo "Unexpected target: $target. Does it exist in Makefile?"
@@ -141,10 +157,10 @@ fi
 
 # Step 4: Launch containers
 # shellcheck disable=SC2046
-POSTGRES_DB_NAME="$db_name" docker compose $(with_profile "$1") $(with_no_mock "$3") up -d
+POSTGRES_DB_NAME="$db_name" "$CONTAINER_TOOL-compose" $(with_profile "$1") $(with_no_mock "$3") up -d
 
 # Step 5: Find the container ID of the insights-behavioral-spec container
-cid=$(docker ps | grep 'insights-behavioral-spec:latest' | cut -d ' ' -f 1)
+cid=$("$CONTAINER_TOOL" ps | grep 'insights-behavioral-spec:latest' | cut -d ' ' -f 1)
 
 # Step 6: Copy the executable and needed dependencies or Python service into the container
 # TODO: Discuss including archives in compiled Go executables for testing
@@ -153,4 +169,4 @@ copy_files "$cid" "$tests_target" "$path_to_service"
 # Step 9: Execute the specified make target
 
 
-docker exec "$cid" /bin/bash -c "source \$VIRTUAL_ENV/bin/activate && env && $(with_mocked_dependencies "$3") make $tests_target"
+"$CONTAINER_TOOL" exec "$cid" /bin/bash -c "source \$VIRTUAL_ENV/bin/activate && env && $(with_mocked_dependencies "$3") make $tests_target"
