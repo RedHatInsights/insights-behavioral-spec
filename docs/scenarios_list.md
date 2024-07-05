@@ -535,6 +535,7 @@ nav_order: 3
 
 * Clean up old records
 * Clean up orphan records
+* Clean up only orphan records
 * Clean up old records with dry-run
 
 ## [`insights-results-aggregator-cleaner/cleanup_selected_records.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator-cleaner/cleanup_selected_records.feature)
