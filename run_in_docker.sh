@@ -18,6 +18,9 @@ else
   exit 1
 fi
 
+# shellcheck disable=SC2016
+REMOTE_PATH_FOR_SERVICE="$cid:$("$CONTAINER_TOOL" exec "$cid" bash -c 'echo "$HOME"')"
+
 # Function to get the correct profile to add based on service name specified by the user
 with_profile() {
   local target="$1"
@@ -59,6 +62,7 @@ copy_go_executable() {
   local cid="$1"
   local path_to_service="$2"
   local executable_name="$3"
+  # shellcheck disable=SC2016
   "$CONTAINER_TOOL" cp "$path_to_service/$executable_name" "$cid:$("$CONTAINER_TOOL" exec "$cid" bash -c 'echo "$VIRTUAL_ENV_BIN"')"
   "$CONTAINER_TOOL" exec -u root "$cid" /bin/bash -c "chmod +x \$VIRTUAL_ENV_BIN/$executable_name"
 }
@@ -74,7 +78,7 @@ copy_python_project() {
 copy_openapi_spec() {
   local cid="$1"
   local path_to_service="$2"
-  "$CONTAINER_TOOL" cp "$path_to_service/openapi.json" "$cid:$("$CONTAINER_TOOL" exec "$cid" bash -c 'echo "$HOME"')"
+  "$CONTAINER_TOOL" cp "$path_to_service/openapi.json" "$REMOTE_PATH_FOR_SERVICE"
 }
 
 # Function to copy files based on the make target
@@ -86,11 +90,11 @@ copy_files() {
   case "$target" in
     "aggregator-tests")
       copy_go_executable "$cid" "$path_to_service" "insights-results-aggregator"
-      "$CONTAINER_TOOL" cp "$path_to_service/openapi.json" "$cid":"$("$CONTAINER_TOOL" exec "$cid" bash -c 'echo "$HOME"')"
+      "$CONTAINER_TOOL" cp "$path_to_service/openapi.json" "$REMOTE_PATH_FOR_SERVICE"
       ;;
     "aggregator-mock-tests")
       copy_go_executable "$cid" "$path_to_service" "insights-results-aggregator-mock"
-      "$CONTAINER_TOOL" cp "$path_to_service" "$cid:$("$CONTAINER_TOOL" exec "$cid" bash -c 'echo "$HOME"')/mock_server"
+      "$CONTAINER_TOOL" cp "$path_to_service" "$REMOTE_PATH_FOR_SERVICE/mock_server"
       ;;
     "cleaner-tests")
       copy_go_executable "$cid" "$path_to_service" "insights-results-aggregator-cleaner"
@@ -114,7 +118,7 @@ copy_files() {
     "insights-content-service-tests")
       echo -e "\033[33mWARNING! Content service should include test-rules for these tests to run properly.\033[0m"
       echo -e "\033[33mPlease build using './build.sh --test-rules-only' or './build.sh --include-test-rules'\033[0m"
-      "$CONTAINER_TOOL" cp "$path_to_service" "$cid":"$("$CONTAINER_TOOL" exec "$cid" bash -c 'echo "$HOME"')"
+      "$CONTAINER_TOOL" cp "$path_to_service" "$REMOTE_PATH_FOR_SERVICE"
       ;;
     "insights-content-template-renderer-tests")
       copy_python_project "$cid" "$path_to_service"
@@ -133,7 +137,7 @@ copy_files() {
       ;;
     "parquet-factory-tests")
       copy_go_executable "$cid" "$path_to_service" "parquet-factory"
-      "$CONTAINER_TOOL" cp "$path_to_service"/config.toml "$cid":"$("$CONTAINER_TOOL" exec "$cid" bash -c 'echo "$HOME"')"
+      "$CONTAINER_TOOL" cp "$path_to_service"/config.toml "$REMOTE_PATH_FOR_SERVICE"
       ;;
     *)
       echo "Unexpected target: $target. Does it exist in Makefile?"
@@ -157,7 +161,7 @@ fi
 
 # Step 4: Launch containers
 # shellcheck disable=SC2046
-POSTGRES_DB_NAME="$db_name" "$CONTAINER_TOOL-compose" $(with_profile "$1") $(with_no_mock "$3") up -d
+POSTGRES_DB_NAME="$db_name" "$CONTAINER_TOOL compose" $(with_profile "$1") $(with_no_mock "$3") up -d
 
 # Step 5: Find the container ID of the insights-behavioral-spec container
 cid=$("$CONTAINER_TOOL" ps | grep 'insights-behavioral-spec:latest' | cut -d ' ' -f 1)
@@ -166,7 +170,5 @@ cid=$("$CONTAINER_TOOL" ps | grep 'insights-behavioral-spec:latest' | cut -d ' '
 # TODO: Discuss including archives in compiled Go executables for testing
 copy_files "$cid" "$tests_target" "$path_to_service"
 
-# Step 9: Execute the specified make target
-
-
+# Step 7: Execute the specified make target
 "$CONTAINER_TOOL" exec "$cid" /bin/bash -c "source \$VIRTUAL_ENV/bin/activate && env && $(with_mocked_dependencies "$3") make $tests_target"
