@@ -29,9 +29,6 @@ RUN microdnf install --nodocs -y python3.11 unzip make lsof git libpq-devel tar
 
 RUN python3.11  -m venv $VIRTUAL_ENV && source $VIRTUAL_ENV/bin/activate
 
-RUN curl -ksL https://certs.corp.redhat.com/certs/2015-IT-Root-CA.pem -o /etc/pki/ca-trust/source/anchors/RH-IT-Root-CA.crt
-RUN curl -ksL https://certs.corp.redhat.com/certs/2022-IT-Root-CA.pem -o /etc/pki/ca-trust/source/anchors/2022-IT-Root-CA.pem
-RUN update-ca-trust
 RUN pip install --no-cache-dir -U pip setuptools wheel
 
 COPY requirements/requirements_docker.txt $HOME/requirements/
