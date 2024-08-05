@@ -141,7 +141,7 @@ fi
 
 # Step 4: Launch containers
 # shellcheck disable=SC2046
-POSTGRES_DB_NAME="$db_name" docker-compose $(with_profile "$1") $(with_no_mock "$3") up -d
+POSTGRES_DB_NAME="$db_name" docker compose $(with_profile "$1") $(with_no_mock "$3") up -d
 
 # Step 5: Find the container ID of the insights-behavioral-spec container
 cid=$(docker ps | grep 'insights-behavioral-spec:latest' | cut -d ' ' -f 1)
