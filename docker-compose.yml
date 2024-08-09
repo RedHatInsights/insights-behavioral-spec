@@ -37,6 +37,12 @@ services:
     environment:
       - KAFKA_ADVERTISED_HOST_NAME=kafka
       - KAFKA_CREATE_TOPICS="platform.notifications.ingress:1:1"
+    healthcheck:
+      test: ["CMD", "bash", "-c", "echo > /dev/tcp/localhost/9092"]
+      interval: 5s
+      timeout: 2s
+      retries: 5
+      start_period: 5s
 
   minio:
     profiles:
