@@ -7,16 +7,17 @@ command_exists() {
   command -v "$1" &> /dev/null
 }
 
-# Check if Podman is installed
-if command_exists podman; then
-  CONTAINER_TOOL="podman"
-  COMPOSER="podman-compose"
+
 # Check if Docker is installed
-elif command_exists docker; then
+if command_exists docker; then
   CONTAINER_TOOL="docker"
   COMPOSER="docker compose"
+# Check if Podman is installed
+elif command_exists podman; then
+  CONTAINER_TOOL="podman"
+  COMPOSER="podman-compose"
 else
-  echo "Neither Docker nor Podman is installed on this system."
+  echo "Neither Docker nor Podman are installed on this system."
   exit 1
 fi
 
