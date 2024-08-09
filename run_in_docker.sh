@@ -10,16 +10,15 @@ command_exists() {
 # Check if Podman is installed
 if command_exists podman; then
   CONTAINER_TOOL="podman"
+  COMPOSER="podman-compose"
 # Check if Docker is installed
 elif command_exists docker; then
   CONTAINER_TOOL="docker"
+  COMPOSER="docker compose"
 else
   echo "Neither Docker nor Podman is installed on this system."
   exit 1
 fi
-
-# shellcheck disable=SC2016
-REMOTE_PATH_FOR_SERVICE="$cid:$("$CONTAINER_TOOL" exec "$cid" bash -c 'echo "$HOME"')"
 
 # Function to get the correct profile to add based on service name specified by the user
 with_profile() {
@@ -161,10 +160,13 @@ fi
 
 # Step 4: Launch containers
 # shellcheck disable=SC2046
-POSTGRES_DB_NAME="$db_name" "$CONTAINER_TOOL compose" $(with_profile "$1") $(with_no_mock "$3") up -d
+POSTGRES_DB_NAME="$db_name" "$COMPOSER" $(with_profile "$1") $(with_no_mock "$3") up -d
 
 # Step 5: Find the container ID of the insights-behavioral-spec container
 cid=$("$CONTAINER_TOOL" ps | grep 'insights-behavioral-spec:latest' | cut -d ' ' -f 1)
+
+# shellcheck disable=SC2016
+REMOTE_PATH_FOR_SERVICE="$cid:$("$CONTAINER_TOOL" exec "$cid" bash -c 'echo "$HOME"')"
 
 # Step 6: Copy the executable and needed dependencies or Python service into the container
 # TODO: Discuss including archives in compiled Go executables for testing
