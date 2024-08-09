@@ -22,14 +22,10 @@ PATH_TO_LOCAL_DATA_ENG_SERVICE=${PATH_TO_LOCAL_DATA_ENG_SERVICE:="../ccx-upgrade
 #set NOVENV is current environment is not a python virtual env
 [ "$VIRTUAL_ENV" != "" ] || NOVENV=1
 
-function install_reqs() {
-    pip install -r requirements.txt
-}
-
 function prepare_venv() {
     echo "Preparing environment"
     # shellcheck disable=SC1091
-    virtualenv -p python3 venv && source venv/bin/activate && pip install -r requirements/upgrades_data_eng_service.txt
+    virtualenv -p python3 venv && source venv/bin/activate && pip install -r requirements.txt
     echo "Environment ready"
 }
 
@@ -70,7 +66,7 @@ function add_exit_trap {
 # prepare virtual environment if necessary
 case "$NOVENV" in
     "") echo "using existing virtual env";;
-    "1") install_reqs && prepare_venv ;;
+    "1") prepare_venv ;;
 esac
 
 # Copy the binary and configuration to this folder
