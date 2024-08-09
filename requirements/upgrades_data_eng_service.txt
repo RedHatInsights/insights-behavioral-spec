@@ -1,7 +1,0 @@
-behave
-pytest
-requests
-psycopg2-binary
-minio
-jsonschema
-sentry-sdk

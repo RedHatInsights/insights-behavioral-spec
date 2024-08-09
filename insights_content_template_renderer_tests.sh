@@ -28,19 +28,18 @@ function clone_service() {
 
 function install_reqs() {
     pip install -r requirements.txt
-    pip install -r requirements/insights_content_template_renderer.txt
 }
 
 function prepare_venv() {
     echo "Preparing environment"
     # shellcheck disable=SC1091
-    virtualenv -p python3 venv && source venv/bin/activate
+    virtualenv -p python3 venv && source venv/bin/activate && install_reqs
     echo "Environment ready"
 }
 
 function install_service() {
     cd "$PATH_TO_LOCAL_TEMPLATE_RENDERER" || exit
-    pip install -r requirements.txt
+    install_reqs
     cd "$dir_path" || exit
 }
 
@@ -58,7 +57,6 @@ else
 fi
 
 [ "$NOVENV" != "1" ] || prepare_venv || exit 1
-install_reqs
 
 # Copy the binary and configuration to this folder
 install_service
