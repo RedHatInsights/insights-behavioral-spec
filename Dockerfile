@@ -31,9 +31,9 @@ RUN python3.11  -m venv $VIRTUAL_ENV && source $VIRTUAL_ENV/bin/activate
 
 RUN pip install --no-cache-dir -U pip setuptools wheel
 
-COPY requirements/requirements_docker.txt $HOME/requirements/
+COPY requirements.txt $HOME/
 
-RUN pip install --no-cache-dir -r requirements/requirements_docker.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . $HOME
 

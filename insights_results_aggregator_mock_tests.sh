@@ -14,10 +14,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+function install_reqs() {
+    pip install -r requirements.txt || exit 1
+}
+
 function prepare_venv() {
     echo "Preparing environment"
     # shellcheck disable=SC1091
-    virtualenv -p python3 venv && source venv/bin/activate && pip install -r requirements/insights_results_aggregator_mock.txt || exit 1
+    virtualenv -p python3 venv && source venv/bin/activate && install_reqs
     echo "Environment ready"
 }
 
@@ -47,7 +51,7 @@ EOF
 # prepare virtual environment if necessary
 [ "$VIRTUAL_ENV" != "" ] || NOVENV=1
 case "$NOVENV" in
-    "") echo "using existing virtual env";;
+    "") echo "using existing virtual env" && install_reqs;;
     "1") prepare_venv ;;
 esac
 

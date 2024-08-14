@@ -1,4 +1,15 @@
 behave
 pytest
 psycopg2-binary
+requests
+minio
+jsonschema
+kafka-python
+virtualenv
 semver
+pandas
+pyarrow
+numpy
+boto3
+toml
+sentry-sdk

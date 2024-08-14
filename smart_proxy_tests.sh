@@ -19,13 +19,13 @@
 [ "$VIRTUAL_ENV" != "" ] || NOVENV=1
 
 function install_reqs() {
-        pip install -r requirements.txt
+    pip install -r requirements.txt || exit 1
 }
 
 function prepare_venv() {
     echo "Preparing environment"
     # shellcheck disable=SC1091
-    virtualenv -p python3 venv && source venv/bin/activate && pip install -r requirements/insights_results_aggregator_mock.txt || exit 1
+    virtualenv -p python3 venv && source venv/bin/activate && install_reqs
     echo "Environment ready"
 }
 
@@ -67,8 +67,8 @@ fi
 
 # prepare virtual environment if necessary
 case "$NOVENV" in
-    "") echo "using existing virtual env";;
-    "1") install_reqs && prepare_venv ;;
+    "") echo "using existing virtual env" && install_reqs;;
+    "1") prepare_venv ;;
 esac
 
 if [[ -n $ENV_DOCKER ]]

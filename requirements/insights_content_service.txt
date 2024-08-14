@@ -1,3 +1,0 @@
-jsonschema
-minio
-kafka-python

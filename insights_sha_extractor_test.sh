@@ -32,13 +32,12 @@ function clone_service() {
 
 function install_reqs() {
     pip install -r requirements.txt
-    pip install -r requirements/insights_sha_extractor.txt
 }
 
 function prepare_venv() {
     echo "Preparing environment"
     # shellcheck disable=SC1091
-    virtualenv -p python3 venv && source venv/bin/activate
+    virtualenv -p python3 venv && source venv/bin/activate && install reqs
     echo "Environment ready"
 }
 
@@ -115,7 +114,6 @@ if ! [ "$ENV_DOCKER" ] ; then
 fi
 
 [ "$NOVENV" != "1" ] || prepare_venv || exit 1
-install_reqs
 
 # Copy the binary and configuration to this folder
 install_service
