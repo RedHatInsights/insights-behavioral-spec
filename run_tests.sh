@@ -2,11 +2,6 @@
 
 function install_reqs() {
     pip install -r requirements.txt || exit 1
-    if [ -d "requirements" ]; then
-        for f in requirements/*.txt; do
-            echo "File -> $f" && pip install -r "$f" || exit 1
-        done
-    fi
 }
 
 function prepare_venv() {

@@ -1,5 +1,0 @@
-behave
-pytest
-requests
-psycopg2-binary
-semver

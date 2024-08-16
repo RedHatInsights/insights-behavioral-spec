@@ -346,7 +346,6 @@ def after_all(context):
 │   ├── adder.feature
 │   └── steps
 │       └── common.py
-├── requirements.in
 ├── requirements.txt
 ├── run_tests.sh
 └── src
@@ -357,7 +356,7 @@ def after_all(context):
 
 ```
 src/adder.py                     tested module
-requirements.in/requirements.txt used by PIP
+requirements.txt used by PIP
 feature_list.txt                 list of test scenarios
 features/                        test scenario(s) + implementation of test steps
 run_tests.sh	                 helper script to run Behave
