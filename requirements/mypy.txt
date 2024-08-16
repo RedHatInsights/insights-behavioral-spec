@@ -1,4 +1,0 @@
-types-psycopg2
-types-PyYAML
-types-jsonschema
-types-requests
