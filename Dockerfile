@@ -24,16 +24,11 @@ ENV VIRTUAL_ENV=/insights-behavioral-spec-venv \
 WORKDIR $HOME
 
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
-
-RUN microdnf install --nodocs -y python3.11 unzip make lsof git libpq-devel tar
-
-RUN python3.11  -m venv $VIRTUAL_ENV && source $VIRTUAL_ENV/bin/activate
-
-RUN pip install --no-cache-dir -U pip setuptools wheel
-
 COPY requirements.txt $HOME/
-
-RUN pip install --no-cache-dir -r requirements.txt
+RUN microdnf install --nodocs -y python3.11 unzip make lsof git libpq-devel tar &&\
+    python3.11  -m venv $VIRTUAL_ENV && source $VIRTUAL_ENV/bin/activate &&\
+    pip install --no-cache-dir -U pip wheel &&\
+    pip install --no-cache-dir -r requirements.txt
 
 COPY . $HOME
 
