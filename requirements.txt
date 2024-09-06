@@ -21,3 +21,4 @@ types-psycopg2
 types-requests
 uvicorn[standard]
 virtualenv
+setuptools>=70.0.0
