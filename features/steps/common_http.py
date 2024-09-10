@@ -17,9 +17,9 @@
 import json
 import time
 
-import jsonschema
 import requests
 from behave import given, then, when
+from src.utils import validate_json
 
 
 def check_service_started(context, hostname, port, attempts=5, seconds_between_attempts=0.1):
@@ -60,7 +60,7 @@ def request_endpoint_with_json(context, endpoint, hostname, port):
 
 
 @when(
-    "I request the {endpoint} endpoint in {hostname:w}:{port:d} using the following data as {key}"
+    "I request the {endpoint} endpoint in {hostname:w}:{port:d} using the following data as {key}",
 )
 def request_endpoint_with_formatted_body(context, endpoint, hostname, port, key):
     """Perform a request to the local server with a given set of data.
@@ -126,17 +126,7 @@ def check_response_body_schema(context):
     schema = json.loads(context.text)
     body = context.response.json()
 
-    try:
-        jsonschema.validate(
-            instance=body,
-            schema=schema,
-        )
-
-    except jsonschema.ValidationError as e:
-        assert False, "The response body doesn't fit the expected schema:" + e
-
-    except jsonschema.SchemaError as e:
-        assert False, "The provided schema is faulty:" + e
+    validate_json(schema, body)
 
 
 @then("The body of the response contains {substring}")
@@ -210,7 +200,7 @@ def access_rest_api_endpoint_post(context, endpoint):
     context.response = requests.post(url, json=data)
 
 
-@then("The status message of the response is \"{expected_message}\"")
+@then('The status message of the response is "{expected_message}"')
 def check_status_of_response(context, expected_message):
     """Check the actual message/value in status attribute."""
     assert context.response is not None, "Send request to service first"

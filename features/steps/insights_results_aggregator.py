@@ -14,17 +14,20 @@
 
 """Implementation of test steps that run Insights Results Aggregator and check its output."""
 
-import requests
-import subprocess
 import os
+import subprocess
 import time
 from subprocess import TimeoutExpired
 
-from src import kafka_util
-
-from behave import given, when, then
-from src.process_output import process_generated_output, filter_coverage_message
-from src.utils import get_array_from_json, construct_rh_token
+import requests
+from behave import given, then, when
+from src import kafka_util, version
+from src.process_output import (
+    filepath_from_context,
+    filter_coverage_message,
+    process_generated_output,
+)
+from src.utils import construct_rh_token, find_block, get_array_from_json
 
 # Insights Results Aggregator binary file name
 INSIGHTS_RESULTS_AGGREGATOR_BINARY = "insights-results-aggregator"
@@ -83,13 +86,16 @@ def start_aggregator(context, flag, environment):
     context.add_cleanup(out.terminate)
 
     # don't check exit code at this stage
-    process_generated_output(context, out)
+    stdout_file = filepath_from_context(context, "logs/insights-results-aggregator/", "_stdout")
+    stderr_file = filepath_from_context(context, "logs/insights-results-aggregator/", "_stderr")
+    process_generated_output(context, out, stdout_file=stdout_file, stderr_file=stderr_file)
 
 
 def check_help_from_aggregator(context):
     """Check if help is displayed by Insights Results Aggregator."""
+    # please take into account that some lines can be (and are) added into output by
+    # app-common-go library. We can't control the output and it have changed already.
     expected_output = """
-Clowder is not enabled, skipping init...
 Clowder is disabled
 
 Aggregator service for insights results
@@ -115,29 +121,22 @@ The commands are:
 
     # preliminary checks
     assert stdout is not None, "stdout object should exist"
-    assert type(stdout) is str, "wrong type of stdout object"
+    assert isinstance(stdout, str), "wrong type of stdout object"
 
     # filter message that can be printed by GOCOVERAGE machinery
     stdout = filter_coverage_message(stdout)
 
-    # check the output
-    assert stdout.strip() == expected_output.strip(), "{} != {}".format(
-        stdout, expected_output
-    )
+    # check if the output contains expected help message
+    # any optional garbage above and below help message is ignored
+    assert expected_output.strip() in stdout.strip(), f"{stdout} != {expected_output}"
 
 
 def check_version_from_aggregator(context):
     """Check if version info is displayed by Insights Results Aggregator."""
     # preliminary checks
     assert context.output is not None
-    assert type(context.output) is list, "wrong type of output"
-
-    # check the output, line by line
-    for line in context.output:
-        if "Version: v" in line:
-            break
-    else:
-        raise Exception("Improper or missing version info in {}".format(context.output))
+    assert isinstance(context.output, list), "wrong type of output"
+    version.check(context.output)
 
 
 @then("I should see actual configuration displayed by Insights Results Aggregator on standard output")  # noqa E501
@@ -145,29 +144,50 @@ def check_actual_configuration_for_aggregator(context):
     """Check actual configuration printed to standard output by Insights Results Aggregator."""
     # preliminary checks
     assert context.output is not None
-    assert type(context.output) is list, "wrong type of output"
+    assert isinstance(context.output, list), "wrong type of output"
+
+    # try to find beginning of configuration option in output
+    i = find_block(context.output, "{")
 
     # check the output
-    assert "Broker" in context.output[3], "Caught output: {}".format(context.output)
-    assert "Address" in context.output[4], "Caught output: {}".format(context.output)
-    assert "SecurityProtocol" in context.output[5], "Caught output: {}".format(context.output)
-    assert "CertPath" in context.output[6], "Caught output: {}".format(context.output)
+    assert "Broker" in context.output[i+1], f"Caught output: {context.output}"
+    assert "Address" in context.output[i+2], f"Caught output: {context.output}"
+    assert "SecurityProtocol" in context.output[i+3], f"Caught output: {context.output}"
+    assert "CertPath" in context.output[i+4], f"Caught output: {context.output}"
 
 
 @when("I migrate aggregator database to version #{version:n}")
 def perform_aggregator_database_migration(context, version):
     """Perform aggregator database migration to selected version."""
+    environ = os.environ.copy()
+    environ["INSIGHTS_RESULTS_AGGREGATOR__STORAGE_BACKEND__USE"] = "dvo_recommendations"
+    # run DVO migrations first to not mess with the OCP migrations output we're checking later
     out = subprocess.Popen(
         [INSIGHTS_RESULTS_AGGREGATOR_BINARY, "migrate", str(version)],
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
+        env=environ,
     )
 
     # check if subprocess has been started and its output caught
     assert out is not None
 
+    environ["INSIGHTS_RESULTS_AGGREGATOR__STORAGE_BACKEND__USE"] = "ocp_recommendations"
+
+    # run OCP migrations
+    out = subprocess.Popen(
+        [INSIGHTS_RESULTS_AGGREGATOR_BINARY, "migrate", str(version)],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        env=environ,
+    )
+
+    assert out is not None
+
     # it is expected that exit code will be 0 or 2
-    process_generated_output(context, out, 2)
+    stdout_file = filepath_from_context(context, "logs/insights-results-aggregator/", "_stdout")
+    stderr_file = filepath_from_context(context, "logs/insights-results-aggregator/", "_stderr")
+    process_generated_output(context, out, 2, stdout_file=stdout_file, stderr_file=stderr_file)
 
 
 @when("I migrate aggregator database to latest version")
@@ -188,18 +208,12 @@ def start_insights_results_aggregator_in_background(context):
     # Behave output with Aggregator's messages, so at this moment it is
     # best to redirect logs to files for further investigation.
     # Also it allow us to detect error output as well outside BDD framework.
-    feature_name = context.feature.name.replace("/", "-")
-    scenario_name = context.scenario.name.replace("/", "-")
-    filename = f"logs/{feature_name}_{scenario_name}"
-    if len(filename) > 200:
-        filename = filename[:200]
-    stdout_file = open(filename + ".out", "w")
-    stderr_file = open(filename + ".err", "w")
-
+    stdout_file = filepath_from_context(context, "logs/insights-results-aggregator/", "_stdout")
+    stderr_file = filepath_from_context(context, "logs/insights-results-aggregator/", "_stderr")
     process = subprocess.Popen(
         [INSIGHTS_RESULTS_AGGREGATOR_BINARY],
-        stdout=stdout_file,
-        stderr=stderr_file,
+        stdout=open(stdout_file, "w"),
+        stderr=open(stderr_file, "w"),
         close_fds=True,
         bufsize=0,
     )
@@ -260,7 +274,7 @@ def access_rest_api_endpoint_get_using_token(context, endpoint, organization, ac
 
     # use the token
     context.response = requests.get(
-        url, headers={"x-rh-identity": token}, timeout=TIMEOUT
+        url, headers={"x-rh-identity": token}, timeout=TIMEOUT,
     )
 
 
@@ -273,7 +287,7 @@ def check_empty_list_of_organizations(context):
 
     # check if the list is empty
     assert len(found_organizations) == 0, \
-        "Expected no organizations but {} has been returned".format(found_organizations)
+        f"Expected no organizations but {found_organizations} has been returned"
 
 
 @then("I should retrieve empty list of clusters")
@@ -285,7 +299,7 @@ def check_empty_list_of_clusters(context):
 
     # check if the list is empty
     assert len(found_clusters) == 0, \
-        "Expected no clusters but {} has been returned".format(found_clusters)
+        f"Expected no clusters but {found_clusters} has been returned"
 
 
 @when("I ask for list of all disabled rules for organization {organization:d} account number {account}, and user {user}")  # noqa E501
@@ -298,7 +312,7 @@ def request_list_of_disbled_acked_rules_from_aggregator(context, organization, a
 
     # use the token
     context.response = requests.get(
-        url, headers={"x-rh-identity": token}, timeout=TIMEOUT
+        url, headers={"x-rh-identity": token}, timeout=TIMEOUT,
     )
 
     # basic check if service responded
@@ -315,7 +329,7 @@ def enable_rule_in_aggregator(context, rule_id, error_key, organization, account
 
     # use the token and request body
     context.response = requests.put(
-        url, headers={"x-rh-identity": token}, timeout=TIMEOUT
+        url, headers={"x-rh-identity": token}, timeout=TIMEOUT,
     )
 
     # basic check if service responded
@@ -337,7 +351,7 @@ def disable_rule_in_aggregator(context, rule_id, error_key, organization, accoun
 
     # use the token and request body
     context.response = requests.put(
-        url, headers=headers, json=json_request_body, timeout=TIMEOUT
+        url, headers=headers, json=json_request_body, timeout=TIMEOUT,
     )
 
     # basic check if service responded
@@ -357,7 +371,7 @@ def update_rule_in_aggregator(context, rule_id, error_key, organization, account
 
     # use the token and request body
     context.response = requests.post(
-        url, headers={"x-rh-identity": token}, json=json_request_body, timeout=TIMEOUT
+        url, headers={"x-rh-identity": token}, json=json_request_body, timeout=TIMEOUT,
     )
 
     # basic check if service responded
@@ -419,13 +433,16 @@ def check_disabled_rules_list(context):
             raise KeyError(f"Rule {expected_rule} was not returned by the service")
 
 
-@when("I send rules results '{filename}' into topic '{topic}' to {broker_type} broker")
-def send_rules_results_to_kafka(context, filename, topic, broker_type):
+@when("I send rules results '{filename}' into topic '{topic}'")
+def send_rules_results_to_kafka(context, filename, topic):
     """Send rule results into seleted topic on selected broker."""
     full_path = f"{DATA_DIRECTORY}/{filename}"
     with open(full_path, "r") as fin:
         payload = fin.read().encode("utf-8")
-        if broker_type == "local":
+        if hasattr(context, "kafka_hostname") and hasattr(context, "kafka_port"):
+            kafka_util.send_event(f"{context.kafka_hostname}:{context.kafka_port}", topic, payload)
+        else:
+            # try localhost or raise exception
             kafka_util.send_event("localhost:9092", topic, payload)
 
 
@@ -458,6 +475,19 @@ def check_rule_hits(context, expected_count=1, cluster="11111111-2222-3333-4444-
     # compare actual count with expected count
     assert actual_count == expected_count, \
         f"Expected rule hits count: {expected_count}, actual count: {actual_count}"
+
+
+@then("The returned report should not contain report for cluster {cluster}")
+def check_no_report_for_cluster(context, cluster):
+    """Check that cluster is not cinluded in the report returned from Aggregator."""
+    # retrieve reports
+    json = context.response.json()
+    assert json is not None
+
+    assert "reports" in json, "Reports attribute is missing"
+    reports = json["reports"]
+
+    assert cluster not in reports, "Cluster report found"
 
 
 @then("I should find following rule hits in returned cluster report for cluster {cluster}")

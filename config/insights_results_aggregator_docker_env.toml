@@ -1,5 +1,5 @@
 [broker]
-address = "kafka:9092"
+addresses = "kafka:9092"
 security_protocol = ""
 sasl_mechanism = "PLAIN"
 sasl_username = "username"
@@ -35,6 +35,31 @@ pg_db_name = "test"
 pg_params = "sslmode=disable"
 log_sql_queries = true
 type = "sql"
+
+[ocp_recommendations_storage]
+db_driver = "postgres"
+pg_username = "postgres"
+pg_password = "postgres"
+pg_host = "database"
+pg_port = 5432
+pg_db_name = "test"
+pg_params = "sslmode=disable"
+log_sql_queries = true
+type = "sql"
+
+[dvo_recommendations_storage]
+db_driver = "postgres"
+pg_username = "postgres"
+pg_password = "postgres"
+pg_host = "database"
+pg_port = 5432
+pg_db_name = "test"
+pg_params = "sslmode=disable"
+log_sql_queries = true
+type = "sql"
+
+[storage_backend]
+use = "ocp_recommendations"
 
 [redis]
 database = 0

@@ -16,10 +16,10 @@
 
 
 import subprocess
-from behave import given, when, then, step
 from datetime import datetime, timedelta
-from psycopg2.errors import UndefinedTable
 
+from behave import given, step, then, when
+from psycopg2.errors import UndefinedTable
 
 MIGRATION_INFO_TABLE = "migration_info"
 
@@ -42,6 +42,7 @@ DB_TABLES_LATEST = (
 
 
 class TableExistsException(Exception):
+
     """Specific exception thrown when tested table exists in database."""
 
     def __init__(self, table):
@@ -92,7 +93,7 @@ def ensure_database_contains_all_tables(context):
     cursor = context.connection.cursor()
     for table in DB_TABLES:
         try:
-            cursor.execute("SELECT 1 from {}".format(table))
+            cursor.execute(f"SELECT 1 from {table}")
             _ = cursor.fetchone()
             cursor.execute(f"TRUNCATE TABLE {table} CASCADE")
             context.connection.commit()
@@ -107,7 +108,7 @@ def database_contains_all_tables(context):
     cursor = context.connection.cursor()
     for table in DB_TABLES:
         try:
-            cursor.execute("SELECT 1 from {}".format(table))
+            cursor.execute(f"SELECT 1 from {table}")
             _ = cursor.fetchone()
             context.connection.commit()
         except UndefinedTable as e:
@@ -121,7 +122,7 @@ def ensure_database_emptiness(context):
     cursor = context.connection.cursor()
     for table in DB_TABLES_LATEST:
         try:
-            cursor.execute("SELECT 1 from {}".format(table))
+            cursor.execute(f"SELECT 1 from {table}")
             _ = cursor.fetchone()
             raise TableExistsException(table)
         except UndefinedTable:
@@ -139,11 +140,9 @@ def select_all_rows_from_table(context, table):
     """Select number of all rows from given table."""
     cursor = context.connection.cursor()
     try:
-        cursor.execute("SELECT count(*) as cnt from {}".format(table))
+        cursor.execute(f"SELECT count(*) as cnt from {table}")
         results = cursor.fetchone()
-        assert len(results) == 1, "Wrong number of records returned: {}".format(
-            len(results)
-        )
+        assert len(results) == 1, f"Wrong number of records returned: {len(results)}"
         context.query_count = results[0]
     except Exception as e:
         raise e
@@ -155,9 +154,7 @@ def check_rows_count(context, expected_count):
     """Check if expected number of rows were returned."""
     assert (
         context.query_count == expected_count
-    ), "Wrong number of rows returned: {} instead of {}".format(
-        context.query_count, expected_count
-    )
+    ), f"Wrong number of rows returned: {context.query_count} instead of {expected_count}"
 
 
 @when("I insert following row into table new_reports")
@@ -256,6 +253,42 @@ def insert_rows_into_reported_table(context, report="", default_notified_at=None
         raise e
 
 
+@when("I insert following row into table read_errors")
+@when("I insert following rows into table read_errors")
+def insert_rows_into_read_errors_table(context):
+    """Insert rows into table read_errors."""
+    cursor = context.connection.cursor()
+
+    try:
+        # retrieve table data from feature file
+        for row in context.table:
+            org_id = int(row["org id"])
+            cluster_name = row["cluster name"]
+            updated_at = row["updated at"]
+            error_text = row["error"]
+
+            # check the input table
+            assert org_id is not None, "Organization ID should be set"
+            assert cluster_name is not None, "Cluster name should be set"
+            assert updated_at is not None, "Timestamp updated_at should be set"
+            if not error_text:
+                error_text = "some default error text"
+
+            # try to perform insert statement
+            insertStatement = """INSERT INTO read_errors
+                                 (org_id, cluster, updated_at, created_at, error_text)
+                                 VALUES(%s, %s, %s, %s, %s);"""
+            cursor.execute(
+                insertStatement,
+                (org_id, cluster_name, updated_at, datetime.now(), error_text),
+            )
+
+        context.connection.commit()
+    except Exception as e:
+        context.connection.rollback()
+        raise e
+
+
 @when("I insert 1 report with {risk:w} total risk for the following clusters")
 def insert_report_with_risk_in_new_reports_table(context, risk, updated_at=None):
     """Insert rows into table new_reports."""
@@ -285,13 +318,13 @@ def insert_report_with_risk_in_new_reports_table(context, risk, updated_at=None)
 
 
 @when(
-    "I insert 1 report with {risk:w} total risk after cooldown for the following clusters"
+    "I insert 1 report with {risk:w} total risk after cooldown for the following clusters",
 )  # noqa E501
 def insert_report_with_risk_and_cooldown_in_new_reports_table(context, risk):
     """Insert rows into table new_reports after the cooldown has passed."""
     timestamp_after_cooldown = datetime.now() + timedelta(minutes=1)
     insert_report_with_risk_in_new_reports_table(
-        context, risk, updated_at=timestamp_after_cooldown
+        context, risk, updated_at=timestamp_after_cooldown,
     )
 
 
@@ -303,7 +336,7 @@ def insert_report_into_reported_table(context, risk, timestamp=None):
 
 
 @given(
-    "I insert 1 previously reported report with {risk:w} total risk notified within cooldown"
+    "I insert 1 previously reported report with {risk:w} total risk notified within cooldown",
 )
 def insert_report_within_cooldown_in_reported_table(context, risk):
     """Insert rows into reported table within cooldown."""

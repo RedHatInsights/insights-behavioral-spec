@@ -23,24 +23,24 @@ PATH_TO_LOCAL_DATA_ENG_SERVICE=${PATH_TO_LOCAL_DATA_ENG_SERVICE:="../ccx-upgrade
 [ "$VIRTUAL_ENV" != "" ] || NOVENV=1
 
 function install_reqs() {
-    python3 "$(which pip3)" install -r requirements.txt
+    pip install -r requirements.txt || exit 1
 }
 
 function prepare_venv() {
     echo "Preparing environment"
     # shellcheck disable=SC1091
-    virtualenv -p python3 venv && source venv/bin/activate && python3 "$(which pip3)" install -r requirements/upgrades_data_eng_service.txt
+    virtualenv -p python3 venv && source venv/bin/activate && install_reqs
     echo "Environment ready"
 }
 
 function install_data_eng_service() {
-    python3 "$(which pip3)" install "$PATH_TO_LOCAL_DATA_ENG_SERVICE"
+    pip install "$PATH_TO_LOCAL_DATA_ENG_SERVICE" || exit 1
     # shellcheck disable=SC2016
-    add_exit_trap 'python3 "$(which pip3)" uninstall -y ccx-upgrades-data-eng'
+    add_exit_trap 'pip uninstall -y ccx-upgrades-data-eng'
 }
 
 function start_mocked_dependencies() {
-    python3 "$(which pip3)" install -r requirements/mocks.txt
+    pip install -r requirements/mocks.txt
     pushd "$dir_path"/mocks/inference-service && uvicorn inference_service:app --port 8001 &
     pushd "$dir_path"/mocks/rhobs && uvicorn rhobs_service:app --port 8002 &
 
@@ -67,7 +67,11 @@ function add_exit_trap {
     fi
 }
 
-[ "$NOVENV" != "1" ] && install_reqs || prepare_venv || exit 1
+# prepare virtual environment if necessary
+case "$NOVENV" in
+    "") echo "using existing virtual env" && install_reqs;;
+    "1") prepare_venv ;;
+esac
 
 # Copy the binary and configuration to this folder
 install_data_eng_service
@@ -75,7 +79,7 @@ install_data_eng_service
 [ "$WITHMOCK" == "1" ] && start_mocked_dependencies
 
 # shellcheck disable=SC2068
-PYTHONDONTWRITEBYTECODE=1 python3 "$(which behave)" \
+PYTHONDONTWRITEBYTECODE=1 behave \
     --no-capture \
     --format=progress2 \
     --tags=-skip --tags=-managed \

@@ -14,15 +14,14 @@
 
 """An interface to Apache Kafka done using kcat utility and Python interface to Kafka."""
 
-
-from kafka.admin import NewTopic
-from kafka import KafkaProducer, KafkaConsumer
-from kafka import KafkaAdminClient
-from kafka.errors import UnknownTopicOrPartitionError, TopicAlreadyExistsError
 from behave.runner import Context
+from kafka import KafkaAdminClient, KafkaConsumer, KafkaProducer
+from kafka.admin import NewTopic
+from kafka.errors import TopicAlreadyExistsError, UnknownTopicOrPartitionError
 
 
 class SendEventException(Exception):
+
     """Class representing an exception thrown when send event to Kafka fails."""
 
     def __init__(self, message):
@@ -30,9 +29,9 @@ class SendEventException(Exception):
         super().__init__(message)
 
 
-def create_topic(hostname, topic_name):
+def create_topic(hostname, topic_name, partitions=1):
     """Create a new Kafka topic."""
-    topic = NewTopic(topic_name, 1, 1)
+    topic = NewTopic(topic_name, partitions, 1)
     admin_client = KafkaAdminClient(bootstrap_servers=hostname)
     try:
         outcome = admin_client.create_topics([topic])
@@ -41,27 +40,32 @@ def create_topic(hostname, topic_name):
         print(f"{topic_name} topic already exists")
 
 
-def delete_topic(context: Context, topic):
+def delete_topic(context: Context, topic: str):
     """Delete a Kafka topic."""
     admin_client = KafkaAdminClient(
-        bootstrap_servers=[f"{context.kafka_hostname}:{context.kafka_port}"]
+        bootstrap_servers=[f"{context.kafka_hostname}:{context.kafka_port}"],
     )
     try:
         admin_client.delete_topics(topics=[topic])
     except UnknownTopicOrPartitionError:
         pass
     except Exception as e:
-        print("Topic {} was not deleted. Error: {}".format(topic, e))
+        print(f"Topic {topic} was not deleted. Error: {e}")
 
 
-def send_event(bootstrap, topic, payload, headers=None):
+def send_event(bootstrap, topic, payload, headers=None, partition=None, timestamp=None):
     """Send an event to selected Kafka topic."""
     producer = KafkaProducer(bootstrap_servers=bootstrap)
+
+    timestamp_ms = int(timestamp * 1000) if timestamp else None
+
     try:
         res = producer.send(
             topic,
+            partition=partition,
             value=payload,
             headers=headers,
+            timestamp_ms=timestamp_ms,
         )
         producer.flush()
         print("Result kafka send: ", res.get(timeout=10))
@@ -80,3 +84,13 @@ def consume_event(bootstrap, topic, group_id=None):
     )
     consumer.subscribe(topics=topic)
     return consumer.poll()
+
+
+def consume_message_from_topic(bootsrap, topic):
+    """Consume one messages in given topic."""
+    consumer = KafkaConsumer(
+        topic,
+        bootstrap_servers=bootsrap,
+        auto_offset_reset="earliest",
+    )
+    return next(consumer)

@@ -1,6 +1,0 @@
-behave
-pytest
-requests
-psycopg2
-minio
-jsonschema

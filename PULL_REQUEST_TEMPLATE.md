@@ -15,6 +15,7 @@ Please delete options that are not relevant.
 - Breaking change (fix or feature that would cause existing functionality to not work as expected)
 - This change requires a documentation update
 - Refactor (refactoring code, removing useless files)
+- Unit tests (no changes in BDDs or test steps)
 - Bump-up dependent library (no changes in the code)
 - Security fix in dependent library (no changes in the code)
 - Security fix in dependent library (changes made in the code)
@@ -29,4 +30,5 @@ Please describe how the change was tested locally. If, for some reason, the test
 * [ ] Pylint passes for Python sources
 * [ ] sources has been pre-processed by Black
 * [ ] updated documentation wherever necessary
-* [ ] new tests can be executed both locally and within docker container 
+* [ ] new tests can be executed both locally and within docker container
+* [ ] new tests have been included in scenario list (make update-scenarios)

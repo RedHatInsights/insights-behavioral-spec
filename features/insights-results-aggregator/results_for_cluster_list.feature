@@ -17,7 +17,7 @@ Feature: Checking REST API endpoint that returns results for provided list of cl
 
 
   @rest-api
-  Scenario: Check if Insights Results Aggregator Mock service returns results for empty list of clusters
+  Scenario: Check if Insights Results Aggregator service returns results for empty list of clusters
     Given the system is in default state
      When I request results for the following list of clusters using token for organization 123 account number 456, and user 789
           | Cluster name                         |
@@ -30,7 +30,7 @@ Feature: Checking REST API endpoint that returns results for provided list of cl
 
 
   @rest-api
-  Scenario: Check if Insights Results Aggregator Mock service returns results for non empty list of clusters without proper report
+  Scenario: Check if Insights Results Aggregator service returns results for non empty list of clusters without proper report
     Given the system is in default state
       And empty reports are stored for following clusters
          | organization | cluster ID                           |
@@ -54,7 +54,7 @@ Feature: Checking REST API endpoint that returns results for provided list of cl
 
 
   @rest-api
-  Scenario: Check if Insights Results Aggregator Mock service returns results for non empty list of clusters with proper report
+  Scenario: Check if Insights Results Aggregator service returns results for non empty list of clusters with proper report
     Given the system is in default state
       And non empty reports are stored for following clusters
          | organization | cluster ID                           |
@@ -84,7 +84,7 @@ Feature: Checking REST API endpoint that returns results for provided list of cl
 
 
   @rest-api
-  Scenario: Check if Insights Results Aggregator Mock service returns results for non empty list of clusters with proper report and one unknown cluster
+  Scenario: Check if Insights Results Aggregator service returns results for non empty list of clusters with proper report and one unknown cluster
     Given the system is in default state
       And non empty reports are stored for following clusters
          | organization | cluster ID                           |
@@ -117,7 +117,7 @@ Feature: Checking REST API endpoint that returns results for provided list of cl
 
 
   @rest-api
-  Scenario: Check if Insights Results Aggregator Mock service returns results for non empty list of clusters with proper report and two unknown clusters
+  Scenario: Check if Insights Results Aggregator service returns results for non empty list of clusters with proper report and two unknown clusters
     Given the system is in default state
       And non empty reports are stored for following clusters
          | organization | cluster ID                           |
@@ -152,7 +152,7 @@ Feature: Checking REST API endpoint that returns results for provided list of cl
 
 
   @rest-api
-  Scenario: Check if Insights Results Aggregator Mock service returns results for two unknown clusters
+  Scenario: Check if Insights Results Aggregator service returns results for two unknown clusters
     Given the system is in default state
       And non empty reports are stored for following clusters
          | organization | cluster ID                           |

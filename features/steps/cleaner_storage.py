@@ -13,60 +13,58 @@
 # limitations under the License.
 
 """Database-related operations performed by BDD tests."""
-from psycopg2.errors import UndefinedTable
-from src.sql import construct_insert_statement
 from behave import given, then, when
 from common_aggregator import DB_TABLES
+from psycopg2.errors import UndefinedTable
+from src.sql import construct_insert_statement
 
 
-@given(u"the database is empty")
-@then(u"the database is empty")
-@then(u"I should find that the database is empty")
+@given("the database is empty")
+@then("the database is empty")
+@then("I should find that the database is empty")
 def ensure_database_emptiness(context):
     """Perform check if the database is empty."""
     cursor = context.connection.cursor()
     for table in DB_TABLES:
         try:
-            cursor.execute("SELECT 1 from {}".format(table))
+            cursor.execute(f"SELECT 1 from {table}")
             _ = cursor.fetchone()
             context.connection.commit()
             print("DB name: ", context.connection.info.dsn_parameters)
-            raise Exception("Table '{}' exists".format(table))
+            raise Exception(f"Table '{table}' exists")
         except UndefinedTable:
             # exception means that the table does not exists
             context.connection.rollback()
 
 
-@then(u"I should find that all tables are empty")
+@then("I should find that all tables are empty")
 def ensure_data_tables_emptiness(context):
     """Perform check if data tables are empty."""
     for table in DB_TABLES:
         cursor = context.connection.cursor()
         try:
-            cursor.execute("SELECT count(*) as cnt from {}".format(table))
+            cursor.execute(f"SELECT count(*) as cnt from {table}")
             results = cursor.fetchone()
-            assert len(results) == 1, "Wrong number of records returned: {}".format(
-                len(results)
-            )
-            assert results[0] == 0, "Table '{}' is not empty as expected".format(table)
+            assert len(results) == 1, f"Wrong number of records returned: {len(results)}"
+            assert results[0] == 0, f"Table '{table}' is not empty as expected"
         except Exception:
             raise
 
 
-@when(u"I delete all tables from database")
+@when("I delete all tables from database")
 def delete_all_tables(context):
     """Delete all relevant tables from database."""
     for table in DB_TABLES:
         cursor = context.connection.cursor()
         try:
-            cursor.execute("DROP TABLE {}".format(table))
+            cursor.execute(f"DROP TABLE {table}")
             context.connection.commit()
         except Exception:
             context.connection.rollback()
             raise
 
 
-@when(u"I insert following records into {table} table")
+@when("I insert following records into {table} table")
 def insert_records_into_selected_table(context, table):
     """Insert provided records into specified table."""
     cursor = context.connection.cursor()
@@ -87,3 +85,42 @@ def insert_records_into_selected_table(context, table):
     except Exception:
         context.connection.rollback()
         raise
+
+
+@then("I should find that table {table} is empty")
+def ensure_data_table_emptiness(context, table):
+    """Perform check if a data table is empty."""
+    cursor = context.connection.cursor()
+
+    cursor.execute(f"SELECT count(*) AS cnt FROM {table}")
+    results = cursor.fetchone()
+    assert len(results) == 1, f"Wrong number of records returned: {len(results)}"
+    assert results[0] == 0, f"Table '{table}' is not empty as expected"
+
+
+@then("I should see the following rule_hit")
+def check_non_empty_list_of_rule_hit_records(context):
+    """Check if the cleaner displays the suggested clusters."""
+    # set of expected clusters
+    expected_rule_hits = set()
+
+    for row in context.table:
+        typed_row = [int(row.cells[0]), *row.cells[1:]]
+        rule_hit = tuple(typed_row)
+        expected_rule_hits.add(rule_hit)
+
+    # check the database content
+    cursor = context.connection.cursor()
+
+    cursor.execute(
+        "SELECT org_id, cluster_id, rule_fqdn, error_key, template_data "
+        "FROM rule_hit",
+    )
+    results = cursor.fetchall()
+
+    # set of actually found clusters
+    found_rule_hits = set(results)
+
+    # compare both sets
+    assert expected_rule_hits == found_rule_hits, \
+        f"Difference: {expected_rule_hits ^ found_rule_hits}"

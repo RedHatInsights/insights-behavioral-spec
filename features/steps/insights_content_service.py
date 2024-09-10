@@ -15,6 +15,7 @@
 """Implementation of test steps for testing CCX Insights Content Service."""
 
 import re
+
 from behave import then
 
 
@@ -31,10 +32,10 @@ def check_build_time(context):
     """Check build timestamp taken from service output."""
     buildTime = context.response.json()["info"]["BuildTime"]
     pattern = re.compile(
-        r".{3} .{3}[ ]{1,2}[0-9]{1,2} [0-9]{2}:[0-9]{2}:[0-9]{2} ([AP]M )?[A-Z]{1,5} [0-9]{4}"
+        r".{3} .{3}[ ]{1,2}[0-9]{1,2} [0-9]{2}:[0-9]{2}:[0-9]{2} ([AP]M )?[A-Z]{1,5} [0-9]{4}",
     )
     match = re.match(pattern, buildTime)
-    assert match.group(0), "BuildTime is not a date time: {}".format(buildTime)
+    assert match.group(0), f"BuildTime is not a date time: {buildTime}"
 
 
 @then("BuildVersion is in the proper format")

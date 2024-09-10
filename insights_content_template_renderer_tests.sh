@@ -27,22 +27,27 @@ function clone_service() {
 [ "$VIRTUAL_ENV" != "" ] || NOVENV=1
 
 function install_reqs() {
-    python3 "$(which pip3)" install -r requirements.txt
-    python3 "$(which pip3)" install -r requirements/insights_content_template_renderer.txt
+    pip install -r requirements.txt || exit 1
 }
 
 function prepare_venv() {
     echo "Preparing environment"
     # shellcheck disable=SC1091
-    virtualenv -p python3 venv && source venv/bin/activate
+    virtualenv -p python3 venv && source venv/bin/activate && install_reqs
     echo "Environment ready"
 }
 
 function install_service() {
     cd "$PATH_TO_LOCAL_TEMPLATE_RENDERER" || exit
-    python3 "$(which pip3)" install -r requirements.txt
+    install_reqs
     cd "$dir_path" || exit
 }
+
+# prepare virtual environment if necessary
+case "$NOVENV" in
+    "") echo "using existing virtual env" && install_reqs;;
+    "1") prepare_venv ;;
+esac
 
 if [ ! -d "$PATH_TO_LOCAL_TEMPLATE_RENDERER" ]; then
     if [[ -z $ENV_DOCKER ]]
@@ -57,14 +62,12 @@ else
     echo "insights-content-template-renderer directory found in working directory"
 fi
 
-[ "$NOVENV" != "1" ] || prepare_venv || exit 1
-install_reqs
 
 # Copy the binary and configuration to this folder
 install_service
 
 # shellcheck disable=SC2068
-PYTHONDONTWRITEBYTECODE=1 python3 "$(which behave)" \
+PYTHONDONTWRITEBYTECODE=1 behave \
     --no-capture \
     --format=progress2 \
     --tags=-skip --tags=-managed \

@@ -14,39 +14,9 @@
 
 """Custom asserts that can be imported into other source files and steps definitions."""
 
-from typing import Set, Any
+from typing import Any, Set
 
 
 def assert_sets_equality(what: str, expected: Set[Any], actual: Set[Any]) -> None:
     """Compare two sets of values, displays correct set difference when inequal."""
-    assert expected == actual, "Difference found in sets of {}: {}".format(
-        what, expected ^ actual
-    )
-
-
-if __name__ == "__main__":
-    # just check the function to compare to sets
-    assert_sets_equality("something", set(), set())
-    assert_sets_equality("something", {1}, {1})
-    assert_sets_equality("something", {1, 2}, {1, 2})
-    assert_sets_equality("something", {1, 2}, {2, 1})
-
-    try:
-        assert_sets_equality("something", {1, 2}, {2})
-    except AssertionError as e:
-        print(e)
-
-    try:
-        assert_sets_equality("something", {1, 2}, {2, 3})
-    except AssertionError as e:
-        print(e)
-
-    try:
-        assert_sets_equality("something", set(), {1})
-    except AssertionError as e:
-        print(e)
-
-    try:
-        assert_sets_equality("something", set(), {1, 2})
-    except AssertionError as e:
-        print(e)
+    assert expected == actual, f"Difference found in sets of {what}: {expected ^ actual}"

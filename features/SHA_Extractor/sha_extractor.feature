@@ -5,7 +5,7 @@ Feature: SHA Extractor
 
 
   Background:
-    Given Kafka broker is started on host and port specified in configuration
+    Given Kafka broker is started on host and port specified in SHA extractor configuration
       And Kafka topic specified in configuration variable "incoming_topic" is created
       And Kafka topic specified in configuration variable "dead_letter_queue_topic" is created
       And Kafka topic specified in configuration variable "outgoing_topic" is created
@@ -19,67 +19,40 @@ Feature: SHA Extractor
 
 
   Scenario: Check if SHA extractor is able to consume messages from Kafka
-     When an archive without workload info is announced in "incoming_topic" topic
+     When S3 and Kafka are populated with an archive without workload_info
       And SHA extractor service is started in group "check"
      Then SHA extractor should consume message about this event
-      And this message should contain following attributes
-          | Attribute    | Description                | Type         |
-          | account      | account ID                 | unsigned int |
-          | principal    | principal ID               | unsigned int |
-          | size         | tarball size               | unsigned int |
-          | url          | URL to S3                  | string       |
-          | b64_identity | identity encoded by BASE64 | string       |
-          | timestamp    | timestamp of event         | string       |
+      And SHA extractor validates the message format
       And SHA extractor decode the b64_identity attribute
 
 
   Scenario: Check if SHA extractor is able to consume messages from Kafka and then download tarball
     Given SHA extractor service is started
-     When an archive without workload info is announced in "incoming_topic" topic
+     When S3 and Kafka are populated with an archive without workload_info
      Then SHA extractor should consume message about this event
-      And this message should contain following attributes
-          | Attribute    | Description                | Type         |
-          | account      | account ID                 | unsigned int |
-          | principal    | principal ID               | unsigned int |
-          | size         | tarball size               | unsigned int |
-          | url          | URL to S3                  | string       |
-          | b64_identity | identity encoded by BASE64 | string       |
-          | timestamp    | timestamp of event         | string       |
-      And SHA extractor retrieve the "url" attribute from the message
+      And SHA extractor validates the message format
+      And SHA extractor retrieves the "url" attribute from the message
       And SHA extractor should download tarball from given URL attribute
 
 
   Scenario: Check if SHA extractor is able to consume messages from Kafka, download tarball, and take SHA images
     Given SHA extractor service is started
-     When an archive without workload info is announced in "incoming_topic" topic
+     When S3 and Kafka are populated with an archive without workload_info
      Then SHA extractor should consume message about this event
-      And this message should contain following attributes
-          | Attribute    | Description                | Type         |
-          | account      | account ID                 | unsigned int |
-          | principal    | principal ID               | unsigned int |
-          | size         | tarball size               | unsigned int |
-          | url          | URL to S3                  | string       |
-          | b64_identity | identity encoded by BASE64 | string       |
-          | timestamp    | timestamp of event         | string       |
-     Then SHA extractor retrieve the "url" attribute from the message
+      And SHA extractor validates the message format
+      And SHA extractor retrieves the "url" attribute from the message
       And SHA extractor should download tarball from given URL attribute
-     When the file "config/workload_info.json" is not found
+     When the file "config/workload_info.json" is not found by SHA extractor
      Then the tarball is not further processed
 
 
   Scenario: Check if SHA extractor is able to finish the processing of SHA images
     Given SHA extractor service is started
-     When an archive with workload info is announced in "incoming_topic" topic
+     When S3 and Kafka are populated with an archive with workload_info
      Then SHA extractor should consume message about this event
-      And this message should contain following attributes
-          | Attribute    | Description                | Type         |
-          | account      | account ID                 | unsigned int |
-          | principal    | principal ID               | unsigned int |
-          | size         | tarball size               | unsigned int |
-          | url          | URL to S3                  | string       |
-          | b64_identity | identity encoded by BASE64 | string       |
-          | timestamp    | timestamp of event         | string       |
-     Then SHA extractor retrieve the "url" attribute from the message
+      And SHA extractor validates the message format
+      And SHA extractor retrieves the "url" attribute from the message
       And SHA extractor should download tarball from given URL attribute
-     When the file "config/workload_info.json" is found
-     Then the content of this file needs to be sent into topic "archive_results"
+     When the file "config/workload_info.json" is found by SHA extractor
+     Then message has been sent by SHA extractor into topic "archive-results"
+      And published message should not be compressed

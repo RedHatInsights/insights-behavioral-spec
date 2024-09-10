@@ -14,15 +14,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+function install_reqs() {
+    pip install -r requirements.txt || exit 1
+}
+
 function prepare_venv() {
     echo "Preparing environment"
     # shellcheck disable=SC1091
-    virtualenv -p python3 venv && source venv/bin/activate && python3 "$(which pip3)" install -r requirements/insights_results_aggregator_mock.txt || exit 1
+    virtualenv -p python3 venv && source venv/bin/activate && install_reqs
     echo "Environment ready"
 }
 
 function set_env_vars(){
-    export INSIGHTS_RESULTS_AGGREGATOR_CONFIG_FILE="$HOME/config/insights_results_aggregator_docker_env.toml" INSIGHTS_RESULTS_AGGREGATOR__STORAGE__PG_USERNAME=$DB_USER INSIGHTS_RESULTS_AGGREGATOR__STORAGE__PG_PASSWORD=$DB_PASS INSIGHTS_RESULTS_AGGREGATOR__STORAGE__PG_HOST=$DB_HOST INSIGHTS_RESULTS_AGGREGATOR__STORAGE__PG_PORT=$DB_PORT INSIGHTS_RESULTS_AGGREGATOR__STORAGE__PG_DB_NAME=$DB_NAME
+    export INSIGHTS_RESULTS_AGGREGATOR_CONFIG_FILE="config/insights_results_aggregator_docker_env.toml" \
+    INSIGHTS_RESULTS_AGGREGATOR__OCP_RECOMMENDATIONS_STORAGE__PG_USERNAME=$DB_USER \
+    INSIGHTS_RESULTS_AGGREGATOR__OCP_RECOMMENDATIONS_STORAGE__PG_PASSWORD=$DB_PASS \
+    INSIGHTS_RESULTS_AGGREGATOR__OCP_RECOMMENDATIONS_STORAGE__PG_HOST=$DB_HOST \
+    INSIGHTS_RESULTS_AGGREGATOR__OCP_RECOMMENDATIONS_STORAGE__PG_PORT=$DB_PORT \
+    INSIGHTS_RESULTS_AGGREGATOR__OCP_RECOMMENDATIONS_STORAGE__PG_DB_NAME=$DB_NAME \
+    INSIGHTS_RESULTS_AGGREGATOR__OCP_RECOMMENDATIONS_STORAGE__TYPE="sql" \
+    INSIGHTS_RESULTS_AGGREGATOR__STORAGE_BACKEND__USE="ocp_recommendations"
 }
 
 function prepare_code_coverage() {
@@ -59,7 +70,7 @@ fi
 # prepare virtual environment if necessary
 [ "$VIRTUAL_ENV" != "" ] || NOVENV=1
 case "$NOVENV" in
-    "") echo "using existing virtual env";;
+    "") echo "using existing virtual env" && install_reqs;;
     "1") prepare_venv ;;
 esac
 
@@ -70,7 +81,7 @@ then
     set_env_vars
 fi
 
-PYTHONDONTWRITEBYTECODE=1 python3 -m behave --tags=-skip -D dump_errors=true @test_list/insights_results_aggregator.txt "$@"
+PYTHONDONTWRITEBYTECODE=1 python3 -m behave --tags=-skip --format=progress2 -D dump_errors=true @test_list/insights_results_aggregator.txt "$@"
 
 bddExecutionExitCode=$?
 

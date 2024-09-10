@@ -15,11 +15,15 @@
 """CSV-related code."""
 
 import csv
+
 from behave.runner import Context
 
 
 def check_table_content(context: Context, buff, filename, column, column2=None, headers=True):
     """Check if CSV file or CSV object contains records specified in test context."""
+    # input checks
+    assert buff is not None, "buff object needs to be set"
+
     # CSV file object
     csvFile = csv.reader(buff)
 
@@ -53,8 +57,6 @@ def check_table_content(context: Context, buff, filename, column, column2=None, 
                     break
 
         if column2 is None:
-            assert found, "Record {} not found in CSV file {}".format(record, filename)
+            assert found, f"Record {record} not found in CSV file {filename}"
         else:
-            assert found, "Record {} not found in CSV file {}".format(
-                [record1, record2], line
-            )
+            assert found, f"Record {[record1, record2]} not found in CSV file {line}"

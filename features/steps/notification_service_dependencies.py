@@ -17,13 +17,11 @@
 from urllib import parse
 
 import requests
-
 from behave import given, then, when
-
 from common_http import check_service_started
 
 CONTENT_SERVICE_OPENAPI_ENDPOINT = "/api/v1/openapi.json"
-SERVICE_LOG_CLUSTER_LOGS_ENDPOINT = "/api/service_logs/v1/cluster_logs"
+SERVICE_LOG_OPENAPI_ENDPOINT = "/api/service_logs/v1/openapi"
 PUSH_GATEWAY_METRICS_ENDPOINT = "/metrics"
 TOKEN_REFRESHMENT_ENDPOINT = (
     "/auth/realms/redhat-external/protocol/openid-connect/token"
@@ -54,9 +52,9 @@ def check_content_service_availability(context, host=None, port=None):
 def check_service_log_availability(context, host, port):
     """Check if service-log is available at given address."""
     check_service_started(context, host, port)
-    url = create_url(host, port, SERVICE_LOG_CLUSTER_LOGS_ENDPOINT)
+    url = create_url(host, port, SERVICE_LOG_OPENAPI_ENDPOINT)
     response = requests.get(url, headers={"Authorization": "TEST_TOKEN"})
-    assert response.status_code == 200, "service log is not up"
+    assert response.status_code == requests.codes.ok, "service log is not up"
 
 
 @given("token refreshment server is available on {host}:{port:d}")
@@ -70,7 +68,7 @@ def check_token_refreshment_availability(context, host, port):
         "scope": "openid",
     }
     response = requests.post(url, data=body)
-    assert response.status_code == 200, "token refreshment server is not up"
+    assert response.status_code == requests.codes.ok, "token refreshment server is not up"
 
 
 @when("I retrieve metrics from the gateway on {host}:{port:d}")

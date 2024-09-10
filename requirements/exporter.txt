@@ -1,4 +1,0 @@
-behave
-pytest
-minio
-psycopg2

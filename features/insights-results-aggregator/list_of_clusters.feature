@@ -29,7 +29,7 @@ Feature: Checking responses from Insights Results Aggregator service: "{organiza
 
 
   @rest-api
-  Scenario: Check if Insights Results Aggregator Mock service return correct list of clusters for organization w/o access rights
+  Scenario: Check if Insights Results Aggregator service return correct list of clusters for organization w/o access rights
     Given the system is in default state
      When I access endpoint /organizations/123/clusters using HTTP GET method using token for organization 999 account number 456, and user 789
      Then The status code of the response is 403

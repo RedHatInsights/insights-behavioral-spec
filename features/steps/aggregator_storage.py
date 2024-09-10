@@ -15,8 +15,7 @@
 """Insights results aggregator database-related operations performed by BDD tests."""
 
 from behave import given, then, when
-from environment import prepare_db, CLEANUP_FILES, DB_INIT_FILES
-
+from environment import CLEANUP_FILES, DB_INIT_FILES, prepare_db
 
 MIGRATION_INFO_TABLE = "migration_info"
 
@@ -34,6 +33,20 @@ def read_migration_number_from_database(context):
     cursor = context.connection.cursor()
     try:
         cursor.execute(f"SELECT version from {MIGRATION_INFO_TABLE} limit 1")
+        context.database_migration = cursor.fetchone()[0]
+        assert isinstance(context.database_migration, int)
+        context.connection.commit()
+    except Exception as e:
+        context.connection.rollback()
+        raise e
+
+
+@when("I read current migration number for DVO from database")
+def read_dvo_migration_number_from_database(context):
+    """Test step to read current migration number for DVO schema from database."""
+    cursor = context.connection.cursor()
+    try:
+        cursor.execute(f"SELECT version from dvo.{MIGRATION_INFO_TABLE} limit 1")
         context.database_migration = cursor.fetchone()[0]
         assert isinstance(context.database_migration, int)
         context.connection.commit()

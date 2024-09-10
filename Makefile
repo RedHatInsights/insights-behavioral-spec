@@ -6,6 +6,15 @@ tests:	cleaner-tests exporter-tests aggregator-tests aggregator-mock-tests \
 	notification-service-tests notification-writer-tests insights-content-service-tests \
 	inference-service-tests data-engineering-service-tests
 
+unit_tests: ## Run all unit tests defined in this project
+	export PATH=tools/:$$PATH;export PYTHONDONTWRITEBYTECODE=1;pytest -v -p no:cacheprovider
+
+coverage: ## Calculate unit test code coverage for the whole repository
+	export PATH=tools/:$$PATH;export PYTHONDONTWRITEBYTECODE=1;pytest -v -p no:cacheprovider --cov features/
+
+coverage-report: ## Generate HTML pages with unit test code coverage report
+	export PATH=tools/:$$PATH;export PYTHONDONTWRITEBYTECODE=1;pytest -v -p no:cacheprovider --cov features/ --cov-report=html
+
 cleaner-tests: ## Run BDD tests for the CCX Cleaner service
 	./cleaner_tests.sh
 
@@ -48,6 +57,12 @@ inference-service-tests: ## Run BDD tests for the Inference Service
 data-engineering-service-tests: ## Run BDD tests for the Data Engineering Service
 	./ccx_upgrade_risk_data_eng_tests.sh
 
+dvo-extractor-tests: # Run BDD tests for the DVO Extractor
+	./dvo_extractor_tests.sh
+
+dvo-writer-tests:
+	./dvo_writer_tests.sh
+
 insights-content-service-tests: ## Run BDD tests for the CCX Content Service
 	./insights_content_service_test.sh
 
@@ -62,6 +77,12 @@ smart-proxy-tests: ## Run BDD tests for the Insights Results Smart Proxy service
 
 smart-proxy-code-coverage: ## Compute code coverage for Smart Proxy service
 	./smart_proxy_tests.sh coverage
+
+parquet-factory-tests: ## Run BDD tests for the Parquet Factory
+	./parquet_factory_tests.sh
+
+parquet-factory-code-coverage: ## Compute code coverage for Parquet Factory
+	./parquet_factory_tests.sh coverage
 
 style:	code-style docs-style shellcheck ## Perform all style checks
 

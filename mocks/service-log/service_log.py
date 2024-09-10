@@ -12,8 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-r"""
-Mock server that can be used instead of fully functional ServiceLog service.
+r"""Mock server that can be used instead of fully functional ServiceLog service.
 
 You can try this mock with:
 
@@ -72,22 +71,27 @@ telling you the field that you are missing.
 
 However, I don't consider it necessary for this use case.
 
-You can also query using:
-- GET: return the logs sent to this service
+You can also query this endpoint using:
 - DELETE: delete the logs stored given an ID
+
+For getting a log from the service log API, you need to use the
+'/api/service_logs/v1/clusters/cluster_logs' endpoint with the 'cluster_id'
+and/or 'cluster_uuid' query parameters:
+
+curl -H "Authorization: Bearer $ACCESS_TOKEN" \
+localhost:8000/api/service_logs/v1/clusters/cluster_logs?cluster_id=<id>&cluster_uuid=<uuid>
+
 """
 
 import random
 import string
-
 from datetime import datetime
-from typing import Union
+from typing import Optional
 
 from fastapi import FastAPI, Request, Response, status
 from fastapi.exceptions import RequestValidationError
-from starlette.responses import JSONResponse
 from pydantic import BaseModel
-
+from starlette.responses import JSONResponse
 
 KSUID_LENGTH = 40
 ID_LENGTH = 27
@@ -111,22 +115,24 @@ app = FastAPI()
 
 
 class Log(BaseModel):
+
     """Model for log structure received by Service Log."""
 
     cluster_uuid: str
-    cluster_id: Union[str, None] = None
-    subscription_id: Union[str, None] = None
+    cluster_id: Optional[str] = None
+    subscription_id: Optional[str] = None
     summary: str
-    description: Union[str, None] = None
-    internal_only: Union[bool, None] = None
+    description: Optional[str] = None
+    internal_only: Optional[bool] = None
     service_name: str
-    severity: Union[str, None] = "Info"
-    timestamp: Union[str, None] = None  # default will be current time
-    username: Union[str, None] = None
-    event_stream_id: Union[str, None] = None  # default will be a random ksuid
+    severity: Optional[str] = "Info"
+    timestamp: Optional[str] = None  # default will be current time
+    username: Optional[str] = None
+    event_stream_id: Optional[str] = None  # default will be a random ksuid
 
 
 class ReturnLog(Log):
+
     """Log structure enriched by some fields added by Service Log."""
 
     id: str
@@ -138,6 +144,7 @@ class ReturnLog(Log):
 
 
 class ReturnError(BaseModel):
+
     """Structure returned by service when error occurs."""
 
     id: str
@@ -189,18 +196,35 @@ def publish_log(log: Log, request: Request):
     return JSONResponse(log.dict(exclude_none=True), status_code=201)
 
 
-@app.get("/api/service_logs/v1/cluster_logs")
-def get_logs(request: Request):
-    """Retrieve stored logs and return them in JSON format."""
+@app.get("/api/service_logs/v1/clusters/cluster_logs")
+def get_logs(request: Request, cluster_id: str = None, cluster_uuid: str = None):
+    """Return stored logs for given cluster_id and/or cluster_uuid in JSON format."""
     if request.headers.get("Authorization", None) is None:
         return noAuthResponse
+
+    if cluster_id is None and cluster_uuid is None:
+        return JSONResponse(
+            {
+                "kind": "ClusterLogList",
+                "page": 1,
+                "size": 0,
+                "total": 0,
+                "items": [],
+            },
+            status_code=400,
+        )
+
+    res = []
+    for log in log_storage:
+        if log.cluster_id == cluster_id or log.cluster_uuid == cluster_uuid:
+            res.append(log)
     return JSONResponse(
         {
             "kind": "ClusterLogList",
             "page": 1,
-            "size": len(log_storage),
-            "total": len(log_storage),
-            "items": [log.dict(exclude_none=True) for log in log_storage],
+            "size": len(res),
+            "total": len(res),
+            "items": [log.dict(exclude_none=True) for log in res],
         },
         status_code=200,
     )
@@ -245,6 +269,12 @@ def delete_logs(id: str, request: Request):
         reason=f"The requested resource '{id}' doesn't exist",
         operation_id=random_id(ID_LENGTH),
     )
+
+
+@app.get("/api/service_logs/v1/openapi")
+def get_openapi():
+    """Get mock response from openapi endpoint."""
+    return JSONResponse({}, status_code=200)
 
 
 def fill_default_fields(log: Log) -> Log:

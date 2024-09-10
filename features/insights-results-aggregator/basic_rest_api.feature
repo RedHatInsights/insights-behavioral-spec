@@ -104,7 +104,10 @@ Feature: Basic REST API endpoints provided by Insights Results Aggregator
                    "BuildVersion": {
                      "type": "string"
                    },
-                   "DB_version": {
+                   "OCP_DB_version": {
+                     "type": "string"
+                   },
+                   "DVO_DB_version": {
                      "type": "string"
                    },
                    "UtilsVersion": {
@@ -116,7 +119,8 @@ Feature: Basic REST API endpoints provided by Insights Results Aggregator
                    "BuildCommit",
                    "BuildTime",
                    "BuildVersion",
-                   "DB_version",
+                   "OCP_DB_version",
+                   "DVO_DB_version",
                    "UtilsVersion"
                  ]
                },
@@ -133,7 +137,8 @@ Feature: Basic REST API endpoints provided by Insights Results Aggregator
       And BuildCommit is a proper sha1
       And BuildTime is a proper datetime stamp
       #And BuildVersion is in the proper format
-      And DBVersion is in the proper format
+      And OCPDBVersion is in the proper format
+      And DVODBVersion is in the proper format
       And UtilsVersion is in the proper format
      When I terminate Insights Results Aggregator
      Then Insights Results Aggregator process should terminate

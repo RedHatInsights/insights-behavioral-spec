@@ -12,8 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Mock of the content-template-renderer service.
+"""Mock of the content-template-renderer service.
 
 The original service is used to interpolate rule templates from content-service
 with report details.
@@ -70,7 +69,7 @@ async def render_reports(request: Request):
 
     for cluster_id, cluster_data in data["report_data"]["reports"].items():
         for report in cluster_data["reports"]:
-            if report["component"].endswith('.report'):
+            if report["component"].endswith(".report"):
                 report["component"] = report["component"][:-7]
             reports.append(
                 {
@@ -79,7 +78,7 @@ async def render_reports(request: Request):
                     "description": "detailed description",
                     "reason": "detailed report",
                     "resolution": "detailed resolution",
-                }
+                },
             )
 
     return {

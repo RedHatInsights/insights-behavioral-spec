@@ -21,9 +21,14 @@ Currently four events have been registered:
 4. after_scenario
 """
 
-import os
-import psycopg2
-from subprocess import TimeoutExpired
+try:
+    import os
+    from subprocess import TimeoutExpired
+
+    import psycopg2
+except ImportError as e:
+    print("Warning: unable to import module:", e)
+
 
 # Mappings between supported features (like consuming message from Kafka) and
 # tags specified in feature files
@@ -35,10 +40,15 @@ FEATURES_CLEAN_DB = ("aggregator", "aggregator_cleaner", "aggregator_exporter")
 FEATURES_INIT_DB = ("aggregator", "notification_service")
 
 # Setup all environment variables needed to work with Kafka (local or remote)
-FEATURES_WITH_KAFKA = ("aggregator", "notification_writer", "notification_service")
+FEATURES_WITH_KAFKA = (
+    "aggregator",
+    "notification_writer",
+    "notification_service",
+    "parquet_service",
+)
 
 # Setup all environment variables needed to work with Minio (local or remote)
-FEATURES_WITH_MINIO = ("aggregator_exporter",)
+FEATURES_WITH_MINIO = ("aggregator_exporter", "parquet_service")
 
 # Mapping between database name and script to cleanup such database.
 CLEANUP_FILES = {
@@ -56,7 +66,7 @@ DB_INIT_FILES = {
 def before_all(context):
     """Run before and after the whole shooting match."""
     context.database_host = os.getenv("DB_HOST", "localhost")
-    context.database_port = os.getenv("DB_PORT", 5432)
+    context.database_port = int(os.getenv("DB_PORT", 5432))
     context.database_name = os.getenv("DB_NAME", "test")
     context.database_user = os.getenv("DB_USER", "postgres")
     context.database_password = os.getenv("DB_PASS", "postgres")
@@ -77,29 +87,30 @@ def after_scenario(context, scenario):
     """Run after each scenario is run."""
     if "database" in scenario.effective_tags:
         prepare_db(context, CLEANUP_FILES, context.database_name)
-    if "sha_extractor" in scenario.effective_tags:
+    if "sha_extractor" or "dvo_extractor" in scenario.effective_tags:
         # terminate the subprocess to have
         # one kafka consumer at a time
-        try:
-            # try to close nicely
-            context.sha_extractor.terminate()
-            context.sha_extractor.wait(timeout=10)
-        except TimeoutExpired:
-            # ok we have to kill the process
-            context.sha_extractor.kill()
-            context.sha_extractor.wait()
+        if hasattr(context, "services"):
+            for service in context.services.keys():
+                try:
+                    # try to close nicely
+                    context.services[service].terminate()
+                    context.services[service].wait(timeout=10)
+                except TimeoutExpired:
+                    # ok we have to kill the process
+                    context.services[service].kill()
+                    context.services[service].wait()
 
-        assert context.sha_extractor.poll() is not None, "sha extractor was not closed"
+                assert (
+                    context.services[service].poll() is not None
+                ), f"{service} was not closed"
 
 
 def prepare_db(context, setup_files=CLEANUP_FILES, database="test"):
     """Prepare database, including all default objects in DB."""
-    connection_string = "host={} port={} dbname={} user={} password={}".format(
-        context.database_host,
-        context.database_port,
-        database,
-        context.database_user,
-        context.database_password,
+    connection_string = (
+        f"host={context.database_host} port={context.database_port} dbname={database} "
+        f"user={context.database_user} password={context.database_password}"
     )
 
     connection = psycopg2.connect(connection_string)
@@ -125,7 +136,8 @@ def setup_default_S3_context(context):
     context.S3_port = os.getenv("S3_PORT", "9000")
     context.S3_access_key = os.getenv("S3_ACCESS_KEY_ID", "test_access_key")
     context.S3_secret_access_key = os.getenv(
-        "S3_SECRET_ACCESS_KEY", "test_secret_access_key"
+        "S3_SECRET_ACCESS_KEY",
+        "test_secret_access_key",
     )
     context.S3_bucket_name = os.getenv("S3_BUCKET", "test")
     context.S3_old_minio_compatibility = os.getenv("S3_OLDER_MINIO_COMPATIBILITY", None)

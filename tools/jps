@@ -1,0 +1,5 @@
+#!/usr/bin/python3
+
+# Mock for the jps tool from JVM installation
+
+print("2000 x.y.z\n20000 sun.tools.jps.Jps")

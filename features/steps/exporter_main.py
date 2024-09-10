@@ -15,11 +15,12 @@
 """Implementation of test steps that run Insights Aggregator Exporter and check its output."""
 
 import subprocess
+
+from behave import then, when
 from src.process_output import process_generated_output
-from behave import when, then
 
 
-@when(u"I run the exporter with the {flag} command line flag")
+@when("I run the exporter with the {flag} command line flag")
 def run_exporter_with_flag(context, flag):
     """Start the exporter with given command-line flag."""
     out = subprocess.Popen(
@@ -37,7 +38,7 @@ def run_exporter_with_flag(context, flag):
     process_generated_output(context, out, 2)
 
 
-@when(u"I run the exporter with the following command line flags: {flags}")
+@when("I run the exporter with the following command line flags: {flags}")
 def run_exporter_with_flags(context, flags):
     """Start the exporter with given command-line flags."""
     flags = flags.split(" ")
@@ -55,8 +56,9 @@ def run_exporter_with_flags(context, flags):
 
 def check_help_from_exporter(context):
     """Check if help is displayed by exporter."""
+    # please take into account that some lines can be (and are) added into output by
+    # app-common-go library. We can't control the output and it have changed already.
     expected_output = """
-Clowder is not enabled, skipping init...
 Usage of insights-results-aggregator-exporter:
   -authors
         show authors
@@ -86,44 +88,43 @@ Usage of insights-results-aggregator-exporter:
 
     # preliminary checks
     assert stdout is not None, "stdout object should exist"
-    assert type(stdout) is str, "wrong type of stdout object"
+    assert isinstance(stdout, str), "wrong type of stdout object"
 
-    # check the output
-    assert stdout.strip() == expected_output.strip(), "{} != {}".format(
-        stdout, expected_output
-    )
+    # check if the output contains expected help message
+    # any optional garbage above and below help message is ignored
+    assert expected_output.strip() in stdout.strip(), f"{stdout} != \n{expected_output}"
 
 
 def check_version_from_exporter(context):
     """Check if version info is displayed by exporter."""
     # preliminary checks
     assert context.output is not None
-    assert type(context.output) is list, "wrong type of output"
+    assert isinstance(context.output, list), "wrong type of output"
 
     # check the output
     assert (
         "Insights Results Aggregator Exporter version 1.0" in context.output
-    ), "Caught output: {}".format(context.output)
+    ), f"Caught output: {context.output}"
 
 
 def check_authors_info_from_exporter(context):
     """Check if information about authors is displayed by exporter."""
     # preliminary checks
     assert context.output is not None
-    assert type(context.output) is list, "wrong type of output"
+    assert isinstance(context.output, list), "wrong type of output"
 
     # check the output
     assert (
         "Pavel Tisnovsky, Red Hat Inc." in context.output
-    ), "Caught output: {}".format(context.output)
+    ), f"Caught output: {context.output}"
 
 
-@then(u"I should see info about configuration displayed by exporter on standard output")
+@then("I should see info about configuration displayed by exporter on standard output")
 def check_configuration_info_from_exporter(context):
     """Check if information about configuration is displayed by exporter."""
     # preliminary checks
     assert context.output is not None
-    assert type(context.output) is list, "wrong type of output"
+    assert isinstance(context.output, list), "wrong type of output"
 
     stdout = context.stdout.decode("utf-8").replace("\t", "    ")
 
@@ -140,6 +141,4 @@ def check_configuration_info_from_exporter(context):
 
     # iterate through expected artefacts and check if its names are found in generated output
     for expected_artefact in expected_artefacts:
-        assert expected_artefact in stdout, "{} not found in output".format(
-            expected_artefact
-        )
+        assert expected_artefact in stdout, f"{expected_artefact} not found in output"

@@ -15,13 +15,14 @@
 """Implementation of test steps that run Insights Aggregator Exporter and check its output."""
 
 from os.path import exists
+
 from behave import then
 
 
-@then(u"I should see following files generated")
+@then("I should see following files generated")
 def check_generated_files(context):
     """Check that all specified files was generated."""
     # iterate over all items in feature table
     for row in context.table:
         filename = row["File name"]
-        assert exists(filename), "File {} does not exist".format(filename)
+        assert exists(filename), f"File {filename} does not exist"

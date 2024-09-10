@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi8/ubi:latest
+FROM registry.access.redhat.com/ubi9-minimal:latest
 
 ENV VIRTUAL_ENV=/insights-behavioral-spec-venv \
     VIRTUAL_ENV_BIN=/insights-behavioral-spec-venv/bin \
@@ -23,26 +23,20 @@ ENV VIRTUAL_ENV=/insights-behavioral-spec-venv \
 
 WORKDIR $HOME
 
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+COPY requirements.txt $HOME/
+RUN microdnf install --nodocs -y python3.11 unzip make lsof git libpq-devel tar &&\
+    python3.11  -m venv $VIRTUAL_ENV && source $VIRTUAL_ENV/bin/activate &&\
+    pip install --no-cache-dir -U pip wheel &&\
+    pip install --no-cache-dir -r requirements.txt
+
 COPY . $HOME
 
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
-
-
-RUN dnf install --nodocs -y python39 python39-devel unzip make lsof git libpq-devel gcc
-
-RUN python3 -m venv $VIRTUAL_ENV
-
-RUN curl -v -ksL https://password.corp.redhat.com/RH-IT-Root-CA.crt \
-         -o /etc/pki/ca-trust/source/anchors/RH-IT-Root-CA.crt
-RUN update-ca-trust
-RUN pip install --no-cache-dir -U pip setuptools wheel
-RUN pip install --no-cache-dir -r requirements/requirements_docker.txt
-
-RUN dnf clean all
+RUN microdnf clean all
 RUN chmod -R g=u $HOME $VIRTUAL_ENV /etc/passwd
 RUN chgrp -R 0 $HOME $VIRTUAL_ENV
 
-COPY --from=quay.io/ccxdev/cp-kafkacat:7.1.7-1-ubi8 /usr/local/bin/kafkacat $VIRTUAL_ENV_BIN/kcat
+COPY --from=quay.io/ccxdev/ccx-kcat:1.7.1 /usr/local/bin/kcat $VIRTUAL_ENV_BIN/kcat
 
 USER 1001
 

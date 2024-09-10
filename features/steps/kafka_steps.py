@@ -15,12 +15,14 @@
 """Common test steps that use or check Apache Kafka broker."""
 
 
-import subprocess
 import json
+import subprocess
 
 from behave import given, then, when
-from kafka import KafkaAdminClient
-from kafka.errors import UnknownTopicOrPartitionError
+from src.kafka_util import create_topic, delete_topic, send_event
+from src.process_output import (
+    filepath_from_context,
+)
 
 
 @when("I retrieve metadata from Kafka broker")
@@ -34,24 +36,36 @@ def retrieve_broker_metadata(context, hostname=None, port=None):
     if hostname is None or port is None:
         hostname = context.kafka_hostname
         port = context.kafka_port
-    address = "{}:{}".format(hostname, port)
+    address = f"{hostname}:{port}"
 
     out = subprocess.Popen(
         ["kcat", "-b", address, "-L", "-J"],
         stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
+        stderr=subprocess.PIPE,
     )
 
-    # check if call was correct
-    assert out is not None
+    stdout_file = filepath_from_context(context, "logs/insights-results-aggregator/", "_stdout")
+    stderr_file = filepath_from_context(context, "logs/insights-results-aggregator/", "_stderr")
 
     # interact with the process:
     # read data from stdout and stderr, until end-of-file is reached
     stdout, stderr = out.communicate()
 
+    assert stdout is not None, "No output from process"
+
     # try to decode output
     output = stdout.decode("utf-8")
+    error = stderr.decode("utf-8")
 
+    if stdout_file is not None and stdout is not None:
+        with open(stdout_file, "w") as f:
+            f.write(output)
+
+    if stderr_file is not None and stderr is not None:
+        with open(stderr_file, "w") as f:
+            f.write(error)
+
+    assert output is not None, "The output shouldn't be empty"
     # JSON format is expected
     encoded = json.loads(output)
 
@@ -78,12 +92,24 @@ def find_available_brokers(context):
 @given('Kafka topic "{topic}" is empty')
 def delete_kafka_topic(context, topic):
     """Delete a Kafka topic."""
-    admin_client = KafkaAdminClient(
-        bootstrap_servers=[f"{context.kafka_hostname}:{context.kafka_port}"]
+    delete_topic(context, topic)
+
+
+@given('Kafka topic "{topic}" is empty and has {partitions} partition')
+@given('Kafka topic "{topic}" is empty and has {partitions} partitions')
+def delete_kafka_topic_with_partition(context, topic, partitions):
+    """Delete a Kafka topic."""
+    delete_topic(context, topic)
+    bootstrap_server = f"{context.kafka_hostname}:{context.kafka_port}"
+    create_topic(
+        bootstrap_server,
+        topic,
+        int(partitions),
     )
-    try:
-        admin_client.delete_topics(topics=[topic])
-    except UnknownTopicOrPartitionError:
-        pass
-    except Exception as e:
-        print("Topic {} was not deleted. Error: {}".format(topic, e))
+
+
+@when('I send the following message into Kafka topic "{topic}"')
+def send_kafka_message(context, topic):
+    """Send message to the given topic."""
+    bootstrap_server = f"{context.kafka_hostname}:{context.kafka_port}"
+    send_event(bootstrap_server, topic, context.text.encode("utf-8"))

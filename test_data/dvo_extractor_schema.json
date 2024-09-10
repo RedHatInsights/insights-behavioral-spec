@@ -1,0 +1,263 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+      "OrgID": {
+        "type": "integer"
+      },
+      "AccountNumber": {
+        "type": "integer"
+      },
+      "ClusterName": {
+        "type": "null"
+      },
+      "Metrics": {
+        "type": "object",
+        "properties": {
+          "system": {
+            "type": "object",
+            "properties": {
+              "metadata": {
+                "type": "object"
+              },
+              "hostname": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "hostname",
+              "metadata"
+            ]
+          },
+          "fingerprints": {
+            "type": "array"
+          },
+          "version": {
+            "type": "integer"
+          },
+          "analysis_metadata": {
+            "type": "object",
+            "properties": {
+              "start": {
+                "type": "string"
+              },
+              "finish": {
+                "type": "string"
+              },
+              "execution_context": {
+                "type": "string"
+              },
+              "plugin_sets": {
+                "type": "object",
+                "properties": {
+                  "insights-core": {
+                    "type": "object",
+                    "properties": {
+                      "version": {
+                        "type": "string"
+                      },
+                      "commit": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "commit",
+                      "version"
+                    ]
+                  },
+                  "ccx_rules_ocp": {
+                    "type": "object",
+                    "properties": {
+                      "version": {
+                        "type": "string"
+                      },
+                      "commit": {
+                        "type": "null"
+                      }
+                    },
+                    "required": [
+                      "commit",
+                      "version"
+                    ]
+                  },
+                  "ccx_ocp_core": {
+                    "type": "object",
+                    "properties": {
+                      "version": {
+                        "type": "string"
+                      },
+                      "commit": {
+                        "type": "null"
+                      }
+                    },
+                    "required": [
+                      "commit",
+                      "version"
+                    ]
+                  }
+                },
+                "required": [
+                  "ccx_ocp_core",
+                  "ccx_rules_ocp",
+                  "insights-core"
+                ]
+              }
+            },
+            "required": [
+              "execution_context",
+              "finish",
+              "plugin_sets",
+              "start"
+            ]
+          },
+          "workload_recommendations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "response_id": {
+                  "type": "string"
+                },
+                "component": {
+                  "type": "string"
+                },
+                "key": {
+                  "type": "string"
+                },
+                "details": {
+                  "type": "object",
+                  "properties": {
+                    "check_name": {
+                      "type": "string"
+                    },
+                    "check_url": {
+                      "type": "string"
+                    },
+                    "samples": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "namespace": {
+                            "type": "string"
+                          },
+                          "namespace_uid": {
+                            "type": "string"
+                          },
+                          "kind": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "uid": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "kind",
+                          "name",
+                          "namespace",
+                          "namespace_uid",
+                          "uid"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "check_name",
+                    "check_url",
+                    "samples"
+                  ]
+                },
+                "tags": {
+                  "type": "array"
+                },
+                "links": {
+                  "type": "object",
+                  "properties": {
+                    "jira": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "product_documentation": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "jira",
+                    "product_documentation"
+                  ]
+                },
+                "workloads": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "namespace": {
+                        "type": "string"
+                      },
+                      "namespace_uid": {
+                        "type": "string"
+                      },
+                      "kind": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "uid": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "name",
+                      "namespace",
+                      "namespace_uid",
+                      "uid"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "component",
+                "details",
+                "key",
+                "links",
+                "response_id",
+                "tags",
+                "workloads"
+              ]
+            }
+          }
+        },
+        "required": [
+          "analysis_metadata",
+          "fingerprints",
+          "system",
+          "version",
+          "workload_recommendations"
+        ]
+      },
+      "RequestId": {
+        "type": "string"
+      },
+      "LastChecked": {
+        "type": "string"
+      }  
+    },
+    "required": [
+      "AccountNumber",
+      "ClusterName",
+      "LastChecked",
+      "Metrics",
+      "OrgID",
+      "RequestId"
+    ]
+}  

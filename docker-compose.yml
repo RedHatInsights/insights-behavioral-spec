@@ -9,12 +9,13 @@ services:
       - "sleep infinity"
   database:
     ports:
-      - 5432:5432
+      - 25432:5432
     image: postgres:13.9
     environment:
       - POSTGRES_USER=postgres
+      - PGUSER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=${POSTGRES_DB_NAME}
+      - POSTGRES_DB=${POSTGRES_DB_NAME:-test}
     healthcheck:
       test: ["CMD", "pg_isready"]
       interval: 2s
@@ -26,6 +27,10 @@ services:
     profiles:
       - test-notification-services
       - test-aggregator
+      - test-sha-extractor
+      - test-dvo-extractor
+      - test-dvo-writer
+      - test-parquet-factory
     image: quay.io/ccxdev/kafka-no-zk:latest
     ports:
       - 9092:9092
@@ -36,6 +41,9 @@ services:
   minio:
     profiles:
       - test-exporter
+      - test-sha-extractor
+      - test-dvo-extractor
+      - test-parquet-factory
     image: minio/minio
     command:
       - server
@@ -70,6 +78,7 @@ services:
     profiles:
       - no-mock
       - test-notification-services
+      - test-parquet-factory
     image: quay.io/prometheus/pushgateway:latest
     ports:
       - 9091:9091
@@ -121,34 +130,12 @@ services:
         -f /tmp/setup-scripts/ocm_service_log.sql
         "
 
-  service-log:
-    depends_on:
-      init-service-log-db:
-        condition: service_completed_successfully
-    profiles:
-      - no-mock
-    image: quay.io/ccxdev/ocm-service-log
-    ports:
-      - 8000:8000 # API server
-      - 8083:8083 # Healthcheck
-      - 8080:8080 # Metrics
-    entrypoint:
-      - /bin/sh
-      - -c
-      - "echo database > secrets/db.host
-        ./ocm-service-log serve \
-        --api-server-bindaddress 'localhost:8000' \
-        --health-check-server-bindaddress 'localhost:8083' \
-        --metrics-server-bindaddress 'localhost:8080' \
-        --enable-ocm-mock
-        "
-
   mock-oauth2-server:
     profiles:
       - test-upgrades-data-eng
     image: ghcr.io/navikt/mock-oauth2-server:0.5.8
     environment:
       - LOG_LEVEL=DEBUG
+      - SERVER_PORT=8081
     ports:
-      - 8081:8080
-
+      - 8081:8081

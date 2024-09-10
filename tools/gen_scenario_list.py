@@ -21,6 +21,9 @@
 
 import os
 
+# URL prefix to create links to feature files
+FEATURES_URL_PREFIX = "https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features"  # noqa E501
+
 # list of prefixes for scenarios or scenario outlines
 PREFIXES = ("Scenario: ", "Scenario Outline: ")
 
@@ -43,10 +46,13 @@ SUBDIRECTORIES = (
     "insights-results-aggregator-cleaner",
     "insights-results-aggregator-exporter",
     "insights-results-aggregator-mock",
+    "dvo-extractor",
+    "dvo-writer",
     "ccx-notification-service",
     "ccx-notification-writer",
     "ccx-upgrades-inference",
     "ccx-upgrades-data-eng",
+    "parquet-factory",
 )
 
 # generate page header
@@ -68,7 +74,10 @@ for subdirectory in SUBDIRECTORIES:
         # grep all .feature files
         if filename.endswith(".feature"):
             # feature file header
-            print("## `{}/{}`\n".format(subdirectory, filename))
+            print(
+                "## "
+                f"[`{subdirectory}/{filename}`]({FEATURES_URL_PREFIX}/{subdirectory}/{filename})\n",
+            )
             with open(os.path.join(directory, filename), "r") as fin:
                 for line in fin.readlines():
                     line = line.strip()
@@ -76,6 +85,6 @@ for subdirectory in SUBDIRECTORIES:
                     for prefix in PREFIXES:
                         if line.startswith(prefix):
                             line = line[len(prefix):]
-                            print("* {}".format(line))
+                            print(f"* {line}")
             # vertical space between subsections in generated file
             print()

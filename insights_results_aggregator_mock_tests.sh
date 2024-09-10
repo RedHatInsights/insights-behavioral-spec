@@ -14,10 +14,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+function install_reqs() {
+    pip install -r requirements.txt || exit 1
+}
+
 function prepare_venv() {
     echo "Preparing environment"
     # shellcheck disable=SC1091
-    virtualenv -p python3 venv && source venv/bin/activate && python3 "$(which pip3)" install -r requirements/insights_results_aggregator_mock.txt || exit 1
+    virtualenv -p python3 venv && source venv/bin/activate && install_reqs
     echo "Environment ready"
 }
 
@@ -47,7 +51,7 @@ EOF
 # prepare virtual environment if necessary
 [ "$VIRTUAL_ENV" != "" ] || NOVENV=1
 case "$NOVENV" in
-    "") echo "using existing virtual env";;
+    "") echo "using existing virtual env" && install_reqs;;
     "1") prepare_venv ;;
 esac
 
@@ -55,7 +59,18 @@ esac
 if [[ -z $PATH_TO_MOCK_SERVER ]]
 then
     echo "PATH_TO_MOCK_SERVER is not set!"
-    echo "Make sure to start the insights-results-aggregator-mock application before running the tests"
+    if [[ -n $ENV_DOCKER ]]
+    then
+        echo "Test in running in docker environment. Trying $HOME/mock_server path"
+	if [ -d "$HOME/mock_server" ]; then
+            PATH_TO_MOCK_SERVER="$HOME/mock_server"
+	    echo "mock_server directory found"
+	    pushd "$PATH_TO_MOCK_SERVER" && ./insights-results-aggregator-mock &
+        else
+            echo "Make sure to start the insights-results-aggregator-mock application before running the tests"
+            exit 1
+        fi
+    fi
 else
     pushd "$PATH_TO_MOCK_SERVER" && ./insights-results-aggregator-mock &
 fi

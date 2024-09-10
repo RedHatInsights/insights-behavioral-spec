@@ -13,7 +13,7 @@
 # limitations under the License.
 
 """Mock server that can be used instead of fully functional Observatorium."""
-
+import copy
 import re
 
 from fastapi import FastAPI
@@ -80,12 +80,16 @@ DUPLICATED_METRICS_RESULT = [
             "namespace": "openshift-kube-apiserver",
             "severity": "critical",
         },
+    },
+    {
         "metric": {
             "__name__": "alerts",
             "alertname": "SomeCriticalAlert",
             "namespace": "openshift-kube-apiserver",
             "severity": "critical",
         },
+    },
+    {
         "metric": {
             "__name__": "alerts",
             "alertname": "SomeCriticalAlert",
@@ -103,7 +107,7 @@ DUPLICATED_METRICS_RESULT = [
     },
 ]
 
-# Used to check the the condition is changed to 'Not Available'
+# Used to check the condition is changed to 'Not Available'
 AVAILABLE_FOC = [
     {
         "metric": {
@@ -138,21 +142,27 @@ ANSWERS = {
 
 
 class Query(BaseModel):
+
     """Simple model used to mock the requests that data-engineering service will perform."""
 
     query: str
 
 
-UUID_REGEX = '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+UUID_REGEX = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
 
 
 @app.get("/api/metrics/v1/telemeter/api/v1/query")
 def get_random_results(query: str):
     """Request handler for REST API endpoint to return alerts and FOCs."""
-    match = re.search(UUID_REGEX, query)
-    if not match:
+    cluster_ids = re.findall(UUID_REGEX, query)
+    if not cluster_ids:
         return JSONResponse("couldn't find the cluster_id in ANSWERS", 500)
-    cluster_id = match.group()
-    if cluster_id not in ANSWERS:
-        return {"data": {"result": []}}
-    return {"data": {"result": ANSWERS[cluster_id]}}
+
+    res = {"data": {"result": []}}
+    for cluster_id in cluster_ids:
+        cluster_data = copy.deepcopy(ANSWERS[cluster_id])
+        for item in cluster_data:
+            item["metric"]["_id"] = cluster_id
+        res["data"]["result"].extend(cluster_data)
+
+    return res

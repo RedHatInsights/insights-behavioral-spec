@@ -1,6 +1,6 @@
 #!/bin/bash -x
 
-# Copyright 2022, 2023 Red Hat, Inc
+# Copyright 2022, 2023, 2024 Red Hat, Inc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,10 +14,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+function install_reqs() {
+    pip install -r requirements.txt || exit 1
+}
+
 function prepare_venv() {
     echo "Preparing environment"
     # shellcheck disable=SC1091
-    virtualenv -p python3 venv && source venv/bin/activate && python3 "$(which pip3)" install -r requirements/exporter.txt || exit 1
+    virtualenv -p python3 venv && source venv/bin/activate && install_reqs
     echo "Environment ready"
 }
 
@@ -73,10 +77,9 @@ fi
 # prepare virtual environment if necessary
 [ "$VIRTUAL_ENV" != "" ] || NOVENV=1
 case "$NOVENV" in
-    "") echo "using existing virtual env";;
+    "") echo "using existing virtual env" && install_reqs;;
     "1") prepare_venv;;
 esac
-
 
 if [[ -n $ENV_DOCKER ]]
 then

@@ -40,8 +40,9 @@ def run_insights_results_aggregator_with_flag(context, flag):
 
 def check_help_from_smart_proxy(context):
     """Check if help is displayed by Smart Proxy."""
+    # please take into account that some lines can be (and are) added into output by
+    # app-common-go library. We can't control the output and it have changed already.
     expected_output = """
-Clowder is not enabled, skipping init...
 Clowder is disabled
 
 Smart Proxy service for insights results
@@ -66,23 +67,22 @@ The commands are:
 
     # preliminary checks
     assert stdout is not None, "stdout object should exist"
-    assert type(stdout) is str, "wrong type of stdout object"
+    assert isinstance(stdout, str), "wrong type of stdout object"
 
-    # check the output
-    assert stdout.strip() == expected_output.strip(), "{} != {}".format(
-        stdout, expected_output
-    )
+    # check if the output contains expected help message
+    # any optional garbage above and below help message is ignored
+    assert expected_output.strip() in stdout.strip(), f"{stdout} != {expected_output}"
 
 
 def check_version_from_smart_proxy(context):
     """Check if version info is displayed by Smart Proxy."""
     # preliminary checks
     assert context.output is not None
-    assert type(context.output) is list, "wrong type of output"
+    assert isinstance(context.output, list), "wrong type of output"
 
     # check the output, line by line
     for line in context.output:
         if "Version:\tv" in line:
             break
     else:
-        raise Exception("Improper or missing version info in {}".format(context.output))
+        raise Exception(f"Improper or missing version info in {context.output}")

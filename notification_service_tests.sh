@@ -24,18 +24,18 @@ PATH_TO_LOCAL_NOTIFICATION_WRITER="../ccx-notification-writer"
 [ "$VIRTUAL_ENV" != "" ] || NOVENV=1
 
 function install_reqs() {
-	python3 "$(which pip3)" install -r requirements.txt
+    pip install -r requirements.txt || exit 1
 }
 
 function prepare_venv() {
     echo "Preparing environment"
     # shellcheck disable=SC1091
-    virtualenv -p python3 venv && source venv/bin/activate && python3 "$(which pip3)" install -r requirements/notification_service.txt
+    virtualenv -p python3 venv && source venv/bin/activate && install_reqs
     echo "Environment ready"
 }
 
 function start_mocked_dependencies() {
-    python3 "$(which pip3)" install -r requirements/mocks.txt
+    pip install -r requirements/mocks.txt
     pushd "$dir_path"/mocks/insights-content-service && uvicorn content_server:app --port 8082 &
     pushd "$dir_path"/mocks/prometheus && uvicorn push_gateway:app --port 9091 &
     pushd "$dir_path"/mocks/service-log && uvicorn service_log:app --port 8000 &
@@ -52,7 +52,7 @@ function get_binary() {
     (
         cd "$PATH_TO_LOCAL_NOTIFICATION_SERVICE" || exit
         make build
-    ) 
+    )
     cp "$PATH_TO_LOCAL_NOTIFICATION_SERVICE/ccx-notification-service" .
     # cp "$PATH_TO_LOCAL_NOTIFICATION_SERVICE/config.toml" .
     cp config/notification_service.toml config.toml
@@ -63,13 +63,13 @@ function init_db() {
     (
         cd "$PATH_TO_LOCAL_NOTIFICATION_WRITER" || exit
         make build
-    ) 
+    )
     cp "$PATH_TO_LOCAL_NOTIFICATION_WRITER/ccx-notification-writer" .
     cp "$PATH_TO_LOCAL_NOTIFICATION_WRITER/config.toml" .
     ./ccx-notification-writer -db-init
     ./ccx-notification-writer -db-init-migration
     ./ccx-notification-writer -migrate latest
-    rm ccx-notification-writer 
+    rm ccx-notification-writer
     rm config.toml
 }
 
@@ -82,7 +82,7 @@ function set_env_vars() {
 	   CCX_NOTIFICATION_SERVICE__STORAGE__PG_HOST=$DB_HOST \
 	   CCX_NOTIFICATION_SERVICE__STORAGE__PG_PORT=$DB_PORT \
 	   CCX_NOTIFICATION_SERVICE__STORAGE__PG_DB_NAME=notification \
-	   CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ADDRESS="$KAFKA_HOST:$KAFKA_PORT" \
+	   CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ADDRESSES="$KAFKA_HOST:$KAFKA_PORT" \
 	   CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__TOPIC=platform.notifications.ingress \
 	   CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ENABLED=true \
 	   CCX_NOTIFICATION_SERVICE__SERVICE_LOG__ENABLED=false \
@@ -163,8 +163,8 @@ fi
 
 # prepare virtual environment if necessary
 case "$NOVENV" in
-    "") echo "using existing virtual env";;
-    "1") install_reqs && prepare_venv ;;
+    "") echo "using existing virtual env" && install_reqs;;
+    "1") prepare_venv ;;
 esac
 
 #launch mocked services if WITHMOCK is provided

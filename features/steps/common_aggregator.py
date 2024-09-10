@@ -16,7 +16,6 @@
 
 from behave import when
 
-
 CREATE_TABLE_ADVISOR_RATINGS = """
 CREATE TABLE advisor_ratings (
                                 user_id         VARCHAR NOT NULL,
@@ -174,7 +173,7 @@ DB_TABLES = (
 )
 
 
-@when(u"I prepare database schema")
+@when("I prepare database schema")
 def prepare_database_schema(context):
     """Prepare database schema."""
     cursor = context.connection.cursor()
