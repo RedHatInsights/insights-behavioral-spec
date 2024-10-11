@@ -20,14 +20,14 @@ export PATH_TO_LOCAL_DVO_EXTRACTOR=${PATH_TO_LOCAL_DVO_EXTRACTOR:="../dvo-extrac
 
 exit_trap_command=""
 
+function install_reqs() {
+    pip install -r requirements.txt || exit 1
+}
+
 function prepare_venv() {
     echo "Preparing environment"
     # shellcheck disable=SC1091
-    virtualenv -p python3 venv
-    # shellcheck disable=SC1091
-    source venv/bin/activate
-    pip install --no-cache -r requirements.in || exit 1
-    pip install --no-cache -r requirements/dvo_extractor.txt || exit 1
+    virtualenv -p python3 venv && source venv/bin/activate && install_reqs
     echo "Environment ready"
 }
 
@@ -97,6 +97,8 @@ fi
 
 if [ "$NOVENV" ] ; then
     prepare_venv
+else
+    install_reqs
 fi
 
 install_extractor

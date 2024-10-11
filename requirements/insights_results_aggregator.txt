@@ -1,4 +1,0 @@
-behave
-pytest
-requests
-semver

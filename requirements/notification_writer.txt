@@ -1,4 +1,0 @@
-behave
-pytest
-psycopg2-binary
-kafka-python
