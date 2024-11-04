@@ -89,7 +89,7 @@ Usage of ccx-notification-writer:
   -migrate string
         set database version
   -migration-info
-        prints migration info
+        prints migration info        
   -new-reports-cleanup
         perform new reports clean up
   -old-reports-cleanup
@@ -104,6 +104,8 @@ Usage of ccx-notification-writer:
         perform clean up of read_errors table
   -show-configuration
         show configuration
+  -truncate-old-reports
+        truncate the reported table
   -version
         show version"""
 
