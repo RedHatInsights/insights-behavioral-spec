@@ -104,6 +104,8 @@ Usage of ccx-notification-writer:
         perform clean up of read_errors table
   -show-configuration
         show configuration
+  -truncate-old-reports
+        truncate the reported table
   -version
         show version"""
 
