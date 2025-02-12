@@ -3,7 +3,7 @@ behave
 boto3
 fastapi
 jsonschema
-kafka-python
+kafka-python-ng
 minio
 numpy
 pandas

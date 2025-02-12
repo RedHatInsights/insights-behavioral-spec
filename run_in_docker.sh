@@ -126,6 +126,10 @@ copy_files() {
   esac
 }
 
+cleanup() {
+  docker compose down
+}
+
 # Step 1: Specify the make target for tests to run
 tests_target="$1"
 
@@ -154,3 +158,5 @@ copy_files "$cid" "$tests_target" "$path_to_service"
 
 
 docker exec "$cid" /bin/bash -c "source \$VIRTUAL_ENV/bin/activate && env && $(with_mocked_dependencies "$3") make $tests_target"
+
+trap cleanup EXIT ERR SIGINT SIGTERM

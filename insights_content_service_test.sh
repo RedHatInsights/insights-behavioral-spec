@@ -14,13 +14,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+if [ -z "$ENV_DOCKER" ]; then
+    PATH_TO_LOCAL_CONTENT_SERVICE=${PATH_TO_LOCAL_CONTENT_SERVICE:="../content-service"}
+else
+    PATH_TO_LOCAL_CONTENT_SERVICE=${PATH_TO_LOCAL_CONTENT_SERVICE:="content-service"}
+fi
+
 #set NOVENV is current environment is not a python virtual env
 [ "$VIRTUAL_ENV" != "" ] || NOVENV=1
 
 function prepare_venv() {
     echo "Preparing environment"
     # shellcheck disable=SC1091
-    virtualenv -p python3 venv
+    python3 -m venv venv
     # shellcheck disable=SC1091
     source venv/bin/activate
     pip install --no-cache -r requirements.txt || exit 1
@@ -28,20 +34,20 @@ function prepare_venv() {
 }
 
 function clone_service() {
-    git clone --depth=1 https://github.com/RedHatInsights/insights-content-service.git
+    git clone --depth=1 git@gitlab.cee.redhat.com:ccx/content-service.git "${PATH_TO_LOCAL_CONTENT_SERVICE}"
 }
 
 function install_service() {
-    cd insights-content-service || exit
+    cd "${PATH_TO_LOCAL_CONTENT_SERVICE}" || exit
     ./update_rules_content.sh
     ./build.sh
     cd ..
 }
 
 function run_service() {
-    cd insights-content-service || exit
+    pushd "${PATH_TO_LOCAL_CONTENT_SERVICE}" || exit
     ./insights-content-service > /dev/null &
-    cd ..
+    popd || exit
 }
 
 # prepare virtual environment if necessary
@@ -50,18 +56,18 @@ case "$NOVENV" in
     "1") prepare_venv;;
 esac
 
-if [ ! -d "insights-content-service" ]; then
+if [ ! -d "${PATH_TO_LOCAL_CONTENT_SERVICE}" ]; then
     if [[ -z $ENV_DOCKER ]]
     then
         clone_service && \
         install_service
         REMOVE_CONTENT_SERVICE_DIRECTORY=1
     else
-        echo "insights-content-service directory not found in working directory. Please add it (with the compiled executable)!"
+        echo "content-service directory not found in working directory. Please add it (with the compiled executable)!"
         exit 1
     fi
 else
-    echo "insights-content-service directory found in working directory"
+    echo "content-service directory found in working directory"
 fi
 
 run_service
