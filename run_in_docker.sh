@@ -158,5 +158,7 @@ copy_files "$cid" "$tests_target" "$path_to_service"
 
 
 docker exec "$cid" /bin/bash -c "source \$VIRTUAL_ENV/bin/activate && env && $(with_mocked_dependencies "$3") make $tests_target"
+exitCode=$?
 
 trap cleanup EXIT ERR SIGINT SIGTERM
+exit $exitCode

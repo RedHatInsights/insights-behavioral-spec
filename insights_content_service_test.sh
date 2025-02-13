@@ -37,11 +37,12 @@ function clone_service() {
     git clone --depth=1 git@gitlab.cee.redhat.com:ccx/content-service.git "${PATH_TO_LOCAL_CONTENT_SERVICE}"
 }
 
-function install_service() {
-    cd "${PATH_TO_LOCAL_CONTENT_SERVICE}" || exit
-    ./update_rules_content.sh
-    ./build.sh
-    cd ..
+function build_service() {
+    pushd "${PATH_TO_LOCAL_CONTENT_SERVICE}" || exit
+    if [ ! -f "insights_content_service" ]; then
+        ./build.sh
+    fi
+    popd || exit
 }
 
 function run_service() {
@@ -60,7 +61,7 @@ if [ ! -d "${PATH_TO_LOCAL_CONTENT_SERVICE}" ]; then
     if [[ -z $ENV_DOCKER ]]
     then
         clone_service && \
-        install_service
+        build_service
         REMOVE_CONTENT_SERVICE_DIRECTORY=1
     else
         echo "content-service directory not found in working directory. Please add it (with the compiled executable)!"
@@ -70,11 +71,10 @@ else
     echo "content-service directory found in working directory"
 fi
 
-run_service
+build_service && run_service
 content_service_pid=$!
-
 sleep 2
-# shellcheck disable=SC2068
+
 PYTHONDONTWRITEBYTECODE=1 python3 -m behave --no-capture \
     --format=progress2 \
     --tags=-skip --tags=-managed \
