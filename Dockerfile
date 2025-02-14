@@ -24,11 +24,11 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 COPY --from=quay.io/ccxdev/ccx-kcat:1.7.1 /usr/local/bin/kcat $VIRTUAL_ENV_BIN/kcat
 WORKDIR $HOME
-ADD https://certs.corp.redhat.com/certs/2022-IT-Root-CA.pem \
-    https://certs.corp.redhat.com/certs/Current-IT-Root-CAs.pem \
-    /etc/pki/ca-trust/source/anchors/
+RUN curl -ksL https://certs.corp.redhat.com/certs/2015-IT-Root-CA.pem -o /etc/pki/ca-trust/source/anchors/RH-IT-Root-CA.crt && \
+    curl -ksL https://certs.corp.redhat.com/certs/2022-IT-Root-CA.pem -o /etc/pki/ca-trust/source/anchors/2022-IT-Root-CA.pem && \
+    update-ca-trust
 
-RUN update-ca-trust && microdnf install --nodocs -y python3.11 unzip make lsof git libpq-devel tar
+RUN microdnf install --nodocs -y python3.11 unzip make lsof git libpq-devel tar
 COPY . $HOME
 
 RUN python3.11 -m venv $VIRTUAL_ENV && source $VIRTUAL_ENV/bin/activate && \
