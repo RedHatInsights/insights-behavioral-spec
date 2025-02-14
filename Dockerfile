@@ -20,24 +20,25 @@ ENV VIRTUAL_ENV=/insights-behavioral-spec-venv \
     S3_SECRET_ACCESS_KEY=test_secret_access_key \
     S3_BUCKET=test \
     S3_USE_SSL=false
-
-WORKDIR $HOME
-
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
-COPY requirements.txt $HOME/
-RUN microdnf install --nodocs -y python3.11 unzip make lsof git libpq-devel tar &&\
-    python3.11  -m venv $VIRTUAL_ENV && source $VIRTUAL_ENV/bin/activate &&\
-    pip install --no-cache-dir -U pip wheel &&\
-    pip install --no-cache-dir -r requirements.txt
-
-COPY . $HOME
-
-RUN microdnf clean all
-RUN chmod -R g=u $HOME $VIRTUAL_ENV /etc/passwd
-RUN chgrp -R 0 $HOME $VIRTUAL_ENV
 
 COPY --from=quay.io/ccxdev/ccx-kcat:1.7.1 /usr/local/bin/kcat $VIRTUAL_ENV_BIN/kcat
+WORKDIR $HOME
+ADD https://certs.corp.redhat.com/certs/2022-IT-Root-CA.pem \
+    https://certs.corp.redhat.com/certs/Current-IT-Root-CAs.pem \
+    /etc/pki/ca-trust/source/anchors/
 
-USER 1001
+RUN update-ca-trust && microdnf install --nodocs -y python3.11 unzip make lsof git libpq-devel tar
+COPY . $HOME
+
+RUN python3.11 -m venv $VIRTUAL_ENV && source $VIRTUAL_ENV/bin/activate && \
+    pip install --no-cache-dir -U pip wheel && \
+    pip install --no-cache-dir -r requirements.txt
+
+RUN microdnf clean all
+# RUN chmod -R g=u $HOME $VIRTUAL_ENV /etc/passwd
+# RUN chgrp -R 0 $HOME $VIRTUAL_ENV
+
+# USER 1001
 
 CMD ["sh", "-c", "make $TESTS_TO_EXECUTE"]
