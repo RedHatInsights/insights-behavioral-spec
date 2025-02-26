@@ -62,7 +62,7 @@ function build_service() {
 
 function run_service() {
     pushd "${PATH_TO_LOCAL_CONTENT_SERVICE}" || exit
-    ./insights-content-service > /dev/null &
+    ./content-service > /dev/null &
     popd || exit
 }
 
