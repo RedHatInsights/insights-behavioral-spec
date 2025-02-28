@@ -33,19 +33,20 @@ def start_ccx_inference_service(context, port):
     assert popen is not None
     check_service_started(context, "localhost", port, seconds_between_attempts=1)
     context.add_cleanup(popen.terminate)
+    context.add_cleanup(f.close)
 
 
 @given("The mock CCX Inference Service is running on port {port:d}")
 def start_ccx_inference_mock_service(context, port):
     """Run ccx-inference-service for a test and prepare its stop."""
     params = ["uvicorn", "mocks.inference-service.inference_service:app", "--port", str(port)]
-
-    f = open(f"logs/ccx-upgrades-inference/{context.scenario}.log", "w")
+    f = open(f"logs/ccx-upgrades-data-eng/{context.scenario}-rhobs-mock.log", "w")
     popen = subprocess.Popen(params, stdout=f, stderr=f)
     assert popen is not None
-    check_service_started(context, "localhost", port)
+    check_service_started(context, "localhost", port, attempts=10, seconds_between_attempts=1)
 
     context.add_cleanup(popen.terminate)
+    context.add_cleanup(f.close)
     context.mock_inference = popen
 
 
