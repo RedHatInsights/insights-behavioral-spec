@@ -54,11 +54,11 @@ def start_RHOBS_mock_service(context, port):
     """Run RHOBS service mock for a test and prepare its stop."""
     params = ["uvicorn", "mocks.rhobs.rhobs_service:app", "--port", str(port)]
 
-    f = open(f"logs/ccx-upgrades-data-eng/{context.scenario}.log", "w")
+    f = open(f"logs/ccx-upgrades-data-eng/{context.scenario}-rhobs-mock.log", "w")
     popen = subprocess.Popen(params, stdout=f, stderr=f)
     assert popen is not None
     # time.sleep(0.5)
-    check_service_started(context, "localhost", port)
+    check_service_started(context, "localhost", port, attempts=10, seconds_between_attempts=1)
     context.add_cleanup(popen.terminate)
     context.mock_rhobs = popen
 
