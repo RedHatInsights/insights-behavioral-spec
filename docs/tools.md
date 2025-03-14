@@ -44,6 +44,10 @@ script can be used. It expects the following arguments:
 The script will take care of starting all the required containers, copying the necessary files into the
 docker container, and starting the corresponding tests.
 
+By default, script shuts down and removes containers it has created to run the tests. If you want to keep
+containers running (e.g. for debugging purposes), you can disable container cleanup with `CLEANUP_ENABLED=0`
+environment variable.
+
 #### Usage
 
 Example command:
