@@ -35,15 +35,16 @@ def check_build_time(context):
         r".{3} .{3}[ ]{1,2}[0-9]{1,2} [0-9]{2}:[0-9]{2}:[0-9]{2} ([AP]M )?[A-Z]{1,5} [0-9]{4}",
     )
     match = re.match(pattern, buildTime)
-    assert match.group(0), f"BuildTime is not a date time: {buildTime}"
+    assert match and match.group(0), f"BuildTime is not a date time: {buildTime}"
 
 
 @then("BuildVersion is in the proper format")
 def check_build_version(context):
     """Check build version taken from service output."""
     pattern = re.compile(r"v[0-9].[0-9]*")
-    match = re.match(pattern, context.response.json()["info"]["BuildVersion"])
-    assert match.group(0), "BuildVersion is in the wrong format"
+    build_version = context.response.json()["info"]["BuildVersion"]
+    match = re.match(pattern, build_version)
+    assert match and match.group(0), "BuildVersion is in the wrong format: {build_version}"
 
 
 @then("OCPRulesVersion is in the proper format")
