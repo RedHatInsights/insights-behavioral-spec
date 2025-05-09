@@ -33,11 +33,11 @@ function prepare_venv() {
 
 function install_extractor() {
     if [[ ! -d $PATH_TO_LOCAL_DVO_EXTRACTOR ]] ; then
-    	git clone --depth=1 git@github.com:RedHatInsights/dvo-extractor.git $PATH_TO_LOCAL_DVO_EXTRACTOR
+    	git clone --depth=1 git@github.com:RedHatInsights/dvo-extractor.git "$PATH_TO_LOCAL_DVO_EXTRACTOR"
 	add_trap "rm -rf ./dvo-extractor"
     fi
     cwd=$(pwd)
-    cd $PATH_TO_LOCAL_DVO_EXTRACTOR || exit
+    cd "$PATH_TO_LOCAL_DVO_EXTRACTOR" || exit
     pip install --no-cache-dir -U pip setuptools wheel
     pip install --no-cache-dir -r requirements.txt
     pip install -e .
@@ -82,7 +82,7 @@ function cleanup {
 
 function add_trap() {
     local to_add=$1
-    if [ -z $exit_trap_command ] ; then
+    if [ -z "$exit_trap_command" ] ; then
         exit_trap_command="$to_add"
     else
         exit_trap_command="$exit_trap_command; $to_add"

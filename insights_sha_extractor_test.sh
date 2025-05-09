@@ -31,6 +31,7 @@ function clone_service() {
 [ "$VIRTUAL_ENV" != "" ] || NOVENV=1
 
 function install_reqs() {
+    #shellcheck disable=SC2317
     pip install -r requirements.txt
 }
 
@@ -82,12 +83,13 @@ function run_mock_s3() {
 }
 
 function cleanup {
+    #shellcheck disable=SC2317
     eval "$exit_trap_command"
 }
 
 function add_trap() {
     local to_add=$1
-    if [ -z $exit_trap_command ] ; then
+    if [ -z "$exit_trap_command" ] ; then
         exit_trap_command="$to_add"
     else
         exit_trap_command="$exit_trap_command; $to_add"

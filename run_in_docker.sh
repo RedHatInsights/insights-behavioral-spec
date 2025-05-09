@@ -129,6 +129,7 @@ copy_files() {
   esac
 }
 
+#shellcheck disable=SC2317
 cleanup() {
   if [[ $cleanup_enabled != 0 ]]; then
     docker compose down

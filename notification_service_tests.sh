@@ -139,6 +139,7 @@ EOF
 # mechanism to chain more trap commands added in different parts of this script
 exit_trap_command=""
 function cleanup {
+    #shellcheck disable=SC2317
     eval "$exit_trap_command"
 }
 trap cleanup EXIT
