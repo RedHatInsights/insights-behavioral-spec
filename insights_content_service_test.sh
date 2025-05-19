@@ -23,6 +23,16 @@ fi
 #set NOVENV is current environment is not a python virtual env
 [ "$VIRTUAL_ENV" != "" ] || NOVENV=1
 
+function install_certificates() {
+    if [ -z "$ENV_DOCKER" ]; then
+        return
+    fi
+
+    curl -ksL https://certs.corp.redhat.com/certs/2022-IT-Root-CA.pem -o /etc/pki/ca-trust/source/anchors/2022-IT-Root-CA.pem
+    curl -ksL https://certs.corp.redhat.com/certs/Current-IT-Root-CAs.pem -o /etc/pki/ca-trust/source/anchors/Current-IT-Root-CAs.pem
+    update-ca-trust
+}
+
 function prepare_venv() {
     echo "Preparing environment"
     # shellcheck disable=SC1091
@@ -44,6 +54,7 @@ function build_service() {
     fi
 
     if [ ! -d "rules-content" ]; then
+        install_certificates
         ./update_rules_content.sh
     fi
     popd || exit
@@ -51,7 +62,7 @@ function build_service() {
 
 function run_service() {
     pushd "${PATH_TO_LOCAL_CONTENT_SERVICE}" || exit
-    ./insights-content-service > /dev/null &
+    ./content-service > /dev/null &
     popd || exit
 }
 
