@@ -2,6 +2,9 @@
 
 # This script assumes that a Go service is already built, and the Python service can be interpreted without errors
 
+# This parameter determines whether to shut down containers when the script finishes
+cleanup_enabled=${CLEANUP_ENABLED:-1}
+
 # Function to get docker compose profile to add based on service name specified by the user
 with_profile() {
   local target="$1"
@@ -126,6 +129,13 @@ copy_files() {
   esac
 }
 
+#shellcheck disable=SC2317
+cleanup() {
+  if [[ $cleanup_enabled != 0 ]]; then
+    docker compose down
+  fi
+}
+
 # Step 1: Specify the make target for tests to run
 tests_target="$1"
 
@@ -154,3 +164,7 @@ copy_files "$cid" "$tests_target" "$path_to_service"
 
 
 docker exec "$cid" /bin/bash -c "source \$VIRTUAL_ENV/bin/activate && env && $(with_mocked_dependencies "$3") make $tests_target"
+exitCode=$?
+
+trap cleanup EXIT ERR SIGINT SIGTERM
+exit $exitCode

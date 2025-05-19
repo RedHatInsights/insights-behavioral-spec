@@ -66,9 +66,10 @@ def check_utils_version(context):
 def check_groups(context):
     """Check if groups attribute contains all expected group names."""
     groups = context.response.json()["groups"]
-    assert len(groups) == 4, f"groups number is {len(groups)}"
+    assert len(groups) == 5, f"groups number is {len(groups)}"
 
-    expected = ["Performance", "Service Availability", "Security", "Fault Tolerance"]
+    expected = ["Performance", "Service Availability", "Security",
+                "Fault Tolerance", "Best Practices"]
     for i, group in enumerate(groups):
         err_msg = f"{groups[i]['title']} not in {expected}"
         assert group["title"] in expected, err_msg

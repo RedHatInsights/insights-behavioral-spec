@@ -59,7 +59,7 @@ Feature: Test the service endpoints
           }
           """
          And BuildCommit is a proper sha1
-         And BuildTime is a proper date
+         And BuildTime is a proper datetime stamp
          And BuildVersion is in the proper format
          And OCPRulesVersion is in the proper format
          And UtilsVersion is in the proper format
