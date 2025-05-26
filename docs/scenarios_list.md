@@ -1019,6 +1019,10 @@ nav_order: 3
 * Check LRU eviction of items if maximum size is reached
 * Check that entries are evicted properly when TTL expires
 
+## [`ccx-upgrades-data-eng/multicluster.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/ccx-upgrades-data-eng/multicluster.feature)
+
+* Check Data Engineering Service response with a valid list of cluster ID
+
 ## [`ccx-upgrades-data-eng/request_prediction.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/ccx-upgrades-data-eng/request_prediction.feature)
 
 * Check Data Engineering Service response with an invalid cluster ID in the request
