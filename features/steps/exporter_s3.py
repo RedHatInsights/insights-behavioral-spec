@@ -93,6 +93,10 @@ def establish_s3_connection(context):
     """Establish connection to S3."""
     minio_client(context)
 
+@given("S3 test bucket exists")
+def establish_s3_connection(context):
+    """Create bucket in S3."""
+    create_bucket(context)
 
 @given("I should see no objects in S3")
 @then("I should see no objects in S3")
