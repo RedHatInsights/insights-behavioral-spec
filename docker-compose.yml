@@ -7,6 +7,9 @@ services:
       - /bin/sh
       - -c
       - "sleep infinity"
+    depends_on:
+      createbuckets:
+        condition: service_completed_successfully
   database:
     ports:
       - 25432:5432
