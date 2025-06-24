@@ -2,7 +2,7 @@ version: "3.9"
 services:
   # "pod" with the tests
   bddtests:
-    image: quay.io/redhat-services-prod/obsint-processing-tenant/insights-behavioral-spec/insights-behavioral-spec:latest
+    image: quay.io/redhat-user-workloads/obsint-processing-tenant/insights-behavioral-spec/insights-behavioral-spec:on-pr-8ee7b891a949d283d5c6d09b22bf91946d4974b3
     entrypoint:
       - /bin/sh
       - -c
