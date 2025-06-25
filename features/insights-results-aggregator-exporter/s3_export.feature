@@ -15,7 +15,6 @@ Feature: Ability to export tables into S3
       And S3 secret access key is set
       And S3 bucket name is set to test
       And S3 connection is established
-      And S3 test bucket exists
 
 
   @database @s3 @export
