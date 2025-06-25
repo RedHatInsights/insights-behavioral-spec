@@ -154,7 +154,7 @@ fi
 POSTGRES_DB_NAME="$db_name" docker compose $(with_profile "$1") $(with_no_mock "$3") up -d
 
 # Step 5: Find the container ID of the insights-behavioral-spec container
-cid=$(docker ps | grep 'insights-behavioral-spec:latest' | cut -d ' ' -f 1)
+cid=$(docker compose ps -q bddtests)
 
 # Step 6: Copy the executable and needed dependencies or Python service into the container
 # TODO: Discuss including archives in compiled Go executables for testing
