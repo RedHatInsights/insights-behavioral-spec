@@ -156,6 +156,9 @@ POSTGRES_DB_NAME="$db_name" docker compose $(with_profile "$1") $(with_no_mock "
 if [ -n "$(docker compose ps -q createbuckets 2>/dev/null)" ]; then
   echo "The 'createbuckets' service is active. Waiting for it to complete..."
   docker compose wait createbuckets
+  echo "--- DUMPING LOGS FROM createbuckets CONTAINER: ---" # Pridaný riadok
+  docker compose logs createbuckets                         # Pridaný riadok
+  echo "--- END OF LOGS ---"                                # Pridaný riadok
   echo "'createbuckets' container finished."
 fi
 
