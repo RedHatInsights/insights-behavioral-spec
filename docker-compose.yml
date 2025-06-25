@@ -63,9 +63,6 @@ services:
   createbuckets:
     profiles:
       - test-exporter
-      - test-sha-extractor
-      - test-dvo-extractor
-      - test-parquet-factory
     image: minio/mc
     depends_on:
       minio:
