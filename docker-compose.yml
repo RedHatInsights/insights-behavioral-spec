@@ -63,6 +63,10 @@ services:
   createbuckets:
     profiles:
       - test-exporter
+      # Pridaj sem ďalšie profily, ak je to potrebné
+      # - test-sha-extractor
+      # - test-dvo-extractor
+      # - test-parquet-factory
     image: minio/mc
     depends_on:
       minio:
@@ -70,9 +74,13 @@ services:
     entrypoint:
       - /bin/sh
       - -c
-      - "
-      /usr/bin/mc config host add myminio http://minio:9000 test_access_key test_secret_access_key;
-      /usr/bin/mc mb myminio/test;"
+      - |
+        set -e
+        echo "--- Attempting to configure MinIO host ---"
+        /usr/bin/mc --debug config host add myminio http://minio:9000 test_access_key test_secret_access_key
+        echo "--- Configuration successful, attempting to create bucket ---"
+        /usr/bin/mc --debug mb myminio/test
+        echo "--- Bucket creation command finished ---"
 
   pushgateway:
     profiles:
