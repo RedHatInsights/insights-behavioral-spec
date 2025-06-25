@@ -153,6 +153,12 @@ fi
 # shellcheck disable=SC2046
 POSTGRES_DB_NAME="$db_name" docker compose $(with_profile "$1") $(with_no_mock "$3") up -d
 
+if [ -n "$(docker compose ps -q createbuckets 2>/dev/null)" ]; then
+  echo "The 'createbuckets' service is active. Waiting for it to complete..."
+  docker compose wait createbuckets
+  echo "'createbuckets' container finished."
+fi
+
 # Step 5: Find the container ID of the insights-behavioral-spec container
 cid=$(docker compose ps -q bddtests)
 
