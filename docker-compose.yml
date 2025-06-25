@@ -51,8 +51,8 @@ services:
     ports:
       - 9000:9000
     environment:
-      - MINIO_ACCESS_KEY=test_access_key
-      - MINIO_SECRET_KEY=test_secret_access_key
+      - MINIO_ROOT_USER=test_access_key
+      - MINIO_ROOT_PASSWORD=test_secret_access_key
     healthcheck:
       test: ["CMD", "curl", "-f", "http://127.0.0.1:9000/minio/health/live"]
       interval: 2s
