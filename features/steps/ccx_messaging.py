@@ -19,6 +19,7 @@ import json
 import os
 import select
 import subprocess
+import time
 
 from behave import given, then, when
 from src import kafka_util
@@ -309,8 +310,6 @@ def message_in_buffer(message, buffer, timeout=60.0):
     """Check if service prints given message on its output."""
     # If buffer is a string (file path), read from file
     if isinstance(buffer, str):
-        import time
-
         start_time = time.time()
         while time.time() - start_time < timeout:
             try:
