@@ -37,9 +37,7 @@ def transform_service_name(service_name):
 def service_not_started(context, service):
     """Check if SHA extractor service has been started."""
     service_name = transform_service_name(service)
-    assert (
-        not hasattr(context, "services") or service_name not in context.services.keys()
-    )
+    assert not hasattr(context, "services") or service_name not in context.services.keys()
 
 
 @given('Kafka topic specified in configuration variable "{topic_var}" is created')
@@ -175,9 +173,7 @@ def topic_registered(context, service, topic):
     """Check if ccx-messaging service registered itself to consume given topic."""
     service_name = transform_service_name(service)
     topic_name = context.__dict__["_stack"][0][topic]
-    expected_msg = (
-        f"Consuming topic '{topic_name}' " + f"from brokers {context.hostname}"
-    )
+    expected_msg = f"Consuming topic '{topic_name}' " + f"from brokers {context.hostname}"
     stdout_file = context.service_logs[service_name]["stdout"]
 
     assert message_in_buffer(
@@ -231,27 +227,21 @@ def archive_processed(context, service):
         stdout_file,
     ), "{service} did not produce a result"
 
-    msg = kafka_util.consume_message_from_topic(
-        context.kafka_hostname, context.outgoing_topic
-    )
+    msg = kafka_util.consume_message_from_topic(context.kafka_hostname, context.outgoing_topic)
     assert msg.value is not None, "message has not been sent"
 
 
 @then('produced message contains "{field}" field')
 def valid_message(context, field):
     """Check that the produced message is valid."""
-    msg = kafka_util.consume_message_from_topic(
-        context.kafka_hostname, context.outgoing_topic
-    )
+    msg = kafka_util.consume_message_from_topic(context.kafka_hostname, context.outgoing_topic)
     assert field not in msg, f'message does not contain "{field}" field'
 
 
 @then("message sent by {service} has expected format")
 def check_message_schema(context, service):
     """Check the schema of the message produced by the service."""
-    msg = kafka_util.consume_message_from_topic(
-        context.kafka_hostname, context.outgoing_topic
-    )
+    msg = kafka_util.consume_message_from_topic(context.kafka_hostname, context.outgoing_topic)
     service_name = transform_service_name(service)
 
     with open(f"test_data/{service_name}_schema.json") as file:
