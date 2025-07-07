@@ -22,8 +22,8 @@ import subprocess
 
 from behave import given, then, when
 from src import kafka_util
-from src.utils import validate_json
 from src.process_output import filepath_from_context
+from src.utils import validate_json
 
 SERVICES = {"SHA extractor": "insights_sha_extractor", "DVO extractor": "dvo_extractor"}
 
