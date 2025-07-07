@@ -46,10 +46,6 @@ def kafka_broker_running(context, service):
     context.kafka_hostname = hostname.split(":")[0]
     context.kafka_port = hostname.split(":")[1]
 
-    print(config_name)
-    print(context.service_config)
-    print(context.hostname)
-
     metadata = ClusterMetadata(bootstrap_servers=hostname)
     context.metadata = metadata
     assert len(metadata.brokers()) > 0
