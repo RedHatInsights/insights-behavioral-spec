@@ -241,7 +241,6 @@
           "analysis_metadata",
           "fingerprints",
           "system",
-          "version",
           "workload_recommendations"
         ]
       },
