@@ -1,10 +1,6 @@
 plugins:
   packages:
     - ccx_rules_ocp.external.dvo
-    - dvo_extractor
-    - insights.specs.default
-    - pythonjsonlogger
-    - pythonjsonlogger.jsonlogger
 service:
   extract_timeout:
   extract_tmp_dir:
@@ -28,7 +24,11 @@ service:
     name: ccx_messaging.downloaders.http_downloader.HTTPDownloader
     kwargs:
       max_archive_size: 100MiB
-      allow_unsafe_links: true
+      allow_unsafe_links: ${ALLOW_UNSAFE_LINKS}
+
+  engine:
+    name: ccx_messaging.engines.ocp_engine.OCPEngine
+
   publisher:
     name: ccx_messaging.publishers.dvo_metrics_publisher.DVOMetricsPublisher
     kwargs:
@@ -44,8 +44,6 @@ service:
         class: logging.StreamHandler
         stream: ext://sys.stdout
         formatter: json
-        filters:
-          - context_filter
     formatters:
       brief:
         format: "%(message)s"
@@ -54,9 +52,6 @@ service:
         format: "%(filename)s %(lineno)d %(process)d %(levelname)s %(asctime)s %(name)s %(message)s"
       cloudwatch:
         format: "%(filename)s %(levelname)s %(asctime)s %(name)s %(hostname)s %(mac_address)s %(message)s"
-    filters:
-      context_filter:
-        (): "dvo_extractor.log_filter.LogFilter"
     root:
       handlers:
         - default

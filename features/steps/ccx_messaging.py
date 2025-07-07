@@ -19,9 +19,11 @@ import json
 import os
 import select
 import subprocess
+import time
 
 from behave import given, then, when
 from src import kafka_util
+from src.process_output import filepath_from_context
 from src.utils import validate_json
 
 SERVICES = {"SHA extractor": "insights_sha_extractor", "DVO extractor": "dvo_extractor"}
@@ -36,9 +38,7 @@ def transform_service_name(service_name):
 def service_not_started(context, service):
     """Check if SHA extractor service has been started."""
     service_name = transform_service_name(service)
-    assert (
-        not hasattr(context, "services") or service_name not in context.services.keys()
-    )
+    assert not hasattr(context, "services") or service_name not in context.services.keys()
 
 
 @given('Kafka topic specified in configuration variable "{topic_var}" is created')
@@ -70,10 +70,14 @@ def start_ccx_messaging_service(context, service, group_id=None):
 
     service_name = transform_service_name(service)
 
+    # Create log files for stdout and stderr
+    stdout_file = filepath_from_context(context, f"logs/{service_name}/", "_stdout")
+    stderr_file = filepath_from_context(context, f"logs/{service_name}/", "_stderr")
+
     process = subprocess.Popen(
         ["ccx-messaging", f"config/{service_name}.yaml"],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+        stdout=open(stdout_file, "w"),
+        stderr=open(stderr_file, "w"),
         text=True,
         encoding="utf-8",
         env=os.environ.copy(),
@@ -84,7 +88,12 @@ def start_ccx_messaging_service(context, service, group_id=None):
     if not hasattr(context, "services"):
         context.services = {}
 
+    if not hasattr(context, "service_logs"):
+        context.service_logs = {}
+
     context.services[service_name] = process
+    # Store log file paths in separate dictionary
+    context.service_logs[service_name] = {"stdout": stdout_file, "stderr": stderr_file}
 
 
 @then("{service} validates the message format")
@@ -92,10 +101,11 @@ def check_message(context, service):
     """Check if consumed message is represented in JSON."""
     expected_msg = "JSON schema validated"
     service_name = transform_service_name(service)
+    stdout_file = context.service_logs[service_name]["stdout"]
 
     assert message_in_buffer(
         expected_msg,
-        context.services[service_name].stdout,
+        stdout_file,
     ), "can't parse message"
 
 
@@ -104,10 +114,11 @@ def check_workload_info_not_present(context, service):
     """Step when workload_info.json is not in the archive."""
     expected_msg = "archive does not contain workload info; skipping"
     service_name = transform_service_name(service)
+    stdout_file = context.service_logs[service_name]["stdout"]
 
     assert message_in_buffer(
         expected_msg,
-        context.services[service_name].stdout,
+        stdout_file,
     ), "archive should not contain workload_info.json for this scenario"
 
 
@@ -116,10 +127,11 @@ def check_workload_info_present(context, service):
     """Step when workload_info.json is present in the archive."""
     expected_msg = "workload info found, starting publishing process"
     service_name = transform_service_name(service)
+    stdout_file = context.service_logs[service_name]["stdout"]
 
     assert message_in_buffer(
         expected_msg,
-        context.services[service_name].stdout,
+        stdout_file,
     ), "archive should contain workload_info.json for this scenario"
 
 
@@ -128,9 +140,11 @@ def check_b64_decode(context, service):
     """Check if ccx-messaging service was able to decode b64_identity attribute from a message."""
     service_name = transform_service_name(service)
     expected_msg = "'identity': {'identity':"
+    stdout_file = context.service_logs[service_name]["stdout"]
 
     assert message_in_buffer(
-        expected_msg, context.services[service_name].stdout,
+        expected_msg,
+        stdout_file,
     ), "b64_identity was not extracted"
 
 
@@ -141,9 +155,10 @@ def check_message_consumed(context, service):
     assert not context.services[service_name].returncode, f"{service} is not running"
 
     expected_msg = "Deserializing incoming message"
+    stdout_file = context.service_logs[service_name]["stdout"]
     assert message_in_buffer(
         expected_msg,
-        context.services[service_name].stdout,
+        stdout_file,
     ), "message was not consumed"
 
 
@@ -159,12 +174,12 @@ def topic_registered(context, service, topic):
     """Check if ccx-messaging service registered itself to consume given topic."""
     service_name = transform_service_name(service)
     topic_name = context.__dict__["_stack"][0][topic]
-    expected_msg = (
-        f"Consuming topic '{topic_name}' " + f"from brokers {context.hostname}"
-    )
+    expected_msg = f"Consuming topic '{topic_name}' " + f"from brokers {context.hostname}"
+    stdout_file = context.service_logs[service_name]["stdout"]
 
     assert message_in_buffer(
-        expected_msg, context.services[service_name].stdout,
+        expected_msg,
+        stdout_file,
     ), "consumer topic not registered"
 
 
@@ -173,10 +188,11 @@ def check_url(context, service):
     """Check that ccx-messaging service is able to retrieve URL from incoming message."""
     expected_msg = "Extracted URL from input message"
     service_name = transform_service_name(service)
+    stdout_file = context.service_logs[service_name]["stdout"]
 
     assert message_in_buffer(
         expected_msg,
-        context.services[service_name].stdout,
+        stdout_file,
     ), "can't parse url from message"
 
 
@@ -185,10 +201,11 @@ def check_start_download(context, service):
     """Check that ccx-messaging service is able to start download."""
     expected_msg = "Downloading"
     service_name = transform_service_name(service)
+    stdout_file = context.service_logs[service_name]["stdout"]
 
     assert message_in_buffer(
         expected_msg,
-        context.services[service_name].stdout,
+        stdout_file,
     ), "download not started"
 
 
@@ -204,10 +221,11 @@ def archive_processed(context, service):
     """Check that ccx-messaging service did process the event."""
     expected_msg = "Message has been sent successfully."
     service_name = transform_service_name(service)
+    stdout_file = context.service_logs[service_name]["stdout"]
 
     assert message_in_buffer(
         expected_msg,
-        context.services[service_name].stdout,
+        stdout_file,
     ), "{service} did not produce a result"
 
     msg = kafka_util.consume_message_from_topic(context.kafka_hostname, context.outgoing_topic)
@@ -262,7 +280,8 @@ def compressed_archive_sent_to_topic(context):
     decoded = None
     error = None
     message = kafka_util.consume_message_from_topic(
-        context.kafka_hostname, context.outgoing_topic,
+        context.kafka_hostname,
+        context.outgoing_topic,
     )
     try:
         decoded = gzip.decompress(message.value)
@@ -277,7 +296,8 @@ def no_compressed_archive_sent_to_topic(context):
     decoded = None
     error = None
     message = kafka_util.consume_message_from_topic(
-        context.kafka_hostname, context.outgoing_topic,
+        context.kafka_hostname,
+        context.outgoing_topic,
     )
     try:
         decoded = gzip.decompress(message.value)
@@ -288,6 +308,21 @@ def no_compressed_archive_sent_to_topic(context):
 
 def message_in_buffer(message, buffer, timeout=60.0):
     """Check if service prints given message on its output."""
+    # If buffer is a string (file path), read from file
+    if isinstance(buffer, str):
+        start_time = time.time()
+        while time.time() - start_time < timeout:
+            try:
+                with open(buffer, "r") as f:
+                    content = f.read()
+                    if message in content:
+                        return True
+            except FileNotFoundError:
+                pass
+            time.sleep(0.1)
+        return False
+
+    # Original pipe-based logic for backward compatibility
     while True:
         ready = select.select([buffer], [], [], timeout)[0]
         if ready:
