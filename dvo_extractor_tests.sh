@@ -33,7 +33,7 @@ function prepare_venv() {
 
 function install_extractor() {
     if [[ ! -d $PATH_TO_LOCAL_DVO_EXTRACTOR ]] ; then
-    	git clone --depth=1 git@github.com:RedHatInsights/dvo-extractor.git "$PATH_TO_LOCAL_DVO_EXTRACTOR"
+    	git clone --depth=1 git@gitlab.cee.redhat.com:ccx/dvo-extractor.git "$PATH_TO_LOCAL_DVO_EXTRACTOR"
 	add_trap "rm -rf ./dvo-extractor"
     fi
     cwd=$(pwd)
