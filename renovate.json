@@ -1,0 +1,10 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "pip_requirements": {
+    "packageRules": [
+      "enabled": true,
+      "separateMajorMinor": false,
+      "groupName": "all dependencies"
+    ]
+  }
+}
