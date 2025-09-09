@@ -35,7 +35,6 @@ function prepare_venv() {
 }
 
 function start_mocked_dependencies() {
-    pip install -r requirements/mocks.txt
     pushd "$dir_path"/mocks/insights-content-service && uvicorn content_server:app --port 8082 &
     pushd "$dir_path"/mocks/prometheus && uvicorn push_gateway:app --port 9091 &
     pushd "$dir_path"/mocks/service-log && uvicorn service_log:app --port 8000 &
