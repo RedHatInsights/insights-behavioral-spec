@@ -16,9 +16,8 @@
 import copy
 import re
 
-from fastapi import FastAPI
-from fastapi import status
-from fastapi.responses import Response, JSONResponse
+from fastapi import FastAPI, status
+from fastapi.responses import JSONResponse, Response
 from pydantic import BaseModel
 
 app = FastAPI()
@@ -170,8 +169,10 @@ def get_random_results(query: str):
 
     return res
 
+
 @app.post("/clusters_not_found")
 def clusters_not_found(activate: bool):
+    """Make mock service return status 500 or not depending on the `activate` value."""
     global return_not_found
     return_not_found = activate
     return Response(status_code=status.HTTP_204_NO_CONTENT)

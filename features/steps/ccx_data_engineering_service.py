@@ -18,8 +18,8 @@
 import os
 import subprocess
 import time
-import requests
 
+import requests
 from behave import given, when
 from common_http import check_service_started
 
@@ -73,11 +73,12 @@ def stop_RHOBS_mock_service(context):
         # subprocess is still alive
         time.sleep(0.1)
 
+
 @when("The mock RHOBS Service doesn't find the queried clusters")
 def empty_RHOBS_mock_service(context):
     """Make mocked RHOBS service return 500 Not found on any query."""
     response = requests.post(
         f"http://localhost:{context.mock_rhobs_port}/clusters_not_found",
-        params={"activate": True}
+        params={"activate": True},
     )
     assert response.status_code == 204
