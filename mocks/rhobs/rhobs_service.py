@@ -16,8 +16,8 @@
 import copy
 import re
 
-from fastapi import FastAPI
-from fastapi.responses import JSONResponse
+from fastapi import FastAPI, status
+from fastapi.responses import JSONResponse, Response
 from pydantic import BaseModel
 
 app = FastAPI()
@@ -140,6 +140,8 @@ ANSWERS = {
     "aaaaaaaa-bbbb-cccc-dddd-000000000000": AVAILABLE_FOC,
 }
 
+return_not_found = False
+
 
 class Query(BaseModel):
 
@@ -155,7 +157,7 @@ UUID_REGEX = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
 def get_random_results(query: str):
     """Request handler for REST API endpoint to return alerts and FOCs."""
     cluster_ids = re.findall(UUID_REGEX, query)
-    if not cluster_ids:
+    if not cluster_ids or return_not_found:
         return JSONResponse("couldn't find the cluster_id in ANSWERS", 500)
 
     res = {"data": {"result": []}}
@@ -166,3 +168,11 @@ def get_random_results(query: str):
         res["data"]["result"].extend(cluster_data)
 
     return res
+
+
+@app.post("/clusters_not_found")
+def clusters_not_found(activate: bool):
+    """Make mock service return status 500 or not depending on the `activate` value."""
+    global return_not_found
+    return_not_found = activate
+    return Response(status_code=status.HTTP_204_NO_CONTENT)

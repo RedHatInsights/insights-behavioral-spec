@@ -40,7 +40,6 @@ function install_data_eng_service() {
 }
 
 function start_mocked_dependencies() {
-    pip install -r requirements/mocks.txt
     pushd "$dir_path"/mocks/inference-service && uvicorn inference_service:app --port 8001 &
     pushd "$dir_path"/mocks/rhobs && uvicorn rhobs_service:app --port 8002 &
 

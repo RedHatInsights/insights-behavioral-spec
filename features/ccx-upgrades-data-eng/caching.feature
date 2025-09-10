@@ -25,7 +25,7 @@ Feature: Upgrade Risks Prediction Data Engineering - test correct behavior of th
     And I store the response for aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee for comparison
     Then The status code of the response is 200
     When I stop the mock CCX Inference Service
-    And I stop the mock RHOBS Service
+    And The mock RHOBS Service doesn't find the queried clusters
     When I request the cluster endpoint in localhost:8000 with path aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/upgrade-risks-prediction
     Then The status code of the response is 500
     And The response is different from the previous response for aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
@@ -48,7 +48,7 @@ Feature: Upgrade Risks Prediction Data Engineering - test correct behavior of th
     And I store the response for aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee for comparison
     Then The status code of the response is 200
     When I stop the mock CCX Inference Service
-    And I stop the mock RHOBS Service
+    And The mock RHOBS Service doesn't find the queried clusters
     When I request the cluster endpoint in localhost:8000 with path aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/upgrade-risks-prediction
     Then The status code of the response is 500
     And The response is different from the previous response for aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
@@ -71,7 +71,7 @@ Feature: Upgrade Risks Prediction Data Engineering - test correct behavior of th
      And I store the response for aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee for comparison
     Then The status code of the response is 200
     When I stop the mock CCX Inference Service
-     And I stop the mock RHOBS Service
+     And The mock RHOBS Service doesn't find the queried clusters
     When I request the cluster endpoint in localhost:8000 with path aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/upgrade-risks-prediction
     Then The status code of the response is 500
      And The response is different from the previous response for aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
@@ -120,7 +120,7 @@ Feature: Upgrade Risks Prediction Data Engineering - test correct behavior of th
     And I store the response for aaaaaaaa-bbbb-cccc-dddd-000000000000 for comparison
     Then The status code of the response is 200
     When I stop the mock CCX Inference Service
-    And I stop the mock RHOBS Service
+    And The mock RHOBS Service doesn't find the queried clusters
     And I request the cluster endpoint in localhost:8000 with path aaaaaaaa-bbbb-cccc-dddd-000000000000/upgrade-risks-prediction
     Then The status code of the response is 200
     And The response is identical to the previous response for aaaaaaaa-bbbb-cccc-dddd-000000000000
@@ -164,7 +164,7 @@ Feature: Upgrade Risks Prediction Data Engineering - test correct behavior of th
     Then The status code of the response is 404
     # stop the dependencies to only get responses from cache
     When I stop the mock CCX Inference Service
-     And I stop the mock RHOBS Service
+     And The mock RHOBS Service doesn't find the queried clusters
      And I request the cluster endpoint in localhost:8000 with path aaaaaaaa-bbbb-cccc-dddd-000000000000/upgrade-risks-prediction
     Then The status code of the response is 200
     And The response is identical to the previous response for aaaaaaaa-bbbb-cccc-dddd-000000000000
@@ -194,7 +194,7 @@ Feature: Upgrade Risks Prediction Data Engineering - test correct behavior of th
      And I store the response for aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee for comparison
     Then The status code of the response is 200
     When I stop the mock CCX Inference Service
-     And I stop the mock RHOBS Service
+     And The mock RHOBS Service doesn't find the queried clusters
      And I request the cluster endpoint in localhost:8000 with path aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/upgrade-risks-prediction
     Then The status code of the response is 200
      And The response is identical to the previous response for aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee

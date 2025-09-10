@@ -19,6 +19,7 @@ import os
 import subprocess
 import time
 
+import requests
 from behave import given, when
 from common_http import check_service_started
 
@@ -61,6 +62,7 @@ def start_RHOBS_mock_service(context, port):
     check_service_started(context, "localhost", port, attempts=10, seconds_between_attempts=1)
     context.add_cleanup(popen.terminate)
     context.mock_rhobs = popen
+    context.mock_rhobs_port = port
 
 
 @when("I stop the mock RHOBS Service")
@@ -70,3 +72,13 @@ def stop_RHOBS_mock_service(context):
     while context.mock_rhobs.poll() is None:
         # subprocess is still alive
         time.sleep(0.1)
+
+
+@when("The mock RHOBS Service doesn't find the queried clusters")
+def empty_RHOBS_mock_service(context):
+    """Make mocked RHOBS service return 500 Not found on any query."""
+    response = requests.post(
+        f"http://localhost:{context.mock_rhobs_port}/clusters_not_found",
+        params={"activate": True},
+    )
+    assert response.status_code == 204
