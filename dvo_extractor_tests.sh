@@ -20,6 +20,16 @@ export PATH_TO_LOCAL_DVO_EXTRACTOR=${PATH_TO_LOCAL_DVO_EXTRACTOR:="../dvo-extrac
 
 exit_trap_command=""
 
+function install_certificates() {
+    if [ -z "$ENV_DOCKER" ]; then
+        return
+    fi
+
+    curl -ksL https://certs.corp.redhat.com/certs/2022-IT-Root-CA.pem -o /etc/pki/ca-trust/source/anchors/2022-IT-Root-CA.pem
+    curl -ksL https://certs.corp.redhat.com/certs/Current-IT-Root-CAs.pem -o /etc/pki/ca-trust/source/anchors/Current-IT-Root-CAs.pem
+    update-ca-trust
+}
+
 function install_reqs() {
     pip install -r requirements.txt || exit 1
 }
@@ -99,6 +109,7 @@ else
     install_reqs
 fi
 
+install_certificates
 install_extractor
 
 # shellcheck disable=SC2068
