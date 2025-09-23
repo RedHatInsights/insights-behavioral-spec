@@ -98,6 +98,7 @@ function add_trap() {
     trap cleanup EXIT
 }
 
+install_certificates
 if ! [ "$ENV_DOCKER" ] ; then
     run_kafka
     run_mock_s3
@@ -109,7 +110,6 @@ else
     install_reqs
 fi
 
-install_certificates
 install_extractor
 
 # shellcheck disable=SC2068
