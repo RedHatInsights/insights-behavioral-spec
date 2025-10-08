@@ -12,7 +12,7 @@ Feature: DVO writer
      When database connection is established
       And I migrate aggregator database to latest version
       And I read current migration number for DVO from database
-     Then I should see that migration #2 is returned
+     Then I should see that migration #4 is returned
     Given DVO writer service is started in background
 
 
