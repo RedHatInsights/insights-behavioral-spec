@@ -3,10 +3,14 @@ services:
   # "pod" with the tests
   bddtests:
     image: quay.io/redhat-services-prod/obsint-processing-tenant/insights-behavioral-spec/insights-behavioral-spec:latest
+    depends_on:
+      database:
+        condition: service_healthy
     entrypoint:
       - /bin/sh
       - -c
       - "sleep infinity"
+
   database:
     ports:
       - 25432:5432
