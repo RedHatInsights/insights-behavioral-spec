@@ -86,7 +86,6 @@ localhost:8000/api/service_logs/v1/clusters/cluster_logs?cluster_id=<id>&cluster
 import random
 import string
 from datetime import datetime
-from typing import Optional
 
 from fastapi import FastAPI, Request, Response, status
 from fastapi.exceptions import RequestValidationError
@@ -119,16 +118,16 @@ class Log(BaseModel):
     """Model for log structure received by Service Log."""
 
     cluster_uuid: str
-    cluster_id: Optional[str] = None
-    subscription_id: Optional[str] = None
+    cluster_id: str | None = None
+    subscription_id: str | None = None
     summary: str
-    description: Optional[str] = None
-    internal_only: Optional[bool] = None
+    description: str | None = None
+    internal_only: bool | None = None
     service_name: str
-    severity: Optional[str] = "Info"
-    timestamp: Optional[str] = None  # default will be current time
-    username: Optional[str] = None
-    event_stream_id: Optional[str] = None  # default will be a random ksuid
+    severity: str | None = "Info"
+    timestamp: str | None = None  # default will be current time
+    username: str | None = None
+    event_stream_id: str | None = None  # default will be a random ksuid
 
 
 class ReturnLog(Log):
