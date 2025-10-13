@@ -403,6 +403,7 @@ nav_order: 3
 * Check rule hits after Insights Results Aggregator consumes message with no results
 * Check additions into the database when a message with empty fields is received
 * Check no additions into the database when an incomplete message is received
+* DB Writer automatically updates OrgID when receiving message with different OrgID for existing cluster
 
 ## [`insights-results-aggregator/database_access.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/database_access.feature)
 
@@ -849,6 +850,7 @@ nav_order: 3
 * DVO writer does not process invalid message
 * DVO writer processes incoming data correctly
 * DVO writer deletes namespaces not present in the report for given cluster
+* DVO writer automatically updates OrgID when receiving message with different OrgID for existing cluster
 
 ## [`ccx-notification-service/cleanup_records.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/ccx-notification-service/cleanup_records.feature)
 
