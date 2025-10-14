@@ -204,3 +204,109 @@ Feature: DVO writer
         | 1            | ac91137f-fa4c-455a-b801-e2b3c1a0d82f | NAMESPACE-UID-A | namespace-name-A | 2024-02-06T12:35:07.418761 |
      When I terminate DVO writer
      Then DVO writer process should terminate
+
+
+  Scenario: DVO writer automatically updates OrgID when receiving message with different OrgID for existing cluster
+    Given there are 0 rows in DVO table
+     When I send the following message into Kafka topic "ccx.dvo.results"
+          """
+          {
+            "OrgID": 100,
+            "AccountNumber": 1,
+            "ClusterName": "bbbbbbbb-1111-2222-3333-444444444444",
+            "Metrics": {
+              "system": {
+                "metadata": {},
+                "hostname": null
+              },
+              "fingerprints": [],
+              "version": 1,
+              "analysis_metadata": {},
+              "workload_recommendations": [
+                {
+                  "response_id": "recommendation|RECOMMENDATION_KEY",
+                  "component": "rules.recommendation",
+                  "key": "RECOMMENDATION_KEY",
+                  "details": {},
+                  "tags": [],
+                  "links": {
+                    "jira": [
+                      "https://issues.redhat.com/browse/ISSUE-1111"
+                    ],
+                    "product_documentation": [
+                      "https://docs.com/policy.html"
+                    ]
+                  },
+                  "workloads": [
+                    {
+                      "namespace": "namespace-name-A",
+                      "namespace_uid": "NAMESPACE-UID-A",
+                      "kind": "DaemonSet",
+                      "name": "test-name-0099",
+                      "uid": "UID-0099"
+                    }
+                  ]
+                }
+              ]
+            },
+            "LastChecked": "2024-02-06T12:25:07.418761+00:00",
+            "RequestId": "b0daf40cdf29/U3XGuBBKy9-000005"
+          }
+          """
+      And I wait 3 seconds
+     Then there is 1 row in DVO table
+      And DVO table contains the following data
+        | Organization | Cluster ID                           | Namespace ID    | Namespace        | Last checked               |
+        | 100          | bbbbbbbb-1111-2222-3333-444444444444 | NAMESPACE-UID-A | namespace-name-A | 2024-02-06T12:25:07.418761 |
+     When I send the following message into Kafka topic "ccx.dvo.results"
+          """
+          {
+            "OrgID": 200,
+            "AccountNumber": 2,
+            "ClusterName": "bbbbbbbb-1111-2222-3333-444444444444",
+            "Metrics": {
+              "system": {
+                "metadata": {},
+                "hostname": null
+              },
+              "fingerprints": [],
+              "version": 1,
+              "analysis_metadata": {},
+              "workload_recommendations": [
+                {
+                  "response_id": "recommendation|RECOMMENDATION_KEY",
+                  "component": "rules.recommendation",
+                  "key": "RECOMMENDATION_KEY",
+                  "details": {},
+                  "tags": [],
+                  "links": {
+                    "jira": [
+                      "https://issues.redhat.com/browse/ISSUE-1111"
+                    ],
+                    "product_documentation": [
+                      "https://docs.com/policy.html"
+                    ]
+                  },
+                  "workloads": [
+                    {
+                      "namespace": "namespace-name-A",
+                      "namespace_uid": "NAMESPACE-UID-A",
+                      "kind": "DaemonSet",
+                      "name": "test-name-0099",
+                      "uid": "UID-0099"
+                    }
+                  ]
+                }
+              ]
+            },
+            "LastChecked": "2024-02-06T12:35:07.418761+00:00",
+            "RequestId": "b0daf40cdf29/U3XGuBBKy9-000006"
+          }
+          """
+      And I wait 3 seconds
+     Then there is 1 row in DVO table
+      And DVO table contains the following data
+        | Organization | Cluster ID                           | Namespace ID    | Namespace        | Last checked               |
+        | 200          | bbbbbbbb-1111-2222-3333-444444444444 | NAMESPACE-UID-A | namespace-name-A | 2024-02-06T12:35:07.418761 |
+     When I terminate DVO writer
+     Then DVO writer process should terminate
