@@ -100,5 +100,5 @@ PYTHONDONTWRITEBYTECODE=1 python3 -m behave --no-capture \
 exitCode=$?
 
 kill -9 $content_service_pid
-$REMOVE_CONTENT_SERVICE_DIRECTORY || rm -rf ./insights-content-service
+$REMOVE_CONTENT_SERVICE_DIRECTORY || rm -rf ./content-service
 exit $exitCode
