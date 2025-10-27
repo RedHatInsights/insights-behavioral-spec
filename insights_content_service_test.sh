@@ -51,7 +51,7 @@ function clone_service() {
 
 function build_service() {
     pushd "${PATH_TO_LOCAL_CONTENT_SERVICE}" || exit
-    if [ ! -f "insights-content-service" ]; then
+    if [ ! -f "content-service" ]; then
         make build
     fi
 
@@ -100,5 +100,5 @@ PYTHONDONTWRITEBYTECODE=1 python3 -m behave --no-capture \
 exitCode=$?
 
 kill -9 $content_service_pid
-$REMOVE_CONTENT_SERVICE_DIRECTORY || rm -rf ./insights-content-service
+$REMOVE_CONTENT_SERVICE_DIRECTORY || rm -rf ./content-service
 exit $exitCode
