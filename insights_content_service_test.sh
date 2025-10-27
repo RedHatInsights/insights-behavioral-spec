@@ -51,7 +51,7 @@ function clone_service() {
 
 function build_service() {
     pushd "${PATH_TO_LOCAL_CONTENT_SERVICE}" || exit
-    if [ ! -f "insights-content-service" ]; then
+    if [ ! -f "content-service" ]; then
         make build
     fi
 
