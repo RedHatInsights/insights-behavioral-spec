@@ -139,7 +139,7 @@ def check_workload_info_present(context, service):
 def check_b64_decode(context, service):
     """Check if ccx-messaging service was able to decode b64_identity attribute from a message."""
     service_name = transform_service_name(service)
-    expected_msg = "'identity': {'identity':"
+    expected_msg = "Message context: OrgId="
     stdout_file = context.service_logs[service_name]["stdout"]
 
     assert message_in_buffer(
