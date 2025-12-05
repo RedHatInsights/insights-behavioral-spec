@@ -127,6 +127,8 @@ to ensure that the code style is correct and the documentation is up to date.
 
 ### Setup
 
+The user may have already cloned the repository and created a virtual environment. If not, ask them for permission and follow the steps below:
+
 1. **Clone the repository** (if not already done):
    ```bash
    git clone <repository-url>
