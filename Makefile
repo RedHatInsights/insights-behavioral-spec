@@ -64,7 +64,7 @@ dvo-writer-tests:
 	./dvo_writer_tests.sh
 
 insights-content-service-tests: ## Run BDD tests for the CCX Content Service
-	./insights_content_service_test.sh
+	PATH_TO_LOCAL_CONTENT_SERVICE=$${SERVICE_UNDER_TEST:-$$PATH_TO_LOCAL_CONTENT_SERVICE} ./insights_content_service_test.sh
 
 insights-content-template-renderer-tests: ## Run BDD tests for the CCX Template Renderer
 	./insights_content_template_renderer_tests.sh
@@ -79,10 +79,10 @@ smart-proxy-code-coverage: ## Compute code coverage for Smart Proxy service
 	./smart_proxy_tests.sh coverage
 
 parquet-factory-tests: ## Run BDD tests for the Parquet Factory
-	./parquet_factory_tests.sh
+	PATH_TO_LOCAL_PARQUET_FACTORY=$${SERVICE_UNDER_TEST:-$$PATH_TO_LOCAL_PARQUET_FACTORY} ./parquet_factory_tests.sh
 
 parquet-factory-code-coverage: ## Compute code coverage for Parquet Factory
-	./parquet_factory_tests.sh coverage
+	PATH_TO_LOCAL_PARQUET_FACTORY=$${SERVICE_UNDER_TEST:-$$PATH_TO_LOCAL_PARQUET_FACTORY} ./parquet_factory_tests.sh coverage
 
 style:	code-style docs-style shellcheck ## Perform all style checks
 
