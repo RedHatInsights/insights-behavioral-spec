@@ -1,4 +1,19 @@
-.PHONY: default tests style code-style update-scenarios before_commit cleaner-tests exporter-tests aggregator-tests aggregator-mock-tests notification-service-tests notification-writer-tests insights-content-service-tests inference-service-tests data-engineering-service-tests
+.PHONY: default tests style code-style docs-style shellcheck update-scenarios before_commit \
+	unit_tests coverage coverage-report ruff doc-check help \
+	cleaner-tests cleaner-code-coverage \
+	aggregator aggregator-tests aggregator-code-coverage \
+	aggregator-mock aggregator-mock-tests aggregator-mock-code-coverage \
+	exporter exporter-tests exporter-code-coverage \
+	notification-service notification-service-tests notification-service-code-coverage \
+	notification-writer notification-writer-tests notification-writer-code-coverage \
+	inference-service inference-service-tests data-engineering-service data-engineering-service-tests \
+	dvo-extractor dvo-extractor-tests dvo-writer dvo-writer-tests \
+	content-service insights-content-service-tests \
+	content-template-renderer insights-content-template-renderer-tests \
+	sha-extractor insights-sha-extractor-tests \
+	smart-proxy smart-proxy-tests smart-proxy-code-coverage \
+	parquet-factory parquet-factory-tests parquet-factory-code-coverage \
+	docker-build install-type-libraries type-checks strict-type-checks missing-types
 
 default: tests
 
@@ -21,64 +36,64 @@ cleaner-tests: ## Run BDD tests for the CCX Cleaner service
 cleaner-code-coverage: ## Compute code coverage for Insights Results Cleaner service
 	./insights_results_cleaner_tests.sh coverage
 
-aggregator-tests: ## Run BDD tests for Insights Results Aggregator service
+aggregator aggregator-tests: ## Run BDD tests for Insights Results Aggregator service
 	./insights_results_aggregator_tests.sh
 
 aggregator-code-coverage: ## Compute code coverage for Insights Results Aggregator service
 	./insights_results_aggregator_tests.sh coverage
 
-aggregator-mock-tests: ## Run BDD tests for Insights Results Aggregator Mock service
+aggregator-mock aggregator-mock-tests: ## Run BDD tests for Insights Results Aggregator Mock service
 	./insights_results_aggregator_mock_tests.sh
 
 aggregator-mock-code-coverage: ## Compute code coverage for Insights Results Aggregator Mock service
 	./insights_results_aggregator_mock_tests.sh coverage
 
-exporter-tests: ## Run BDD tests for the CCX Exporter service
+exporter exporter-tests: ## Run BDD tests for the CCX Exporter service
 	./exporter_tests.sh
 
 exporter-code-coverage: ## Compute code coverage for Insights Results Exporter service
 	./insights_results_exporter_tests.sh coverage
 
-notification-service-tests: ## Run BDD tests for the CCX Notification Service
+notification-service notification-service-tests: ## Run BDD tests for the CCX Notification Service
 	./notification_service_tests.sh
 
 notification-service-code-coverage: ## Compute code coverage for the CCX Notification Service
 	./notification_service_tests.sh coverage
 
-notification-writer-tests: ## Run BDD tests for the CCX Notification Writer
+notification-writer notification-writer-tests: ## Run BDD tests for the CCX Notification Writer
 	./notification_writer_tests.sh
 
 notification-writer-code-coverage: ## Compute code coverage for the CCX Notification Writer
 	./notification_writer_tests.sh coverage
 
-inference-service-tests: ## Run BDD tests for the Inference Service
+inference-service inference-service-tests: ## Run BDD tests for the Inference Service
 	./ccx_upgrade_risk_inference_tests.sh
 
-data-engineering-service-tests: ## Run BDD tests for the Data Engineering Service
+data-engineering-service data-engineering-service-tests: ## Run BDD tests for the Data Engineering Service
 	./ccx_upgrade_risk_data_eng_tests.sh
 
-dvo-extractor-tests: # Run BDD tests for the DVO Extractor
+dvo-extractor dvo-extractor-tests: ## Run BDD tests for the DVO Extractor
 	./dvo_extractor_tests.sh
 
-dvo-writer-tests:
+dvo-writer dvo-writer-tests: ## Run BDD tests for the DVO Writer
 	./dvo_writer_tests.sh
 
-insights-content-service-tests: ## Run BDD tests for the CCX Content Service
+content-service insights-content-service-tests: ## Run BDD tests for the CCX Content Service
 	PATH_TO_LOCAL_CONTENT_SERVICE=$${SERVICE_UNDER_TEST:-$$PATH_TO_LOCAL_CONTENT_SERVICE} ./insights_content_service_test.sh
 
-insights-content-template-renderer-tests: ## Run BDD tests for the CCX Template Renderer
+content-template-renderer insights-content-template-renderer-tests: ## Run BDD tests for the CCX Template Renderer
 	./insights_content_template_renderer_tests.sh
 
-insights-sha-extractor-tests: ## Run BDD tests for the CCX SHA Extractor
+sha-extractor insights-sha-extractor-tests: ## Run BDD tests for the CCX SHA Extractor
 	./insights_sha_extractor_test.sh
 
-smart-proxy-tests: ## Run BDD tests for the Insights Results Smart Proxy service
+smart-proxy smart-proxy-tests: ## Run BDD tests for the Insights Results Smart Proxy service
 	./smart_proxy_tests.sh
 
 smart-proxy-code-coverage: ## Compute code coverage for Smart Proxy service
 	./smart_proxy_tests.sh coverage
 
-parquet-factory-tests: ## Run BDD tests for the Parquet Factory
+parquet-factory parquet-factory-tests: ## Run BDD tests for the Parquet Factory
 	PATH_TO_LOCAL_PARQUET_FACTORY=$${SERVICE_UNDER_TEST:-$$PATH_TO_LOCAL_PARQUET_FACTORY} ./parquet_factory_tests.sh
 
 parquet-factory-code-coverage: ## Compute code coverage for Parquet Factory
