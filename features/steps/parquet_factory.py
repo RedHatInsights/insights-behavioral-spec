@@ -10,6 +10,7 @@ from threading import Timer
 
 from behave import then, when
 from src import kafka_util
+from src.process_output import path_from_context
 
 # parquet-factory binary file name
 PARQUET_FACTORY_BINARY = "parquet-factory"
@@ -40,10 +41,19 @@ def run_parquet_factory(context, timeout_sec: int) -> None:
         environ.update(context.parquet_environment)
     environ["PARQUET_FACTORY__LOGGING__DEBUG"] = "false"
 
+    stdout_path = path_from_context(context, "parquet-factory", "_stdout")
+    stderr_path = path_from_context(context, "parquet-factory", "_stderr")
+
+    stdout_file = stdout_path.open("w")
+    stderr_file = stderr_path.open("w")
+
+    context.add_cleanup(stdout_file.close)
+    context.add_cleanup(stderr_file.close)
+
     proc = subprocess.Popen(
         [PARQUET_FACTORY_BINARY],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
+        stdout=stdout_file,
+        stderr=stderr_file,
         env=environ,
     )
 
@@ -51,7 +61,7 @@ def run_parquet_factory(context, timeout_sec: int) -> None:
     timer = Timer(timeout_sec, proc.kill)
     try:
         timer.start()
-        stdout, stderr = proc.communicate()
+        proc.communicate()
 
     finally:
         if timer.is_alive():
@@ -62,18 +72,12 @@ def run_parquet_factory(context, timeout_sec: int) -> None:
             timed_out = True
         timer.cancel()
 
-    output = f"""----------------- STDOUT -----------------
-{stdout.decode("utf-8")}
------------------ STDERR -----------------
-{stderr.decode("utf-8") if stderr else ""}
+    context.parquet_factory_logs = f"""----------------- STDOUT -----------------
+{stdout_path.read_text()}
+------------------ STDERR -----------------
+{stderr_path.read_text()}
 """
-    context.parquet_factory_logs = output
     context.parquet_factory_timed_out = timed_out
-
-    save_logs_to_tempfile(output)
-
-    print("-v-" * 10)
-    print(output)
 
 
 @then("Parquet Factory should have finish")

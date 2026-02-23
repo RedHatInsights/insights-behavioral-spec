@@ -18,7 +18,8 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - run: pip install --upgrade setuptools wheel importlib-metadata
-      - run: pip install pycodestyle pydocstyle pytest pytest-cov behave semver jsonschema
+      - run: pip install -r requirements.txt
+      - run: pip install pycodestyle pydocstyle pytest-cov
       - name: Style checks
         run: make code-style docs-style
       - name: Unit tests

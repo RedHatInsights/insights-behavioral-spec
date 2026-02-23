@@ -23,7 +23,7 @@ import time
 
 from behave import given, then, when
 from src import kafka_util
-from src.process_output import filepath_from_context
+from src.process_output import path_from_context
 from src.utils import validate_json
 
 SERVICES = {"SHA extractor": "insights_sha_extractor", "DVO extractor": "dvo_extractor"}
@@ -71,13 +71,19 @@ def start_ccx_messaging_service(context, service, group_id=None):
     service_name = transform_service_name(service)
 
     # Create log files for stdout and stderr
-    stdout_file = filepath_from_context(context, f"logs/{service_name}/", "_stdout")
-    stderr_file = filepath_from_context(context, f"logs/{service_name}/", "_stderr")
+    stdout_path = path_from_context(context, f"{service_name}", "_stdout")
+    stderr_path = path_from_context(context, f"{service_name}", "_stderr")
+
+    stdout_file = stdout_path.open("w")
+    stderr_file = stderr_path.open("w")
+
+    context.add_cleanup(stdout_file.close)
+    context.add_cleanup(stderr_file.close)
 
     process = subprocess.Popen(
         ["ccx-messaging", f"config/{service_name}.yaml"],
-        stdout=open(stdout_file, "w"),
-        stderr=open(stderr_file, "w"),
+        stdout=stdout_file,
+        stderr=stderr_file,
         text=True,
         encoding="utf-8",
         env=os.environ.copy(),
@@ -93,7 +99,7 @@ def start_ccx_messaging_service(context, service, group_id=None):
 
     context.services[service_name] = process
     # Store log file paths in separate dictionary
-    context.service_logs[service_name] = {"stdout": stdout_file, "stderr": stderr_file}
+    context.service_logs[service_name] = {"stdout": stdout_path, "stderr": stderr_path}
 
 
 @then("{service} validates the message format")
