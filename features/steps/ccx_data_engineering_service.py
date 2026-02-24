@@ -22,6 +22,7 @@ import time
 import requests
 from behave import given, when
 from common_http import check_service_started
+from src.process_output import path_from_context
 
 
 @given("The CCX Data Engineering Service is running on port {port:d} with envs")
@@ -42,10 +43,22 @@ def start_ccx_upgrades_data_eng(context, port):
         var, val = row["variable"], row["value"]
         env[var] = val
 
-    f = open(f"logs/ccx-upgrades-data-eng/{context.scenario}.log", "w")
+    stdout_path = path_from_context(context, "ccx-upgrades-data-eng", "_stdout")
+    stderr_path = path_from_context(context, "ccx-upgrades-data-eng", "_stderr")
 
-    popen = subprocess.Popen(params, stdout=f, stderr=f, env=env)
+    stdout_file = stdout_path.open("w")
+    stderr_file = stderr_path.open("w")
+    context.add_cleanup(stdout_file.close)
+    context.add_cleanup(stderr_file.close)
+
+    popen = subprocess.Popen(
+        params,
+        stdout=stdout_file,
+        stderr=stderr_file,
+        env=env,
+    )
     assert popen is not None
+
     check_service_started(context, "localhost", port, attempts=10)
     context.add_cleanup(popen.terminate)
 

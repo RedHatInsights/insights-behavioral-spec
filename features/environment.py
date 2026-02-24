@@ -21,14 +21,11 @@ Currently four events have been registered:
 4. after_scenario
 """
 
-try:
-    import os
-    from subprocess import TimeoutExpired
+import os
+from pathlib import Path
+from subprocess import TimeoutExpired
 
-    import psycopg2
-except ImportError as e:
-    print("Warning: unable to import module:", e)
-
+import psycopg2
 
 # Mappings between supported features (like consuming message from Kafka) and
 # tags specified in feature files
@@ -71,6 +68,10 @@ def before_all(context):
     context.database_user = os.getenv("DB_USER", "postgres")
     context.database_password = os.getenv("DB_PASS", "postgres")
     context.local = os.getenv("ENV_DOCKER", False) in ["0", False]
+    context.logs_dir = Path("logs").absolute()
+
+    if not context.logs_dir.exists():
+        context.logs_dir.mkdir(parents=True)
 
 
 def before_scenario(context, scenario):

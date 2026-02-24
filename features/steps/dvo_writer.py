@@ -20,7 +20,7 @@ from subprocess import TimeoutExpired
 
 from behave import given, then, when
 from dateutil import parser
-from src.process_output import filepath_from_context
+from src.process_output import path_from_context
 
 # DVO writer binary file name
 DVO_WRITER_BINARY = "insights-results-aggregator"
@@ -41,12 +41,19 @@ def start_dvo_writer_in_background(context):
     # Behave output with Aggregator's messages, so at this moment it is
     # best to redirect logs to files for further investigation.
     # Also it allow us to detect error output as well outside BDD framework.
-    stdout_file = filepath_from_context(context, "logs/dvo-writer/", "_stdout")
-    stderr_file = filepath_from_context(context, "logs/dvo-writer/", "_stderr")
+    stdout_path = path_from_context(context, "dvo-writer", "_stdout")
+    stderr_path = path_from_context(context, "dvo-writer", "_stderr")
+
+    stdout_file = stdout_path.open("w")
+    stderr_file = stderr_path.open("w")
+
+    context.add_cleanup(stdout_file.close)
+    context.add_cleanup(stderr_file.close)
+
     process = subprocess.Popen(
         [DVO_WRITER_BINARY],
-        stdout=open(stdout_file, "w"),
-        stderr=open(stderr_file, "w"),
+        stdout=stdout_file,
+        stderr=stderr_file,
         close_fds=True,
         bufsize=0,
     )

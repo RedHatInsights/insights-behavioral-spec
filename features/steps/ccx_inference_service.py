@@ -20,6 +20,7 @@ import time
 
 from behave import given, when
 from common_http import check_service_started
+from src.process_output import path_from_context
 
 
 @given("The CCX Inference Service is running on port {port:d}")
@@ -28,12 +29,20 @@ def start_ccx_inference_service(context, port):
     params = ["uvicorn", "ccx_upgrades_inference.main:app", "--port", str(port)]
     env = os.environ.copy()
 
-    f = open(f"logs/ccx-upgrades-inference/{context.scenario}.log", "w")
-    popen = subprocess.Popen(params, stdout=f, stderr=f, env=env)
+    stdout_path = path_from_context(context, "ccx-upgrades-inference", "_stdout")
+    stderr_path = path_from_context(context, "ccx-upgrades-inference", "_stderr")
+
+    stdout_file = stdout_path.open("w")
+    stderr_file = stderr_path.open("w")
+
+    context.add_cleanup(stdout_file.close)
+    context.add_cleanup(stderr_file.close)
+
+    popen = subprocess.Popen(params, stdout=stdout_file, stderr=stderr_file, env=env)
     assert popen is not None
+
     check_service_started(context, "localhost", port, seconds_between_attempts=1)
     context.add_cleanup(popen.terminate)
-    context.add_cleanup(f.close)
 
 
 @given("The mock CCX Inference Service is running on port {port:d}")

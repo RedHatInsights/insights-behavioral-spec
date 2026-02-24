@@ -20,6 +20,7 @@ import subprocess
 import time
 
 from behave import given
+from src.process_output import path_from_context
 
 
 @given("The Template Renderer is running")
@@ -32,20 +33,21 @@ def start_template_renderer(context):
         "logging.yml",
     ]
 
-    curpath = os.path.abspath(os.curdir)
-    scenario = str(context.scenario).replace("/", "")
-    log_filename = f"{scenario.translate({ord(i): None for i in '<>/'})}.log"
-
-    f = open(
-        os.path.join(
-            curpath, "logs", "insights-content-template-renderer", log_filename,
-        ),
-        "w",
-    )
-
+    stdout_path = path_from_context(context, "content-template-renderer", "_stdout")
+    stderr_path = path_from_context(context, "content-template-renderer", "_stderr")
     template_renderer_path = os.getenv("PATH_TO_LOCAL_TEMPLATE_RENDERER")
 
-    popen = subprocess.Popen(params, stdout=f, stderr=f, cwd=template_renderer_path)
+    stdout_file = stdout_path.open("w")
+    stderr_file = stderr_path.open("w")
+
+    popen = subprocess.Popen(
+        params,
+        stdout=stdout_file,
+        stderr=stderr_file,
+        cwd=template_renderer_path,
+    )
     assert popen is not None
     time.sleep(1)
     context.add_cleanup(popen.terminate)
+    context.add_cleanup(stdout_file.close)
+    context.add_cleanup(stderr_file.close)

@@ -21,7 +21,7 @@ import subprocess
 from behave import given, then, when
 from src.kafka_util import create_topic, delete_topic, send_event
 from src.process_output import (
-    filepath_from_context,
+    path_from_context,
 )
 
 
@@ -44,8 +44,8 @@ def retrieve_broker_metadata(context, hostname=None, port=None):
         stderr=subprocess.PIPE,
     )
 
-    stdout_file = filepath_from_context(context, "logs/insights-results-aggregator/", "_stdout")
-    stderr_file = filepath_from_context(context, "logs/insights-results-aggregator/", "_stderr")
+    stdout_file = path_from_context(context, "", "kcat__stdout")
+    stderr_file = path_from_context(context, "", "kcat__stderr")
 
     # interact with the process:
     # read data from stdout and stderr, until end-of-file is reached
@@ -57,11 +57,11 @@ def retrieve_broker_metadata(context, hostname=None, port=None):
     output = stdout.decode("utf-8")
     error = stderr.decode("utf-8")
 
-    if stdout_file is not None and stdout is not None:
+    if stdout is not None:
         with open(stdout_file, "w") as f:
             f.write(output)
 
-    if stderr_file is not None and stderr is not None:
+    if stderr is not None:
         with open(stderr_file, "w") as f:
             f.write(error)
 
