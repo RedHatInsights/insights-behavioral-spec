@@ -33,8 +33,8 @@ def start_template_renderer(context):
         "logging.yml",
     ]
 
-    stdout_path = path_from_context(context, "content-template-renderer", "_stdout")
-    stderr_path = path_from_context(context, "content-template-renderer", "_stderr")
+    stdout_path = path_from_context(context, "content-template-renderer", "stdout")
+    stderr_path = path_from_context(context, "content-template-renderer", "stderr")
     template_renderer_path = os.getenv("PATH_TO_LOCAL_TEMPLATE_RENDERER")
 
     stdout_file = stdout_path.open("w")

@@ -43,8 +43,8 @@ def run_cleaner_for_older_records(context, age):
 
     context.add_cleanup(out.terminate)
 
-    stdout_file = path_from_context(context, "insights-results-aggregator-cleaner", "_stdout")
-    stderr_file = path_from_context(context, "insights-results-aggregator-cleaner", "_stderr")
+    stdout_file = path_from_context(context, "insights-results-aggregator-cleaner", "stdout")
+    stderr_file = path_from_context(context, "insights-results-aggregator-cleaner", "stderr")
 
     # it is expected that exit code will be 0
     process_generated_output(context, out, 0, stdout_file, stderr_file)

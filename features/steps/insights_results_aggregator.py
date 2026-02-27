@@ -86,8 +86,8 @@ def start_aggregator(context, flag, environment):
     context.add_cleanup(out.terminate)
 
     # don't check exit code at this stage
-    stdout_file = path_from_context(context, "insights-results-aggregator", "_stdout")
-    stderr_file = path_from_context(context, "insights-results-aggregator", "_stderr")
+    stdout_file = path_from_context(context, "insights-results-aggregator", "stdout")
+    stderr_file = path_from_context(context, "insights-results-aggregator", "stderr")
     process_generated_output(context, out, stdout_file=stdout_file, stderr_file=stderr_file)
 
 
@@ -185,8 +185,8 @@ def perform_aggregator_database_migration(context, version):
     assert out is not None
 
     # it is expected that exit code will be 0 or 2
-    stdout_file = path_from_context(context, "insights-results-aggregator/", "_stdout")
-    stderr_file = path_from_context(context, "insights-results-aggregator/", "_stderr")
+    stdout_file = path_from_context(context, "", "stdout")
+    stderr_file = path_from_context(context, "", "stderr")
     process_generated_output(context, out, 2, stdout_file, stderr_file)
 
 
@@ -208,8 +208,8 @@ def start_insights_results_aggregator_in_background(context):
     # Behave output with Aggregator's messages, so at this moment it is
     # best to redirect logs to files for further investigation.
     # Also it allow us to detect error output as well outside BDD framework.
-    stdout_path = path_from_context(context, "insights-results-aggregator", "_stdout")
-    stderr_path = path_from_context(context, "insights-results-aggregator", "_stderr")
+    stdout_path = path_from_context(context, "insights-results-aggregator", "stdout")
+    stderr_path = path_from_context(context, "insights-results-aggregator", "stderr")
 
     stdout_file = stdout_path.open("w")
     stderr_file = stderr_path.open("w")

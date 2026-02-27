@@ -43,8 +43,8 @@ def start_ccx_upgrades_data_eng(context, port):
         var, val = row["variable"], row["value"]
         env[var] = val
 
-    stdout_path = path_from_context(context, "ccx-upgrades-data-eng", "_stdout")
-    stderr_path = path_from_context(context, "ccx-upgrades-data-eng", "_stderr")
+    stdout_path = path_from_context(context, "ccx-upgrades-data-eng", "stdout")
+    stderr_path = path_from_context(context, "ccx-upgrades-data-eng", "stderr")
 
     stdout_file = stdout_path.open("w")
     stderr_file = stderr_path.open("w")
