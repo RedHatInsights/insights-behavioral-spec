@@ -71,8 +71,8 @@ def start_ccx_messaging_service(context, service, group_id=None):
     service_name = transform_service_name(service)
 
     # Create log files for stdout and stderr
-    stdout_path = path_from_context(context, f"{service_name}", "_stdout")
-    stderr_path = path_from_context(context, f"{service_name}", "_stderr")
+    stdout_path = path_from_context(context, f"{service_name}", "stdout")
+    stderr_path = path_from_context(context, f"{service_name}", "stderr")
 
     stdout_file = stdout_path.open("w")
     stderr_file = stderr_path.open("w")

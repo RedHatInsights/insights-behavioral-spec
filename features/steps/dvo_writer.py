@@ -41,8 +41,8 @@ def start_dvo_writer_in_background(context):
     # Behave output with Aggregator's messages, so at this moment it is
     # best to redirect logs to files for further investigation.
     # Also it allow us to detect error output as well outside BDD framework.
-    stdout_path = path_from_context(context, "dvo-writer", "_stdout")
-    stderr_path = path_from_context(context, "dvo-writer", "_stderr")
+    stdout_path = path_from_context(context, "dvo-writer", "stdout")
+    stderr_path = path_from_context(context, "dvo-writer", "stderr")
 
     stdout_file = stdout_path.open("w")
     stderr_file = stderr_path.open("w")
