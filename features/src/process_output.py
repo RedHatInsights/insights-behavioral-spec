@@ -27,7 +27,7 @@ COVERAGE_MESSAGE = "warning: GOCOVERDIR not set, no coverage data emitted"
 
 
 def path_from_context(context: Context, prefix: str = "", suffix: str = "", max_len=200) -> Path:
-    """Return a filepath like logs/{prefix}{feature_name}_{scenario_name}{suffix}.log.
+    """Return a filepath like logs/{prefix}_{feature_name}_{scenario_name}_{suffix}.log.
 
     If the filepath is longer than $max_len, it's cropped.
     """
