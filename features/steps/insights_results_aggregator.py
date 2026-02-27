@@ -185,8 +185,8 @@ def perform_aggregator_database_migration(context, version):
     assert out is not None
 
     # it is expected that exit code will be 0 or 2
-    stdout_file = path_from_context(context, "insights-results-aggregator/", "_stdout")
-    stderr_file = path_from_context(context, "insights-results-aggregator/", "_stderr")
+    stdout_file = path_from_context(context, "", "_stdout")
+    stderr_file = path_from_context(context, "", "_stderr")
     process_generated_output(context, out, 2, stdout_file, stderr_file)
 
 

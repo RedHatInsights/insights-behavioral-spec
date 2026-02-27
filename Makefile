@@ -37,10 +37,10 @@ cleaner-code-coverage: ## Compute code coverage for Insights Results Cleaner ser
 	./insights_results_cleaner_tests.sh coverage
 
 aggregator aggregator-tests: ## Run BDD tests for Insights Results Aggregator service
-	./insights_results_aggregator_tests.sh
+	PATH_TO_LOCAL_AGGREGATOR=$${SERVICE_UNDER_TEST:-$$PATH_TO_LOCAL_AGGREGATOR} ./insights_results_aggregator_tests.sh
 
 aggregator-code-coverage: ## Compute code coverage for Insights Results Aggregator service
-	./insights_results_aggregator_tests.sh coverage
+	PATH_TO_LOCAL_AGGREGATOR=$${SERVICE_UNDER_TEST:-$$PATH_TO_LOCAL_AGGREGATOR} ./insights_results_aggregator_tests.sh coverage
 
 aggregator-mock aggregator-mock-tests: ## Run BDD tests for Insights Results Aggregator Mock service
 	./insights_results_aggregator_mock_tests.sh
@@ -76,7 +76,7 @@ dvo-extractor dvo-extractor-tests: ## Run BDD tests for the DVO Extractor
 	./dvo_extractor_tests.sh
 
 dvo-writer dvo-writer-tests: ## Run BDD tests for the DVO Writer
-	./dvo_writer_tests.sh
+	PATH_TO_LOCAL_DVO_WRITER=$${SERVICE_UNDER_TEST:-$$PATH_TO_LOCAL_DVO_WRITER} ./dvo_writer_tests.sh
 
 content-service insights-content-service-tests: ## Run BDD tests for the CCX Content Service
 	PATH_TO_LOCAL_CONTENT_SERVICE=$${SERVICE_UNDER_TEST:-$$PATH_TO_LOCAL_CONTENT_SERVICE} ./insights_content_service_test.sh
@@ -88,10 +88,10 @@ sha-extractor insights-sha-extractor-tests: ## Run BDD tests for the CCX SHA Ext
 	./insights_sha_extractor_test.sh
 
 smart-proxy smart-proxy-tests: ## Run BDD tests for the Insights Results Smart Proxy service
-	./smart_proxy_tests.sh
+	PATH_TO_LOCAL_SMART_PROXY=$${SERVICE_UNDER_TEST:-$$PATH_TO_LOCAL_SMART_PROXY} ./smart_proxy_tests.sh
 
 smart-proxy-code-coverage: ## Compute code coverage for Smart Proxy service
-	./smart_proxy_tests.sh coverage
+	PATH_TO_LOCAL_SMART_PROXY=$${SERVICE_UNDER_TEST:-$$PATH_TO_LOCAL_SMART_PROXY} ./smart_proxy_tests.sh coverage
 
 parquet-factory parquet-factory-tests: ## Run BDD tests for the Parquet Factory
 	PATH_TO_LOCAL_PARQUET_FACTORY=$${SERVICE_UNDER_TEST:-$$PATH_TO_LOCAL_PARQUET_FACTORY} ./parquet_factory_tests.sh
