@@ -1,6 +1,6 @@
 .PHONY: default tests style code-style docs-style shellcheck update-scenarios before_commit \
 	unit_tests coverage coverage-report ruff doc-check help \
-	cleaner-tests cleaner-code-coverage \
+	cleaner cleaner-tests cleaner-code-coverage \
 	aggregator aggregator-tests aggregator-code-coverage \
 	aggregator-mock aggregator-mock-tests aggregator-mock-code-coverage \
 	exporter exporter-tests exporter-code-coverage \
@@ -30,11 +30,11 @@ coverage: ## Calculate unit test code coverage for the whole repository
 coverage-report: ## Generate HTML pages with unit test code coverage report
 	export PATH=tools/:$$PATH;export PYTHONDONTWRITEBYTECODE=1;pytest -v -p no:cacheprovider --cov features/ --cov-report=html
 
-cleaner-tests: ## Run BDD tests for the CCX Cleaner service
-	./cleaner_tests.sh
+cleaner cleaner-tests: ## Run BDD tests for the CCX Cleaner service
+	PATH_TO_LOCAL_CLEANER=$${SERVICE_UNDER_TEST:-$$PATH_TO_LOCAL_CLEANER} ./cleaner_tests.sh
 
 cleaner-code-coverage: ## Compute code coverage for Insights Results Cleaner service
-	./insights_results_cleaner_tests.sh coverage
+	PATH_TO_LOCAL_CLEANER=$${SERVICE_UNDER_TEST:-$$PATH_TO_LOCAL_CLEANER} ./cleaner_tests.sh coverage
 
 aggregator aggregator-tests: ## Run BDD tests for Insights Results Aggregator service
 	PATH_TO_LOCAL_AGGREGATOR=$${SERVICE_UNDER_TEST:-$$PATH_TO_LOCAL_AGGREGATOR} ./insights_results_aggregator_tests.sh
