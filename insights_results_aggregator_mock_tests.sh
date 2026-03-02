@@ -14,25 +14,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# shellcheck source=tools/test_runner_common.sh disable=SC1091
+source "$(dirname "$(realpath "$0")")/tools/test_runner_common.sh"
+
 if [ -z "$ENV_DOCKER" ]; then
-    SERVICE_UNDER_TEST=${SERVICE_UNDER_TEST:="../insights-results-aggregator-mock"}
+    SERVICE_UNDER_TEST=${SERVICE_UNDER_TEST:-"../insights-results-aggregator-mock"}
 else
-    SERVICE_UNDER_TEST=${SERVICE_UNDER_TEST:="insights-results-aggregator-mock"}
+    SERVICE_UNDER_TEST=${SERVICE_UNDER_TEST:-"insights-results-aggregator-mock"}
 fi
-
-#set NOVENV is current environment is not a python virtual env
-[ "$VIRTUAL_ENV" != "" ] || NOVENV=1
-
-function install_reqs() {
-    pip install -r requirements.txt || exit 1
-}
-
-function prepare_venv() {
-    echo "Preparing environment"
-    # shellcheck disable=SC1091
-    virtualenv -p python3 venv && source venv/bin/activate && install_reqs
-    echo "Environment ready"
-}
 
 function build_service() {
     pushd "${SERVICE_UNDER_TEST}" || exit
@@ -74,10 +63,7 @@ function code_coverage_report() {
 EOF
 }
 
-case "$NOVENV" in
-    "") echo "using existing virtual env" && install_reqs;;
-    "1") prepare_venv ;;
-esac
+ensure_venv
 
 build_service && run_service
 

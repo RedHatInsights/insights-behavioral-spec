@@ -14,40 +14,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# shellcheck source=tools/test_runner_common.sh disable=SC1091
+source "$(dirname "$(realpath "$0")")/tools/test_runner_common.sh"
 
-dir_path=$(dirname "$(realpath "$0")")
-export PATH=$PATH:$dir_path
-export PATH_TO_LOCAL_TEMPLATE_RENDERER=${PATH_TO_LOCAL_TEMPLATE_RENDERER:="../insights-content-template-renderer"}
+export PATH_TO_LOCAL_TEMPLATE_RENDERER=${PATH_TO_LOCAL_TEMPLATE_RENDERER:-"../insights-content-template-renderer"}
 
 function clone_service() {
     git clone --depth=1 https://github.com/RedHatInsights/insights-content-template-renderer.git
 }
 
-#set NOVENV is current environment is not a python virtual env
-[ "$VIRTUAL_ENV" != "" ] || NOVENV=1
-
-function install_reqs() {
-    pip install -r requirements.txt || exit 1
-}
-
-function prepare_venv() {
-    echo "Preparing environment"
-    # shellcheck disable=SC1091
-    virtualenv -p python3 venv && source venv/bin/activate && install_reqs
-    echo "Environment ready"
-}
-
 function install_service() {
     cd "$PATH_TO_LOCAL_TEMPLATE_RENDERER" || exit
     install_reqs
+    # dir_path is set by test_runner_common.sh
+    # shellcheck disable=SC2154
     cd "$dir_path" || exit
 }
 
-# prepare virtual environment if necessary
-case "$NOVENV" in
-    "") echo "using existing virtual env" && install_reqs;;
-    "1") prepare_venv ;;
-esac
+ensure_venv
 
 if [ ! -d "$PATH_TO_LOCAL_TEMPLATE_RENDERER" ]; then
     if [[ -z $ENV_DOCKER ]]

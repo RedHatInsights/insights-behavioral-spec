@@ -14,23 +14,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-dir_path=$(dirname "$(realpath "$0")")
-export PATH=$PATH:$dir_path
-PATH_TO_LOCAL_PARQUET_FACTORY=${PATH_TO_LOCAL_PARQUET_FACTORY:="../parquet-factory"}
+# shellcheck source=tools/test_runner_common.sh disable=SC1091
+source "$(dirname "$(realpath "$0")")/tools/test_runner_common.sh"
 
-#set NOVENV is current environment is not a python virtual env
-[ "$VIRTUAL_ENV" != "" ] || NOVENV=1
-
-function install_reqs() {
-    pip install -r requirements.txt || exit 1
-}
-
-function prepare_venv() {
-    echo "Preparing environment"
-    # shellcheck disable=SC1091
-    virtualenv -p python3 venv && source venv/bin/activate && install_reqs
-    echo "Environment ready"
-}
+PATH_TO_LOCAL_PARQUET_FACTORY=${PATH_TO_LOCAL_PARQUET_FACTORY:-"../parquet-factory"}
 
 function get_binary() {
     (
@@ -75,16 +62,6 @@ function code_coverage_report() {
 EOF
 }
 
-function add_exit_trap {
-    local to_add=$1
-    if [[ -z "$exit_trap_command" ]]
-    then
-        exit_trap_command="$to_add"
-    else
-        exit_trap_command="$exit_trap_command; $to_add"
-    fi
-}
-
 flag=${1:-""}
 
 if [[ "${flag}" = "coverage" ]]
@@ -93,11 +70,7 @@ then
     prepare_code_coverage
 fi
 
-# prepare virtual environment if necessary
-case "$NOVENV" in
-    "") echo "using existing virtual env" && install_reqs;;
-    "1") prepare_venv ;;
-esac
+ensure_venv
 
 set_env_vars
 get_binary

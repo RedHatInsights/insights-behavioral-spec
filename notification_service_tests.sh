@@ -14,27 +14,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# shellcheck source=tools/test_runner_common.sh disable=SC1091
+source "$(dirname "$(realpath "$0")")/tools/test_runner_common.sh"
 
-dir_path=$(dirname "$(realpath "$0")")
-export PATH=$PATH:$dir_path
 PATH_TO_LOCAL_NOTIFICATION_SERVICE="../ccx-notification-service"
 PATH_TO_LOCAL_NOTIFICATION_WRITER="../ccx-notification-writer"
 
-#set NOVENV is current environment is not a python virtual env
-[ "$VIRTUAL_ENV" != "" ] || NOVENV=1
-
-function install_reqs() {
-    pip install -r requirements.txt || exit 1
-}
-
-function prepare_venv() {
-    echo "Preparing environment"
-    # shellcheck disable=SC1091
-    virtualenv -p python3 venv && source venv/bin/activate && install_reqs
-    echo "Environment ready"
-}
-
 function start_mocked_dependencies() {
+    # dir_path is set by test_runner_common.sh
+    # shellcheck disable=SC2154
     pushd "$dir_path"/mocks/insights-content-service && uvicorn content_server:app --port 8082 &
     pushd "$dir_path"/mocks/prometheus && uvicorn push_gateway:app --port 9091 &
     pushd "$dir_path"/mocks/service-log && uvicorn service_log:app --port 8000 &
@@ -135,24 +123,6 @@ function code_coverage_report() {
 EOF
 }
 
-# mechanism to chain more trap commands added in different parts of this script
-exit_trap_command=""
-function cleanup {
-    #shellcheck disable=SC2317
-    eval "$exit_trap_command"
-}
-trap cleanup EXIT
-
-function add_exit_trap {
-    local to_add=$1
-    if [[ -z "$exit_trap_command" ]]
-    then
-        exit_trap_command="$to_add"
-    else
-        exit_trap_command="$exit_trap_command; $to_add"
-    fi
-}
-
 flag=${1:-""}
 
 if [[ "${flag}" = "coverage" ]]
@@ -161,11 +131,7 @@ then
     prepare_code_coverage
 fi
 
-# prepare virtual environment if necessary
-case "$NOVENV" in
-    "") echo "using existing virtual env" && install_reqs;;
-    "1") prepare_venv ;;
-esac
+ensure_venv
 
 #launch mocked services if WITHMOCK is provided
 [ "$WITHMOCK" == "1" ] && start_mocked_dependencies

@@ -14,24 +14,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# shellcheck source=tools/test_runner_common.sh disable=SC1091
+source "$(dirname "$(realpath "$0")")/tools/test_runner_common.sh"
 
-dir_path=$(dirname "$(realpath "$0")")
-export PATH=$PATH:$dir_path
-PATH_TO_LOCAL_DATA_ENG_SERVICE=${PATH_TO_LOCAL_DATA_ENG_SERVICE:="../ccx-upgrades-data-eng"}
-
-#set NOVENV is current environment is not a python virtual env
-[ "$VIRTUAL_ENV" != "" ] || NOVENV=1
-
-function install_reqs() {
-    pip install -r requirements.txt || exit 1
-}
-
-function prepare_venv() {
-    echo "Preparing environment"
-    # shellcheck disable=SC1091
-    virtualenv -p python3 venv && source venv/bin/activate && install_reqs
-    echo "Environment ready"
-}
+PATH_TO_LOCAL_DATA_ENG_SERVICE=${PATH_TO_LOCAL_DATA_ENG_SERVICE:-"../ccx-upgrades-data-eng"}
 
 function install_data_eng_service() {
     pip install "$PATH_TO_LOCAL_DATA_ENG_SERVICE" || exit 1
@@ -40,6 +26,8 @@ function install_data_eng_service() {
 }
 
 function start_mocked_dependencies() {
+    # dir_path is set by test_runner_common.sh
+    # shellcheck disable=SC2154
     pushd "$dir_path"/mocks/inference-service && uvicorn inference_service:app --port 8001 &
     pushd "$dir_path"/mocks/rhobs && uvicorn rhobs_service:app --port 8002 &
 
@@ -49,29 +37,7 @@ function start_mocked_dependencies() {
     sleep 2  # wait for the mocks to be up
 }
 
-# mechanism to chain more trap commands added in different parts of this script
-exit_trap_command=""
-function cleanup {
-    #shellcheck disable=SC2317
-    eval "$exit_trap_command"
-}
-trap cleanup EXIT
-
-function add_exit_trap {
-    local to_add=$1
-    if [[ -z "$exit_trap_command" ]]
-    then
-        exit_trap_command="$to_add"
-    else
-        exit_trap_command="$exit_trap_command; $to_add"
-    fi
-}
-
-# prepare virtual environment if necessary
-case "$NOVENV" in
-    "") echo "using existing virtual env" && install_reqs;;
-    "1") prepare_venv ;;
-esac
+ensure_venv
 
 # Copy the binary and configuration to this folder
 install_data_eng_service

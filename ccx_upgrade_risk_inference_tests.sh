@@ -14,24 +14,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# shellcheck source=tools/test_runner_common.sh disable=SC1091
+source "$(dirname "$(realpath "$0")")/tools/test_runner_common.sh"
 
-dir_path=$(dirname "$(realpath "$0")")
-export PATH=$PATH:$dir_path
-PATH_TO_LOCAL_INFERENCE_SERVICE=${PATH_TO_LOCAL_INFERENCE_SERVICE:="../ccx-upgrades-inference/"}
-
-#set NOVENV if current environment is not a python virtual env
-[ "$VIRTUAL_ENV" != "" ] || NOVENV=1
-
-function install_reqs() {
-    pip install -r requirements.txt || exit 1
-}
-
-function prepare_venv() {
-    echo "Preparing environment"
-    # shellcheck disable=SC1091
-    virtualenv -p python3 venv && source venv/bin/activate && install_reqs
-    echo "Environment ready"
-}
+PATH_TO_LOCAL_INFERENCE_SERVICE=${PATH_TO_LOCAL_INFERENCE_SERVICE:-"../ccx-upgrades-inference/"}
 
 function install_inference_service() {
     pip install -r "$PATH_TO_LOCAL_INFERENCE_SERVICE"/requirements.txt || exit 1
@@ -40,29 +26,7 @@ function install_inference_service() {
     add_exit_trap 'pip uninstall -y ccx-upgrades-inference'
 }
 
-# mechanism to chain more trap commands added in different parts of this script
-exit_trap_command=""
-function cleanup {
-    #shellcheck disable=SC2317
-    eval "$exit_trap_command"
-}
-trap cleanup EXIT
-
-function add_exit_trap {
-    local to_add=$1
-    if [[ -z "$exit_trap_command" ]]
-    then
-        exit_trap_command="$to_add"
-    else
-        exit_trap_command="$exit_trap_command; $to_add"
-    fi
-}
-
-# prepare virtual environment if necessary
-case "$NOVENV" in
-    "") echo "using existing virtual env" && install_reqs;;
-    "1") prepare_venv ;;
-esac
+ensure_venv
 
 # Copy the binary and configuration to this folder
 install_inference_service
