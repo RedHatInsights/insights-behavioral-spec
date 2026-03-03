@@ -14,6 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# shellcheck source=tools/test_runner_common.sh disable=SC1091
+source "$(dirname "$(realpath "$0")")/tools/test_runner_common.sh"
+
 if [ -z "$ENV_DOCKER" ]; then
     PATH_TO_LOCAL_CONTENT_SERVICE=${PATH_TO_LOCAL_CONTENT_SERVICE:="../content-service"}
 else
@@ -75,10 +78,7 @@ build_service && run_service
 content_service_pid=$!
 sleep 2
 
-PYTHONDONTWRITEBYTECODE=1 python3 -m behave --no-capture \
-    --format=progress2 \
-    --tags=-skip --tags=-managed \
-    -D dump_errors=true @test_list/insights_content_service.txt "$@"
+run_behave_tests "@test_list/insights_content_service.txt" --tags=-managed "$@"
 
 exitCode=$?
 

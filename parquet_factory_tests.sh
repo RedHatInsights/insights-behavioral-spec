@@ -75,7 +75,7 @@ ensure_venv
 set_env_vars
 get_binary
 
-PYTHONDONTWRITEBYTECODE=1 python3 -m behave --tags=-skip -D dump_errors=true @test_list/parquet_factory.txt "$@"
+run_behave_tests "@test_list/parquet_factory.txt" "$@"
 
 bddExecutionExitCode=$?
 

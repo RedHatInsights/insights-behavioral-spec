@@ -75,7 +75,7 @@ then
     prepare_code_coverage
 fi
 
-PYTHONDONTWRITEBYTECODE=1 python3 -m behave --tags=-skip -D dump_errors=true @test_list/insights_results_aggregator_mock.txt "$@"
+run_behave_tests "@test_list/insights_results_aggregator_mock.txt" "$@"
 bddExecutionExitCode=$?
 
 if [[ "${flag}" == "coverage" ]]

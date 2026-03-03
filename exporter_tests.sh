@@ -91,7 +91,7 @@ fi
 echo "Getting binary from ${PATH_TO_LOCAL_EXPORTER}"
 get_binary
 
-PYTHONDONTWRITEBYTECODE=1 python3 -m behave --tags=-skip -D dump_errors=true @test_list/exporter.txt "$@"
+run_behave_tests "@test_list/exporter.txt" "$@"
 
 bddExecutionExitCode=$?
 
