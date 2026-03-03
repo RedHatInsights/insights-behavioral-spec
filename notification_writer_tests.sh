@@ -14,16 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-function install_reqs() {
-    pip install -r requirements.txt || exit 1
-}
-
-function prepare_venv() {
-    echo "Preparing environment"
-    # shellcheck disable=SC1091
-    virtualenv -p python3 venv && source venv/bin/activate && install_reqs
-    echo "Environment ready"
-}
+# shellcheck source=tools/test_runner_common.sh disable=SC1091
+source "$(dirname "$(realpath "$0")")/tools/test_runner_common.sh"
 
 function set_env_vars(){
     export DB_NAME=notification \
@@ -74,13 +66,7 @@ then
     prepare_code_coverage
 fi
 
-# prepare virtual environment if necessary
-[ "$VIRTUAL_ENV" != "" ] || NOVENV=1
-case "$NOVENV" in
-    "") echo "using existing virtual env" && install_reqs;;
-    "1") prepare_venv ;;
-esac
-
+ensure_venv
 
 if [[ -n $ENV_DOCKER ]]
 then
