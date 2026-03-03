@@ -49,10 +49,10 @@ aggregator-mock-code-coverage: ## Compute code coverage for Insights Results Agg
 	./insights_results_aggregator_mock_tests.sh coverage
 
 exporter exporter-tests: ## Run BDD tests for the CCX Exporter service
-	./exporter_tests.sh
+	PATH_TO_LOCAL_EXPORTER=$${SERVICE_UNDER_TEST:-$$PATH_TO_LOCAL_EXPORTER} ./exporter_tests.sh
 
 exporter-code-coverage: ## Compute code coverage for Insights Results Exporter service
-	./insights_results_exporter_tests.sh coverage
+	PATH_TO_LOCAL_EXPORTER=$${SERVICE_UNDER_TEST:-$$PATH_TO_LOCAL_EXPORTER} /exporter_tests.sh coverage
 
 notification-service notification-service-tests: ## Run BDD tests for the CCX Notification Service
 	./notification_service_tests.sh

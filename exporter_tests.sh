@@ -17,6 +17,20 @@
 # shellcheck source=tools/test_runner_common.sh disable=SC1091
 source "$(dirname "$(realpath "$0")")/tools/test_runner_common.sh"
 
+PATH_TO_LOCAL_EXPORTER=${PATH_TO_LOCAL_EXPORTER:-"../insights-results-aggregator-exporter"}
+
+function get_binary() {
+    [[ -d "$PATH_TO_LOCAL_EXPORTER" ]] || exit 1
+    if [[ ! -f "$PATH_TO_LOCAL_EXPORTER/insights-results-aggregator-exporter" ]]; then
+        (
+            cd "$PATH_TO_LOCAL_EXPORTER" || exit
+            make build || exit 1
+        ) || exit 1
+    fi
+    cp "$PATH_TO_LOCAL_EXPORTER/insights-results-aggregator-exporter" . || exit 1
+    add_exit_trap 'rm -f insights-results-aggregator-exporter'
+}
+
 function set_env_vars(){
     export INSIGHTS_RESULTS_AGGREGATOR_EXPORTER__STORAGE__DB_DRIVER=postgres \
 	   INSIGHTS_RESULTS_AGGREGATOR_EXPORTER__STORAGE__PG_PARAMS=$DB_PARAMS \
@@ -73,6 +87,9 @@ then
     # set env vars
     set_env_vars
 fi
+
+echo "Getting binary from ${PATH_TO_LOCAL_EXPORTER}"
+get_binary
 
 PYTHONDONTWRITEBYTECODE=1 python3 -m behave --tags=-skip -D dump_errors=true @test_list/exporter.txt "$@"
 
