@@ -55,5 +55,7 @@ function ensure_venv() {
 ## Run Behave tests
 # Usage: run_behave_tests <args>
 function run_behave_tests() {
-    PYTHONDONTWRITEBYTECODE=1 python3 -m behave --tags=-skip --format=progress2 -D dump_errors=true $1 "$@"
+    local test_selector="$1"
+    shift
+    PYTHONDONTWRITEBYTECODE=1 python3 -m behave --tags=-skip --format=progress2 -D dump_errors=true "$test_selector" "$@"
 }
