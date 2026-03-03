@@ -14,6 +14,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+dir_path=$(dirname "$(realpath "$0")")
+export PATH=$PATH:$dir_path
+PATH_TO_LOCAL_CLEANER=${PATH_TO_LOCAL_CLEANER:="../insights-results-aggregator-cleaner"}
+
+#set NOVENV is current environment is not a python virtual env
+[ "$VIRTUAL_ENV" != "" ] || NOVENV=1
+
+# mechanism to chain more trap commands added in different parts of this script
+# shellcheck disable=SC2034
+exit_trap_command=""
+function cleanup {
+    #shellcheck disable=SC2317
+    eval "$exit_trap_command"
+}
+trap cleanup EXIT
+
+function add_exit_trap {
+    local to_add=$1
+    if [[ -z "$exit_trap_command" ]]
+    then
+        exit_trap_command="$to_add"
+    else
+        exit_trap_command="$exit_trap_command; $to_add"
+    fi
+}
+
 function install_reqs() {
     pip install -r requirements.txt || exit 1
 }
@@ -23,6 +49,18 @@ function prepare_venv() {
     # shellcheck disable=SC1091
     python3 -m venv venv && source venv/bin/activate && install_reqs
     echo "Environment ready"
+}
+
+function get_binary() {
+    [[ -d "$PATH_TO_LOCAL_CLEANER" ]] || exit 1
+    if [[ ! -f "$PATH_TO_LOCAL_CLEANER/insights-results-aggregator-cleaner" ]]; then
+        (
+            cd "$PATH_TO_LOCAL_CLEANER" || exit
+            make build || exit 1
+        ) || exit 1
+    fi
+    cp "$PATH_TO_LOCAL_CLEANER/insights-results-aggregator-cleaner" . || exit 1
+    add_exit_trap 'rm -f insights-results-aggregator-cleaner'
 }
 
 function set_env_vars(){
@@ -68,18 +106,20 @@ then
 fi
 
 # prepare virtual environment if necessary
-[ "$VIRTUAL_ENV" != "" ] || NOVENV=1
+
 case "$NOVENV" in
     "") echo "using existing virtual env" && install_reqs;;
     "1") prepare_venv;;
 esac
-
 
 if [[ -n $ENV_DOCKER ]]
 then
     #set env vars
     set_env_vars
 fi
+
+echo "Getting binary from ${PATH_TO_LOCAL_CLEANER}"
+get_binary
 
 PYTHONDONTWRITEBYTECODE=1 python3 -m behave --tags=-skip -D dump_errors=true @test_list/cleaner.txt "$@"
 
