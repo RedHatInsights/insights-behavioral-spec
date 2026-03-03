@@ -120,6 +120,13 @@ fi
 # Copy the binary and configuration to this folder
 install_service
 
+dir_path=$(dirname "$(realpath "$0")")
+export PATH=$PATH:$dir_path
+export PATH_TO_LOCAL_SHA_EXTRACTOR=${PATH_TO_LOCAL_SHA_EXTRACTOR:="../insights-sha-extractor"}
+
+# shellcheck source=tools/test_runner_common.sh disable=SC1091
+source "${dir_path}/tools/test_runner_common.sh"
+
 run_behave_tests "@test_list/insights_sha_extractor.txt" --tags=-managed "$@"
 
 bddExecutionExitCode=$?
