@@ -113,4 +113,11 @@ fi
 
 install_extractor
 
+#!/bin/bash -x
+
+# shellcheck source=tools/test_runner_common.sh disable=SC1091
+source "$(dirname "$(realpath "$0")")/tools/test_runner_common.sh"
+
+export PATH_TO_LOCAL_DVO_EXTRACTOR=${PATH_TO_LOCAL_DVO_EXTRACTOR:="../dvo-extractor"}
+
 run_behave_tests "@test_list/dvo_extractor.txt" --tags=-managed "$@"
