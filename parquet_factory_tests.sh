@@ -26,7 +26,7 @@ function get_binary() {
     )
     cp "$PATH_TO_LOCAL_PARQUET_FACTORY/parquet-factory" .
     cp "$PATH_TO_LOCAL_PARQUET_FACTORY/config.toml" .
-    add_exit_trap 'rm parquet-factory; config.toml'
+    add_exit_trap 'rm -f parquet-factory config.toml'
 }
 
 function set_env_vars(){
