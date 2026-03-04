@@ -23,7 +23,7 @@ Feature: Basic set of smoke tests - checks if all required tools are available a
 
   Scenario: Check if CCX Notification Writer database can be reached
      Given the system is in default state
-     When I connect to database named notification as user postgres with password postgres
+     When I connect to database named test as user postgres with password postgres
      Then I should be able to connect to such database
      When I close database connection
      Then I should be disconnected

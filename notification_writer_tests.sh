@@ -17,6 +17,20 @@
 # shellcheck source=tools/test_runner_common.sh disable=SC1091
 source "$(dirname "$(realpath "$0")")/tools/test_runner_common.sh"
 
+PATH_TO_LOCAL_NOTIFICATION_WRITER=${PATH_TO_LOCAL_NOTIFICATION_WRITER:-"../ccx-notification-writer"}
+
+function get_binary() {
+    [[ -d "$PATH_TO_LOCAL_NOTIFICATION_WRITER" ]] || exit 1
+    if [[ ! -f "$PATH_TO_LOCAL_NOTIFICATION_WRITER/ccx-notification-writer" ]]; then
+        (
+            cd "$PATH_TO_LOCAL_NOTIFICATION_WRITER" || exit
+            make build || exit 1
+        ) || exit 1
+    fi
+
+    cp "$PATH_TO_LOCAL_NOTIFICATION_WRITER/ccx-notification-writer" . || exit 1
+}
+
 function set_env_vars(){
     export DB_NAME=notification \
 	   CCX_NOTIFICATION_WRITER__STORAGE__DB_DRIVER=postgres \
@@ -25,7 +39,7 @@ function set_env_vars(){
 	   CCX_NOTIFICATION_WRITER__STORAGE__PG_PASSWORD=$DB_PASS \
 	   CCX_NOTIFICATION_WRITER__STORAGE__PG_HOST=$DB_HOST \
 	   CCX_NOTIFICATION_WRITER__STORAGE__PG_PORT=$DB_PORT \
-	   CCX_NOTIFICATION_WRITER__STORAGE__PG_DB_NAME=notification \
+	   CCX_NOTIFICATION_WRITER__STORAGE__PG_DB_NAME=test \
 	   CCX_NOTIFICATION_WRITER__BROKER__ADDRESS="$KAFKA_HOST:$KAFKA_PORT" \
 	   CCX_NOTIFICATION_WRITER__BROKER__TOPIC=ccx.ocp.results \
 	   CCX_NOTIFICATION_WRITER__BROKER__GROUP=test-consumer-group \
@@ -70,12 +84,13 @@ ensure_venv
 
 if [[ -n $ENV_DOCKER ]]
 then
-    #set env vars
     set_env_vars
 fi
 
-run_behave_tests "@test_list/notification_writer.txt" "$@"
+echo "Getting binary from ${PATH_TO_LOCAL_NOTIFICATION_WRITER}"
+get_binary
 
+run_behave_tests "@test_list/notification_writer.txt" "$@"
 bddExecutionExitCode=$?
 
 if [[ "${flag}" == "coverage" ]]

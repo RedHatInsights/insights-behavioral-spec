@@ -61,10 +61,10 @@ notification-service-code-coverage: ## Compute code coverage for the CCX Notific
 	./notification_service_tests.sh coverage
 
 notification-writer notification-writer-tests: ## Run BDD tests for the CCX Notification Writer
-	./notification_writer_tests.sh
+	PATH_TO_LOCAL_NOTIFICATION_WRITER=$${SERVICE_UNDER_TEST:-$$PATH_TO_LOCAL_NOTIFICATION_WRITER} ./notification_writer_tests.sh
 
 notification-writer-code-coverage: ## Compute code coverage for the CCX Notification Writer
-	./notification_writer_tests.sh coverage
+	PATH_TO_LOCAL_NOTIFICATION_WRITER=$${SERVICE_UNDER_TEST:-$$PATH_TO_LOCAL_NOTIFICATION_WRITER} ./notification_writer_tests.sh coverage
 
 inference-service inference-service-tests: ## Run BDD tests for the Inference Service
 	./ccx_upgrade_risk_inference_tests.sh

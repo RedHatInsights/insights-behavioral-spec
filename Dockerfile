@@ -25,9 +25,9 @@ WORKDIR $HOME
 
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 COPY requirements.txt $HOME/
-RUN microdnf install --nodocs -y python3.11 unzip make lsof git libpq-devel tar npm &&\
+RUN microdnf install --nodocs -y python3.11 unzip make lsof git libpq-devel tar npm gcc &&\
     python3.11  -m venv $VIRTUAL_ENV && source $VIRTUAL_ENV/bin/activate &&\
-    pip install --no-cache-dir -U pip wheel &&\
+    pip install --no-cache-dir -U pip wheel &&\
     pip install --no-cache-dir -r requirements.txt
 
 COPY . $HOME
