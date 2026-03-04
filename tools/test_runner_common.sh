@@ -51,3 +51,11 @@ function ensure_venv() {
         "1") prepare_venv ;;
     esac
 }
+
+## Run Behave tests
+# Usage: run_behave_tests <args>
+function run_behave_tests() {
+    local test_selector="$1"
+    shift
+    PYTHONDONTWRITEBYTECODE=1 python3 -m behave --tags=-skip --format=progress2 -D dump_errors=true "$test_selector" "$@"
+}

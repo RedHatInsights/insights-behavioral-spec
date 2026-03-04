@@ -85,7 +85,7 @@ fi
 echo "Getting binary from $PATH_TO_LOCAL_AGGREGATOR"
 get_binary
 
-PYTHONDONTWRITEBYTECODE=1 python3 -m behave --tags=-skip --format=progress2 -D dump_errors=true @test_list/insights_results_aggregator.txt "$@"
+run_behave_tests "@test_list/insights_results_aggregator.txt" "$@"
 
 bddExecutionExitCode=$?
 

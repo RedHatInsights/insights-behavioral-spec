@@ -85,7 +85,7 @@ fi
 echo "Getting binary from $PATH_TO_LOCAL_DVO_WRITER"
 get_binary
 
-PYTHONDONTWRITEBYTECODE=1 python3 -m behave --tags=-skip --format=progress2 -D dump_errors=true @test_list/dvo_writer.txt "$@"
+run_behave_tests "@test_list/dvo_writer.txt" "$@"
 
 bddExecutionExitCode=$?
 

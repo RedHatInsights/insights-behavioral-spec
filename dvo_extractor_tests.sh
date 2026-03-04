@@ -113,9 +113,11 @@ fi
 
 install_extractor
 
-# shellcheck disable=SC2068
-PYTHONDONTWRITEBYTECODE=1 python3 -m behave \
-    --format=progress2 \
-    --tags=-skip --tags=-managed \
-    --no-capture \
-    -D dump_errors=true @test_list/dvo_extractor.txt "$@"
+#!/bin/bash -x
+
+# shellcheck source=tools/test_runner_common.sh disable=SC1091
+source "$(dirname "$(realpath "$0")")/tools/test_runner_common.sh"
+
+export PATH_TO_LOCAL_DVO_EXTRACTOR=${PATH_TO_LOCAL_DVO_EXTRACTOR:="../dvo-extractor"}
+
+run_behave_tests "@test_list/dvo_extractor.txt" --tags=-managed "$@"

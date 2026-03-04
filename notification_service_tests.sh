@@ -148,10 +148,7 @@ else
 fi
 
 # shellcheck disable=SC2068
-PYTHONDONTWRITEBYTECODE=1 python3 -m behave \
-    --format=progress2 \
-    --tags=-skip --tags=-managed \
-    -D dump_errors=true @test_list/notification_service.txt "$@"
+run_behave_tests "@test_list/notification_service.txt" --tags=-managed "$@"
 
 bddExecutionExitCode=$?
 

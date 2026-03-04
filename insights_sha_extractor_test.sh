@@ -120,11 +120,14 @@ fi
 # Copy the binary and configuration to this folder
 install_service
 
-# shellcheck disable=SC2068
-PYTHONDONTWRITEBYTECODE=1 python3 -m behave \
-    --format=progress2 \
-    --tags=-skip --tags=-managed \
-    -D dump_errors=true @test_list/insights_sha_extractor.txt "$@"
+dir_path=$(dirname "$(realpath "$0")")
+export PATH=$PATH:$dir_path
+export PATH_TO_LOCAL_SHA_EXTRACTOR=${PATH_TO_LOCAL_SHA_EXTRACTOR:="../insights-sha-extractor"}
+
+# shellcheck source=tools/test_runner_common.sh disable=SC1091
+source "${dir_path}/tools/test_runner_common.sh"
+
+run_behave_tests "@test_list/insights_sha_extractor.txt" --tags=-managed "$@"
 
 bddExecutionExitCode=$?
 
