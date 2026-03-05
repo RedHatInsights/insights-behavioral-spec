@@ -4,7 +4,7 @@ Feature: Check command line options provided by CCX Notification Service
 
   Background: Dependencies are prepared
     Given the system is in default state
-      And the database is named notification
+      And the database is named test
       And database user is set to postgres
       And database password is set to postgres
       And database connection is established

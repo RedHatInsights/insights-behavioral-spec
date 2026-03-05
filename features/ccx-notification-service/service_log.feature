@@ -1,7 +1,7 @@
 Feature: Service Log
 
   Background: Dependencies are prepared
-    Given the database is named notification
+    Given the database is named test
       And database user is set to postgres
       And database password is set to postgres
       And database connection is established

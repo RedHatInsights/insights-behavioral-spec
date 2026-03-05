@@ -17,8 +17,7 @@
 # shellcheck source=tools/test_runner_common.sh disable=SC1091
 source "$(dirname "$(realpath "$0")")/tools/test_runner_common.sh"
 
-PATH_TO_LOCAL_NOTIFICATION_SERVICE="../ccx-notification-service"
-PATH_TO_LOCAL_NOTIFICATION_WRITER="../ccx-notification-writer"
+PATH_TO_LOCAL_NOTIFICATION_SERVICE=${PATH_TO_LOCAL_NOTIFICATION_SERVICE:-"../ccx-notification-service"}
 
 function start_mocked_dependencies() {
     start_mock mocks/insights-content-service "uvicorn content_server:app --port 8082"
@@ -33,39 +32,52 @@ function start_mocked_dependencies() {
 }
 
 function get_binary() {
+    if [ -x "$(command -v ccx-notification-service)" ]; then
+        return
+    fi
+
     (
-        cd "$PATH_TO_LOCAL_NOTIFICATION_SERVICE" || exit
-        make build
-    )
-    cp "$PATH_TO_LOCAL_NOTIFICATION_SERVICE/ccx-notification-service" .
-    # cp "$PATH_TO_LOCAL_NOTIFICATION_SERVICE/config.toml" .
-    cp config/notification_service.toml config.toml
-    add_exit_trap 'rm ccx-notification-service; rm config.toml'
+        cd "$PATH_TO_LOCAL_NOTIFICATION_SERVICE" || exit 1
+        make build || exit 1
+    ) || exit 1
+    cp "$PATH_TO_LOCAL_NOTIFICATION_SERVICE/ccx-notification-service" . || exit 1
+    add_exit_trap 'rm -f ccx-notification-service'
 }
 
+# shellcheck disable=SC2154
 function init_db() {
+    if [[ ! -f /tmp/ccx-notification-writer/ccx-notification-writer ]]; then
+        (
+            git clone --depth=1 https://github.com/RedHatInsights/ccx-notification-writer.git /tmp/ccx-notification-writer|| exit 1
+            pushd /tmp/ccx-notification-writer || exit 1
+            make build || exit 1
+        ) || exit 1
+    fi
+
     (
-        cd "$PATH_TO_LOCAL_NOTIFICATION_WRITER" || exit
-        make build
-    )
-    cp "$PATH_TO_LOCAL_NOTIFICATION_WRITER/ccx-notification-writer" .
-    cp "$PATH_TO_LOCAL_NOTIFICATION_WRITER/config.toml" .
-    ./ccx-notification-writer -db-init
-    ./ccx-notification-writer -db-init-migration
-    ./ccx-notification-writer -migrate latest
-    rm ccx-notification-writer
-    rm config.toml
+        pushd /tmp/ccx-notification-writer || exit 1
+        export CCX_NOTIFICATION_WRITER__STORAGE__DB_DRIVER=postgres \
+            CCX_NOTIFICATION_WRITER__STORAGE__PG_PARAMS=$DB_PARAMS \
+            CCX_NOTIFICATION_WRITER__STORAGE__PG_USERNAME=$DB_USER \
+            CCX_NOTIFICATION_WRITER__STORAGE__PG_PASSWORD=$DB_PASS \
+            CCX_NOTIFICATION_WRITER__STORAGE__PG_HOST=$DB_HOST \
+            CCX_NOTIFICATION_WRITER__STORAGE__PG_PORT=$DB_PORT \
+            CCX_NOTIFICATION_WRITER__STORAGE__PG_DB_NAME=$DB_NAME
+
+        ./ccx-notification-writer --db-init-migration > "${dir_path}/logs/ccx-notification-writer_db-init-migration.log" 2>&1 || exit 1
+        ./ccx-notification-writer --db-init > "${dir_path}/logs/ccx-notification-writer_db-init.log" 2>&1 || exit 1
+        ./ccx-notification-writer --migrate latest > "${dir_path}/logs/ccx-notification-writer_migrate.log" 2>&1 || exit 1
+    ) || exit 1
 }
 
 function set_env_vars() {
-    export DB_NAME=notification \
-	   CCX_NOTIFICATION_SERVICE__STORAGE__DB_DRIVER=postgres \
+    export CCX_NOTIFICATION_SERVICE__STORAGE__DB_DRIVER=postgres \
 	   CCX_NOTIFICATION_SERVICE__STORAGE__PG_PARAMS=$DB_PARAMS \
 	   CCX_NOTIFICATION_SERVICE__STORAGE__PG_USERNAME=$DB_USER \
 	   CCX_NOTIFICATION_SERVICE__STORAGE__PG_PASSWORD=$DB_PASS \
 	   CCX_NOTIFICATION_SERVICE__STORAGE__PG_HOST=$DB_HOST \
 	   CCX_NOTIFICATION_SERVICE__STORAGE__PG_PORT=$DB_PORT \
-	   CCX_NOTIFICATION_SERVICE__STORAGE__PG_DB_NAME=notification \
+	   CCX_NOTIFICATION_SERVICE__STORAGE__PG_DB_NAME=$DB_NAME \
 	   CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ADDRESSES="$KAFKA_HOST:$KAFKA_PORT" \
 	   CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__TOPIC=platform.notifications.ingress \
 	   CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ENABLED=true \
@@ -134,16 +146,13 @@ ensure_venv
 #launch mocked services if WITHMOCK is provided
 [ "$WITHMOCK" == "1" ] && start_mocked_dependencies
 
-if [[ -z $ENV_DOCKER ]]
-then
-    # Create all the tables
-    init_db
-    # Copy the binary and configuration to this folder
-    get_binary
-else
-    # set environment variables
-    set_env_vars
-fi
+set_env_vars
+
+# Copy the binary and configuration to this folder
+get_binary
+
+# Create all the tables
+init_db
 
 # shellcheck disable=SC2068
 run_behave_tests "@test_list/notification_service.txt" --tags=-managed "$@"

@@ -55,10 +55,10 @@ exporter-code-coverage: ## Compute code coverage for Insights Results Exporter s
 	PATH_TO_LOCAL_EXPORTER=$${SERVICE_UNDER_TEST:-$$PATH_TO_LOCAL_EXPORTER} /exporter_tests.sh coverage
 
 notification-service notification-service-tests: ## Run BDD tests for the CCX Notification Service
-	./notification_service_tests.sh
+	PATH_TO_LOCAL_NOTIFICATION_SERVICE=$${SERVICE_UNDER_TEST:-$$PATH_TO_LOCAL_NOTIFICATION_SERVICE} ./notification_service_tests.sh
 
 notification-service-code-coverage: ## Compute code coverage for the CCX Notification Service
-	./notification_service_tests.sh coverage
+	PATH_TO_LOCAL_NOTIFICATION_SERVICE=$${SERVICE_UNDER_TEST:-$$PATH_TO_LOCAL_NOTIFICATION_SERVICE} ./notification_service_tests.sh coverage
 
 notification-writer notification-writer-tests: ## Run BDD tests for the CCX Notification Writer
 	PATH_TO_LOCAL_NOTIFICATION_WRITER=$${SERVICE_UNDER_TEST:-$$PATH_TO_LOCAL_NOTIFICATION_WRITER} ./notification_writer_tests.sh

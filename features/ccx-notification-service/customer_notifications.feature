@@ -5,7 +5,7 @@ Feature: Customer Notifications
   Background: Dependencies are prepared
     Given Kafka broker is available
       And Kafka topic "platform.notifications.ingress" is empty
-      And the database is named notification
+      And the database is named test
       And database user is set to postgres
       And database password is set to postgres
       And database connection is established
