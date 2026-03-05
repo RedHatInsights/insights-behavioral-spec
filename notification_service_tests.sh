@@ -21,17 +21,14 @@ PATH_TO_LOCAL_NOTIFICATION_SERVICE="../ccx-notification-service"
 PATH_TO_LOCAL_NOTIFICATION_WRITER="../ccx-notification-writer"
 
 function start_mocked_dependencies() {
-    # dir_path is set by test_runner_common.sh
-    # shellcheck disable=SC2154
-    pushd "$dir_path"/mocks/insights-content-service && uvicorn content_server:app --port 8082 &
-    pushd "$dir_path"/mocks/prometheus && uvicorn push_gateway:app --port 9091 &
-    pushd "$dir_path"/mocks/service-log && uvicorn service_log:app --port 8000 &
-    pushd "$dir_path"/mocks/content-template-renderer && uvicorn content_template_renderer:app --port 8083 &
-    pushd "$dir_path"/mocks/token-refreshment && uvicorn token_refreshment:app --port 8001 &
+    start_mock mocks/insights-content-service "uvicorn content_server:app --port 8082"
+    start_mock mocks/prometheus "uvicorn push_gateway:app --port 9091"
+    start_mock mocks/service-log "uvicorn service_log:app --port 8000"
+    start_mock mocks/content-template-renderer "uvicorn content_template_renderer:app --port 8083"
+    start_mock mocks/token-refreshment "uvicorn token_refreshment:app --port 8001"
 
     # shellcheck disable=SC2016
     add_exit_trap 'kill $(lsof -ti:8082); kill $(lsof -ti:9091); kill $(lsof -ti:8000); kill $(lsof -ti:8083); kill $(lsof -ti:8001)'
-    pushd "$dir_path" || exit
     sleep 2  # wait for the mocks to be up
 }
 
@@ -124,6 +121,7 @@ EOF
 }
 
 flag=${1:-""}
+ensure_logs_dir
 
 if [[ "${flag}" = "coverage" ]]
 then
