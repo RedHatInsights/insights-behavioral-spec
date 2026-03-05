@@ -32,6 +32,21 @@ function add_exit_trap {
     fi
 }
 
+function ensure_logs_dir() {
+    mkdir -p ${dir_path}/logs
+}
+
+function start_mock() {
+    directory=$1
+    cmd=$2
+    log_file=${dir_path}/logs/$(basename ${directory})_mock.log
+
+    (
+        pushd ${dir_path}/${directory} || exit
+        ${cmd} > ${log_file} 2>&1 &
+    ) || exit 1
+}
+
 function install_reqs() {
     pip install -r requirements.txt || exit 1
 }
