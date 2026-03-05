@@ -28,15 +28,15 @@ function install_data_eng_service() {
 function start_mocked_dependencies() {
     # dir_path is set by test_runner_common.sh
     # shellcheck disable=SC2154
-    pushd "$dir_path"/mocks/inference-service && uvicorn inference_service:app --port 8001 &
-    pushd "$dir_path"/mocks/rhobs && uvicorn rhobs_service:app --port 8002 &
+    start_mock mocks/inference-service "uvicorn inference_service:app --port 8001"
+    start_mock mocks/rhobs "uvicorn rhobs_service:app --port 8002"
 
     # shellcheck disable=SC2016
     add_exit_trap 'kill $(lsof -ti:8001); kill $(lsof -ti:8002); kill $(lsof -ti:9090); kill $(lsof -ti:9091);'
-    pushd "$dir_path" || exit
     sleep 2  # wait for the mocks to be up
 }
 
+ensure_logs_dir
 ensure_venv
 
 # Copy the binary and configuration to this folder
