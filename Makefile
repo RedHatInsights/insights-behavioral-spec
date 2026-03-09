@@ -70,7 +70,7 @@ inference-service inference-service-tests: ## Run BDD tests for the Inference Se
 	./ccx_upgrade_risk_inference_tests.sh
 
 data-engineering-service data-engineering-service-tests: ## Run BDD tests for the Data Engineering Service
-	./ccx_upgrade_risk_data_eng_tests.sh
+	PATH_TO_LOCAL_DATA_ENG_SERVICE=$${SERVICE_UNDER_TEST:-$$PATH_TO_LOCAL_DATA_ENG_SERVICE} ./ccx_upgrade_risk_data_eng_tests.sh
 
 dvo-extractor dvo-extractor-tests: ## Run BDD tests for the DVO Extractor
 	./dvo_extractor_tests.sh
