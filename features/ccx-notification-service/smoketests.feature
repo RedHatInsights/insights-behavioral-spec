@@ -19,7 +19,7 @@ Feature: Basic set of smoke tests - checks if all required tools are available a
 
   Scenario: Check if CCX Notification database can be reached
     Given the system is in default state
-      And the database is named notification
+      And the database is named test
       And database user is set to postgres
       And database password is set to postgres
       And database connection is established
