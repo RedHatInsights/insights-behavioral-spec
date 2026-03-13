@@ -82,7 +82,7 @@ content-service insights-content-service-tests: ## Run BDD tests for the CCX Con
 	PATH_TO_LOCAL_CONTENT_SERVICE=$${SERVICE_UNDER_TEST:-$$PATH_TO_LOCAL_CONTENT_SERVICE} ./insights_content_service_test.sh
 
 content-template-renderer insights-content-template-renderer-tests: ## Run BDD tests for the CCX Template Renderer
-	./insights_content_template_renderer_tests.sh
+	PATH_TO_LOCAL_TEMPLATE_RENDERER=$${SERVICE_UNDER_TEST:-$$PATH_TO_LOCAL_TEMPLATE_RENDERER} ./insights_content_template_renderer_tests.sh
 
 sha-extractor insights-sha-extractor-tests: ## Run BDD tests for the CCX SHA Extractor
 	./insights_sha_extractor_test.sh
