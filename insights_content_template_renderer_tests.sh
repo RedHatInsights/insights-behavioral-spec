@@ -49,13 +49,7 @@ fi
 
 # Copy the binary and configuration to this folder
 install_service
-
-# shellcheck disable=SC2068
-PYTHONDONTWRITEBYTECODE=1 behave \
-    --no-capture \
-    --format=progress2 \
-    --tags=-skip --tags=-managed \
-    -D dump_errors=true @test_list/insights_content_template_renderer.txt "$@"
+run_behave_tests "@test_list/insights_content_template_renderer.txt" --tags=-managed "$@"
 
 bddExecutionExitCode=$?
 
