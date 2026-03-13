@@ -31,13 +31,7 @@ ensure_venv
 # Copy the binary and configuration to this folder
 install_inference_service
 
-# shellcheck disable=SC2068
-PYTHONDONTWRITEBYTECODE=1 behave \
-    --no-capture \
-    --format=progress2 \
-    --tags=-skip --tags=-managed \
-    -D dump_errors=true @test_list/upgrades_inference_service.txt "$@"
-
+run_behave_tests "@test_list/upgrades_inference_service.txt" "$@"
 bddExecutionExitCode=$?
 
 exit $bddExecutionExitCode

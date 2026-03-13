@@ -44,13 +44,7 @@ install_data_eng_service
 
 [ "$WITHMOCK" == "1" ] && start_mocked_dependencies
 
-# shellcheck disable=SC2068
-PYTHONDONTWRITEBYTECODE=1 behave \
-    --no-capture \
-    --format=progress2 \
-    --tags=-skip --tags=-managed \
-    -D dump_errors=true @test_list/upgrades_data_eng_service.txt "$@"
-
+run_behave_tests "@test_list/upgrades_data_eng_service.txt" "$@"
 bddExecutionExitCode=$?
 
 exit $bddExecutionExitCode
