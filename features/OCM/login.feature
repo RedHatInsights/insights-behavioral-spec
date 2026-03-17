@@ -56,7 +56,7 @@ Feature: Login into console.redhat.com
           | OpenShift                   |
           | Red Hat Enterprise Linux    |
           | Ansible Automation Platform |
-     When user U1 selects the item "OpenShift" from the left menu 
+     When user U1 selects the item "OpenShift" from the left menu
      Then the OpenShift section page should be displayed
       And the left menu should contian at least these items
           | Left menu item              |
@@ -80,4 +80,3 @@ Feature: Login into console.redhat.com
           | Log out          |
       When user U1 selects the "Log out" item from the user menu
       Then the page with title "Log in to your Red Hat account" is displayed
-

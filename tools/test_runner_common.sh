@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Common setup for BDD test runner scripts (*_tests.sh).
 # Source after the license block (from script in repo root):
 #   source "$(dirname "$(realpath "$0")")/tools/test_runner_common.sh"

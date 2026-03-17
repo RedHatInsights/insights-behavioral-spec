@@ -249,7 +249,7 @@
       },
       "LastChecked": {
         "type": "string"
-      }  
+      }
     },
     "required": [
       "AccountNumber",
@@ -259,4 +259,4 @@
       "OrgID",
       "RequestId"
     ]
-}  
+}

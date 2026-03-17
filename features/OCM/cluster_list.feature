@@ -72,4 +72,3 @@ Feature: List of clusters on OCM UI
           | Log out          |
      When user U1 selects the "Log out" item from the user menu
      Then the page with title "Log in to your Red Hat account" is displayed
-

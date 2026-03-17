@@ -210,4 +210,3 @@ Feature: Disabling rule in OCM user interface
      When user selects Insights tab
      Then list of rule hits should be displayed on OCM UI
       And the rule R1 should be visible in list of rule hits
-

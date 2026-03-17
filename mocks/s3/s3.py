@@ -14,7 +14,6 @@
 
 """Mock web server that returns a fake archive."""
 
-
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
 

@@ -12,7 +12,7 @@ Feature: Test the service endpoints
         When I access endpoint /info using HTTP GET method
         Then The status message of the response is "ok"
          And The status code of the response is 200
-         And The body of the response has the following schema 
+         And The body of the response has the following schema
          """
           {
             "type": "object",
@@ -69,7 +69,7 @@ Feature: Test the service endpoints
         When I access endpoint /groups using HTTP GET method
         Then The status message of the response is "ok"
          And The status code of the response is 200
-         And The body of the response has the following schema 
+         And The body of the response has the following schema
          """
           {
             "$schema": "http://json-schema.org/draft-04/schema#",
@@ -122,7 +122,7 @@ Feature: Test the service endpoints
         When I access endpoint /status using HTTP GET method
         Then The status message of the response is "ok"
          And The status code of the response is 200
-         And The body of the response has the following schema 
+         And The body of the response has the following schema
          """
           {
             "$ref": "#/definitions/ruleName",

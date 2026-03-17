@@ -30,11 +30,6 @@ function clone_service() {
 # shellcheck disable=SC2034
 [ "$VIRTUAL_ENV" != "" ] || NOVENV=1
 
-function install_reqs() {
-    #shellcheck disable=SC2317
-    pip install -r requirements.txt
-}
-
 function prepare_venv() {
     echo "Preparing environment"
     # shellcheck disable=SC1091
@@ -82,6 +77,7 @@ function run_mock_s3() {
     add_trap "kill -9 $s3_pid"
 }
 
+# shellcheck disable=SC2329
 function cleanup {
     #shellcheck disable=SC2317
     eval "$exit_trap_command"

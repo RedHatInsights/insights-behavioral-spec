@@ -22,7 +22,6 @@ app = FastAPI()
 
 
 class ReturnError(BaseModel):
-
     """Class describing error message returned by token refreshment API."""
 
     error: str
@@ -43,7 +42,8 @@ def get_access_token(grant_type: str = Form(), client_id: str = Form(), scope: s
     if client_id != "CLIENT_ID":
         return JSONResponse(
             ReturnError(
-                error="invalid grant", error_description="Invalid refresh token",
+                error="invalid grant",
+                error_description="Invalid refresh token",
             ).dict(),
             status_code=401,
         )

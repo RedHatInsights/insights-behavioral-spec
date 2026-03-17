@@ -71,5 +71,3 @@ Feature: Search for issues in case some or all issues are disabled in Insights A
           | Low            | 0                             |
           | Rules          | PROMETHEUS_DB_VOLUME_IS_EMPTY |
           | Categories     | service_availability          |
-
-

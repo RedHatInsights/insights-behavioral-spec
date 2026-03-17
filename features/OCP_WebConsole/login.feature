@@ -18,7 +18,7 @@ Feature: Login into OCP WebConsole
      Then Home page of console.redhat.com should be displayed
       And the left menu should contain at least these items
           | OpenShift                   |
-     When user U1 selects the item "OpenShift" from the left menu 
+     When user U1 selects the item "OpenShift" from the left menu
      Then the OpenShift section page should be displayed
       And the left menu should contian at least these items
           | Clusters                    |

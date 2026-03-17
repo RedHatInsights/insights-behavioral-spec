@@ -74,4 +74,3 @@ smart-proxy-tests
 #### Source code
 
 This tool is available on https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/run_in_docker.sh
-

@@ -379,7 +379,7 @@ def add(x, y):
 
 ```gherkin
 Feature: Adder test
- 
+
   Scenario: Check the function add()
     Given The function add is callable
     When I call function add with arguments 1 and 2
@@ -396,18 +396,18 @@ Feature: Adder test
 ```python
 from behave import given, then, when
 from src.adder import add
- 
- 
+
+
 @given('The function {function_name} is callable')
 def initial_state(context, function_name):
     pass
- 
- 
+
+
 @when('I call function {function} with arguments {x:d} and {y:d}')
 def call_add(context, function, x, y):
     context.result = add(x, y)
- 
- 
+
+
 @then('I should get {expected:d} as a result')
 def check_integer_result(context, expected):
     assert context.result == expected, \
@@ -442,14 +442,14 @@ def before_all(context):
 
 ```shell
 #!/bin/bash -ex
- 
+
 export NOVENV=1
 function prepare_venv() {
     virtualenv -p python3 venv && source venv/bin/activate && python3 `which pip3` install -r requirements.txt
 }
- 
+
 [ "$NOVENV" == "1" ] || prepare_venv || exit 1
- 
+
 PYTHONDONTWRITEBYTECODE=1 python3 `which behave` --tags=-skip -D dump_errors=true @feature_list.txt $@
 ```
 
@@ -700,4 +700,3 @@ def check_company(context, company):
 ```
 
 ---
-

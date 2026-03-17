@@ -13,6 +13,7 @@
 # limitations under the License.
 
 """Mock server that can be used instead of fully functional Observatorium."""
+
 import copy
 import re
 
@@ -144,7 +145,6 @@ return_not_found = False
 
 
 class Query(BaseModel):
-
     """Simple model used to mock the requests that data-engineering service will perform."""
 
     query: str

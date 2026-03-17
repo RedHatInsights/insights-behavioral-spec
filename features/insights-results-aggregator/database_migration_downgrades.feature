@@ -1100,4 +1100,3 @@ Feature: Database migration downgrades tests
           | rule_disable                       |
           | advisor_ratings                    |
           | report_info                        |
-
