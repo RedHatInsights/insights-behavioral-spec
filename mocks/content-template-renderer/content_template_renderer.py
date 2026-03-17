@@ -55,6 +55,7 @@ Output is in this form:
     }
 }
 """
+
 from fastapi import FastAPI, Request
 
 app = FastAPI()
@@ -67,7 +68,7 @@ async def render_reports(request: Request):
 
     reports = []
 
-    for cluster_id, cluster_data in data["report_data"]["reports"].items():
+    for cluster_data in data["report_data"]["reports"].values():
         for report in cluster_data["reports"]:
             if report["component"].endswith(".report"):
                 report["component"] = report["component"][:-7]

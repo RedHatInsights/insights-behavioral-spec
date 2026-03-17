@@ -114,7 +114,6 @@ app = FastAPI()
 
 
 class Log(BaseModel):
-
     """Model for log structure received by Service Log."""
 
     cluster_uuid: str
@@ -131,7 +130,6 @@ class Log(BaseModel):
 
 
 class ReturnLog(Log):
-
     """Log structure enriched by some fields added by Service Log."""
 
     id: str
@@ -143,7 +141,6 @@ class ReturnLog(Log):
 
 
 class ReturnError(BaseModel):
-
     """Structure returned by service when error occurs."""
 
     id: str
@@ -153,7 +150,7 @@ class ReturnError(BaseModel):
     operation_id: str
 
 
-noAuthResponse = JSONResponse(
+no_auth_response = JSONResponse(
     {
         "kind": "Error",
         "id": "401",
@@ -188,7 +185,7 @@ async def validation_handler():
 def publish_log(log: Log, request: Request):
     """Store received log in mock storage (list)."""
     if request.headers.get("Authorization", None) is None:
-        return noAuthResponse
+        return no_auth_response
     log = fill_default_fields(log)
     log = add_additional_fields(log)
     log_storage.append(log)
@@ -199,7 +196,7 @@ def publish_log(log: Log, request: Request):
 def get_logs(request: Request, cluster_id: str = None, cluster_uuid: str = None):
     """Return stored logs for given cluster_id and/or cluster_uuid in JSON format."""
     if request.headers.get("Authorization", None) is None:
-        return noAuthResponse
+        return no_auth_response
 
     if cluster_id is None and cluster_uuid is None:
         return JSONResponse(
@@ -233,7 +230,7 @@ def get_logs(request: Request, cluster_id: str = None, cluster_uuid: str = None)
 def get_logs_for_cluster(cluster: str, request: Request):
     """Return all logs for given cluster."""
     if request.headers.get("Authorization", None) is None:
-        return noAuthResponse
+        return no_auth_response
     res = []
     for log in log_storage:
         if log.cluster_uuid == cluster:
@@ -255,7 +252,7 @@ def get_logs_for_cluster(cluster: str, request: Request):
 def delete_logs(id: str, request: Request):
     """Delete log based on given id."""
     if request.headers.get("Authorization", None) is None:
-        return noAuthResponse
+        return no_auth_response
     for i, log in enumerate(log_storage):
         if log.id == id:
             log_storage.pop(i)

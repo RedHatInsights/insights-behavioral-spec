@@ -116,8 +116,7 @@ def request_endpoint(context, endpoint, hostname, port):
 @then("The status code of the response is {status:d}")
 def check_status_code(context, status):
     """Check the HTTP status code for latest response from tested service."""
-    assert context.response.status_code == status, \
-        f"Status code is {context.response.status_code}"
+    assert context.response.status_code == status, f"Status code is {context.response.status_code}"
 
 
 @then("The body of the response has the following schema")
@@ -132,8 +131,9 @@ def check_response_body_schema(context):
 @then("The body of the response contains {substring}")
 def check_response_body_contains(context, substring):
     """Check that response body contains a substring."""
-    assert substring in context.response.text, \
+    assert substring in context.response.text, (
         f"The response text '{context.response.text}' doesn't contain '{substring}'"
+    )
 
 
 @then("The body of the response is the following")

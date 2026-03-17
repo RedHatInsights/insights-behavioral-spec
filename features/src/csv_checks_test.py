@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# vim: set fileencoding=utf-8
 
 # Copyright © 2023  Pavel Tisnovsky
 #
@@ -22,14 +21,12 @@ from csv_checks import check_table_content
 
 
 class Table:
-
     """Mock for real table class from Behave."""
 
     def __init__(self):
         """Initialize Table instance."""
         self.headings = ["column1", "column2"]
-        self.data = [{"column1": "column1 data",
-                      "column2": "column2 data"}]
+        self.data = [{"column1": "column1 data", "column2": "column2 data"}]
 
     def __iter__(self):
         """Return iterator that will be used to retrieve rows of data."""
@@ -37,7 +34,6 @@ class Table:
 
 
 class Context:
-
     """Mock for real context class from Behave."""
 
     def __init__(self):

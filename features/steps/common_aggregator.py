@@ -178,8 +178,8 @@ def prepare_database_schema(context):
     """Prepare database schema."""
     cursor = context.connection.cursor()
     try:
-        for createTableCommand in CREATE_TABLE_COMMANDS:
-            cursor.execute(createTableCommand)
+        for create_table_command in CREATE_TABLE_COMMANDS:
+            cursor.execute(create_table_command)
             context.connection.commit()
     except Exception as e:
         context.connection.rollback()

@@ -1,7 +1,6 @@
 """Contains different Pushgateway utilities."""
 
 from pprint import pformat
-from typing import Dict, List
 
 import requests
 
@@ -10,14 +9,14 @@ def reset_metrics(pushgateway_url: str) -> None:
     """Delete all metrics in {PUSHGATEWAY_URL}."""
     url = f"http://{pushgateway_url}/api/v1/admin/wipe"
     resp = requests.put(url)
-    assert resp.status_code == requests.codes.accepted, \
-        f"Got error code {resp.status_code} while deleting the metrics " + \
-        f"from {url}"
+    assert resp.status_code == requests.codes.accepted, (
+        f"Got error code {resp.status_code} while deleting the metrics " + f"from {url}"
+    )
     metrics = list(get_metrics(pushgateway_url).keys())
     print(f"Metrics after reseting the pushgateway:\n{metrics}")
 
 
-def get_metrics(pushgateway_url) -> str | Dict[str, List]:
+def get_metrics(pushgateway_url) -> str | dict[str, list]:
     """Download the metrics from {pushgateway_url} and store as Dict."""
     ans = requests.get(f"http://{pushgateway_url}/metrics")
     if ans.status_code != requests.codes.ok:
@@ -26,7 +25,7 @@ def get_metrics(pushgateway_url) -> str | Dict[str, List]:
         return parse_metrics(ans.text)
 
 
-def parse_metrics(metrics: str) -> Dict[str, List]:
+def parse_metrics(metrics: str) -> dict[str, list]:
     """Convert the raw string of metrics into a dictionary.
 
     {
@@ -40,8 +39,7 @@ def parse_metrics(metrics: str) -> Dict[str, List]:
     }.
     """
     metrics_list = metrics.split("\n")
-    metrics_list = [metric for metric in metrics_list if len(
-        metric) > 0 and metric[0] != "#"]
+    metrics_list = [metric for metric in metrics_list if len(metric) > 0 and metric[0] != "#"]
     parsed_metrics = {}
     for metric in metrics_list:
         key, val = metric.split(" ")
@@ -54,12 +52,13 @@ def parse_metrics(metrics: str) -> Dict[str, List]:
             {
                 "value": val,
                 "labels": metric_labels,
-            })
+            }
+        )
 
     return parsed_metrics
 
 
-def extract_labels(metric: str) -> (str, Dict):
+def extract_labels(metric: str) -> (str, dict):
     """Parse a metric into a dictionary.
 
     Convert
@@ -82,8 +81,7 @@ def extract_labels(metric: str) -> (str, Dict):
         labels = labels[:-1]  # remove trailing "}"
         out = {}
         for pair_of_key_var in labels.split(","):
-            pair_of_key_var = pair_of_key_var.replace(
-                '"', "")  # Remove additional captions
+            pair_of_key_var = pair_of_key_var.replace('"', "")  # Remove additional captions
             key, val = pair_of_key_var.split("=")
             out[key] = val
         return metric_name, out
@@ -102,15 +100,18 @@ def compare(operation, a, b):
         - equal to: "=="
         - not equal to: "!="
     """
-    if operation == "lower than":
-        return a < b
-    elif operation == "greater than":
-        return a > b
-    elif operation == "equal to":
-        return a == b
-    elif operation == "not equal to":
-        return a != b
-    raise ValueError(f"Invalid operation {operation}")
+
+    match operation:
+        case "lower than":
+            return a < b
+        case "greater than":
+            return a > b
+        case "equal to":
+            return a == b
+        case "not equal to":
+            return a != b
+        case _:
+            raise ValueError(f"Invalid operation {operation}")
 
 
 def assert_metric_with_label(context, metric, operation, value, label, label_value):
@@ -120,15 +121,16 @@ def assert_metric_with_label(context, metric, operation, value, label, label_val
     dictionary for the given {label} and {label_value}. The value is compared
     using the operation parameter.
     """
-    assert metric in context.metrics, \
-        f"Metric {metric} not found in {context.metrics.keys()}"
+    assert metric in context.metrics, f"Metric {metric} not found in {context.metrics.keys()}"
 
     for sub_metric in context.metrics[metric]:
         if not compare(operation, sub_metric["value"], value):
             continue
-        if not sub_metric["labels"][label] == label_value:
+        if sub_metric["labels"][label] != label_value:
             continue
         return
-    assert False, \
-        f"Couldn't find metric {metric} {operation} {value} and label " + \
-        f"{label} as {label_value} in:\n{pformat(context.metrics[metric])}."
+
+    raise AssertionError(
+        f"Couldn't find metric {metric} {operation} {value} and label "
+        + f"{label} as {label_value} in:\n{pformat(context.metrics[metric])}."
+    )

@@ -18,11 +18,10 @@
 
 import os
 
-from environment import before_all, setup_default_kafka_context, setup_default_S3_context
+from environment import before_all, setup_default_kafka_context, setup_default_s3_context
 
 
 class Context:
-
     """Mock for real context class from Behave."""
 
     def __init__(self):
@@ -108,8 +107,8 @@ def test_setup_default_kafka_context_set_variables():
     assert context.kafka_port == "*port"
 
 
-def test_setup_default_S3_context_no_variables():
-    """Test the function setup_default_S3_context."""
+def test_setup_default_s3_context_no_variables():
+    """Test the function setup_default_s3_context."""
     os.unsetenv("S3_TYPE")
     os.unsetenv("S3_HOST")
     os.unsetenv("S3_PORT")
@@ -119,7 +118,7 @@ def test_setup_default_S3_context_no_variables():
     os.unsetenv("S3_OLDER_MINIO_COMPATIBILITY")
 
     context = Context()
-    setup_default_S3_context(context)
+    setup_default_s3_context(context)
 
     assert context.S3_type == "minio"
     assert context.S3_endpoint == "localhost"
@@ -130,8 +129,8 @@ def test_setup_default_S3_context_no_variables():
     assert context.S3_old_minio_compatibility is None
 
 
-def test_setup_default_S3_context_set_variables():
-    """Test the function setup_default_S3_context."""
+def test_setup_default_s3_context_set_variables():
+    """Test the function setup_default_s3_context."""
     os.environ["S3_TYPE"] = "*type"
     os.environ["S3_HOST"] = "*host"
     os.environ["S3_PORT"] = "*port"
@@ -141,7 +140,7 @@ def test_setup_default_S3_context_set_variables():
     os.environ["S3_OLDER_MINIO_COMPATIBILITY"] = "true"
 
     context = Context()
-    setup_default_S3_context(context)
+    setup_default_s3_context(context)
 
     assert context.S3_type == "*type"
     assert context.S3_endpoint == "*host"

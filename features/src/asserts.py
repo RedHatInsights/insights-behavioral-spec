@@ -14,9 +14,9 @@
 
 """Custom asserts that can be imported into other source files and steps definitions."""
 
-from typing import Any, Set
+from typing import Any
 
 
-def assert_sets_equality(what: str, expected: Set[Any], actual: Set[Any]) -> None:
+def assert_sets_equality(what: str, expected: set[Any], actual: set[Any]) -> None:
     """Compare two sets of values, displays correct set difference when inequal."""
     assert expected == actual, f"Difference found in sets of {what}: {expected ^ actual}"

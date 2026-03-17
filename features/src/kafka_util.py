@@ -20,8 +20,7 @@ from kafka.admin import NewTopic
 from kafka.errors import TopicAlreadyExistsError, UnknownTopicOrPartitionError
 
 
-class SendEventException(Exception):
-
+class SendEventError(Exception):
     """Class representing an exception thrown when send event to Kafka fails."""
 
     def __init__(self, message):
@@ -73,7 +72,7 @@ def send_event(bootstrap, topic, payload, headers=None, partition=None, timestam
     except Exception as e:
         print(f"Failed to send message {payload} to topic {topic}")
         producer.close()
-        raise SendEventException(e)
+        raise SendEventError(e) from e
 
 
 def consume_event(bootstrap, topic, group_id=None):

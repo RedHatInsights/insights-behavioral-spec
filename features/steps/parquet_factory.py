@@ -100,10 +100,10 @@ def send_rules_results_to_kafka(context, moment):
         "current": 0,
     }.get(moment, 0)
 
-    with open(f"{DATA_DIRECTORY}/rules_message.json", "r") as payload_file:
+    with open(f"{DATA_DIRECTORY}/rules_message.json") as payload_file:
         rules_payload = payload_file.read()
 
-    with open(f"{DATA_DIRECTORY}/features_message.json", "r") as payload_file:
+    with open(f"{DATA_DIRECTORY}/features_message.json") as payload_file:
         features_payload = payload_file.read()
 
     for row in context.table:
@@ -122,17 +122,18 @@ def send_rules_results_to_kafka(context, moment):
 
         kafka_util.send_event(
             f"{context.kafka_hostname}:{context.kafka_port}",
-            topic, payload.encode("utf-8"), partition=partition,
+            topic,
+            payload.encode("utf-8"),
+            partition=partition,
             timestamp=time.time() + shift,
         )
 
 
 def save_logs_to_tempfile(logs):
     """Store the logs in a temporary file."""
-    tf = tempfile.NamedTemporaryFile(delete=False)
-    with open(tf.name, "w") as pf_log_file:
-        pf_log_file.write(logs)
-    logging.info(f"You can check Parquet Factory logs at {tf.name}.")
+    with tempfile.NamedTemporaryFile("w", delete=False) as tf:
+        tf.write(logs)
+        logging.info(f"You can check Parquet Factory logs at {tf.name}.")
 
 
 @then("The logs should contain")
@@ -146,20 +147,17 @@ def check_logs_table(context):
             row["offset"],
             row["message"],
         )
-        assert ok, \
-            f'topic {row["topic"]}, partition {row["partition"]}, ' + \
-            f'offset {row["offset"]}, message {row["message"]}, ' + \
-            "not found"
+        assert ok, (
+            f"topic {row['topic']}, partition {row['partition']}, "
+            + f"offset {row['offset']}, message {row['message']}, "
+            + "not found"
+        )
 
 
 @then('The logs should contain "{log_message}"')
 def check_logs_message(context, log_message):
     """Make sure the log message is in the Parquet Factory logs."""
-    for log in context.parquet_factory_logs.split("\n"):
-        if log_message in log:
-            return True
-
-    return False
+    return any(log_message in log for log in context.parquet_factory_logs.split("\n"))
 
 
 @then("The logs shouldn't contain")
@@ -173,14 +171,14 @@ def check_no_logs_table(context):
             row["offset"],
             row["message"],
         )
-        assert not ok, \
-            f'topic {row["topic"]}, partition {row["partition"]}, ' + \
-            f'offset {row["offset"]}, message {row["message"]}, ' + \
-            "found"
+        assert not ok, (
+            f"topic {row['topic']}, partition {row['partition']}, "
+            + f"offset {row['offset']}, message {row['message']}, "
+            + "found"
+        )
 
 
-def check_logs(logs: str, topic: str, partition: int,
-               offset: int, message: str):
+def check_logs(logs: str, topic: str, partition: int, offset: int, message: str):
     """Make sure that a messaging log exists in Parquet Factory logs.
 
     The log is build from the topic, partition, offset and

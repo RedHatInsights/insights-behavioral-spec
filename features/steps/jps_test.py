@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# vim: set fileencoding=utf-8
 
 # Copyright © 2023  Pavel Tisnovsky
 #
@@ -32,6 +31,7 @@ from jps import find_jvm_application, get_all_jvm_based_applications  # noqa E40
 
 def test_find_jvm_application_positive_case():
     """Test for function find_jvm_application."""
+
     class Context:
         def __init__(self):
             self.output = None
@@ -51,6 +51,7 @@ def test_find_jvm_application_positive_case():
 
 def test_find_jvm_application_negative_case():
     """Test for function find_jvm_application."""
+
     class Context:
         def __init__(self):
             self.output = None
@@ -67,6 +68,7 @@ def test_find_jvm_application_negative_case():
 
 def test_get_all_jvm_based_application():
     """Test for function get_all_jvm_based_applications."""
+
     class Context:
         def __init__(self):
             self.output = None

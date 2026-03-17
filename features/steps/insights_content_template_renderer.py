@@ -14,7 +14,6 @@
 
 """Implementation of test steps that run CCX Upgrade Risk Inference Service."""
 
-
 import os
 import subprocess
 import time

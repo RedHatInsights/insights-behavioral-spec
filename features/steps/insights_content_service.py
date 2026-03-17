@@ -30,12 +30,12 @@ def check_build_commit(context):
 @then("BuildTime is a proper date")
 def check_build_time(context):
     """Check build timestamp taken from service output."""
-    buildTime = context.response.json()["info"]["BuildTime"]
+    build_time = context.response.json()["info"]["BuildTime"]
     pattern = re.compile(
         r".{3} .{3}[ ]{1,2}[0-9]{1,2} [0-9]{2}:[0-9]{2}:[0-9]{2} ([AP]M )?[A-Z]{1,5} [0-9]{4}",
     )
-    match = re.match(pattern, buildTime)
-    assert match.group(0), f"BuildTime is not a date time: {buildTime}"
+    match = re.match(pattern, build_time)
+    assert match.group(0), f"BuildTime is not a date time: {build_time}"
 
 
 @then("BuildVersion is in the proper format")
@@ -68,8 +68,13 @@ def check_groups(context):
     groups = context.response.json()["groups"]
     assert len(groups) == 5, f"groups number is {len(groups)}"
 
-    expected = ["Performance", "Service Availability", "Security",
-                "Fault Tolerance", "Best Practices"]
+    expected = [
+        "Performance",
+        "Service Availability",
+        "Security",
+        "Fault Tolerance",
+        "Best Practices",
+    ]
     for i, group in enumerate(groups):
         err_msg = f"{groups[i]['title']} not in {expected}"
         assert group["title"] in expected, err_msg

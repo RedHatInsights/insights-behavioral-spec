@@ -65,17 +65,16 @@ def run_cleanup_all_with_dry_run(context, age):
 def run_cleanup_all(context, age, dry_run=False):
     """Start the cleaner to retrieve list of older records."""
     command = [
-            "insights-results-aggregator-cleaner",
-            "--cleanup-all",
-            "--max-age",
-            age,
-        ]
+        "insights-results-aggregator-cleaner",
+        "--cleanup-all",
+        "--max-age",
+        age,
+    ]
     if dry_run:
         command.append("-dry-run")
     else:
         command.append("-dry-run=false")
-    out = subprocess.Popen(command, stdout=subprocess.PIPE,
-                           stderr=subprocess.STDOUT)
+    out = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
     # check if subprocess has been started and its output caught
     assert out is not None
@@ -218,9 +217,9 @@ def check_version_from_cleaner(context):
     assert isinstance(context.output, list), "wrong type of output"
 
     # check the output
-    assert (
-        "Insights Results Aggregator Cleaner version 1.0" in context.output
-    ), f"Caught output: {context.output}"
+    assert "Insights Results Aggregator Cleaner version 1.0" in context.output, (
+        f"Caught output: {context.output}"
+    )
 
 
 def check_authors_info_from_cleaner(context):
@@ -230,9 +229,7 @@ def check_authors_info_from_cleaner(context):
     assert isinstance(context.output, list), "wrong type of output"
 
     # check the output
-    assert (
-        "Pavel Tisnovsky, Red Hat Inc." in context.output
-    ), f"Caught output: {context.output}"
+    assert "Pavel Tisnovsky, Red Hat Inc." in context.output, f"Caught output: {context.output}"
 
 
 @then("I should see info about configuration displayed by cleaner on standard output")
@@ -261,7 +258,7 @@ def check_cleaner_configuration(context):
 @then("I should see empty list of records")
 def check_empty_list_of_records(context):
     """Check if the cleaner displays empty list of records."""
-    with open(test_output, "r") as fin:
+    with open(test_output) as fin:
         content = fin.read()
         assert content == "", "expecting empty list of clusters"
 
@@ -270,13 +267,13 @@ def check_empty_list_of_records(context):
 def check_non_empty_list_of_records(context):
     """Check if the cleaner displays the suggested clusters."""
     # set of expected clusters
-    expected_clusters = set(item["cluster"] for item in context.table)
+    expected_clusters = {item["cluster"] for item in context.table}
 
     # set of actually found clusters
     found_clusters = set()
 
     # check content of file generated during testing by Cleaner tool
-    with open(test_output, "r") as fin:
+    with open(test_output) as fin:
         assert fin is not None
         for line in fin:
             assert line is not None

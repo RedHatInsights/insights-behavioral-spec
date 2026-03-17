@@ -38,15 +38,13 @@ def parse_max_age(max_age):
     )  # noqa E501
 
     items = max_age.replace('"', "").split(" ")
-    assert (
-        len(items) == 2
-    ), f"expected max_age to have 2 parts: the value and the unit. Got {max_age}"
-    assert items[
-        0
-    ].isdigit(), f"expected max_age to start with an integer, got {items[0]}"
-    assert items[
-        1
-    ].isalpha(), f"expected max_age to contain an alpha string for the max_age unit, got {items[1]}"
+    assert len(items) == 2, (
+        f"expected max_age to have 2 parts: the value and the unit. Got {max_age}"
+    )
+    assert items[0].isdigit(), f"expected max_age to start with an integer, got {items[0]}"
+    assert items[1].isalpha(), (
+        f"expected max_age to contain an alpha string for the max_age unit, got {items[1]}"
+    )
     return max_age
 
 
@@ -67,9 +65,10 @@ def process_ccx_notification_service_output(context, out, allowed_return_codes):
     assert stdout is not None, "No output from application"
 
     # check the return code of a process
-    assert (
-        out.returncode == 0 or out.returncode in allowed_return_codes
-    ), f"Return code is {out.returncode}. Check the logs:\nvvvvv\n{stdout.decode('utf-8')}\n^^^^^\n"
+    assert out.returncode in {0, *allowed_return_codes}, (
+        f"Return code is {out.returncode}. Check the logs:\n"
+        f"vvvvv\n{stdout.decode('utf-8')}\n^^^^^\n"
+    )
     # try to decode output
     output = stdout.decode("utf-8").split("\n")
 
@@ -170,9 +169,7 @@ def check_version_from_ccx_notification_service(context):
     assert isinstance(context.output, list), "wrong type of output"
 
     # check the output
-    assert (
-        "Notification service version 1.0" in context.output
-    ), f"Caught output: {context.output}"
+    assert "Notification service version 1.0" in context.output, f"Caught output: {context.output}"
 
 
 def check_authors_info_from_ccx_notification_service(context):
@@ -182,9 +179,9 @@ def check_authors_info_from_ccx_notification_service(context):
     assert isinstance(context.output, list), "wrong type of output"
 
     # check the output
-    assert (
-        "Pavel Tisnovsky, Papa Bakary Camara, Red Hat Inc." in context.output
-    ), f"Caught output: {context.output}"
+    assert "Pavel Tisnovsky, Papa Bakary Camara, Red Hat Inc." in context.output, (
+        f"Caught output: {context.output}"
+    )
 
 
 @then("I should see the current configuration displayed on standard output")
@@ -255,9 +252,7 @@ def check_new_reports_cleanup(context, max_age):
     assert stdout is not None, "stdout object should exist"
     assert isinstance(stdout, str), "wrong type of stdout object"
 
-    assert (
-        "Cleanup operation for all organizations" in stdout
-    ), f"Caught output: {stdout}"
+    assert "Cleanup operation for all organizations" in stdout, f"Caught output: {stdout}"
     assert "FROM new_reports" in stdout, f"Caught output: {stdout}"
     assert max_age in stdout, f"Caught output: {stdout}"
     assert "Cleanup `new_reports` finished" in stdout, f"Caught output: {stdout}"
@@ -305,9 +300,7 @@ def check_old_reports_cleanup(context, max_age, age_unit):
     assert stdout is not None, "stdout object should exist"
     assert isinstance(stdout, str), "wrong type of stdout object"
 
-    assert (
-        "Cleanup operation for all organizations" in stdout
-    ), f"Caught output: {stdout}"
+    assert "Cleanup operation for all organizations" in stdout, f"Caught output: {stdout}"
     assert "FROM reported" in stdout, f"Caught output: {stdout}"
     assert str(max_age) + " " + age_unit in stdout, f"Caught output: {stdout}"
     assert "Cleanup `reported` finished" in stdout, f"Caught output: {stdout}"
@@ -367,9 +360,7 @@ def check_cleaned_items_on_standard_output(context, table, max_age):
     assert stdout is not None, "stdout object should exist"
     assert isinstance(stdout, str), "wrong type of stdout object"
 
-    assert (
-        "Cleanup operation for all organizations" in stdout
-    ), f"Caught output: {stdout}"
+    assert "Cleanup operation for all organizations" in stdout, f"Caught output: {stdout}"
     assert f"Cleanup `{table}` finished" in stdout, f"Caught output: {stdout}"
     assert max_age in stdout, f"Caught output: {stdout}"
 
@@ -419,9 +410,7 @@ def get_events_kafka(context, num_event):
 def count_notification_events_kafka(context, num_event):
     """Get events from kafka topic and count them to check if matches."""
     events = get_events_kafka(context, num_event)
-    assert (
-        len(events) == num_event
-    ), f"Retrieved {len(events)} events when {num_event} was expected"
+    assert len(events) == num_event, f"Retrieved {len(events)} events when {num_event} was expected"
 
 
 @then("it should have sent the following {num_event:d} notification events to Kafka")
@@ -439,31 +428,27 @@ def retrieve_notification_events_kafka(context, num_event):
         assert encoded is not None
 
         # let's verify the data
-        assert (
-            "bundle" in encoded and encoded["bundle"] == "openshift"
-        ), "Expected event to contain the `openshift` bundle"
-        assert (
-            "application" in encoded and encoded["application"] == "advisor"
-        ), "Expected event to contain the `advisor` application"
-        assert (
-            "event_type" in encoded and encoded["event_type"] == "new-recommendation"
-        ), "Expected event to contain the `new-recommendation` event type"
-        assert (
-            "account_id" in encoded
-        ), "Expected `account_id` to be included in the event"
+        assert "bundle" in encoded and encoded["bundle"] == "openshift", (
+            "Expected event to contain the `openshift` bundle"
+        )
+        assert "application" in encoded and encoded["application"] == "advisor", (
+            "Expected event to contain the `advisor` application"
+        )
+        assert "event_type" in encoded and encoded["event_type"] == "new-recommendation", (
+            "Expected event to contain the `new-recommendation` event type"
+        )
+        assert "account_id" in encoded, "Expected `account_id` to be included in the event"
 
         account_id = context.table[index]["account number"]
         cluster_id = context.table[index]["cluster name"]
         total_risk = context.table[index]["total risk"]
-        assert (
-            account_id == encoded["account_id"]
-        ), f"Expected account id to be {account_id}"
-        assert (
-            cluster_id == encoded["context"]["display_name"]
-        ), f"Expected cluster name in event to be {cluster_id}."
-        assert (
-            total_risk == encoded["events"][0]["payload"]["total_risk"]
-        ), f"Expected reported risk in event to be {total_risk}."
+        assert account_id == encoded["account_id"], f"Expected account id to be {account_id}"
+        assert cluster_id == encoded["context"]["display_name"], (
+            f"Expected cluster name in event to be {cluster_id}."
+        )
+        assert total_risk == encoded["events"][0]["payload"]["total_risk"], (
+            f"Expected reported risk in event to be {total_risk}."
+        )
 
 
 def get_service_log_event_by_cluster(cluster_id):
@@ -473,9 +458,9 @@ def get_service_log_event_by_cluster(cluster_id):
         address + f"/api/service_logs/v1/clusters/{cluster_id}/cluster_logs",
         headers={"Authorization": "TEST_TOKEN"},
     )
-    assert (
-        response.status_code == requests.codes.ok
-    ), f'unexpected status code: got "{response.status_code}" want "200"'
+    assert response.status_code == requests.codes.ok, (
+        f'unexpected status code: got "{response.status_code}" want "200"'
+    )
     return response.json()["items"]
 
 
@@ -500,12 +485,10 @@ def check_service_log_logs_for_given_clusters(context):
     """Verify that (part of) the content of the log events for given cluster is the expected."""
     for row in context.table:
         log_event = context.service_logs_by_cluster[row["cluster name"]]
-        assert (
-            log_event is not None
-        ), f'log event not found for cluster {row["cluster_name"]}'
+        assert log_event is not None, f"log event not found for cluster {row['cluster_name']}"
         assert len(log_event) == int(
             row["num logs"],
-        ), f'unexpected number of logs: got {len(log_event)}, want {row["num logs"]}'
+        ), f"unexpected number of logs: got {len(log_event)}, want {row['num logs']}"
         assert (item["service_name"] == row["service name"] for item in log_event)
 
 
@@ -519,9 +502,9 @@ def remove_service_log_logs(context, cluster_id):
             address + "/api/service_logs/v1/cluster_logs/" + log["id"],
             headers={"Authorization": "TEST_TOKEN"},
         )
-        assert (
-            response.status_code == requests.codes.no_content
-        ), f'unexpected status code: got "{response.status_code}" want "204"'
+        assert response.status_code == requests.codes.no_content, (
+            f'unexpected status code: got "{response.status_code}" want "204"'
+        )
 
 
 @then(
@@ -530,9 +513,7 @@ def remove_service_log_logs(context, cluster_id):
 def count_notification_events_service_log(context, num_event, cluster_id):
     """Get events from Service Log and count them to check if it matches."""
     events = get_service_log_event_by_cluster(cluster_id)
-    assert (
-        len(events) == num_event
-    ), f"Retrieved {len(events)} events when {num_event} was expected"
+    assert len(events) == num_event, f"Retrieved {len(events)} events when {num_event} was expected"
 
 
 @then("the logs should match")

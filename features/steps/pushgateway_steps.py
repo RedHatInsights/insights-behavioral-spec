@@ -42,8 +42,7 @@ def assert_metrics_table(context):
         if label == "" or label_value == "":
             assert_metric(context, metric, operation, value)
         else:
-            assert_metric_with_label(
-                context, metric, operation, value, label, label_value)
+            assert_metric_with_label(context, metric, operation, value, label, label_value)
 
 
 @then('Metric "{metric}" has value "{operation}" "{value}"')
@@ -53,19 +52,19 @@ def assert_metric(context, metric, operation, value):
     Make sure a metric {metric} has value {value} in {context.metrics}
     dictionary.
     """
-    assert metric in context.metrics, \
-        f"Metric {metric} not found in {context.metrics.keys()}"
+    assert metric in context.metrics, f"Metric {metric} not found in {context.metrics.keys()}"
 
     for sub_metric in context.metrics[metric]:
         if compare(operation, sub_metric["value"], value):
             return
-    assert False, \
-        f"Couldn't find metric {metric} {operation} {value} in:" + \
-        f"\n{pformat(context.metrics[metric])}."
+
+    raise AssertionError(
+        f"Couldn't find metric {metric} {operation} {value} in:"
+        + f"\n{pformat(context.metrics[metric])}."
+    )
 
 
 @then('Metric "{metric}" is not registered')
 def assert_metric_not_registered(context, metric):
     """Make sure a metric {metric} is not registered."""
-    assert metric not in context.metrics, \
-        f"Metric {metric} found in {context.metrics.keys()}"
+    assert metric not in context.metrics, f"Metric {metric} found in {context.metrics.keys()}"

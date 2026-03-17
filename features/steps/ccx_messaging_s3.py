@@ -31,10 +31,9 @@ except ImportError as e:
 def create_presigned_url(s3_client, bucket_name, object_name, expiration=3600):
     """Generate a presigned URL to share an S3 object."""
     try:
-        response = s3_client.generate_presigned_url("get_object",
-                                                    Params={"Bucket": bucket_name,
-                                                            "Key": object_name},
-                                                    ExpiresIn=expiration)
+        response = s3_client.generate_presigned_url(
+            "get_object", Params={"Bucket": bucket_name, "Key": object_name}, ExpiresIn=expiration
+        )
     except ClientError as e:
         logging.error(e)
         return None
@@ -50,10 +49,12 @@ def use_real_storage(context, archive_key, msg_path):
     s3_access_key = os.getenv("S3_ACCESS_KEY")
     s3_secret_access_key = os.getenv("S3_SECRET_ACCESS_KEY")
 
-    s3_client = boto3.client("s3",
-                             endpoint_url=f"http://{s3_host}:{s3_port}",
-                             aws_access_key_id=s3_access_key,
-                             aws_secret_access_key=s3_secret_access_key)
+    s3_client = boto3.client(
+        "s3",
+        endpoint_url=f"http://{s3_host}:{s3_port}",
+        aws_access_key_id=s3_access_key,
+        aws_secret_access_key=s3_secret_access_key,
+    )
 
     try:
         s3_client.head_bucket(Bucket="test")
@@ -66,7 +67,7 @@ def use_real_storage(context, archive_key, msg_path):
     topic_name = context.__dict__["_stack"][0]["incoming_topic"]
     presigned_url = create_presigned_url(s3_client, "test", archive_key)
 
-    with open(msg_path, "r") as f:
+    with open(msg_path) as f:
         msg = f.read().encode("utf-8")
         event_data = json.loads(msg)
         event_data["url"] = presigned_url
@@ -79,7 +80,7 @@ def use_mock_storage(context, archive_key, msg_path):
     """Publish JSON messages to Kafka with URLs for mock storage."""
     topic_name = context.__dict__["_stack"][0]["incoming_topic"]
 
-    with open(msg_path, "r") as f:
+    with open(msg_path) as f:
         event_data = f.read().encode("utf-8")
         headers = [("service", b"testareno")]
         kafka_util.send_event(context.hostname, topic_name, event_data, headers)

@@ -32,9 +32,8 @@ BREATH_TIME = 3
 @given("DVO writer service is started in background")
 def start_dvo_writer_in_background(context):
     """Start DVO writer service in background if it is not started already."""
-    if hasattr(context, "dvo_writer_process"):
-        if context.dvo_writer_process.poll() is None:
-            return
+    if hasattr(context, "dvo_writer_process") and context.dvo_writer_process.poll() is None:
+        return
 
     # We don't need to communicate with background process and buffering
     # stdout to PIPE will lead to deadlock. We also don't want to mess up
@@ -114,9 +113,9 @@ def dvo_check_db_row_count(context, number):
         row_count = cursor.fetchone()[0]
         assert isinstance(row_count, int)
         context.connection.commit()
-        assert (
-            row_count == number
-        ), f"DVO table contains {row_count} number of rows instead of {number}"
+        assert row_count == number, (
+            f"DVO table contains {row_count} number of rows instead of {number}"
+        )
     except Exception as e:
         context.connection.rollback()
         raise e

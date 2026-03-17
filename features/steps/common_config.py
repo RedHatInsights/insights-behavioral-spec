@@ -33,7 +33,7 @@ def kafka_broker_running(context, service):
     config = None
     config_name = f"config/{SERVICE_CONFIGS[service]}"
 
-    with open(config_name, "r") as file:
+    with open(config_name) as file:
         if config_name.endswith(".yaml"):
             config = yaml.safe_load(file)
             hostname = config["service"]["consumer"]["kwargs"]["bootstrap.servers"]

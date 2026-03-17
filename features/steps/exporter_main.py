@@ -102,9 +102,9 @@ def check_version_from_exporter(context):
     assert isinstance(context.output, list), "wrong type of output"
 
     # check the output
-    assert (
-        "Insights Results Aggregator Exporter version 1.0" in context.output
-    ), f"Caught output: {context.output}"
+    assert "Insights Results Aggregator Exporter version 1.0" in context.output, (
+        f"Caught output: {context.output}"
+    )
 
 
 def check_authors_info_from_exporter(context):
@@ -114,9 +114,7 @@ def check_authors_info_from_exporter(context):
     assert isinstance(context.output, list), "wrong type of output"
 
     # check the output
-    assert (
-        "Pavel Tisnovsky, Red Hat Inc." in context.output
-    ), f"Caught output: {context.output}"
+    assert "Pavel Tisnovsky, Red Hat Inc." in context.output, f"Caught output: {context.output}"
 
 
 @then("I should see info about configuration displayed by exporter on standard output")

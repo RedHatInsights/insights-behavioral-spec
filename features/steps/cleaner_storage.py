@@ -13,6 +13,7 @@
 # limitations under the License.
 
 """Database-related operations performed by BDD tests."""
+
 from behave import given, then, when
 from common_aggregator import DB_TABLES
 from psycopg2.errors import UndefinedTable
@@ -113,8 +114,7 @@ def check_non_empty_list_of_rule_hit_records(context):
     cursor = context.connection.cursor()
 
     cursor.execute(
-        "SELECT org_id, cluster_id, rule_fqdn, error_key, template_data "
-        "FROM rule_hit",
+        "SELECT org_id, cluster_id, rule_fqdn, error_key, template_data FROM rule_hit",
     )
     results = cursor.fetchall()
 
@@ -122,5 +122,6 @@ def check_non_empty_list_of_rule_hit_records(context):
     found_rule_hits = set(results)
 
     # compare both sets
-    assert expected_rule_hits == found_rule_hits, \
+    assert expected_rule_hits == found_rule_hits, (
         f"Difference: {expected_rule_hits ^ found_rule_hits}"
+    )

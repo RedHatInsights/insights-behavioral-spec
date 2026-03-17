@@ -15,7 +15,6 @@
 """Unsorted utility functions to be used from other sources and test step definitions."""
 
 import base64
-from typing import Set
 
 import jsonschema
 from behave.runner import Context
@@ -28,8 +27,7 @@ def get_array_from_json(context: Context, selector, subselector=None):
     assert json is not None, "JSON response is missing in context object"
 
     # try to retrieve content of given array
-    assert selector in json, \
-        f"attribute '{selector}' is not found in JSON response"
+    assert selector in json, f"attribute '{selector}' is not found in JSON response"
 
     # return items from array is subselector is not specified
     if subselector is None:
@@ -63,9 +61,9 @@ def construct_rh_token(org: int, account: str, user: str) -> bytes:
     return base64.b64encode(token.encode("ascii"))
 
 
-def retrieve_set_of_clusters_from_table(context: Context) -> Set[str]:
+def retrieve_set_of_clusters_from_table(context: Context) -> set[str]:
     """Retrieve set of clusters from table specified in scenario or scenario outline."""
-    return set(item["Cluster name"] for item in context.table)
+    return {item["Cluster name"] for item in context.table}
 
 
 def find_block(output, block_delimiter):
@@ -73,7 +71,8 @@ def find_block(output, block_delimiter):
     for i, line in enumerate(output):
         if line == block_delimiter:
             return i
-    raise Exception("Block was not found")
+
+    raise ValueError("Block was not found")
 
 
 def validate_json(message, schema):
@@ -85,7 +84,7 @@ def validate_json(message, schema):
         )
 
     except jsonschema.ValidationError as e:
-        assert False, "The message doesn't fit the expected schema:" + str(e)
+        raise AssertionError("The message doesn't fit the expected schema:" + str(e)) from e
 
     except jsonschema.SchemaError as e:
-        assert False, "The provided schema is faulty:" + str(e)
+        raise AssertionError("The message doesn't fit the expected schema:" + str(e)) from e

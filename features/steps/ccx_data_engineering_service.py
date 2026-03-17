@@ -14,7 +14,6 @@
 
 """Implementation of test steps that run CCX Upgrade Risk Inference Service."""
 
-
 import os
 import subprocess
 import time
@@ -64,7 +63,7 @@ def start_ccx_upgrades_data_eng(context, port):
 
 
 @given("The mock RHOBS Service is running on port {port:d}")
-def start_RHOBS_mock_service(context, port):
+def start_rhobs_mock_service(context, port):
     """Run RHOBS service mock for a test and prepare its stop."""
     params = ["uvicorn", "mocks.rhobs.rhobs_service:app", "--port", str(port)]
 
@@ -88,7 +87,7 @@ def start_RHOBS_mock_service(context, port):
 
 
 @when("I stop the mock RHOBS Service")
-def stop_RHOBS_mock_service(context):
+def stop_rhobs_mock_service(context):
     """Stop mocked RHOBS service."""
     context.mock_rhobs.terminate()
     while context.mock_rhobs.poll() is None:
@@ -97,7 +96,7 @@ def stop_RHOBS_mock_service(context):
 
 
 @when("The mock RHOBS Service doesn't find the queried clusters")
-def empty_RHOBS_mock_service(context):
+def empty_rhobs_mock_service(context):
     """Make mocked RHOBS service return 500 Not found on any query."""
     response = requests.post(
         f"http://localhost:{context.mock_rhobs_port}/clusters_not_found",

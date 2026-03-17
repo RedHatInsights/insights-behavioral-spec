@@ -29,19 +29,17 @@ def number_of_records_in_csv(context):
         expected_records = int(row["Records"])
 
         # we need to make sure the CSV is readable
-        with open(filename, "r") as fin:
-            csvFile = csv.reader(fin)
+        with open(filename) as fin:
+            csv_file = csv.reader(fin)
             # skip the first row of the CSV file.
-            next(csvFile)
+            next(csv_file)
 
             stored_records = 0
-            for lines in csvFile:
+            for _ in csv_file:
                 stored_records += 1
 
         # now check numbers
-        assert (
-            expected_records == stored_records
-        ), (
+        assert expected_records == stored_records, (
             f"Expected number records in file {filename} is {expected_records} "
             f"but {stored_records} was read"
         )
@@ -56,5 +54,5 @@ def number_of_records_in_csv(context):
 )  # noqa: E501
 def check_records_in_csv(context, filename, column, column2=None):
     """Check if all records are really stored in given CSV file."""
-    with open(filename, "r") as fin:
+    with open(filename) as fin:
         check_table_content(context, fin, filename, column, column2)
