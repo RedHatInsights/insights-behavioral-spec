@@ -27,8 +27,7 @@ Please delete options that are not relevant.
 Please describe how the change was tested locally. If, for some reason, the testing was not done or not done fully, please describe what are the testing steps.
 
 ## Checklist
-* [ ] Pylint passes for Python sources
-* [ ] sources has been pre-processed by Black
+* [ ] pre-commit run --all-files passes for Python sources
 * [ ] updated documentation wherever necessary
 * [ ] new tests can be executed both locally and within docker container
 * [ ] new tests have been included in scenario list (make update-scenarios)

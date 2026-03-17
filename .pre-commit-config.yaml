@@ -3,6 +3,7 @@ repos:
     rev: v6.0.0
     hooks:
       - id: end-of-file-fixer
+        exclude: ^docs/scenarios_list\.md$
       - id: trailing-whitespace
       - id: check-json
       - id: check-toml
