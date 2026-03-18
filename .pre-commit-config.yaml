@@ -47,7 +47,7 @@ repos:
         args:
           - '--fix'
           - '--line-length=100'
-          - '--select=UP,F632,E,W,F,I,UP,N,B,C4,SIM'
+          - '--select=UP,F632,E,W,F,I,N,B,C4,SIM'
       - id: ruff-format
 
   # - repo: https://github.com/AleksaC/hadolint-py
