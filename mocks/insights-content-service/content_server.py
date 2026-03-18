@@ -14,9 +14,7 @@
 
 """Mock server that can be used instead of fully functional Content Service."""
 
-import json
 from fastapi import FastAPI, Response
-
 
 app = FastAPI()
 
@@ -74,7 +72,7 @@ This is the data and format returned
 
 
 @app.get("/api/v1/openapi.json")
-def read_test_content():
+def openapi_json():
     """Request handler for REST API endpoint to return OpenAPI specification."""
     return {"openapi.json": "ok"}
 

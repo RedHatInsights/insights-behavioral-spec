@@ -144,5 +144,4 @@ Feature: Basic REST API endpoints provided by Insights Results Aggregator Mock
       And The body of the response is the following
           """
           {"organizations":[11789772,11940171],"status":"ok"}
-          """          
-
+          """

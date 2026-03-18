@@ -15,7 +15,6 @@
 """Minio/S3-related functions that can be called from other sources and test step definitions."""
 
 from io import BytesIO, StringIO
-from typing import List
 
 from behave.runner import Context
 from minio import Minio
@@ -104,7 +103,7 @@ def clean_bucket(context: Context):
     remove_objects_by_name(context, object_names)
 
 
-def remove_objects_by_name(context: Context, object_names: List[str]):
+def remove_objects_by_name(context: Context, object_names: list[str]):
     """Remove the objects from the list in the configured bucket."""
     for object_name in object_names:
         context.minio_client.remove_object(context.S3_bucket_name, object_name)

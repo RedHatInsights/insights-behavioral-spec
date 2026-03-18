@@ -1042,4 +1042,3 @@ nav_order: 3
 * Parquet Factory should fail if it cannot connect with S3. When I rerun it, it should re-process the messages from the beginning
 * Parquet Factory should fail if it cannot find the bucket
 * Parquet Factory shouldn't fail if it cannot find the folder/prefix where the files are stored
-

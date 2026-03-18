@@ -15,14 +15,13 @@
 """Version checks."""
 
 import re
-from typing import List
 
 import semver
 
 
-def check(output: List):
+def check(output: list):
     """Check the version in longer program output."""
-    exceptionMessage = "Improper or missing version {} found in {}"
+    exception_message = "Improper or missing version {} found in {}"
 
     # check the output, line by line
     for line in output:
@@ -35,12 +34,12 @@ def check(output: List):
                     semver.Version.parse(version[1:])
                     print(f"{version} is a valid semantic version.")
                     break
-                except ValueError:
-                    raise Exception(exceptionMessage.format(version, output))
+                except ValueError as ex:
+                    raise ValueError(exception_message.format(version, output)) from ex
             else:
                 # version should be a commit SHA1
                 if not re.match(r"[a-f0-9]{40}", version):
-                    raise Exception(exceptionMessage.format(version, output))
+                    raise ValueError(exception_message.format(version, output))
                 break
     else:
-        raise Exception(exceptionMessage.format("", output))
+        raise ValueError(exception_message.format("", output))

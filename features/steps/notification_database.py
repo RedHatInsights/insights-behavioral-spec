@@ -14,7 +14,6 @@
 
 """Database-related operations performed by BDD tests."""
 
-
 import subprocess
 from datetime import datetime, timedelta
 
@@ -41,8 +40,7 @@ DB_TABLES_LATEST = (
 )
 
 
-class TableExistsException(Exception):
-
+class TableExistsError(Exception):
     """Specific exception thrown when tested table exists in database."""
 
     def __init__(self, table):
@@ -124,12 +122,12 @@ def ensure_database_emptiness(context):
         try:
             cursor.execute(f"SELECT 1 from {table}")
             _ = cursor.fetchone()
-            raise TableExistsException(table)
+            raise TableExistsError(table)
         except UndefinedTable:
             # which is expected behaviour
             context.connection.rollback()
             continue
-        except TableExistsException as e:
+        except TableExistsError as e:
             print(e)
             cursor.execute(f"DROP TABLE IF EXISTS {e.table} CASCADE")
             context.connection.commit()
@@ -152,9 +150,9 @@ def select_all_rows_from_table(context, table):
 @then("I should get {expected_count:d} rows")
 def check_rows_count(context, expected_count):
     """Check if expected number of rows were returned."""
-    assert (
-        context.query_count == expected_count
-    ), f"Wrong number of rows returned: {context.query_count} instead of {expected_count}"
+    assert context.query_count == expected_count, (
+        f"Wrong number of rows returned: {context.query_count} instead of {expected_count}"
+    )
 
 
 @when("I insert following row into table new_reports")
@@ -180,11 +178,11 @@ def insert_rows_into_new_reports_table(context):
             assert kafka_offset is not None, "Kafka offset should be set"
 
             # try to perform insert statement
-            insertStatement = """INSERT INTO new_reports
+            insert_statement = """INSERT INTO new_reports
                                  (org_id, account_number, cluster, report, updated_at, kafka_offset)
                                  VALUES(%s, %s, %s, '', %s, %s);"""
             cursor.execute(
-                insertStatement,
+                insert_statement,
                 (org_id, account_number, cluster_name, updated_at, kafka_offset),
             )
 
@@ -227,12 +225,12 @@ def insert_rows_into_reported_table(context, report="", default_notified_at=None
             assert event_type_id is not None, "Event type ID should be set"
 
             # try to perform insert statement
-            insertStatement = """INSERT INTO reported
+            insert_statement = """INSERT INTO reported
                                  (org_id, account_number, cluster, notification_type, state,
                                   report, updated_at, notified_at, error_log, event_type_id)
                                  VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
             cursor.execute(
-                insertStatement,
+                insert_statement,
                 (
                     org_id,
                     account_number,
@@ -275,11 +273,11 @@ def insert_rows_into_read_errors_table(context):
                 error_text = "some default error text"
 
             # try to perform insert statement
-            insertStatement = """INSERT INTO read_errors
+            insert_statement = """INSERT INTO read_errors
                                  (org_id, cluster, updated_at, created_at, error_text)
                                  VALUES(%s, %s, %s, %s, %s);"""
             cursor.execute(
-                insertStatement,
+                insert_statement,
                 (org_id, cluster_name, updated_at, datetime.now(), error_text),
             )
 
@@ -304,11 +302,11 @@ def insert_report_with_risk_in_new_reports_table(context, risk, updated_at=None)
             org_id = int(row["org id"])
             account_number = int(row["account number"])
             cluster_name = row["cluster name"]
-            insertStatement = """INSERT INTO new_reports
+            insert_statement = """INSERT INTO new_reports
                                     (org_id, account_number, cluster, report, updated_at, kafka_offset)
                                     VALUES(%s, %s, %s, %s, %s, %s);"""  # noqa E501
             cursor.execute(
-                insertStatement,
+                insert_statement,
                 (org_id, account_number, cluster_name, report, updated_at, 0),
             )
         context.connection.commit()
@@ -324,7 +322,9 @@ def insert_report_with_risk_and_cooldown_in_new_reports_table(context, risk):
     """Insert rows into table new_reports after the cooldown has passed."""
     timestamp_after_cooldown = datetime.now() + timedelta(minutes=1)
     insert_report_with_risk_in_new_reports_table(
-        context, risk, updated_at=timestamp_after_cooldown,
+        context,
+        risk,
+        updated_at=timestamp_after_cooldown,
     )
 
 

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# vim: set fileencoding=utf-8
 
 # Copyright © 2023  Pavel Tisnovsky
 #
@@ -28,21 +27,21 @@ from utils import (
 )
 
 inputs_and_outputs = (
-        # input                        expected output            comment
-        ([],                           set()),                  # empty set
-        (["foo"],                      {"foo"}),                # set with one item
-        (["foo", "bar", "baz"],        {"foo", "bar", "baz"}),  # unique items
-        (["baz", "bar", "foo"],        {"foo", "bar", "baz"}),  # order does not matter
-        (["foo", "bar", "baz", "foo"], {"foo", "bar", "baz"}),  # non-unique items
-        (["foo", "foo", "foo", "foo"], {"foo"}),                # non-unique items
+    # input                        expected output            comment
+    ([], set()),  # empty set
+    (["foo"], {"foo"}),  # set with one item
+    (["foo", "bar", "baz"], {"foo", "bar", "baz"}),  # unique items
+    (["baz", "bar", "foo"], {"foo", "bar", "baz"}),  # order does not matter
+    (["foo", "bar", "baz", "foo"], {"foo", "bar", "baz"}),  # non-unique items
+    (["foo", "foo", "foo", "foo"], {"foo"}),  # non-unique items
 )
 
 
 @pytest.mark.parametrize("inputs_and_outputs", inputs_and_outputs)
 def test_retrieve_list_of_clusters(inputs_and_outputs):
     """Check the behaviour of function to retrieve set of clusters from context table."""
-    class Context:
 
+    class Context:
         """Mock for real context class from Behave."""
 
         def __init__(self, items):
@@ -62,12 +61,13 @@ def test_retrieve_list_of_clusters(inputs_and_outputs):
 
 def test_get_array_from_json():
     """Test the function get_array_from_json."""
-    class Context:
 
+    class Context:
         """Mock for real context class from Behave."""
 
         def __init__(self, items):
             """Initialize response attribute to be the same as in Behave.Context."""
+
             class Response:
                 def __init__(self, items):
                     self._items = items
@@ -110,7 +110,9 @@ def test_construct_rh_token_positive_test_case():
     assert isinstance(text, str)
 
     # and check the actual token content
-    assert text == """
+    assert (
+        text
+        == """
     {
         "identity": {
             "org_id": "42",
@@ -121,6 +123,7 @@ def test_construct_rh_token_positive_test_case():
         }
     }
     """
+    )
 
 
 def test_construct_rh_token_negative_org_id():
@@ -152,5 +155,5 @@ def test_find_block_positive_cases():
 
 def test_find_block_negative_case():
     """Test the function find_block."""
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         find_block(["foo", "bar", "baz"], "dunno")

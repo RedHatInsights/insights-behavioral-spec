@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# vim: set fileencoding=utf-8
 
 # Copyright © 2023  Pavel Tisnovsky
 #
@@ -23,13 +22,13 @@ from version import check
 
 def test_empty_input():
     """Check how the version check function handles empty input."""
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         check([])
 
 
 def test_missing_version():
     """Check how the version check function handles input without version."""
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         check(["this", "is", "not", "version"])
 
 
@@ -40,41 +39,42 @@ def test_correct_version():
 
 def test_correct_sha():
     """Check how version check function handled input with proper commit SHA."""
-    check(["this", "is", "correct", "version",
-           '"Version: abc00defabc00defabc00defabc00defabc00def"}'])
+    check(
+        ["this", "is", "correct", "version", '"Version: abc00defabc00defabc00defabc00defabc00def"}']
+    )
 
 
 improper_versions = (
-        '"Version: v1"}',
-        '"Version: v1.2"}',
-        '"Version: v1.2.A"}',
-        '"Version: v1.A.3"}',
-        '"Version: vA.2.3"}',
-        '"Version: v1.2.3}',
-        '"Version: v1.2.3',
-        '"Version:  v1.2.3"}',
+    '"Version: v1"}',
+    '"Version: v1.2"}',
+    '"Version: v1.2.A"}',
+    '"Version: v1.A.3"}',
+    '"Version: vA.2.3"}',
+    '"Version: v1.2.3}',
+    '"Version: v1.2.3',
+    '"Version:  v1.2.3"}',
 )
 
 
 @pytest.mark.parametrize("version", improper_versions)
 def test_incorrect_version(version):
     """Check how version check function handled input with improper version."""
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         check([version])
 
 
 improper_shas = (
-           '"Version  abc00defabc00defabc00defabc00defabc00def"}',
-           '"Version:  abc00defabc00defabc00defabc00defabc00def"}',
-           '"Version: abc00defabc00defabc00defabc00defabc00de"}',
-           '"Version: abc00defabc00defabc00defabc00defabc00def}',
-           '"Version: abc00defabc00defabc00defabc00defabc00def"',
-           '"Version: abc00defabc00defabc00defabc00defabc00def',
+    '"Version  abc00defabc00defabc00defabc00defabc00def"}',
+    '"Version:  abc00defabc00defabc00defabc00defabc00def"}',
+    '"Version: abc00defabc00defabc00defabc00defabc00de"}',
+    '"Version: abc00defabc00defabc00defabc00defabc00def}',
+    '"Version: abc00defabc00defabc00defabc00defabc00def"',
+    '"Version: abc00defabc00defabc00defabc00defabc00def',
 )
 
 
 @pytest.mark.parametrize("sha", improper_shas)
 def test_incorrect_sha(sha):
     """Check how version check function handled input with improper SHA."""
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         check([sha])

@@ -177,7 +177,7 @@ Feature: Sorting on Advisor affected clusters page behaviour on Hybrid Cloud Con
           | 00000000-0000-0000-0000-000000000000 | yes              |
       And Sorting icon ↕ needs to be displayed right-of column title
       And That icon should not be highlighted
-     When User clicks on sorting icon ↕ 
+     When User clicks on sorting icon ↕
      Then "Affected clusters" table needs to be displayed below additional info
           | Name                                 | Clickable (link) |
           | 00000000-0000-0000-0000-000000000000 | yes              |
@@ -275,10 +275,10 @@ Feature: Sorting on Advisor affected clusters page behaviour on Hybrid Cloud Con
           | 00000000-0000-0000-0000-000000000000 | yes              |
       And Sorting icon ↕ needs to be displayed right-of column title
       And That icon should not be highlighted
-     When User clicks on sorting icon ↕ 
+     When User clicks on sorting icon ↕
      Then Sorting icon ↑ needs to be displayed right-of column title
       And That icon should be highlighted
-     When User clicks on sorting icon ↑ 
+     When User clicks on sorting icon ↑
      Then Sorting icon ↓ needs to be displayed right-of column title
       And That icon should be highlighted
       And "Affected clusters" table needs to be displayed below additional info

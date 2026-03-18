@@ -14,7 +14,6 @@
 
 """Common test steps that use or check Apache Kafka broker."""
 
-
 import json
 import subprocess
 
@@ -84,9 +83,7 @@ def find_available_brokers(context):
     assert "brokers" in context.broker_metadata, "'brokers' attribute expected"
 
     # just number of brokers needs to be checked, nothing else
-    assert (
-        len(context.broker_metadata["brokers"]) >= 1
-    ), "At least one available broker expected"
+    assert len(context.broker_metadata["brokers"]) >= 1, "At least one available broker expected"
 
 
 @given('Kafka topic "{topic}" is empty')

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# vim: set fileencoding=utf-8
 
 # Copyright © 2023  Pavel Tisnovsky
 #
@@ -32,10 +31,10 @@ def test_asserts_sets_equality_equal_sets():
 
 
 sets = (
-        {2},
-        {2, 3},
-        {1, 3},
-        {1, 2, 3},
+    {2},
+    {2, 3},
+    {1, 3},
+    {1, 2, 3},
 )
 
 

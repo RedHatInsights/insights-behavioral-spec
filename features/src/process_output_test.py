@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# vim: set fileencoding=utf-8
 
 # Copyright © 2023  Pavel Tisnovsky
 #
@@ -23,13 +22,13 @@ import pytest
 from process_output import filter_coverage_message, process_generated_output
 
 inputs_and_outputs = (
-       # input                                                               expected output
-       ("",                                                                  ""),
-       ("\n",                                                                "\n"),
-       ("foo bar baz\n",                                                     "foo bar baz\n"),
-       ("foo\nbar\nbaz\n",                                                   "foo\nbar\nbaz\n"),
-       ("warning: GOCOVERDIR not set, no coverage data emitted\n",           ""),
-       ("foo\nwarning: GOCOVERDIR not set, no coverage data emitted\nbaz\n", "foo\nbaz\n"),
+    # input                                                               expected output
+    ("", ""),
+    ("\n", "\n"),
+    ("foo bar baz\n", "foo bar baz\n"),
+    ("foo\nbar\nbaz\n", "foo\nbar\nbaz\n"),
+    ("warning: GOCOVERDIR not set, no coverage data emitted\n", ""),
+    ("foo\nwarning: GOCOVERDIR not set, no coverage data emitted\nbaz\n", "foo\nbaz\n"),
 )
 
 
@@ -44,8 +43,8 @@ def test_filter_coverage_message(inputs_and_outputs):
 
 def test_process_generated_output_positive_test_case():
     """Test the behaviour of process_generated_output function."""
-    class Context:
 
+    class Context:
         """Mock for real context class from Behave."""
 
         def __init__(self):
@@ -55,10 +54,11 @@ def test_process_generated_output_positive_test_case():
             self.stderr = None
             self.return_code = None
 
-    out = subprocess.Popen(["ls", "-1"],
-                           stdout=subprocess.PIPE,
-                           stderr=subprocess.STDOUT,
-                           )
+    out = subprocess.Popen(
+        ["ls", "-1"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
 
     context = Context()
     process_generated_output(context, out)
@@ -72,8 +72,8 @@ def test_process_generated_output_positive_test_case():
 
 def test_process_generated_output_negative_test_case():
     """Test the behaviour of process_generated_output function."""
-    class Context:
 
+    class Context:
         """Mock for real context class from Behave."""
 
         def __init__(self):
@@ -83,10 +83,11 @@ def test_process_generated_output_negative_test_case():
             self.stderr = None
             self.return_code = None
 
-    out = subprocess.Popen(["false"],
-                           stdout=subprocess.PIPE,
-                           stderr=subprocess.STDOUT,
-                           )
+    out = subprocess.Popen(
+        ["false"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
 
     context = Context()
     process_generated_output(context, out)
@@ -100,8 +101,8 @@ def test_process_generated_output_negative_test_case():
 
 def test_process_generated_output_expected_return_code():
     """Test the behaviour of process_generated_output function."""
-    class Context:
 
+    class Context:
         """Mock for real context class from Behave."""
 
         def __init__(self):
@@ -111,10 +112,11 @@ def test_process_generated_output_expected_return_code():
             self.stderr = None
             self.return_code = None
 
-    out = subprocess.Popen(["false"],
-                           stdout=subprocess.PIPE,
-                           stderr=subprocess.STDOUT,
-                           )
+    out = subprocess.Popen(
+        ["false"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
 
     context = Context()
     process_generated_output(context, out, return_code=1)
@@ -128,8 +130,8 @@ def test_process_generated_output_expected_return_code():
 
 def test_process_generated_output_unexpected_return_code():
     """Test the behaviour of process_generated_output function."""
-    class Context:
 
+    class Context:
         """Mock for real context class from Behave."""
 
         def __init__(self):
@@ -139,10 +141,11 @@ def test_process_generated_output_unexpected_return_code():
             self.stderr = None
             self.return_code = None
 
-    out = subprocess.Popen(["false"],
-                           stdout=subprocess.PIPE,
-                           stderr=subprocess.STDOUT,
-                           )
+    out = subprocess.Popen(
+        ["false"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
 
     context = Context()
 

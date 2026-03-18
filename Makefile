@@ -99,28 +99,28 @@ parquet-factory parquet-factory-tests: ## Run BDD tests for the Parquet Factory
 parquet-factory-code-coverage: ## Compute code coverage for Parquet Factory
 	PATH_TO_LOCAL_PARQUET_FACTORY=$${SERVICE_UNDER_TEST:-$$PATH_TO_LOCAL_PARQUET_FACTORY} ./parquet_factory_tests.sh coverage
 
-style:	code-style docs-style shellcheck ## Perform all style checks
+style: code-style docs-style shellcheck ## Perform all style checks
 
-code-style: ## Check code style for all Python sources from this repository
-	python3 tools/run_pycodestyle.py
+code-style: ruff ## Check code style for all Python sources from this repository
 
 ruff: ## Run Ruff linter
-	ruff .
+	pre-commit run --all-files ruff-check
+	pre-commit run --all-files ruff-format
 
-docs-style: ## Check documentation strings in all Python sources from this repository
-	pydocstyle .
+docs-style: ruff ## Check documentation strings in all Python sources from this repository
 
 doc-check: ## Run gen_scenario_list.py to generate docs file and compare it to current one
 	python3 tools/gen_scenario_list.py > tmp.md
 	diff tmp.md docs/scenarios_list.md
 
 shellcheck: ## Run shellcheck
-	./shellcheck.sh
+	pre-commit run --all-files shellcheck
 
 update-scenarios: ## Update list of scenarios for GitHub pages
 	python3 tools/gen_scenario_list.py > docs/scenarios_list.md
 
-before_commit: code-style update-scenarios ruff
+before_commit:
+	pre-commit run --all-files
 
 docker-build: ## Build Docker images that can be used for tests
 	docker build -t insights-behavioral-spec:ci .

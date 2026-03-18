@@ -85,6 +85,7 @@ function run_mock_s3() {
     add_trap "kill -9 $s3_pid"
 }
 
+# shellcheck disable=SC2329
 function cleanup {
     eval "$exit_trap_command"
 }

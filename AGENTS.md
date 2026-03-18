@@ -154,10 +154,10 @@ The user may have already cloned the repository and created a virtual environmen
    ```bash
    # Start base services (database)
    docker-compose up -d
-   
+
    # Start exporter-related services
    docker-compose --profile test-exporter up -d
-   
+
    # Start notification services (requires specific DB name)
    POSTGRES_DB_NAME=notification docker-compose --profile test-notification-services up -d
    ```
@@ -257,4 +257,3 @@ Before pushing the changes, ensure:
 - [ ] Documentation is updated
 - [ ] Scenario lists are updated
 - [ ] No merge conflicts with main branch
-

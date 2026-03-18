@@ -33,4 +33,3 @@ Feature: Basic set of smoke tests
     Given the system is in default state
      When I run the Insights Results Aggregator Mock with the --config command line flag
      Then I should see actual configuration displayed by Insights Results Aggregator Mock on standard output
-

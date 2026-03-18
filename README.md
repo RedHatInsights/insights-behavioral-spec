@@ -78,4 +78,3 @@ Please look at [this page](https://redhatinsights.github.io/insights-behavioral-
 ## Additional tools
 
 This repository contains additional tools and helpers. Description of such tools can be found on [this page](https://redhatinsights.github.io/insights-behavioral-spec/tools.html)
-

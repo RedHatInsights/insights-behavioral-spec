@@ -131,5 +131,3 @@ Feature: Tests for cluster list endpoint
             "status": "You have no permissions to get or change info about this organization"
           }
           """
-
-

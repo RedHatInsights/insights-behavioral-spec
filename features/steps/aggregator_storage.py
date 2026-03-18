@@ -58,5 +58,7 @@ def read_dvo_migration_number_from_database(context):
 @then("I should see that migration #{migration:n} is returned")
 def check_migration(context, migration):
     """Check which migration number is stored in database."""
-    assert migration == context.database_migration, \
-        f"Expected database migration {migration} but migration #{context.database_migration} was found"  # noqa E501
+    assert migration == context.database_migration, (
+        f"Expected database migration {migration} but "
+        f"migration #{context.database_migration} was found"
+    )

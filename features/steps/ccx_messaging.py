@@ -38,7 +38,7 @@ def transform_service_name(service_name):
 def service_not_started(context, service):
     """Check if SHA extractor service has been started."""
     service_name = transform_service_name(service)
-    assert not hasattr(context, "services") or service_name not in context.services.keys()
+    assert not hasattr(context, "services") or service_name not in context.services
 
 
 @given('Kafka topic specified in configuration variable "{topic_var}" is created')
@@ -319,7 +319,7 @@ def message_in_buffer(message, buffer, timeout=60.0):
         start_time = time.time()
         while time.time() - start_time < timeout:
             try:
-                with open(buffer, "r") as f:
+                with open(buffer) as f:
                     content = f.read()
                     if message in content:
                         return True

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# vim: set fileencoding=utf-8
 
 # Copyright © 2023  Pavel Tisnovsky
 #
@@ -21,16 +20,16 @@ import pytest
 from sql import construct_insert_statement
 
 inputs_and_outputs = (
-        # input                  expected output
-        (["foo"],                "INSERT into table1 (foo) VALUES (%s)"),
-        (["foo", "bar"],         "INSERT into table1 (foo, bar) VALUES (%s, %s)"),
-        (["foo", "bar", "baz"],  "INSERT into table1 (foo, bar, baz) VALUES (%s, %s, %s)"),
+    # input                  expected output
+    (["foo"], "INSERT into table1 (foo) VALUES (%s)"),
+    (["foo", "bar"], "INSERT into table1 (foo, bar) VALUES (%s, %s)"),
+    (["foo", "bar", "baz"], "INSERT into table1 (foo, bar, baz) VALUES (%s, %s, %s)"),
 )
 
 wrong_inputs = (
-        [""],
-        ["foo", "", "baz"],
-        ["", "", ""],
+    [""],
+    ["foo", "", "baz"],
+    ["", "", ""],
 )
 
 

@@ -88,23 +88,24 @@ def after_scenario(context, scenario):
     """Run after each scenario is run."""
     if "database" in scenario.effective_tags:
         prepare_db(context, CLEANUP_FILES, context.database_name)
-    if "sha_extractor" or "dvo_extractor" in scenario.effective_tags:
+
+    if (
+        "sha_extractor" in scenario.effective_tags
+        or "dvo_extractor" in scenario.effective_tags
+        and hasattr(context, "services")
+    ):
         # terminate the subprocess to have
         # one kafka consumer at a time
-        if hasattr(context, "services"):
-            for service in context.services.keys():
-                try:
-                    # try to close nicely
-                    context.services[service].terminate()
-                    context.services[service].wait(timeout=10)
-                except TimeoutExpired:
-                    # ok we have to kill the process
-                    context.services[service].kill()
-                    context.services[service].wait()
-
-                assert (
-                    context.services[service].poll() is not None
-                ), f"{service} was not closed"
+        for service in context.services:
+            try:
+                # try to close nicely
+                context.services[service].terminate()
+                context.services[service].wait(timeout=10)
+            except TimeoutExpired:
+                # ok we have to kill the process
+                context.services[service].kill()
+                context.services[service].wait()
+            assert context.services[service].poll() is not None, f"{service} was not closed"
 
 
 def prepare_db(context, setup_files=CLEANUP_FILES, database="test"):
@@ -130,7 +131,7 @@ def prepare_db(context, setup_files=CLEANUP_FILES, database="test"):
     connection.close()
 
 
-def setup_default_S3_context(context):
+def setup_default_s3_context(context):
     """Prepare context variables to be used to connect to S3 or Minio."""
     context.S3_type = os.getenv("S3_TYPE", "minio")
     context.S3_endpoint = os.getenv("S3_HOST", "localhost")
@@ -159,7 +160,7 @@ def before_feature(context, feature):
         prepare_db(context, DB_INIT_FILES, context.database_name)
 
     if any(f in feature.tags for f in FEATURES_WITH_MINIO):
-        setup_default_S3_context(context)
+        setup_default_s3_context(context)
 
     if any(f in feature.tags for f in FEATURES_WITH_KAFKA):
         setup_default_kafka_context(context)

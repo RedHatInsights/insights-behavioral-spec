@@ -1,11 +1,12 @@
 name: Pytest
 
 on:
-  - push
-  - pull_request
+  push:
+    branches: [main, master]
+  pull_request:
 
 jobs:
-  python_tools:
+  tests:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -19,20 +20,16 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - run: pip install --upgrade setuptools wheel importlib-metadata
       - run: pip install -r requirements.txt
-      - run: pip install pycodestyle pydocstyle pytest-cov
-      - name: Style checks
-        run: make code-style docs-style
+      - run: pip install pytest-cov
       - name: Unit tests
         run: make unit_tests
       - name: Unit tests coverage
         run: make coverage
 
-  docs_check:
+  scenarios-lists-updated:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
-        with:
-          python-version: "3.11"
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
       - name: Scenarios list check
         run: make doc-check

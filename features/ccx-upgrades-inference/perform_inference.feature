@@ -10,7 +10,7 @@ Feature: Upgrade Risks Prediction inference - test well known values
   Scenario: Check Inference Service response with an invalid body is used in the request
      When I request the upgrade-risks-prediction endpoint in localhost:8000 with junk in the body
      Then The status code of the response is 422
-    
+
   Scenario: Check Inference Service response with a valid body with invalid data is used in the request
      When I request the upgrade-risks-prediction endpoint in localhost:8000 with JSON
       """
@@ -41,8 +41,8 @@ Feature: Upgrade Risks Prediction inference - test well known values
               ],
               "operator_conditions": [
                 {
-                  "name": "authentication", 
-                  "condition": "Degraded", 
+                  "name": "authentication",
+                  "condition": "Degraded",
                   "reason": "AsExpected"
                 }
               ]
@@ -81,8 +81,8 @@ Feature: Upgrade Risks Prediction inference - test well known values
                 "alerts": [],
                 "operator_conditions": [
                   {
-                    "name": "authentication", 
-                    "condition": "Degraded", 
+                    "name": "authentication",
+                    "condition": "Degraded",
                     "reason": "AsExpected"
                   }
                 ]
@@ -97,8 +97,8 @@ Feature: Upgrade Risks Prediction inference - test well known values
               "alerts": [],
               "operator_conditions": [
                 {
-                  "name": "authentication", 
-                  "condition": "Available", 
+                  "name": "authentication",
+                  "condition": "Available",
                   "reason": "AsExpected"
                 }
               ]
@@ -318,8 +318,8 @@ Scenario: Check Inference Service does not predict risk for 2 alerts with info s
               "alerts": [],
               "operator_conditions": [
                 {
-                  "name": "authentication", 
-                  "condition": "Not Available", 
+                  "name": "authentication",
+                  "condition": "Not Available",
                   "reason": "AsExpected"
                 }
               ]

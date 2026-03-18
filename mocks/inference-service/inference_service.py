@@ -14,7 +14,6 @@
 
 """Mock server that can be used instead of fully functional Inference Service."""
 
-
 from fastapi import FastAPI, Request
 
 app = FastAPI()

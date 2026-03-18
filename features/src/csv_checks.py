@@ -25,14 +25,14 @@ def check_table_content(context: Context, buff, filename, column, column2=None, 
     assert buff is not None, "buff object needs to be set"
 
     # CSV file object
-    csvFile = csv.reader(buff)
+    csv_file = csv.reader(buff)
 
     # skip the first row of the CSV file when we know in advance it contains column headers
     if headers:
-        next(csvFile)
+        next(csv_file)
 
     # process rest of CSV file (without optinal header line)
-    for line in csvFile:
+    for line in csv_file:
         found = False
         # iterate over all records that needs to be stored in CSV
         for row in context.table:

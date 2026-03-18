@@ -35,9 +35,7 @@ def process_ccx_notification_writer_output(context, out, return_code):
     assert stdout is not None, "No output from application"
 
     # check the return code of a process
-    assert (
-        out.returncode == 0 or out.returncode == return_code
-    ), f"Return code is {out.returncode}"
+    assert out.returncode == 0 or out.returncode == return_code, f"Return code is {out.returncode}"
 
     # try to decode output
     output = stdout.decode("utf-8").split("\n")
@@ -131,9 +129,9 @@ def check_version_from_ccx_notification_writer(context):
     assert isinstance(context.output, list), "wrong type of output"
 
     # check the output
-    assert (
-        "CCX Notification Writer version 1.0" in context.output
-    ), f"Caught output: {context.output}"
+    assert "CCX Notification Writer version 1.0" in context.output, (
+        f"Caught output: {context.output}"
+    )
 
 
 def check_authors_info_from_ccx_notification_writer(context):
@@ -143,9 +141,7 @@ def check_authors_info_from_ccx_notification_writer(context):
     assert isinstance(context.output, list), "wrong type of output"
 
     # check the output
-    assert (
-        "Pavel Tisnovsky, Red Hat Inc." in context.output
-    ), f"Caught output: {context.output}"
+    assert "Pavel Tisnovsky, Red Hat Inc." in context.output, f"Caught output: {context.output}"
 
 
 @given("CCX Notification database is empty")

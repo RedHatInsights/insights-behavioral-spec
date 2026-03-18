@@ -22,7 +22,9 @@
 import os
 
 # URL prefix to create links to feature files
-FEATURES_URL_PREFIX = "https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features"  # noqa E501
+FEATURES_URL_PREFIX = (
+    "https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features"  # noqa E501
+)
 
 # list of prefixes for scenarios or scenario outlines
 PREFIXES = ("Scenario: ", "Scenario Outline: ")
@@ -78,13 +80,13 @@ for subdirectory in SUBDIRECTORIES:
                 "## "
                 f"[`{subdirectory}/{filename}`]({FEATURES_URL_PREFIX}/{subdirectory}/{filename})\n",
             )
-            with open(os.path.join(directory, filename), "r") as fin:
+            with open(os.path.join(directory, filename)) as fin:
                 for line in fin.readlines():
                     line = line.strip()
                     # process all scenarios and scenario outlines
                     for prefix in PREFIXES:
                         if line.startswith(prefix):
-                            line = line[len(prefix):]
+                            line = line[len(prefix) :]
                             print(f"* {line}")
             # vertical space between subsections in generated file
             print()

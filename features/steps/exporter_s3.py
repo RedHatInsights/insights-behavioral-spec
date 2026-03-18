@@ -14,7 +14,6 @@
 
 """Implementation of test steps that check or access S3/S3 service."""
 
-
 import csv
 
 from behave import given, then
@@ -69,9 +68,7 @@ def set_s3_access_key(context, value):
 @given("S3 secret access key is set")
 def assert_s3_secret_access_key_is_set(context):
     """Set S3 secret access key."""
-    assert (
-        context.S3_secret_access_key is not None
-    ), "S3 Secret access key not found in context"
+    assert context.S3_secret_access_key is not None, "S3 Secret access key not found in context"
 
 
 @given("S3 secret access key is set to {value}")
@@ -201,9 +198,7 @@ def check_csv_content_in_s3(context):
         stored_records = len(list(csv_file)) - 1
 
         # now check numbers
-        assert (
-            expected_records == stored_records
-        ), (
+        assert expected_records == stored_records, (
             f"Expected number records in object {object_name} is {expected_records} "
             f"but {stored_records} was read"
         )

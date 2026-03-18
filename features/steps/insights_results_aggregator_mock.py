@@ -89,12 +89,14 @@ def check_authors_info_from_mock(context):
     assert isinstance(context.output, list), "wrong type of output"
 
     # check the output
-    assert (
-        "Pavel Tisnovsky <ptisnovs@redhat.com>" in context.output
-    ), f"Caught output: {context.output}"
+    assert "Pavel Tisnovsky <ptisnovs@redhat.com>" in context.output, (
+        f"Caught output: {context.output}"
+    )
 
 
-@then("I should see actual configuration displayed by Insights Results Aggregator Mock on standard output")  # noqa E501
+@then(
+    "I should see actual configuration displayed by Insights Results Aggregator Mock on standard output"  # noqa E501
+)
 def check_actual_configuration(context):
     """Check if actual configuration is displayed by Insights Results Aggregator Mock."""
     # preliminary checks
@@ -127,7 +129,7 @@ def check_list_of_organizations(context):
     """Check if Insights Results Aggregator Mock service returned expected list of organizations."""
     # construct set of expected organizations
     # from a table provided in feature file
-    expected_organizations = set(int(item["Organization"]) for item in context.table)
+    expected_organizations = {int(item["Organization"]) for item in context.table}
 
     # construct set of actually found organizations
     # from JSON payload returned by the service
@@ -197,7 +199,7 @@ def check_list_of_groups(context):
     """Check list of groups returned from the service."""
     # construct set of expected group names
     # from a table provided in feature file
-    expected_group_names = set(item["Title"] for item in context.table)
+    expected_group_names = {item["Title"] for item in context.table}
 
     # construct set of actually found group names
     # from JSON payload returned by the service
@@ -218,9 +220,11 @@ def check_list_of_groups(context):
 
         # try to find the corresponding record in BDD table
         for item in context.table:
-            if item["Title"] == title and \
-                    item["Description"] == description and \
-                    item["Tags"] == tags:
+            if (
+                item["Title"] == title
+                and item["Description"] == description
+                and item["Tags"] == tags
+            ):
                 # we found the record
                 break
         else:
@@ -279,8 +283,9 @@ def check_number_of_rule_hits(context, expected_count=1):
     actual_count = meta["count"]
 
     # compare actual count with expected count
-    assert actual_count == expected_count, \
+    assert actual_count == expected_count, (
         f"Expected rule hits count: {expected_count}, actual count: {actual_count}"
+    )
 
 
 @then("The report should not contain any rule hit")
@@ -319,11 +324,15 @@ def check_all_rule_hits(context):
             actual_risk_of_change = record["risk_of_change"]
 
             # exact match
-            if all((actual_type == expected_type,
+            if all(
+                (
+                    actual_type == expected_type,
                     actual_rule_id == expected_rule_id,
                     actual_error_key == expected_error_key,
                     actual_total_risk == expected_total_risk,
-                    actual_risk_of_change == expected_risk_of_change)):
+                    actual_risk_of_change == expected_risk_of_change,
+                )
+            ):
                 break
         else:
             # record was not found
@@ -349,12 +358,15 @@ def check_metadata(context):
         assert expected_name in meta, f"Attribute with name {expected_name} is missing"
 
         # has the attribute expected value?
-        assert str(meta[expected_name]) == expected_value, \
+        assert str(meta[expected_name]) == expected_value, (
             f"Attribute with name {expected_name} has unexpected value {meta[expected_name]}"
+        )
 
 
 @when("I request results for the following list of clusters")
-@when("I request results for the following list of clusters using token for organization {organization:d} account number {account}, and user {user}")  # noqa: E501
+@when(
+    "I request results for the following list of clusters using token for organization {organization:d} account number {account}, and user {user}"  # noqa: E501
+)
 def request_results_for_list_of_clusters(context, organization=None, account=None, user=None):
     """Send list of clusters in JSON body of request into the service."""
     cluster_list = [item["Cluster name"] for item in context.table]
@@ -371,7 +383,9 @@ def request_results_for_list_of_clusters(context, organization=None, account=Non
         token = construct_rh_token(organization, account, user)
         # perform POST request
         context.response = requests.post(
-            url, headers={"x-rh-identity": token}, json=json_request_body,
+            url,
+            headers={"x-rh-identity": token},
+            json=json_request_body,
         )
     else:
         # URL for Smart Proxy and for Insights Results Aggregator Mock
@@ -420,7 +434,7 @@ def check_reports_for_list_of_clusters(context):
     assert_sets_equality("cluster list", expected_clusters, found_clusters)
 
     # now we need to check reports for basic structure
-    for cluster_name, cluster_entry in reports.items():
+    for cluster_entry in reports.values():
         assert "status" in cluster_entry, cluster_entry
         status = cluster_entry["status"]
         assert status == "ok", f"Unexpected status {status}"
@@ -437,8 +451,9 @@ def check_reports_for_list_of_clusters(context):
         # check number of reports
         meta_count = meta["count"]
         report_count = len(data)
-        assert meta_count == report_count, \
+        assert meta_count == report_count, (
             "Incorrect number of reports {meta_count} <> {report_count}"
+        )
 
 
 @then("I should see following list of unknown clusters")
@@ -544,10 +559,14 @@ def check_list_of_acked_rules(context):
             actual_created_by = record["created_by"]
 
             # exact match is required
-            if all((actual_rule_id == expected_rule_id,
+            if all(
+                (
+                    actual_rule_id == expected_rule_id,
                     actual_error_key == expected_error_key,
                     actual_justification == expected_justification,
-                    actual_created_by == expected_created_by)):
+                    actual_created_by == expected_created_by,
+                )
+            ):
                 break
         else:
             # record was not found
@@ -572,15 +591,16 @@ def perform_rule_ack_without_justification(context, rule_id, error_key):
     assert context.response.status_code in (200, 201)
 
 
-@when('I ack rule with ID "{rule_id}" and error key "{error_key}" with justification "{justification}"')  # noqa E501
+@when(
+    'I ack rule with ID "{rule_id}" and error key "{error_key}" with justification "{justification}"'  # noqa E501
+)
 def perform_rule_ack_with_justification(context, rule_id, error_key, justification):
     """Ack the rule identified by rule ID and error key."""
     # construct full rule FQDN
     rule_fqdn = f"{rule_id}.report|{error_key}"
 
     # construct object to be send to the service
-    json_request_body = {"rule_id": rule_fqdn,
-                         "justification": justification}
+    json_request_body = {"rule_id": rule_fqdn, "justification": justification}
 
     url = f"http://{context.hostname}:{context.port}{context.api_prefix}/ack"
 
@@ -594,7 +614,9 @@ def perform_rule_ack_with_justification(context, rule_id, error_key, justificati
     assert context.response.status_code in (200, 201)
 
 
-@when('I change justification text for rule with ID "{rule_id}" and error key "{error_key}" to "{justification}"')  # noqa E501
+@when(
+    'I change justification text for rule with ID "{rule_id}" and error key "{error_key}" to "{justification}"'  # noqa E501
+)
 def change_justification_text(context, rule_id, error_key, justification):
     """Change justification for a rule via POST call."""
     # construct full rule FQDN
@@ -630,5 +652,6 @@ def delete_rule_ack(context, rule_id, error_key):
     assert context.response is not None
 
     # HTTP status code of response should be 200 OK, 204 No Content, or 404 Not Found
-    assert context.response.status_code in (200, 204, 404), \
+    assert context.response.status_code in (200, 204, 404), (
         f"Status code is {context.response.status_code}"
+    )

@@ -223,5 +223,3 @@ Feature: Checks for cluster reports provided by Insights Results Aggregator
           """
      When I terminate Insights Results Aggregator
      Then Insights Results Aggregator process should terminate
-
-
