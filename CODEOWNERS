@@ -1,0 +1,8 @@
+* @RedHatInsights/ccx
+
+# Auto-merge codeowners
+go.mod                  @InsightsDroid
+pyproject.toml          @InsightsDroid
+requirements.txt        @InsightsDroid
+.pre-commit-config.yaml @InsightsDroid
+.github/workflows/*     @InsightsDroid
