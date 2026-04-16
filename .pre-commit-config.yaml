@@ -26,13 +26,13 @@ repos:
         args: ['--exclude=SC1090,SC2086,SC2034,SC1091']
 
   - repo: https://github.com/golangci/golangci-lint
-    rev: v2.11.3
+    rev: v2.11.4
     hooks:
       - id: golangci-lint-config-verify
       - id: golangci-lint-full
 
   - repo: https://github.com/RedHatInsights/processing-tools
-    rev: v0.1.0
+    rev: v0.3.1
     hooks:
       - id: abcgo
         args: ['--threshold=64']
@@ -40,7 +40,7 @@ repos:
       - id: go-version-consistency
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.5
+    rev: v0.15.10
     hooks:
       # Adding a set of rules to ruff check to match pyupgrade rules
       - id: ruff-check
