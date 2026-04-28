@@ -24,13 +24,12 @@ function clone_service() {
 }
 
 function install_service() {
-    cd "$PATH_TO_LOCAL_TEMPLATE_RENDERER" || exit
-    install_reqs
-    # dir_path is set by test_runner_common.sh
-    # shellcheck disable=SC2154
-    cd "$dir_path" || exit
+    pip install "$PATH_TO_LOCAL_TEMPLATE_RENDERER" || exit 1
+    # shellcheck disable=SC2016
+    add_exit_trap 'pip uninstall -y insights-content-template-renderer'
 }
 
+ensure_logs_dir
 ensure_venv
 
 if [ ! -d "$PATH_TO_LOCAL_TEMPLATE_RENDERER" ]; then
