@@ -20,7 +20,9 @@ source "$(dirname "$(realpath "$0")")/tools/test_runner_common.sh"
 PATH_TO_LOCAL_INFERENCE_SERVICE=${PATH_TO_LOCAL_INFERENCE_SERVICE:-"../ccx-upgrades-inference/"}
 
 function install_inference_service() {
-    pip install -r "$PATH_TO_LOCAL_INFERENCE_SERVICE"/requirements.txt || exit 1
+    if [ -f "$PATH_TO_LOCAL_INFERENCE_SERVICE"/requirements.txt ]; then
+        pip install -r "$PATH_TO_LOCAL_INFERENCE_SERVICE"/requirements.txt || exit 1
+    fi
     pip install "$PATH_TO_LOCAL_INFERENCE_SERVICE"/. || exit 1
     # shellcheck disable=SC2016
     add_exit_trap 'pip uninstall -y ccx-upgrades-inference'
