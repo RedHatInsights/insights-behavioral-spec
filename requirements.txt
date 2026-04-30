@@ -10,7 +10,7 @@ pandas
 psycopg2-binary
 pyarrow
 pytest
-python-multipart>=0.0.19
+python-multipart>=0.0.27
 requests
 semver
 sentry-sdk
