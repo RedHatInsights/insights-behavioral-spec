@@ -22,7 +22,7 @@ tests:	cleaner-tests exporter-tests aggregator-tests aggregator-mock-tests \
 	inference-service-tests data-engineering-service-tests
 
 unit_tests: ## Run all unit tests defined in this project
-	export PATH=tools/:$$PATH;export PYTHONDONTWRITEBYTECODE=1;pytest -v -p no:cacheprovider
+	export PYTHONDONTWRITEBYTECODE=1; pytest -v -p no:cacheprovider
 
 coverage: ## Calculate unit test code coverage for the whole repository
 	export PATH=tools/:$$PATH;export PYTHONDONTWRITEBYTECODE=1;pytest -v -p no:cacheprovider --cov features/
