@@ -21,6 +21,7 @@ import os
 # this is ugly hack, but we need to update include/import path
 # we need to do this hack before importing jps
 import sys
+from unittest.mock import patch
 
 import pytest
 
@@ -76,7 +77,11 @@ def test_get_all_jvm_based_application():
             self.stderr = None
 
     context = Context()
-    get_all_jvm_based_applications(context)
+
+    current_path = os.environ["PATH"]
+
+    with patch.dict(os.environ, {"PATH": f"./tools:{current_path}"}):
+        get_all_jvm_based_applications(context)
 
     assert context.output is not None
     assert context.stdout is not None

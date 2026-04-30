@@ -1,3 +1,36 @@
+[project]
+name = "insights-behavioral-spec"
+version = "0.0.0"
+optional-dependencies.test = [
+    "PyYAML",
+    "behave",
+    "boto3",
+    "fastapi",
+    "jsonschema",
+    "kafka-python-ng",
+    "minio",
+    "numpy",
+    "pandas",
+    "psycopg2-binary",
+    "pyarrow",
+    "pytest",
+    "python-multipart>=0.0.19",
+    "requests",
+    "semver",
+    "sentry-sdk",
+    "toml",
+    "types-PyYAML",
+    "types-jsonschema",
+    "types-psycopg2",
+    "types-requests",
+    "uvicorn[standard]",
+    "virtualenv>=20.28.0",
+    "setuptools>=70.0.0",
+]
+
+[tool.setuptools]
+packages = []
+
 [tool.ruff]
 select = ["E", "F", "W", "UP", "C", "D", "I", "Q", "COM"]
 ignore = ["D211", "C401", "D213", "UP006", "UP007", "UP009", "UP015", "UP035"]
