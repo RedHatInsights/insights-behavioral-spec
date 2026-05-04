@@ -20,5 +20,5 @@ types-jsonschema
 types-psycopg2
 types-requests
 uvicorn[standard]
-virtualenv>=20.28.0
+virtualenv>=21.3.0
 setuptools>=70.0.0
