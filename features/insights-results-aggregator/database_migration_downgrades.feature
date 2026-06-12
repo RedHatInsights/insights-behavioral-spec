@@ -1100,3 +1100,43 @@ Feature: Database migration downgrades tests
           | rule_disable                       |
           | advisor_ratings                    |
           | report_info                        |
+
+  @database
+  Scenario: Check database downgrade from version #32 to version #31
+     When database connection is established
+      And I look for the table migration_info in database
+     Then I should be able to find it
+     When I migrate aggregator database to version #32
+      And I read current migration number from database
+     Then I should see that migration #32 is returned
+      And I should see 11 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
+          | rule_hit                           |
+          | recommendation                     |
+          | rule_disable                       |
+          | advisor_ratings                    |
+          | report_info                        |
+     When I migrate aggregator database to version #31
+      And I read current migration number from database
+     Then I should see that migration #31 is returned
+      And I should see 11 tables in the database
+      And I should see these tables in the database
+          | Table name                         |
+          | migration_info                     |
+          | report                             |
+          | cluster_rule_user_feedback         |
+          | consumer_error                     |
+          | cluster_rule_toggle                |
+          | cluster_user_rule_disable_feedback |
+          | rule_hit                           |
+          | recommendation                     |
+          | rule_disable                       |
+          | advisor_ratings                    |
+          | report_info                        |

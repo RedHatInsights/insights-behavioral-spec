@@ -443,6 +443,7 @@ nav_order: 3
 * Check database migration from version #0 to version #29
 * Check database migration from version #0 to version #30
 * Check database migration from version #0 to version #31
+* Check database migration from version #0 to version #32
 
 ## [`insights-results-aggregator/database_migration_downgrades.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/database_migration_downgrades.feature)
 
@@ -476,6 +477,7 @@ nav_order: 3
 * Check database downgrade from version #29 to version #28
 * Check database downgrade from version #30 to version #29
 * Check database downgrade from version #31 to version #30
+* Check database downgrade from version #32 to version #31
 
 ## [`insights-results-aggregator/list_of_clusters.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-results-aggregator/list_of_clusters.feature)
 

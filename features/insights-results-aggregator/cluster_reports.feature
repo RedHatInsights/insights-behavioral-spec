@@ -12,7 +12,7 @@ Feature: Checks for cluster reports provided by Insights Results Aggregator
      When database connection is established
       And I migrate aggregator database to latest version
       And I read current migration number from database
-     Then I should see that migration #31 is returned
+     Then I should see that migration #32 is returned
     Given Insights Results Aggregator service is started in background
 
 
