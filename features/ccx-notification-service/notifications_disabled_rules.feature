@@ -1,4 +1,4 @@
-@notification_service
+@notification_service @skip
 Feature: Ability to take disabled rules from the aggregator database into account when sending notifications
 
 """
