@@ -910,6 +910,19 @@ nav_order: 3
 * Check the ability to display old records from `reported` if the table contains multiple old reports.
 * Check the ability to display old records from `reported` if the table contains old and new reports
 
+## [`ccx-notification-service/notifications_disabled_rules.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/ccx-notification-service/notifications_disabled_rules.feature)
+
+* Check that a rule disabled for a single cluster affects the cluster
+* Check that a rule ack affects all clusters in an organization
+* Check that a rule ack for an organization does not affect other organizations
+* Check that enabling a single cluster disable rule works in the next run
+* Check that enabling a rule ack works in the next run
+* Check that re-enabling a rule within cooldown does not notify
+* Check that re-enabling a rule outside cooldown does notify
+* Check that re-enabling a rule ack within cooldown does not notify
+* Check that re-enabling a rule ack outside cooldown does notify
+* Check that only the re-enabled rule is notified when other rules are in cooldown
+
 ## [`ccx-notification-service/service_log.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/ccx-notification-service/service_log.feature)
 
 * Check that notification service does not send messages to service log if it is disabled
@@ -922,6 +935,19 @@ nav_order: 3
 * Check that notification service resends message after cooldown has passed
 * Check that notification service produces a single notification event for cluster with multiple new reports
 * Check that Kafka related rows in reported table do not affect notifications sent to service log
+
+## [`ccx-notification-service/service_log_disabled_rules.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/ccx-notification-service/service_log_disabled_rules.feature)
+
+* Check that a rule disabled for a single cluster affects the cluster
+* Check that a rule ack affects all clusters in an organization
+* Check that a rule ack for an organization does not affect other organizations
+* Check that enabling a single cluster disable rule works in the next run
+* Check that enabling a rule ack works in the next run
+* Check that re-enabling a rule within cooldown does not notify
+* Check that re-enabling a rule outside cooldown does notify
+* Check that re-enabling a rule ack within cooldown does not notify
+* Check that re-enabling a rule ack outside cooldown does notify
+* Check that only the re-enabled rule is sent to service log when other rules are in cooldown
 
 ## [`ccx-notification-service/smoketests.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/ccx-notification-service/smoketests.feature)
 
