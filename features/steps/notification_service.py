@@ -110,7 +110,7 @@ def start_ccx_notification_service_with_flag(context, flag):
         | val                                             | var   |
         | CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ENABLED | false |
     """
-    params = ["ccx-notification-service", flag]
+    params = ["ccx-notification-service", flag, "--ignore-disabled-rules"]
     if hasattr(context, "max_age"):
         params.append("--max-age=" + context.max_age)
     if hasattr(context, "cleanup_on_startup"):
