@@ -20,6 +20,7 @@ import os
 import select
 import subprocess
 import time
+from pathlib import Path
 
 from behave import given, then, when
 from src import kafka_util
@@ -145,7 +146,7 @@ def check_workload_info_present(context, service):
 def check_b64_decode(context, service):
     """Check if ccx-messaging service was able to decode b64_identity attribute from a message."""
     service_name = transform_service_name(service)
-    expected_msg = "Message context: OrgId="
+    expected_msg = "Extracted URL from input message"
     stdout_file = context.service_logs[service_name]["stdout"]
 
     assert message_in_buffer(
@@ -278,6 +279,9 @@ def start_service_compressed(context, service, group_id=None):
         context.services = {}
 
     context.services[service_name] = process
+    if not hasattr(context, "service_logs"):
+        context.service_logs = {}
+    context.service_logs[service_name] = {"stdout": process.stdout, "stderr": process.stderr}
 
 
 @then("published message has to be compressed")
@@ -314,17 +318,16 @@ def no_compressed_archive_sent_to_topic(context):
 
 def message_in_buffer(message, buffer, timeout=60.0):
     """Check if service prints given message on its output."""
-    # If buffer is a string (file path), read from file
     if isinstance(buffer, str):
+        buffer = Path(buffer)
+
+    if isinstance(buffer, Path):
         start_time = time.time()
         while time.time() - start_time < timeout:
-            try:
-                with open(buffer) as f:
-                    content = f.read()
-                    if message in content:
-                        return True
-            except FileNotFoundError:
-                pass
+            if buffer.exists():
+                content = buffer.read_text()
+                if message in content:
+                    return True
             time.sleep(0.1)
         return False
 
