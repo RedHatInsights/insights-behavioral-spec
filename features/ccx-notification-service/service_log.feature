@@ -114,8 +114,8 @@ Feature: Service Log
           | cluster name                         |
           | 5d5892d4-1f74-4ccf-91af-548dfc9767aa |
      Then I should find the following log events for each cluster
-          | cluster name                         | num logs | service name |
-          | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1        | test         |
+          | cluster name                         | num logs | service name             |
+          | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1        | CCX Notification Service |
 
 
   @rest-api
