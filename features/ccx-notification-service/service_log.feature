@@ -48,8 +48,8 @@ Feature: Service Log
 
 
   @rest-api
-  Scenario: Check that notification service sends matching severity level to service log
-     When I insert 1 report with moderate total risk for the following clusters
+  Scenario Outline: Check that notification service sends matching severity level to service log
+     When I insert 1 report with <risk> total risk for the following clusters
           | org id |  account number | cluster name                         |
           | 1      |  1              | 5d5892d4-1f74-4ccf-91af-548dfc9767aa |
       And I start the CCX Notification Service with the --instant-reports command line flag
@@ -62,40 +62,14 @@ Feature: Service Log
           | cluster name                         |
           | 5d5892d4-1f74-4ccf-91af-548dfc9767aa |
      Then the service log events should have the following severities
-          | cluster name                         | severity  |
-          | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | Moderate  |
-    Given service-log service has no records for cluster 5d5892d4-1f74-4ccf-91af-548dfc9767aa
-     When I insert 1 report with important total risk for the following clusters
-          | org id |  account number | cluster name                         |
-          | 1      |  1              | 5d5892d4-1f74-4ccf-91af-548dfc9767aa |
-      And I start the CCX Notification Service with the --instant-reports command line flag
-          | val                                             | var   |
-          | CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ENABLED | false |
-          | CCX_NOTIFICATION_SERVICE__SERVICE_LOG__ENABLED  | true  |
-     Then it should have sent 1 notification events to Service Log for cluster 5d5892d4-1f74-4ccf-91af-548dfc9767aa
-      And the process should exit with status code set to 0
-     When I retrieve the service log events for the following clusters
-          | cluster name                         |
-          | 5d5892d4-1f74-4ccf-91af-548dfc9767aa |
-     Then the service log events should have the following severities
-          | cluster name                         | severity  |
-          | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | Important |
-    Given service-log service has no records for cluster 5d5892d4-1f74-4ccf-91af-548dfc9767aa
-     When I insert 1 report with critical total risk for the following clusters
-          | org id |  account number | cluster name                         |
-          | 1      |  1              | 5d5892d4-1f74-4ccf-91af-548dfc9767aa |
-      And I start the CCX Notification Service with the --instant-reports command line flag
-          | val                                             | var   |
-          | CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ENABLED | false |
-          | CCX_NOTIFICATION_SERVICE__SERVICE_LOG__ENABLED  | true  |
-     Then it should have sent 1 notification events to Service Log for cluster 5d5892d4-1f74-4ccf-91af-548dfc9767aa
-      And the process should exit with status code set to 0
-     When I retrieve the service log events for the following clusters
-          | cluster name                         |
-          | 5d5892d4-1f74-4ccf-91af-548dfc9767aa |
-     Then the service log events should have the following severities
-          | cluster name                         | severity  |
-          | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | Critical  |
+          | cluster name                         | severity   |
+          | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | <severity> |
+
+  Examples:
+          | risk      | severity  |
+          | moderate  | Moderate  |
+          | important | Important |
+          | critical  | Critical  |
 
 
   @rest-api
