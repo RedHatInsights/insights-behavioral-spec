@@ -485,11 +485,20 @@ def check_service_log_logs_for_given_clusters(context):
     """Verify that (part of) the content of the log events for given cluster is the expected."""
     for row in context.table:
         log_event = context.service_logs_by_cluster[row["cluster name"]]
-        assert log_event is not None, f"log event not found for cluster {row['cluster_name']}"
+        assert log_event is not None, f"log event not found for cluster {row['cluster name']}"
         assert len(log_event) == int(
             row["num logs"],
         ), f"unexpected number of logs: got {len(log_event)}, want {row['num logs']}"
-        assert (item["service_name"] == row["service name"] for item in log_event)
+        assert all(item["service_name"] == row["service name"] for item in log_event)
+
+
+@then("the service log events should have the following severities")
+def check_service_log_event_severities(context):
+    """Verify that the severity of the log events for given cluster is the expected."""
+    for row in context.table:
+        log_event = context.service_logs_by_cluster[row["cluster name"]]
+        assert log_event is not None, f"log event not found for cluster {row['cluster name']}"
+        assert all(item["severity"] == row["severity"] for item in log_event)
 
 
 @given("service-log service has no records for cluster {cluster_id}")
