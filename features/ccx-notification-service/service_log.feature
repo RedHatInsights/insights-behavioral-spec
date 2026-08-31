@@ -65,7 +65,7 @@ Feature: Service Log
           | cluster name                         | severity   |
           | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | <severity> |
 
-  Examples:
+  Scenarios:
           | risk      | severity  |
           | moderate  | Moderate  |
           | important | Important |
