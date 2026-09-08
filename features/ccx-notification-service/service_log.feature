@@ -73,8 +73,8 @@ Feature: Service Log
 
 
   @rest-api
-  Scenario: Check that notification service includes correct service name if set
-     When I insert 1 report with important total risk for the following clusters
+  Scenario: Check that notification service includes correct created by if set
+    When I insert 1 report with important total risk for the following clusters
           | org id |  account number | cluster name                         |
           | 1      |  1              | 5d5892d4-1f74-4ccf-91af-548dfc9767aa |
       And I start the CCX Notification Service with the --instant-reports command line flag
@@ -87,9 +87,9 @@ Feature: Service Log
      When I retrieve the service log events for the following clusters
           | cluster name                         |
           | 5d5892d4-1f74-4ccf-91af-548dfc9767aa |
-     Then I should find the following log events for each cluster
-          | cluster name                         | num logs | service name             |
-          | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | 1        | CCX Notification Service |
+     Then the service log events should have the following created_by
+          | cluster name                         | created by |
+          | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | test       |
 
 
   @rest-api

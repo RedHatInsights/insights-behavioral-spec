@@ -125,6 +125,7 @@ class Log(BaseModel):
     service_name: str
     severity: str | None = "Info"
     timestamp: str | None = None  # default will be current time
+    created_by: str | None = None
     username: str | None = None
     event_stream_id: str | None = None  # default will be a random ksuid
 
@@ -290,7 +291,6 @@ def add_additional_fields(log: Log) -> ReturnLog:
         id=rnd_id,
         kind="ClusterLog",
         href=f"/api/service_logs/v1/cluster_logs/{rnd_id}",
-        created_by=CCX,
         created_at=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         email=CCX,
     )
