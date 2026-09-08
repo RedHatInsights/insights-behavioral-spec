@@ -928,7 +928,7 @@ nav_order: 3
 * Check that notification service does not send messages to service log if it is disabled
 * Check that notification service sends messages to service log if it is enabled
 * Check that notification service sends matching severity level to service log
-* Check that notification service includes correct service name if set
+* Check that notification service includes correct created by if set
 * Check that notification service does not send messages to service log if it cannot be rendered
 * Check that notification service doesn't send message to service log if it is not moderate
 * Check that notification service sends log events for the configured total risk threshold
