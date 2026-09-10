@@ -110,46 +110,24 @@ Feature: Service Log
 
 
   @rest-api
-  Scenario: Check that notification service doesn't send message to service log if it is not moderate
-     When I insert 1 report with low total risk for the following clusters
+  Scenario Outline: Check that notification service applies the Service Log total risk threshold
+     When I insert 1 report with <risk> total risk for the following clusters
           | org id |  account number | cluster name                         |
           | 1      |  1              | 5d5892d4-1f74-4ccf-91af-548dfc9767aa |
       And I start the CCX Notification Service with the --instant-reports command line flag
-          | val                                             | var   |
-          | CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ENABLED | false |
-          | CCX_NOTIFICATION_SERVICE__SERVICE_LOG__ENABLED  | true  |
-     Then it should have sent 0 notification events to Service Log for cluster 5d5892d4-1f74-4ccf-91af-548dfc9767aa
+          | val                                                         | var                                 |
+          | CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ENABLED             | false                               |
+          | CCX_NOTIFICATION_SERVICE__SERVICE_LOG__ENABLED              | true                                |
+          | CCX_NOTIFICATION_SERVICE__SERVICE_LOG__TOTAL_RISK_THRESHOLD | 2                                   |
+          | CCX_NOTIFICATION_SERVICE__SERVICE_LOG__EVENT_FILTER         | totalRisk >= totalRiskThreshold     |
+     Then it should have sent <expected_events> notification events to Service Log for cluster 5d5892d4-1f74-4ccf-91af-548dfc9767aa
       And the process should exit with status code set to 0
-    Given service-log service has no records for cluster 5d5892d4-1f74-4ccf-91af-548dfc9767aa
-    When I insert 1 report with moderate total risk for the following clusters
-          | org id |  account number | cluster name                         |
-          | 1      |  1              | 5d5892d4-1f74-4ccf-91af-548dfc9767aa |
-      And I start the CCX Notification Service with the --instant-reports command line flag
-          | val                                             | var   |
-          | CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ENABLED | false |
-          | CCX_NOTIFICATION_SERVICE__SERVICE_LOG__ENABLED  | true  |
-     Then it should have sent 1 notification events to Service Log for cluster 5d5892d4-1f74-4ccf-91af-548dfc9767aa
-      And the process should exit with status code set to 0
-    Given service-log service has no records for cluster 5d5892d4-1f74-4ccf-91af-548dfc9767aa
-    When I insert 1 report with important total risk for the following clusters
-          | org id |  account number | cluster name                         |
-          | 1      |  1              | 5d5892d4-1f74-4ccf-91af-548dfc9767aa |
-      And I start the CCX Notification Service with the --instant-reports command line flag
-          | val                                             | var   |
-          | CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ENABLED | false |
-          | CCX_NOTIFICATION_SERVICE__SERVICE_LOG__ENABLED  | true  |
-     Then it should have sent 1 notification events to Service Log for cluster 5d5892d4-1f74-4ccf-91af-548dfc9767aa
-      And the process should exit with status code set to 0
-    Given service-log service has no records for cluster 5d5892d4-1f74-4ccf-91af-548dfc9767aa
-    When I insert 1 report with critical total risk for the following clusters
-          | org id |  account number | cluster name                         |
-          | 1      |  1              | 5d5892d4-1f74-4ccf-91af-548dfc9767aa |
-      And I start the CCX Notification Service with the --instant-reports command line flag
-          | val                                             | var   |
-          | CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ENABLED | false |
-          | CCX_NOTIFICATION_SERVICE__SERVICE_LOG__ENABLED  | true  |
-     Then it should have sent 1 notification events to Service Log for cluster 5d5892d4-1f74-4ccf-91af-548dfc9767aa
-      And the process should exit with status code set to 0
+
+
+  Scenarios:
+          | risk      | expected_events |
+          | low       | 0               |
+          | moderate  | 1               |
 
 
   @rest-api
