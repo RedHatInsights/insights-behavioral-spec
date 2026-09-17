@@ -510,6 +510,15 @@ def check_service_log_event_created_by(context):
         assert all(item["created_by"] == row["created by"] for item in log_event)
 
 
+@then("the service log events should have the following username")
+def check_service_log_event_username(context):
+    """Verify that the username of the log events for given cluster is the expected."""
+    for row in context.table:
+        log_event = context.service_logs_by_cluster[row["cluster name"]]
+        assert log_event is not None, f"log event not found for cluster {row['cluster name']}"
+        assert all(item["username"] == row["username"] for item in log_event)
+
+
 @given("service-log service has no records for cluster {cluster_id}")
 def remove_service_log_logs(context, cluster_id):
     """Delete all the logs from service log."""
