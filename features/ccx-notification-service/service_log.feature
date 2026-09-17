@@ -93,6 +93,26 @@ Feature: Service Log
 
 
   @rest-api
+  Scenario: Check that notification service includes correct username
+    When I insert 1 report with important total risk for the following clusters
+          | org id |  account number | cluster name                         |
+          | 1      |  1              | 5d5892d4-1f74-4ccf-91af-548dfc9767aa |
+      And I start the CCX Notification Service with the --instant-reports command line flag
+          | val                                                | var   |
+          | CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ENABLED    | false |
+          | CCX_NOTIFICATION_SERVICE__SERVICE_LOG__ENABLED     | true  |
+          | CCX_NOTIFICATION_SERVICE__SERVICE_LOG__USERNAME    | test  |
+     Then it should have sent 1 notification events to Service Log for cluster 5d5892d4-1f74-4ccf-91af-548dfc9767aa
+      And the process should exit with status code set to 0
+     When I retrieve the service log events for the following clusters
+          | cluster name                         |
+          | 5d5892d4-1f74-4ccf-91af-548dfc9767aa |
+     Then the service log events should have the following username
+          | cluster name                         | username   |
+          | 5d5892d4-1f74-4ccf-91af-548dfc9767aa | test       |
+
+
+  @rest-api
   Scenario: Check that notification service does not send messages to service log if it cannot be rendered
      When I insert 1 report with important total risk for the following clusters
           | org id |  account number | cluster name                         |
