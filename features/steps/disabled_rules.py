@@ -20,15 +20,20 @@ from datetime import datetime
 
 from behave import when
 
-# The notification service selects just the key columns of the disabled rules
-# tables, so the user_id column only needs any value satisfying NOT NULL.
-DEFAULT_USER_ID = "user1"
+# Both tables are used as created by the aggregator migrations, as the
+# scenarios migrate the aggregator database to the latest version. Migration 26
+# added org_id to cluster_rule_toggle and migrations 29 and 30 dropped the
+# user_id column from cluster_rule_toggle and rule_disable respectively, so
+# neither table is described by the CREATE TABLE commands in common_aggregator.
 
 # One row of the cluster_rule_toggle table as described in a feature file
 ClusterRuleToggle = namedtuple(
     "ClusterRuleToggle",
-    ("cluster_name", "rule_id", "error_key", "disabled"),
+    ("org_id", "cluster_name", "rule_id", "error_key", "disabled"),
 )
+
+# One row of the rule_disable table as described in a feature file
+RuleDisable = namedtuple("RuleDisable", ("org_id", "rule_id", "error_key"))
 
 
 @contextmanager
@@ -53,15 +58,25 @@ def aggregator_transaction(context):
         raise e
 
 
+def check_rule_was_affected(cursor, table, rule):
+    """Check that the last executed statement really affected the given rule.
+
+    The rule is expected to be stored by a previous step of the scenario. When
+    nothing is updated or deleted, the scenario would silently keep testing a
+    rule that is still in its original state.
+    """
+    assert cursor.rowcount > 0, f"No row matching {rule} found in table {table}"
+
+
 def read_cluster_rule_toggles(context):
     """Retrieve cluster rule toggles from the table specified in a feature file.
 
-    Columns `org id` and `account number` are not part of the
-    cluster_rule_toggle table, they just identify the cluster for the other
-    steps of the scenario.
+    Column `account number` is not part of the cluster_rule_toggle table, it
+    just identifies the cluster for the other steps of the scenario.
     """
     for row in context.table:
         toggle = ClusterRuleToggle(
+            org_id=row["org id"],
             cluster_name=row["cluster name"],
             rule_id=row["rule_id"],
             error_key=row["error_key"],
@@ -69,6 +84,7 @@ def read_cluster_rule_toggles(context):
         )
 
         # check the input table
+        assert toggle.org_id, "Organization ID should be set"
         assert toggle.cluster_name, "Cluster name should be set"
         assert toggle.rule_id, "Rule ID should be set"
         assert toggle.error_key, "Error key should be set"
@@ -77,13 +93,35 @@ def read_cluster_rule_toggles(context):
         yield toggle
 
 
+def read_rule_disables(context):
+    """Retrieve rule acks from the table specified in a feature file.
+
+    Column `user id` is specified just when the ack is being created, but it is
+    not stored anywhere, as re-enabling the rule removes the ack no matter who
+    acknowledged it.
+    """
+    for row in context.table:
+        ack = RuleDisable(
+            org_id=row["org id"],
+            rule_id=row["rule_id"],
+            error_key=row["error_key"],
+        )
+
+        # check the input table
+        assert ack.org_id, "Organization ID should be set"
+        assert ack.rule_id, "Rule ID should be set"
+        assert ack.error_key, "Error key should be set"
+
+        yield ack
+
+
 @when("I insert the following rule in the cluster_rule_toggle table for the following cluster")
 def insert_rules_into_cluster_rule_toggle_table(context):
     """Insert rows into table cluster_rule_toggle."""
     # timestamps disabled_at and enabled_at are nullable and are not taken into
     # account when the rule is being disabled, so they are left unset
     insert_statement = """INSERT INTO cluster_rule_toggle
-                         (cluster_id, rule_id, user_id, disabled, updated_at, error_key)
+                         (org_id, cluster_id, rule_id, error_key, disabled, updated_at)
                          VALUES(%s, %s, %s, %s, %s, %s);"""
 
     with aggregator_transaction(context) as cursor:
@@ -91,12 +129,12 @@ def insert_rules_into_cluster_rule_toggle_table(context):
             cursor.execute(
                 insert_statement,
                 (
+                    toggle.org_id,
                     toggle.cluster_name,
                     toggle.rule_id,
-                    DEFAULT_USER_ID,
+                    toggle.error_key,
                     toggle.disabled,
                     datetime.now(),
-                    toggle.error_key,
                 ),
             )
 
@@ -121,9 +159,40 @@ def update_rules_in_cluster_rule_toggle_table(context):
                 ),
             )
 
-            # the rule has to be disabled by a previous step, otherwise the
-            # scenario would silently test something else
-            assert cursor.rowcount > 0, (
-                f"No rule {toggle.rule_id}|{toggle.error_key} found in "
-                f"cluster_rule_toggle for cluster {toggle.cluster_name}"
+            check_rule_was_affected(cursor, "cluster_rule_toggle", toggle)
+
+
+@when("I insert the following rule ack in the rule_disable table")
+def insert_rule_acks_into_rule_disable_table(context):
+    """Insert rows into table rule_disable."""
+    # the justification column is nullable and is not taken into account when
+    # the rule is being acknowledged, so it is left unset
+    insert_statement = """INSERT INTO rule_disable
+                         (org_id, rule_id, error_key, created_at, updated_at)
+                         VALUES(%s, %s, %s, %s, %s);"""
+
+    with aggregator_transaction(context) as cursor:
+        for ack in read_rule_disables(context):
+            now = datetime.now()
+            cursor.execute(
+                insert_statement,
+                (ack.org_id, ack.rule_id, ack.error_key, now, now),
             )
+
+
+@when("I delete the following rule ack from the rule_disable table")
+def delete_rule_acks_from_rule_disable_table(context):
+    """Delete rows from table rule_disable.
+
+    The rule_disable table has no disabled flag, the mere presence of a row
+    means that the rule is acknowledged. Re-enabling the rule therefore means
+    deleting the row, no matter which user created it.
+    """
+    delete_statement = """DELETE FROM rule_disable
+                         WHERE org_id = %s AND rule_id = %s AND error_key = %s;"""
+
+    with aggregator_transaction(context) as cursor:
+        for ack in read_rule_disables(context):
+            cursor.execute(delete_statement, (ack.org_id, ack.rule_id, ack.error_key))
+
+            check_rule_was_affected(cursor, "rule_disable", ack)
