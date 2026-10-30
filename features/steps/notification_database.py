@@ -144,7 +144,9 @@ def select_all_rows_from_table(context, table):
         results = cursor.fetchone()
         assert len(results) == 1, f"Wrong number of records returned: {len(results)}"
         context.query_count = results[0]
+        context.connection.commit()
     except Exception as e:
+        context.connection.rollback()
         raise e
 
 
@@ -155,6 +157,14 @@ def check_rows_count(context, expected_count):
     assert context.query_count == expected_count, (
         f"Wrong number of rows returned: {context.query_count} instead of {expected_count}"
     )
+
+
+@then("the reported table should have {expected_count:d} row")
+@then("the reported table should have {expected_count:d} rows")
+def check_rows_count_in_reported_table(context, expected_count):
+    """Check the number of rows in table reported, regardless of their state or event target."""
+    select_all_rows_from_table(context, "reported")
+    check_rows_count(context, expected_count)
 
 
 @when("I insert following row into table new_reports")
