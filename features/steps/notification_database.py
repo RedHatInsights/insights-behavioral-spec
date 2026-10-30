@@ -41,6 +41,17 @@ DB_TABLES_LATEST = (
     "states",
 )
 
+# module (report component) of the rule known by the mocked content service
+TEST_RULE_MODULE = "ccx_rules_ocp.external.rules.test_rule.report"
+
+# error keys of the test rule, one for each total risk
+TEST_RULE_ERROR_KEYS = {
+    "critical": "TEST_RULE_CRITICAL_IMPACT",
+    "important": "TEST_RULE_IMPORTANT_IMPACT",
+    "moderate": "TEST_RULE_MODERATE_IMPACT",
+    "low": "TEST_RULE_LOW_IMPACT",
+}
+
 
 class TableExistsError(Exception):
     """Specific exception thrown when tested table exists in database."""
@@ -165,6 +176,45 @@ def check_rows_count_in_reported_table(context, expected_count):
     """Check the number of rows in table reported, regardless of their state or event target."""
     select_all_rows_from_table(context, "reported")
     check_rows_count(context, expected_count)
+
+
+@then("the latest reported row for each cluster should be")
+def check_latest_reported_rows(context):
+    """Check the state and the stored report of the latest row in table reported for each cluster.
+
+    The stored report is the one the service compares new reports with, so it
+    tells which rules were omitted from it as disabled. Rules are identified
+    by error keys separated by commas, or "none" when no rule is stored.
+    """
+    query = """SELECT states.value, reported.report
+                 FROM reported JOIN states ON states.id = reported.state
+                WHERE reported.cluster = %s AND reported.event_type_id = %s
+                ORDER BY reported.notified_at DESC
+                LIMIT 1;"""
+    cursor = context.connection.cursor()
+
+    for row in context.table:
+        cluster = row["cluster name"]
+        try:
+            cursor.execute(query, (cluster, int(row["event type id"])))
+            result = cursor.fetchone()
+            context.connection.commit()
+        except Exception as e:
+            context.connection.rollback()
+            raise e
+
+        assert result is not None, f"No row found in table reported for cluster {cluster}"
+        state, report = result
+        assert state == row["state"], (
+            f"Expected state {row['state']} of the latest row for cluster {cluster}, got {state}"
+        )
+
+        expected_rules = set() if row["rules"] == "none" else set(re.split(r",\s*", row["rules"]))
+        stored_rules = {rule_hit["key"] for rule_hit in json.loads(report)["reports"]}
+        assert stored_rules == expected_rules, (
+            f"Expected rules {expected_rules or 'none'} in the report stored for cluster "
+            f"{cluster}, got {stored_rules or 'none'}"
+        )
 
 
 @when("I insert following row into table new_reports")
@@ -315,6 +365,18 @@ def insert_report_with_risks_in_new_reports_table(context, risks):
     insert_report_into_new_reports_table(context, report)
 
 
+@when(
+    "I insert 1 production-shaped report with {risks} total risk rules for the following clusters"
+)
+def insert_production_shaped_report_in_new_reports_table(context, risks):
+    """Insert rows with a report shaped like the ones stored in production into table new_reports.
+
+    Total risks are listed in the step text, for example "critical and important".
+    """
+    report = generate_production_shaped_report(re.split(r",\s*|\s+and\s+", risks))
+    insert_report_into_new_reports_table(context, report)
+
+
 def insert_report_into_new_reports_table(context, report, updated_at=None):
     """Insert the given report into table new_reports for each cluster from the feature table."""
     if not updated_at:
@@ -404,21 +466,44 @@ def generate_report_with_risk(risk):
 
 def generate_report_with_risks(risks):
     """Create a report hitting one rule for each specified risk."""
-    risk_rule_key_map = {
-        "critical": "TEST_RULE_CRITICAL_IMPACT",
-        "important": "TEST_RULE_IMPORTANT_IMPACT",
-        "moderate": "TEST_RULE_MODERATE_IMPACT",
-        "low": "TEST_RULE_LOW_IMPACT",
-    }
     rule_hits = [
         {
-            "rule_id": f"test_rule|{risk_rule_key_map[risk]}",
-            "component": "ccx_rules_ocp.external.rules.test_rule.report",
+            "rule_id": f"test_rule|{TEST_RULE_ERROR_KEYS[risk]}",
+            "component": TEST_RULE_MODULE,
             "type": "rule",
-            "key": risk_rule_key_map[risk],
+            "key": TEST_RULE_ERROR_KEYS[risk],
             "details": "some details",
         }
         for risk in risks
     ]
     report = {"analysis_metadata": {"metadata": "some metadata"}, "reports": rule_hits}
     return json.dumps(report, separators=(",", ":"))
+
+
+def generate_production_shaped_report(risks):
+    """Create a report hitting one rule for each specified risk, shaped like production ones.
+
+    ccx-notification-writer removes all the top level attributes except
+    "reports" before storing a report, and it re-encodes the report, so the
+    keys end up sorted. Rule hits keep all their attributes, including
+    structured details, tags and links (see test_data/05_rules_hits.json).
+    """
+    docs = "https://docs.openshift.com/container-platform/4.1/installing/installing_bare_metal/installing-bare-metal.html"  # noqa E501
+    rule_hits = [
+        {
+            "rule_id": f"test_rule|{TEST_RULE_ERROR_KEYS[risk]}",
+            "component": TEST_RULE_MODULE,
+            "type": "rule",
+            "key": TEST_RULE_ERROR_KEYS[risk],
+            "details": {
+                "nodes": [{"name": "foo1", "role": "master", "memory": 8.16, "memory_req": 16}],
+                "link": docs,
+                "type": "rule",
+                "error_key": TEST_RULE_ERROR_KEYS[risk],
+            },
+            "tags": [],
+            "links": {"docs": [docs]},
+        }
+        for risk in risks
+    ]
+    return json.dumps({"reports": rule_hits}, separators=(",", ":"), sort_keys=True)
