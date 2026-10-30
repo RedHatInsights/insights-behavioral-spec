@@ -14,6 +14,8 @@
 
 """Database-related operations performed by BDD tests."""
 
+import json
+import re
 import subprocess
 from datetime import datetime, timedelta
 
@@ -290,8 +292,21 @@ def insert_rows_into_read_errors_table(context):
 @when("I insert 1 report with {risk:w} total risk for the following clusters")
 def insert_report_with_risk_in_new_reports_table(context, risk, updated_at=None):
     """Insert rows into table new_reports."""
-    report = generate_report_with_risk(risk)
+    insert_report_into_new_reports_table(context, generate_report_with_risk(risk), updated_at)
 
+
+@when("I insert 1 report with {risks} total risk rules for the following clusters")
+def insert_report_with_risks_in_new_reports_table(context, risks):
+    """Insert rows with a report hitting one rule per listed total risk into table new_reports.
+
+    Total risks are listed in the step text, for example "critical and important".
+    """
+    report = generate_report_with_risks(re.split(r",\s*|\s+and\s+", risks))
+    insert_report_into_new_reports_table(context, report)
+
+
+def insert_report_into_new_reports_table(context, report, updated_at=None):
+    """Insert the given report into table new_reports for each cluster from the feature table."""
     if not updated_at:
         updated_at = datetime.now()
     cursor = context.connection.cursor()
@@ -313,6 +328,34 @@ def insert_report_with_risk_in_new_reports_table(context, risk, updated_at=None)
     except Exception as e:
         context.connection.rollback()
         raise e
+
+
+@when("I confirm that the report contains the following rule")
+@when("I confirm that the report contains the following rules")
+@when("I confirm that the reports contain the following rule")
+def check_rules_in_new_reports_table(context):
+    """Check that every report stored in table new_reports contains all the listed rules.
+
+    Rules are identified by the rule_id attribute of rule hits, which consists
+    of the rule name and the error key, e.g. test_rule|TEST_RULE_CRITICAL_IMPACT.
+    """
+    cursor = context.connection.cursor()
+
+    try:
+        cursor.execute("SELECT cluster, report FROM new_reports")
+        reports = cursor.fetchall()
+        context.connection.commit()
+    except Exception as e:
+        context.connection.rollback()
+        raise e
+
+    assert reports, "No report found in table new_reports"
+
+    expected_rules = {row["rule_id"] for row in context.table}
+    for cluster, report in reports:
+        found_rules = {rule_hit["rule_id"] for rule_hit in json.loads(report)["reports"]}
+        missing_rules = expected_rules - found_rules
+        assert not missing_rules, f"Report for cluster {cluster} misses rules {missing_rules}"
 
 
 @when(
@@ -346,12 +389,26 @@ def insert_report_within_cooldown_in_reported_table(context, risk):
 
 def generate_report_with_risk(risk):
     """Create a report with specified risk."""
-    report = '{"analysis_metadata":{"metadata":"some metadata"},"reports":[{"rule_id":"test_rule|<replace_me>","component":"ccx_rules_ocp.external.rules.test_rule.report","type":"rule","key":"<replace_me>","details":"some details"}]}'  # noqa E501
+    return generate_report_with_risks((risk,))
+
+
+def generate_report_with_risks(risks):
+    """Create a report hitting one rule for each specified risk."""
     risk_rule_key_map = {
         "critical": "TEST_RULE_CRITICAL_IMPACT",
         "important": "TEST_RULE_IMPORTANT_IMPACT",
         "moderate": "TEST_RULE_MODERATE_IMPACT",
         "low": "TEST_RULE_LOW_IMPACT",
     }
-    report = report.replace("<replace_me>", risk_rule_key_map[risk])
-    return report
+    rule_hits = [
+        {
+            "rule_id": f"test_rule|{risk_rule_key_map[risk]}",
+            "component": "ccx_rules_ocp.external.rules.test_rule.report",
+            "type": "rule",
+            "key": risk_rule_key_map[risk],
+            "details": "some details",
+        }
+        for risk in risks
+    ]
+    report = {"analysis_metadata": {"metadata": "some metadata"}, "reports": rule_hits}
+    return json.dumps(report, separators=(",", ":"))
