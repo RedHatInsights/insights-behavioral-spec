@@ -109,8 +109,16 @@ def start_ccx_notification_service_with_flag(context, flag):
 
         | val                                             | var   |
         | CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ENABLED | false |
+
+    Rules disabled by customers are read from the aggregator database when the
+    scenario prepares one, otherwise they are ignored.
     """
-    params = ["ccx-notification-service", flag, "--ignore-disabled-rules"]
+    params = ["ccx-notification-service", flag]
+    env = os.environ.copy()
+    if hasattr(context, "aggregator_database_name"):
+        env.update(aggregator_storage_environment(context))
+    else:
+        params.append("--ignore-disabled-rules")
     if hasattr(context, "max_age"):
         params.append("--max-age=" + context.max_age)
     if hasattr(context, "cleanup_on_startup"):
@@ -122,7 +130,6 @@ def start_ccx_notification_service_with_flag(context, flag):
         # We don't care, unless explicitly configured for a test
         context.return_codes = [4, 5, 9]
 
-    env = os.environ.copy()
     if context.table is not None:
         for row in context.table:
             env[row["val"]] = row["var"]
@@ -137,6 +144,20 @@ def start_ccx_notification_service_with_flag(context, flag):
     context.add_cleanup(out.terminate)
 
     process_ccx_notification_service_output(context, out, context.return_codes)
+
+
+def aggregator_storage_environment(context):
+    """Prepare environment variables pointing the service to the aggregator database."""
+    prefix = "CCX_NOTIFICATION_SERVICE__AGGREGATOR_STORAGE__"
+    return {
+        prefix + "DB_DRIVER": "postgres",
+        prefix + "PG_HOST": context.database_host,
+        prefix + "PG_PORT": str(context.database_port),
+        prefix + "PG_DB_NAME": context.aggregator_database_name,
+        prefix + "PG_USERNAME": context.aggregator_database_user,
+        prefix + "PG_PASSWORD": context.aggregator_database_password,
+        prefix + "PG_PARAMS": "sslmode=disable",
+    }
 
 
 def check_help_from_ccx_notification_service(context):

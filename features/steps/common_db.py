@@ -20,6 +20,7 @@ from psycopg2.errors import UndefinedTable
 
 
 @given("the database is named {name}")
+@given("the notification database is named {name}")
 def given_database_name(context, name):
     """Set the database name."""
     assert name != "", "Database name should be specified"
@@ -27,6 +28,7 @@ def given_database_name(context, name):
 
 
 @given("database user is set to {user}")
+@given("notification database user is set to {user}")
 def given_database_user(context, user):
     """Set the database user name."""
     assert user != "", "Database user name should be specified"
@@ -34,6 +36,7 @@ def given_database_user(context, user):
 
 
 @given("database password is set to {password}")
+@given("notification database password is set to {password}")
 def given_database_password(context, password):
     """Set the database user password."""
     assert password != "", "Database user password should be specified"
@@ -71,6 +74,7 @@ def check_disconnection(context):
 
 @given("database connection is established")
 @when("database connection is established")
+@given("notification database connection is established")
 def establish_connection_to_database(context):
     """Perform connection to selected database."""
     assert context.database_name is not None
