@@ -922,6 +922,15 @@ nav_order: 3
 * Check that re-enabling a rule ack within cooldown does not notify
 * Check that re-enabling a rule ack outside cooldown does notify
 * Check that only the re-enabled rule is notified when other rules are in cooldown
+* Check that a rule disabled for a single cluster does not affect other clusters in the organization
+* Check that a rule disabled for a cluster by its previous organization does not affect the cluster
+* Check that a rule disabled for a cluster is ignored when stored in a form the Advisor UI does not use
+* Check that a rule ack is ignored when stored in a form the Advisor UI does not use
+* Check that a rule ack affects only the acknowledged error key
+* Check that a rule disabled for a cluster and acknowledged stays disabled until both are re-enabled
+* Check that only the re-enabled rule is notified when the report is shaped like production ones
+* Check that the service notifies nothing when the aggregator database cannot be read
+* Check that disabled rules are not taken into account when the service is told to ignore them
 
 ## [`ccx-notification-service/service_log.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/ccx-notification-service/service_log.feature)
 
