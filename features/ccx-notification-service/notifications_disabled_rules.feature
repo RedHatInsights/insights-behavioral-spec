@@ -7,7 +7,7 @@ It's only testing the behavior regarding disabled rules.
 """
 
   Background:
-    Given The aggregator database is named aggregator
+    Given the aggregator database is named aggregator
       And aggregator database user is set to postgres
       And aggregator database password is set to postgres
       And aggregator database is in initial state
@@ -15,11 +15,13 @@ It's only testing the behavior regarding disabled rules.
       And I migrate aggregator database to latest version
       And I read current migration number from aggregator database
      Then I should see that migration #32 is returned
-    Given the notification database is named notification
+    Given the notification database is named test
       And notification database user is set to postgres
       And notification database password is set to postgres
       And notification database connection is established
       And CCX Notification database is set up
+      And Kafka broker is available
+      And Kafka topic "platform.notifications.ingress" is empty
 
   @message-producer
   Scenario: Check that a rule disabled for a single cluster affects the cluster
@@ -30,8 +32,8 @@ It's only testing the behavior regarding disabled rules.
           | org id | account number | cluster name                         |
           | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa |
       And I confirm that the report contains the following rule
-          | rule_id                             |
-          | test_rule|TEST_RULE_CRITICAL_IMPACT |
+          | rule_id                              |
+          | test_rule\|TEST_RULE_CRITICAL_IMPACT |
       And I insert the following rule in the cluster_rule_toggle table for the following cluster
           | org id | account number | cluster name                         | rule_id   | error_key                 | disabled |
           | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | test_rule | TEST_RULE_CRITICAL_IMPACT | 1        |
@@ -47,8 +49,8 @@ It's only testing the behavior regarding disabled rules.
           | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa |
           | 1      | 1              | 7e6903e5-3h96-5ddf-13ch-659efd8878bb |
       And I confirm that the reports contain the following rule
-          | rule_id                             |
-          | test_rule|TEST_RULE_CRITICAL_IMPACT |
+          | rule_id                              |
+          | test_rule\|TEST_RULE_CRITICAL_IMPACT |
       And I insert the following rule ack in the rule_disable table
           | org id | user id | rule_id   | error_key                 |
           | 1      | user1   | test_rule | TEST_RULE_CRITICAL_IMPACT |
@@ -64,8 +66,8 @@ It's only testing the behavior regarding disabled rules.
           | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa |
           | 2      | 2              | 7e6903e5-3h96-5ddf-13ch-659efd8878bb |
       And I confirm that the reports contain the following rule
-          | rule_id                             |
-          | test_rule|TEST_RULE_CRITICAL_IMPACT |
+          | rule_id                              |
+          | test_rule\|TEST_RULE_CRITICAL_IMPACT |
       And I insert the following rule ack in the rule_disable table
           | org id | user id | rule_id   | error_key                 |
           | 1      | user1   | test_rule | TEST_RULE_CRITICAL_IMPACT |
@@ -82,8 +84,8 @@ It's only testing the behavior regarding disabled rules.
           | org id | account number | cluster name                         |
           | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa |
       And I confirm that the report contains the following rule
-          | rule_id                             |
-          | test_rule|TEST_RULE_CRITICAL_IMPACT |
+          | rule_id                              |
+          | test_rule\|TEST_RULE_CRITICAL_IMPACT |
       And I insert the following rule in the cluster_rule_toggle table for the following cluster
           | org id | account number | cluster name                         | rule_id   | error_key                 | disabled |
           | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | test_rule | TEST_RULE_CRITICAL_IMPACT | 1        |
@@ -107,8 +109,8 @@ It's only testing the behavior regarding disabled rules.
           | org id | account number | cluster name                         |
           | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa |
       And I confirm that the report contains the following rule
-          | rule_id                             |
-          | test_rule|TEST_RULE_CRITICAL_IMPACT |
+          | rule_id                              |
+          | test_rule\|TEST_RULE_CRITICAL_IMPACT |
       And I insert the following rule ack in the rule_disable table
           | org id | user id | rule_id   | error_key                 |
           | 1      | user1   | test_rule | TEST_RULE_CRITICAL_IMPACT |
@@ -132,14 +134,15 @@ It's only testing the behavior regarding disabled rules.
           | org id | account number | cluster name                         |
           | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa |
       And I confirm that the report contains the following rule
-          | rule_id                             |
-          | test_rule|TEST_RULE_CRITICAL_IMPACT |
+          | rule_id                              |
+          | test_rule\|TEST_RULE_CRITICAL_IMPACT |
       And I start the CCX Notification Service with the --instant-reports command line flag
      Then it should have sent the following 1 notification events to Kafka
           | org id | cluster name                         | total risk |
           | 1      | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 4          |
       And the process should exit with status code set to 0
       And the reported table should have 1 row
+    Given Kafka topic "platform.notifications.ingress" is empty
      When I insert the following rule in the cluster_rule_toggle table for the following cluster
           | org id | account number | cluster name                         | rule_id   | error_key                 | disabled |
           | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | test_rule | TEST_RULE_CRITICAL_IMPACT | 1        |
@@ -164,8 +167,8 @@ It's only testing the behavior regarding disabled rules.
           | org id | account number | cluster name                         |
           | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa |
       And I confirm that the report contains the following rule
-          | rule_id                             |
-          | test_rule|TEST_RULE_CRITICAL_IMPACT |
+          | rule_id                              |
+          | test_rule\|TEST_RULE_CRITICAL_IMPACT |
       And I insert the following rule in the cluster_rule_toggle table for the following cluster
           | org id | account number | cluster name                         | rule_id   | error_key                 | disabled |
           | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | test_rule | TEST_RULE_CRITICAL_IMPACT | 1        |
@@ -189,14 +192,15 @@ It's only testing the behavior regarding disabled rules.
           | org id | account number | cluster name                         |
           | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa |
       And I confirm that the report contains the following rule
-          | rule_id                             |
-          | test_rule|TEST_RULE_CRITICAL_IMPACT |
+          | rule_id                              |
+          | test_rule\|TEST_RULE_CRITICAL_IMPACT |
       And I start the CCX Notification Service with the --instant-reports command line flag
      Then it should have sent the following 1 notification events to Kafka
           | org id | cluster name                         | total risk |
           | 1      | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 4          |
       And the process should exit with status code set to 0
       And the reported table should have 1 row
+    Given Kafka topic "platform.notifications.ingress" is empty
      When I insert the following rule ack in the rule_disable table
           | org id | user id | rule_id   | error_key                 |
           | 1      | user1   | test_rule | TEST_RULE_CRITICAL_IMPACT |
@@ -221,8 +225,8 @@ It's only testing the behavior regarding disabled rules.
           | org id | account number | cluster name                         |
           | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa |
       And I confirm that the report contains the following rule
-          | rule_id                             |
-          | test_rule|TEST_RULE_CRITICAL_IMPACT |
+          | rule_id                              |
+          | test_rule\|TEST_RULE_CRITICAL_IMPACT |
       And I insert the following rule ack in the rule_disable table
           | org id | user id | rule_id   | error_key                 |
           | 1      | user1   | test_rule | TEST_RULE_CRITICAL_IMPACT |
@@ -246,9 +250,9 @@ It's only testing the behavior regarding disabled rules.
           | org id | account number | cluster name                         |
           | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa |
       And I confirm that the report contains the following rules
-          | rule_id                              |
-          | test_rule|TEST_RULE_CRITICAL_IMPACT  |
-          | test_rule|TEST_RULE_IMPORTANT_IMPACT |
+          | rule_id                               |
+          | test_rule\|TEST_RULE_CRITICAL_IMPACT  |
+          | test_rule\|TEST_RULE_IMPORTANT_IMPACT |
       And I insert the following rule in the cluster_rule_toggle table for the following cluster
           | org id | account number | cluster name                         | rule_id   | error_key                 | disabled |
           | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | test_rule | TEST_RULE_CRITICAL_IMPACT | 1        |
@@ -257,10 +261,11 @@ It's only testing the behavior regarding disabled rules.
           | org id | cluster name                         | total risk |
           | 1      | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 3          |
       And the notification event should contain only the following rules
-          | rule_id                              |
-          | test_rule|TEST_RULE_IMPORTANT_IMPACT |
+          | rule_id                               |
+          | test_rule\|TEST_RULE_IMPORTANT_IMPACT |
       And the process should exit with status code set to 0
       And the reported table should have 1 row
+    Given Kafka topic "platform.notifications.ingress" is empty
      When I update the following rule in the cluster_rule_toggle table for the following cluster
           | org id | account number | cluster name                         | rule_id   | error_key                 | disabled |
           | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | test_rule | TEST_RULE_CRITICAL_IMPACT | 0        |
@@ -269,7 +274,7 @@ It's only testing the behavior regarding disabled rules.
           | org id | cluster name                         | total risk |
           | 1      | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 4          |
       And the notification event should contain only the following rules
-          | rule_id                             |
-          | test_rule|TEST_RULE_CRITICAL_IMPACT |
+          | rule_id                              |
+          | test_rule\|TEST_RULE_CRITICAL_IMPACT |
       And the process should exit with status code set to 0
       And the reported table should have 2 rows

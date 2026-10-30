@@ -439,10 +439,17 @@ def retrieve_notification_events_kafka(context, num_event):
         )
         assert "account_id" in encoded, "Expected `account_id` to be included in the event"
 
-        account_id = context.table[index]["account number"]
-        cluster_id = context.table[index]["cluster name"]
-        total_risk = context.table[index]["total risk"]
-        assert account_id == encoded["account_id"], f"Expected account id to be {account_id}"
+        # the cluster owner is identified by account number, organization ID or both
+        row = context.table[index]
+        assert "account number" in row or "org id" in row, "Account number or org id expected"
+        if "account number" in row:
+            account_id = row["account number"]
+            assert account_id == encoded["account_id"], f"Expected account id to be {account_id}"
+        if "org id" in row:
+            org_id = row["org id"]
+            assert org_id == encoded["org_id"], f"Expected org id to be {org_id}"
+        cluster_id = row["cluster name"]
+        total_risk = row["total risk"]
         assert cluster_id == encoded["context"]["display_name"], (
             f"Expected cluster name in event to be {cluster_id}."
         )
