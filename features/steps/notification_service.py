@@ -109,8 +109,16 @@ def start_ccx_notification_service_with_flag(context, flag):
 
         | val                                             | var   |
         | CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ENABLED | false |
+
+    Rules disabled by customers are read from the aggregator database when the
+    scenario prepares one, otherwise they are ignored.
     """
-    params = ["ccx-notification-service", flag, "--ignore-disabled-rules"]
+    params = ["ccx-notification-service", flag]
+    env = os.environ.copy()
+    if hasattr(context, "aggregator_database_name"):
+        env.update(aggregator_storage_environment(context))
+    else:
+        params.append("--ignore-disabled-rules")
     if hasattr(context, "max_age"):
         params.append("--max-age=" + context.max_age)
     if hasattr(context, "cleanup_on_startup"):
@@ -122,7 +130,6 @@ def start_ccx_notification_service_with_flag(context, flag):
         # We don't care, unless explicitly configured for a test
         context.return_codes = [4, 5, 9]
 
-    env = os.environ.copy()
     if context.table is not None:
         for row in context.table:
             env[row["val"]] = row["var"]
@@ -137,6 +144,20 @@ def start_ccx_notification_service_with_flag(context, flag):
     context.add_cleanup(out.terminate)
 
     process_ccx_notification_service_output(context, out, context.return_codes)
+
+
+def aggregator_storage_environment(context):
+    """Prepare environment variables pointing the service to the aggregator database."""
+    prefix = "CCX_NOTIFICATION_SERVICE__AGGREGATOR_STORAGE__"
+    return {
+        prefix + "DB_DRIVER": "postgres",
+        prefix + "PG_HOST": context.database_host,
+        prefix + "PG_PORT": str(context.database_port),
+        prefix + "PG_DB_NAME": context.aggregator_database_name,
+        prefix + "PG_USERNAME": context.aggregator_database_user,
+        prefix + "PG_PASSWORD": context.aggregator_database_password,
+        prefix + "PG_PARAMS": "sslmode=disable",
+    }
 
 
 def check_help_from_ccx_notification_service(context):
@@ -439,10 +460,17 @@ def retrieve_notification_events_kafka(context, num_event):
         )
         assert "account_id" in encoded, "Expected `account_id` to be included in the event"
 
-        account_id = context.table[index]["account number"]
-        cluster_id = context.table[index]["cluster name"]
-        total_risk = context.table[index]["total risk"]
-        assert account_id == encoded["account_id"], f"Expected account id to be {account_id}"
+        # the cluster owner is identified by account number, organization ID or both
+        row = context.table[index]
+        assert "account number" in row or "org id" in row, "Account number or org id expected"
+        if "account number" in row:
+            account_id = row["account number"]
+            assert account_id == encoded["account_id"], f"Expected account id to be {account_id}"
+        if "org id" in row:
+            org_id = row["org id"]
+            assert org_id == encoded["org_id"], f"Expected org id to be {org_id}"
+        cluster_id = row["cluster name"]
+        total_risk = row["total risk"]
         assert cluster_id == encoded["context"]["display_name"], (
             f"Expected cluster name in event to be {cluster_id}."
         )

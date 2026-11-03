@@ -26,6 +26,7 @@ from pathlib import Path
 from subprocess import TimeoutExpired
 
 import psycopg2
+from psycopg2 import sql
 
 # Mappings between supported features (like consuming message from Kafka) and
 # tags specified in feature files
@@ -129,6 +130,26 @@ def prepare_db(context, setup_files=CLEANUP_FILES, database="test"):
         connection.commit()
         c.close()
     connection.close()
+
+
+def create_db(context, database):
+    """Create database with the given name on the database server, unless it exists already."""
+    connection_string = (
+        f"host={context.database_host} port={context.database_port} dbname=postgres "
+        f"user={context.database_user} password={context.database_password}"
+    )
+
+    connection = psycopg2.connect(connection_string)
+    assert connection is not None, "connection should be established"
+    # CREATE DATABASE cannot be executed inside a transaction block
+    connection.autocommit = True
+    try:
+        with connection.cursor() as c:
+            c.execute("SELECT 1 FROM pg_database WHERE datname = %s", (database,))
+            if c.fetchone() is None:
+                c.execute(sql.SQL("CREATE DATABASE {}").format(sql.Identifier(database)))
+    finally:
+        connection.close()
 
 
 def setup_default_s3_context(context):

@@ -160,10 +160,38 @@ def check_actual_configuration_for_aggregator(context):
     assert "CertPath" in context.output[i + 4], f"Caught output: {context.output}"
 
 
+def recommendations_storage_environment(context):
+    """Prepare environment variables pointing both aggregator storages to the aggregator database.
+
+    Just scenarios working with two databases name the aggregator database,
+    other scenarios configure the storages by environment of the test runner.
+    """
+    if not hasattr(context, "aggregator_database_name"):
+        return {}
+
+    environment = {}
+    for storage in ("OCP_RECOMMENDATIONS_STORAGE", "DVO_RECOMMENDATIONS_STORAGE"):
+        prefix = f"INSIGHTS_RESULTS_AGGREGATOR__{storage}__"
+        environment.update(
+            {
+                prefix + "DB_DRIVER": "postgres",
+                prefix + "TYPE": "sql",
+                prefix + "PG_HOST": context.database_host,
+                prefix + "PG_PORT": str(context.database_port),
+                prefix + "PG_DB_NAME": context.aggregator_database_name,
+                prefix + "PG_USERNAME": context.aggregator_database_user,
+                prefix + "PG_PASSWORD": context.aggregator_database_password,
+                prefix + "PG_PARAMS": "sslmode=disable",
+            },
+        )
+    return environment
+
+
 @when("I migrate aggregator database to version #{version:n}")
 def perform_aggregator_database_migration(context, version):
     """Perform aggregator database migration to selected version."""
     environ = os.environ.copy()
+    environ.update(recommendations_storage_environment(context))
     environ["INSIGHTS_RESULTS_AGGREGATOR__STORAGE_BACKEND__USE"] = "dvo_recommendations"
     # run DVO migrations first to not mess with the OCP migrations output we're checking later
     out = subprocess.Popen(
