@@ -5,3 +5,5 @@
 ../features/ccx-notification-service/cleanup_records.feature
 ../features/ccx-notification-service/customer_notifications.feature
 ../features/ccx-notification-service/service_log.feature
+../features/ccx-notification-service/notifications_disabled_rules.feature
+../features/ccx-notification-service/service_log_disabled_rules.feature
