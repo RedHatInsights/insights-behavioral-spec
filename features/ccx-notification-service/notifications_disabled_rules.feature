@@ -35,8 +35,8 @@ It's only testing the behavior regarding disabled rules.
           | rule_id                              |
           | test_rule\|TEST_RULE_CRITICAL_IMPACT |
       And I insert the following rule in the cluster_rule_toggle table for the following cluster
-          | org id | account number | cluster name                         | rule_id   | error_key                 | disabled |
-          | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | test_rule | TEST_RULE_CRITICAL_IMPACT | 1        |
+          | org id | account number | cluster name                         | rule_id                                       | error_key                 | disabled |
+          | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | ccx_rules_ocp.external.rules.test_rule.report | TEST_RULE_CRITICAL_IMPACT | 1        |
       And I start the CCX Notification Service with the --instant-reports command line flag
      Then it should have sent 0 notification events to Kafka
       And the process should exit with status code set to 0
@@ -52,8 +52,8 @@ It's only testing the behavior regarding disabled rules.
           | rule_id                              |
           | test_rule\|TEST_RULE_CRITICAL_IMPACT |
       And I insert the following rule ack in the rule_disable table
-          | org id | user id | rule_id   | error_key                 |
-          | 1      | user1   | test_rule | TEST_RULE_CRITICAL_IMPACT |
+          | org id | user id | rule_id                                | error_key                 |
+          | 1      | user1   | ccx_rules_ocp.external.rules.test_rule | TEST_RULE_CRITICAL_IMPACT |
       And I start the CCX Notification Service with the --instant-reports command line flag
      Then it should have sent 0 notification events to Kafka
       And the process should exit with status code set to 0
@@ -69,8 +69,8 @@ It's only testing the behavior regarding disabled rules.
           | rule_id                              |
           | test_rule\|TEST_RULE_CRITICAL_IMPACT |
       And I insert the following rule ack in the rule_disable table
-          | org id | user id | rule_id   | error_key                 |
-          | 1      | user1   | test_rule | TEST_RULE_CRITICAL_IMPACT |
+          | org id | user id | rule_id                                | error_key                 |
+          | 1      | user1   | ccx_rules_ocp.external.rules.test_rule | TEST_RULE_CRITICAL_IMPACT |
       And I start the CCX Notification Service with the --instant-reports command line flag
      Then it should have sent the following 1 notification events to Kafka
           | org id | cluster name                         | total risk |
@@ -87,15 +87,15 @@ It's only testing the behavior regarding disabled rules.
           | rule_id                              |
           | test_rule\|TEST_RULE_CRITICAL_IMPACT |
       And I insert the following rule in the cluster_rule_toggle table for the following cluster
-          | org id | account number | cluster name                         | rule_id   | error_key                 | disabled |
-          | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | test_rule | TEST_RULE_CRITICAL_IMPACT | 1        |
+          | org id | account number | cluster name                         | rule_id                                       | error_key                 | disabled |
+          | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | ccx_rules_ocp.external.rules.test_rule.report | TEST_RULE_CRITICAL_IMPACT | 1        |
       And I start the CCX Notification Service with the --instant-reports command line flag
      Then it should have sent 0 notification events to Kafka
       And the process should exit with status code set to 0
       And the reported table should have 1 row
      When I update the following rule in the cluster_rule_toggle table for the following cluster
-          | org id | account number | cluster name                         | rule_id   | error_key                 | disabled |
-          | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | test_rule | TEST_RULE_CRITICAL_IMPACT | 0        |
+          | org id | account number | cluster name                         | rule_id                                       | error_key                 | disabled |
+          | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | ccx_rules_ocp.external.rules.test_rule.report | TEST_RULE_CRITICAL_IMPACT | 0        |
       And I start the CCX Notification Service with the --instant-reports command line flag
      Then it should have sent the following 1 notification events to Kafka
           | org id | cluster name                         | total risk |
@@ -112,15 +112,15 @@ It's only testing the behavior regarding disabled rules.
           | rule_id                              |
           | test_rule\|TEST_RULE_CRITICAL_IMPACT |
       And I insert the following rule ack in the rule_disable table
-          | org id | user id | rule_id   | error_key                 |
-          | 1      | user1   | test_rule | TEST_RULE_CRITICAL_IMPACT |
+          | org id | user id | rule_id                                | error_key                 |
+          | 1      | user1   | ccx_rules_ocp.external.rules.test_rule | TEST_RULE_CRITICAL_IMPACT |
       And I start the CCX Notification Service with the --instant-reports command line flag
      Then it should have sent 0 notification events to Kafka
       And the process should exit with status code set to 0
       And the reported table should have 1 row
      When I delete the following rule ack from the rule_disable table
-          | org id | rule_id   | error_key                 |
-          | 1      | test_rule | TEST_RULE_CRITICAL_IMPACT |
+          | org id | rule_id                                | error_key                 |
+          | 1      | ccx_rules_ocp.external.rules.test_rule | TEST_RULE_CRITICAL_IMPACT |
       And I start the CCX Notification Service with the --instant-reports command line flag
      Then it should have sent the following 1 notification events to Kafka
           | org id | cluster name                         | total risk |
@@ -144,15 +144,15 @@ It's only testing the behavior regarding disabled rules.
       And the reported table should have 1 row
     Given Kafka topic "platform.notifications.ingress" is empty
      When I insert the following rule in the cluster_rule_toggle table for the following cluster
-          | org id | account number | cluster name                         | rule_id   | error_key                 | disabled |
-          | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | test_rule | TEST_RULE_CRITICAL_IMPACT | 1        |
+          | org id | account number | cluster name                         | rule_id                                       | error_key                 | disabled |
+          | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | ccx_rules_ocp.external.rules.test_rule.report | TEST_RULE_CRITICAL_IMPACT | 1        |
       And I start the CCX Notification Service with the --instant-reports command line flag
      Then it should have sent 0 notification events to Kafka
       And the process should exit with status code set to 0
       And the reported table should have 2 rows
      When I update the following rule in the cluster_rule_toggle table for the following cluster
-          | org id | account number | cluster name                         | rule_id   | error_key                 | disabled |
-          | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | test_rule | TEST_RULE_CRITICAL_IMPACT | 0        |
+          | org id | account number | cluster name                         | rule_id                                       | error_key                 | disabled |
+          | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | ccx_rules_ocp.external.rules.test_rule.report | TEST_RULE_CRITICAL_IMPACT | 0        |
       And I start the CCX Notification Service with the --instant-reports command line flag
      Then it should have sent 0 notification events to Kafka
       And the process should exit with status code set to 0
@@ -170,15 +170,15 @@ It's only testing the behavior regarding disabled rules.
           | rule_id                              |
           | test_rule\|TEST_RULE_CRITICAL_IMPACT |
       And I insert the following rule in the cluster_rule_toggle table for the following cluster
-          | org id | account number | cluster name                         | rule_id   | error_key                 | disabled |
-          | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | test_rule | TEST_RULE_CRITICAL_IMPACT | 1        |
+          | org id | account number | cluster name                         | rule_id                                       | error_key                 | disabled |
+          | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | ccx_rules_ocp.external.rules.test_rule.report | TEST_RULE_CRITICAL_IMPACT | 1        |
       And I start the CCX Notification Service with the --instant-reports command line flag
      Then it should have sent 0 notification events to Kafka
       And the process should exit with status code set to 0
       And the reported table should have 2 rows
      When I update the following rule in the cluster_rule_toggle table for the following cluster
-          | org id | account number | cluster name                         | rule_id   | error_key                 | disabled |
-          | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | test_rule | TEST_RULE_CRITICAL_IMPACT | 0        |
+          | org id | account number | cluster name                         | rule_id                                       | error_key                 | disabled |
+          | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | ccx_rules_ocp.external.rules.test_rule.report | TEST_RULE_CRITICAL_IMPACT | 0        |
       And I start the CCX Notification Service with the --instant-reports command line flag
      Then it should have sent the following 1 notification events to Kafka
           | org id | cluster name                         | total risk |
@@ -202,15 +202,15 @@ It's only testing the behavior regarding disabled rules.
       And the reported table should have 1 row
     Given Kafka topic "platform.notifications.ingress" is empty
      When I insert the following rule ack in the rule_disable table
-          | org id | user id | rule_id   | error_key                 |
-          | 1      | user1   | test_rule | TEST_RULE_CRITICAL_IMPACT |
+          | org id | user id | rule_id                                | error_key                 |
+          | 1      | user1   | ccx_rules_ocp.external.rules.test_rule | TEST_RULE_CRITICAL_IMPACT |
       And I start the CCX Notification Service with the --instant-reports command line flag
      Then it should have sent 0 notification events to Kafka
       And the process should exit with status code set to 0
       And the reported table should have 2 rows
      When I delete the following rule ack from the rule_disable table
-          | org id | rule_id   | error_key                 |
-          | 1      | test_rule | TEST_RULE_CRITICAL_IMPACT |
+          | org id | rule_id                                | error_key                 |
+          | 1      | ccx_rules_ocp.external.rules.test_rule | TEST_RULE_CRITICAL_IMPACT |
       And I start the CCX Notification Service with the --instant-reports command line flag
      Then it should have sent 0 notification events to Kafka
       And the process should exit with status code set to 0
@@ -228,15 +228,15 @@ It's only testing the behavior regarding disabled rules.
           | rule_id                              |
           | test_rule\|TEST_RULE_CRITICAL_IMPACT |
       And I insert the following rule ack in the rule_disable table
-          | org id | user id | rule_id   | error_key                 |
-          | 1      | user1   | test_rule | TEST_RULE_CRITICAL_IMPACT |
+          | org id | user id | rule_id                                | error_key                 |
+          | 1      | user1   | ccx_rules_ocp.external.rules.test_rule | TEST_RULE_CRITICAL_IMPACT |
       And I start the CCX Notification Service with the --instant-reports command line flag
      Then it should have sent 0 notification events to Kafka
       And the process should exit with status code set to 0
       And the reported table should have 2 rows
      When I delete the following rule ack from the rule_disable table
-          | org id | rule_id   | error_key                 |
-          | 1      | test_rule | TEST_RULE_CRITICAL_IMPACT |
+          | org id | rule_id                                | error_key                 |
+          | 1      | ccx_rules_ocp.external.rules.test_rule | TEST_RULE_CRITICAL_IMPACT |
       And I start the CCX Notification Service with the --instant-reports command line flag
      Then it should have sent the following 1 notification events to Kafka
           | org id | cluster name                         | total risk |
@@ -254,8 +254,8 @@ It's only testing the behavior regarding disabled rules.
           | test_rule\|TEST_RULE_CRITICAL_IMPACT  |
           | test_rule\|TEST_RULE_IMPORTANT_IMPACT |
       And I insert the following rule in the cluster_rule_toggle table for the following cluster
-          | org id | account number | cluster name                         | rule_id   | error_key                 | disabled |
-          | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | test_rule | TEST_RULE_CRITICAL_IMPACT | 1        |
+          | org id | account number | cluster name                         | rule_id                                       | error_key                 | disabled |
+          | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | ccx_rules_ocp.external.rules.test_rule.report | TEST_RULE_CRITICAL_IMPACT | 1        |
       And I start the CCX Notification Service with the --instant-reports command line flag
      Then it should have sent the following 1 notification events to Kafka
           | org id | cluster name                         | total risk |
@@ -267,8 +267,8 @@ It's only testing the behavior regarding disabled rules.
       And the reported table should have 1 row
     Given Kafka topic "platform.notifications.ingress" is empty
      When I update the following rule in the cluster_rule_toggle table for the following cluster
-          | org id | account number | cluster name                         | rule_id   | error_key                 | disabled |
-          | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | test_rule | TEST_RULE_CRITICAL_IMPACT | 0        |
+          | org id | account number | cluster name                         | rule_id                                       | error_key                 | disabled |
+          | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | ccx_rules_ocp.external.rules.test_rule.report | TEST_RULE_CRITICAL_IMPACT | 0        |
       And I start the CCX Notification Service with the --instant-reports command line flag
      Then it should have sent the following 1 notification events to Kafka
           | org id | cluster name                         | total risk |
