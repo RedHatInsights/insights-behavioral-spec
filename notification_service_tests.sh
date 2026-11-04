@@ -44,6 +44,21 @@ function get_binary() {
     add_exit_trap 'rm -f ccx-notification-service'
 }
 
+function get_aggregator_binary() {
+    if [ -x "$(command -v insights-results-aggregator)" ]; then
+        return
+    fi
+
+    if [[ ! -f /tmp/insights-results-aggregator/insights-results-aggregator ]]; then
+        (
+            git clone --depth=1 https://github.com/RedHatInsights/insights-results-aggregator.git /tmp/insights-results-aggregator || exit 1
+            pushd /tmp/insights-results-aggregator || exit 1
+            make build || exit 1
+        ) || exit 1
+    fi
+    export PATH=$PATH:/tmp/insights-results-aggregator
+}
+
 # shellcheck disable=SC2154
 function init_db() {
     if [[ ! -f /tmp/ccx-notification-writer/ccx-notification-writer ]]; then
@@ -150,6 +165,9 @@ set_env_vars
 
 # Copy the binary and configuration to this folder
 get_binary
+
+# Get the aggregator binary used to migrate the aggregator database
+get_aggregator_binary
 
 # Create all the tables
 init_db
