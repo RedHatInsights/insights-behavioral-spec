@@ -47,6 +47,9 @@ It's only testing the behavior regarding disabled rules.
      Then it should have sent 0 notification events to Service Log for cluster 5d5892d4-2g85-4ccf-02bg-548dfc9767aa
       And the process should exit with status code set to 0
       And the reported table should have 2 rows
+      And the latest reported row for each cluster should be
+          | cluster name                         | event type id | state | rules |
+          | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 2             | same  | none  |
 
   @rest-api
   Scenario: Check that a rule ack affects all clusters in an organization
@@ -68,6 +71,10 @@ It's only testing the behavior regarding disabled rules.
       And it should have sent 0 notification events to Service Log for cluster 7e6903e5-3h96-5ddf-13ch-659efd8878bb
       And the process should exit with status code set to 0
       And the reported table should have 2 rows
+      And the latest reported row for each cluster should be
+          | cluster name                         | event type id | state | rules |
+          | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 2             | same  | none  |
+          | 7e6903e5-3h96-5ddf-13ch-659efd8878bb | 2             | same  | none  |
 
   @rest-api
   Scenario: Check that a rule ack for an organization does not affect other organizations
@@ -163,6 +170,9 @@ It's only testing the behavior regarding disabled rules.
      Then it should have sent 1 notification events to Service Log for cluster 5d5892d4-2g85-4ccf-02bg-548dfc9767aa
       And the process should exit with status code set to 0
       And the reported table should have 1 row
+      And the latest reported row for each cluster should be
+          | cluster name                         | event type id | state | rules                     |
+          | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 2             | sent  | TEST_RULE_CRITICAL_IMPACT |
     Given service-log service has no records for cluster 5d5892d4-2g85-4ccf-02bg-548dfc9767aa
      When I insert the following rule in the cluster_rule_toggle table for the following cluster
           | org id | account number | cluster name                         | rule_id                                       | error_key                 | disabled |
@@ -174,6 +184,9 @@ It's only testing the behavior regarding disabled rules.
      Then it should have sent 0 notification events to Service Log for cluster 5d5892d4-2g85-4ccf-02bg-548dfc9767aa
       And the process should exit with status code set to 0
       And the reported table should have 2 rows
+      And the latest reported row for each cluster should be
+          | cluster name                         | event type id | state | rules |
+          | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 2             | same  | none  |
      When I update the following rule in the cluster_rule_toggle table for the following cluster
           | org id | account number | cluster name                         | rule_id                                       | error_key                 | disabled |
           | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | ccx_rules_ocp.external.rules.test_rule.report | TEST_RULE_CRITICAL_IMPACT | 0        |
@@ -184,13 +197,16 @@ It's only testing the behavior regarding disabled rules.
      Then it should have sent 0 notification events to Service Log for cluster 5d5892d4-2g85-4ccf-02bg-548dfc9767aa
       And the process should exit with status code set to 0
       And the reported table should have 3 rows
+      And the latest reported row for each cluster should be
+          | cluster name                         | event type id | state | rules                     |
+          | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 2             | same  | TEST_RULE_CRITICAL_IMPACT |
 
   @rest-api
   Scenario: Check that re-enabling a rule outside cooldown does notify
-     When I insert following row into table reported
+    Given I insert 1 previously reported report with critical total risk
           | org id | account number | cluster name                         | notification type | state | updated at | notified at | total risk | event type id |
-          | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 1                 | 1     | 1990-01-01 | 1990-01-01  | important  | 2             |
-      And I insert 1 report with critical total risk for the following clusters
+          | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 1                 | 1     | 1990-01-01 | 1990-01-01  | critical   | 2             |
+     When I insert 1 report with critical total risk for the following clusters
           | org id | account number | cluster name                         |
           | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa |
       And I confirm that the report contains the following rule
@@ -232,6 +248,9 @@ It's only testing the behavior regarding disabled rules.
      Then it should have sent 1 notification events to Service Log for cluster 5d5892d4-2g85-4ccf-02bg-548dfc9767aa
       And the process should exit with status code set to 0
       And the reported table should have 1 row
+      And the latest reported row for each cluster should be
+          | cluster name                         | event type id | state | rules                     |
+          | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 2             | sent  | TEST_RULE_CRITICAL_IMPACT |
     Given service-log service has no records for cluster 5d5892d4-2g85-4ccf-02bg-548dfc9767aa
      When I insert the following rule ack in the rule_disable table
           | org id | user id | rule_id                                | error_key                 |
@@ -243,6 +262,9 @@ It's only testing the behavior regarding disabled rules.
      Then it should have sent 0 notification events to Service Log for cluster 5d5892d4-2g85-4ccf-02bg-548dfc9767aa
       And the process should exit with status code set to 0
       And the reported table should have 2 rows
+      And the latest reported row for each cluster should be
+          | cluster name                         | event type id | state | rules |
+          | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 2             | same  | none  |
      When I delete the following rule ack from the rule_disable table
           | org id | rule_id                                | error_key                 |
           | 1      | ccx_rules_ocp.external.rules.test_rule | TEST_RULE_CRITICAL_IMPACT |
@@ -253,13 +275,16 @@ It's only testing the behavior regarding disabled rules.
      Then it should have sent 0 notification events to Service Log for cluster 5d5892d4-2g85-4ccf-02bg-548dfc9767aa
       And the process should exit with status code set to 0
       And the reported table should have 3 rows
+      And the latest reported row for each cluster should be
+          | cluster name                         | event type id | state | rules                     |
+          | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 2             | same  | TEST_RULE_CRITICAL_IMPACT |
 
   @rest-api
   Scenario: Check that re-enabling a rule ack outside cooldown does notify
-     When I insert following row into table reported
+    Given I insert 1 previously reported report with critical total risk
           | org id | account number | cluster name                         | notification type | state | updated at | notified at | total risk | event type id |
-          | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 1                 | 1     | 1990-01-01 | 1990-01-01  | important  | 2             |
-      And I insert 1 report with critical total risk for the following clusters
+          | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 1                 | 1     | 1990-01-01 | 1990-01-01  | critical   | 2             |
+     When I insert 1 report with critical total risk for the following clusters
           | org id | account number | cluster name                         |
           | 1      | 1              | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa |
       And I confirm that the report contains the following rule
@@ -303,8 +328,17 @@ It's only testing the behavior regarding disabled rules.
           | CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ENABLED | false |
           | CCX_NOTIFICATION_SERVICE__SERVICE_LOG__ENABLED  | true  |
      Then it should have sent 1 notification events to Service Log for cluster 5d5892d4-2g85-4ccf-02bg-548dfc9767aa
+     When I retrieve the service log events for the following clusters
+          | cluster name                         |
+          | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa |
+     Then the service log events should have the following severities
+          | cluster name                         | severity  |
+          | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | Important |
       And the process should exit with status code set to 0
       And the reported table should have 1 row
+      And the latest reported row for each cluster should be
+          | cluster name                         | event type id | state | rules                      |
+          | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 2             | sent  | TEST_RULE_IMPORTANT_IMPACT |
     Given service-log service has no records for cluster 5d5892d4-2g85-4ccf-02bg-548dfc9767aa
      When I update the following rule in the cluster_rule_toggle table for the following cluster
           | org id | account number | cluster name                         | rule_id                                       | error_key                 | disabled |
@@ -314,5 +348,14 @@ It's only testing the behavior regarding disabled rules.
           | CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ENABLED | false |
           | CCX_NOTIFICATION_SERVICE__SERVICE_LOG__ENABLED  | true  |
      Then it should have sent 1 notification events to Service Log for cluster 5d5892d4-2g85-4ccf-02bg-548dfc9767aa
+     When I retrieve the service log events for the following clusters
+          | cluster name                         |
+          | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa |
+     Then the service log events should have the following severities
+          | cluster name                         | severity |
+          | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | Critical |
       And the process should exit with status code set to 0
       And the reported table should have 2 rows
+      And the latest reported row for each cluster should be
+          | cluster name                         | event type id | state | rules                                                 |
+          | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 2             | sent  | TEST_RULE_CRITICAL_IMPACT, TEST_RULE_IMPORTANT_IMPACT |

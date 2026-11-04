@@ -16,6 +16,7 @@
 
 import json
 import os
+import re
 import subprocess
 
 import requests
@@ -110,6 +111,13 @@ def store_cleanup_flag(context):
     context.cleanup_on_startup = "--cleanup-on-startup"
 
 
+@when("ignore-disabled-rules command line flag is specified")
+def store_ignore_disabled_rules_flag(context):
+    """Add ignore-disabled-rules flag to CLI parameters of the CCX Notification Service."""
+    # update context
+    context.ignore_disabled_rules = "--ignore-disabled-rules"
+
+
 @when("I start the CCX Notification Service with the {flag} command line flag")
 def start_ccx_notification_service_with_flag(context, flag):
     """Start the CCX Notification Service with given command-line flag.
@@ -120,13 +128,18 @@ def start_ccx_notification_service_with_flag(context, flag):
         | CCX_NOTIFICATION_SERVICE__KAFKA_BROKER__ENABLED | false |
 
     Rules disabled by customers are read from the aggregator database when the
-    scenario prepares one, otherwise they are ignored.
+    scenario prepares one, otherwise they are ignored. The service keeps its
+    aggregator configuration when the ignore-disabled-rules flag is specified,
+    the same way it is deployed.
     """
     params = ["ccx-notification-service", flag]
     env = os.environ.copy()
     if hasattr(context, "aggregator_database_name"):
         env.update(aggregator_storage_environment(context))
-    else:
+    if hasattr(context, "ignore_disabled_rules") or not hasattr(
+        context,
+        "aggregator_database_name",
+    ):
         params.append("--ignore-disabled-rules")
     if hasattr(context, "max_age"):
         params.append("--max-age=" + context.max_age)
@@ -509,6 +522,31 @@ def check_rules_in_notification_event_kafka(context):
     assert actual == expected, (
         f"Expected events with total risks {expected} for rules {rule_ids}, got {actual}"
     )
+
+
+@then("the notification topic should contain exactly the following events")
+def check_all_notification_events_kafka(context):
+    """Check that the Kafka topic contains exactly the listed notification events and no other.
+
+    The Kafka topic is expected to be emptied before the service run, so all
+    the messages found in it have been sent by that run. Each row describes
+    one message: the organization and the cluster it is sent for, and the
+    total risks of the rules it notifies about, separated by commas.
+    """
+    expected = sorted(
+        (row["org id"], row["cluster name"], sorted(re.split(r",\s*", row["total risks"])))
+        for row in context.table
+    )
+
+    actual = []
+    # zero means all the messages in the topic
+    for message in get_events_kafka(context, 0):
+        encoded = json.loads(message)
+        total_risks = sorted(event["payload"]["total_risk"] for event in encoded["events"])
+        actual.append((encoded["org_id"], encoded["context"]["display_name"], total_risks))
+    actual.sort()
+
+    assert actual == expected, f"Expected notification events {expected}, got {actual}"
 
 
 def get_service_log_event_by_cluster(cluster_id):
