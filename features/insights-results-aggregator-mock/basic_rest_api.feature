@@ -34,45 +34,26 @@ Feature: Basic REST API endpoints provided by Insights Results Aggregator Mock
       And The body of the response has the following schema
           """
           {
-              "type": "object",
-              "properties": {
-                "groups": {
-                  "type": "array",
-                  "items": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "title": {
-                          "type": "string"
-                        },
-                        "description": {
-                          "type": "string"
-                        },
-                        "tags": {
-                          "type": "array",
-                          "items": [
-                            {
-                              "type": "string"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "title",
-                        "description",
-                        "tags"
-                      ]
+            "type": "object",
+            "properties": {
+              "groups": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "title": { "type": "string" },
+                    "description": { "type": "string" },
+                    "tags": {
+                      "type": "array",
+                      "items": { "type": "string" }
                     }
-                  ]
-                },
-                "status": {
-                  "type": "string"
+                  },
+                  "required": ["title", "description", "tags"]
                 }
               },
-              "required": [
-                "groups",
-                "status"
-              ]
+              "status": { "type": "string" }
+            },
+            "required": ["groups", "status"]
           }
           """
           #And The body of the response is the following ## returns set, not a list

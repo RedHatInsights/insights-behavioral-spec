@@ -125,7 +125,7 @@ def check_response_body_schema(context):
     schema = json.loads(context.text)
     body = context.response.json()
 
-    validate_json(schema, body)
+    validate_json(body, schema)
 
 
 @then("The body of the response contains {substring}")
