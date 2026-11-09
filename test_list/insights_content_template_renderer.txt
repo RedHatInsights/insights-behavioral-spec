@@ -1,2 +1,3 @@
 ../features/insights-content-template-renderer/smoketests.feature
 ../features/insights-content-template-renderer/endpoints.feature
+../features/insights-content-template-renderer/batch_render.feature
