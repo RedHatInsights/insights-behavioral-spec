@@ -5,12 +5,12 @@ Feature: Test the service endpoints
   Background:
     Given REST API service hostname is localhost
       And REST API service port is 8000
-      And REST API service prefix is /v1/
+      And REST API service prefix is /
+      And The Template Renderer is running
 
     @rest-api @json-schema-check
     Scenario: check /v1/rendered_reports endpoint response
-        Given The Template Renderer is running
-        When I access endpoint rendered_reports using HTTP POST method
+        When I access endpoint v1/rendered_reports using HTTP POST method
         """
         {
           "content": [
@@ -103,10 +103,7 @@ Feature: Test the service endpoints
 
   @rest-api
   Scenario: check /v2/rendered_reports endpoint response with a valid batch request
-    Given REST API service port is 8010
-      And REST API service prefix is /v2/
-      And The Template Renderer is running
-    When I access endpoint rendered_reports using HTTP POST method
+    When I access endpoint v2/rendered_reports using HTTP POST method
     """
     {
       "items": [
@@ -140,10 +137,7 @@ Feature: Test the service endpoints
 
   @rest-api
   Scenario: check /v2/rendered_reports endpoint response with an empty list of items
-    Given REST API service port is 8010
-      And REST API service prefix is /v2/
-      And The Template Renderer is running
-    When I access endpoint rendered_reports using HTTP POST method
+    When I access endpoint v2/rendered_reports using HTTP POST method
     """
     {
       "items": []
@@ -159,10 +153,7 @@ Feature: Test the service endpoints
 
   @rest-api
   Scenario: check /v2/rendered_reports preserves the order of items
-    Given REST API service port is 8010
-      And REST API service prefix is /v2/
-      And The Template Renderer is running
-    When I access endpoint rendered_reports using HTTP POST method
+    When I access endpoint v2/rendered_reports using HTTP POST method
     """
     {
       "items": [
@@ -189,18 +180,12 @@ Feature: Test the service endpoints
 
   @rest-api
   Scenario: check /v2/rendered_reports endpoint rejects HTTP GET method
-    Given REST API service port is 8010
-      And REST API service prefix is /v2/
-      And The Template Renderer is running
-    When I access endpoint rendered_reports using HTTP GET method
+    When I access endpoint v2/rendered_reports using HTTP GET method
     Then The status code of the response is 405
 
   @rest-api
   Scenario: check /v2/rendered_reports endpoint rejects a request without body
-    Given REST API service port is 8010
-      And REST API service prefix is /v2/
-      And The Template Renderer is running
-    When I access endpoint rendered_reports using HTTP POST method
+    When I access endpoint v2/rendered_reports using HTTP POST method
     """
     {}
     """
