@@ -108,7 +108,7 @@ Feature: Test the service endpoints
     {
       "items": [
         {
-          "templates": {
+          "template": {
             "reason": "Workload {{=pydata.name}} has a finding",
             "resolution": "Apply the resolution to {{=pydata.name}}",
             "more_info": ""
@@ -116,7 +116,7 @@ Feature: Test the service endpoints
           "data": {"name": "test-app"}
         },
         {
-          "templates": {
+          "template": {
             "reason": "Reason for {{=pydata.missing.value()}}"
           },
           "data": {"name": "test-app"}
@@ -158,15 +158,15 @@ Feature: Test the service endpoints
     {
       "items": [
         {
-          "templates": {"reason": "First {{=pydata.id}}"},
+          "template": {"reason": "First {{=pydata.id}}"},
           "data": {"id": "one"}
         },
         {
-          "templates": {"reason": "Second {{=pydata.id}}"},
+          "template": {"reason": "Second {{=pydata.id}}"},
           "data": {"id": "two"}
         },
         {
-          "templates": {"reason": "Third {{=pydata.id}}"},
+          "template": {"reason": "Third {{=pydata.id}}"},
           "data": {"id": "three"}
         }
       ]
