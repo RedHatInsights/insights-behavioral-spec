@@ -355,6 +355,11 @@ nav_order: 3
 ## [`insights-content-template-renderer/endpoints.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-content-template-renderer/endpoints.feature)
 
 * check /v1/rendered_reports endpoint response
+* check /v2/rendered_reports endpoint response with a valid batch request
+* check /v2/rendered_reports endpoint response with an empty list of items
+* check /v2/rendered_reports preserves the order of items
+* check /v2/rendered_reports endpoint rejects HTTP GET method
+* check /v2/rendered_reports endpoint rejects a request without body
 
 ## [`insights-content-template-renderer/smoketests.feature`](https://github.com/RedHatInsights/insights-behavioral-spec/blob/main/features/insights-content-template-renderer/smoketests.feature)
 
