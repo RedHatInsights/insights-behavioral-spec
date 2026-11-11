@@ -365,7 +365,7 @@ It's only testing the behavior regarding disabled rules.
           | 1      | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 4           |
       And the process should exit with status code set to 0
 
-    Examples:
+    Scenarios:
           | rule_id                                |
           | test_rule                              |
           | ccx_rules_ocp.external.rules.test_rule |
@@ -384,7 +384,7 @@ It's only testing the behavior regarding disabled rules.
           | 1      | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 4           |
       And the process should exit with status code set to 0
 
-    Examples:
+    Scenarios:
           | rule_id                                       |
           | test_rule                                     |
           | ccx_rules_ocp.external.rules.test_rule.report |
@@ -490,7 +490,7 @@ It's only testing the behavior regarding disabled rules.
       And the process should exit with status code set to 12
       And the reported table should have 0 rows
 
-    Examples:
+    Scenarios:
           | problem                     | variable    | value    |
           | wrong password              | PG_PASSWORD | wrong    |
           | database does not exist     | PG_DB_NAME  | missing  |
@@ -519,7 +519,7 @@ It's only testing the behavior regarding disabled rules.
           | cluster name                         | event type id | state | rules                     |
           | 5d5892d4-2g85-4ccf-02bg-548dfc9767aa | 1             | sent  | TEST_RULE_CRITICAL_IMPACT |
 
-    Examples:
+    Scenarios:
           | aggregator database | database   |
           | usable              | aggregator |
           | not usable          | missing    |
